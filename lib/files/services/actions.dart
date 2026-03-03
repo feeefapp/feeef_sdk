@@ -7,27 +7,10 @@ import 'package:feeef/attachments/attachment.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
 import 'package:feeef/stores/models/store.dart';
 import 'package:recase/recase.dart';
-// actions
-// router
-//   .group(() => {
-//     // http://127.0.0.1:3333/api/v1/actions/fetchYoucanProductsByHost?host=https://thikastore.youcan.store
-//     router
-//       .get('fetchYoucanProductsByHost', [ActionsController, 'fetchYoucanProductsByHost'])
-//       .as('fetchYoucanProductsByHost')
-//     // http://127.0.0.1:3333/api/v1/actions/fetchWoocommerceProductsByHost?host=https://monassib.com
-//     router
-//       .get('fetchWoocommerceProductsByHost', [
-//         ActionsController,
-//         'fetchWoocommerceProductsByHost',
-//       ])
-//       .as('fetchWoocommerceProductsByHost')
-//     // http://127.0.0.1:3333/api/v1/actions/fetchFoorwebProductsByHost?host=https://ysmoraa.foorweb.store/
-//     router
-//       .get('fetchFoorwebProductsByHost', [ActionsController, 'fetchFoorwebProductsByHost'])
-//       .as('fetchFoorwebProductsByHost')
-//   })
-//   .prefix('actions')
-//   .as('actions')
+// Backend route reference (prefix: /api/v1/actions):
+//   fetchYoucanProductsByHost?host=<youcan-store-host>
+//   fetchWoocommerceProductsByHost?host=<woo-host>
+//   fetchFoorwebProductsByHost?host=<foorweb-host>
 
 typedef StoreOrdersCountByFieldType = (
   Map<String, int> counts,
@@ -221,9 +204,11 @@ class Actions {
 
   /// Fetches products from a Youcan store.
   /// Returns raw JSON; host app may parse into app-specific types.
+  /// [host] is sent as a query parameter (URI-encoded). Backend must validate to prevent SSRF.
   Future<List<Map<String, dynamic>>> fetchYoucanProductsByHost(String host) async {
     final response = await client.get(
-      '/actions/fetchYoucanProductsByHost?host=$host',
+      '/actions/fetchYoucanProductsByHost',
+      queryParameters: {'host': host},
     );
     return (response.data as List)
         .map((e) => Map<String, dynamic>.from(e as Map))
@@ -232,11 +217,13 @@ class Actions {
 
   /// Fetches products from a Woocommerce store.
   /// Returns raw JSON; host app may parse into app-specific types.
+  /// [host] is sent as a query parameter (URI-encoded). Backend must validate to prevent SSRF.
   Future<List<Map<String, dynamic>>> fetchWoocommerceProductsByHost(
     String host,
   ) async {
     final response = await client.get(
-      '/actions/fetchWoocommerceProductsByHost?host=$host',
+      '/actions/fetchWoocommerceProductsByHost',
+      queryParameters: {'host': host},
     );
     return (response.data as List)
         .map((e) => Map<String, dynamic>.from(e as Map))
@@ -249,7 +236,8 @@ class Actions {
     String subdomain,
   ) async {
     final response = await client.get(
-      '/actions/fetchFoorwebProductsBySubdomain?subdomain=$subdomain',
+      '/actions/fetchFoorwebProductsBySubdomain',
+      queryParameters: {'subdomain': subdomain},
     );
     return (response.data as List)
         .map((e) => Map<String, dynamic>.from(e as Map))
@@ -258,9 +246,11 @@ class Actions {
 
   /// Fetches products from a Storeino store.
   /// Returns raw JSON; host app may parse into app-specific types.
+  /// [url] is sent as a query parameter (URI-encoded). Backend must validate to prevent SSRF.
   Future<List<Map<String, dynamic>>> fetchStoreinoProductsByUrl(String url) async {
     final response = await client.get(
-      '/actions/fetchStoreinoProductsByUrl?url=$url',
+      '/actions/fetchStoreinoProductsByUrl',
+      queryParameters: {'url': url},
     );
     return (response.data as List)
         .map((e) => Map<String, dynamic>.from(e as Map))
@@ -269,9 +259,11 @@ class Actions {
 
   /// Fetches a product from Lightfunnels by URL.
   /// Returns raw JSON; host app may parse into app-specific types.
+  /// [url] is sent as a query parameter (URI-encoded). Backend must validate to prevent SSRF.
   Future<Map<String, dynamic>> fetchLightfunnelsProductByUrl(String url) async {
     final response = await client.get(
-      '/actions/fetchLightfunnelsProductByUrl?url=$url',
+      '/actions/fetchLightfunnelsProductByUrl',
+      queryParameters: {'url': url},
     );
     return Map<String, dynamic>.from(response.data as Map);
   }
@@ -930,12 +922,13 @@ class Actions {
         raw: res is Map<String, dynamic> ? jsonEncode(res) : null,
       );
     } catch (e) {
+      developer.log('Error in updateProductUsingAi: $e');
       return (
         success: false,
         mode: productId != null ? 'update' : 'create',
         product: null,
         message: 'Unexpected error',
-        error: e.toString(),
+        error: 'An unexpected error occurred. Please try again.',
         validationErrors: null,
         raw: null,
       );
@@ -1236,7 +1229,7 @@ class Actions {
         headers: <String, dynamic>{},
         data: null,
         encoding: null as String?,
-        error: e.toString(),
+        error: 'An unexpected error occurred during the request.',
       );
     }
   }

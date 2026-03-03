@@ -1,7 +1,10 @@
 name: feeef
 description: Feeef SDK - API client, repositories, and integrations for Feeef apps.
 version: 1.0.0
-publish_to: 'none'
+# publish_to: 'none'  # Uncomment to prevent publishing; remove to publish to pub.dev
+# homepage: https://github.com/your-org/feeef
+# repository: https://github.com/your-org/feeef
+# issue_tracker: https://github.com/your-org/feeef/issues
 
 environment:
   sdk: '>=3.11.0 <4.0.0'

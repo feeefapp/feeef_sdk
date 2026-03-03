@@ -1,0 +1,292 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'zimou_commune.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+// dart format off
+T _$identity<T>(T value) => value;
+
+/// @nodoc
+mixin _$ZimouCommune {
+
+ int get id; String get name; int get wilayaId; Map<String, dynamic> get metadata;
+/// Create a copy of ZimouCommune
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ZimouCommuneCopyWith<ZimouCommune> get copyWith => _$ZimouCommuneCopyWithImpl<ZimouCommune>(this as ZimouCommune, _$identity);
+
+  /// Serializes this ZimouCommune to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZimouCommune&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.wilayaId, wilayaId) || other.wilayaId == wilayaId)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,name,wilayaId,const DeepCollectionEquality().hash(metadata));
+
+@override
+String toString() {
+  return 'ZimouCommune(id: $id, name: $name, wilayaId: $wilayaId, metadata: $metadata)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ZimouCommuneCopyWith<$Res>  {
+  factory $ZimouCommuneCopyWith(ZimouCommune value, $Res Function(ZimouCommune) _then) = _$ZimouCommuneCopyWithImpl;
+@useResult
+$Res call({
+ int id, String name, int wilayaId, Map<String, dynamic> metadata
+});
+
+
+
+
+}
+/// @nodoc
+class _$ZimouCommuneCopyWithImpl<$Res>
+    implements $ZimouCommuneCopyWith<$Res> {
+  _$ZimouCommuneCopyWithImpl(this._self, this._then);
+
+  final ZimouCommune _self;
+  final $Res Function(ZimouCommune) _then;
+
+/// Create a copy of ZimouCommune
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? wilayaId = null,Object? metadata = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,wilayaId: null == wilayaId ? _self.wilayaId : wilayaId // ignore: cast_nullable_to_non_nullable
+as int,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ZimouCommune].
+extension ZimouCommunePatterns on ZimouCommune {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ZimouCommune value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ZimouCommune() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ZimouCommune value)  $default,){
+final _that = this;
+switch (_that) {
+case _ZimouCommune():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ZimouCommune value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ZimouCommune() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  int wilayaId,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ZimouCommune() when $default != null:
+return $default(_that.id,_that.name,_that.wilayaId,_that.metadata);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  int wilayaId,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+switch (_that) {
+case _ZimouCommune():
+return $default(_that.id,_that.name,_that.wilayaId,_that.metadata);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  int wilayaId,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+switch (_that) {
+case _ZimouCommune() when $default != null:
+return $default(_that.id,_that.name,_that.wilayaId,_that.metadata);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ZimouCommune implements ZimouCommune {
+  const _ZimouCommune({required this.id, required this.name, required this.wilayaId, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  factory _ZimouCommune.fromJson(Map<String, dynamic> json) => _$ZimouCommuneFromJson(json);
+
+@override final  int id;
+@override final  String name;
+@override final  int wilayaId;
+ final  Map<String, dynamic> _metadata;
+@override@JsonKey() Map<String, dynamic> get metadata {
+  if (_metadata is EqualUnmodifiableMapView) return _metadata;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_metadata);
+}
+
+
+/// Create a copy of ZimouCommune
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ZimouCommuneCopyWith<_ZimouCommune> get copyWith => __$ZimouCommuneCopyWithImpl<_ZimouCommune>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ZimouCommuneToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZimouCommune&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.wilayaId, wilayaId) || other.wilayaId == wilayaId)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,name,wilayaId,const DeepCollectionEquality().hash(_metadata));
+
+@override
+String toString() {
+  return 'ZimouCommune(id: $id, name: $name, wilayaId: $wilayaId, metadata: $metadata)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ZimouCommuneCopyWith<$Res> implements $ZimouCommuneCopyWith<$Res> {
+  factory _$ZimouCommuneCopyWith(_ZimouCommune value, $Res Function(_ZimouCommune) _then) = __$ZimouCommuneCopyWithImpl;
+@override @useResult
+$Res call({
+ int id, String name, int wilayaId, Map<String, dynamic> metadata
+});
+
+
+
+
+}
+/// @nodoc
+class __$ZimouCommuneCopyWithImpl<$Res>
+    implements _$ZimouCommuneCopyWith<$Res> {
+  __$ZimouCommuneCopyWithImpl(this._self, this._then);
+
+  final _ZimouCommune _self;
+  final $Res Function(_ZimouCommune) _then;
+
+/// Create a copy of ZimouCommune
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? wilayaId = null,Object? metadata = null,}) {
+  return _then(_ZimouCommune(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,wilayaId: null == wilayaId ? _self.wilayaId : wilayaId // ignore: cast_nullable_to_non_nullable
+as int,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+
+}
+
+// dart format on

@@ -74,7 +74,10 @@ class AICodeGenerationResponse {
   bool get hasData => success && data != null && data!.isNotEmpty;
 }
 
-/// Response model for AI custom component generation (JSX + propsSchema + props + optional title).
+/// Slot schema entry: display name and optional max children (e.g. logo: { name: "Logo", maxChildren: 1 }).
+typedef SlotSchemaEntry = Map<String, dynamic>;
+
+/// Response model for AI custom component generation (JSX + propsSchema + props + optional title, slotsSchema, slots).
 class AICustomComponentResponse {
   final bool success;
   final String? code;
@@ -84,6 +87,10 @@ class AICustomComponentResponse {
   final String? error;
   /// Optional component name suggested by AI (empty or null when not provided).
   final String? title;
+  /// Optional slot definitions (e.g. logo, links, actions) when the component has slots; keys match [slots].
+  final Map<String, SlotSchemaEntry>? slotsSchema;
+  /// Optional slot contents: slot key → list of component JSON; when present, editor shows drop zones for each slot.
+  final Map<String, List<Map<String, dynamic>>>? slots;
 
   const AICustomComponentResponse({
     required this.success,
@@ -93,9 +100,27 @@ class AICustomComponentResponse {
     this.props,
     this.error,
     this.title,
+    this.slotsSchema,
+    this.slots,
   });
 
   factory AICustomComponentResponse.fromJson(Map<String, dynamic> json) {
+    Map<String, SlotSchemaEntry>? slotsSchema;
+    if (json['slotsSchema'] is Map) {
+      final raw = json['slotsSchema'] as Map;
+      slotsSchema = raw.map((k, v) => MapEntry(k.toString(), Map<String, dynamic>.from(v as Map)));
+    }
+    Map<String, List<Map<String, dynamic>>>? slots;
+    if (json['slots'] is Map) {
+      final raw = json['slots'] as Map;
+      slots = raw.map((k, v) {
+        final list = v is List ? v : <dynamic>[];
+        return MapEntry(
+          k.toString(),
+          list.map((e) => Map<String, dynamic>.from(e as Map)).toList(),
+        );
+      });
+    }
     return AICustomComponentResponse(
       success: json['success'] as bool? ?? false,
       code: json['code'] as String?,
@@ -108,6 +133,8 @@ class AICustomComponentResponse {
       message: json['message'] as String? ?? 'Unknown response',
       error: json['error'] as String?,
       title: json['title'] as String?,
+      slotsSchema: slotsSchema,
+      slots: slots,
     );
   }
 
@@ -612,6 +639,8 @@ class Actions {
   /// [storeId] The ID of the store
   /// [input] The user description of the component to generate
   /// [mode] 'create' or 'edit'
+  /// [attachments] Optional unified attachments: image (URL), url (page URL), product (product ID).
+  ///   Each item: `{ type: 'image'|'url'|'product', value: string, label?: string, prompt?: string }`.
   Future<AICustomComponentResponse> generateCustomComponentCode({
     required String storeId,
     required String input,
@@ -619,18 +648,8 @@ class Actions {
     String? currentCode,
     Map<String, dynamic>? currentPropsSchema,
     Map<String, dynamic>? currentProps,
-    /// Optional reference image URLs for design/layout context
-    List<String>? referenceImageUrls,
-    /// Optional map of image URL to label for each reference image
-    Map<String, String>? referenceImageLabels,
-    /// Optional webpage/URL references (fetched and added as text context)
-    List<String>? referencePageUrls,
-    /// Optional map of page URL to label
-    Map<String, String>? referencePageLabels,
-    /// Optional product IDs (product JSON + images added as context)
-    List<String>? referenceProductIds,
-    /// Optional map of product ID to label
-    Map<String, String>? referenceProductLabels,
+    /// Optional unified attachments (image, url, product) for reference context
+    List<Map<String, dynamic>>? attachments,
   }) async {
     try {
       if (storeId.isEmpty) {
@@ -647,18 +666,7 @@ class Actions {
         if (currentCode != null) 'currentCode': currentCode,
         if (currentPropsSchema != null) 'currentPropsSchema': currentPropsSchema,
         if (currentProps != null) 'currentProps': currentProps,
-        if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
-          'referenceImageUrls': referenceImageUrls,
-        if (referenceImageLabels != null && referenceImageLabels.isNotEmpty)
-          'referenceImageLabels': referenceImageLabels,
-        if (referencePageUrls != null && referencePageUrls.isNotEmpty)
-          'referencePageUrls': referencePageUrls,
-        if (referencePageLabels != null && referencePageLabels.isNotEmpty)
-          'referencePageLabels': referencePageLabels,
-        if (referenceProductIds != null && referenceProductIds.isNotEmpty)
-          'referenceProductIds': referenceProductIds,
-        if (referenceProductLabels != null && referenceProductLabels.isNotEmpty)
-          'referenceProductLabels': referenceProductLabels,
+        if (attachments != null && attachments.isNotEmpty) 'attachments': attachments,
       };
 
       final response = await client.post(
@@ -1403,6 +1411,8 @@ class Actions {
     required String text,
     List<Attachment>? attachments,
     Map<String, dynamic>? templateData,
+    /// Aspect ratio for the generated image (e.g. '1:8', '9:16', '1:1'). Defaults to '1:8' on the server if omitted.
+    String? aspectRatio,
   }) async {
     try {
       if (text.trim().isEmpty && (attachments == null || attachments.isEmpty)) {
@@ -1415,6 +1425,7 @@ class Actions {
         'text': text.trim(),
         if (attachmentMaps != null) 'attachments': attachmentMaps,
         if (templateData != null) 'templateData': templateData,
+        if (aspectRatio != null && aspectRatio.trim().isNotEmpty) 'aspectRatio': aspectRatio.trim(),
       };
 
       final response = await client.post(

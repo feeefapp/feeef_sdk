@@ -11,6 +11,7 @@ _Country _$CountryFromJson(Map<String, dynamic> json) => _Country(
   name: json['name'] as String,
   phone: json['phone'] as String,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+  locales: _localesFromJson(json['locales']),
   createdAt: DateTime.parse(json['createdAt'] as String),
 );
 
@@ -19,6 +20,7 @@ Map<String, dynamic> _$CountryToJson(_Country instance) => <String, dynamic>{
   'name': instance.name,
   'phone': instance.phone,
   'metadata': instance.metadata,
+  'locales': instance.locales,
   'createdAt': instance.createdAt.toIso8601String(),
 };
 

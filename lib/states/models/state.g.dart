@@ -11,6 +11,7 @@ _State _$StateFromJson(Map<String, dynamic> json) => _State(
   code: json['code'] as String,
   name: json['name'] as String,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+  locales: _localesFromJson(json['locales']),
   createdAt: DateTime.parse(json['createdAt'] as String),
 );
 
@@ -19,6 +20,7 @@ Map<String, dynamic> _$StateToJson(_State instance) => <String, dynamic>{
   'code': instance.code,
   'name': instance.name,
   'metadata': instance.metadata,
+  'locales': instance.locales,
   'createdAt': instance.createdAt.toIso8601String(),
 };
 

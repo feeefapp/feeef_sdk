@@ -12,6 +12,9 @@ abstract class CityEntity {
   /// Additional metadata as key-value pairs
   abstract final Map<String, dynamic> metadata;
 
+  /// Localized names by locale code (e.g. {'ar': 'المدينة', 'en': 'City'})
+  abstract final Map<String, String>? locales;
+
   /// Creation timestamp
   abstract final DateTime createdAt;
 }

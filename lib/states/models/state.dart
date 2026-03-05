@@ -5,6 +5,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'state.freezed.dart';
 part 'state.g.dart';
 
+/// Parses optional locales map from API jsonb (locale code -> display name).
+Map<String, String>? _localesFromJson(dynamic value) {
+  if (value == null) return null;
+  final map = value as Map<String, dynamic>;
+  return map.map((k, e) => MapEntry(k, (e ?? '').toString()));
+}
+
 /// State/Province model with composite key (countryCode + code)
 @freezed
 abstract class State extends StateEntity
@@ -25,11 +32,15 @@ abstract class State extends StateEntity
     /// Additional metadata as key-value pairs
     @Default({}) Map<String, dynamic> metadata,
 
+    /// Localized names by locale code (e.g. {'ar': 'الولاية', 'en': 'State'}). From API locales jsonb.
+    Map<String, String>? locales,
+
     /// Creation timestamp
     required DateTime createdAt,
   }) = _State;
 
   /// ID getter returns composite key: countryCode-code
+  @override
   String get id => '$countryCode-$code';
 
   factory State.fromJson(Map<String, dynamic> json) => _$StateFromJson(json);

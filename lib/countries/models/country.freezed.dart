@@ -19,7 +19,8 @@ mixin _$Country {
  String get code;/// Country name (e.g., United States, Algeria, Saudi Arabia)
  String get name;/// Phone country code without + (e.g., 1, 213, 966)
  String get phone;/// Additional metadata as key-value pairs
- Map<String, dynamic> get metadata;/// Creation timestamp
+ Map<String, dynamic> get metadata;/// Localized names by locale code (e.g. {'ar': 'الجزائر', 'en': 'Algeria'}). From API locales jsonb.
+ Map<String, String>? get locales;/// Creation timestamp
  DateTime get createdAt;
 /// Create a copy of Country
 /// with the given fields replaced by the non-null parameter values.
@@ -33,16 +34,16 @@ $CountryCopyWith<Country> get copyWith => _$CountryCopyWithImpl<Country>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Country&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Country&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.locales, locales)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,name,phone,const DeepCollectionEquality().hash(metadata),createdAt);
+int get hashCode => Object.hash(runtimeType,code,name,phone,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(locales),createdAt);
 
 @override
 String toString() {
-  return 'Country(code: $code, name: $name, phone: $phone, metadata: $metadata, createdAt: $createdAt)';
+  return 'Country(code: $code, name: $name, phone: $phone, metadata: $metadata, locales: $locales, createdAt: $createdAt)';
 }
 
 
@@ -53,7 +54,7 @@ abstract mixin class $CountryCopyWith<$Res>  {
   factory $CountryCopyWith(Country value, $Res Function(Country) _then) = _$CountryCopyWithImpl;
 @useResult
 $Res call({
- String code, String name, String phone, Map<String, dynamic> metadata, DateTime createdAt
+ String code, String name, String phone, Map<String, dynamic> metadata, Map<String, String>? locales, DateTime createdAt
 });
 
 
@@ -70,13 +71,14 @@ class _$CountryCopyWithImpl<$Res>
 
 /// Create a copy of Country
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? name = null,Object? phone = null,Object? metadata = null,Object? createdAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? name = null,Object? phone = null,Object? metadata = null,Object? locales = freezed,Object? createdAt = null,}) {
   return _then(_self.copyWith(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as String,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,locales: freezed == locales ? _self.locales : locales // ignore: cast_nullable_to_non_nullable
+as Map<String, String>?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
 }
@@ -162,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String code,  String name,  String phone,  Map<String, dynamic> metadata,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String code,  String name,  String phone,  Map<String, dynamic> metadata,  Map<String, String>? locales,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Country() when $default != null:
-return $default(_that.code,_that.name,_that.phone,_that.metadata,_that.createdAt);case _:
+return $default(_that.code,_that.name,_that.phone,_that.metadata,_that.locales,_that.createdAt);case _:
   return orElse();
 
 }
@@ -183,10 +185,10 @@ return $default(_that.code,_that.name,_that.phone,_that.metadata,_that.createdAt
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String code,  String name,  String phone,  Map<String, dynamic> metadata,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String code,  String name,  String phone,  Map<String, dynamic> metadata,  Map<String, String>? locales,  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _Country():
-return $default(_that.code,_that.name,_that.phone,_that.metadata,_that.createdAt);case _:
+return $default(_that.code,_that.name,_that.phone,_that.metadata,_that.locales,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +205,10 @@ return $default(_that.code,_that.name,_that.phone,_that.metadata,_that.createdAt
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String code,  String name,  String phone,  Map<String, dynamic> metadata,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String code,  String name,  String phone,  Map<String, dynamic> metadata,  Map<String, String>? locales,  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Country() when $default != null:
-return $default(_that.code,_that.name,_that.phone,_that.metadata,_that.createdAt);case _:
+return $default(_that.code,_that.name,_that.phone,_that.metadata,_that.locales,_that.createdAt);case _:
   return null;
 
 }
@@ -218,7 +220,7 @@ return $default(_that.code,_that.name,_that.phone,_that.metadata,_that.createdAt
 @JsonSerializable()
 
 class _Country extends Country {
-   _Country({required this.code, required this.name, required this.phone, final  Map<String, dynamic> metadata = const {}, required this.createdAt}): _metadata = metadata,super._();
+   _Country({required this.code, required this.name, required this.phone, final  Map<String, dynamic> metadata = const {}, final  Map<String, String>? locales, required this.createdAt}): _metadata = metadata,_locales = locales,super._();
   factory _Country.fromJson(Map<String, dynamic> json) => _$CountryFromJson(json);
 
 /// ISO 3166-1 alpha-2 country code (e.g., US, DZ, SA)
@@ -234,6 +236,17 @@ class _Country extends Country {
   if (_metadata is EqualUnmodifiableMapView) return _metadata;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableMapView(_metadata);
+}
+
+/// Localized names by locale code (e.g. {'ar': 'الجزائر', 'en': 'Algeria'}). From API locales jsonb.
+ final  Map<String, String>? _locales;
+/// Localized names by locale code (e.g. {'ar': 'الجزائر', 'en': 'Algeria'}). From API locales jsonb.
+@override Map<String, String>? get locales {
+  final value = _locales;
+  if (value == null) return null;
+  if (_locales is EqualUnmodifiableMapView) return _locales;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
 }
 
 /// Creation timestamp
@@ -252,16 +265,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Country&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Country&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._locales, _locales)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,name,phone,const DeepCollectionEquality().hash(_metadata),createdAt);
+int get hashCode => Object.hash(runtimeType,code,name,phone,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_locales),createdAt);
 
 @override
 String toString() {
-  return 'Country(code: $code, name: $name, phone: $phone, metadata: $metadata, createdAt: $createdAt)';
+  return 'Country(code: $code, name: $name, phone: $phone, metadata: $metadata, locales: $locales, createdAt: $createdAt)';
 }
 
 
@@ -272,7 +285,7 @@ abstract mixin class _$CountryCopyWith<$Res> implements $CountryCopyWith<$Res> {
   factory _$CountryCopyWith(_Country value, $Res Function(_Country) _then) = __$CountryCopyWithImpl;
 @override @useResult
 $Res call({
- String code, String name, String phone, Map<String, dynamic> metadata, DateTime createdAt
+ String code, String name, String phone, Map<String, dynamic> metadata, Map<String, String>? locales, DateTime createdAt
 });
 
 
@@ -289,13 +302,14 @@ class __$CountryCopyWithImpl<$Res>
 
 /// Create a copy of Country
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? code = null,Object? name = null,Object? phone = null,Object? metadata = null,Object? createdAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? code = null,Object? name = null,Object? phone = null,Object? metadata = null,Object? locales = freezed,Object? createdAt = null,}) {
   return _then(_Country(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as String,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,locales: freezed == locales ? _self._locales : locales // ignore: cast_nullable_to_non_nullable
+as Map<String, String>?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
 }

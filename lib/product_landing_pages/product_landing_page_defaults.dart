@@ -12,8 +12,11 @@ const String kImageUrlPlaceholder = '{{image url}}';
 
 /// Default page structure for image-based product landing pages.
 ///
-/// Contains navbar, image (with placeholder), order floating button, and space.
-/// Call [defaultsWithImageUrl] to get a copy with the image URL filled in.
+/// Used by [ProductLandingPageWizardType.image]: scrollable product navbar,
+/// navbar with banner, container with generated image, product order form,
+/// floating order button, and space. The image component uses
+/// [kImageUrlPlaceholder]; call [defaultsWithImageUrl] to fill it with the
+/// generated image URL.
 Map<String, dynamic> get imageLandingPageDefaults => {
       'pages': {
         'landing_page': {
@@ -22,20 +25,39 @@ Map<String, dynamic> get imageLandingPageDefaults => {
             'main': {
               'components': [
                 {
+                  'type': 'scrollable_product_navbar',
+                  'instanceId': 'scrollable_product_navbar_1772668360147',
+                  'title': null,
+                  'code': null,
+                  'propsSchema': null,
+                  'slotsSchema': null,
+                  'props': {
+                    'showLogo': true,
+                    'showSearch': false,
+                    'showCart': false,
+                    'showThemeToggle': true,
+                    'showLanguageSwitcher': false,
+                    'showTotalPrice': true,
+                  },
+                  'children': [],
+                  'slots': null,
+                },
+                {
                   'type': 'navbar',
                   'instanceId': 'navbar_1769925274262',
                   'title': null,
                   'code': null,
                   'propsSchema': null,
+                  'slotsSchema': null,
                   'props': {
                     'logoPosition': 'left',
                     'logoSize': 'medium',
-                    'showLinks': true,
-                    'showCart': true,
-                    'showSearch': true,
+                    'showLinks': false,
+                    'showCart': false,
+                    'showSearch': false,
                     'showThemeToggle': true,
                     'showLanguageSwitcher': false,
-                    'sticky': true,
+                    'sticky': false,
                     'navItems': [
                       {
                         'label': 'الرئيسية',
@@ -59,28 +81,110 @@ Map<String, dynamic> get imageLandingPageDefaults => {
                         'external': false,
                       },
                     ],
-                    'showBanner': false,
+                    'showBanner': true,
                     'bannerBgColor': '#3B82F6',
                     'bannerTextColor': '#FFFFFF',
                     'transparent': false,
                     'blurEffect': true,
                   },
                   'children': [],
+                  'slots': null,
                 },
                 {
-                  'type': 'image',
-                  'instanceId': 'image_1771905092289',
-                  'title': 'landing page image',
+                  'type': 'container',
+                  'instanceId': 'container_1772645973074',
+                  'title': null,
                   'code': null,
                   'propsSchema': null,
+                  'slotsSchema': null,
                   'props': {
-                    'alt': 'صورة',
-                    'width': 'auto',
-                    'height': 'auto',
-                    'fit': 'cover',
-                    'src': kImageUrlPlaceholder,
+                    'maxWidth': {
+                      'sm': 0,
+                      'md': 800.0,
+                      'lg': 850.0,
+                    },
+                    'paddingX': {
+                      'sm': 0.0,
+                      'md': 0.0,
+                      'lg': 0.0,
+                    },
+                    'paddingY': {
+                      'sm': 0,
+                      'md': 0,
+                      'lg': 0,
+                    },
                   },
-                  'children': [],
+                  'children': [
+                    {
+                      'type': 'image',
+                      'instanceId': 'image_1771905092289',
+                      'title': 'landing page image',
+                      'code': null,
+                      'propsSchema': null,
+                      'slotsSchema': null,
+                      'props': {
+                        'alt': 'صورة',
+                        'width': 'full',
+                        'height': 'auto',
+                        'fit': 'cover',
+                        'src': kImageUrlPlaceholder,
+                      },
+                      'children': [],
+                      'slots': null,
+                    },
+                  ],
+                  'slots': null,
+                },
+                {
+                  'type': 'container',
+                  'instanceId': 'container_1772646195565682',
+                  'title': null,
+                  'code': null,
+                  'propsSchema': null,
+                  'slotsSchema': null,
+                  'props': {
+                    'maxWidth': {
+                      'sm': 0,
+                      'md': 800.0,
+                      'lg': 850.0,
+                    },
+                    'paddingX': {
+                      'sm': 12.0,
+                      'md': 12.0,
+                      'lg': 12.0,
+                    },
+                    'paddingY': {
+                      'sm': 12.0,
+                      'md': 12.0,
+                      'lg': 12.0,
+                    },
+                  },
+                  'children': [
+                    {
+                      'type': 'product_order_form',
+                      'instanceId': 'product_order_form_1772646114988',
+                      'title': null,
+                      'code': null,
+                      'propsSchema': null,
+                      'slotsSchema': null,
+                      'props': {
+                        'title': 'اطلب الآن',
+                        'sendDrafts': true,
+                        'showVariants': true,
+                        'showOffers': true,
+                        'requireOffer': false,
+                        'showAddons': true,
+                        'showQuantity': true,
+                        'showAddToCart': false,
+                        'sticky': true,
+                        'isLocationSelectionVisible': true,
+                        'buttonStyle': 'magic',
+                      },
+                      'children': [],
+                      'slots': null,
+                    },
+                  ],
+                  'slots': null,
                 },
                 {
                   'type': 'order_floating_button',
@@ -88,10 +192,12 @@ Map<String, dynamic> get imageLandingPageDefaults => {
                   'title': null,
                   'code': null,
                   'propsSchema': null,
+                  'slotsSchema': null,
                   'props': {
-                    'action': 'popup',
+                    'action': 'scroll',
                   },
                   'children': [],
+                  'slots': null,
                 },
                 {
                   'type': 'space',
@@ -99,10 +205,12 @@ Map<String, dynamic> get imageLandingPageDefaults => {
                   'title': null,
                   'code': null,
                   'propsSchema': null,
+                  'slotsSchema': null,
                   'props': {
                     'size': 100,
                   },
                   'children': [],
+                  'slots': null,
                 },
               ],
             },
@@ -112,7 +220,7 @@ Map<String, dynamic> get imageLandingPageDefaults => {
       'props': {
         'theme': {
           'mode': 'light',
-          'rounded': 30,
+          'rounded': 60.0,
           'font': 'expoArabic',
         },
         'bg': 4294967295,
@@ -120,8 +228,9 @@ Map<String, dynamic> get imageLandingPageDefaults => {
         'padding': 0,
         'container': {
           'container': true,
-          'maxWidth': 1000.9999999999999,
+          'maxWidth': 1000.0,
         },
+        'corners': <String, dynamic>{},
       },
     };
 

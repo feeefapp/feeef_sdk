@@ -194,5 +194,9 @@ enum ShippingType {
     }
   }
 
-  String get tr => name;
+  String get tr => switch (this) {
+    ShippingType.home => 'إلى المنزل',
+    ShippingType.pickup => 'إلى المكتب',
+    ShippingType.store => 'إلى المتجر',
+  };
 }

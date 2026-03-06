@@ -77,7 +77,7 @@ class AICodeGenerationResponse {
 /// Slot schema entry: display name and optional max children (e.g. logo: { name: "Logo", maxChildren: 1 }).
 typedef SlotSchemaEntry = Map<String, dynamic>;
 
-/// Response model for AI custom component generation (JSX + propsSchema + props + optional title, slotsSchema, slots).
+/// Response model for AI custom component generation (JSX + propsSchema + props + optional title, slotsSchema, slots, slotsLayout).
 class AICustomComponentResponse {
   final bool success;
   final String? code;
@@ -91,6 +91,8 @@ class AICustomComponentResponse {
   final Map<String, SlotSchemaEntry>? slotsSchema;
   /// Optional slot contents: slot key → list of component JSON; when present, editor shows drop zones for each slot.
   final Map<String, List<Map<String, dynamic>>>? slots;
+  /// Optional responsive slot layout for template editor (sm/md/lg). Keys = breakpoint; value = { type: 'row'|'column', children: [...] }.
+  final Map<String, dynamic>? slotsLayout;
 
   const AICustomComponentResponse({
     required this.success,
@@ -102,6 +104,7 @@ class AICustomComponentResponse {
     this.title,
     this.slotsSchema,
     this.slots,
+    this.slotsLayout,
   });
 
   factory AICustomComponentResponse.fromJson(Map<String, dynamic> json) {
@@ -121,6 +124,11 @@ class AICustomComponentResponse {
         );
       });
     }
+    Map<String, dynamic>? slotsLayout;
+    if (json['slotsLayout'] is Map) {
+      final raw = json['slotsLayout'] as Map;
+      slotsLayout = Map<String, dynamic>.from(raw.map((k, v) => MapEntry(k.toString(), v)));
+    }
     return AICustomComponentResponse(
       success: json['success'] as bool? ?? false,
       code: json['code'] as String?,
@@ -135,6 +143,7 @@ class AICustomComponentResponse {
       title: json['title'] as String?,
       slotsSchema: slotsSchema,
       slots: slots,
+      slotsLayout: slotsLayout,
     );
   }
 

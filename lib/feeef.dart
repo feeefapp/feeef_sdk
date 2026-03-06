@@ -1,6 +1,7 @@
 // Barrel file: re-exports the full Feeef SDK surface.
 export 'attachments/attachment.dart';
 export 'core/errors.dart';
+export 'files/services/actions.dart';
 export 'core/feeef_config.dart';
 export 'core/list_response.dart';
 export 'core/model_repository.dart';

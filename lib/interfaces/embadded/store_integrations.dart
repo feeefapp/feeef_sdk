@@ -175,8 +175,8 @@ abstract class AiIntegration with _$AiIntegration {
     @Default(true) bool active,
     String? apiKey,
     @Default('gemini-3.1-pro-preview') String planningModel,
-    @Default('gemini-2.5-flash-lite') String textModel,
-    @Default('gemini-2.5-flash-image-preview') String imageModel,
+    @Default('gemini-flash-lite-latest') String textModel,
+    @Default('gemini-3.1-flash-image-preview') String imageModel,
     @Default({}) Map<String, dynamic> metadata,
   }) = _AiIntegration;
 

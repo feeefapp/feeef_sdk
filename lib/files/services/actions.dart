@@ -1494,4 +1494,86 @@ class Actions {
       );
     }
   }
+
+  /// generateLogo (LogoStudio)
+  /// Generates a logo using AI with RED/BLUE-only palette; green becomes alpha.
+  /// [color1], [color2]: AARRGGBB (32-bit) for the two brand colors.
+  /// [attachments]: optional image/store/product references.
+  Future<
+    ({
+      bool success,
+      String? id,
+      String message,
+      String? error,
+      Map<String, dynamic>? metadata,
+    })
+  >
+  generateLogo({
+    required String logoName,
+    required String description,
+    required int color1,
+    required int color2,
+    String? aspectRatio,
+    List<Attachment>? attachments,
+    List<String>? referenceImageUrls,
+    Map<String, String>? referenceImageLabels,
+  }) async {
+    try {
+      final attachmentMaps = attachments != null && attachments.isNotEmpty
+          ? attachments.map((a) => a.toJson()).toList()
+          : null;
+      final requestData = <String, dynamic>{
+        'logoName': logoName.trim(),
+        'description': description.trim(),
+        'color1': color1,
+        'color2': color2,
+        if (aspectRatio != null && aspectRatio.isNotEmpty) 'aspectRatio': aspectRatio,
+        if (attachmentMaps != null) 'attachments': attachmentMaps,
+        if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
+          'referenceImageUrls': referenceImageUrls,
+        if (referenceImageLabels != null && referenceImageLabels.isNotEmpty)
+          'referenceImageLabels': referenceImageLabels,
+      };
+
+      final response = await client.post(
+        '/actions/generateLogo',
+        data: requestData,
+      );
+
+      final responseData = response.data as Map<String, dynamic>;
+
+      return (
+        success: responseData['success'] as bool? ?? false,
+        id: responseData['id'] as String?,
+        message: responseData['message'] as String? ?? 'Unknown response',
+        error: responseData['error'] as String?,
+        metadata: responseData['metadata'] is Map<String, dynamic>
+            ? Map<String, dynamic>.from(responseData['metadata'])
+            : null,
+      );
+    } on DioException catch (e) {
+      developer.log('Network error during logo generation: ${e.message}');
+      return (
+        success: false,
+        id: null as String?,
+        message: 'Network error occurred',
+        error:
+            'Failed to connect to the server. Please check your internet connection.'
+                as String?,
+        metadata: null as Map<String, dynamic>?,
+      );
+    } catch (e) {
+      developer.log('Error generating logo: $e');
+      final errorMessage = e is ArgumentError
+          ? e.message
+          : 'An unexpected error occurred. Please try again.';
+      return (
+        success: false,
+        id: null as String?,
+        message: 'Failed to generate logo',
+        error: errorMessage as String?,
+        metadata: null as Map<String, dynamic>?,
+      );
+    }
+  }
 }

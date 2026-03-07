@@ -884,8 +884,12 @@ class Actions {
     List<String>? referenceImageUrls,
     /// Optional map of image URL to label (legacy; prefer [attachments])
     Map<String, String>? referenceImageLabels,
-    /// Optional full attachments: image, url, audio, store, product. Backend merges with legacy refs.
+    /// Optional full attachments: image, url, audio, store, product. Backend supports all and merges with legacy refs.
+    /// - image: URLs fetched and sent as reference images (vision). url: page content fetched and appended to input.
+    /// - audio: sent as inline audio. store/product: loaded server-side and added to context.
     List<Attachment>? attachments,
+    /// When true, backend enables Gemini Google Search grounding (e.g. for price suggestions). May incur extra cost.
+    bool? useSearchGrounding,
   }) async {
     try {
       if (storeId.isEmpty) throw ArgumentError('storeId required');
@@ -904,6 +908,7 @@ class Actions {
         if (referenceImageLabels != null && referenceImageLabels.isNotEmpty)
           'referenceImageLabels': referenceImageLabels,
         if (attachmentMaps != null) 'attachments': attachmentMaps,
+        if (useSearchGrounding == true) 'useSearchGrounding': true,
       };
       final resp = await client.post(
         '/actions/updateProductUsingAi',

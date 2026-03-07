@@ -10,6 +10,8 @@ export 'core/resource_repository.dart';
 export 'core/validation/validation_exception.dart';
 export 'feeef_client.dart';
 export 'feedbacks/feedback_repository.dart';
+export 'image_prompt_templates/image_prompt_template.dart';
+export 'image_prompt_templates/image_prompt_template_repository.dart';
 export 'integrations/ecotrack/ecotrack_delivery_integration_api.dart';
 export 'integrations/google_sheets_integration_api.dart';
 export 'integrations/noest/noest_delivery_integration_api.dart';
@@ -24,4 +26,3 @@ export 'products/product_repository.dart';
 export 'shipping_methods/shipping_method_repository.dart';
 export 'stores/store_repository.dart';
 export 'users/user_repository.dart';
-

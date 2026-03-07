@@ -1077,13 +1077,16 @@ class Actions {
   /// Creates an async image generation task (image_generations table).
   ///
   /// Returns the created ImageGeneration JSON as Map.
+  /// [imageSize]: output size "1K"|"2K"|"4K". Backend default 2K when omitted.
+  /// [resolution]: input resolution for reference images. Default MEDIA_RESOLUTION_HIGH.
   Future<Map<String, dynamic>> createImageGeneration({
     required String storeId,
     String? title,
     String? prompt,
     Uint8List? imageBytes,
     String? aspectRatio,
-    String resolution = 'MEDIA_RESOLUTION_LOW',
+    String? imageSize,
+    String resolution = 'MEDIA_RESOLUTION_HIGH',
     String? systemInstructions,
     List<String>? referenceImageUrls,
     Map<String, String>? referenceImageLabels,
@@ -1094,6 +1097,7 @@ class Actions {
       if (title != null && title.trim().isNotEmpty) 'title': title.trim(),
       if (prompt != null && prompt.trim().isNotEmpty) 'prompt': prompt.trim(),
       if (aspectRatio != null) 'aspectRatio': aspectRatio,
+      if (imageSize != null && imageSize.trim().isNotEmpty) 'imageSize': imageSize.trim(),
       'resolution': resolution,
       if (systemInstructions != null && systemInstructions.trim().isNotEmpty)
         'systemInstructions': systemInstructions.trim(),
@@ -1119,13 +1123,16 @@ class Actions {
   ///
   /// [attachments]: unified reference context (image, store, product, audio).
   /// Backend resolves store/product to structured context and reference images.
+  /// [imageSize]: output size "1K"|"2K"|"4K". Default 2K when omitted on backend.
+  /// [resolution]: input resolution for reference images. Default MEDIA_RESOLUTION_HIGH.
   Future<Map<String, dynamic>> generateImageGeneration({
     required String id,
     String? title,
     String? prompt,
     Uint8List? imageBytes,
     String? aspectRatio,
-    String resolution = 'MEDIA_RESOLUTION_LOW',
+    String? imageSize,
+    String resolution = 'MEDIA_RESOLUTION_HIGH',
     String? systemInstructions,
     List<Attachment>? attachments,
     String? model,
@@ -1140,6 +1147,7 @@ class Actions {
       if (title != null && title.trim().isNotEmpty) 'title': title.trim(),
       if (prompt != null && prompt.trim().isNotEmpty) 'prompt': prompt.trim(),
       if (aspectRatio != null) 'aspectRatio': aspectRatio,
+      if (imageSize != null && imageSize.trim().isNotEmpty) 'imageSize': imageSize.trim(),
       'resolution': resolution,
       if (systemInstructions != null && systemInstructions.trim().isNotEmpty)
         'systemInstructions': systemInstructions.trim(),

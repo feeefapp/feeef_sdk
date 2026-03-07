@@ -17,6 +17,7 @@ import 'package:feeef/files/services/actions.dart';
 import 'package:feeef/files/services/analytics.dart';
 import 'package:feeef/files/services/file_service.dart';
 import 'package:feeef/feedbacks/feedback_repository.dart';
+import 'package:feeef/image_prompt_templates/image_prompt_template_repository.dart';
 import 'package:feeef/orders/order_repository.dart';
 import 'package:feeef/product_landing_page_templates/product_landing_page_template_repository.dart';
 import 'package:feeef/product_landing_pages/product_landing_page_repository.dart';
@@ -108,6 +109,7 @@ class Feeef {
   late final ProductRepository products;
   late final ProductLandingPageRepository productLandingPages;
   late final ProductLandingPageTemplateRepository productLandingPageTemplates;
+  late final ImagePromptTemplateRepository imagePromptTemplates;
   late final ShippingMethodRepository shippingMethods;
   late final ShippingPriceRepository shippingPrices;
   late final OrderRepository orders;
@@ -148,6 +150,7 @@ class Feeef {
     productLandingPageTemplates = ProductLandingPageTemplateRepository(
       client: client,
     );
+    imagePromptTemplates = ImagePromptTemplateRepository(client: client);
     shippingMethods = ShippingMethodRepository(client: client);
     shippingPrices = ShippingPriceRepository(client: client);
     feedbacks = FeedbackRepository(client: client);
@@ -177,12 +180,12 @@ class Feeef {
     client.options.headers['X-Requested-With'] = 'XMLHttpRequest';
 
     final transmitBaseUrl = config != null
-        ? config!.baseUrl
+        ? config.baseUrl
         : (baseUrl.endsWith('/api/v1')
-            ? baseUrl.substring(0, baseUrl.length - 7)
-            : 'https://api.feeef.org');
+              ? baseUrl.substring(0, baseUrl.length - 7)
+              : 'https://api.feeef.org');
     final useDevRealtime = config != null
-        ? (!config!.isProduction && config.debugMode)
+        ? (!config.isProduction && config.debugMode)
         : false;
     final uid = cuid();
     final transmit = Transmit(
@@ -204,8 +207,7 @@ class Feeef {
           developer.log('Reconnect failed');
         },
         onSubscribeFailed: (response) {
-          developer.log(
-              'Subscribe failed: ${response.statusCode} ${response}');
+          developer.log('Subscribe failed: ${response.statusCode} ${response}');
         },
         onSubscription: (subscription) {
           developer.log('Subscription created: ${subscription}');

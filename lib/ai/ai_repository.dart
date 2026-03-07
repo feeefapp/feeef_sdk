@@ -101,7 +101,8 @@ class ImageGenerationsRepository {
     String? prompt,
     Uint8List? imageBytes,
     String? aspectRatio,
-    String resolution = 'MEDIA_RESOLUTION_LOW',
+    String? imageSize,
+    String resolution = 'MEDIA_RESOLUTION_HIGH',
     String? systemInstructions,
     List<Attachment>? attachments,
     String? model,
@@ -113,6 +114,7 @@ class ImageGenerationsRepository {
       prompt: prompt,
       imageBytes: imageBytes,
       aspectRatio: aspectRatio,
+      imageSize: imageSize,
       resolution: resolution,
       systemInstructions: systemInstructions,
       attachments: attachments,
@@ -134,7 +136,10 @@ class ImageGenerationsRepository {
     String? prompt,
     Uint8List? imageBytes,
     String? aspectRatio,
-    String resolution = 'MEDIA_RESOLUTION_LOW',
+    /// Output image size: "1K", "2K", "4K". Use for generated image dimensions.
+    String? imageSize,
+    /// Input resolution (how reference images are processed). Distinct from [imageSize]. Default HIGH.
+    String resolution = 'MEDIA_RESOLUTION_HIGH',
     String? systemInstructions,
     List<Attachment>? attachments,
     String? model,
@@ -148,6 +153,7 @@ class ImageGenerationsRepository {
       if (title != null && title.trim().isNotEmpty) 'title': title.trim(),
       if (prompt != null && prompt.trim().isNotEmpty) 'prompt': prompt.trim(),
       if (aspectRatio != null) 'aspectRatio': aspectRatio,
+      if (imageSize != null && imageSize.trim().isNotEmpty) 'imageSize': imageSize.trim(),
       'resolution': resolution,
       if (systemInstructions != null && systemInstructions.trim().isNotEmpty)
         'systemInstructions': systemInstructions.trim(),

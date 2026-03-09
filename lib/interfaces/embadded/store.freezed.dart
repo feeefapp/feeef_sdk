@@ -2314,4 +2314,602 @@ as Map<String, dynamic>,
 
 }
 
+
+/// @nodoc
+mixin _$StoreInviteStore {
+
+ String get id; String get name; String? get iconUrl; String? get logoUrl;
+/// Create a copy of StoreInviteStore
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$StoreInviteStoreCopyWith<StoreInviteStore> get copyWith => _$StoreInviteStoreCopyWithImpl<StoreInviteStore>(this as StoreInviteStore, _$identity);
+
+  /// Serializes this StoreInviteStore to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreInviteStore&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,name,iconUrl,logoUrl);
+
+@override
+String toString() {
+  return 'StoreInviteStore(id: $id, name: $name, iconUrl: $iconUrl, logoUrl: $logoUrl)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $StoreInviteStoreCopyWith<$Res>  {
+  factory $StoreInviteStoreCopyWith(StoreInviteStore value, $Res Function(StoreInviteStore) _then) = _$StoreInviteStoreCopyWithImpl;
+@useResult
+$Res call({
+ String id, String name, String? iconUrl, String? logoUrl
+});
+
+
+
+
+}
+/// @nodoc
+class _$StoreInviteStoreCopyWithImpl<$Res>
+    implements $StoreInviteStoreCopyWith<$Res> {
+  _$StoreInviteStoreCopyWithImpl(this._self, this._then);
+
+  final StoreInviteStore _self;
+  final $Res Function(StoreInviteStore) _then;
+
+/// Create a copy of StoreInviteStore
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? iconUrl = freezed,Object? logoUrl = freezed,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,iconUrl: freezed == iconUrl ? _self.iconUrl : iconUrl // ignore: cast_nullable_to_non_nullable
+as String?,logoUrl: freezed == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [StoreInviteStore].
+extension StoreInviteStorePatterns on StoreInviteStore {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _StoreInviteStore value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _StoreInviteStore() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _StoreInviteStore value)  $default,){
+final _that = this;
+switch (_that) {
+case _StoreInviteStore():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _StoreInviteStore value)?  $default,){
+final _that = this;
+switch (_that) {
+case _StoreInviteStore() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String? iconUrl,  String? logoUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _StoreInviteStore() when $default != null:
+return $default(_that.id,_that.name,_that.iconUrl,_that.logoUrl);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String? iconUrl,  String? logoUrl)  $default,) {final _that = this;
+switch (_that) {
+case _StoreInviteStore():
+return $default(_that.id,_that.name,_that.iconUrl,_that.logoUrl);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String? iconUrl,  String? logoUrl)?  $default,) {final _that = this;
+switch (_that) {
+case _StoreInviteStore() when $default != null:
+return $default(_that.id,_that.name,_that.iconUrl,_that.logoUrl);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _StoreInviteStore implements StoreInviteStore {
+   _StoreInviteStore({required this.id, required this.name, this.iconUrl, this.logoUrl});
+  factory _StoreInviteStore.fromJson(Map<String, dynamic> json) => _$StoreInviteStoreFromJson(json);
+
+@override final  String id;
+@override final  String name;
+@override final  String? iconUrl;
+@override final  String? logoUrl;
+
+/// Create a copy of StoreInviteStore
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$StoreInviteStoreCopyWith<_StoreInviteStore> get copyWith => __$StoreInviteStoreCopyWithImpl<_StoreInviteStore>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$StoreInviteStoreToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreInviteStore&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,name,iconUrl,logoUrl);
+
+@override
+String toString() {
+  return 'StoreInviteStore(id: $id, name: $name, iconUrl: $iconUrl, logoUrl: $logoUrl)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$StoreInviteStoreCopyWith<$Res> implements $StoreInviteStoreCopyWith<$Res> {
+  factory _$StoreInviteStoreCopyWith(_StoreInviteStore value, $Res Function(_StoreInviteStore) _then) = __$StoreInviteStoreCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, String name, String? iconUrl, String? logoUrl
+});
+
+
+
+
+}
+/// @nodoc
+class __$StoreInviteStoreCopyWithImpl<$Res>
+    implements _$StoreInviteStoreCopyWith<$Res> {
+  __$StoreInviteStoreCopyWithImpl(this._self, this._then);
+
+  final _StoreInviteStore _self;
+  final $Res Function(_StoreInviteStore) _then;
+
+/// Create a copy of StoreInviteStore
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? iconUrl = freezed,Object? logoUrl = freezed,}) {
+  return _then(_StoreInviteStore(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,iconUrl: freezed == iconUrl ? _self.iconUrl : iconUrl // ignore: cast_nullable_to_non_nullable
+as String?,logoUrl: freezed == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$StoreInvite {
+
+ String get id; String get storeId; String get email; StoreMemberRole get role; String get invitedBy; StoreInviteStatus get status; DateTime? get acceptedAt; DateTime get expiresAt; Map<String, dynamic> get metadata; DateTime get createdAt; DateTime get updatedAt; StoreInviteStore? get store;
+/// Create a copy of StoreInvite
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$StoreInviteCopyWith<StoreInvite> get copyWith => _$StoreInviteCopyWithImpl<StoreInvite>(this as StoreInvite, _$identity);
+
+  /// Serializes this StoreInvite to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreInvite&&(identical(other.id, id) || other.id == id)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.invitedBy, invitedBy) || other.invitedBy == invitedBy)&&(identical(other.status, status) || other.status == status)&&(identical(other.acceptedAt, acceptedAt) || other.acceptedAt == acceptedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.store, store) || other.store == store));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,storeId,email,role,invitedBy,status,acceptedAt,expiresAt,const DeepCollectionEquality().hash(metadata),createdAt,updatedAt,store);
+
+@override
+String toString() {
+  return 'StoreInvite(id: $id, storeId: $storeId, email: $email, role: $role, invitedBy: $invitedBy, status: $status, acceptedAt: $acceptedAt, expiresAt: $expiresAt, metadata: $metadata, createdAt: $createdAt, updatedAt: $updatedAt, store: $store)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $StoreInviteCopyWith<$Res>  {
+  factory $StoreInviteCopyWith(StoreInvite value, $Res Function(StoreInvite) _then) = _$StoreInviteCopyWithImpl;
+@useResult
+$Res call({
+ String id, String storeId, String email, StoreMemberRole role, String invitedBy, StoreInviteStatus status, DateTime? acceptedAt, DateTime expiresAt, Map<String, dynamic> metadata, DateTime createdAt, DateTime updatedAt, StoreInviteStore? store
+});
+
+
+$StoreInviteStoreCopyWith<$Res>? get store;
+
+}
+/// @nodoc
+class _$StoreInviteCopyWithImpl<$Res>
+    implements $StoreInviteCopyWith<$Res> {
+  _$StoreInviteCopyWithImpl(this._self, this._then);
+
+  final StoreInvite _self;
+  final $Res Function(StoreInvite) _then;
+
+/// Create a copy of StoreInvite
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? storeId = null,Object? email = null,Object? role = null,Object? invitedBy = null,Object? status = null,Object? acceptedAt = freezed,Object? expiresAt = null,Object? metadata = null,Object? createdAt = null,Object? updatedAt = null,Object? store = freezed,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as StoreMemberRole,invitedBy: null == invitedBy ? _self.invitedBy : invitedBy // ignore: cast_nullable_to_non_nullable
+as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as StoreInviteStatus,acceptedAt: freezed == acceptedAt ? _self.acceptedAt : acceptedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
+as DateTime,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,store: freezed == store ? _self.store : store // ignore: cast_nullable_to_non_nullable
+as StoreInviteStore?,
+  ));
+}
+/// Create a copy of StoreInvite
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$StoreInviteStoreCopyWith<$Res>? get store {
+    if (_self.store == null) {
+    return null;
+  }
+
+  return $StoreInviteStoreCopyWith<$Res>(_self.store!, (value) {
+    return _then(_self.copyWith(store: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [StoreInvite].
+extension StoreInvitePatterns on StoreInvite {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _StoreInvite value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _StoreInvite() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _StoreInvite value)  $default,){
+final _that = this;
+switch (_that) {
+case _StoreInvite():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _StoreInvite value)?  $default,){
+final _that = this;
+switch (_that) {
+case _StoreInvite() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String storeId,  String email,  StoreMemberRole role,  String invitedBy,  StoreInviteStatus status,  DateTime? acceptedAt,  DateTime expiresAt,  Map<String, dynamic> metadata,  DateTime createdAt,  DateTime updatedAt,  StoreInviteStore? store)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _StoreInvite() when $default != null:
+return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_that.status,_that.acceptedAt,_that.expiresAt,_that.metadata,_that.createdAt,_that.updatedAt,_that.store);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String storeId,  String email,  StoreMemberRole role,  String invitedBy,  StoreInviteStatus status,  DateTime? acceptedAt,  DateTime expiresAt,  Map<String, dynamic> metadata,  DateTime createdAt,  DateTime updatedAt,  StoreInviteStore? store)  $default,) {final _that = this;
+switch (_that) {
+case _StoreInvite():
+return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_that.status,_that.acceptedAt,_that.expiresAt,_that.metadata,_that.createdAt,_that.updatedAt,_that.store);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String storeId,  String email,  StoreMemberRole role,  String invitedBy,  StoreInviteStatus status,  DateTime? acceptedAt,  DateTime expiresAt,  Map<String, dynamic> metadata,  DateTime createdAt,  DateTime updatedAt,  StoreInviteStore? store)?  $default,) {final _that = this;
+switch (_that) {
+case _StoreInvite() when $default != null:
+return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_that.status,_that.acceptedAt,_that.expiresAt,_that.metadata,_that.createdAt,_that.updatedAt,_that.store);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _StoreInvite implements StoreInvite {
+   _StoreInvite({required this.id, required this.storeId, required this.email, required this.role, required this.invitedBy, required this.status, this.acceptedAt, required this.expiresAt, final  Map<String, dynamic> metadata = const {}, required this.createdAt, required this.updatedAt, this.store}): _metadata = metadata;
+  factory _StoreInvite.fromJson(Map<String, dynamic> json) => _$StoreInviteFromJson(json);
+
+@override final  String id;
+@override final  String storeId;
+@override final  String email;
+@override final  StoreMemberRole role;
+@override final  String invitedBy;
+@override final  StoreInviteStatus status;
+@override final  DateTime? acceptedAt;
+@override final  DateTime expiresAt;
+ final  Map<String, dynamic> _metadata;
+@override@JsonKey() Map<String, dynamic> get metadata {
+  if (_metadata is EqualUnmodifiableMapView) return _metadata;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_metadata);
+}
+
+@override final  DateTime createdAt;
+@override final  DateTime updatedAt;
+@override final  StoreInviteStore? store;
+
+/// Create a copy of StoreInvite
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$StoreInviteCopyWith<_StoreInvite> get copyWith => __$StoreInviteCopyWithImpl<_StoreInvite>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$StoreInviteToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreInvite&&(identical(other.id, id) || other.id == id)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.invitedBy, invitedBy) || other.invitedBy == invitedBy)&&(identical(other.status, status) || other.status == status)&&(identical(other.acceptedAt, acceptedAt) || other.acceptedAt == acceptedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.store, store) || other.store == store));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,storeId,email,role,invitedBy,status,acceptedAt,expiresAt,const DeepCollectionEquality().hash(_metadata),createdAt,updatedAt,store);
+
+@override
+String toString() {
+  return 'StoreInvite(id: $id, storeId: $storeId, email: $email, role: $role, invitedBy: $invitedBy, status: $status, acceptedAt: $acceptedAt, expiresAt: $expiresAt, metadata: $metadata, createdAt: $createdAt, updatedAt: $updatedAt, store: $store)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$StoreInviteCopyWith<$Res> implements $StoreInviteCopyWith<$Res> {
+  factory _$StoreInviteCopyWith(_StoreInvite value, $Res Function(_StoreInvite) _then) = __$StoreInviteCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, String storeId, String email, StoreMemberRole role, String invitedBy, StoreInviteStatus status, DateTime? acceptedAt, DateTime expiresAt, Map<String, dynamic> metadata, DateTime createdAt, DateTime updatedAt, StoreInviteStore? store
+});
+
+
+@override $StoreInviteStoreCopyWith<$Res>? get store;
+
+}
+/// @nodoc
+class __$StoreInviteCopyWithImpl<$Res>
+    implements _$StoreInviteCopyWith<$Res> {
+  __$StoreInviteCopyWithImpl(this._self, this._then);
+
+  final _StoreInvite _self;
+  final $Res Function(_StoreInvite) _then;
+
+/// Create a copy of StoreInvite
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? storeId = null,Object? email = null,Object? role = null,Object? invitedBy = null,Object? status = null,Object? acceptedAt = freezed,Object? expiresAt = null,Object? metadata = null,Object? createdAt = null,Object? updatedAt = null,Object? store = freezed,}) {
+  return _then(_StoreInvite(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as StoreMemberRole,invitedBy: null == invitedBy ? _self.invitedBy : invitedBy // ignore: cast_nullable_to_non_nullable
+as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as StoreInviteStatus,acceptedAt: freezed == acceptedAt ? _self.acceptedAt : acceptedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
+as DateTime,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,store: freezed == store ? _self.store : store // ignore: cast_nullable_to_non_nullable
+as StoreInviteStore?,
+  ));
+}
+
+/// Create a copy of StoreInvite
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$StoreInviteStoreCopyWith<$Res>? get store {
+    if (_self.store == null) {
+    return null;
+  }
+
+  return $StoreInviteStoreCopyWith<$Res>(_self.store!, (value) {
+    return _then(_self.copyWith(store: value));
+  });
+}
+}
+
 // dart format on

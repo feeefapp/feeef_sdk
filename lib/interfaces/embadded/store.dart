@@ -193,3 +193,41 @@ abstract class StoreMember with _$StoreMember {
   factory StoreMember.fromJson(Map<String, dynamic> json) =>
       _$StoreMemberFromJson(json);
 }
+
+enum StoreInviteStatus { pending, accepted, revoked, expired }
+
+@freezed
+abstract class StoreInviteStore with _$StoreInviteStore {
+  /// Minimal public store shape returned with invites (same as normal Store
+  /// from the API, but only these fields are guaranteed; extra keys are ignored).
+  factory StoreInviteStore({
+    required String id,
+    required String name,
+    String? iconUrl,
+    String? logoUrl,
+  }) = _StoreInviteStore;
+
+  factory StoreInviteStore.fromJson(Map<String, dynamic> json) =>
+      _$StoreInviteStoreFromJson(json);
+}
+
+@freezed
+abstract class StoreInvite with _$StoreInvite {
+  factory StoreInvite({
+    required String id,
+    required String storeId,
+    required String email,
+    required StoreMemberRole role,
+    required String invitedBy,
+    required StoreInviteStatus status,
+    DateTime? acceptedAt,
+    required DateTime expiresAt,
+    @Default({}) Map<String, dynamic> metadata,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    StoreInviteStore? store,
+  }) = _StoreInvite;
+
+  factory StoreInvite.fromJson(Map<String, dynamic> json) =>
+      _$StoreInviteFromJson(json);
+}

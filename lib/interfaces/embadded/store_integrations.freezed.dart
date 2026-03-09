@@ -3044,7 +3044,7 @@ return $default(_that.active,_that.apiKey,_that.planningModel,_that.textModel,_t
 @JsonSerializable()
 
 class _AiIntegration extends AiIntegration {
-  const _AiIntegration({this.active = true, this.apiKey, this.planningModel = 'gemini-3.1-pro-preview', this.textModel = 'gemini-2.5-flash-lite', this.imageModel = 'gemini-2.5-flash-image-preview', final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _AiIntegration({this.active = true, this.apiKey, this.planningModel = 'gemini-3.1-pro-preview', this.textModel = 'gemini-flash-lite-latest', this.imageModel = 'gemini-3.1-flash-image-preview', final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _AiIntegration.fromJson(Map<String, dynamic> json) => _$AiIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;

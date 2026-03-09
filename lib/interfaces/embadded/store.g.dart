@@ -219,3 +219,61 @@ const _$StoreMemberRoleEnumMap = {
   StoreMemberRole.viewer: 'viewer',
   StoreMemberRole.confermer: 'confermer',
 };
+
+_StoreInviteStore _$StoreInviteStoreFromJson(Map<String, dynamic> json) =>
+    _StoreInviteStore(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      iconUrl: json['iconUrl'] as String?,
+      logoUrl: json['logoUrl'] as String?,
+    );
+
+Map<String, dynamic> _$StoreInviteStoreToJson(_StoreInviteStore instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'iconUrl': instance.iconUrl,
+      'logoUrl': instance.logoUrl,
+    };
+
+_StoreInvite _$StoreInviteFromJson(Map<String, dynamic> json) => _StoreInvite(
+      id: json['id'] as String,
+      storeId: json['storeId'] as String,
+      email: json['email'] as String,
+      role: $enumDecode(_$StoreMemberRoleEnumMap, json['role']),
+      invitedBy: json['invitedBy'] as String,
+      status: $enumDecode(_$StoreInviteStatusEnumMap, json['status']),
+      acceptedAt: json['acceptedAt'] == null
+          ? null
+          : DateTime.parse(json['acceptedAt'] as String),
+      expiresAt: DateTime.parse(json['expiresAt'] as String),
+      metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      store: json['store'] == null
+          ? null
+          : StoreInviteStore.fromJson(json['store'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$StoreInviteToJson(_StoreInvite instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'storeId': instance.storeId,
+      'email': instance.email,
+      'role': _$StoreMemberRoleEnumMap[instance.role]!,
+      'invitedBy': instance.invitedBy,
+      'status': _$StoreInviteStatusEnumMap[instance.status]!,
+      'acceptedAt': instance.acceptedAt?.toIso8601String(),
+      'expiresAt': instance.expiresAt.toIso8601String(),
+      'metadata': instance.metadata,
+      'createdAt': instance.createdAt.toIso8601String(),
+      'updatedAt': instance.updatedAt.toIso8601String(),
+      'store': instance.store?.toJson(),
+    };
+
+const _$StoreInviteStatusEnumMap = {
+  StoreInviteStatus.pending: 'pending',
+  StoreInviteStatus.accepted: 'accepted',
+  StoreInviteStatus.revoked: 'revoked',
+  StoreInviteStatus.expired: 'expired',
+};

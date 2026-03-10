@@ -8,6 +8,8 @@ class AlertCard extends StatelessWidget {
   final Widget? title;
   final Widget? subtitle;
   final Widget? trailing;
+  final ShapeBorder? shape;
+
   const AlertCard({
     super.key,
     this.color,
@@ -15,6 +17,7 @@ class AlertCard extends StatelessWidget {
     this.icon = const Icon(PhosphorIconsThin.warningCircle),
     this.subtitle,
     this.trailing,
+    this.shape,
   });
 
   const AlertCard.error({
@@ -24,6 +27,7 @@ class AlertCard extends StatelessWidget {
     this.icon = const Icon(PhosphorIconsThin.xCircle),
     this.subtitle,
     this.trailing,
+    this.shape,
   });
 
   const AlertCard.success({
@@ -33,6 +37,7 @@ class AlertCard extends StatelessWidget {
     this.icon = const Icon(PhosphorIconsThin.checkCircle),
     this.subtitle,
     this.trailing,
+    this.shape,
   });
 
   const AlertCard.warning({
@@ -42,6 +47,7 @@ class AlertCard extends StatelessWidget {
     this.icon = const Icon(Icons.warning_rounded),
     this.subtitle,
     this.trailing,
+    this.shape,
   });
 
   // info
@@ -52,6 +58,7 @@ class AlertCard extends StatelessWidget {
     this.icon = const Icon(Icons.info_rounded),
     this.subtitle,
     this.trailing,
+    this.shape,
   });
 
   @override
@@ -59,7 +66,7 @@ class AlertCard extends StatelessWidget {
     var color = this.color ?? Theme.of(context).colorScheme.primary;
     return Card.outlined(
       color: color.withOpacity(0.1),
-      shape: RoundedRectangleBorder(
+      shape: shape ?? RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(color: color.withOpacity(0.5)),
       ),

@@ -793,9 +793,8 @@ class Actions {
   }
 
   /// generateAiLandingPage
-  /// Starts async AI landing page generation (5-phase agentic pipeline).
-  /// Returns [jobId]; client should subscribe to realtime channel
-  /// `users/:userId/ai_landing_page_jobs` for progress and completed/failed events.
+  /// Starts async AI landing page generation (single-shot). Backend creates the page and sends a notification when ready.
+  /// Returns [jobId]; client should poll [getAiLandingPageJobStatus] every 10s for status and [landingPageId] when completed.
   Future<
     ({
       bool success,
@@ -855,6 +854,49 @@ class Actions {
         jobId: null,
         message: 'Failed to start AI landing page generation',
         error: errorMessage,
+      );
+    }
+  }
+
+  /// getAiLandingPageJobStatus
+  /// Poll this every ~10s after [generateAiLandingPage]. When [status] is 'completed', [landingPageId] is set; open edit page.
+  Future<
+    ({
+      bool success,
+      String status,
+      String? landingPageId,
+      String? error,
+    })
+  >
+  getAiLandingPageJobStatus({required String jobId}) async {
+    try {
+      if (jobId.isEmpty) {
+        throw ArgumentError('jobId is required');
+      }
+      final response = await client.get(
+        '/actions/getAiLandingPageJobStatus',
+        queryParameters: {'jobId': jobId},
+      );
+      final responseData = response.data as Map<String, dynamic>;
+      return (
+        success: responseData['success'] as bool? ?? false,
+        status: responseData['status'] as String? ?? 'pending',
+        landingPageId: responseData['landingPageId'] as String?,
+        error: responseData['error'] as String?,
+      );
+    } on DioException catch (e) {
+      return (
+        success: false,
+        status: 'pending',
+        landingPageId: null,
+        error: e.message ?? 'Failed to connect to the server.',
+      );
+    } catch (e) {
+      return (
+        success: false,
+        status: 'pending',
+        landingPageId: null,
+        error: e is ArgumentError ? e.message as String : 'An unexpected error occurred.',
       );
     }
   }

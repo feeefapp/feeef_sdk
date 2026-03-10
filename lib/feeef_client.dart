@@ -199,7 +199,7 @@ class Feeef {
         reconnectMaxDelay: Duration(seconds: 10),
         reconnectBackoffMultiplier: 2.0,
         reconnectJitterFactor: 0.1,
-        heartbeatTimeout: Duration(seconds: 20),
+        heartbeatTimeout: Duration(seconds: 30),
         onReconnectAttempt: (attempt) {
           developer.log('Reconnect attempt $attempt');
         },

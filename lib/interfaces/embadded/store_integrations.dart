@@ -58,6 +58,14 @@ abstract class StoreIntegrations with _$StoreIntegrations {
 
 // ===================== ANALYTICS INTEGRATIONS =====================
 
+/// Controls where pixel conversion events are sent: server-only (CAPI), client-only (store frontend), or both.
+/// When null (auto), server is used if an API key is configured; otherwise client-only.
+enum PixelReportMode {
+  server,
+  client,
+  both,
+}
+
 /// Facebook Marketing OAuth data for accessing Facebook Marketing API
 @freezed
 abstract class FacebookMarketingOAuth with _$FacebookMarketingOAuth {
@@ -88,6 +96,9 @@ abstract class MetaPixelIntegration with _$MetaPixelIntegration {
 
     /// Facebook Marketing OAuth data - for accessing pixels via API
     FacebookMarketingOAuth? oauth2,
+
+    /// Where to send events: server (CAPI), client (store frontend), or both. Null = auto.
+    PixelReportMode? mode,
   }) = _MetaPixelIntegration;
 
   factory MetaPixelIntegration.fromJson(Map<String, dynamic> json) =>
@@ -119,6 +130,9 @@ abstract class TiktokPixelIntegration with _$TiktokPixelIntegration {
     @Default(TiktokPixelEvent.purchase) TiktokPixelEvent draftObjective,
     @Default(true) bool active,
     @Default({}) Map<String, dynamic> metadata,
+
+    /// Where to send events: server, client, or both. Null = auto.
+    PixelReportMode? mode,
   }) = _TiktokPixelIntegration;
 
   factory TiktokPixelIntegration.fromJson(Map<String, dynamic> json) =>

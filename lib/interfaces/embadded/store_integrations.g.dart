@@ -175,6 +175,7 @@ _MetaPixelIntegration _$MetaPixelIntegrationFromJson(
   oauth2: json['oauth2'] == null
       ? null
       : FacebookMarketingOAuth.fromJson(json['oauth2'] as Map<String, dynamic>),
+  mode: $enumDecodeNullable(_$PixelReportModeEnumMap, json['mode']),
 );
 
 Map<String, dynamic> _$MetaPixelIntegrationToJson(
@@ -187,6 +188,7 @@ Map<String, dynamic> _$MetaPixelIntegrationToJson(
   'active': instance.active,
   'metadata': instance.metadata,
   'oauth2': instance.oauth2?.toJson(),
+  'mode': _$PixelReportModeEnumMap[instance.mode],
 };
 
 const _$MetaPixelEventEnumMap = {
@@ -196,6 +198,12 @@ const _$MetaPixelEventEnumMap = {
   MetaPixelEvent.viewContent: 'viewContent',
   MetaPixelEvent.addToCart: 'addToCart',
   MetaPixelEvent.initiateCheckout: 'initiateCheckout',
+};
+
+const _$PixelReportModeEnumMap = {
+  PixelReportMode.server: 'server',
+  PixelReportMode.client: 'client',
+  PixelReportMode.both: 'both',
 };
 
 _MetaPixel _$MetaPixelFromJson(Map<String, dynamic> json) => _MetaPixel(
@@ -228,6 +236,7 @@ _TiktokPixelIntegration _$TiktokPixelIntegrationFromJson(
       TiktokPixelEvent.purchase,
   active: json['active'] as bool? ?? true,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+  mode: $enumDecodeNullable(_$PixelReportModeEnumMap, json['mode']),
 );
 
 Map<String, dynamic> _$TiktokPixelIntegrationToJson(
@@ -239,6 +248,7 @@ Map<String, dynamic> _$TiktokPixelIntegrationToJson(
   'draftObjective': _$TiktokPixelEventEnumMap[instance.draftObjective]!,
   'active': instance.active,
   'metadata': instance.metadata,
+  'mode': _$PixelReportModeEnumMap[instance.mode],
 };
 
 const _$TiktokPixelEventEnumMap = {

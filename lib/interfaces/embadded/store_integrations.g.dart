@@ -315,8 +315,8 @@ _AiIntegration _$AiIntegrationFromJson(
   active: json['active'] as bool? ?? true,
   apiKey: json['apiKey'] as String?,
   planningModel: json['planningModel'] as String? ?? 'gemini-3.1-pro-preview',
-  textModel: json['textModel'] as String? ?? 'gemini-2.5-flash-lite',
-  imageModel: json['imageModel'] as String? ?? 'gemini-2.5-flash-image-preview',
+  textModel: json['textModel'] as String? ?? 'gemini-flash-lite-latest',
+  imageModel: json['imageModel'] as String? ?? 'gemini-3.1-flash-image-preview',
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
 );
 

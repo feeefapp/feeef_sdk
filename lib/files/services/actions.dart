@@ -650,6 +650,7 @@ class Actions {
   /// [mode] 'create' or 'edit'
   /// [attachments] Optional unified attachments: image (URL), url (page URL), product (product ID).
   ///   Each item: `{ type: 'image'|'url'|'product', value: string, label?: string, prompt?: string }`.
+  /// [useSearchGrounding] When provided, enables or disables Gemini Google Search grounding.
   Future<AICustomComponentResponse> generateCustomComponentCode({
     required String storeId,
     required String input,
@@ -659,6 +660,7 @@ class Actions {
     Map<String, dynamic>? currentProps,
     /// Optional unified attachments (image, url, product) for reference context
     List<Map<String, dynamic>>? attachments,
+    bool? useSearchGrounding,
   }) async {
     try {
       if (storeId.isEmpty) {
@@ -676,6 +678,7 @@ class Actions {
         if (currentPropsSchema != null) 'currentPropsSchema': currentPropsSchema,
         if (currentProps != null) 'currentProps': currentProps,
         if (attachments != null && attachments.isNotEmpty) 'attachments': attachments,
+        if (useSearchGrounding != null) 'useSearchGrounding': useSearchGrounding,
       };
 
       final response = await client.post(

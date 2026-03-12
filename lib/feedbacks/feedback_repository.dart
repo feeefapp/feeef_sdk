@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:feeef/core/feeef_upload_file.dart';
 
 import 'package:feeef/core/list_response.dart';
 import 'package:feeef/core/model_repository.dart';
@@ -106,7 +106,7 @@ class FeedbackRepository extends ModelRepository<Feedback>
   /// Create feedback with file attachments.
   Future<Feedback> createWithFiles({
     required FeedbackCreate data,
-    List<PlatformFile>? files,
+    List<FeeefUploadFile>? files,
     Map<String, dynamic>? params,
   }) async {
     try {
@@ -172,7 +172,7 @@ class FeedbackRepository extends ModelRepository<Feedback>
     required String id,
     Feedback? old,
     required FeedbackUpdate data,
-    List<PlatformFile>? files,
+    List<FeeefUploadFile>? files,
     Map<String, dynamic>? params,
   }) async {
     try {

@@ -1,7 +1,6 @@
 import 'package:feeef/attachments/attachment.dart';
 import 'package:feeef/interfaces/helpers.dart';
 import 'package:feeef/interfaces/image_prompt_template.dart';
-import 'package:flutter/foundation.dart';
 
 List<Attachment> _attachmentsFromJson(List<dynamic>? json) {
   if (json == null) return const [];
@@ -15,7 +14,6 @@ List<Attachment> _attachmentsFromJson(List<dynamic>? json) {
 List<Map<String, dynamic>> _attachmentsToJson(List<Attachment> attachments) =>
     attachments.map((item) => item.toJson()).toList(growable: false);
 
-@immutable
 class ImagePromptTemplate extends ImagePromptTemplateEntity implements Model {
   const ImagePromptTemplate({
     required this.id,
@@ -95,7 +93,6 @@ class ImagePromptTemplate extends ImagePromptTemplateEntity implements Model {
   };
 }
 
-@immutable
 class ImagePromptTemplateCreate implements ModelCreate {
   const ImagePromptTemplateCreate({
     required this.name,
@@ -153,7 +150,6 @@ class ImagePromptTemplateCreate implements ModelCreate {
   };
 }
 
-@immutable
 class ImagePromptTemplateUpdate implements ModelUpdate {
   const ImagePromptTemplateUpdate({
     this.name,

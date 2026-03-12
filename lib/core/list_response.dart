@@ -1,3 +1,8 @@
+/// Paginated list response from list-style API endpoints.
+///
+/// [data] holds the current page of items. [total], [page], and [limit] come from
+/// backend meta when present. [hasMore] and [nextPage] help with paging. Use when
+/// consuming repository [list] methods.
 class ListResponse<T> {
   final List<T> data;
   final int? total;

@@ -3,16 +3,19 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:feeef/core/validation/validation_exception.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
-import 'package:flutter/services.dart';
 
 /// API for Yalidine/Guepex delivery integration (fees from bundled assets).
-/// Host app must provide [yalidineFeesAssetPath] and [guepexFeesAssetPath].
+/// Host app must provide either [yalidineFeesAssetPath] + [guepexFeesAssetPath]
+/// and [loadAsset], or pass pre-loaded fee data via [loadYalidineFees] / [loadGuepexFees].
 class YalidineDeliveryIntegrationApi {
   final YalidineDeliveryIntegration integration;
   final String storeId;
   final Dio client;
   final String? yalidineFeesAssetPath;
   final String? guepexFeesAssetPath;
+  /// Callback to load asset content (e.g. Flutter: rootBundle.loadString).
+  /// Required when using [yalidineFeesAssetPath] / [guepexFeesAssetPath].
+  final Future<String> Function(String path)? loadAsset;
 
   const YalidineDeliveryIntegrationApi({
     required this.client,
@@ -20,6 +23,7 @@ class YalidineDeliveryIntegrationApi {
     required this.storeId,
     this.yalidineFeesAssetPath,
     this.guepexFeesAssetPath,
+    this.loadAsset,
   });
 
   Future<List<List<num?>?>> getDeliveryFees() async {
@@ -33,7 +37,14 @@ class YalidineDeliveryIntegrationApi {
           'guepexFeesAssetPath from the host app (e.g. Assets.integrations.yalidine.fees.*)',
         );
       }
-      List data = json.decode(await rootBundle.loadString(path));
+      final loader = loadAsset;
+      if (loader == null) {
+        throw UnsupportedError(
+          'YalidineDeliveryIntegrationApi requires loadAsset callback when using asset paths '
+          '(e.g. (path) => rootBundle.loadString(path) in Flutter)',
+        );
+      }
+      List data = json.decode(await loader(path));
       int stateIndex =
           (int.tryParse(integration.metadata["state"] ?? "9") ?? 9) - 1;
       List<List<List<num?>?>> allStatesFees = data

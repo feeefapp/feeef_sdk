@@ -1,5 +1,5 @@
 import 'package:feeef/core/list_response.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 void main() {
   int fromJson(dynamic j) => j as int;

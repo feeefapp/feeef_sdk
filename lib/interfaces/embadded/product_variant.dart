@@ -1,7 +1,5 @@
 import 'package:feeef/interfaces/product.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 part 'product_variant.freezed.dart';
 part 'product_variant.g.dart';
@@ -10,12 +8,6 @@ enum ProductVariantView {
   list,
   chips,
   dropdown;
-
-  IconData get icon => switch (this) {
-    ProductVariantView.list => PhosphorIconsThin.list,
-    ProductVariantView.chips => PhosphorIconsThin.tag,
-    ProductVariantView.dropdown => PhosphorIconsThin.caretDown,
-  };
 
   String get tr => switch (this) {
     ProductVariantView.list => 'List',

@@ -6,6 +6,9 @@ import 'package:feeef/products/models/product.dart';
 import 'package:feeef/products/models/product_report.dart';
 
 /// Repository for Product CRUD, list with filters, sells chart, and report.
+///
+/// Use when you need to manage products (create, find, list, update, delete), get
+/// sells over time, or fetch a product report. Extends [ResourceRepository].
 class ProductRepository
     extends ResourceRepository<Product, ProductCreate, ProductUpdate> {
   ProductRepository({required super.client}) : super(table: 'products');
@@ -28,6 +31,7 @@ class ProductRepository
   @override
   Map<String, dynamic> updateToJson(ProductUpdate model) => model.toJson();
 
+  /// List products with optional [storeId], [filterParams], [searchQuery], and paging. Returns [ListResponse] of [Product].
   @override
   Future<ListResponse<Product>> list({
     String? storeId,

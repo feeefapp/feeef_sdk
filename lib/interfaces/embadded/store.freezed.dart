@@ -569,12 +569,10 @@ as Map<String, dynamic>,
 mixin _$StoreDecoration {
 
 // primary
-@ColorSerializer() Color get primary;@ColorSerializer() Color get onPrimary;// on dark mode
-@ColorSerializer() Color get primaryDark;@ColorSerializer() Color get onPrimaryDark;// secondary
-@ColorSerializer() Color get secondary;@ColorSerializer() Color get onSecondary;// on dark mode
-@ColorSerializer() Color get secondaryDark;@ColorSerializer() Color get onSecondaryDark; bool get useLogoDarkFilter; bool? get showStoreLogoInHeader; bool? get logoFullHeight; bool? get showStoreNameInHeader; Map<String, dynamic> get metadata;/// Theme selection and visual editor data storage pointer
-/// Example structure:
-/// { "id": "ecommerce-theme-v1", "name": "E-commerce Theme", "data": { ...TemplateData json... } }
+@ColorSerializer() int get primary;@ColorSerializer() int get onPrimary;// on dark mode
+@ColorSerializer() int get primaryDark;@ColorSerializer() int get onPrimaryDark;// secondary
+@ColorSerializer() int get secondary;@ColorSerializer() int get onSecondary;// on dark mode
+@ColorSerializer() int get secondaryDark;@ColorSerializer() int get onSecondaryDark; bool get useLogoDarkFilter; bool? get showStoreLogoInHeader; bool? get logoFullHeight; bool? get showStoreNameInHeader; Map<String, dynamic> get metadata;/// Theme selection and visual editor data storage pointer
  Map<String, dynamic>? get theme;
 /// Create a copy of StoreDecoration
 /// with the given fields replaced by the non-null parameter values.
@@ -608,7 +606,7 @@ abstract mixin class $StoreDecorationCopyWith<$Res>  {
   factory $StoreDecorationCopyWith(StoreDecoration value, $Res Function(StoreDecoration) _then) = _$StoreDecorationCopyWithImpl;
 @useResult
 $Res call({
-@ColorSerializer() Color primary,@ColorSerializer() Color onPrimary,@ColorSerializer() Color primaryDark,@ColorSerializer() Color onPrimaryDark,@ColorSerializer() Color secondary,@ColorSerializer() Color onSecondary,@ColorSerializer() Color secondaryDark,@ColorSerializer() Color onSecondaryDark, bool useLogoDarkFilter, bool? showStoreLogoInHeader, bool? logoFullHeight, bool? showStoreNameInHeader, Map<String, dynamic> metadata, Map<String, dynamic>? theme
+@ColorSerializer() int primary,@ColorSerializer() int onPrimary,@ColorSerializer() int primaryDark,@ColorSerializer() int onPrimaryDark,@ColorSerializer() int secondary,@ColorSerializer() int onSecondary,@ColorSerializer() int secondaryDark,@ColorSerializer() int onSecondaryDark, bool useLogoDarkFilter, bool? showStoreLogoInHeader, bool? logoFullHeight, bool? showStoreNameInHeader, Map<String, dynamic> metadata, Map<String, dynamic>? theme
 });
 
 
@@ -628,14 +626,14 @@ class _$StoreDecorationCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? primary = null,Object? onPrimary = null,Object? primaryDark = null,Object? onPrimaryDark = null,Object? secondary = null,Object? onSecondary = null,Object? secondaryDark = null,Object? onSecondaryDark = null,Object? useLogoDarkFilter = null,Object? showStoreLogoInHeader = freezed,Object? logoFullHeight = freezed,Object? showStoreNameInHeader = freezed,Object? metadata = null,Object? theme = freezed,}) {
   return _then(_self.copyWith(
 primary: null == primary ? _self.primary : primary // ignore: cast_nullable_to_non_nullable
-as Color,onPrimary: null == onPrimary ? _self.onPrimary : onPrimary // ignore: cast_nullable_to_non_nullable
-as Color,primaryDark: null == primaryDark ? _self.primaryDark : primaryDark // ignore: cast_nullable_to_non_nullable
-as Color,onPrimaryDark: null == onPrimaryDark ? _self.onPrimaryDark : onPrimaryDark // ignore: cast_nullable_to_non_nullable
-as Color,secondary: null == secondary ? _self.secondary : secondary // ignore: cast_nullable_to_non_nullable
-as Color,onSecondary: null == onSecondary ? _self.onSecondary : onSecondary // ignore: cast_nullable_to_non_nullable
-as Color,secondaryDark: null == secondaryDark ? _self.secondaryDark : secondaryDark // ignore: cast_nullable_to_non_nullable
-as Color,onSecondaryDark: null == onSecondaryDark ? _self.onSecondaryDark : onSecondaryDark // ignore: cast_nullable_to_non_nullable
-as Color,useLogoDarkFilter: null == useLogoDarkFilter ? _self.useLogoDarkFilter : useLogoDarkFilter // ignore: cast_nullable_to_non_nullable
+as int,onPrimary: null == onPrimary ? _self.onPrimary : onPrimary // ignore: cast_nullable_to_non_nullable
+as int,primaryDark: null == primaryDark ? _self.primaryDark : primaryDark // ignore: cast_nullable_to_non_nullable
+as int,onPrimaryDark: null == onPrimaryDark ? _self.onPrimaryDark : onPrimaryDark // ignore: cast_nullable_to_non_nullable
+as int,secondary: null == secondary ? _self.secondary : secondary // ignore: cast_nullable_to_non_nullable
+as int,onSecondary: null == onSecondary ? _self.onSecondary : onSecondary // ignore: cast_nullable_to_non_nullable
+as int,secondaryDark: null == secondaryDark ? _self.secondaryDark : secondaryDark // ignore: cast_nullable_to_non_nullable
+as int,onSecondaryDark: null == onSecondaryDark ? _self.onSecondaryDark : onSecondaryDark // ignore: cast_nullable_to_non_nullable
+as int,useLogoDarkFilter: null == useLogoDarkFilter ? _self.useLogoDarkFilter : useLogoDarkFilter // ignore: cast_nullable_to_non_nullable
 as bool,showStoreLogoInHeader: freezed == showStoreLogoInHeader ? _self.showStoreLogoInHeader : showStoreLogoInHeader // ignore: cast_nullable_to_non_nullable
 as bool?,logoFullHeight: freezed == logoFullHeight ? _self.logoFullHeight : logoFullHeight // ignore: cast_nullable_to_non_nullable
 as bool?,showStoreNameInHeader: freezed == showStoreNameInHeader ? _self.showStoreNameInHeader : showStoreNameInHeader // ignore: cast_nullable_to_non_nullable
@@ -726,7 +724,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@ColorSerializer()  Color primary, @ColorSerializer()  Color onPrimary, @ColorSerializer()  Color primaryDark, @ColorSerializer()  Color onPrimaryDark, @ColorSerializer()  Color secondary, @ColorSerializer()  Color onSecondary, @ColorSerializer()  Color secondaryDark, @ColorSerializer()  Color onSecondaryDark,  bool useLogoDarkFilter,  bool? showStoreLogoInHeader,  bool? logoFullHeight,  bool? showStoreNameInHeader,  Map<String, dynamic> metadata,  Map<String, dynamic>? theme)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@ColorSerializer()  int primary, @ColorSerializer()  int onPrimary, @ColorSerializer()  int primaryDark, @ColorSerializer()  int onPrimaryDark, @ColorSerializer()  int secondary, @ColorSerializer()  int onSecondary, @ColorSerializer()  int secondaryDark, @ColorSerializer()  int onSecondaryDark,  bool useLogoDarkFilter,  bool? showStoreLogoInHeader,  bool? logoFullHeight,  bool? showStoreNameInHeader,  Map<String, dynamic> metadata,  Map<String, dynamic>? theme)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreDecoration() when $default != null:
 return $default(_that.primary,_that.onPrimary,_that.primaryDark,_that.onPrimaryDark,_that.secondary,_that.onSecondary,_that.secondaryDark,_that.onSecondaryDark,_that.useLogoDarkFilter,_that.showStoreLogoInHeader,_that.logoFullHeight,_that.showStoreNameInHeader,_that.metadata,_that.theme);case _:
@@ -747,7 +745,7 @@ return $default(_that.primary,_that.onPrimary,_that.primaryDark,_that.onPrimaryD
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@ColorSerializer()  Color primary, @ColorSerializer()  Color onPrimary, @ColorSerializer()  Color primaryDark, @ColorSerializer()  Color onPrimaryDark, @ColorSerializer()  Color secondary, @ColorSerializer()  Color onSecondary, @ColorSerializer()  Color secondaryDark, @ColorSerializer()  Color onSecondaryDark,  bool useLogoDarkFilter,  bool? showStoreLogoInHeader,  bool? logoFullHeight,  bool? showStoreNameInHeader,  Map<String, dynamic> metadata,  Map<String, dynamic>? theme)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@ColorSerializer()  int primary, @ColorSerializer()  int onPrimary, @ColorSerializer()  int primaryDark, @ColorSerializer()  int onPrimaryDark, @ColorSerializer()  int secondary, @ColorSerializer()  int onSecondary, @ColorSerializer()  int secondaryDark, @ColorSerializer()  int onSecondaryDark,  bool useLogoDarkFilter,  bool? showStoreLogoInHeader,  bool? logoFullHeight,  bool? showStoreNameInHeader,  Map<String, dynamic> metadata,  Map<String, dynamic>? theme)  $default,) {final _that = this;
 switch (_that) {
 case _StoreDecoration():
 return $default(_that.primary,_that.onPrimary,_that.primaryDark,_that.onPrimaryDark,_that.secondary,_that.onSecondary,_that.secondaryDark,_that.onSecondaryDark,_that.useLogoDarkFilter,_that.showStoreLogoInHeader,_that.logoFullHeight,_that.showStoreNameInHeader,_that.metadata,_that.theme);case _:
@@ -767,7 +765,7 @@ return $default(_that.primary,_that.onPrimary,_that.primaryDark,_that.onPrimaryD
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@ColorSerializer()  Color primary, @ColorSerializer()  Color onPrimary, @ColorSerializer()  Color primaryDark, @ColorSerializer()  Color onPrimaryDark, @ColorSerializer()  Color secondary, @ColorSerializer()  Color onSecondary, @ColorSerializer()  Color secondaryDark, @ColorSerializer()  Color onSecondaryDark,  bool useLogoDarkFilter,  bool? showStoreLogoInHeader,  bool? logoFullHeight,  bool? showStoreNameInHeader,  Map<String, dynamic> metadata,  Map<String, dynamic>? theme)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@ColorSerializer()  int primary, @ColorSerializer()  int onPrimary, @ColorSerializer()  int primaryDark, @ColorSerializer()  int onPrimaryDark, @ColorSerializer()  int secondary, @ColorSerializer()  int onSecondary, @ColorSerializer()  int secondaryDark, @ColorSerializer()  int onSecondaryDark,  bool useLogoDarkFilter,  bool? showStoreLogoInHeader,  bool? logoFullHeight,  bool? showStoreNameInHeader,  Map<String, dynamic> metadata,  Map<String, dynamic>? theme)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreDecoration() when $default != null:
 return $default(_that.primary,_that.onPrimary,_that.primaryDark,_that.onPrimaryDark,_that.secondary,_that.onSecondary,_that.secondaryDark,_that.onSecondaryDark,_that.useLogoDarkFilter,_that.showStoreLogoInHeader,_that.logoFullHeight,_that.showStoreNameInHeader,_that.metadata,_that.theme);case _:
@@ -782,21 +780,21 @@ return $default(_that.primary,_that.onPrimary,_that.primaryDark,_that.onPrimaryD
 @JsonSerializable()
 
 class _StoreDecoration implements StoreDecoration {
-   _StoreDecoration({@ColorSerializer() this.primary = Colors.green, @ColorSerializer() this.onPrimary = Colors.white, @ColorSerializer() this.primaryDark = Colors.greenAccent, @ColorSerializer() this.onPrimaryDark = Colors.black, @ColorSerializer() this.secondary = Colors.orange, @ColorSerializer() this.onSecondary = Colors.white, @ColorSerializer() this.secondaryDark = Colors.orangeAccent, @ColorSerializer() this.onSecondaryDark = Colors.black, this.useLogoDarkFilter = true, this.showStoreLogoInHeader, this.logoFullHeight, this.showStoreNameInHeader, final  Map<String, dynamic> metadata = const {}, final  Map<String, dynamic>? theme}): _metadata = metadata,_theme = theme;
+   _StoreDecoration({@ColorSerializer() this.primary = 0xFF4CAF50, @ColorSerializer() this.onPrimary = 0xFFFFFFFF, @ColorSerializer() this.primaryDark = 0xFF69F0AE, @ColorSerializer() this.onPrimaryDark = 0xFF000000, @ColorSerializer() this.secondary = 0xFFFF9800, @ColorSerializer() this.onSecondary = 0xFFFFFFFF, @ColorSerializer() this.secondaryDark = 0xFFFFAB40, @ColorSerializer() this.onSecondaryDark = 0xFF000000, this.useLogoDarkFilter = true, this.showStoreLogoInHeader, this.logoFullHeight, this.showStoreNameInHeader, final  Map<String, dynamic> metadata = const {}, final  Map<String, dynamic>? theme}): _metadata = metadata,_theme = theme;
   factory _StoreDecoration.fromJson(Map<String, dynamic> json) => _$StoreDecorationFromJson(json);
 
 // primary
-@override@JsonKey()@ColorSerializer() final  Color primary;
-@override@JsonKey()@ColorSerializer() final  Color onPrimary;
+@override@JsonKey()@ColorSerializer() final  int primary;
+@override@JsonKey()@ColorSerializer() final  int onPrimary;
 // on dark mode
-@override@JsonKey()@ColorSerializer() final  Color primaryDark;
-@override@JsonKey()@ColorSerializer() final  Color onPrimaryDark;
+@override@JsonKey()@ColorSerializer() final  int primaryDark;
+@override@JsonKey()@ColorSerializer() final  int onPrimaryDark;
 // secondary
-@override@JsonKey()@ColorSerializer() final  Color secondary;
-@override@JsonKey()@ColorSerializer() final  Color onSecondary;
+@override@JsonKey()@ColorSerializer() final  int secondary;
+@override@JsonKey()@ColorSerializer() final  int onSecondary;
 // on dark mode
-@override@JsonKey()@ColorSerializer() final  Color secondaryDark;
-@override@JsonKey()@ColorSerializer() final  Color onSecondaryDark;
+@override@JsonKey()@ColorSerializer() final  int secondaryDark;
+@override@JsonKey()@ColorSerializer() final  int onSecondaryDark;
 @override@JsonKey() final  bool useLogoDarkFilter;
 @override final  bool? showStoreLogoInHeader;
 @override final  bool? logoFullHeight;
@@ -809,12 +807,8 @@ class _StoreDecoration implements StoreDecoration {
 }
 
 /// Theme selection and visual editor data storage pointer
-/// Example structure:
-/// { "id": "ecommerce-theme-v1", "name": "E-commerce Theme", "data": { ...TemplateData json... } }
  final  Map<String, dynamic>? _theme;
 /// Theme selection and visual editor data storage pointer
-/// Example structure:
-/// { "id": "ecommerce-theme-v1", "name": "E-commerce Theme", "data": { ...TemplateData json... } }
 @override Map<String, dynamic>? get theme {
   final value = _theme;
   if (value == null) return null;
@@ -857,7 +851,7 @@ abstract mixin class _$StoreDecorationCopyWith<$Res> implements $StoreDecoration
   factory _$StoreDecorationCopyWith(_StoreDecoration value, $Res Function(_StoreDecoration) _then) = __$StoreDecorationCopyWithImpl;
 @override @useResult
 $Res call({
-@ColorSerializer() Color primary,@ColorSerializer() Color onPrimary,@ColorSerializer() Color primaryDark,@ColorSerializer() Color onPrimaryDark,@ColorSerializer() Color secondary,@ColorSerializer() Color onSecondary,@ColorSerializer() Color secondaryDark,@ColorSerializer() Color onSecondaryDark, bool useLogoDarkFilter, bool? showStoreLogoInHeader, bool? logoFullHeight, bool? showStoreNameInHeader, Map<String, dynamic> metadata, Map<String, dynamic>? theme
+@ColorSerializer() int primary,@ColorSerializer() int onPrimary,@ColorSerializer() int primaryDark,@ColorSerializer() int onPrimaryDark,@ColorSerializer() int secondary,@ColorSerializer() int onSecondary,@ColorSerializer() int secondaryDark,@ColorSerializer() int onSecondaryDark, bool useLogoDarkFilter, bool? showStoreLogoInHeader, bool? logoFullHeight, bool? showStoreNameInHeader, Map<String, dynamic> metadata, Map<String, dynamic>? theme
 });
 
 
@@ -877,14 +871,14 @@ class __$StoreDecorationCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? primary = null,Object? onPrimary = null,Object? primaryDark = null,Object? onPrimaryDark = null,Object? secondary = null,Object? onSecondary = null,Object? secondaryDark = null,Object? onSecondaryDark = null,Object? useLogoDarkFilter = null,Object? showStoreLogoInHeader = freezed,Object? logoFullHeight = freezed,Object? showStoreNameInHeader = freezed,Object? metadata = null,Object? theme = freezed,}) {
   return _then(_StoreDecoration(
 primary: null == primary ? _self.primary : primary // ignore: cast_nullable_to_non_nullable
-as Color,onPrimary: null == onPrimary ? _self.onPrimary : onPrimary // ignore: cast_nullable_to_non_nullable
-as Color,primaryDark: null == primaryDark ? _self.primaryDark : primaryDark // ignore: cast_nullable_to_non_nullable
-as Color,onPrimaryDark: null == onPrimaryDark ? _self.onPrimaryDark : onPrimaryDark // ignore: cast_nullable_to_non_nullable
-as Color,secondary: null == secondary ? _self.secondary : secondary // ignore: cast_nullable_to_non_nullable
-as Color,onSecondary: null == onSecondary ? _self.onSecondary : onSecondary // ignore: cast_nullable_to_non_nullable
-as Color,secondaryDark: null == secondaryDark ? _self.secondaryDark : secondaryDark // ignore: cast_nullable_to_non_nullable
-as Color,onSecondaryDark: null == onSecondaryDark ? _self.onSecondaryDark : onSecondaryDark // ignore: cast_nullable_to_non_nullable
-as Color,useLogoDarkFilter: null == useLogoDarkFilter ? _self.useLogoDarkFilter : useLogoDarkFilter // ignore: cast_nullable_to_non_nullable
+as int,onPrimary: null == onPrimary ? _self.onPrimary : onPrimary // ignore: cast_nullable_to_non_nullable
+as int,primaryDark: null == primaryDark ? _self.primaryDark : primaryDark // ignore: cast_nullable_to_non_nullable
+as int,onPrimaryDark: null == onPrimaryDark ? _self.onPrimaryDark : onPrimaryDark // ignore: cast_nullable_to_non_nullable
+as int,secondary: null == secondary ? _self.secondary : secondary // ignore: cast_nullable_to_non_nullable
+as int,onSecondary: null == onSecondary ? _self.onSecondary : onSecondary // ignore: cast_nullable_to_non_nullable
+as int,secondaryDark: null == secondaryDark ? _self.secondaryDark : secondaryDark // ignore: cast_nullable_to_non_nullable
+as int,onSecondaryDark: null == onSecondaryDark ? _self.onSecondaryDark : onSecondaryDark // ignore: cast_nullable_to_non_nullable
+as int,useLogoDarkFilter: null == useLogoDarkFilter ? _self.useLogoDarkFilter : useLogoDarkFilter // ignore: cast_nullable_to_non_nullable
 as bool,showStoreLogoInHeader: freezed == showStoreLogoInHeader ? _self.showStoreLogoInHeader : showStoreLogoInHeader // ignore: cast_nullable_to_non_nullable
 as bool?,logoFullHeight: freezed == logoFullHeight ? _self.logoFullHeight : logoFullHeight // ignore: cast_nullable_to_non_nullable
 as bool?,showStoreNameInHeader: freezed == showStoreNameInHeader ? _self.showStoreNameInHeader : showStoreNameInHeader // ignore: cast_nullable_to_non_nullable

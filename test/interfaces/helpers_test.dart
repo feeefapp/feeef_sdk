@@ -1,5 +1,5 @@
 import 'package:feeef/interfaces/helpers.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 /// Minimal [ModelUpdate] implementation for testing [ModelUpdateToJson].
 class _TestModelUpdate implements ModelUpdate {

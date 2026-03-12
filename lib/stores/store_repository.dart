@@ -11,6 +11,10 @@ import 'package:feeef/mixins/repository_mixins.dart';
 import 'package:feeef/stores/models/store.dart';
 
 /// Repository for Store CRUD and store-specific API (members, domain, subscription).
+///
+/// Use when you need to list/create/update/delete stores, manage members and invites,
+/// attach custom domains, or handle subscription (upgrade, charge, pay due, IAP).
+/// Composes [ModelCreateMixin], [ModelFindMixin], [ModelListMixin], [ModelUpdateMixin], [ModelDeleteMixin].
 class StoreRepository extends ModelRepository<Store>
     with
         ModelCreateMixin<Store, StoreCreate>,
@@ -43,6 +47,8 @@ class StoreRepository extends ModelRepository<Store>
   @override
   Map<String, dynamic> updateToJson(StoreUpdate model) => model.toJson();
 
+  /// Lists stores accessible to the current user. Optional [userId] filter, [page]/[offset]/[limit] for paging.
+  /// Returns [ListResponse] of [Store]. Use when building store pickers or dashboards.
   @override
   Future<ListResponse<Store>> list({
     String? userId,
@@ -59,6 +65,7 @@ class StoreRepository extends ModelRepository<Store>
     );
   }
 
+  /// Store summary metrics for [id] in the optional [from]–[to] date range. Returns [StoreSummary].
   Future<StoreSummary> summary({
     required String id,
     DateTime? from,
@@ -74,6 +81,7 @@ class StoreRepository extends ModelRepository<Store>
     return StoreSummary.fromJson(response.data);
   }
 
+  /// Order counts by date for store [id]. Returns map of date → count. Use for charts.
   Future<Map<DateTime, int>> chart({required String id}) async {
     final response = await client.get('/$table/$id/chart');
     developer.log('${response.data["orders"]}');

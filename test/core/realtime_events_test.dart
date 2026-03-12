@@ -1,5 +1,5 @@
 import 'package:feeef/core/realtime_events.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('RealtimeCrudEvents', () {

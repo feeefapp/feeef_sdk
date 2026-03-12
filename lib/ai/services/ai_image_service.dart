@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:feeef/core/feeef_upload_file.dart';
 
 /// Result of an AI image generation/editing operation
 class AiImageResult {
@@ -142,7 +142,7 @@ class AiImageService {
   /// Edit an existing image using AI
   Future<AiImageResult> editImage({
     required String storeId,
-    required PlatformFile imageFile,
+    required FeeefUploadFile imageFile,
     required String prompt,
     AspectRatio aspectRatio = AspectRatio.square,
     ImageResolution resolution = ImageResolution.medium,
@@ -181,7 +181,7 @@ class AiImageService {
   /// (AI will automatically enhance the image)
   Future<AiImageResult> enhanceImage({
     required String storeId,
-    required PlatformFile imageFile,
+    required FeeefUploadFile imageFile,
     AspectRatio? aspectRatio,
     ImageResolution resolution = ImageResolution.high,
     void Function(int sent, int total)? onProgress,

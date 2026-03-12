@@ -1,12 +1,13 @@
 import 'dart:developer' as developer;
+import 'dart:typed_data';
 
 import 'package:cuid2/cuid2.dart';
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:feeef/ai/ai_repository.dart';
 import 'package:feeef/core/feeef_config.dart';
+import 'package:feeef/core/feeef_storage.dart';
+import 'package:feeef/core/feeef_upload_file.dart';
 import 'package:feeef/categories/category_repository.dart';
 import 'package:feeef/cities/city_repository.dart';
 import 'package:feeef/config_repository.dart';
@@ -41,17 +42,21 @@ class Services {
 }
 
 /// Handles file uploads to the Feeef storage API.
+///
+/// Use when you need to upload a file or raw bytes to storage and get back a URL.
+/// Supports optional [folder], progress callback, and [cancelToken].
+/// [file] is a [FeeefUploadFile] (app provides it; e.g. from file_picker in Flutter).
 class StorageService {
   final Dio client;
   StorageService({required this.client});
 
   Future<String> upload({
-    required PlatformFile file,
+    required FeeefUploadFile file,
     String? folder,
     void Function(int sent, int total)? onProgress,
     CancelToken? cancelToken,
   }) async {
-    if (kDebugMode) {
+    if (Feeef.debugMode) {
       final fullUrl = '${client.options.baseUrl}/services/storage/upload';
       developer.log(
         'StorageService.upload: file.size=${file.size}, bytes.length=${file.bytes?.length ?? 0}, name=${file.name}',
@@ -102,7 +107,14 @@ class StorageService {
 }
 
 /// Single entrypoint that wires all repositories and services.
+///
+/// Use [Feeef.instance] and call [init] with [baseUrl], [storage], and optional [FeeefConfig]
+/// before using [users], [stores], [products], [orders], etc. After init, all
+/// repositories are ready; [realtime] is used for live updates.
 class Feeef {
+  /// Set by [init] from [FeeefConfig.debugMode]. Used for logging.
+  static bool debugMode = false;
+
   late final Dio client;
   late final UserRepository users;
   late final StoreRepository stores;
@@ -171,10 +183,23 @@ class Feeef {
   bool _initialized = false;
 
   /// Initializes the SDK with API base URL and optional config (for realtime URL and env flags).
+  ///
   /// When [config] is provided, Transmit/realtime use [config.baseUrl] and [config.isProduction].
-  Future<void> init({required String baseUrl, FeeefConfig? config}) async {
+  /// [getPushToken] is optional: if provided, it is used during sign-in/sign-up to send a push
+  /// token (e.g. FCM) to the backend. The SDK does not depend on Firebase; the app supplies
+  /// this callback when it uses push notifications (e.g. `() => FirebaseMessaging.instance.getToken()`).
+  /// [storage] is required for auth persistence (token, user). The SDK does not depend on
+  /// Flutter or shared_preferences; the app provides an implementation (e.g. wrapping SharedPreferences).
+  /// Call once before using any repository. Throws if already initialized.
+  Future<void> init({
+    required String baseUrl,
+    required FeeefStorage storage,
+    FeeefConfig? config,
+    Future<String?> Function()? getPushToken,
+  }) async {
     if (_initialized) throw "Already initialized";
     _initialized = true;
+    Feeef.debugMode = config?.debugMode ?? false;
     client.options.baseUrl = baseUrl;
     client.options.headers['Accept'] = 'application/json';
     client.options.headers['X-Requested-With'] = 'XMLHttpRequest';
@@ -230,7 +255,12 @@ class Feeef {
       developer.log('-- Received message on $channel');
     });
     realtime = Realtime(transmit: transmit);
-    users = UserRepository(client: client, realtime: realtime);
+    users = UserRepository(
+      client: client,
+      realtime: realtime,
+      storage: storage,
+      getPushToken: getPushToken,
+    );
 
     await users.init();
     realtime.init();

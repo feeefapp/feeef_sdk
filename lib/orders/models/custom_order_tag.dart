@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:feeef/interfaces/order.dart';
 import 'package:feeef/interfaces/store.dart';
 import 'package:feeef/serializers.dart';
@@ -14,7 +12,7 @@ abstract class CustomOrderTag with _$CustomOrderTag {
     String? userId,
     required String name,
     String? note,
-    @ColorSerializer() required Color color,
+    @ColorSerializer() required int color,
   }) = _CustomOrderTag;
 
   factory CustomOrderTag.fromJson(Map<String, dynamic> json) =>

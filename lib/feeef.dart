@@ -1,8 +1,16 @@
 // Barrel file: re-exports the full Feeef SDK surface.
+//
+// Main entry point is [Feeef] in [feeef_client.dart]. Use the various
+// repositories (e.g. [StoreRepository], [ProductRepository], [UserRepository])
+// for CRUD and domain operations. See each export for API reference.
+library;
+
 export 'attachments/attachment.dart';
 export 'core/errors.dart';
 export 'files/services/actions.dart';
 export 'core/feeef_config.dart';
+export 'core/feeef_storage.dart';
+export 'core/feeef_upload_file.dart';
 export 'core/list_response.dart';
 export 'core/model_repository.dart';
 export 'core/realtime_events.dart';

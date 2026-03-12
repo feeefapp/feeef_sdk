@@ -1,9 +1,6 @@
-import 'package:flutter/foundation.dart';
-
 /// Base for a single attachment in AI composer (image gen, voice, landing page, etc.).
 /// API and backend use only [typeId] + [value]; when [typeId] is 'store', [value] is the store ID.
 /// Optional [prompt] helps the AI understand how to use this attachment.
-@immutable
 sealed class Attachment {
   const Attachment({required this.value, this.label, this.prompt});
 
@@ -80,7 +77,6 @@ sealed class Attachment {
 }
 
 /// Image URL attachment (reference image for AI).
-@immutable
 final class ImageAttachment extends Attachment {
   const ImageAttachment({required this.url, super.label, super.prompt}) : super(value: url);
 
@@ -95,7 +91,6 @@ final class ImageAttachment extends Attachment {
 }
 
 /// Store ID attachment (resolved server-side to logo/icon). [value] is the store ID.
-@immutable
 final class StoreAttachment extends Attachment {
   const StoreAttachment({required super.value, super.label, super.prompt});
 
@@ -108,7 +103,6 @@ final class StoreAttachment extends Attachment {
 }
 
 /// Product ID attachment (resolved server-side to photo/media). [value] is the product ID.
-@immutable
 final class ProductAttachment extends Attachment {
   const ProductAttachment({required super.value, super.label, super.prompt});
 
@@ -121,7 +115,6 @@ final class ProductAttachment extends Attachment {
 }
 
 /// Generic URL attachment (e.g. link, page).
-@immutable
 final class UrlAttachment extends Attachment {
   const UrlAttachment({required this.url, super.label, super.prompt}) : super(value: url);
 
@@ -136,7 +129,6 @@ final class UrlAttachment extends Attachment {
 }
 
 /// Audio URL attachment (e.g. reference audio for voice gen).
-@immutable
 final class AudioAttachment extends Attachment {
   const AudioAttachment({required this.url, super.label, super.prompt}) : super(value: url);
 

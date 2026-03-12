@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CustomOrderTag {
 
- String? get userId; String get name; String? get note;@ColorSerializer() Color get color;
+ String? get userId; String get name; String? get note;@ColorSerializer() int get color;
 /// Create a copy of CustomOrderTag
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $CustomOrderTagCopyWith<$Res>  {
   factory $CustomOrderTagCopyWith(CustomOrderTag value, $Res Function(CustomOrderTag) _then) = _$CustomOrderTagCopyWithImpl;
 @useResult
 $Res call({
- String? userId, String name, String? note,@ColorSerializer() Color color
+ String? userId, String name, String? note,@ColorSerializer() int color
 });
 
 
@@ -71,7 +71,7 @@ userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_no
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
 as String?,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
-as Color,
+as int,
   ));
 }
 
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? userId,  String name,  String? note, @ColorSerializer()  Color color)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? userId,  String name,  String? note, @ColorSerializer()  int color)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CustomOrderTag() when $default != null:
 return $default(_that.userId,_that.name,_that.note,_that.color);case _:
@@ -177,7 +177,7 @@ return $default(_that.userId,_that.name,_that.note,_that.color);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? userId,  String name,  String? note, @ColorSerializer()  Color color)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? userId,  String name,  String? note, @ColorSerializer()  int color)  $default,) {final _that = this;
 switch (_that) {
 case _CustomOrderTag():
 return $default(_that.userId,_that.name,_that.note,_that.color);case _:
@@ -197,7 +197,7 @@ return $default(_that.userId,_that.name,_that.note,_that.color);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? userId,  String name,  String? note, @ColorSerializer()  Color color)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? userId,  String name,  String? note, @ColorSerializer()  int color)?  $default,) {final _that = this;
 switch (_that) {
 case _CustomOrderTag() when $default != null:
 return $default(_that.userId,_that.name,_that.note,_that.color);case _:
@@ -218,7 +218,7 @@ class _CustomOrderTag implements CustomOrderTag {
 @override final  String? userId;
 @override final  String name;
 @override final  String? note;
-@override@ColorSerializer() final  Color color;
+@override@ColorSerializer() final  int color;
 
 /// Create a copy of CustomOrderTag
 /// with the given fields replaced by the non-null parameter values.
@@ -253,7 +253,7 @@ abstract mixin class _$CustomOrderTagCopyWith<$Res> implements $CustomOrderTagCo
   factory _$CustomOrderTagCopyWith(_CustomOrderTag value, $Res Function(_CustomOrderTag) _then) = __$CustomOrderTagCopyWithImpl;
 @override @useResult
 $Res call({
- String? userId, String name, String? note,@ColorSerializer() Color color
+ String? userId, String name, String? note,@ColorSerializer() int color
 });
 
 
@@ -276,7 +276,7 @@ userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_no
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
 as String?,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
-as Color,
+as int,
   ));
 }
 

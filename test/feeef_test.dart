@@ -1,6 +1,6 @@
 // Smoke test: package exports resolve and core types work.
 import 'package:feeef/feeef.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('package exports Attachment and core types', () {

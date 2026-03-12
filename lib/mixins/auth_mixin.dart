@@ -3,10 +3,6 @@ import 'dart:convert';
 import 'dart:developer' as developer;
 
 import 'package:dio/dio.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shared_preferences/util/legacy_to_async_migration_util.dart';
 import 'package:transmit_client/transmit.dart';
 
 import 'package:feeef/auth/models/token.dart';
@@ -19,11 +15,23 @@ import 'package:feeef/interfaces/helpers.dart';
 import 'package:feeef/users/models/user.dart';
 
 /// Mixin that adds auth state, signin/signup/signout, realtime user channel,
-/// and SharedPreferences persistence. Used by [UserRepository].
+/// and persistence via [FeeefStorage]. Used by [UserRepository].
 mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
   AuthResponse<T>? _auth;
 
   AuthResponse<T>? get auth => _auth;
+
+  /// Resolves the current push token via the repository's [getPushToken] callback, if set.
+  Future<String?> _getPushToken() async {
+    final getter = getPushToken;
+    if (getter == null) return null;
+    try {
+      return await getter();
+    } catch (e) {
+      developer.log('$e');
+      return null;
+    }
+  }
 
   Subscription? _realtimeSubscription;
   Subscription? get realtimeSubscription => _realtimeSubscription;
@@ -67,30 +75,22 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
   }
 
   Future<void> init() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    const SharedPreferencesOptions sharedPreferencesOptions =
-        SharedPreferencesOptions();
-    await migrateLegacySharedPreferencesToSharedPreferencesAsyncIfNecessary(
-      legacySharedPreferencesInstance: prefs,
-      sharedPreferencesAsyncOptions: sharedPreferencesOptions,
-      migrationCompletedKey: 'migrationCompleted',
-    );
-    var token = prefs.getString('services.auth.token');
-    if (token != null) {
+    final s = storage;
+    if (s == null) return;
+    final token = await s.get('services.auth.token');
+    if (token != null && token.isNotEmpty) {
       client.options.headers['Authorization'] = 'Bearer $token';
-
       await _loadCachedUserData();
-
       await _verifyWithServer();
     }
   }
 
   Future<void> _loadCachedUserData() async {
+    final s = storage;
+    if (s == null) return;
     try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final userJson = prefs.getString('services.auth.user');
-      final tokenJson = prefs.getString('services.auth.tokenData');
+      final userJson = await s.get('services.auth.user');
+      final tokenJson = await s.get('services.auth.tokenData');
 
       if (userJson != null && tokenJson != null) {
         final userData = jsonDecode(userJson);
@@ -121,24 +121,25 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
   }
 
   Future<void> _saveUserData(AuthResponse<T>? auth) async {
+    final s = storage;
+    if (s == null) return;
     try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
       if (auth == null) {
-        await prefs.remove('services.auth.user');
-        await prefs.remove('services.auth.tokenData');
-        await prefs.remove('services.auth.token');
+        await s.remove('services.auth.user');
+        await s.remove('services.auth.tokenData');
+        await s.remove('services.auth.token');
       } else {
         if (auth.user is User) {
-          await prefs.setString(
+          await s.set(
             'services.auth.user',
             jsonEncode((auth.user as User).toJson()),
           );
         }
-        await prefs.setString(
+        await s.set(
           'services.auth.tokenData',
           jsonEncode(auth.token.toJson()),
         );
-        await prefs.setString('services.auth.token', auth.token.token!);
+        await s.set('services.auth.token', auth.token.token!);
       }
     } catch (e) {
       developer.log('Error saving user data: $e');
@@ -172,8 +173,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
     try {
       String? token;
       try {
-        if (kDebugMode) throw Exception("Debug mode - skipping FCM token");
-        token = await FirebaseMessaging.instance.getToken();
+        token = await _getPushToken();
       } catch (e) {
         developer.log('$e');
       }
@@ -203,7 +203,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
 
       String? fcmToken;
       try {
-        fcmToken = await FirebaseMessaging.instance.getToken();
+        fcmToken = await _getPushToken();
         developer.log("FCM token obtained: ${fcmToken?.substring(0, 10)}...");
       } catch (e) {
         developer.log("Failed to get FCM token: $e");
@@ -277,7 +277,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
     try {
       String? token;
       try {
-        token = await FirebaseMessaging.instance.getToken();
+        token = await _getPushToken();
       } catch (e) {
         developer.log('$e');
       }
@@ -317,8 +317,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
     try {
       if (fcmToken == null) {
         try {
-          if (kDebugMode) throw Exception("Debug mode - skipping FCM token");
-          fcmToken = await FirebaseMessaging.instance.getToken();
+          fcmToken = await _getPushToken();
         } catch (e) {
           developer.log('$e');
         }
@@ -355,8 +354,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
     try {
       if (fcmToken == null) {
         try {
-          if (kDebugMode) throw Exception("Debug mode - skipping FCM token");
-          fcmToken = await FirebaseMessaging.instance.getToken();
+          fcmToken = await _getPushToken();
         } catch (e) {
           developer.log('$e');
         }
@@ -390,8 +388,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
     try {
       if (fcmToken == null) {
         try {
-          if (kDebugMode) throw Exception("Debug mode - skipping FCM token");
-          fcmToken = await FirebaseMessaging.instance.getToken();
+          fcmToken = await _getPushToken();
         } catch (e) {
           developer.log('$e');
         }
@@ -428,8 +425,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
     try {
       if (fcmToken == null) {
         try {
-          if (kDebugMode) throw Exception("Debug mode - skipping FCM token");
-          fcmToken = await FirebaseMessaging.instance.getToken();
+          fcmToken = await _getPushToken();
         } catch (e) {
           developer.log('$e');
         }

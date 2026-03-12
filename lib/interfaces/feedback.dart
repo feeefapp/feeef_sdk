@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'helpers.dart';
 
 /// Base interface for feedback entities
@@ -60,32 +59,6 @@ enum FeedbackStatus {
   resolved,
   rejected;
 
-  Color get color {
-    switch (this) {
-      case FeedbackStatus.pending:
-        return Colors.orange;
-      case FeedbackStatus.review:
-        return Colors.blue;
-      case FeedbackStatus.resolved:
-        return Colors.green;
-      case FeedbackStatus.rejected:
-        return Colors.red;
-    }
-  }
-
-  IconData get icon {
-    switch (this) {
-      case FeedbackStatus.pending:
-        return Icons.pending_actions;
-      case FeedbackStatus.review:
-        return Icons.rate_review;
-      case FeedbackStatus.resolved:
-        return Icons.check_circle;
-      case FeedbackStatus.rejected:
-        return Icons.cancel;
-    }
-  }
-
   String get tr => switch (this) {
     FeedbackStatus.pending => 'Pending',
     FeedbackStatus.review => 'Under Review',
@@ -100,32 +73,6 @@ enum FeedbackPriority {
   medium,
   high,
   critical;
-
-  Color get color {
-    switch (this) {
-      case FeedbackPriority.low:
-        return Colors.grey;
-      case FeedbackPriority.medium:
-        return Colors.blue;
-      case FeedbackPriority.high:
-        return Colors.orange;
-      case FeedbackPriority.critical:
-        return Colors.red;
-    }
-  }
-
-  IconData get icon {
-    switch (this) {
-      case FeedbackPriority.low:
-        return Icons.low_priority;
-      case FeedbackPriority.medium:
-        return Icons.priority_high;
-      case FeedbackPriority.high:
-        return Icons.priority_high;
-      case FeedbackPriority.critical:
-        return Icons.warning;
-    }
-  }
 
   String get tr => switch (this) {
     FeedbackPriority.low => 'Low',

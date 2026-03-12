@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+import 'package:feeef/core/feeef_storage.dart';
 import 'package:feeef/core/model_repository.dart';
 import 'package:feeef/core/validation/validation_exception.dart';
 import 'package:feeef/mixins/auth_mixin.dart';
@@ -7,13 +8,20 @@ import 'package:feeef/mixins/repository_mixins.dart';
 import 'package:feeef/users/models/user.dart';
 
 /// Repository for User auth and profile (find, update, signin, signup, passkeys, transfer).
+///
+/// Use when you need the current user ([me], [updateMe]), auth flows, social link/unlink,
+/// or money transfer. Composes [ModelAuthMixin], [ModelFindMixin], [ModelUpdateMixin].
 class UserRepository extends ModelRepository<User>
     with
         ModelAuthMixin<User>,
         ModelFindMixin<User>,
         ModelUpdateMixin<User, UserUpdate> {
-  UserRepository({required super.client, super.realtime})
-      : super(table: 'users');
+  UserRepository({
+    required super.client,
+    super.realtime,
+    super.getPushToken,
+    required FeeefStorage storage,
+  })  : super(table: 'users', storage: storage);
 
   @override
   User modelFromJson(json) => User.fromJson(json);

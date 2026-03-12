@@ -40,32 +40,32 @@ _StoreDecoration _$StoreDecorationFromJson(
   Map<String, dynamic> json,
 ) => _StoreDecoration(
   primary: json['primary'] == null
-      ? Colors.green
+      ? 0xFF4CAF50
       : const ColorSerializer().fromJson((json['primary'] as num).toInt()),
   onPrimary: json['onPrimary'] == null
-      ? Colors.white
+      ? 0xFFFFFFFF
       : const ColorSerializer().fromJson((json['onPrimary'] as num).toInt()),
   primaryDark: json['primaryDark'] == null
-      ? Colors.greenAccent
+      ? 0xFF69F0AE
       : const ColorSerializer().fromJson((json['primaryDark'] as num).toInt()),
   onPrimaryDark: json['onPrimaryDark'] == null
-      ? Colors.black
+      ? 0xFF000000
       : const ColorSerializer().fromJson(
           (json['onPrimaryDark'] as num).toInt(),
         ),
   secondary: json['secondary'] == null
-      ? Colors.orange
+      ? 0xFFFF9800
       : const ColorSerializer().fromJson((json['secondary'] as num).toInt()),
   onSecondary: json['onSecondary'] == null
-      ? Colors.white
+      ? 0xFFFFFFFF
       : const ColorSerializer().fromJson((json['onSecondary'] as num).toInt()),
   secondaryDark: json['secondaryDark'] == null
-      ? Colors.orangeAccent
+      ? 0xFFFFAB40
       : const ColorSerializer().fromJson(
           (json['secondaryDark'] as num).toInt(),
         ),
   onSecondaryDark: json['onSecondaryDark'] == null
-      ? Colors.black
+      ? 0xFF000000
       : const ColorSerializer().fromJson(
           (json['onSecondaryDark'] as num).toInt(),
         ),

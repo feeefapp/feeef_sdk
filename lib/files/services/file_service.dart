@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
 
+import 'package:feeef/core/feeef_upload_file.dart';
 import '../models/file.dart';
 
 /// Service for managing files in the media library
@@ -56,7 +56,7 @@ class FileService {
 
   /// Upload a file
   Future<FileObject> upload({
-    required PlatformFile file,
+    required FeeefUploadFile file,
     String? folder,
     int? width,
     int? height,
@@ -88,7 +88,7 @@ class FileService {
 
   /// Upload multiple files
   Future<List<FileObject>> uploadMany({
-    required List<PlatformFile> files,
+    required List<FeeefUploadFile> files,
     String? folder,
     int? width,
     int? height,

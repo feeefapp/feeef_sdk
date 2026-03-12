@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 import 'package:feeef/core/app_config.dart';
 import 'package:feeef/core/feature_rules_parser.dart';
-import 'package:feeef/core/platforms_stub.dart';
+import 'package:feeef/core/platforms.dart';
 
 export 'package:feeef/core/app_config.dart'
     show AIModel, AIModelsConfig, AIModelPricing;

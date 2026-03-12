@@ -1,5 +1,4 @@
 import 'package:feeef/serializers.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'store.freezed.dart';
@@ -42,17 +41,17 @@ abstract class StoreBanner with _$StoreBanner {
 abstract class StoreDecoration with _$StoreDecoration {
   factory StoreDecoration({
     // primary
-    @ColorSerializer() @Default(Colors.green) Color primary,
-    @ColorSerializer() @Default(Colors.white) Color onPrimary,
+    @ColorSerializer() @Default(0xFF4CAF50) int primary,
+    @ColorSerializer() @Default(0xFFFFFFFF) int onPrimary,
     // on dark mode
-    @ColorSerializer() @Default(Colors.greenAccent) Color primaryDark,
-    @ColorSerializer() @Default(Colors.black) Color onPrimaryDark,
+    @ColorSerializer() @Default(0xFF69F0AE) int primaryDark,
+    @ColorSerializer() @Default(0xFF000000) int onPrimaryDark,
     // secondary
-    @ColorSerializer() @Default(Colors.orange) Color secondary,
-    @ColorSerializer() @Default(Colors.white) Color onSecondary,
+    @ColorSerializer() @Default(0xFFFF9800) int secondary,
+    @ColorSerializer() @Default(0xFFFFFFFF) int onSecondary,
     // on dark mode
-    @ColorSerializer() @Default(Colors.orangeAccent) Color secondaryDark,
-    @ColorSerializer() @Default(Colors.black) Color onSecondaryDark,
+    @ColorSerializer() @Default(0xFFFFAB40) int secondaryDark,
+    @ColorSerializer() @Default(0xFF000000) int onSecondaryDark,
 
     @Default(true) bool useLogoDarkFilter,
 
@@ -62,8 +61,6 @@ abstract class StoreDecoration with _$StoreDecoration {
     @Default({}) Map<String, dynamic> metadata,
 
     /// Theme selection and visual editor data storage pointer
-    /// Example structure:
-    /// { "id": "ecommerce-theme-v1", "name": "E-commerce Theme", "data": { ...TemplateData json... } }
     Map<String, dynamic>? theme,
   }) = _StoreDecoration;
 

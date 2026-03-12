@@ -1,19 +1,13 @@
-// color serializer
-import 'dart:ui';
-
+// color serializer: store as ARGB int (Dart-only, no Flutter).
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-class ColorSerializer implements JsonConverter<Color, int> {
+/// Serializes color as int (0xAARRGGBB). Use for [StoreDecoration] and other models.
+class ColorSerializer implements JsonConverter<int, int> {
   const ColorSerializer();
 
   @override
-  Color fromJson(int json) {
-    if (json <= 0xFFFFFF) return Color(0xFF000000 + json);
-    return Color(json);
-  }
+  int fromJson(int json) => json;
 
   @override
-  int toJson(Color object) {
-    return object.value;
-  }
+  int toJson(int object) => object;
 }

@@ -1,5 +1,5 @@
 import 'package:feeef/core/validation/validation_exception.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('FeeefValidationException', () {

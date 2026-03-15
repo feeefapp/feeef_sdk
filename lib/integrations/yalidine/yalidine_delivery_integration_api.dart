@@ -5,46 +5,37 @@ import 'package:feeef/core/validation/validation_exception.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
 
 /// API for Yalidine/Guepex delivery integration (fees from bundled assets).
-/// Host app must provide either [yalidineFeesAssetPath] + [guepexFeesAssetPath]
-/// and [loadAsset], or pass pre-loaded fee data via [loadYalidineFees] / [loadGuepexFees].
+/// Host app provides loaders that return fee JSON (e.g. Flutter:
+/// [yalidineFeesLoader] => rootBundle.loadString(assetPath)).
 class YalidineDeliveryIntegrationApi {
   final YalidineDeliveryIntegration integration;
   final String storeId;
   final Dio client;
-  final String? yalidineFeesAssetPath;
-  final String? guepexFeesAssetPath;
-  /// Callback to load asset content (e.g. Flutter: rootBundle.loadString).
-  /// Required when using [yalidineFeesAssetPath] / [guepexFeesAssetPath].
-  final Future<String> Function(String path)? loadAsset;
+  /// Loader for Yalidine fee data (e.g. () => rootBundle.loadString(yalidineFeesAssetPath)).
+  final Future<String> Function()? yalidineFeesLoader;
+  /// Loader for Guepex fee data (e.g. () => rootBundle.loadString(guepexFeesAssetPath)).
+  final Future<String> Function()? guepexFeesLoader;
 
   const YalidineDeliveryIntegrationApi({
     required this.client,
     required this.integration,
     required this.storeId,
-    this.yalidineFeesAssetPath,
-    this.guepexFeesAssetPath,
-    this.loadAsset,
+    this.yalidineFeesLoader,
+    this.guepexFeesLoader,
   });
 
   Future<List<List<num?>?>> getDeliveryFees() async {
     try {
-      final path = integration.agent == YalidineAgent.yalidine
-          ? yalidineFeesAssetPath
-          : guepexFeesAssetPath;
-      if (path == null) {
-        throw UnsupportedError(
-          'YalidineDeliveryIntegrationApi requires yalidineFeesAssetPath and '
-          'guepexFeesAssetPath from the host app (e.g. Assets.integrations.yalidine.fees.*)',
-        );
-      }
-      final loader = loadAsset;
+      final loader = integration.agent == YalidineAgent.yalidine
+          ? yalidineFeesLoader
+          : guepexFeesLoader;
       if (loader == null) {
         throw UnsupportedError(
-          'YalidineDeliveryIntegrationApi requires loadAsset callback when using asset paths '
-          '(e.g. (path) => rootBundle.loadString(path) in Flutter)',
+          'YalidineDeliveryIntegrationApi requires yalidineFeesLoader and '
+          'guepexFeesLoader from the host app (e.g. () => rootBundle.loadString(assetPath) in Flutter)',
         );
       }
-      List data = json.decode(await loader(path));
+      List data = json.decode(await loader());
       int stateIndex =
           (int.tryParse(integration.metadata["state"] ?? "9") ?? 9) - 1;
       List<List<List<num?>?>> allStatesFees = data

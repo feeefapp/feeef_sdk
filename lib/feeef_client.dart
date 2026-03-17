@@ -28,6 +28,7 @@ import 'package:feeef/realtime/realtime.dart';
 import 'package:feeef/shipping_methods/shipping_method_repository.dart';
 import 'package:feeef/shipping_prices/shipping_price_repository.dart';
 import 'package:feeef/states/state_repository.dart';
+import 'package:feeef/promos/promo_repository.dart';
 import 'package:feeef/stores/store_repository.dart';
 import 'package:feeef/transfers/transfer_repository.dart';
 import 'package:feeef/users/user_repository.dart';
@@ -138,6 +139,7 @@ class Feeef {
   late final TransferRepository transfers;
   late final ConfigRepository configs;
   late final AppRepository apps;
+  late final PromoRepository promos;
 
   late final CurrencyRepository currencies;
   late final CountryRepository countries;
@@ -173,6 +175,7 @@ class Feeef {
     transfers = TransferRepository(client: client);
     configs = ConfigRepository(client: client);
     apps = AppRepository(client: client);
+    promos = PromoRepository(client: client);
     files = FileService(client: client);
 
     currencies = CurrencyRepository(client: client);

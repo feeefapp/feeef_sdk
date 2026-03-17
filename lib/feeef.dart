@@ -34,6 +34,8 @@ export 'product_landing_page_templates/product_landing_page_template_repository.
 export 'product_landing_pages/product_landing_page_repository.dart';
 export 'products/product_repository.dart';
 export 'shipping_methods/shipping_method_repository.dart';
+export 'promos/promo.dart';
+export 'promos/promo_repository.dart';
 export 'stores/store_repository.dart';
 export 'stores/store_invites_repository.dart';
 export 'users/user_repository.dart';

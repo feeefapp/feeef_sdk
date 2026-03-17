@@ -221,15 +221,21 @@ class StoreRepository extends ModelRepository<Store>
     return Map<String, dynamic>.from(res.data as Map);
   }
 
+  /// Upgrades or renews a store's subscription. Optional [code] for a promo code.
   Future<void> upgrade({
     required String id,
     required StoreSubscriptionType plan,
     required int months,
+    String? code,
   }) async {
     try {
       await client.post(
         '/$table/$id/subscription/upgrade',
-        data: {'plan': plan.name, 'months': months},
+        data: {
+          'plan': plan.name,
+          'months': months,
+          if (code != null && code.isNotEmpty) 'code': code,
+        },
       );
     } on DioException catch (e) {
       if (e.response?.statusCode == 422) {

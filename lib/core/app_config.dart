@@ -429,6 +429,8 @@ class Plan {
   final int quota;
   final List<String> features;
   final PlanDiscount? discount;
+  /// When true, only breakpoint months (1 + discount keyframe months) are allowed.
+  final bool? strict;
 
   Plan({
     required this.id,
@@ -437,6 +439,7 @@ class Plan {
     required this.quota,
     required this.features,
     this.discount,
+    this.strict,
   });
 
   factory Plan.fromJson(Map<String, dynamic> json) {
@@ -445,10 +448,11 @@ class Plan {
       name: json['name'],
       cost: json['cost'],
       quota: json['quota'],
-      features: List<String>.from(json['features']),
+      features: List<String>.from(json['features'] ?? []),
       discount: PlanDiscount.fromJson(
         json['discount'] as Map<String, dynamic>?,
       ),
+      strict: json['strict'] as bool?,
     );
   }
 
@@ -459,7 +463,20 @@ class Plan {
     'quota': quota,
     'features': features,
     if (discount != null) 'discount': discount!.toJson(),
+    if (strict != null) 'strict': strict,
   };
+
+  /// Allowed months for this plan. When [strict] is true, only 1 and keyframe months.
+  List<int> get allowedMonths {
+    if (strict != true || discount?.keyframes == null || discount!.keyframes!.isEmpty) {
+      return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    }
+    final set = <int>{1};
+    for (final k in discount!.keyframes!) {
+      if (k.isNotEmpty) set.add(k[0]);
+    }
+    return set.toList()..sort();
+  }
 }
 
 class ExtraConfig {

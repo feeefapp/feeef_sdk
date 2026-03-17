@@ -9,6 +9,7 @@ import 'package:feeef/interfaces/embadded/store.dart' as embadded;
 import 'package:feeef/interfaces/embadded/store_summary.dart';
 import 'package:feeef/mixins/repository_mixins.dart';
 import 'package:feeef/stores/models/store.dart';
+import 'package:feeef/stores/store_invites_repository.dart';
 
 /// Repository for Store CRUD and store-specific API (members, domain, subscription).
 ///
@@ -166,156 +167,9 @@ class StoreRepository extends ModelRepository<Store>
     }
   }
 
-  /// Creates a store invite and sends an email to the invitee.
-  Future<embadded.StoreInvite> createInvite({
-    required String storeId,
-    required String email,
-    required embadded.StoreMemberRole role,
-    DateTime? expiresAt,
-    Map<String, dynamic>? metadata,
-  }) async {
-    try {
-      final res = await client.post(
-        '/$table/$storeId/invites',
-        data: {
-          'email': email,
-          'role': role.name,
-          if (expiresAt != null) 'expiresAt': expiresAt.toIso8601String(),
-          if (metadata != null) 'metadata': metadata,
-        },
-      );
-      try {
-        return embadded.StoreInvite.fromJson(res.data);
-      } catch (_) {
-        throw FeeefValidationException(
-          errors: [
-            FeeefViolation(
-              message: 'Invitation was sent. Check the pending invites list.',
-            ),
-          ],
-        );
-      }
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 422) {
-        final data = e.response?.data;
-        if (data is Map<String, dynamic> && data['errors'] != null) {
-          throw FeeefValidationException.fromJson(data);
-        }
-      }
-      if (e.response?.statusCode != null &&
-          e.response!.statusCode! >= 400 &&
-          e.response!.statusCode! < 500) {
-        final data = e.response?.data;
-        if (data is Map) {
-          final errors = data['errors'];
-          if (errors is List && errors.isNotEmpty) {
-            final list = errors
-                .map((v) => v is Map
-                    ? FeeefViolation(
-                        message: v['message']?.toString() ?? 'Request failed',
-                        field: v['field']?.toString(),
-                      )
-                    : FeeefViolation(message: v.toString()))
-                .toList();
-            throw FeeefValidationException(errors: list);
-          }
-          final message = data['message']?.toString();
-          if (message != null && message.isNotEmpty) {
-            throw FeeefValidationException(
-              errors: [FeeefViolation(message: message, field: 'email')],
-            );
-          }
-        }
-      }
-      if (e.response?.statusCode != null && e.response!.statusCode! >= 500) {
-        final data = e.response?.data;
-        if (data is Map) {
-          final message = data['message']?.toString();
-          if (message != null && message.isNotEmpty) {
-            throw FeeefValidationException(
-              errors: [FeeefViolation(message: message)],
-            );
-          }
-        }
-      }
-      rethrow;
-    }
-  }
-
-  /// Lists invites for a store.
-  Future<List<embadded.StoreInvite>> listInvites({
-    required String storeId,
-    String? status,
-  }) async {
-    try {
-      final res = await client.get(
-        '/$table/$storeId/invites',
-        queryParameters: {if (status != null) 'status': status},
-      );
-      final list = res.data as List;
-      return list.map((e) => embadded.StoreInvite.fromJson(e as Map<String, dynamic>)).toList();
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 422) {
-        var errors = FeeefValidationException.fromJson(e.response?.data);
-        throw errors;
-      }
-      rethrow;
-    }
-  }
-
-  /// Revokes a pending invite.
-  Future<void> revokeInvite({
-    required String storeId,
-    required String inviteId,
-  }) async {
-    try {
-      await client.delete('/$table/$storeId/invites/$inviteId');
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 422) {
-        var errors = FeeefValidationException.fromJson(e.response?.data);
-        throw errors;
-      }
-      rethrow;
-    }
-  }
-
-  /// Gets invite details (public or full if authorized).
-  Future<embadded.StoreInvite> getInvite({
-    required String storeId,
-    required String inviteId,
-  }) async {
-    try {
-      final res = await client.get('/$table/$storeId/invites/$inviteId');
-      return embadded.StoreInvite.fromJson(res.data);
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 422) {
-        var errors = FeeefValidationException.fromJson(e.response?.data);
-        throw errors;
-      }
-      rethrow;
-    }
-  }
-
-  /// Accepts an invite. Authenticated user's email must match invite email.
-  Future<embadded.StoreMember> acceptInvite({
-    required String storeId,
-    required String inviteId,
-    required String token,
-  }) async {
-    try {
-      final res = await client.post(
-        '/$table/$storeId/invites/$inviteId/accept',
-        data: {'token': token},
-      );
-      return embadded.StoreMember.fromJson(res.data);
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 422) {
-        var errors = FeeefValidationException.fromJson(e.response?.data);
-        throw errors;
-      }
-      rethrow;
-    }
-  }
+  /// Store invites sub-repo. Use [ff.stores.invites.list], [ff.stores.invites.create], etc.
+  StoreInvitesRepository get invites =>
+      StoreInvitesRepository(client: client, table: table);
 
   Future<Map<String, dynamic>> addCustomDomain({
     required String storeId,

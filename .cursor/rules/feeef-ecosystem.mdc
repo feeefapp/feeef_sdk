@@ -1,0 +1,12 @@
+---
+description: Feeef Dart SDK — role in the monorepo
+alwaysApply: true
+---
+
+# Feeef Dart SDK (this package)
+
+- **Consumers**: **`feeefapps/marchant`** and potentially other Flutter apps; published/consumed as **`feeef`** (e.g. git `feeefapp/feeef_sdk`).
+- **API**: Implemented by **`feeefapps/backend`**. Keep request/response models and repos aligned with backend controllers.
+- **When changing public API** of this SDK: bump version/changelog; merchant app may need dependency update. JS storefront uses npm **feeef** — not this package; duplicate shape drift is a risk — document cross-stack fields.
+
+Run tests after repository or model changes.

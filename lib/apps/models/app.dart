@@ -13,6 +13,8 @@ abstract class App with _$App implements Model {
   const factory App({
     required String id,
     required String name,
+    /// Optional app logo URL used by admin and OAuth consent UIs.
+    String? logoUrl,
     required String clientId,
     @Default([]) List<String> redirectUris,
     @Default([]) List<String> scopes,
@@ -31,6 +33,8 @@ abstract class App with _$App implements Model {
 abstract class AppCreate with _$AppCreate implements ModelCreate {
   const factory AppCreate({
     required String name,
+    /// Optional app logo URL to show during OAuth consent.
+    String? logoUrl,
     required List<String> redirectUris,
     required List<String> scopes,
   }) = _AppCreate;
@@ -43,6 +47,8 @@ abstract class AppCreate with _$AppCreate implements ModelCreate {
 abstract class AppUpdate with _$AppUpdate implements ModelUpdate {
   const factory AppUpdate({
     String? name,
+    /// Optional app logo URL. Set to `null` to clear.
+    String? logoUrl,
     List<String>? redirectUris,
     List<String>? scopes,
     bool? active,

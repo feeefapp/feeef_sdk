@@ -15,7 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$App {
 
- String get id; String get name; String get clientId; List<String> get redirectUris; List<String> get scopes; bool get active; DateTime? get lastUsedAt; DateTime get createdAt; DateTime? get updatedAt;/// Only set when returned from create or regenerateSecret; store securely.
+ String get id; String get name;/// Optional app logo URL used by admin and OAuth consent UIs.
+ String? get logoUrl; String get clientId; List<String> get redirectUris; List<String> get scopes; bool get active; DateTime? get lastUsedAt; DateTime get createdAt; DateTime? get updatedAt;/// Only set when returned from create or regenerateSecret; store securely.
  String? get clientSecret;
 /// Create a copy of App
 /// with the given fields replaced by the non-null parameter values.
@@ -29,16 +30,16 @@ $AppCopyWith<App> get copyWith => _$AppCopyWithImpl<App>(this as App, _$identity
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is App&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.clientId, clientId) || other.clientId == clientId)&&const DeepCollectionEquality().equals(other.redirectUris, redirectUris)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.active, active) || other.active == active)&&(identical(other.lastUsedAt, lastUsedAt) || other.lastUsedAt == lastUsedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.clientSecret, clientSecret) || other.clientSecret == clientSecret));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is App&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.clientId, clientId) || other.clientId == clientId)&&const DeepCollectionEquality().equals(other.redirectUris, redirectUris)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.active, active) || other.active == active)&&(identical(other.lastUsedAt, lastUsedAt) || other.lastUsedAt == lastUsedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.clientSecret, clientSecret) || other.clientSecret == clientSecret));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,clientId,const DeepCollectionEquality().hash(redirectUris),const DeepCollectionEquality().hash(scopes),active,lastUsedAt,createdAt,updatedAt,clientSecret);
+int get hashCode => Object.hash(runtimeType,id,name,logoUrl,clientId,const DeepCollectionEquality().hash(redirectUris),const DeepCollectionEquality().hash(scopes),active,lastUsedAt,createdAt,updatedAt,clientSecret);
 
 @override
 String toString() {
-  return 'App(id: $id, name: $name, clientId: $clientId, redirectUris: $redirectUris, scopes: $scopes, active: $active, lastUsedAt: $lastUsedAt, createdAt: $createdAt, updatedAt: $updatedAt, clientSecret: $clientSecret)';
+  return 'App(id: $id, name: $name, logoUrl: $logoUrl, clientId: $clientId, redirectUris: $redirectUris, scopes: $scopes, active: $active, lastUsedAt: $lastUsedAt, createdAt: $createdAt, updatedAt: $updatedAt, clientSecret: $clientSecret)';
 }
 
 
@@ -49,7 +50,7 @@ abstract mixin class $AppCopyWith<$Res>  {
   factory $AppCopyWith(App value, $Res Function(App) _then) = _$AppCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, String clientId, List<String> redirectUris, List<String> scopes, bool active, DateTime? lastUsedAt, DateTime createdAt, DateTime? updatedAt, String? clientSecret
+ String id, String name, String? logoUrl, String clientId, List<String> redirectUris, List<String> scopes, bool active, DateTime? lastUsedAt, DateTime createdAt, DateTime? updatedAt, String? clientSecret
 });
 
 
@@ -66,11 +67,12 @@ class _$AppCopyWithImpl<$Res>
 
 /// Create a copy of App
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? clientId = null,Object? redirectUris = null,Object? scopes = null,Object? active = null,Object? lastUsedAt = freezed,Object? createdAt = null,Object? updatedAt = freezed,Object? clientSecret = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? logoUrl = freezed,Object? clientId = null,Object? redirectUris = null,Object? scopes = null,Object? active = null,Object? lastUsedAt = freezed,Object? createdAt = null,Object? updatedAt = freezed,Object? clientSecret = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,clientId: null == clientId ? _self.clientId : clientId // ignore: cast_nullable_to_non_nullable
+as String,logoUrl: freezed == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
+as String?,clientId: null == clientId ? _self.clientId : clientId // ignore: cast_nullable_to_non_nullable
 as String,redirectUris: null == redirectUris ? _self.redirectUris : redirectUris // ignore: cast_nullable_to_non_nullable
 as List<String>,scopes: null == scopes ? _self.scopes : scopes // ignore: cast_nullable_to_non_nullable
 as List<String>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
@@ -163,10 +165,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String clientId,  List<String> redirectUris,  List<String> scopes,  bool active,  DateTime? lastUsedAt,  DateTime createdAt,  DateTime? updatedAt,  String? clientSecret)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String? logoUrl,  String clientId,  List<String> redirectUris,  List<String> scopes,  bool active,  DateTime? lastUsedAt,  DateTime createdAt,  DateTime? updatedAt,  String? clientSecret)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _App() when $default != null:
-return $default(_that.id,_that.name,_that.clientId,_that.redirectUris,_that.scopes,_that.active,_that.lastUsedAt,_that.createdAt,_that.updatedAt,_that.clientSecret);case _:
+return $default(_that.id,_that.name,_that.logoUrl,_that.clientId,_that.redirectUris,_that.scopes,_that.active,_that.lastUsedAt,_that.createdAt,_that.updatedAt,_that.clientSecret);case _:
   return orElse();
 
 }
@@ -184,10 +186,10 @@ return $default(_that.id,_that.name,_that.clientId,_that.redirectUris,_that.scop
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String clientId,  List<String> redirectUris,  List<String> scopes,  bool active,  DateTime? lastUsedAt,  DateTime createdAt,  DateTime? updatedAt,  String? clientSecret)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String? logoUrl,  String clientId,  List<String> redirectUris,  List<String> scopes,  bool active,  DateTime? lastUsedAt,  DateTime createdAt,  DateTime? updatedAt,  String? clientSecret)  $default,) {final _that = this;
 switch (_that) {
 case _App():
-return $default(_that.id,_that.name,_that.clientId,_that.redirectUris,_that.scopes,_that.active,_that.lastUsedAt,_that.createdAt,_that.updatedAt,_that.clientSecret);case _:
+return $default(_that.id,_that.name,_that.logoUrl,_that.clientId,_that.redirectUris,_that.scopes,_that.active,_that.lastUsedAt,_that.createdAt,_that.updatedAt,_that.clientSecret);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +206,10 @@ return $default(_that.id,_that.name,_that.clientId,_that.redirectUris,_that.scop
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String clientId,  List<String> redirectUris,  List<String> scopes,  bool active,  DateTime? lastUsedAt,  DateTime createdAt,  DateTime? updatedAt,  String? clientSecret)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String? logoUrl,  String clientId,  List<String> redirectUris,  List<String> scopes,  bool active,  DateTime? lastUsedAt,  DateTime createdAt,  DateTime? updatedAt,  String? clientSecret)?  $default,) {final _that = this;
 switch (_that) {
 case _App() when $default != null:
-return $default(_that.id,_that.name,_that.clientId,_that.redirectUris,_that.scopes,_that.active,_that.lastUsedAt,_that.createdAt,_that.updatedAt,_that.clientSecret);case _:
+return $default(_that.id,_that.name,_that.logoUrl,_that.clientId,_that.redirectUris,_that.scopes,_that.active,_that.lastUsedAt,_that.createdAt,_that.updatedAt,_that.clientSecret);case _:
   return null;
 
 }
@@ -219,11 +221,13 @@ return $default(_that.id,_that.name,_that.clientId,_that.redirectUris,_that.scop
 @JsonSerializable()
 
 class _App implements App {
-  const _App({required this.id, required this.name, required this.clientId, final  List<String> redirectUris = const [], final  List<String> scopes = const [], this.active = true, this.lastUsedAt, required this.createdAt, this.updatedAt, this.clientSecret}): _redirectUris = redirectUris,_scopes = scopes;
+  const _App({required this.id, required this.name, this.logoUrl, required this.clientId, final  List<String> redirectUris = const [], final  List<String> scopes = const [], this.active = true, this.lastUsedAt, required this.createdAt, this.updatedAt, this.clientSecret}): _redirectUris = redirectUris,_scopes = scopes;
   factory _App.fromJson(Map<String, dynamic> json) => _$AppFromJson(json);
 
 @override final  String id;
 @override final  String name;
+/// Optional app logo URL used by admin and OAuth consent UIs.
+@override final  String? logoUrl;
 @override final  String clientId;
  final  List<String> _redirectUris;
 @override@JsonKey() List<String> get redirectUris {
@@ -259,16 +263,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _App&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.clientId, clientId) || other.clientId == clientId)&&const DeepCollectionEquality().equals(other._redirectUris, _redirectUris)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.active, active) || other.active == active)&&(identical(other.lastUsedAt, lastUsedAt) || other.lastUsedAt == lastUsedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.clientSecret, clientSecret) || other.clientSecret == clientSecret));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _App&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.clientId, clientId) || other.clientId == clientId)&&const DeepCollectionEquality().equals(other._redirectUris, _redirectUris)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.active, active) || other.active == active)&&(identical(other.lastUsedAt, lastUsedAt) || other.lastUsedAt == lastUsedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.clientSecret, clientSecret) || other.clientSecret == clientSecret));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,clientId,const DeepCollectionEquality().hash(_redirectUris),const DeepCollectionEquality().hash(_scopes),active,lastUsedAt,createdAt,updatedAt,clientSecret);
+int get hashCode => Object.hash(runtimeType,id,name,logoUrl,clientId,const DeepCollectionEquality().hash(_redirectUris),const DeepCollectionEquality().hash(_scopes),active,lastUsedAt,createdAt,updatedAt,clientSecret);
 
 @override
 String toString() {
-  return 'App(id: $id, name: $name, clientId: $clientId, redirectUris: $redirectUris, scopes: $scopes, active: $active, lastUsedAt: $lastUsedAt, createdAt: $createdAt, updatedAt: $updatedAt, clientSecret: $clientSecret)';
+  return 'App(id: $id, name: $name, logoUrl: $logoUrl, clientId: $clientId, redirectUris: $redirectUris, scopes: $scopes, active: $active, lastUsedAt: $lastUsedAt, createdAt: $createdAt, updatedAt: $updatedAt, clientSecret: $clientSecret)';
 }
 
 
@@ -279,7 +283,7 @@ abstract mixin class _$AppCopyWith<$Res> implements $AppCopyWith<$Res> {
   factory _$AppCopyWith(_App value, $Res Function(_App) _then) = __$AppCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, String clientId, List<String> redirectUris, List<String> scopes, bool active, DateTime? lastUsedAt, DateTime createdAt, DateTime? updatedAt, String? clientSecret
+ String id, String name, String? logoUrl, String clientId, List<String> redirectUris, List<String> scopes, bool active, DateTime? lastUsedAt, DateTime createdAt, DateTime? updatedAt, String? clientSecret
 });
 
 
@@ -296,11 +300,12 @@ class __$AppCopyWithImpl<$Res>
 
 /// Create a copy of App
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? clientId = null,Object? redirectUris = null,Object? scopes = null,Object? active = null,Object? lastUsedAt = freezed,Object? createdAt = null,Object? updatedAt = freezed,Object? clientSecret = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? logoUrl = freezed,Object? clientId = null,Object? redirectUris = null,Object? scopes = null,Object? active = null,Object? lastUsedAt = freezed,Object? createdAt = null,Object? updatedAt = freezed,Object? clientSecret = freezed,}) {
   return _then(_App(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,clientId: null == clientId ? _self.clientId : clientId // ignore: cast_nullable_to_non_nullable
+as String,logoUrl: freezed == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
+as String?,clientId: null == clientId ? _self.clientId : clientId // ignore: cast_nullable_to_non_nullable
 as String,redirectUris: null == redirectUris ? _self._redirectUris : redirectUris // ignore: cast_nullable_to_non_nullable
 as List<String>,scopes: null == scopes ? _self._scopes : scopes // ignore: cast_nullable_to_non_nullable
 as List<String>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
@@ -319,7 +324,8 @@ as String?,
 /// @nodoc
 mixin _$AppCreate {
 
- String get name; List<String> get redirectUris; List<String> get scopes;
+ String get name;/// Optional app logo URL to show during OAuth consent.
+ String? get logoUrl; List<String> get redirectUris; List<String> get scopes;
 /// Create a copy of AppCreate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -332,16 +338,16 @@ $AppCreateCopyWith<AppCreate> get copyWith => _$AppCreateCopyWithImpl<AppCreate>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppCreate&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.redirectUris, redirectUris)&&const DeepCollectionEquality().equals(other.scopes, scopes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppCreate&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&const DeepCollectionEquality().equals(other.redirectUris, redirectUris)&&const DeepCollectionEquality().equals(other.scopes, scopes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(redirectUris),const DeepCollectionEquality().hash(scopes));
+int get hashCode => Object.hash(runtimeType,name,logoUrl,const DeepCollectionEquality().hash(redirectUris),const DeepCollectionEquality().hash(scopes));
 
 @override
 String toString() {
-  return 'AppCreate(name: $name, redirectUris: $redirectUris, scopes: $scopes)';
+  return 'AppCreate(name: $name, logoUrl: $logoUrl, redirectUris: $redirectUris, scopes: $scopes)';
 }
 
 
@@ -352,7 +358,7 @@ abstract mixin class $AppCreateCopyWith<$Res>  {
   factory $AppCreateCopyWith(AppCreate value, $Res Function(AppCreate) _then) = _$AppCreateCopyWithImpl;
 @useResult
 $Res call({
- String name, List<String> redirectUris, List<String> scopes
+ String name, String? logoUrl, List<String> redirectUris, List<String> scopes
 });
 
 
@@ -369,10 +375,11 @@ class _$AppCreateCopyWithImpl<$Res>
 
 /// Create a copy of AppCreate
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? redirectUris = null,Object? scopes = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? logoUrl = freezed,Object? redirectUris = null,Object? scopes = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,redirectUris: null == redirectUris ? _self.redirectUris : redirectUris // ignore: cast_nullable_to_non_nullable
+as String,logoUrl: freezed == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
+as String?,redirectUris: null == redirectUris ? _self.redirectUris : redirectUris // ignore: cast_nullable_to_non_nullable
 as List<String>,scopes: null == scopes ? _self.scopes : scopes // ignore: cast_nullable_to_non_nullable
 as List<String>,
   ));
@@ -459,10 +466,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<String> redirectUris,  List<String> scopes)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String? logoUrl,  List<String> redirectUris,  List<String> scopes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AppCreate() when $default != null:
-return $default(_that.name,_that.redirectUris,_that.scopes);case _:
+return $default(_that.name,_that.logoUrl,_that.redirectUris,_that.scopes);case _:
   return orElse();
 
 }
@@ -480,10 +487,10 @@ return $default(_that.name,_that.redirectUris,_that.scopes);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<String> redirectUris,  List<String> scopes)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String? logoUrl,  List<String> redirectUris,  List<String> scopes)  $default,) {final _that = this;
 switch (_that) {
 case _AppCreate():
-return $default(_that.name,_that.redirectUris,_that.scopes);case _:
+return $default(_that.name,_that.logoUrl,_that.redirectUris,_that.scopes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -500,10 +507,10 @@ return $default(_that.name,_that.redirectUris,_that.scopes);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<String> redirectUris,  List<String> scopes)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String? logoUrl,  List<String> redirectUris,  List<String> scopes)?  $default,) {final _that = this;
 switch (_that) {
 case _AppCreate() when $default != null:
-return $default(_that.name,_that.redirectUris,_that.scopes);case _:
+return $default(_that.name,_that.logoUrl,_that.redirectUris,_that.scopes);case _:
   return null;
 
 }
@@ -515,10 +522,12 @@ return $default(_that.name,_that.redirectUris,_that.scopes);case _:
 @JsonSerializable()
 
 class _AppCreate implements AppCreate {
-  const _AppCreate({required this.name, required final  List<String> redirectUris, required final  List<String> scopes}): _redirectUris = redirectUris,_scopes = scopes;
+  const _AppCreate({required this.name, this.logoUrl, required final  List<String> redirectUris, required final  List<String> scopes}): _redirectUris = redirectUris,_scopes = scopes;
   factory _AppCreate.fromJson(Map<String, dynamic> json) => _$AppCreateFromJson(json);
 
 @override final  String name;
+/// Optional app logo URL to show during OAuth consent.
+@override final  String? logoUrl;
  final  List<String> _redirectUris;
 @override List<String> get redirectUris {
   if (_redirectUris is EqualUnmodifiableListView) return _redirectUris;
@@ -547,16 +556,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppCreate&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._redirectUris, _redirectUris)&&const DeepCollectionEquality().equals(other._scopes, _scopes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppCreate&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&const DeepCollectionEquality().equals(other._redirectUris, _redirectUris)&&const DeepCollectionEquality().equals(other._scopes, _scopes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_redirectUris),const DeepCollectionEquality().hash(_scopes));
+int get hashCode => Object.hash(runtimeType,name,logoUrl,const DeepCollectionEquality().hash(_redirectUris),const DeepCollectionEquality().hash(_scopes));
 
 @override
 String toString() {
-  return 'AppCreate(name: $name, redirectUris: $redirectUris, scopes: $scopes)';
+  return 'AppCreate(name: $name, logoUrl: $logoUrl, redirectUris: $redirectUris, scopes: $scopes)';
 }
 
 
@@ -567,7 +576,7 @@ abstract mixin class _$AppCreateCopyWith<$Res> implements $AppCreateCopyWith<$Re
   factory _$AppCreateCopyWith(_AppCreate value, $Res Function(_AppCreate) _then) = __$AppCreateCopyWithImpl;
 @override @useResult
 $Res call({
- String name, List<String> redirectUris, List<String> scopes
+ String name, String? logoUrl, List<String> redirectUris, List<String> scopes
 });
 
 
@@ -584,10 +593,11 @@ class __$AppCreateCopyWithImpl<$Res>
 
 /// Create a copy of AppCreate
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? redirectUris = null,Object? scopes = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? logoUrl = freezed,Object? redirectUris = null,Object? scopes = null,}) {
   return _then(_AppCreate(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,redirectUris: null == redirectUris ? _self._redirectUris : redirectUris // ignore: cast_nullable_to_non_nullable
+as String,logoUrl: freezed == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
+as String?,redirectUris: null == redirectUris ? _self._redirectUris : redirectUris // ignore: cast_nullable_to_non_nullable
 as List<String>,scopes: null == scopes ? _self._scopes : scopes // ignore: cast_nullable_to_non_nullable
 as List<String>,
   ));
@@ -600,7 +610,8 @@ as List<String>,
 /// @nodoc
 mixin _$AppUpdate {
 
- String? get name; List<String>? get redirectUris; List<String>? get scopes; bool? get active;@JsonKey(includeFromJson: false) List<String> get setToNull;
+ String? get name;/// Optional app logo URL. Set to `null` to clear.
+ String? get logoUrl; List<String>? get redirectUris; List<String>? get scopes; bool? get active;@JsonKey(includeFromJson: false) List<String> get setToNull;
 /// Create a copy of AppUpdate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -613,16 +624,16 @@ $AppUpdateCopyWith<AppUpdate> get copyWith => _$AppUpdateCopyWithImpl<AppUpdate>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppUpdate&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.redirectUris, redirectUris)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&const DeepCollectionEquality().equals(other.redirectUris, redirectUris)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(redirectUris),const DeepCollectionEquality().hash(scopes),active,const DeepCollectionEquality().hash(setToNull));
+int get hashCode => Object.hash(runtimeType,name,logoUrl,const DeepCollectionEquality().hash(redirectUris),const DeepCollectionEquality().hash(scopes),active,const DeepCollectionEquality().hash(setToNull));
 
 @override
 String toString() {
-  return 'AppUpdate(name: $name, redirectUris: $redirectUris, scopes: $scopes, active: $active, setToNull: $setToNull)';
+  return 'AppUpdate(name: $name, logoUrl: $logoUrl, redirectUris: $redirectUris, scopes: $scopes, active: $active, setToNull: $setToNull)';
 }
 
 
@@ -633,7 +644,7 @@ abstract mixin class $AppUpdateCopyWith<$Res>  {
   factory $AppUpdateCopyWith(AppUpdate value, $Res Function(AppUpdate) _then) = _$AppUpdateCopyWithImpl;
 @useResult
 $Res call({
- String? name, List<String>? redirectUris, List<String>? scopes, bool? active,@JsonKey(includeFromJson: false) List<String> setToNull
+ String? name, String? logoUrl, List<String>? redirectUris, List<String>? scopes, bool? active,@JsonKey(includeFromJson: false) List<String> setToNull
 });
 
 
@@ -650,9 +661,10 @@ class _$AppUpdateCopyWithImpl<$Res>
 
 /// Create a copy of AppUpdate
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? redirectUris = freezed,Object? scopes = freezed,Object? active = freezed,Object? setToNull = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? logoUrl = freezed,Object? redirectUris = freezed,Object? scopes = freezed,Object? active = freezed,Object? setToNull = null,}) {
   return _then(_self.copyWith(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,logoUrl: freezed == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
 as String?,redirectUris: freezed == redirectUris ? _self.redirectUris : redirectUris // ignore: cast_nullable_to_non_nullable
 as List<String>?,scopes: freezed == scopes ? _self.scopes : scopes // ignore: cast_nullable_to_non_nullable
 as List<String>?,active: freezed == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
@@ -742,10 +754,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  List<String>? redirectUris,  List<String>? scopes,  bool? active, @JsonKey(includeFromJson: false)  List<String> setToNull)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? logoUrl,  List<String>? redirectUris,  List<String>? scopes,  bool? active, @JsonKey(includeFromJson: false)  List<String> setToNull)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AppUpdate() when $default != null:
-return $default(_that.name,_that.redirectUris,_that.scopes,_that.active,_that.setToNull);case _:
+return $default(_that.name,_that.logoUrl,_that.redirectUris,_that.scopes,_that.active,_that.setToNull);case _:
   return orElse();
 
 }
@@ -763,10 +775,10 @@ return $default(_that.name,_that.redirectUris,_that.scopes,_that.active,_that.se
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  List<String>? redirectUris,  List<String>? scopes,  bool? active, @JsonKey(includeFromJson: false)  List<String> setToNull)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? logoUrl,  List<String>? redirectUris,  List<String>? scopes,  bool? active, @JsonKey(includeFromJson: false)  List<String> setToNull)  $default,) {final _that = this;
 switch (_that) {
 case _AppUpdate():
-return $default(_that.name,_that.redirectUris,_that.scopes,_that.active,_that.setToNull);case _:
+return $default(_that.name,_that.logoUrl,_that.redirectUris,_that.scopes,_that.active,_that.setToNull);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -783,10 +795,10 @@ return $default(_that.name,_that.redirectUris,_that.scopes,_that.active,_that.se
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  List<String>? redirectUris,  List<String>? scopes,  bool? active, @JsonKey(includeFromJson: false)  List<String> setToNull)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? logoUrl,  List<String>? redirectUris,  List<String>? scopes,  bool? active, @JsonKey(includeFromJson: false)  List<String> setToNull)?  $default,) {final _that = this;
 switch (_that) {
 case _AppUpdate() when $default != null:
-return $default(_that.name,_that.redirectUris,_that.scopes,_that.active,_that.setToNull);case _:
+return $default(_that.name,_that.logoUrl,_that.redirectUris,_that.scopes,_that.active,_that.setToNull);case _:
   return null;
 
 }
@@ -798,10 +810,12 @@ return $default(_that.name,_that.redirectUris,_that.scopes,_that.active,_that.se
 @JsonSerializable()
 
 class _AppUpdate implements AppUpdate {
-  const _AppUpdate({this.name, final  List<String>? redirectUris, final  List<String>? scopes, this.active, @JsonKey(includeFromJson: false) final  List<String> setToNull = const []}): _redirectUris = redirectUris,_scopes = scopes,_setToNull = setToNull;
+  const _AppUpdate({this.name, this.logoUrl, final  List<String>? redirectUris, final  List<String>? scopes, this.active, @JsonKey(includeFromJson: false) final  List<String> setToNull = const []}): _redirectUris = redirectUris,_scopes = scopes,_setToNull = setToNull;
   factory _AppUpdate.fromJson(Map<String, dynamic> json) => _$AppUpdateFromJson(json);
 
 @override final  String? name;
+/// Optional app logo URL. Set to `null` to clear.
+@override final  String? logoUrl;
  final  List<String>? _redirectUris;
 @override List<String>? get redirectUris {
   final value = _redirectUris;
@@ -842,16 +856,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppUpdate&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._redirectUris, _redirectUris)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&const DeepCollectionEquality().equals(other._redirectUris, _redirectUris)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_redirectUris),const DeepCollectionEquality().hash(_scopes),active,const DeepCollectionEquality().hash(_setToNull));
+int get hashCode => Object.hash(runtimeType,name,logoUrl,const DeepCollectionEquality().hash(_redirectUris),const DeepCollectionEquality().hash(_scopes),active,const DeepCollectionEquality().hash(_setToNull));
 
 @override
 String toString() {
-  return 'AppUpdate(name: $name, redirectUris: $redirectUris, scopes: $scopes, active: $active, setToNull: $setToNull)';
+  return 'AppUpdate(name: $name, logoUrl: $logoUrl, redirectUris: $redirectUris, scopes: $scopes, active: $active, setToNull: $setToNull)';
 }
 
 
@@ -862,7 +876,7 @@ abstract mixin class _$AppUpdateCopyWith<$Res> implements $AppUpdateCopyWith<$Re
   factory _$AppUpdateCopyWith(_AppUpdate value, $Res Function(_AppUpdate) _then) = __$AppUpdateCopyWithImpl;
 @override @useResult
 $Res call({
- String? name, List<String>? redirectUris, List<String>? scopes, bool? active,@JsonKey(includeFromJson: false) List<String> setToNull
+ String? name, String? logoUrl, List<String>? redirectUris, List<String>? scopes, bool? active,@JsonKey(includeFromJson: false) List<String> setToNull
 });
 
 
@@ -879,9 +893,10 @@ class __$AppUpdateCopyWithImpl<$Res>
 
 /// Create a copy of AppUpdate
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? redirectUris = freezed,Object? scopes = freezed,Object? active = freezed,Object? setToNull = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? logoUrl = freezed,Object? redirectUris = freezed,Object? scopes = freezed,Object? active = freezed,Object? setToNull = null,}) {
   return _then(_AppUpdate(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,logoUrl: freezed == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
 as String?,redirectUris: freezed == redirectUris ? _self._redirectUris : redirectUris // ignore: cast_nullable_to_non_nullable
 as List<String>?,scopes: freezed == scopes ? _self._scopes : scopes // ignore: cast_nullable_to_non_nullable
 as List<String>?,active: freezed == active ? _self.active : active // ignore: cast_nullable_to_non_nullable

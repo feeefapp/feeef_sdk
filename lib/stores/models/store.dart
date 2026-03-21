@@ -357,6 +357,9 @@ abstract class CustomStatusMapping with _$CustomStatusMapping {
 
     /// Payment status to map to (null means no change)
     PaymentStatus? paymentStatus,
+
+    /// Other mappings to suggest as the next step (`code` when set, otherwise `name`).
+    @Default([]) List<String> next,
   }) = _CustomStatusMapping;
 
   factory CustomStatusMapping.fromJson(Map<String, dynamic> json) =>

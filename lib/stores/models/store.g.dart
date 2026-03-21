@@ -378,6 +378,10 @@ _CustomStatusMapping _$CustomStatusMappingFromJson(Map<String, dynamic> json) =>
         _$PaymentStatusEnumMap,
         json['paymentStatus'],
       ),
+      next: (json['next'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$CustomStatusMappingToJson(
@@ -390,6 +394,7 @@ Map<String, dynamic> _$CustomStatusMappingToJson(
   'status': _$OrderStatusEnumMap[instance.status],
   'deliveryStatus': _$DeliveryStatusEnumMap[instance.deliveryStatus],
   'paymentStatus': _$PaymentStatusEnumMap[instance.paymentStatus],
+  'next': instance.next,
 };
 
 const _$OrderStatusEnumMap = {

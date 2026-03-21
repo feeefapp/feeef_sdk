@@ -2306,7 +2306,8 @@ mixin _$CustomStatusMapping {
  bool get enabled;/// Status to map to (null means no change)
  OrderStatus? get status;/// Delivery status to map to (null means no change)
  DeliveryStatus? get deliveryStatus;/// Payment status to map to (null means no change)
- PaymentStatus? get paymentStatus;
+ PaymentStatus? get paymentStatus;/// Other mappings to suggest as the next step (`code` when set, otherwise `name`).
+ List<String> get next;
 /// Create a copy of CustomStatusMapping
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2319,16 +2320,16 @@ $CustomStatusMappingCopyWith<CustomStatusMapping> get copyWith => _$CustomStatus
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomStatusMapping&&(identical(other.name, name) || other.name == name)&&(identical(other.code, code) || other.code == code)&&(identical(other.color, color) || other.color == color)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.status, status) || other.status == status)&&(identical(other.deliveryStatus, deliveryStatus) || other.deliveryStatus == deliveryStatus)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomStatusMapping&&(identical(other.name, name) || other.name == name)&&(identical(other.code, code) || other.code == code)&&(identical(other.color, color) || other.color == color)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.status, status) || other.status == status)&&(identical(other.deliveryStatus, deliveryStatus) || other.deliveryStatus == deliveryStatus)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&const DeepCollectionEquality().equals(other.next, next));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,code,color,enabled,status,deliveryStatus,paymentStatus);
+int get hashCode => Object.hash(runtimeType,name,code,color,enabled,status,deliveryStatus,paymentStatus,const DeepCollectionEquality().hash(next));
 
 @override
 String toString() {
-  return 'CustomStatusMapping(name: $name, code: $code, color: $color, enabled: $enabled, status: $status, deliveryStatus: $deliveryStatus, paymentStatus: $paymentStatus)';
+  return 'CustomStatusMapping(name: $name, code: $code, color: $color, enabled: $enabled, status: $status, deliveryStatus: $deliveryStatus, paymentStatus: $paymentStatus, next: $next)';
 }
 
 
@@ -2339,7 +2340,7 @@ abstract mixin class $CustomStatusMappingCopyWith<$Res>  {
   factory $CustomStatusMappingCopyWith(CustomStatusMapping value, $Res Function(CustomStatusMapping) _then) = _$CustomStatusMappingCopyWithImpl;
 @useResult
 $Res call({
- String name, String? code, int? color, bool enabled, OrderStatus? status, DeliveryStatus? deliveryStatus, PaymentStatus? paymentStatus
+ String name, String? code, int? color, bool enabled, OrderStatus? status, DeliveryStatus? deliveryStatus, PaymentStatus? paymentStatus, List<String> next
 });
 
 
@@ -2356,7 +2357,7 @@ class _$CustomStatusMappingCopyWithImpl<$Res>
 
 /// Create a copy of CustomStatusMapping
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? code = freezed,Object? color = freezed,Object? enabled = null,Object? status = freezed,Object? deliveryStatus = freezed,Object? paymentStatus = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? code = freezed,Object? color = freezed,Object? enabled = null,Object? status = freezed,Object? deliveryStatus = freezed,Object? paymentStatus = freezed,Object? next = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
@@ -2365,7 +2366,8 @@ as int?,enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nulla
 as bool,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as OrderStatus?,deliveryStatus: freezed == deliveryStatus ? _self.deliveryStatus : deliveryStatus // ignore: cast_nullable_to_non_nullable
 as DeliveryStatus?,paymentStatus: freezed == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
-as PaymentStatus?,
+as PaymentStatus?,next: null == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 
@@ -2450,10 +2452,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String? code,  int? color,  bool enabled,  OrderStatus? status,  DeliveryStatus? deliveryStatus,  PaymentStatus? paymentStatus)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String? code,  int? color,  bool enabled,  OrderStatus? status,  DeliveryStatus? deliveryStatus,  PaymentStatus? paymentStatus,  List<String> next)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CustomStatusMapping() when $default != null:
-return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_that.deliveryStatus,_that.paymentStatus);case _:
+return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_that.deliveryStatus,_that.paymentStatus,_that.next);case _:
   return orElse();
 
 }
@@ -2471,10 +2473,10 @@ return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String? code,  int? color,  bool enabled,  OrderStatus? status,  DeliveryStatus? deliveryStatus,  PaymentStatus? paymentStatus)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String? code,  int? color,  bool enabled,  OrderStatus? status,  DeliveryStatus? deliveryStatus,  PaymentStatus? paymentStatus,  List<String> next)  $default,) {final _that = this;
 switch (_that) {
 case _CustomStatusMapping():
-return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_that.deliveryStatus,_that.paymentStatus);case _:
+return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_that.deliveryStatus,_that.paymentStatus,_that.next);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2491,10 +2493,10 @@ return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String? code,  int? color,  bool enabled,  OrderStatus? status,  DeliveryStatus? deliveryStatus,  PaymentStatus? paymentStatus)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String? code,  int? color,  bool enabled,  OrderStatus? status,  DeliveryStatus? deliveryStatus,  PaymentStatus? paymentStatus,  List<String> next)?  $default,) {final _that = this;
 switch (_that) {
 case _CustomStatusMapping() when $default != null:
-return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_that.deliveryStatus,_that.paymentStatus);case _:
+return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_that.deliveryStatus,_that.paymentStatus,_that.next);case _:
   return null;
 
 }
@@ -2506,7 +2508,7 @@ return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_th
 @JsonSerializable()
 
 class _CustomStatusMapping implements CustomStatusMapping {
-  const _CustomStatusMapping({required this.name, this.code, this.color, this.enabled = true, this.status, this.deliveryStatus, this.paymentStatus});
+  const _CustomStatusMapping({required this.name, this.code, this.color, this.enabled = true, this.status, this.deliveryStatus, this.paymentStatus, final  List<String> next = const []}): _next = next;
   factory _CustomStatusMapping.fromJson(Map<String, dynamic> json) => _$CustomStatusMappingFromJson(json);
 
 /// The custom status name (e.g., "not_respond", "phone_closed_1")
@@ -2523,6 +2525,15 @@ class _CustomStatusMapping implements CustomStatusMapping {
 @override final  DeliveryStatus? deliveryStatus;
 /// Payment status to map to (null means no change)
 @override final  PaymentStatus? paymentStatus;
+/// Other mappings to suggest as the next step (`code` when set, otherwise `name`).
+ final  List<String> _next;
+/// Other mappings to suggest as the next step (`code` when set, otherwise `name`).
+@override@JsonKey() List<String> get next {
+  if (_next is EqualUnmodifiableListView) return _next;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_next);
+}
+
 
 /// Create a copy of CustomStatusMapping
 /// with the given fields replaced by the non-null parameter values.
@@ -2537,16 +2548,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomStatusMapping&&(identical(other.name, name) || other.name == name)&&(identical(other.code, code) || other.code == code)&&(identical(other.color, color) || other.color == color)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.status, status) || other.status == status)&&(identical(other.deliveryStatus, deliveryStatus) || other.deliveryStatus == deliveryStatus)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomStatusMapping&&(identical(other.name, name) || other.name == name)&&(identical(other.code, code) || other.code == code)&&(identical(other.color, color) || other.color == color)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.status, status) || other.status == status)&&(identical(other.deliveryStatus, deliveryStatus) || other.deliveryStatus == deliveryStatus)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&const DeepCollectionEquality().equals(other._next, _next));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,code,color,enabled,status,deliveryStatus,paymentStatus);
+int get hashCode => Object.hash(runtimeType,name,code,color,enabled,status,deliveryStatus,paymentStatus,const DeepCollectionEquality().hash(_next));
 
 @override
 String toString() {
-  return 'CustomStatusMapping(name: $name, code: $code, color: $color, enabled: $enabled, status: $status, deliveryStatus: $deliveryStatus, paymentStatus: $paymentStatus)';
+  return 'CustomStatusMapping(name: $name, code: $code, color: $color, enabled: $enabled, status: $status, deliveryStatus: $deliveryStatus, paymentStatus: $paymentStatus, next: $next)';
 }
 
 
@@ -2557,7 +2568,7 @@ abstract mixin class _$CustomStatusMappingCopyWith<$Res> implements $CustomStatu
   factory _$CustomStatusMappingCopyWith(_CustomStatusMapping value, $Res Function(_CustomStatusMapping) _then) = __$CustomStatusMappingCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String? code, int? color, bool enabled, OrderStatus? status, DeliveryStatus? deliveryStatus, PaymentStatus? paymentStatus
+ String name, String? code, int? color, bool enabled, OrderStatus? status, DeliveryStatus? deliveryStatus, PaymentStatus? paymentStatus, List<String> next
 });
 
 
@@ -2574,7 +2585,7 @@ class __$CustomStatusMappingCopyWithImpl<$Res>
 
 /// Create a copy of CustomStatusMapping
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? code = freezed,Object? color = freezed,Object? enabled = null,Object? status = freezed,Object? deliveryStatus = freezed,Object? paymentStatus = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? code = freezed,Object? color = freezed,Object? enabled = null,Object? status = freezed,Object? deliveryStatus = freezed,Object? paymentStatus = freezed,Object? next = null,}) {
   return _then(_CustomStatusMapping(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
@@ -2583,7 +2594,8 @@ as int?,enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nulla
 as bool,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as OrderStatus?,deliveryStatus: freezed == deliveryStatus ? _self.deliveryStatus : deliveryStatus // ignore: cast_nullable_to_non_nullable
 as DeliveryStatus?,paymentStatus: freezed == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
-as PaymentStatus?,
+as PaymentStatus?,next: null == next ? _self._next : next // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 

@@ -40,6 +40,9 @@ class OrderRepository extends ModelRepository<Order>
   @override
   Future<ListResponse<Order>> list({
     String? storeId,
+    /// When non-empty, requests orders from multiple stores (unified inbox).
+    /// Takes precedence over [storeId] when both are set.
+    List<String>? storeIds,
     int? page,
     int? offset,
     int? limit,
@@ -59,12 +62,17 @@ class OrderRepository extends ModelRepository<Order>
     dynamic customStatus,
     dynamic source,
   }) {
+    assert(storeId != null || storeIds != null, 'storeId or storeIds must be provided');
+    assert(storeId != null && storeIds != null, 'storeId and storeIds cannot be provided together');
+    final useMultiStore =
+        storeIds != null && storeIds.isNotEmpty;
     var data = super.list(
       page: page,
       offset: offset,
       limit: limit,
       params: {
-        if (storeId != null) 'store_id': storeId,
+        if (useMultiStore) 'store_ids': storeIds,
+        if (!useMultiStore && storeId != null) 'store_id': storeId,
         if (status != null) 'status': status.map((e) => e.name).toList(),
         if (tags != null) 'tags': tags,
         if (createdBefore != null)

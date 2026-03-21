@@ -19,6 +19,7 @@ import 'package:feeef/files/services/analytics.dart';
 import 'package:feeef/files/services/file_service.dart';
 import 'package:feeef/feedbacks/feedback_repository.dart';
 import 'package:feeef/apps/app_repository.dart';
+import 'package:feeef/oauth/oauth_repository.dart';
 import 'package:feeef/image_prompt_templates/image_prompt_template_repository.dart';
 import 'package:feeef/orders/order_repository.dart';
 import 'package:feeef/product_landing_page_templates/product_landing_page_template_repository.dart';
@@ -139,6 +140,7 @@ class Feeef {
   late final TransferRepository transfers;
   late final ConfigRepository configs;
   late final AppRepository apps;
+  late final OAuthRepository oauth;
   late final PromoRepository promos;
 
   late final CurrencyRepository currencies;
@@ -175,6 +177,7 @@ class Feeef {
     transfers = TransferRepository(client: client);
     configs = ConfigRepository(client: client);
     apps = AppRepository(client: client);
+    oauth = OAuthRepository(client: client);
     promos = PromoRepository(client: client);
     files = FileService(client: client);
 

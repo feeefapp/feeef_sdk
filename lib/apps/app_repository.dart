@@ -38,6 +38,12 @@ class AppRepository extends ModelRepository<App>
 
   /// Builds the OAuth authorize URL to which the user should be redirected.
   ///
+  /// This is step 1 of the authorization-code flow (Google-like):
+  /// - open `/oauth/authorize` in browser
+  /// - if API returns `login_required`, redirect to `login_url`
+  /// - after login, authorize returns to your callback with `code`
+  /// - exchange code via `/oauth/token`
+  ///
   /// [baseUrl] should be the API base (e.g. `https://api.feeef.org/api/v1`).
   /// [codeChallenge] and [codeChallengeMethod] are required when using PKCE.
   static String buildAuthorizeUrl({

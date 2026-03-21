@@ -29,6 +29,8 @@ export 'mixins/mixins.dart';
 export 'mixins/repository_mixins.dart';
 export 'apps/models/app.dart';
 export 'apps/app_repository.dart';
+export 'oauth/models/oauth_models.dart';
+export 'oauth/oauth_repository.dart';
 export 'orders/order_repository.dart';
 export 'product_landing_page_templates/product_landing_page_template_repository.dart';
 export 'product_landing_pages/product_landing_page_repository.dart';

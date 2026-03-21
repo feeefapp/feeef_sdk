@@ -71,6 +71,7 @@ void main() {
       final json = {
         'id': 'app_1',
         'name': 'Test App',
+        'logoUrl': 'https://cdn.example.com/logo.png',
         'clientId': 'cid_xyz',
         'redirectUris': ['https://example.com/cb'],
         'scopes': ['auth', 'stores'],
@@ -82,6 +83,7 @@ void main() {
       final app = App.fromJson(json);
       expect(app.id, 'app_1');
       expect(app.name, 'Test App');
+      expect(app.logoUrl, 'https://cdn.example.com/logo.png');
       expect(app.clientId, 'cid_xyz');
       expect(app.redirectUris, ['https://example.com/cb']);
       expect(app.scopes, ['auth', 'stores']);
@@ -111,13 +113,27 @@ void main() {
     test('toJson includes name, redirectUris, scopes', () {
       const create = AppCreate(
         name: 'My App',
+        logoUrl: 'https://cdn.example.com/logo.png',
         redirectUris: ['https://a.com/cb'],
         scopes: ['auth'],
       );
       final json = create.toJson();
       expect(json['name'], 'My App');
+      expect(json['logoUrl'], 'https://cdn.example.com/logo.png');
       expect(json['redirectUris'], ['https://a.com/cb']);
       expect(json['scopes'], ['auth']);
+    });
+  });
+
+  group('AppUpdate', () {
+    test('toJson includes logoUrl and active fields', () {
+      const update = AppUpdate(
+        logoUrl: null,
+        active: false,
+      );
+      final json = update.toJson();
+      expect(json['logoUrl'], isNull);
+      expect(json['active'], false);
     });
   });
 }

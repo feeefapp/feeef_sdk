@@ -1,10 +1,116 @@
-# feeef
+# feeef (Dart SDK)
+
+Dart SDK for Feeef APIs and repositories.
+
+## Developer OAuth (Authorization Code flow)
+
+This is the same pattern used by major providers (Google-style browser authorize + callback + token exchange).
+
+**Full HTTP reference** (hosts, consent, PKCE, troubleshooting): Feeef backend
+`docs/OAUTH2_DEVELOPER.md` (authoritative contract for third-party OAuth).
+
+### 1) Build authorize URL
+
+Use the **accounts** origin for the browser step (consent UI), not `/v1` on the API. Hitting the API authorize URL still works (server redirects to accounts).
+
+```dart
+import 'package:feeef/apps/app_repository.dart';
+
+final authorizeUrl = AppRepository.buildAuthorizeUrl(
+  baseUrl: 'https://accounts.feeef.org',
+  clientId: '<client_id>',
+  redirectUri: 'https://your-app.com/oauth/callback',
+  responseType: 'code',
+  scope: ['*'], // or explicit scopes
+  state: 'random_csrf_state',
+);
+```
+
+Open `authorizeUrl` in a browser/webview.
+
+### 2) Handle login-required response
+
+If the user is not logged in, non-browser clients may get JSON from `/oauth/authorize`; browsers are usually redirected to sign-in. Example body:
+
+```json
+{
+  "error": "login_required",
+  "error_description": "User must log in to authorize the application",
+  "login_url": "https://accounts.feeef.org/signin?next=...",
+  "next": "https://accounts.feeef.org/oauth/authorize?..."
+}
+```
+
+Navigate to `login_url`. After sign-in, continue the authorize step.
+
+### 3) Receive callback with `code`
+
+The browser is redirected to your registered `redirect_uri` with query params:
+
+- `code`
+- `state` (if provided)
+
+Validate `state`.
+
+### 4) Exchange code for token
+
+Use the SDK repository:
+
+```dart
+import 'package:feeef/feeef.dart';
+
+final oauth = Feeef.instance.oauth;
+
+final tokenResponse = await oauth.exchangeAuthorizationCode(
+  code: codeFromCallback,
+  redirectUri: 'https://your-app.com/oauth/callback',
+  clientId: '<client_id>',
+  clientSecret: '<client_secret>',
+  // codeVerifier: '<pkce_verifier>', // if PKCE was used
+);
+```
+
+The SDK also supports:
+
+```dart
+await oauth.revokeToken(token: tokenResponse.accessToken);
+
+final introspection = await oauth.introspectToken(
+  token: tokenResponse.accessToken,
+);
+```
+
+Underlying HTTP contract:
+
+- `POST https://api.feeef.org/v1/oauth/token`
+- `Content-Type: application/x-www-form-urlencoded`
+
+Required fields:
+
+- `grant_type=authorization_code`
+- `code`
+- `redirect_uri`
+- `client_id`
+- `client_secret`
+
+Optional (PKCE):
+
+- `code_verifier`
+
+### Security checklist
+
+- Keep `client_secret` server-side only.
+- Validate `state` on callback.
+- Use PKCE for public clients.
+- Ensure `redirect_uri` exactly matches one registered in the app.
+## Overview
 
 Dart/Flutter SDK for the Feeef API: HTTP client, repositories (stores, products, orders, landing pages, etc.), file and AI actions, and third-party integrations (Yalidine, Ecotrack, Google Sheets, and more).
 
 ## Features
 
 - **API client** – Single `Feeef` entrypoint with `init(baseUrl:)`; repositories for stores, products, orders, product landing pages, templates, shipping, feedback, users, and config.
+- **Developer apps** – OAuth app models include optional `logoUrl` for branded consent/admin UIs.
 - **Attachments** – Typed `Attachment` model (image, store, product, url, audio) for AI features (image generation, voice, landing page generation).
 - **List responses** – `ListResponse<T>` with optional meta (total, page, limit) and helpers (`hasMore`, `nextPage`).
 - **Errors** – `NetworkException`, `FeeefValidationException` with `FeeefViolation` and field helpers (`getField`, `getFieldMessage`, `messages`).

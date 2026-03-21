@@ -6,13 +6,18 @@ Dart SDK for Feeef APIs and repositories.
 
 This is the same pattern used by major providers (Google-style browser authorize + callback + token exchange).
 
+**Full HTTP reference** (hosts, consent, PKCE, troubleshooting): Feeef backend
+`docs/OAUTH2_DEVELOPER.md` (authoritative contract for third-party OAuth).
+
 ### 1) Build authorize URL
+
+Use the **accounts** origin for the browser step (consent UI), not `/v1` on the API. Hitting the API authorize URL still works (server redirects to accounts).
 
 ```dart
 import 'package:feeef/apps/app_repository.dart';
 
 final authorizeUrl = AppRepository.buildAuthorizeUrl(
-  baseUrl: 'https://api.feeef.org/v1',
+  baseUrl: 'https://accounts.feeef.org',
   clientId: '<client_id>',
   redirectUri: 'https://your-app.com/oauth/callback',
   responseType: 'code',
@@ -25,14 +30,14 @@ Open `authorizeUrl` in a browser/webview.
 
 ### 2) Handle login-required response
 
-If user is not logged in, API `/oauth/authorize` can return:
+If the user is not logged in, non-browser clients may get JSON from `/oauth/authorize`; browsers are usually redirected to sign-in. Example body:
 
 ```json
 {
   "error": "login_required",
   "error_description": "User must log in to authorize the application",
   "login_url": "https://accounts.feeef.org/signin?next=...",
-  "next": "https://api.feeef.org/v1/oauth/authorize?..."
+  "next": "https://accounts.feeef.org/oauth/authorize?..."
 }
 ```
 

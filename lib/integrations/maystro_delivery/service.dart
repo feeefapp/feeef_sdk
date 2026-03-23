@@ -5,6 +5,7 @@ import 'package:feeef/interfaces/order.dart';
 import 'package:feeef/feeef_client.dart';
 import 'package:feeef/orders/models/order.dart';
 
+import '../../feeef_client.dart';
 import 'models/create_order_request.dart';
 
 /// Maystro Delivery Service.
@@ -321,7 +322,7 @@ class MaystroDeliveryService
     String format = 'A6',
   }) async {
     final response = await Feeef.instance.client.post(
-      '/stores/$storeId/integrations/maystroDelivery/labels/individual',
+      '/stores/$storeId/integrations/maystroDelivery/labelIndividual',
       data: {'trackingNumbers': trackingNumbers, 'format': format},
     );
     final data = response.data is Map ? response.data as Map<String, dynamic> : <String, dynamic>{};

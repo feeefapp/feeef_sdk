@@ -607,7 +607,7 @@ class YalidineDeliveryService
     // Delete from Yalidine via backend
     try {
       await Feeef.instance.client.delete(
-        '/stores/${storeId ?? order.storeId}/integrations/yalidine/parcels/$tracking',
+        '/stores/${storeId ?? order.storeId}/integrations/yalidine/orders/$tracking',
       );
     } catch (e) {
       // Log error but continue with metadata removal

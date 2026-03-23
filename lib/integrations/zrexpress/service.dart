@@ -646,7 +646,7 @@ class ZrexpressDeliveryService
     ZrexpressLabelFormat format = ZrexpressLabelFormat.a6,
   }) async {
     final response = await Feeef.instance.client.post(
-      '/stores/$storeId/integrations/zrexpress/labels/individual',
+      '/stores/$storeId/integrations/zrexpress/labelIndividual',
       data: {
         'trackingNumbers': trackingNumbers,
         'format': format == ZrexpressLabelFormat.a6

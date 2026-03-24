@@ -3428,7 +3428,10 @@ as Map<String, dynamic>,
 /// @nodoc
 mixin _$EcotrackDeliveryIntegration {
 
- String get baseUrl; String get token; bool get active; Map<String, dynamic> get metadata;
+ String get baseUrl; String get token; bool get active;/// Carrier-specific options. Use `parcelStock: false` to hide the stock / from-stock UI
+/// when this Ecotrack profile does not use the `stock` field (see backend
+/// `DeliveryCapabilities.parcelStock`).
+ Map<String, dynamic> get metadata;
 /// Create a copy of EcotrackDeliveryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -3631,7 +3634,13 @@ class _EcotrackDeliveryIntegration extends EcotrackDeliveryIntegration {
 @override final  String baseUrl;
 @override final  String token;
 @override@JsonKey() final  bool active;
+/// Carrier-specific options. Use `parcelStock: false` to hide the stock / from-stock UI
+/// when this Ecotrack profile does not use the `stock` field (see backend
+/// `DeliveryCapabilities.parcelStock`).
  final  Map<String, dynamic> _metadata;
+/// Carrier-specific options. Use `parcelStock: false` to hide the stock / from-stock UI
+/// when this Ecotrack profile does not use the `stock` field (see backend
+/// `DeliveryCapabilities.parcelStock`).
 @override@JsonKey() Map<String, dynamic> get metadata {
   if (_metadata is EqualUnmodifiableMapView) return _metadata;
   // ignore: implicit_dynamic_type

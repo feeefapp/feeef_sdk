@@ -3,6 +3,7 @@ import 'package:feeef/integrations/integrations.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
 import 'package:feeef/interfaces/order.dart';
 import 'package:feeef/feeef_client.dart';
+import 'package:feeef/integrations/delivery/bulk_send_result.dart';
 import 'package:feeef/orders/models/order.dart';
 
 import 'models/create_parcel_request.dart';
@@ -214,8 +215,8 @@ class ZrexpressDeliveryService
 
   /// [sendMany] sends multiple parcels to ZR Express in bulk
   ///
-  /// Returns a map with 'created', 'failed', and 'skipped' lists
-  Future<Map<String, dynamic>> sendMany(
+  /// Returns canonical bulk rows (`created` / `failed` / `skipped`) plus [summary].
+  Future<DeliveryBulkSendApiResult> sendMany(
     List<Order> orders,
     List<ZrexpressParcelCreateRequest> requests,
   ) async {
@@ -251,17 +252,17 @@ class ZrexpressDeliveryService
     }
 
     if (ordersToSend.isEmpty) {
-      return {
-        'created': <dynamic>[],
-        'failed': <dynamic>[],
-        'skipped': clientSkipped,
-        'summary': {
+      return DeliveryBulkSendApiResult(
+        created: const [],
+        failed: const [],
+        skipped: clientSkipped,
+        summary: {
           'total': orders.length,
           'created': 0,
           'failed': 0,
           'skipped': clientSkipped.length,
         },
-      };
+      );
     }
 
     // Build parcels array
@@ -360,26 +361,40 @@ class ZrexpressDeliveryService
         throw Exception('Unexpected response format from ZR Express bulk send');
       }
 
-      final created = data['created'] as List<dynamic>? ?? [];
-      final failed = data['failed'] as List<dynamic>? ?? [];
+      final createdRaw = data['created'] as List<dynamic>? ?? [];
+      final failedRaw = data['failed'] as List<dynamic>? ?? [];
       final serverSkipped = data['skipped'] as List<dynamic>? ?? [];
+
+      final created = createdRaw
+          .whereType<Map>()
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
+      final failed = failedRaw
+          .whereType<Map>()
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
+      final skippedServerMaps = serverSkipped
+          .whereType<Map>()
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
 
       print(
         'Parsed: ${created.length} created, ${failed.length} failed, ${serverSkipped.length} skipped',
       );
 
       // Merge client-side skipped with server-side skipped
-      final allSkipped = [...clientSkipped, ...serverSkipped];
+      final allSkipped = [...clientSkipped, ...skippedServerMaps];
 
       // Attach successful orders
-      for (final createdOrder in created) {
+      for (final orderData in created) {
         try {
-          final orderData = createdOrder as Map<String, dynamic>;
-          final externalId = orderData['externalId'] as String?;
+          final ref =
+              orderData['reference'] as String? ??
+              orderData['externalId'] as String?;
 
-          if (externalId != null) {
+          if (ref != null) {
             final order = ordersToSend.firstWhere(
-              (o) => o.id == externalId,
+              (o) => o.id == ref,
               orElse: () => ordersToSend.first,
             );
             await attach(order: order, payload: orderData);
@@ -389,17 +404,17 @@ class ZrexpressDeliveryService
         }
       }
 
-      return {
-        'created': created,
-        'failed': failed,
-        'skipped': allSkipped,
-        'summary': {
+      return DeliveryBulkSendApiResult(
+        created: created,
+        failed: failed,
+        skipped: allSkipped,
+        summary: {
           'total': orders.length,
           'created': created.length,
           'failed': failed.length,
           'skipped': allSkipped.length,
         },
-      };
+      );
     } on DioException catch (e) {
       print('Error sending parcels to ZR Express: $e');
       print('Response data: ${e.response?.data}');
@@ -498,6 +513,7 @@ class ZrexpressDeliveryService
                 final firstError = orderErrors.values.first.first;
 
                 failedOrders.add({
+                  'reference': order.id,
                   'externalId': order.id,
                   'error': firstError,
                   'message': firstError,
@@ -513,6 +529,7 @@ class ZrexpressDeliveryService
               for (int i = 0; i < ordersToSend.length; i++) {
                 if (!orderIndexedErrors.containsKey(i)) {
                   failedOrders.add({
+                    'reference': ordersToSend[i].id,
                     'externalId': ordersToSend[i].id,
                     'error': 'Batch failure',
                     'message': 'Batch failure',
@@ -528,6 +545,7 @@ class ZrexpressDeliveryService
               // Only global errors - apply to all orders
               for (final order in ordersToSend) {
                 failedOrders.add({
+                  'reference': order.id,
                   'externalId': order.id,
                   'error': globalErrors.values.first.first,
                   'message': globalErrors.values.first.first,
@@ -538,6 +556,7 @@ class ZrexpressDeliveryService
               // No specific errors found
               for (final order in ordersToSend) {
                 failedOrders.add({
+                  'reference': order.id,
                   'externalId': order.id,
                   'error': errorData['message'] as String? ?? errorMessage,
                   'message': errorData['message'] as String? ?? errorMessage,
@@ -546,17 +565,17 @@ class ZrexpressDeliveryService
               }
             }
 
-            return {
-              'created': <dynamic>[],
-              'failed': failedOrders,
-              'skipped': clientSkipped,
-              'summary': {
+            return DeliveryBulkSendApiResult(
+              created: const [],
+              failed: failedOrders,
+              skipped: clientSkipped,
+              summary: {
                 'total': orders.length,
                 'created': 0,
                 'failed': failedOrders.length,
                 'skipped': clientSkipped.length,
               },
-            };
+            );
           }
         } catch (parseError, stack) {
           print('Error parsing 422 response: $parseError');
@@ -567,25 +586,26 @@ class ZrexpressDeliveryService
 
       // For 400 errors that aren't validation, mark all as failed
       if (e.response?.statusCode == 400) {
-        return {
-          'created': <dynamic>[],
-          'failed': [
+        return DeliveryBulkSendApiResult(
+          created: const [],
+          failed: [
             for (final order in ordersToSend)
               {
+                'reference': order.id,
                 'externalId': order.id,
                 'error': errorMessage,
                 'message': errorMessage,
                 'details': e.response?.data,
               },
           ],
-          'skipped': clientSkipped,
-          'summary': {
+          skipped: clientSkipped,
+          summary: {
             'total': orders.length,
             'created': 0,
             'failed': ordersToSend.length,
             'skipped': clientSkipped.length,
           },
-        };
+        );
       }
 
       throw Exception(errorMessage);

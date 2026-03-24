@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:feeef/integrations/delivery/bulk_send_result.dart';
 import 'package:feeef/integrations/integrations.dart';
 import 'package:feeef/integrations/yalidine/models/create_order_request.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
@@ -767,6 +768,43 @@ typedef YalidineBulkSendResult = ({
   List<YalidineFailedParcel> failed,
   YalidineBulkSummary summary,
 });
+
+/// Adapts typed Yalidine bulk result to the shared [DeliveryBulkSendApiResult] shape
+/// (same keys as Ecotrack / ZR / Maystro) for unified UI parsing.
+extension YalidineBulkSendResultDelivery on YalidineBulkSendResult {
+  DeliveryBulkSendApiResult get asDeliveryBulkSendApiResult {
+    final createdMaps = <Map<String, dynamic>>[
+      for (final p in created)
+        {
+          'reference': p.orderId,
+          'order_id': p.orderId,
+          if (p.tracking != null) 'tracking': p.tracking,
+          if (p.label != null) 'label': p.label,
+          if (p.importId != null) 'import_id': p.importId,
+        },
+    ];
+    final failedMaps = <Map<String, dynamic>>[
+      for (final f in failed)
+        {
+          'reference': f.orderId,
+          'order_id': f.orderId,
+          'message': f.error,
+          'error': f.error,
+        },
+    ];
+    return DeliveryBulkSendApiResult(
+      created: createdMaps,
+      failed: failedMaps,
+      skipped: const [],
+      summary: {
+        'total': summary.total,
+        'created': summary.created,
+        'failed': summary.failed,
+        'skipped': 0,
+      },
+    );
+  }
+}
 
 /// Custom exception for Yalidine API errors
 class YalidineApiException implements Exception {

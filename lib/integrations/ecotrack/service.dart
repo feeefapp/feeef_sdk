@@ -5,6 +5,7 @@ import 'package:feeef/core/string_extensions.dart';
 import 'package:feeef/feeef_client.dart';
 import 'package:feeef/integrations/integrations.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
+import 'package:feeef/integrations/delivery/bulk_send_result.dart';
 import 'package:feeef/orders/models/order.dart';
 import 'models/create_order_request.dart';
 
@@ -264,7 +265,7 @@ class EcotrackDeliveryService
   /// - [ArgumentError] if orders/requests lists are empty or mismatched
   /// - [FeeefValidationException] if backend returns validation errors (422)
   /// - [DioException] for network errors or other HTTP errors
-  Future<Map<String, dynamic>> sendMany(
+  Future<DeliveryBulkSendApiResult> sendMany(
     List<Order> orders,
     List<EcotrackOrderCreateRequest> requests,
   ) async {
@@ -301,17 +302,19 @@ class EcotrackDeliveryService
 
     // If all orders are already sent, return early
     if (ordersToSend.isEmpty) {
-      return {
-        'created': <dynamic>[],
-        'failed': <dynamic>[],
-        'skipped': clientSkipped,
-        'summary': {
+      return DeliveryBulkSendApiResult(
+        created: const [],
+        failed: const [],
+        skipped: clientSkipped
+            .map((e) => Map<String, dynamic>.from(e as Map))
+            .toList(),
+        summary: {
           'total': orders.length,
           'created': 0,
           'failed': 0,
           'skipped': clientSkipped.length,
         },
-      };
+      );
     }
 
     // Build orders array from requests
@@ -358,17 +361,33 @@ class EcotrackDeliveryService
       // Parse response
       final responseData = response.data as Map<String, dynamic>;
       final data = responseData['data'] as Map<String, dynamic>? ?? {};
-      final created = data['created'] as List<dynamic>? ?? [];
-      final failed = data['failed'] as List<dynamic>? ?? [];
+      final createdRaw = data['created'] as List<dynamic>? ?? [];
+      final failedRaw = data['failed'] as List<dynamic>? ?? [];
       final serverSkipped = data['skipped'] as List<dynamic>? ?? [];
 
+      final created = createdRaw
+          .whereType<Map>()
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
+      final failed = failedRaw
+          .whereType<Map>()
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
+      final skippedServerMaps = serverSkipped
+          .whereType<Map>()
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
+
       // Merge client-side skipped with server-side skipped
-      final allSkipped = [...clientSkipped, ...serverSkipped];
+      final allSkipped = [
+        ...clientSkipped
+            .map((e) => Map<String, dynamic>.from(e as Map)),
+        ...skippedServerMaps,
+      ];
 
       // Attach successful orders to delivery service
-      for (final createdOrder in created) {
+      for (final orderData in created) {
         try {
-          final orderData = createdOrder as Map<String, dynamic>;
           final reference = orderData['reference'] as String?;
 
           if (reference != null) {
@@ -387,17 +406,17 @@ class EcotrackDeliveryService
         }
       }
 
-      return {
-        'created': created,
-        'failed': failed,
-        'skipped': allSkipped,
-        'summary': {
+      return DeliveryBulkSendApiResult(
+        created: created,
+        failed: failed,
+        skipped: allSkipped,
+        summary: {
           'total': orders.length,
           'created': created.length,
           'failed': failed.length,
           'skipped': allSkipped.length,
         },
-      };
+      );
     } on DioException {
       // Re-throw DioException to be handled by caller
       // The caller can use LaravelValidationError.fromDioException to parse validation errors

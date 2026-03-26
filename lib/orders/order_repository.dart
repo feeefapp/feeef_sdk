@@ -63,7 +63,10 @@ class OrderRepository extends ModelRepository<Order>
     dynamic source,
   }) {
     assert(storeId != null || storeIds != null, 'storeId or storeIds must be provided');
-    assert(storeId != null && storeIds != null, 'storeId and storeIds cannot be provided together');
+    assert(
+      !(storeId != null && storeIds != null),
+      'storeId and storeIds cannot be provided together',
+    );
     final useMultiStore =
         storeIds != null && storeIds.isNotEmpty;
     var data = super.list(

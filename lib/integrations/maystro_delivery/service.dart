@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:feeef/integrations/integrations.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
-import 'package:feeef/interfaces/order.dart';
 import 'package:feeef/feeef_client.dart';
+import 'package:feeef/integrations/delivery/bulk_send_result.dart';
 import 'package:feeef/orders/models/order.dart';
-
 import 'models/create_order_request.dart';
 
 /// Maystro Delivery Service.
@@ -153,7 +152,7 @@ class MaystroDeliveryService
   }
 
   /// Send multiple orders to Maystro (bulk).
-  Future<Map<String, dynamic>> sendMany(
+  Future<DeliveryBulkSendApiResult> sendMany(
     List<Order> orders,
     List<MaystroCreateOrderRequest> requests,
   ) async {
@@ -184,17 +183,19 @@ class MaystroDeliveryService
     }
 
     if (ordersToSend.isEmpty) {
-      return {
-        'created': <dynamic>[],
-        'failed': <dynamic>[],
-        'skipped': clientSkipped,
-        'summary': {
+      return DeliveryBulkSendApiResult(
+        created: const [],
+        failed: const [],
+        skipped: clientSkipped
+            .map((e) => Map<String, dynamic>.from(e))
+            .toList(),
+        summary: {
           'total': orders.length,
           'created': 0,
           'failed': 0,
           'skipped': clientSkipped.length,
         },
-      };
+      );
     }
 
     final parcels = <Map<String, dynamic>>[];
@@ -248,18 +249,36 @@ class MaystroDeliveryService
         data = data['data'] as Map<String, dynamic>;
       }
 
-      final created = data['created'] as List<dynamic>? ?? [];
-      final failed = data['failed'] as List<dynamic>? ?? [];
+      final createdRaw = data['created'] as List<dynamic>? ?? [];
+      final failedRaw = data['failed'] as List<dynamic>? ?? [];
       final serverSkipped = data['skipped'] as List<dynamic>? ?? [];
-      final allSkipped = [...clientSkipped, ...serverSkipped];
 
-      for (final createdItem in created) {
+      final created = createdRaw
+          .whereType<Map>()
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
+      final failed = failedRaw
+          .whereType<Map>()
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
+      final skippedServerMaps = serverSkipped
+          .whereType<Map>()
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
+
+      final allSkipped = [
+        ...clientSkipped.map((e) => Map<String, dynamic>.from(e)),
+        ...skippedServerMaps,
+      ];
+
+      for (final orderData in created) {
         try {
-          final orderData = createdItem as Map<String, dynamic>;
-          final externalId = orderData['externalId'] as String?;
-          if (externalId != null) {
+          final ref =
+              orderData['reference'] as String? ??
+              orderData['externalId'] as String?;
+          if (ref != null) {
             final order = ordersToSend.firstWhere(
-              (o) => o.id == externalId,
+              (o) => o.id == ref,
               orElse: () => ordersToSend.first,
             );
             await attach(order: order, payload: orderData);
@@ -267,17 +286,17 @@ class MaystroDeliveryService
         } catch (_) {}
       }
 
-      return {
-        'created': created,
-        'failed': failed,
-        'skipped': allSkipped,
-        'summary': {
+      return DeliveryBulkSendApiResult(
+        created: created,
+        failed: failed,
+        skipped: allSkipped,
+        summary: {
           'total': orders.length,
           'created': created.length,
           'failed': failed.length,
           'skipped': allSkipped.length,
         },
-      };
+      );
     } on DioException catch (e) {
       final errorMessage = e.response?.data is Map
           ? (e.response!.data as Map)['message'] as String? ?? e.message ?? 'Send failed'
@@ -321,7 +340,7 @@ class MaystroDeliveryService
     String format = 'A6',
   }) async {
     final response = await Feeef.instance.client.post(
-      '/stores/$storeId/integrations/maystroDelivery/labels/individual',
+      '/stores/$storeId/integrations/maystroDelivery/labelIndividual',
       data: {'trackingNumbers': trackingNumbers, 'format': format},
     );
     final data = response.data is Map ? response.data as Map<String, dynamic> : <String, dynamic>{};

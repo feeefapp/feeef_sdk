@@ -230,11 +230,24 @@ abstract class EcotrackDeliveryIntegration with _$EcotrackDeliveryIntegration {
     required String baseUrl,
     required String token,
     @Default(true) bool active,
+    /// Carrier-specific options. Use `parcelStock: false` to hide the stock / from-stock UI
+    /// when this Ecotrack profile does not use the `stock` field (see backend
+    /// `DeliveryCapabilities.parcelStock`).
     @Default({}) Map<String, dynamic> metadata,
   }) = _EcotrackDeliveryIntegration;
 
   factory EcotrackDeliveryIntegration.fromJson(Map<String, dynamic> json) =>
       _$EcotrackDeliveryIntegrationFromJson(json);
+
+  /// Whether merchant UI should expose Ecotrack `stock` / [ParcelCreate.fromStock].
+  ///
+  /// Defaults to `true`. Set [metadata]`['parcelStock']` to `false` for accounts that
+  /// do not support the stock field.
+  bool get parcelStockFieldEnabled {
+    final v = metadata['parcelStock'];
+    if (v == false) return false;
+    return true;
+  }
 }
 
 /// Ecomanager delivery service integration configuration.

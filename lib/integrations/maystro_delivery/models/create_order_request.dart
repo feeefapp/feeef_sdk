@@ -83,7 +83,7 @@ abstract class MaystroCreateOrderResponse with _$MaystroCreateOrderResponse {
       _$MaystroCreateOrderResponseFromJson(json);
 }
 
-/// Maystro individual label file (for labels/individual).
+/// Maystro individual label file (for label/individual / labelIndividual).
 @freezed
 abstract class MaystroIndividualLabel with _$MaystroIndividualLabel {
   const MaystroIndividualLabel._();

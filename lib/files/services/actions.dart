@@ -47,6 +47,32 @@ enum GenerateSimpleCodeLanguage { html, css, javascript, markdown }
 
 enum AICodeGenerationMode { create, edit }
 
+/// Result of [Actions.createTokenForEcotrackByEmailAndPassword] (carrier login proxied by API).
+class EcotrackLoginTokenResult {
+  final bool success;
+  final String message;
+  final String? apiToken;
+  final Map<String, dynamic>? profile;
+
+  const EcotrackLoginTokenResult({
+    required this.success,
+    required this.message,
+    this.apiToken,
+    this.profile,
+  });
+
+  factory EcotrackLoginTokenResult.fromJson(Map<String, dynamic> json) {
+    return EcotrackLoginTokenResult(
+      success: json['success'] as bool? ?? false,
+      message: json['message'] as String? ?? '',
+      apiToken: json['apiToken'] as String?,
+      profile: json['profile'] is Map
+          ? Map<String, dynamic>.from(json['profile'] as Map)
+          : null,
+    );
+  }
+}
+
 /// Response model for AI code generation
 class AICodeGenerationResponse {
   final bool success;
@@ -236,6 +262,24 @@ class Actions {
       developer.log('Error syncing Ecotrack orders: $e');
       rethrow;
     }
+  }
+
+  /// Exchanges Ecotrack carrier email/password for an API token via Feeef backend proxy.
+  Future<EcotrackLoginTokenResult> createTokenForEcotrackByEmailAndPassword({
+    required String baseUrl,
+    required String email,
+    required String password,
+  }) async {
+    final response = await client.post<Map<String, dynamic>>(
+      '/actions/createTokenForEcotrackByEmailAndPassword',
+      data: {
+        'baseUrl': baseUrl,
+        'email': email,
+        'password': password,
+      },
+    );
+    final data = response.data ?? {};
+    return EcotrackLoginTokenResult.fromJson(Map<String, dynamic>.from(data));
   }
 
   /// Fetches products from a Youcan store.

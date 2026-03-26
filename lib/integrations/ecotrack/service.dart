@@ -161,12 +161,42 @@ class EcotrackDeliveryService
   @override
   /// [detach] detach order from delivery service
   Future<void> detach({required Order order}) async {
-    await super.detach(order: order);
-    // Use backend endpoint instead of direct API call
-    // Backend will add api_token server-side
+    final tracking = order.ecotrackTrackingId;
+    if (tracking == null || tracking.isEmpty) {
+      throw StateError(
+        'Order ${order.id} has no Ecotrack tracking id',
+      );
+    }
+    // Delete on carrier + clear Feeef metadata on server before clearing locally.
     await Feeef.instance.client.delete(
-      '/stores/${storeId ?? order.storeId}/integrations/ecotrack/orders/${order.ecotrackTrackingId}',
+      '/stores/${storeId ?? order.storeId}/integrations/ecotrack/orders/$tracking',
     );
+    await super.detach(order: order);
+  }
+
+  /// Bulk delete / detach by Ecotrack tracking codes.
+  ///
+  /// POST `/stores/:storeId/integrations/ecotrack/orders/deleteMany` with
+  /// `{ trackings: string[] }`. Response: `{ results: [...], summary: { total, succeeded, failed } }`.
+  Future<Map<String, dynamic>> deleteManyOrders(List<String> trackings) async {
+    final trimmed = trackings.map((t) => t.trim()).where((t) => t.isNotEmpty).toList();
+    if (trimmed.isEmpty) {
+      return {
+        'results': <Map<String, dynamic>>[],
+        'summary': {'total': 0, 'succeeded': 0, 'failed': 0},
+      };
+    }
+    final sid = storeId;
+    if (sid == null || sid.isEmpty) {
+      throw StateError(
+        'EcotrackDeliveryService.storeId is required for deleteManyOrders',
+      );
+    }
+    final response = await Feeef.instance.client.post(
+      '/stores/$sid/integrations/ecotrack/orders/deleteMany',
+      data: {'trackings': trimmed},
+    );
+    return Map<String, dynamic>.from(response.data as Map);
   }
 
   // Expedier la commande

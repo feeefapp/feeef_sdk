@@ -6,6 +6,7 @@ import 'package:feeef/feeef_client.dart';
 import 'package:feeef/integrations/delivery/bulk_send_result.dart';
 import 'package:feeef/orders/models/order.dart';
 
+import 'bulk_created_attach_payload.dart';
 import 'models/create_parcel_request.dart';
 
 /// ZR Express Delivery Service
@@ -385,20 +386,24 @@ class ZrexpressDeliveryService
       // Merge client-side skipped with server-side skipped
       final allSkipped = [...clientSkipped, ...skippedServerMaps];
 
-      // Attach successful orders
+      // Attach successful orders (payload must match single-send shape for
+      // Order.zrexpressParcelId / zrexpressTrackingNumber).
       for (final orderData in created) {
         try {
           final ref =
               orderData['reference'] as String? ??
               orderData['externalId'] as String?;
+          if (ref == null) continue;
 
-          if (ref != null) {
-            final order = ordersToSend.firstWhere(
-              (o) => o.id == ref,
-              orElse: () => ordersToSend.first,
-            );
-            await attach(order: order, payload: orderData);
-          }
+          final matches = ordersToSend.where((o) => o.id == ref);
+          if (matches.isEmpty) continue;
+          final order = matches.first;
+
+          final payload =
+              zrexpressBulkCreatedRowToAttachPayload(orderData, order);
+          if (payload == null) continue;
+
+          await attach(order: order, payload: payload);
         } catch (e) {
           print('Error attaching order to delivery service: $e');
         }

@@ -5,6 +5,7 @@
 // for CRUD and domain operations. See each export for API reference.
 library;
 
+export 'ai/ai_calculator.dart';
 export 'attachments/attachment.dart';
 export 'core/errors.dart';
 export 'files/services/actions.dart';

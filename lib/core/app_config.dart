@@ -531,6 +531,26 @@ class AIModelPricing {
   };
 }
 
+/// Optional overrides for Gemini image Google Search grounding (`aiModels.models[].tools`).
+class AIModelTools {
+  final bool? googleSearch;
+  final bool? googleImageSearch;
+
+  const AIModelTools({this.googleSearch, this.googleImageSearch});
+
+  factory AIModelTools.fromJson(Map<String, dynamic> json) {
+    return AIModelTools(
+      googleSearch: json['googleSearch'] as bool?,
+      googleImageSearch: json['googleImageSearch'] as bool?,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    if (googleSearch != null) 'googleSearch': googleSearch,
+    if (googleImageSearch != null) 'googleImageSearch': googleImageSearch,
+  };
+}
+
 class AIModel {
   final String id;
   final String name;
@@ -541,6 +561,7 @@ class AIModel {
   final bool? isNew;
   final String? knowledgeCutoff;
   final bool active;
+  final AIModelTools? tools;
 
   AIModel({
     required this.id,
@@ -552,9 +573,11 @@ class AIModel {
     this.isNew,
     this.knowledgeCutoff,
     required this.active,
+    this.tools,
   });
 
   factory AIModel.fromJson(Map<String, dynamic> json) {
+    final toolsJson = json['tools'];
     return AIModel(
       id: json['id'] as String,
       name: json['name'] as String,
@@ -569,6 +592,9 @@ class AIModel {
       isNew: json['isNew'] as bool?,
       knowledgeCutoff: json['knowledgeCutoff'] as String?,
       active: json['active'] as bool,
+      tools: toolsJson is Map<String, dynamic>
+          ? AIModelTools.fromJson(toolsJson)
+          : null,
     );
   }
 
@@ -582,7 +608,269 @@ class AIModel {
     if (isNew != null) 'isNew': isNew,
     if (knowledgeCutoff != null) 'knowledgeCutoff': knowledgeCutoff,
     'active': active,
+    if (tools != null) 'tools': tools!.toJson(),
   };
+}
+
+/// Canonical `aiModels.billing` — keep in sync: backend `configs_controller.ts`,
+/// feeefjs `src/ai/ai-calculator.ts`, admins `src/lib/hooks/useOptions.ts`.
+class RetailMarkupBilling {
+  final double? multiplier;
+  const RetailMarkupBilling({this.multiplier});
+  factory RetailMarkupBilling.fromJson(Map<String, dynamic>? json) {
+    if (json == null) return const RetailMarkupBilling();
+    return RetailMarkupBilling(
+      multiplier: (json['multiplier'] as num?)?.toDouble(),
+    );
+  }
+}
+
+class ReferenceAttachmentSurchargeBilling {
+  final double? perFileUsd;
+  final double? highResolutionExtraPerFileUsd;
+  final double? lowResolutionDiscountPerFileUsd;
+  const ReferenceAttachmentSurchargeBilling({
+    this.perFileUsd,
+    this.highResolutionExtraPerFileUsd,
+    this.lowResolutionDiscountPerFileUsd,
+  });
+  factory ReferenceAttachmentSurchargeBilling.fromJson(
+    Map<String, dynamic>? json,
+  ) {
+    if (json == null) return const ReferenceAttachmentSurchargeBilling();
+    return ReferenceAttachmentSurchargeBilling(
+      perFileUsd: (json['perFileUsd'] as num?)?.toDouble(),
+      highResolutionExtraPerFileUsd:
+          (json['highResolutionExtraPerFileUsd'] as num?)?.toDouble(),
+      lowResolutionDiscountPerFileUsd:
+          (json['lowResolutionDiscountPerFileUsd'] as num?)?.toDouble(),
+    );
+  }
+}
+
+class ImageGenerationBilling {
+  final double? fallbackProviderCostPerImageUsd;
+  const ImageGenerationBilling({this.fallbackProviderCostPerImageUsd});
+  factory ImageGenerationBilling.fromJson(Map<String, dynamic>? json) {
+    if (json == null) return const ImageGenerationBilling();
+    return ImageGenerationBilling(
+      fallbackProviderCostPerImageUsd:
+          (json['fallbackProviderCostPerImageUsd'] as num?)?.toDouble(),
+    );
+  }
+}
+
+class TextGenerationBilling {
+  final int? freeTierMaxPromptTokens;
+  final int? estimatedPromptTokensDefault;
+  final int? estimatedOutputTokensDefault;
+  const TextGenerationBilling({
+    this.freeTierMaxPromptTokens,
+    this.estimatedPromptTokensDefault,
+    this.estimatedOutputTokensDefault,
+  });
+  factory TextGenerationBilling.fromJson(Map<String, dynamic>? json) {
+    if (json == null) return const TextGenerationBilling();
+    return TextGenerationBilling(
+      freeTierMaxPromptTokens:
+          (json['freeTierMaxPromptTokens'] as num?)?.toInt(),
+      estimatedPromptTokensDefault:
+          (json['estimatedPromptTokensDefault'] as num?)?.toInt(),
+      estimatedOutputTokensDefault:
+          (json['estimatedOutputTokensDefault'] as num?)?.toInt(),
+    );
+  }
+}
+
+class TtsTokenEstimateBilling {
+  final int? whenScriptEmptyTokens;
+  final int? whenAttachmentsOnlyTokens;
+  final int? promptBaseTokens;
+  final int? promptPerAttachmentTokens;
+  final int? outputMinimumTokens;
+  final double? outputToTextTokenRatio;
+  final int? maxTotalTokens;
+  const TtsTokenEstimateBilling({
+    this.whenScriptEmptyTokens,
+    this.whenAttachmentsOnlyTokens,
+    this.promptBaseTokens,
+    this.promptPerAttachmentTokens,
+    this.outputMinimumTokens,
+    this.outputToTextTokenRatio,
+    this.maxTotalTokens,
+  });
+  factory TtsTokenEstimateBilling.fromJson(Map<String, dynamic>? json) {
+    if (json == null) return const TtsTokenEstimateBilling();
+    return TtsTokenEstimateBilling(
+      whenScriptEmptyTokens:
+          (json['whenScriptEmptyTokens'] as num?)?.toInt(),
+      whenAttachmentsOnlyTokens:
+          (json['whenAttachmentsOnlyTokens'] as num?)?.toInt(),
+      promptBaseTokens: (json['promptBaseTokens'] as num?)?.toInt(),
+      promptPerAttachmentTokens:
+          (json['promptPerAttachmentTokens'] as num?)?.toInt(),
+      outputMinimumTokens: (json['outputMinimumTokens'] as num?)?.toInt(),
+      outputToTextTokenRatio:
+          (json['outputToTextTokenRatio'] as num?)?.toDouble(),
+      maxTotalTokens: (json['maxTotalTokens'] as num?)?.toInt(),
+    );
+  }
+}
+
+class VoiceGenerationBilling {
+  final double? minimumChargeUsd;
+  final double? scriptEnhancementAddonUsd;
+  final TtsTokenEstimateBilling? ttsTokenEstimate;
+  const VoiceGenerationBilling({
+    this.minimumChargeUsd,
+    this.scriptEnhancementAddonUsd,
+    this.ttsTokenEstimate,
+  });
+  factory VoiceGenerationBilling.fromJson(Map<String, dynamic>? json) {
+    if (json == null) return const VoiceGenerationBilling();
+    final tts = json['ttsTokenEstimate'];
+    return VoiceGenerationBilling(
+      minimumChargeUsd: (json['minimumChargeUsd'] as num?)?.toDouble(),
+      scriptEnhancementAddonUsd:
+          (json['scriptEnhancementAddonUsd'] as num?)?.toDouble(),
+      ttsTokenEstimate: tts is Map<String, dynamic>
+          ? TtsTokenEstimateBilling.fromJson(tts)
+          : null,
+    );
+  }
+}
+
+class LandingPageImageBilling {
+  final double? fixedChargeUsd;
+  const LandingPageImageBilling({this.fixedChargeUsd});
+  factory LandingPageImageBilling.fromJson(Map<String, dynamic>? json) {
+    if (json == null) return const LandingPageImageBilling();
+    return LandingPageImageBilling(
+      fixedChargeUsd: (json['fixedChargeUsd'] as num?)?.toDouble(),
+    );
+  }
+}
+
+class AIModelsBilling {
+  final RetailMarkupBilling? retailMarkup;
+  final ReferenceAttachmentSurchargeBilling? referenceAttachmentSurcharge;
+  final ImageGenerationBilling? imageGeneration;
+  final TextGenerationBilling? textGeneration;
+  final VoiceGenerationBilling? voiceGeneration;
+  final LandingPageImageBilling? landingPageImage;
+  const AIModelsBilling({
+    this.retailMarkup,
+    this.referenceAttachmentSurcharge,
+    this.imageGeneration,
+    this.textGeneration,
+    this.voiceGeneration,
+    this.landingPageImage,
+  });
+  factory AIModelsBilling.fromJson(Map<String, dynamic> json) {
+    return AIModelsBilling(
+      retailMarkup: RetailMarkupBilling.fromJson(
+        json['retailMarkup'] as Map<String, dynamic>?,
+      ),
+      referenceAttachmentSurcharge:
+          ReferenceAttachmentSurchargeBilling.fromJson(
+        json['referenceAttachmentSurcharge'] as Map<String, dynamic>?,
+      ),
+      imageGeneration: ImageGenerationBilling.fromJson(
+        json['imageGeneration'] as Map<String, dynamic>?,
+      ),
+      textGeneration: TextGenerationBilling.fromJson(
+        json['textGeneration'] as Map<String, dynamic>?,
+      ),
+      voiceGeneration: VoiceGenerationBilling.fromJson(
+        json['voiceGeneration'] as Map<String, dynamic>?,
+      ),
+      landingPageImage: LandingPageImageBilling.fromJson(
+        json['landingPageImage'] as Map<String, dynamic>?,
+      ),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final out = <String, dynamic>{};
+    final rm = retailMarkup;
+    if (rm != null && rm.multiplier != null) {
+      out['retailMarkup'] = {'multiplier': rm.multiplier};
+    }
+    final ra = referenceAttachmentSurcharge;
+    if (ra != null &&
+        (ra.perFileUsd != null ||
+            ra.highResolutionExtraPerFileUsd != null ||
+            ra.lowResolutionDiscountPerFileUsd != null)) {
+      out['referenceAttachmentSurcharge'] = {
+        if (ra.perFileUsd != null) 'perFileUsd': ra.perFileUsd,
+        if (ra.highResolutionExtraPerFileUsd != null)
+          'highResolutionExtraPerFileUsd': ra.highResolutionExtraPerFileUsd,
+        if (ra.lowResolutionDiscountPerFileUsd != null)
+          'lowResolutionDiscountPerFileUsd': ra.lowResolutionDiscountPerFileUsd,
+      };
+    }
+    final ig = imageGeneration;
+    if (ig != null && ig.fallbackProviderCostPerImageUsd != null) {
+      out['imageGeneration'] = {
+        'fallbackProviderCostPerImageUsd': ig.fallbackProviderCostPerImageUsd,
+      };
+    }
+    final tg = textGeneration;
+    if (tg != null &&
+        (tg.freeTierMaxPromptTokens != null ||
+            tg.estimatedPromptTokensDefault != null ||
+            tg.estimatedOutputTokensDefault != null)) {
+      out['textGeneration'] = {
+        if (tg.freeTierMaxPromptTokens != null)
+          'freeTierMaxPromptTokens': tg.freeTierMaxPromptTokens,
+        if (tg.estimatedPromptTokensDefault != null)
+          'estimatedPromptTokensDefault': tg.estimatedPromptTokensDefault,
+        if (tg.estimatedOutputTokensDefault != null)
+          'estimatedOutputTokensDefault': tg.estimatedOutputTokensDefault,
+      };
+    }
+    final vg = voiceGeneration;
+    if (vg != null &&
+        (vg.minimumChargeUsd != null ||
+            vg.scriptEnhancementAddonUsd != null ||
+            vg.ttsTokenEstimate != null)) {
+      final tts = vg.ttsTokenEstimate;
+      out['voiceGeneration'] = {
+        if (vg.minimumChargeUsd != null)
+          'minimumChargeUsd': vg.minimumChargeUsd,
+        if (vg.scriptEnhancementAddonUsd != null)
+          'scriptEnhancementAddonUsd': vg.scriptEnhancementAddonUsd,
+        if (tts != null &&
+            (tts.whenScriptEmptyTokens != null ||
+                tts.whenAttachmentsOnlyTokens != null ||
+                tts.promptBaseTokens != null ||
+                tts.promptPerAttachmentTokens != null ||
+                tts.outputMinimumTokens != null ||
+                tts.outputToTextTokenRatio != null ||
+                tts.maxTotalTokens != null))
+          'ttsTokenEstimate': {
+            if (tts.whenScriptEmptyTokens != null)
+              'whenScriptEmptyTokens': tts.whenScriptEmptyTokens,
+            if (tts.whenAttachmentsOnlyTokens != null)
+              'whenAttachmentsOnlyTokens': tts.whenAttachmentsOnlyTokens,
+            if (tts.promptBaseTokens != null)
+              'promptBaseTokens': tts.promptBaseTokens,
+            if (tts.promptPerAttachmentTokens != null)
+              'promptPerAttachmentTokens': tts.promptPerAttachmentTokens,
+            if (tts.outputMinimumTokens != null)
+              'outputMinimumTokens': tts.outputMinimumTokens,
+            if (tts.outputToTextTokenRatio != null)
+              'outputToTextTokenRatio': tts.outputToTextTokenRatio,
+            if (tts.maxTotalTokens != null) 'maxTotalTokens': tts.maxTotalTokens,
+          },
+      };
+    }
+    final lp = landingPageImage;
+    if (lp != null && lp.fixedChargeUsd != null) {
+      out['landingPageImage'] = {'fixedChargeUsd': lp.fixedChargeUsd};
+    }
+    return out;
+  }
 }
 
 class AIModelsConfig {
@@ -593,6 +881,7 @@ class AIModelsConfig {
   referenceImageCost; // Extra cost per reference image (coins/DZD)
   final Map<String, double>?
   resolutionCosts; // Extra cost per resolution (coins/DZD)
+  final AIModelsBilling? billing;
 
   AIModelsConfig({
     required this.models,
@@ -600,9 +889,11 @@ class AIModelsConfig {
     this.defaultImageCost,
     this.referenceImageCost,
     this.resolutionCosts,
+    this.billing,
   });
 
   factory AIModelsConfig.fromJson(Map<String, dynamic> json) {
+    final billingJson = json['billing'];
     return AIModelsConfig(
       models: (json['models'] as List)
           .map((e) => AIModel.fromJson(e as Map<String, dynamic>))
@@ -621,6 +912,9 @@ class AIModelsConfig {
               (k, v) => MapEntry(k, (v as num).toDouble()),
             )
           : null,
+      billing: billingJson is Map<String, dynamic>
+          ? AIModelsBilling.fromJson(billingJson)
+          : null,
     );
   }
 
@@ -630,6 +924,7 @@ class AIModelsConfig {
     if (defaultImageCost != null) 'defaultImageCost': defaultImageCost,
     if (referenceImageCost != null) 'referenceImageCost': referenceImageCost,
     if (resolutionCosts != null) 'resolutionCosts': resolutionCosts,
+    if (billing != null) 'billing': billing!.toJson(),
   };
 }
 

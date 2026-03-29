@@ -2,6 +2,7 @@ import 'dart:developer' as developer;
 
 import 'package:feeef/core/list_response.dart';
 import 'package:feeef/core/resource_repository.dart';
+import 'package:feeef/orders/models/lite_orders_report.dart';
 import 'package:feeef/products/models/product.dart';
 import 'package:feeef/products/models/product_report.dart';
 
@@ -76,11 +77,22 @@ class ProductRepository
   }) async {
     try {
       final response = await client.get(
-        '/stores/xp4wtahsvq7j/products/udjomo15ahb1/report',
+        '/stores/$storeId/$table/$productId/report',
       );
       return ProductReport.fromJson(response.data);
     } catch (e) {
       rethrow;
     }
+  }
+
+  /// Lite orders report for [productId] in [storeId].
+  Future<LiteOrdersReport> liteOrdersReport({
+    required String productId,
+    required String storeId,
+  }) async {
+    final response = await client.get(
+      '/stores/$storeId/$table/$productId/analytics/lor',
+    );
+    return LiteOrdersReport.fromApiResponse(response.data);
   }
 }

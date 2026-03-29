@@ -1,5 +1,6 @@
 import 'package:feeef/core/list_response.dart';
 import 'package:feeef/core/resource_repository.dart';
+import 'package:feeef/orders/models/lite_orders_report.dart';
 import 'package:feeef/product_landing_pages/product_landing_page.dart';
 
 /// Repository for ProductLandingPage CRUD and list by store.
@@ -47,5 +48,16 @@ class ProductLandingPageRepository
       limit: limit,
       params: {if (storeId != null) 'store_id': storeId, ...?params},
     );
+  }
+
+  /// Lite orders report for [landingPageId] in [storeId].
+  Future<LiteOrdersReport> liteOrdersReport({
+    required String landingPageId,
+    required String storeId,
+  }) async {
+    final response = await client.get(
+      '/stores/$storeId/product_landing_pages/$landingPageId/analytics/lor',
+    );
+    return LiteOrdersReport.fromApiResponse(response.data);
   }
 }

@@ -27,6 +27,7 @@ abstract class OrderEntity {
   String get storeId;
   String? get confirmerId;
   Map<String, dynamic> get metadata;
+  List<String> get references;
   OrderStatus get status;
   PaymentStatus get paymentStatus;
   DeliveryStatus get deliveryStatus;

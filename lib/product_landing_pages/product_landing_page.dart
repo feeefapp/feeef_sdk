@@ -2,12 +2,20 @@ import 'package:feeef/interfaces/product_landing_page.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../interfaces/helpers.dart';
+import '../orders/models/lite_orders_report.dart';
 import '../product_landing_page_templates/product_landing_page_template.dart';
 import '../products/models/product.dart';
 import '../stores/models/store.dart';
 
 part 'product_landing_page.freezed.dart';
 part 'product_landing_page.g.dart';
+
+LiteOrdersReport? _landingLorFromJson(Object? o) {
+  if (o == null) return null;
+  if (o is Map<String, dynamic>) return LiteOrdersReport.fromJson(o);
+  if (o is Map) return LiteOrdersReport.fromJson(Map<String, dynamic>.from(o));
+  return null;
+}
 
 @freezed
 abstract class ProductLandingPage extends ProductLandingPageEntity
@@ -28,6 +36,8 @@ abstract class ProductLandingPage extends ProductLandingPageEntity
     ProductLandingPageTemplate? template,
     Product? product,
     Store? store,
+    /// Present when list/show is called with `with[]=lor` and the user may view analytics.
+    @JsonKey(fromJson: _landingLorFromJson) LiteOrdersReport? lor,
   }) = _ProductLandingPage;
 
   /// Deserializes from API JSON. Normalizes null [defaults] so the generated

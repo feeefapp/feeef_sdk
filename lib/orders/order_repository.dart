@@ -61,6 +61,7 @@ class OrderRepository extends ModelRepository<Order>
     PaymentStatus? paymentStatus,
     dynamic customStatus,
     dynamic source,
+    dynamic references,
   }) {
     assert(storeId != null || storeIds != null, 'storeId or storeIds must be provided');
     assert(
@@ -92,6 +93,7 @@ class OrderRepository extends ModelRepository<Order>
         if (paymentStatus != null) 'paymentStatus': paymentStatus.name,
         if (customStatus != null) 'customStatus': customStatus,
         if (source != null) 'source': source,
+        if (references != null) 'references': references,
         ...?params,
       },
     );

@@ -19,6 +19,7 @@ abstract class Order extends OrderEntity
     required DateTime createdAt,
     required DateTime updatedAt,
     @Default({}) Map<String, dynamic> metadata,
+    @Default([]) List<String> references,
     String? customerName,
     String? customerPhone,
     String? customerEmail,
@@ -101,6 +102,7 @@ abstract class OrderCreate with _$OrderCreate implements ModelCreate {
     Map<String, dynamic>? customFields,
     // metadata
     Map<String, dynamic>? metadata,
+    List<String>? references,
   }) = _OrderCreate;
 
   factory OrderCreate.fromJson(Map<String, dynamic> json) =>
@@ -146,6 +148,7 @@ abstract class OrderUpdate with _$OrderUpdate implements ModelUpdate {
     Map<String, dynamic>? customFields,
     // metadata
     Map<String, dynamic>? metadata,
+    List<String>? references,
     // ignore: invalid_annotation_target
     @JsonKey(includeFromJson: false) @Default([]) List<String> setToNull,
   }) = _OrderUpdate;

@@ -10,9 +10,17 @@ import '../../interfaces/embadded/store.dart';
 import '../../interfaces/embadded/store_integrations.dart';
 import '../../interfaces/helpers.dart';
 import '../../interfaces/store.dart';
+import 'package:feeef/orders/models/lite_orders_report.dart';
 
 part 'store.freezed.dart';
 part 'store.g.dart';
+
+LiteOrdersReport? _storeLorFromJson(Object? o) {
+  if (o == null) return null;
+  if (o is Map<String, dynamic>) return LiteOrdersReport.fromJson(o);
+  if (o is Map) return LiteOrdersReport.fromJson(Map<String, dynamic>.from(o));
+  return null;
+}
 
 /// Keys for integration fields; empty map `{}` is normalized to null when parsing.
 const _storeIntegrationKeys = [
@@ -125,6 +133,8 @@ abstract class Store extends StoreEntity
     // metaPixelIds
     List<String>? metaPixelIds,
     @Default({}) Map<String, StoreMember> members,
+    /// Present when list/show is called with `with[]=lor` and the user may view analytics.
+    @JsonKey(fromJson: _storeLorFromJson) LiteOrdersReport? lor,
   }) = _Store;
 
   factory Store.fromJson(Map<String, dynamic> json) => _$StoreFromJson(json);

@@ -8,6 +8,7 @@ import 'package:feeef/core/validation/validation_exception.dart';
 import 'package:feeef/interfaces/embadded/store.dart' as embadded;
 import 'package:feeef/interfaces/embadded/store_summary.dart';
 import 'package:feeef/mixins/repository_mixins.dart';
+import 'package:feeef/orders/models/lite_orders_report.dart';
 import 'package:feeef/stores/models/store.dart';
 import 'package:feeef/stores/store_invites_repository.dart';
 
@@ -62,7 +63,10 @@ class StoreRepository extends ModelRepository<Store>
       page: page,
       offset: offset,
       limit: limit,
-      params: {if (userId != null) 'user_id': userId},
+      params: {
+        if (userId != null) 'user_id': userId,
+        ...?params,
+      },
     );
   }
 
@@ -95,6 +99,12 @@ class StoreRepository extends ModelRepository<Store>
     var chartData0 = chartData.entries.toList()
       ..sort((a, b) => a.key.compareTo(b.key));
     return Map.fromEntries(chartData0.map((e) => MapEntry(e.key, e.value)));
+  }
+
+  /// Lite orders report for store [id] (auth required).
+  Future<LiteOrdersReport> liteOrdersReport({required String id}) async {
+    final response = await client.get('/$table/$id/analytics/lor');
+    return LiteOrdersReport.fromApiResponse(response.data);
   }
 
   Future<embadded.StoreMember> addMember({

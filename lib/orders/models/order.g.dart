@@ -11,6 +11,9 @@ _Order _$OrderFromJson(Map<String, dynamic> json) => _Order(
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: DateTime.parse(json['updatedAt'] as String),
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+  references:
+      (json['references'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
   customerName: json['customerName'] as String?,
   customerPhone: json['customerPhone'] as String?,
   customerEmail: json['customerEmail'] as String?,
@@ -64,6 +67,7 @@ Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
   'createdAt': instance.createdAt.toIso8601String(),
   'updatedAt': instance.updatedAt.toIso8601String(),
   'metadata': instance.metadata,
+  'references': instance.references,
   'customerName': instance.customerName,
   'customerPhone': instance.customerPhone,
   'customerEmail': instance.customerEmail,
@@ -172,6 +176,9 @@ _OrderCreate _$OrderCreateFromJson(Map<String, dynamic> json) => _OrderCreate(
   ),
   customFields: json['customFields'] as Map<String, dynamic>?,
   metadata: json['metadata'] as Map<String, dynamic>?,
+  references: (json['references'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
 );
 
 Map<String, dynamic> _$OrderCreateToJson(_OrderCreate instance) =>
@@ -207,6 +214,7 @@ Map<String, dynamic> _$OrderCreateToJson(_OrderCreate instance) =>
       'deliveryStatus': _$DeliveryStatusEnumMap[instance.deliveryStatus],
       'customFields': instance.customFields,
       'metadata': instance.metadata,
+      'references': instance.references,
     };
 
 _OrderUpdate _$OrderUpdateFromJson(Map<String, dynamic> json) => _OrderUpdate(
@@ -252,6 +260,9 @@ _OrderUpdate _$OrderUpdateFromJson(Map<String, dynamic> json) => _OrderUpdate(
   customStatus: json['customStatus'] as String?,
   customFields: json['customFields'] as Map<String, dynamic>?,
   metadata: json['metadata'] as Map<String, dynamic>?,
+  references: (json['references'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
 );
 
 Map<String, dynamic> _$OrderUpdateToJson(_OrderUpdate instance) =>
@@ -287,6 +298,7 @@ Map<String, dynamic> _$OrderUpdateToJson(_OrderUpdate instance) =>
       'customStatus': instance.customStatus,
       'customFields': instance.customFields,
       'metadata': instance.metadata,
+      'references': instance.references,
     };
 
 _OrderHistoryEvent _$OrderHistoryEventFromJson(Map<String, dynamic> json) =>

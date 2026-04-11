@@ -1,4 +1,5 @@
 import 'package:feeef/auth/models/token.dart';
+import 'package:feeef/interfaces/embadded/member_scope.dart';
 import 'package:feeef/interfaces/embadded/store.dart';
 import 'package:feeef/interfaces/helpers.dart';
 import 'package:feeef/stores/models/store.dart';
@@ -55,5 +56,12 @@ extension AuthResponseExtension<T extends Model> on AuthResponse<T> {
 
   bool isOwner(Store store) {
     return store.userId == user.id;
+  }
+
+  /// Whether the signed-in user has [requiredScope] on [store] (owner always true).
+  bool hasScope(Store store, String requiredScope) {
+    if (isOwner(store)) return true;
+    final member = store.members[user.id];
+    return memberHasScope(member, requiredScope);
   }
 }

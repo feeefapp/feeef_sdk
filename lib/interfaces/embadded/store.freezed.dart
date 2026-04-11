@@ -2022,7 +2022,8 @@ as Map<String, dynamic>,
 /// @nodoc
 mixin _$StoreMember {
 
- String get userId; String get name; StoreMemberRole get role; DateTime? get acceptedAt; DateTime? get expiredAt; DateTime get createdAt; bool get active; Map<String, dynamic> get metadata;
+ String get userId; String get name; StoreMemberRole get role; DateTime? get acceptedAt; DateTime? get expiredAt; DateTime get createdAt; bool get active; Map<String, dynamic> get metadata;/// Fine-grained permissions; empty = legacy full access for editors.
+ List<String> get scopes;
 /// Create a copy of StoreMember
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2035,16 +2036,16 @@ $StoreMemberCopyWith<StoreMember> get copyWith => _$StoreMemberCopyWithImpl<Stor
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreMember&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.role, role) || other.role == role)&&(identical(other.acceptedAt, acceptedAt) || other.acceptedAt == acceptedAt)&&(identical(other.expiredAt, expiredAt) || other.expiredAt == expiredAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreMember&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.role, role) || other.role == role)&&(identical(other.acceptedAt, acceptedAt) || other.acceptedAt == acceptedAt)&&(identical(other.expiredAt, expiredAt) || other.expiredAt == expiredAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.scopes, scopes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,userId,name,role,acceptedAt,expiredAt,createdAt,active,const DeepCollectionEquality().hash(metadata));
+int get hashCode => Object.hash(runtimeType,userId,name,role,acceptedAt,expiredAt,createdAt,active,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(scopes));
 
 @override
 String toString() {
-  return 'StoreMember(userId: $userId, name: $name, role: $role, acceptedAt: $acceptedAt, expiredAt: $expiredAt, createdAt: $createdAt, active: $active, metadata: $metadata)';
+  return 'StoreMember(userId: $userId, name: $name, role: $role, acceptedAt: $acceptedAt, expiredAt: $expiredAt, createdAt: $createdAt, active: $active, metadata: $metadata, scopes: $scopes)';
 }
 
 
@@ -2055,7 +2056,7 @@ abstract mixin class $StoreMemberCopyWith<$Res>  {
   factory $StoreMemberCopyWith(StoreMember value, $Res Function(StoreMember) _then) = _$StoreMemberCopyWithImpl;
 @useResult
 $Res call({
- String userId, String name, StoreMemberRole role, DateTime? acceptedAt, DateTime? expiredAt, DateTime createdAt, bool active, Map<String, dynamic> metadata
+ String userId, String name, StoreMemberRole role, DateTime? acceptedAt, DateTime? expiredAt, DateTime createdAt, bool active, Map<String, dynamic> metadata, List<String> scopes
 });
 
 
@@ -2072,7 +2073,7 @@ class _$StoreMemberCopyWithImpl<$Res>
 
 /// Create a copy of StoreMember
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? userId = null,Object? name = null,Object? role = null,Object? acceptedAt = freezed,Object? expiredAt = freezed,Object? createdAt = null,Object? active = null,Object? metadata = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? userId = null,Object? name = null,Object? role = null,Object? acceptedAt = freezed,Object? expiredAt = freezed,Object? createdAt = null,Object? active = null,Object? metadata = null,Object? scopes = null,}) {
   return _then(_self.copyWith(
 userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -2082,7 +2083,8 @@ as DateTime?,expiredAt: freezed == expiredAt ? _self.expiredAt : expiredAt // ig
 as DateTime?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>,
+as Map<String, dynamic>,scopes: null == scopes ? _self.scopes : scopes // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 
@@ -2167,10 +2169,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String userId,  String name,  StoreMemberRole role,  DateTime? acceptedAt,  DateTime? expiredAt,  DateTime createdAt,  bool active,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String userId,  String name,  StoreMemberRole role,  DateTime? acceptedAt,  DateTime? expiredAt,  DateTime createdAt,  bool active,  Map<String, dynamic> metadata,  List<String> scopes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreMember() when $default != null:
-return $default(_that.userId,_that.name,_that.role,_that.acceptedAt,_that.expiredAt,_that.createdAt,_that.active,_that.metadata);case _:
+return $default(_that.userId,_that.name,_that.role,_that.acceptedAt,_that.expiredAt,_that.createdAt,_that.active,_that.metadata,_that.scopes);case _:
   return orElse();
 
 }
@@ -2188,10 +2190,10 @@ return $default(_that.userId,_that.name,_that.role,_that.acceptedAt,_that.expire
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String userId,  String name,  StoreMemberRole role,  DateTime? acceptedAt,  DateTime? expiredAt,  DateTime createdAt,  bool active,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String userId,  String name,  StoreMemberRole role,  DateTime? acceptedAt,  DateTime? expiredAt,  DateTime createdAt,  bool active,  Map<String, dynamic> metadata,  List<String> scopes)  $default,) {final _that = this;
 switch (_that) {
 case _StoreMember():
-return $default(_that.userId,_that.name,_that.role,_that.acceptedAt,_that.expiredAt,_that.createdAt,_that.active,_that.metadata);case _:
+return $default(_that.userId,_that.name,_that.role,_that.acceptedAt,_that.expiredAt,_that.createdAt,_that.active,_that.metadata,_that.scopes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2208,10 +2210,10 @@ return $default(_that.userId,_that.name,_that.role,_that.acceptedAt,_that.expire
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String userId,  String name,  StoreMemberRole role,  DateTime? acceptedAt,  DateTime? expiredAt,  DateTime createdAt,  bool active,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String userId,  String name,  StoreMemberRole role,  DateTime? acceptedAt,  DateTime? expiredAt,  DateTime createdAt,  bool active,  Map<String, dynamic> metadata,  List<String> scopes)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreMember() when $default != null:
-return $default(_that.userId,_that.name,_that.role,_that.acceptedAt,_that.expiredAt,_that.createdAt,_that.active,_that.metadata);case _:
+return $default(_that.userId,_that.name,_that.role,_that.acceptedAt,_that.expiredAt,_that.createdAt,_that.active,_that.metadata,_that.scopes);case _:
   return null;
 
 }
@@ -2223,7 +2225,7 @@ return $default(_that.userId,_that.name,_that.role,_that.acceptedAt,_that.expire
 @JsonSerializable()
 
 class _StoreMember implements StoreMember {
-   _StoreMember({required this.userId, required this.name, required this.role, this.acceptedAt, this.expiredAt, required this.createdAt, this.active = false, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+   _StoreMember({required this.userId, required this.name, required this.role, this.acceptedAt, this.expiredAt, required this.createdAt, this.active = false, final  Map<String, dynamic> metadata = const {}, final  List<String> scopes = const []}): _metadata = metadata,_scopes = scopes;
   factory _StoreMember.fromJson(Map<String, dynamic> json) => _$StoreMemberFromJson(json);
 
 @override final  String userId;
@@ -2240,6 +2242,15 @@ class _StoreMember implements StoreMember {
   return EqualUnmodifiableMapView(_metadata);
 }
 
+/// Fine-grained permissions; empty = legacy full access for editors.
+ final  List<String> _scopes;
+/// Fine-grained permissions; empty = legacy full access for editors.
+@override@JsonKey() List<String> get scopes {
+  if (_scopes is EqualUnmodifiableListView) return _scopes;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_scopes);
+}
+
 
 /// Create a copy of StoreMember
 /// with the given fields replaced by the non-null parameter values.
@@ -2254,16 +2265,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreMember&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.role, role) || other.role == role)&&(identical(other.acceptedAt, acceptedAt) || other.acceptedAt == acceptedAt)&&(identical(other.expiredAt, expiredAt) || other.expiredAt == expiredAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreMember&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.role, role) || other.role == role)&&(identical(other.acceptedAt, acceptedAt) || other.acceptedAt == acceptedAt)&&(identical(other.expiredAt, expiredAt) || other.expiredAt == expiredAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._scopes, _scopes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,userId,name,role,acceptedAt,expiredAt,createdAt,active,const DeepCollectionEquality().hash(_metadata));
+int get hashCode => Object.hash(runtimeType,userId,name,role,acceptedAt,expiredAt,createdAt,active,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_scopes));
 
 @override
 String toString() {
-  return 'StoreMember(userId: $userId, name: $name, role: $role, acceptedAt: $acceptedAt, expiredAt: $expiredAt, createdAt: $createdAt, active: $active, metadata: $metadata)';
+  return 'StoreMember(userId: $userId, name: $name, role: $role, acceptedAt: $acceptedAt, expiredAt: $expiredAt, createdAt: $createdAt, active: $active, metadata: $metadata, scopes: $scopes)';
 }
 
 
@@ -2274,7 +2285,7 @@ abstract mixin class _$StoreMemberCopyWith<$Res> implements $StoreMemberCopyWith
   factory _$StoreMemberCopyWith(_StoreMember value, $Res Function(_StoreMember) _then) = __$StoreMemberCopyWithImpl;
 @override @useResult
 $Res call({
- String userId, String name, StoreMemberRole role, DateTime? acceptedAt, DateTime? expiredAt, DateTime createdAt, bool active, Map<String, dynamic> metadata
+ String userId, String name, StoreMemberRole role, DateTime? acceptedAt, DateTime? expiredAt, DateTime createdAt, bool active, Map<String, dynamic> metadata, List<String> scopes
 });
 
 
@@ -2291,7 +2302,7 @@ class __$StoreMemberCopyWithImpl<$Res>
 
 /// Create a copy of StoreMember
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? userId = null,Object? name = null,Object? role = null,Object? acceptedAt = freezed,Object? expiredAt = freezed,Object? createdAt = null,Object? active = null,Object? metadata = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? userId = null,Object? name = null,Object? role = null,Object? acceptedAt = freezed,Object? expiredAt = freezed,Object? createdAt = null,Object? active = null,Object? metadata = null,Object? scopes = null,}) {
   return _then(_StoreMember(
 userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -2301,7 +2312,8 @@ as DateTime?,expiredAt: freezed == expiredAt ? _self.expiredAt : expiredAt // ig
 as DateTime?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>,
+as Map<String, dynamic>,scopes: null == scopes ? _self._scopes : scopes // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 
@@ -2585,7 +2597,8 @@ as String?,
 mixin _$StoreInvite {
 
  String get id; String get storeId; String get email; StoreMemberRole get role; String get invitedBy; StoreInviteStatus get status; DateTime? get acceptedAt; DateTime get expiresAt; Map<String, dynamic> get metadata; DateTime get createdAt; DateTime get updatedAt; StoreInviteStore? get store;/// Present when listing pending invites for the invitee (accept flow).
- String? get token;
+ String? get token;/// Copied to [StoreMember.scopes] on accept.
+ List<String>? get scopes;
 /// Create a copy of StoreInvite
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2598,16 +2611,16 @@ $StoreInviteCopyWith<StoreInvite> get copyWith => _$StoreInviteCopyWithImpl<Stor
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreInvite&&(identical(other.id, id) || other.id == id)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.invitedBy, invitedBy) || other.invitedBy == invitedBy)&&(identical(other.status, status) || other.status == status)&&(identical(other.acceptedAt, acceptedAt) || other.acceptedAt == acceptedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.store, store) || other.store == store)&&(identical(other.token, token) || other.token == token));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreInvite&&(identical(other.id, id) || other.id == id)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.invitedBy, invitedBy) || other.invitedBy == invitedBy)&&(identical(other.status, status) || other.status == status)&&(identical(other.acceptedAt, acceptedAt) || other.acceptedAt == acceptedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.store, store) || other.store == store)&&(identical(other.token, token) || other.token == token)&&const DeepCollectionEquality().equals(other.scopes, scopes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,storeId,email,role,invitedBy,status,acceptedAt,expiresAt,const DeepCollectionEquality().hash(metadata),createdAt,updatedAt,store,token);
+int get hashCode => Object.hash(runtimeType,id,storeId,email,role,invitedBy,status,acceptedAt,expiresAt,const DeepCollectionEquality().hash(metadata),createdAt,updatedAt,store,token,const DeepCollectionEquality().hash(scopes));
 
 @override
 String toString() {
-  return 'StoreInvite(id: $id, storeId: $storeId, email: $email, role: $role, invitedBy: $invitedBy, status: $status, acceptedAt: $acceptedAt, expiresAt: $expiresAt, metadata: $metadata, createdAt: $createdAt, updatedAt: $updatedAt, store: $store, token: $token)';
+  return 'StoreInvite(id: $id, storeId: $storeId, email: $email, role: $role, invitedBy: $invitedBy, status: $status, acceptedAt: $acceptedAt, expiresAt: $expiresAt, metadata: $metadata, createdAt: $createdAt, updatedAt: $updatedAt, store: $store, token: $token, scopes: $scopes)';
 }
 
 
@@ -2618,7 +2631,7 @@ abstract mixin class $StoreInviteCopyWith<$Res>  {
   factory $StoreInviteCopyWith(StoreInvite value, $Res Function(StoreInvite) _then) = _$StoreInviteCopyWithImpl;
 @useResult
 $Res call({
- String id, String storeId, String email, StoreMemberRole role, String invitedBy, StoreInviteStatus status, DateTime? acceptedAt, DateTime expiresAt, Map<String, dynamic> metadata, DateTime createdAt, DateTime updatedAt, StoreInviteStore? store, String? token
+ String id, String storeId, String email, StoreMemberRole role, String invitedBy, StoreInviteStatus status, DateTime? acceptedAt, DateTime expiresAt, Map<String, dynamic> metadata, DateTime createdAt, DateTime updatedAt, StoreInviteStore? store, String? token, List<String>? scopes
 });
 
 
@@ -2635,7 +2648,7 @@ class _$StoreInviteCopyWithImpl<$Res>
 
 /// Create a copy of StoreInvite
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? storeId = null,Object? email = null,Object? role = null,Object? invitedBy = null,Object? status = null,Object? acceptedAt = freezed,Object? expiresAt = null,Object? metadata = null,Object? createdAt = null,Object? updatedAt = null,Object? store = freezed,Object? token = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? storeId = null,Object? email = null,Object? role = null,Object? invitedBy = null,Object? status = null,Object? acceptedAt = freezed,Object? expiresAt = null,Object? metadata = null,Object? createdAt = null,Object? updatedAt = null,Object? store = freezed,Object? token = freezed,Object? scopes = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
@@ -2650,7 +2663,8 @@ as Map<String, dynamic>,createdAt: null == createdAt ? _self.createdAt : created
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,store: freezed == store ? _self.store : store // ignore: cast_nullable_to_non_nullable
 as StoreInviteStore?,token: freezed == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,scopes: freezed == scopes ? _self.scopes : scopes // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
 /// Create a copy of StoreInvite
@@ -2747,10 +2761,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String storeId,  String email,  StoreMemberRole role,  String invitedBy,  StoreInviteStatus status,  DateTime? acceptedAt,  DateTime expiresAt,  Map<String, dynamic> metadata,  DateTime createdAt,  DateTime updatedAt,  StoreInviteStore? store,  String? token)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String storeId,  String email,  StoreMemberRole role,  String invitedBy,  StoreInviteStatus status,  DateTime? acceptedAt,  DateTime expiresAt,  Map<String, dynamic> metadata,  DateTime createdAt,  DateTime updatedAt,  StoreInviteStore? store,  String? token,  List<String>? scopes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreInvite() when $default != null:
-return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_that.status,_that.acceptedAt,_that.expiresAt,_that.metadata,_that.createdAt,_that.updatedAt,_that.store,_that.token);case _:
+return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_that.status,_that.acceptedAt,_that.expiresAt,_that.metadata,_that.createdAt,_that.updatedAt,_that.store,_that.token,_that.scopes);case _:
   return orElse();
 
 }
@@ -2768,10 +2782,10 @@ return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String storeId,  String email,  StoreMemberRole role,  String invitedBy,  StoreInviteStatus status,  DateTime? acceptedAt,  DateTime expiresAt,  Map<String, dynamic> metadata,  DateTime createdAt,  DateTime updatedAt,  StoreInviteStore? store,  String? token)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String storeId,  String email,  StoreMemberRole role,  String invitedBy,  StoreInviteStatus status,  DateTime? acceptedAt,  DateTime expiresAt,  Map<String, dynamic> metadata,  DateTime createdAt,  DateTime updatedAt,  StoreInviteStore? store,  String? token,  List<String>? scopes)  $default,) {final _that = this;
 switch (_that) {
 case _StoreInvite():
-return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_that.status,_that.acceptedAt,_that.expiresAt,_that.metadata,_that.createdAt,_that.updatedAt,_that.store,_that.token);case _:
+return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_that.status,_that.acceptedAt,_that.expiresAt,_that.metadata,_that.createdAt,_that.updatedAt,_that.store,_that.token,_that.scopes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2788,10 +2802,10 @@ return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String storeId,  String email,  StoreMemberRole role,  String invitedBy,  StoreInviteStatus status,  DateTime? acceptedAt,  DateTime expiresAt,  Map<String, dynamic> metadata,  DateTime createdAt,  DateTime updatedAt,  StoreInviteStore? store,  String? token)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String storeId,  String email,  StoreMemberRole role,  String invitedBy,  StoreInviteStatus status,  DateTime? acceptedAt,  DateTime expiresAt,  Map<String, dynamic> metadata,  DateTime createdAt,  DateTime updatedAt,  StoreInviteStore? store,  String? token,  List<String>? scopes)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreInvite() when $default != null:
-return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_that.status,_that.acceptedAt,_that.expiresAt,_that.metadata,_that.createdAt,_that.updatedAt,_that.store,_that.token);case _:
+return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_that.status,_that.acceptedAt,_that.expiresAt,_that.metadata,_that.createdAt,_that.updatedAt,_that.store,_that.token,_that.scopes);case _:
   return null;
 
 }
@@ -2803,7 +2817,7 @@ return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_t
 @JsonSerializable()
 
 class _StoreInvite implements StoreInvite {
-   _StoreInvite({required this.id, required this.storeId, required this.email, required this.role, required this.invitedBy, required this.status, this.acceptedAt, required this.expiresAt, final  Map<String, dynamic> metadata = const {}, required this.createdAt, required this.updatedAt, this.store, this.token}): _metadata = metadata;
+   _StoreInvite({required this.id, required this.storeId, required this.email, required this.role, required this.invitedBy, required this.status, this.acceptedAt, required this.expiresAt, final  Map<String, dynamic> metadata = const {}, required this.createdAt, required this.updatedAt, this.store, this.token, final  List<String>? scopes}): _metadata = metadata,_scopes = scopes;
   factory _StoreInvite.fromJson(Map<String, dynamic> json) => _$StoreInviteFromJson(json);
 
 @override final  String id;
@@ -2826,6 +2840,17 @@ class _StoreInvite implements StoreInvite {
 @override final  StoreInviteStore? store;
 /// Present when listing pending invites for the invitee (accept flow).
 @override final  String? token;
+/// Copied to [StoreMember.scopes] on accept.
+ final  List<String>? _scopes;
+/// Copied to [StoreMember.scopes] on accept.
+@override List<String>? get scopes {
+  final value = _scopes;
+  if (value == null) return null;
+  if (_scopes is EqualUnmodifiableListView) return _scopes;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
 
 /// Create a copy of StoreInvite
 /// with the given fields replaced by the non-null parameter values.
@@ -2840,16 +2865,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreInvite&&(identical(other.id, id) || other.id == id)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.invitedBy, invitedBy) || other.invitedBy == invitedBy)&&(identical(other.status, status) || other.status == status)&&(identical(other.acceptedAt, acceptedAt) || other.acceptedAt == acceptedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.store, store) || other.store == store)&&(identical(other.token, token) || other.token == token));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreInvite&&(identical(other.id, id) || other.id == id)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.invitedBy, invitedBy) || other.invitedBy == invitedBy)&&(identical(other.status, status) || other.status == status)&&(identical(other.acceptedAt, acceptedAt) || other.acceptedAt == acceptedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.store, store) || other.store == store)&&(identical(other.token, token) || other.token == token)&&const DeepCollectionEquality().equals(other._scopes, _scopes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,storeId,email,role,invitedBy,status,acceptedAt,expiresAt,const DeepCollectionEquality().hash(_metadata),createdAt,updatedAt,store,token);
+int get hashCode => Object.hash(runtimeType,id,storeId,email,role,invitedBy,status,acceptedAt,expiresAt,const DeepCollectionEquality().hash(_metadata),createdAt,updatedAt,store,token,const DeepCollectionEquality().hash(_scopes));
 
 @override
 String toString() {
-  return 'StoreInvite(id: $id, storeId: $storeId, email: $email, role: $role, invitedBy: $invitedBy, status: $status, acceptedAt: $acceptedAt, expiresAt: $expiresAt, metadata: $metadata, createdAt: $createdAt, updatedAt: $updatedAt, store: $store, token: $token)';
+  return 'StoreInvite(id: $id, storeId: $storeId, email: $email, role: $role, invitedBy: $invitedBy, status: $status, acceptedAt: $acceptedAt, expiresAt: $expiresAt, metadata: $metadata, createdAt: $createdAt, updatedAt: $updatedAt, store: $store, token: $token, scopes: $scopes)';
 }
 
 
@@ -2860,7 +2885,7 @@ abstract mixin class _$StoreInviteCopyWith<$Res> implements $StoreInviteCopyWith
   factory _$StoreInviteCopyWith(_StoreInvite value, $Res Function(_StoreInvite) _then) = __$StoreInviteCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String storeId, String email, StoreMemberRole role, String invitedBy, StoreInviteStatus status, DateTime? acceptedAt, DateTime expiresAt, Map<String, dynamic> metadata, DateTime createdAt, DateTime updatedAt, StoreInviteStore? store, String? token
+ String id, String storeId, String email, StoreMemberRole role, String invitedBy, StoreInviteStatus status, DateTime? acceptedAt, DateTime expiresAt, Map<String, dynamic> metadata, DateTime createdAt, DateTime updatedAt, StoreInviteStore? store, String? token, List<String>? scopes
 });
 
 
@@ -2877,7 +2902,7 @@ class __$StoreInviteCopyWithImpl<$Res>
 
 /// Create a copy of StoreInvite
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? storeId = null,Object? email = null,Object? role = null,Object? invitedBy = null,Object? status = null,Object? acceptedAt = freezed,Object? expiresAt = null,Object? metadata = null,Object? createdAt = null,Object? updatedAt = null,Object? store = freezed,Object? token = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? storeId = null,Object? email = null,Object? role = null,Object? invitedBy = null,Object? status = null,Object? acceptedAt = freezed,Object? expiresAt = null,Object? metadata = null,Object? createdAt = null,Object? updatedAt = null,Object? store = freezed,Object? token = freezed,Object? scopes = freezed,}) {
   return _then(_StoreInvite(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
@@ -2892,7 +2917,8 @@ as Map<String, dynamic>,createdAt: null == createdAt ? _self.createdAt : created
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,store: freezed == store ? _self.store : store // ignore: cast_nullable_to_non_nullable
 as StoreInviteStore?,token: freezed == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,scopes: freezed == scopes ? _self._scopes : scopes // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
 

@@ -43,6 +43,7 @@ class StoreInvitesRepository {
     required StoreMemberRole role,
     DateTime? expiresAt,
     Map<String, dynamic>? metadata,
+    List<String>? scopes,
   }) async {
     try {
       final res = await client.post(
@@ -52,6 +53,7 @@ class StoreInvitesRepository {
           'role': role.name,
           if (expiresAt != null) 'expiresAt': expiresAt.toIso8601String(),
           if (metadata != null) 'metadata': metadata,
+          if (scopes != null && scopes.isNotEmpty) 'scopes': scopes,
         },
       );
       return StoreInvite.fromJson(res.data as Map<String, dynamic>);

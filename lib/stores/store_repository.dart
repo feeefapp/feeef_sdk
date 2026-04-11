@@ -113,6 +113,7 @@ class StoreRepository extends ModelRepository<Store>
     required String email,
     required embadded.StoreMemberRole role,
     Map<String, dynamic>? metadata = const {},
+    List<String>? scopes,
   }) async {
     try {
       var res = await client.post(
@@ -122,6 +123,7 @@ class StoreRepository extends ModelRepository<Store>
           'role': role.name,
           if (name != null) 'name': name,
           if (metadata != {}) 'metadata': metadata,
+          if (scopes != null && scopes.isNotEmpty) 'scopes': scopes,
         },
       );
       var storeMember = embadded.StoreMember.fromJson(res.data);
@@ -141,6 +143,7 @@ class StoreRepository extends ModelRepository<Store>
     required String memberId,
     embadded.StoreMemberRole? role,
     Map<String, dynamic>? metadata = const {},
+    List<String>? scopes,
   }) async {
     try {
       var res = await client.put(
@@ -149,6 +152,7 @@ class StoreRepository extends ModelRepository<Store>
           if (name != null) 'name': name,
           if (role != null) 'role': role.name,
           if (metadata != {}) 'metadata': metadata,
+          if (scopes != null) 'scopes': scopes,
         },
       );
       var storeMember = embadded.StoreMember.fromJson(res.data);

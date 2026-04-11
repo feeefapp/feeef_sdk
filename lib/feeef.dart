@@ -47,6 +47,7 @@ export 'products/product_repository.dart';
 export 'shipping_methods/shipping_method_repository.dart';
 export 'promos/promo.dart';
 export 'promos/promo_repository.dart';
+export 'interfaces/embadded/member_scope.dart';
 export 'stores/store_repository.dart';
 export 'stores/store_invites_repository.dart';
 export 'users/user_repository.dart';

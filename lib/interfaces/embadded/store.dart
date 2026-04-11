@@ -185,6 +185,8 @@ abstract class StoreMember with _$StoreMember {
     required DateTime createdAt,
     @Default(false) bool active,
     @Default({}) Map<String, dynamic> metadata,
+    /// Fine-grained permissions; empty = legacy full access for editors.
+    @Default([]) List<String> scopes,
   }) = _StoreMember;
 
   factory StoreMember.fromJson(Map<String, dynamic> json) =>
@@ -225,6 +227,8 @@ abstract class StoreInvite with _$StoreInvite {
     StoreInviteStore? store,
     /// Present when listing pending invites for the invitee (accept flow).
     String? token,
+    /// Copied to [StoreMember.scopes] on accept.
+    List<String>? scopes,
   }) = _StoreInvite;
 
   factory StoreInvite.fromJson(Map<String, dynamic> json) =>

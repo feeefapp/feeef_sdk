@@ -253,6 +253,7 @@ _StoreInvite _$StoreInviteFromJson(Map<String, dynamic> json) => _StoreInvite(
       store: json['store'] == null
           ? null
           : StoreInviteStore.fromJson(json['store'] as Map<String, dynamic>),
+      token: json['token'] as String?,
     );
 
 Map<String, dynamic> _$StoreInviteToJson(_StoreInvite instance) =>
@@ -269,6 +270,7 @@ Map<String, dynamic> _$StoreInviteToJson(_StoreInvite instance) =>
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
       'store': instance.store?.toJson(),
+      'token': instance.token,
     };
 
 const _$StoreInviteStatusEnumMap = {

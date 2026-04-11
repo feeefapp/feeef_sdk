@@ -117,6 +117,34 @@ class StoreInvitesRepository {
     }
   }
 
+  /// Pending invites for the signed-in user's email (GET /me/store-invites).
+  Future<List<StoreInvite>> listPendingForMe() async {
+    try {
+      final res = await client.get('/me/store-invites');
+      final list = res.data as List;
+      return list
+          .map((e) => StoreInvite.fromJson(e as Map<String, dynamic>))
+          .toList();
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 422) {
+        throw FeeefValidationException.fromJson(e.response?.data);
+      }
+      rethrow;
+    }
+  }
+
+  /// Invitee declines a pending invite (POST .../decline).
+  Future<void> decline(String storeId, String inviteId) async {
+    try {
+      await client.post('/$table/$storeId/invites/$inviteId/decline');
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 422) {
+        throw FeeefValidationException.fromJson(e.response?.data);
+      }
+      rethrow;
+    }
+  }
+
   /// Accepts an invite. Authenticated user's email must match invite email.
   Future<StoreMember> accept(
     String storeId,

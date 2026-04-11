@@ -223,6 +223,8 @@ abstract class StoreInvite with _$StoreInvite {
     required DateTime createdAt,
     required DateTime updatedAt,
     StoreInviteStore? store,
+    /// Present when listing pending invites for the invitee (accept flow).
+    String? token,
   }) = _StoreInvite;
 
   factory StoreInvite.fromJson(Map<String, dynamic> json) =>

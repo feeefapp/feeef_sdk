@@ -28,9 +28,7 @@ _Order _$OrderFromJson(Map<String, dynamic> json) => _Order(
   shippingNote: json['shippingNote'] as String?,
   trackingCode: json['trackingCode'] as String?,
   paymentMethodId: json['paymentMethodId'] as String?,
-  shippingType:
-      $enumDecodeNullable(_$ShippingTypeEnumMap, json['shippingType']) ??
-      ShippingType.home,
+  shippingType: shippingTypeFromJson(json['shippingType']),
   tags:
       (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
@@ -82,7 +80,7 @@ Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
   'shippingNote': instance.shippingNote,
   'trackingCode': instance.trackingCode,
   'paymentMethodId': instance.paymentMethodId,
-  'shippingType': _$ShippingTypeEnumMap[instance.shippingType]!,
+  'shippingType': shippingTypeToJson(instance.shippingType),
   'tags': instance.tags,
   'items': instance.items.map((e) => e.toJson()).toList(),
   'subtotal': instance.subtotal,
@@ -102,12 +100,6 @@ Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
   'customFields': instance.customFields,
   'store': _storeToJson(instance.store),
   'shippingMethod': _shippingMethodToJson(instance.shippingMethod),
-};
-
-const _$ShippingTypeEnumMap = {
-  ShippingType.home: 'home',
-  ShippingType.pickup: 'pickup',
-  ShippingType.store: 'store',
 };
 
 const _$OrderStatusEnumMap = {
@@ -145,10 +137,7 @@ _OrderCreate _$OrderCreateFromJson(Map<String, dynamic> json) => _OrderCreate(
   shippingCity: json['shippingCity'] as String?,
   shippingState: json['shippingState'] as String?,
   shippingCountry: json['shippingCountry'] as String?,
-  shippingType: $enumDecodeNullable(
-    _$ShippingTypeEnumMap,
-    json['shippingType'],
-  ),
+  shippingType: shippingTypeNullableFromJson(json['shippingType']),
   shippingMethodId: json['shippingMethodId'] as String?,
   trackingCode: json['trackingCode'] as String?,
   paymentMethodId: json['paymentMethodId'] as String?,
@@ -194,7 +183,7 @@ Map<String, dynamic> _$OrderCreateToJson(_OrderCreate instance) =>
       'shippingCity': instance.shippingCity,
       'shippingState': instance.shippingState,
       'shippingCountry': instance.shippingCountry,
-      'shippingType': _$ShippingTypeEnumMap[instance.shippingType],
+      'shippingType': shippingTypeNullableToJson(instance.shippingType),
       'shippingMethodId': instance.shippingMethodId,
       'trackingCode': instance.trackingCode,
       'paymentMethodId': instance.paymentMethodId,
@@ -228,10 +217,7 @@ _OrderUpdate _$OrderUpdateFromJson(Map<String, dynamic> json) => _OrderUpdate(
   shippingCity: json['shippingCity'] as String?,
   shippingState: json['shippingState'] as String?,
   shippingCountry: json['shippingCountry'] as String?,
-  shippingType: $enumDecodeNullable(
-    _$ShippingTypeEnumMap,
-    json['shippingType'],
-  ),
+  shippingType: shippingTypeNullableFromJson(json['shippingType']),
   shippingMethodId: json['shippingMethodId'] as String?,
   trackingCode: json['trackingCode'] as String?,
   paymentMethodId: json['paymentMethodId'] as String?,
@@ -277,7 +263,7 @@ Map<String, dynamic> _$OrderUpdateToJson(_OrderUpdate instance) =>
       'shippingCity': instance.shippingCity,
       'shippingState': instance.shippingState,
       'shippingCountry': instance.shippingCountry,
-      'shippingType': _$ShippingTypeEnumMap[instance.shippingType],
+      'shippingType': shippingTypeNullableToJson(instance.shippingType),
       'shippingMethodId': instance.shippingMethodId,
       'trackingCode': instance.trackingCode,
       'paymentMethodId': instance.paymentMethodId,

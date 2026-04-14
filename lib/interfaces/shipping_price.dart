@@ -25,10 +25,14 @@ class ShippingStateRates {
   /// Price for home delivery (nullable if unavailable)
   final num? home;
 
-  /// Price for desk/office pickup (nullable if unavailable)
+  /// Stopdesk / carrier relay office in the region (nullable if unavailable).
+  ///
+  /// Billed when the order's shipping type is `pickup` (customer collects at the hub/stopdesk).
   final num? desk;
 
-  /// Price for store pickup (nullable if unavailable)
+  /// Merchant store branch pickup (nullable if unavailable).
+  ///
+  /// Billed when the order's shipping type is `store`.
   final num? pickup;
 
   const ShippingStateRates({this.home, this.desk, this.pickup});

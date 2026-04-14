@@ -36,7 +36,12 @@ abstract class Order extends OrderEntity
     String? shippingNote,
     String? trackingCode,
     String? paymentMethodId,
-    @Default(ShippingType.home) ShippingType shippingType,
+    @JsonKey(
+      fromJson: shippingTypeFromJson,
+      toJson: shippingTypeToJson,
+    )
+    @Default(ShippingType.home)
+    ShippingType shippingType,
     @Default([]) List<String> tags,
     required List<OrderItem> items,
     required num subtotal,
@@ -79,6 +84,10 @@ abstract class OrderCreate with _$OrderCreate implements ModelCreate {
     String? shippingCity,
     String? shippingState,
     String? shippingCountry,
+    @JsonKey(
+      fromJson: shippingTypeNullableFromJson,
+      toJson: shippingTypeNullableToJson,
+    )
     ShippingType? shippingType,
     String? shippingMethodId,
     String? trackingCode,
@@ -124,6 +133,10 @@ abstract class OrderUpdate with _$OrderUpdate implements ModelUpdate {
     String? shippingCity,
     String? shippingState,
     String? shippingCountry,
+    @JsonKey(
+      fromJson: shippingTypeNullableFromJson,
+      toJson: shippingTypeNullableToJson,
+    )
     ShippingType? shippingType,
     String? shippingMethodId,
     String? trackingCode,

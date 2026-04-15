@@ -1524,6 +1524,10 @@ class Actions {
     Map<String, dynamic>? templateData,
     /// Aspect ratio for the generated image (e.g. '1:8', '9:16', '1:1'). Defaults to '1:8' on the server if omitted.
     String? aspectRatio,
+    /// Final image model (step 2). Server allowlist; e.g. `gemini-3.1-flash-image-preview`.
+    String? imageModel,
+    /// Structured content text model (step 1). Server allowlist; e.g. `gemini-3.1-flash-lite-preview`.
+    String? textModel,
   }) async {
     try {
       if (text.trim().isEmpty && (attachments == null || attachments.isEmpty)) {
@@ -1537,6 +1541,8 @@ class Actions {
         if (attachmentMaps != null) 'attachments': attachmentMaps,
         if (templateData != null) 'templateData': templateData,
         if (aspectRatio != null && aspectRatio.trim().isNotEmpty) 'aspectRatio': aspectRatio.trim(),
+        if (imageModel != null && imageModel.trim().isNotEmpty) 'imageModel': imageModel.trim(),
+        if (textModel != null && textModel.trim().isNotEmpty) 'textModel': textModel.trim(),
       };
 
       final response = await client.post(
@@ -1570,15 +1576,15 @@ class Actions {
       );
     } catch (e) {
       developer.log('Error generating image landing page: $e');
-      final errorMessage = e is ArgumentError
-          ? e.message
+      final String errorMessage = e is ArgumentError
+          ? (e.message?.toString() ?? 'Invalid argument')
           : 'An unexpected error occurred. Please try again.';
       return (
         success: false,
         imageUrl: null as String?,
         id: null as String?,
         message: 'Failed to generate image landing page',
-        error: errorMessage as String?,
+        error: errorMessage,
         metadata: null as Map<String, dynamic>?,
       );
     }

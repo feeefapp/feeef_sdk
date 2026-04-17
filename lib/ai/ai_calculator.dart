@@ -535,9 +535,10 @@ class AiCalculator {
       attachmentResolution: attachmentResolution,
     );
 
-    // Resolution extra: (1) Flash only — output size 1K/2K/4K → resolutionCosts.
-    // (2) Any model — when reference images are present, input/reference tier
-    // surcharge above MEDIA_RESOLUTION_LOW (same keys; independent of output size).
+    // Resolution extra: (1) Flash/Pro — output size 1K/2K/4K → resolutionCosts (outputResKey).
+    // (2) Any model — input [resolution] tier surcharge above MEDIA_RESOLUTION_LOW
+    // (same keys as output; applies even with zero reference images so the control
+    // matches wallet + UX). Stacks with (1) when both output size and input tier apply.
     // Match [AIService.generateOrEditImage]: Flash + Pro preview support output imageSize tiers.
     final supportsImageSize = modelId == 'gemini-3.1-flash-image-preview' ||
         modelId == 'gemini-3-pro-image-preview';
@@ -556,7 +557,7 @@ class AiCalculator {
         : 0.0;
 
     double referenceResolutionExtraDzd = 0.0;
-    if (referenceImageCount > 0 && resolution != null) {
+    if (resolution != null) {
       final lowCost = config.resolutionCosts['MEDIA_RESOLUTION_LOW'] ?? 0;
       final tierCost = config.resolutionCosts[resolution] ?? 0;
       final delta = tierCost - lowCost;

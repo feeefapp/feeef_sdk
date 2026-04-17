@@ -1528,6 +1528,10 @@ class Actions {
     String? imageModel,
     /// Structured content text model (step 1). Server allowlist; e.g. `gemini-3.1-flash-lite-preview`.
     String? textModel,
+    /// Reference/input media resolution (e.g. `MEDIA_RESOLUTION_HIGH`). Passed to step-2 image gen.
+    String? mediaResolution,
+    /// Output image dimensions for models that support 1K/2K/4K (e.g. Flash/Pro image preview).
+    String? imageSize,
   }) async {
     try {
       if (text.trim().isEmpty && (attachments == null || attachments.isEmpty)) {
@@ -1543,6 +1547,9 @@ class Actions {
         if (aspectRatio != null && aspectRatio.trim().isNotEmpty) 'aspectRatio': aspectRatio.trim(),
         if (imageModel != null && imageModel.trim().isNotEmpty) 'imageModel': imageModel.trim(),
         if (textModel != null && textModel.trim().isNotEmpty) 'textModel': textModel.trim(),
+        if (mediaResolution != null && mediaResolution.trim().isNotEmpty)
+          'mediaResolution': mediaResolution.trim(),
+        if (imageSize != null && imageSize.trim().isNotEmpty) 'imageSize': imageSize.trim(),
       };
 
       final response = await client.post(

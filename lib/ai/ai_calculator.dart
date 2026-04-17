@@ -538,7 +538,9 @@ class AiCalculator {
     // Resolution extra: (1) Flash only — output size 1K/2K/4K → resolutionCosts.
     // (2) Any model — when reference images are present, input/reference tier
     // surcharge above MEDIA_RESOLUTION_LOW (same keys; independent of output size).
-    final supportsImageSize = modelId == 'gemini-3.1-flash-image-preview';
+    // Match [AIService.generateOrEditImage]: Flash + Pro preview support output imageSize tiers.
+    final supportsImageSize = modelId == 'gemini-3.1-flash-image-preview' ||
+        modelId == 'gemini-3-pro-image-preview';
     String outputResKey = 'MEDIA_RESOLUTION_HIGH';
     if (supportsImageSize && imageSize != null) {
       outputResKey = switch (imageSize) {
@@ -714,20 +716,64 @@ class AiCalculator {
     );
   }
 
-  /// Get the fixed cost for image landing page generation.
-  AiCostEstimate estimateImageLandingPage() {
-    final exchangeRate = config.exchangeRate;
-    final costDzd = _roundMoney(
-      config.billing.landingPageFixedChargeUsd * exchangeRate,
+  /// Estimates landing-page **image** cost — same formula as [estimateImageGeneration].
+  ///
+  /// When [imageModelId] is empty, returns the platform fixed [landingPageFixedChargeUsd]
+  /// (placeholder until an image model is chosen in the UI).
+  ///
+  /// [textModelId] is ignored for pricing; landing-page billing matches image studio
+  /// (offline and server `quoteImageLandingPage`).
+  AiCostEstimate estimateImageLandingPage({
+    String? imageModelId,
+    String? textModelId,
+    int attachmentCount = 0,
+    String attachmentResolution = 'medium',
+    String? resolution,
+    String? imageSize,
+    int referenceImageCount = 0,
+  }) {
+    final mid = imageModelId?.trim();
+    if (mid == null || mid.isEmpty) {
+      final exchangeRate = config.exchangeRate;
+      final costDzd = _roundMoney(
+        config.billing.landingPageFixedChargeUsd * exchangeRate,
+      );
+      return AiCostEstimate(
+        providerCostUsd: costDzd / exchangeRate,
+        providerCostDzd: costDzd,
+        userCostDzd: costDzd,
+        exchangeRate: exchangeRate,
+        multiplier: 1,
+        usedLocalCost: false,
+        breakdown: {'fixedCostDzd': costDzd},
+      );
+    }
+
+    final img = estimateImageGeneration(
+      modelId: mid,
+      attachmentCount: attachmentCount,
+      attachmentResolution: attachmentResolution,
+      resolution: resolution,
+      imageSize: imageSize,
+      referenceImageCount: referenceImageCount,
     );
+    var total = img.userCostDzd;
+    if (total <= 0) {
+      total = _roundMoney(
+        config.billing.landingPageFixedChargeUsd * config.exchangeRate,
+      );
+    }
+    final exchangeRate = config.exchangeRate;
     return AiCostEstimate(
-      providerCostUsd: costDzd / exchangeRate,
-      providerCostDzd: costDzd,
-      userCostDzd: costDzd,
+      providerCostUsd: total / exchangeRate,
+      providerCostDzd: total,
+      userCostDzd: total,
       exchangeRate: exchangeRate,
-      multiplier: 1,
-      usedLocalCost: false,
-      breakdown: {'fixedCostDzd': costDzd},
+      multiplier: config.billing.retailMultiplier,
+      usedLocalCost: img.usedLocalCost,
+      breakdown: {
+        'imageUserCostDzd': img.userCostDzd,
+      },
     );
   }
 }

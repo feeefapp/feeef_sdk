@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:feeef/attachments/attachment.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
+import 'package:feeef/interfaces/template_component.dart' show TemplateComponentPolicy;
 import 'package:feeef/stores/models/store.dart';
 import 'package:recase/recase.dart';
 // Backend route reference (prefix: /api/v1/actions):
@@ -180,6 +181,110 @@ class AICustomComponentResponse {
       code!.isNotEmpty &&
       propsSchema != null &&
       props != null;
+}
+
+/// Single materialized library component returned by
+/// [Actions.resolveComponents]. Lean by design — only what `react-live`
+/// needs to render a `reference` placement.
+///
+/// Catalog metadata (subtitle, tags, screenshots, pricing, …) is *not*
+/// included because the renderer doesn't need it; browse those via the
+/// standard `template_components` REST resource.
+class ResolvedTemplateComponent {
+  const ResolvedTemplateComponent({
+    required this.id,
+    required this.storeId,
+    required this.version,
+    required this.policy,
+    required this.title,
+    required this.code,
+    required this.propsSchema,
+    this.slotsSchema,
+    required this.propsDefault,
+    this.slotsDefault,
+    this.slotsLayout,
+    required this.deprecated,
+  });
+
+  final String id;
+  final String storeId;
+
+  /// Monotonic counter bumped server-side on meaningful edits. Useful for
+  /// optimistic UI: if a placement caches `version` and the resolved
+  /// version is newer, the editor can re-render without diffing the JSX.
+  final int version;
+  final TemplateComponentPolicy policy;
+  final String title;
+  final String code;
+  final Map<String, dynamic> propsSchema;
+  final Map<String, dynamic>? slotsSchema;
+  final Map<String, dynamic> propsDefault;
+  final Map<String, dynamic>? slotsDefault;
+  final Map<String, dynamic>? slotsLayout;
+
+  /// True iff the source library entry's policy is `deprecated`.
+  /// Editors should surface a warning so users can migrate.
+  final bool deprecated;
+
+  factory ResolvedTemplateComponent.fromJson(Map<String, dynamic> json) {
+    return ResolvedTemplateComponent(
+      id: json['id'] as String,
+      storeId: json['storeId'] as String,
+      version: (json['version'] as num?)?.toInt() ?? 1,
+      policy: TemplateComponentPolicy.fromWire(json['policy'] as String?),
+      title: (json['title'] as String?) ?? '',
+      code: (json['code'] as String?) ?? '',
+      propsSchema: Map<String, dynamic>.from(
+        (json['propsSchema'] as Map?) ?? const {},
+      ),
+      slotsSchema: json['slotsSchema'] is Map
+          ? Map<String, dynamic>.from(json['slotsSchema'] as Map)
+          : null,
+      propsDefault: Map<String, dynamic>.from(
+        (json['propsDefault'] as Map?) ?? const {},
+      ),
+      slotsDefault: json['slotsDefault'] is Map
+          ? Map<String, dynamic>.from(json['slotsDefault'] as Map)
+          : null,
+      slotsLayout: json['slotsLayout'] is Map
+          ? Map<String, dynamic>.from(json['slotsLayout'] as Map)
+          : null,
+      deprecated: (json['deprecated'] as bool?) ?? false,
+    );
+  }
+}
+
+/// Tuple-style return value for [Actions.resolveComponents].
+///
+///  - [resolved] is keyed by component id so `O(1)` lookup is trivial
+///    in the renderer (e.g. while walking the template tree).
+///  - [missing] enumerates ids the server refused or could not find,
+///    so the editor can render a friendly "deleted / not accessible"
+///    placeholder instead of an empty slot.
+class ResolveComponentsResult {
+  const ResolveComponentsResult({required this.resolved, required this.missing});
+
+  final Map<String, ResolvedTemplateComponent> resolved;
+  final List<String> missing;
+
+  factory ResolveComponentsResult.fromJson(Map<String, dynamic> json) {
+    final rawResolved = json['resolved'];
+    final resolved = <String, ResolvedTemplateComponent>{};
+    if (rawResolved is Map) {
+      rawResolved.forEach((key, value) {
+        if (value is Map) {
+          resolved[key.toString()] = ResolvedTemplateComponent.fromJson(
+            Map<String, dynamic>.from(value),
+          );
+        }
+      });
+    }
+    final rawMissing = json['missing'];
+    final missing = rawMissing is List
+        ? rawMissing.map((e) => e.toString()).toList(growable: false)
+        : const <String>[];
+    return ResolveComponentsResult(resolved: resolved, missing: missing);
+  }
 }
 
 class Actions {
@@ -692,9 +797,22 @@ class Actions {
   /// [storeId] The ID of the store
   /// [input] The user description of the component to generate
   /// [mode] 'create' or 'edit'
+  /// [currentSlotsSchema], [currentSlots], [currentSlotsLayout]
+  ///   Existing slot topology / contents / responsive layout of the component
+  ///   being edited. Required for edit mode on any component that uses slots
+  ///   — without them the server sends the AI no information about the
+  ///   existing slot tree, so the AI routinely re-emits a best-guess tree
+  ///   that the client then applies over the user's work. Safe to omit for
+  ///   slot-less components; the server treats absence as "this component
+  ///   has no slots".
   /// [attachments] Optional unified attachments: image (URL), url (page URL), product (product ID).
   ///   Each item: `{ type: 'image'|'url'|'product', value: string, label?: string, prompt?: string }`.
   /// [useSearchGrounding] When provided, enables or disables Gemini Google Search grounding.
+  /// [textModel] Optional text model override (e.g. `gemini-flash-lite-latest`).
+  ///   Must match an active, text-capable row in the backend's `aiModels` config
+  ///   (see `configs/aiModels`); unknown / inactive ids are silently replaced
+  ///   server-side with the store-integration default, so callers can pass a
+  ///   stale cache safely. Leave null to let the server pick.
   Future<AICustomComponentResponse> generateCustomComponentCode({
     required String storeId,
     required String input,
@@ -702,9 +820,13 @@ class Actions {
     String? currentCode,
     Map<String, dynamic>? currentPropsSchema,
     Map<String, dynamic>? currentProps,
+    Map<String, dynamic>? currentSlotsSchema,
+    Map<String, List<Map<String, dynamic>>>? currentSlots,
+    Map<String, dynamic>? currentSlotsLayout,
     /// Optional unified attachments (image, url, product) for reference context
     List<Map<String, dynamic>>? attachments,
     bool? useSearchGrounding,
+    String? textModel,
   }) async {
     try {
       if (storeId.isEmpty) {
@@ -721,8 +843,14 @@ class Actions {
         if (currentCode != null) 'currentCode': currentCode,
         if (currentPropsSchema != null) 'currentPropsSchema': currentPropsSchema,
         if (currentProps != null) 'currentProps': currentProps,
+        if (currentSlotsSchema != null && currentSlotsSchema.isNotEmpty)
+          'currentSlotsSchema': currentSlotsSchema,
+        if (currentSlots != null && currentSlots.isNotEmpty) 'currentSlots': currentSlots,
+        if (currentSlotsLayout != null && currentSlotsLayout.isNotEmpty)
+          'currentSlotsLayout': currentSlotsLayout,
         if (attachments != null && attachments.isNotEmpty) 'attachments': attachments,
         if (useSearchGrounding != null) 'useSearchGrounding': useSearchGrounding,
+        if (textModel != null && textModel.trim().isNotEmpty) 'textModel': textModel.trim(),
       };
 
       final response = await client.post(
@@ -731,6 +859,21 @@ class Actions {
       );
 
       final responseData = response.data as Map<String, dynamic>;
+      // Debug: compare this log with backend `[generateCustomComponentCode]` logs
+      // to see whether empty slots are produced server-side or lost during parse/UI.
+      try {
+        developer.log(
+          const JsonEncoder.withIndent('  ').convert(responseData),
+          name: 'feeef.generateCustomComponentCode.rawResponse',
+        );
+      } catch (e, st) {
+        developer.log(
+          'Could not JSON-encode raw response: $e; data=$responseData',
+          name: 'feeef.generateCustomComponentCode.rawResponse',
+          error: e,
+          stackTrace: st,
+        );
+      }
       return AICustomComponentResponse.fromJson(responseData);
     } on DioException catch (e) {
       developer.log('Network error during AI custom component generation: ${e.message}');
@@ -1676,6 +1819,60 @@ class Actions {
         error: errorMessage as String?,
         metadata: null as Map<String, dynamic>?,
       );
+    }
+  }
+
+  /// resolveComponents
+  ///
+  /// Materializes a list of `template_components` by id for the storefront
+  /// renderer. The backend serves a slim, cached payload (24h TTL) keyed
+  /// on `(storeId, version, hash(sortedIds))`; the version is bumped
+  /// automatically on any edit to a `TemplateComponent` or to the parent
+  /// store, so callers always see fresh data with at most one round trip.
+  ///
+  /// The endpoint is intentionally **public**: storefront SSR is
+  /// unauthenticated and must be able to call it. Authorization is data-
+  /// driven: same-store ids are always returned; cross-store ids only when
+  /// `policy in ('public','deprecated')`. Anything else is dropped and
+  /// surfaces as a `missing` id so the renderer can show a placeholder.
+  ///
+  /// [ids] is deduplicated client-side as a courtesy; the server also
+  /// dedupes before hashing the cache key so two callers with the same
+  /// id set always hit the same row.
+  Future<ResolveComponentsResult> resolveComponents({
+    required String storeId,
+    required List<String> ids,
+    CancelToken? cancelToken,
+  }) async {
+    if (storeId.isEmpty) {
+      throw ArgumentError('storeId required');
+    }
+    final dedupedIds = ids.toSet().toList(growable: false);
+    if (dedupedIds.isEmpty) {
+      // Fast-path: avoid a network round trip when there's nothing to
+      // resolve. Mirrors the "lazy seeding" the backend does on its
+      // first call so no version key is created unnecessarily.
+      return const ResolveComponentsResult(resolved: {}, missing: []);
+    }
+    try {
+      final response = await client.post(
+        '/actions/resolveComponents',
+        data: {'storeId': storeId, 'ids': dedupedIds},
+        cancelToken: cancelToken,
+      );
+      final data = response.data;
+      if (data is Map<String, dynamic>) {
+        return ResolveComponentsResult.fromJson(data);
+      }
+      if (data is Map) {
+        return ResolveComponentsResult.fromJson(Map<String, dynamic>.from(data));
+      }
+      return const ResolveComponentsResult(resolved: {}, missing: []);
+    } on DioException catch (e) {
+      developer.log(
+        'Network error during resolveComponents: ${e.message}',
+      );
+      rethrow;
     }
   }
 }

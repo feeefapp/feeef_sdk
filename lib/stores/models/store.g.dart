@@ -78,6 +78,7 @@ _Store _$StoreFromJson(Map<String, dynamic> json) => _Store(
       ? null
       : StoreConfigs.fromJson(json['configs'] as Map<String, dynamic>),
   shippingPriceId: json['shippingPriceId'] as String?,
+  templateId: json['templateId'] as String?,
   metaPixelIds: (json['metaPixelIds'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
@@ -86,6 +87,7 @@ _Store _$StoreFromJson(Map<String, dynamic> json) => _Store(
         (k, e) => MapEntry(k, StoreMember.fromJson(e as Map<String, dynamic>)),
       ) ??
       const {},
+  lor: json['lor'] == null ? null : _storeLorFromJson(json['lor']),
 );
 
 Map<String, dynamic> _$StoreToJson(_Store instance) => <String, dynamic>{
@@ -120,8 +122,17 @@ Map<String, dynamic> _$StoreToJson(_Store instance) => <String, dynamic>{
   'due': instance.due,
   'configs': instance.configs?.toJson(),
   'shippingPriceId': instance.shippingPriceId,
+  'templateId': instance.templateId,
   'metaPixelIds': instance.metaPixelIds,
   'members': instance.members.map((k, e) => MapEntry(k, e.toJson())),
+  'lor': instance.lor == null
+      ? null
+      : <String, dynamic>{
+          'lastSync': instance.lor!.lastSync,
+          'lastItemDate': instance.lor!.lastItemDate,
+          'totalOrders': instance.lor!.totalOrders,
+          'data': instance.lor!.data,
+        },
 };
 
 _StoreCreate _$StoreCreateFromJson(Map<String, dynamic> json) => _StoreCreate(

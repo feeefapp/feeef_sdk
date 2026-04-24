@@ -11,6 +11,7 @@ import '../../interfaces/embadded/store_integrations.dart';
 import '../../interfaces/helpers.dart';
 import '../../interfaces/store.dart';
 import 'package:feeef/orders/models/lite_orders_report.dart';
+import 'package:feeef/store_templates/store_template.dart';
 
 part 'store.freezed.dart';
 part 'store.g.dart';
@@ -130,14 +131,40 @@ abstract class Store extends StoreEntity
     // StoreConfigs
     StoreConfigs? configs,
     String? shippingPriceId,
+    String? templateId,
     // metaPixelIds
     List<String>? metaPixelIds,
     @Default({}) Map<String, StoreMember> members,
     /// Present when list/show is called with `with[]=lor` and the user may view analytics.
     @JsonKey(fromJson: _storeLorFromJson) LiteOrdersReport? lor,
+    /// Present when `with[]=template` — active [StoreTemplate] row (usually the store fork).
+    /// Parsed in [Store.fromJson] (generated JSON omits this field).
+    @JsonKey(includeFromJson: false, includeToJson: false) StoreTemplate? template,
   }) = _Store;
 
-  factory Store.fromJson(Map<String, dynamic> json) => _$StoreFromJson(json);
+  /// Normalizes `template_id` → [templateId], parses nested `template` from `with[]=template`.
+  factory Store.fromJson(Map<String, dynamic> json) {
+    final m = Map<String, dynamic>.from(json);
+    if (m['templateId'] == null && m['template_id'] != null) {
+      m['templateId'] = m['template_id'];
+    }
+    final tplRaw = m.remove('template');
+    final base = _$StoreFromJson(m);
+    if (tplRaw is Map) {
+      return base.copyWith(
+        template: StoreTemplate.fromJson(Map<String, dynamic>.from(tplRaw)),
+      );
+    }
+    return base;
+  }
+
+  /// Serializes this store; includes nested [template] when present (not part of `_$StoreToJson`).
+  Map<String, dynamic> toJson() {
+    final m = _$StoreToJson(this as _Store);
+    final t = template;
+    if (t != null) m['template'] = t.toJson();
+    return m;
+  }
 }
 
 // StoreCreate
@@ -208,6 +235,7 @@ abstract class StoreUpdate with _$StoreUpdate implements ModelUpdate {
     // StoreConfigs
     StoreConfigs? configs,
     String? shippingPriceId,
+    String? templateId,
   }) = _StoreUpdate;
 
   factory StoreUpdate.fromJson(Map<String, dynamic> json) =>

@@ -29,6 +29,12 @@ abstract final class MemberScope {
   static const shippingPrices = 'shipping_prices';
   static const shippingPricesRead = 'shipping_prices.read';
 
+  static const templateComponents = 'template_components';
+  static const templateComponentsRead = 'template_components.read';
+
+  static const storeTemplates = 'store_templates';
+  static const storeTemplatesRead = 'store_templates.read';
+
   static const wildcard = '*';
 
   static const List<String> all = [
@@ -49,6 +55,10 @@ abstract final class MemberScope {
     productLandingPagesRead,
     shippingPrices,
     shippingPricesRead,
+    templateComponents,
+    templateComponentsRead,
+    storeTemplates,
+    storeTemplatesRead,
     wildcard,
   ];
 }

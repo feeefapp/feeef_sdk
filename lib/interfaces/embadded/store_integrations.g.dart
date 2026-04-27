@@ -30,6 +30,11 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
       : GoogleTagsIntegration.fromJson(
           json['googleTags'] as Map<String, dynamic>,
         ),
+  clarity: json['clarity'] == null
+      ? null
+      : ClarityIntegration.fromJson(
+          json['clarity'] as Map<String, dynamic>,
+        ),
   ai: json['ai'] == null
       ? null
       : AiIntegration.fromJson(json['ai'] as Map<String, dynamic>),
@@ -113,6 +118,7 @@ Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
       'tiktokPixel': instance.tiktokPixel?.toJson(),
       'googleAnalytics': instance.googleAnalytics?.toJson(),
       'googleTags': instance.googleTags?.toJson(),
+      'clarity': instance.clarity?.toJson(),
       'ai': instance.ai?.toJson(),
       'yalidine': instance.yalidine?.toJson(),
       'ecotrack': instance.ecotrack?.toJson(),
@@ -308,6 +314,23 @@ Map<String, dynamic> _$GoogleTagsIntegrationToJson(
   'active': instance.active,
   'metadata': instance.metadata,
 };
+
+_ClarityIntegration _$ClarityIntegrationFromJson(
+  Map<String, dynamic> json,
+) => _ClarityIntegration(
+  active: json['active'] as bool? ?? true,
+  trackingCode: json['trackingCode'] as String,
+  apiKey: json['apiKey'] as String?,
+  metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+);
+
+Map<String, dynamic> _$ClarityIntegrationToJson(_ClarityIntegration instance) =>
+    <String, dynamic>{
+      'active': instance.active,
+      'trackingCode': instance.trackingCode,
+      'apiKey': instance.apiKey,
+      'metadata': instance.metadata,
+    };
 
 _AiIntegration _$AiIntegrationFromJson(
   Map<String, dynamic> json,
@@ -591,6 +614,7 @@ _$SecurityIntegrationBackendProtectionFromJson(Map<String, dynamic> json) =>
       active: json['active'] as bool? ?? false,
       phoneTtl: (json['phoneTtl'] as num?)?.toInt(),
       ipTtl: (json['ipTtl'] as num?)?.toInt(),
+      adAttributionTtl: (json['adAttributionTtl'] as num?)?.toInt(),
       blockDirectOrders: json['blockDirectOrders'] as bool? ?? false,
       adsOnlyMode: json['adsOnlyMode'] as bool? ?? false,
     );
@@ -601,6 +625,7 @@ Map<String, dynamic> _$SecurityIntegrationBackendProtectionToJson(
   'active': instance.active,
   'phoneTtl': instance.phoneTtl,
   'ipTtl': instance.ipTtl,
+  'adAttributionTtl': instance.adAttributionTtl,
   'blockDirectOrders': instance.blockDirectOrders,
   'adsOnlyMode': instance.adsOnlyMode,
 };

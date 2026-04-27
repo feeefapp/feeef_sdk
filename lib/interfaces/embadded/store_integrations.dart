@@ -23,6 +23,8 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     TiktokPixelIntegration? tiktokPixel,
     GoogleAnalyticsIntegration? googleAnalytics,
     GoogleTagsIntegration? googleTags,
+    /// Microsoft Clarity (trackingCode public in storefront; apiKey never in public JSON).
+    ClarityIntegration? clarity,
     AiIntegration? ai,
     // Delivery Integrations
     YalidineDeliveryIntegration? yalidine,
@@ -179,6 +181,21 @@ abstract class GoogleTagsIntegration with _$GoogleTagsIntegration {
 
   factory GoogleTagsIntegration.fromJson(Map<String, dynamic> json) =>
       _$GoogleTagsIntegrationFromJson(json);
+}
+
+/// Microsoft Clarity session recording / heatmaps.
+@freezed
+abstract class ClarityIntegration with _$ClarityIntegration {
+  const ClarityIntegration._();
+  const factory ClarityIntegration({
+    @Default(true) bool active,
+    required String trackingCode,
+    String? apiKey,
+    @Default({}) Map<String, dynamic> metadata,
+  }) = _ClarityIntegration;
+
+  factory ClarityIntegration.fromJson(Map<String, dynamic> json) =>
+      _$ClarityIntegrationFromJson(json);
 }
 
 /// AI integration configuration for Google AI Studio.
@@ -431,6 +448,8 @@ abstract class SecurityIntegrationBackendProtection
     @Default(false) bool active,
     int? phoneTtl,
     int? ipTtl,
+    /// Cooldown in seconds for ad click id (e.g. Meta fbclid) rate limit; server default 7 days.
+    int? adAttributionTtl,
     @Default(false) bool blockDirectOrders,
     @Default(false) bool adsOnlyMode,
   }) = _SecurityIntegrationBackendProtection;

@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$StoreIntegrations {
 
  Map<String, dynamic>? get metadata;// Analytics Integrations
- MetaPixelIntegration? get metaPixel; TiktokPixelIntegration? get tiktokPixel; GoogleAnalyticsIntegration? get googleAnalytics; GoogleTagsIntegration? get googleTags; AiIntegration? get ai;// Delivery Integrations
+ MetaPixelIntegration? get metaPixel; TiktokPixelIntegration? get tiktokPixel; GoogleAnalyticsIntegration? get googleAnalytics; GoogleTagsIntegration? get googleTags;/// Microsoft Clarity (trackingCode public in storefront; apiKey never in public JSON).
+ ClarityIntegration? get clarity; AiIntegration? get ai;// Delivery Integrations
  YalidineDeliveryIntegration? get yalidine; EcotrackDeliveryIntegration? get ecotrack; EcomanagerDeliveryIntegration? get ecomanager; ProcolisDeliveryIntegration? get procolis; NoestDeliveryIntegration? get noest; OrderdzDeliveryIntegration? get orderdz; ZimouExpressDeliveryIntegration? get zimou; ZrexpressDeliveryIntegration? get zrexpress; MaystroDeliveryIntegration? get maystroDelivery;// Google Sheets Integration
  GoogleSheetsIntegration? get googleSheet;// Webhooks Integration
  WebhooksIntegration? get webhooks;// Security Integration
@@ -37,16 +38,16 @@ $StoreIntegrationsCopyWith<StoreIntegrations> get copyWith => _$StoreIntegration
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&const DeepCollectionEquality().equals(other.sms, sms)&&const DeepCollectionEquality().equals(other.telegram, telegram));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&const DeepCollectionEquality().equals(other.sms, sms)&&const DeepCollectionEquality().equals(other.telegram, telegram));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(metadata),metaPixel,tiktokPixel,googleAnalytics,googleTags,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,maystroDelivery,googleSheet,webhooks,security,customFields,payment,dispatcher,const DeepCollectionEquality().hash(sms),const DeepCollectionEquality().hash(telegram)]);
+int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(metadata),metaPixel,tiktokPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,maystroDelivery,googleSheet,webhooks,security,customFields,payment,dispatcher,const DeepCollectionEquality().hash(sms),const DeepCollectionEquality().hash(telegram)]);
 
 @override
 String toString() {
-  return 'StoreIntegrations(metadata: $metadata, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, maystroDelivery: $maystroDelivery, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, sms: $sms, telegram: $telegram)';
+  return 'StoreIntegrations(metadata: $metadata, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, maystroDelivery: $maystroDelivery, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, sms: $sms, telegram: $telegram)';
 }
 
 
@@ -57,11 +58,11 @@ abstract mixin class $StoreIntegrationsCopyWith<$Res>  {
   factory $StoreIntegrationsCopyWith(StoreIntegrations value, $Res Function(StoreIntegrations) _then) = _$StoreIntegrationsCopyWithImpl;
 @useResult
 $Res call({
- Map<String, dynamic>? metadata, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MaystroDeliveryIntegration? maystroDelivery, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, PaymentIntegration? payment, DispatcherIntegration? dispatcher, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
+ Map<String, dynamic>? metadata, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MaystroDeliveryIntegration? maystroDelivery, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, PaymentIntegration? payment, DispatcherIntegration? dispatcher, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
 });
 
 
-$MetaPixelIntegrationCopyWith<$Res>? get metaPixel;$TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;$GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;$GoogleTagsIntegrationCopyWith<$Res>? get googleTags;$AiIntegrationCopyWith<$Res>? get ai;$YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;$EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;$EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;$ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;$NoestDeliveryIntegrationCopyWith<$Res>? get noest;$OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;$ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;$ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;$MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;$GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;$WebhooksIntegrationCopyWith<$Res>? get webhooks;$SecurityIntegrationCopyWith<$Res>? get security;$CustomFieldsIntegrationCopyWith<$Res>? get customFields;$PaymentIntegrationCopyWith<$Res>? get payment;$DispatcherIntegrationCopyWith<$Res>? get dispatcher;
+$MetaPixelIntegrationCopyWith<$Res>? get metaPixel;$TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;$GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;$GoogleTagsIntegrationCopyWith<$Res>? get googleTags;$ClarityIntegrationCopyWith<$Res>? get clarity;$AiIntegrationCopyWith<$Res>? get ai;$YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;$EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;$EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;$ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;$NoestDeliveryIntegrationCopyWith<$Res>? get noest;$OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;$ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;$ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;$MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;$GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;$WebhooksIntegrationCopyWith<$Res>? get webhooks;$SecurityIntegrationCopyWith<$Res>? get security;$CustomFieldsIntegrationCopyWith<$Res>? get customFields;$PaymentIntegrationCopyWith<$Res>? get payment;$DispatcherIntegrationCopyWith<$Res>? get dispatcher;
 
 }
 /// @nodoc
@@ -74,14 +75,15 @@ class _$StoreIntegrationsCopyWithImpl<$Res>
 
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? metadata = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? maystroDelivery = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? metadata = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? maystroDelivery = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
   return _then(_self.copyWith(
 metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,metaPixel: freezed == metaPixel ? _self.metaPixel : metaPixel // ignore: cast_nullable_to_non_nullable
 as MetaPixelIntegration?,tiktokPixel: freezed == tiktokPixel ? _self.tiktokPixel : tiktokPixel // ignore: cast_nullable_to_non_nullable
 as TiktokPixelIntegration?,googleAnalytics: freezed == googleAnalytics ? _self.googleAnalytics : googleAnalytics // ignore: cast_nullable_to_non_nullable
 as GoogleAnalyticsIntegration?,googleTags: freezed == googleTags ? _self.googleTags : googleTags // ignore: cast_nullable_to_non_nullable
-as GoogleTagsIntegration?,ai: freezed == ai ? _self.ai : ai // ignore: cast_nullable_to_non_nullable
+as GoogleTagsIntegration?,clarity: freezed == clarity ? _self.clarity : clarity // ignore: cast_nullable_to_non_nullable
+as ClarityIntegration?,ai: freezed == ai ? _self.ai : ai // ignore: cast_nullable_to_non_nullable
 as AiIntegration?,yalidine: freezed == yalidine ? _self.yalidine : yalidine // ignore: cast_nullable_to_non_nullable
 as YalidineDeliveryIntegration?,ecotrack: freezed == ecotrack ? _self.ecotrack : ecotrack // ignore: cast_nullable_to_non_nullable
 as EcotrackDeliveryIntegration?,ecomanager: freezed == ecomanager ? _self.ecomanager : ecomanager // ignore: cast_nullable_to_non_nullable
@@ -149,6 +151,18 @@ $GoogleTagsIntegrationCopyWith<$Res>? get googleTags {
 
   return $GoogleTagsIntegrationCopyWith<$Res>(_self.googleTags!, (value) {
     return _then(_self.copyWith(googleTags: value));
+  });
+}/// Create a copy of StoreIntegrations
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ClarityIntegrationCopyWith<$Res>? get clarity {
+    if (_self.clarity == null) {
+    return null;
+  }
+
+  return $ClarityIntegrationCopyWith<$Res>(_self.clarity!, (value) {
+    return _then(_self.copyWith(clarity: value));
   });
 }/// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
@@ -424,10 +438,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MaystroDeliveryIntegration? maystroDelivery,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MaystroDeliveryIntegration? maystroDelivery,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreIntegrations() when $default != null:
-return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.maystroDelivery,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.maystroDelivery,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.sms,_that.telegram);case _:
   return orElse();
 
 }
@@ -445,10 +459,10 @@ return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAna
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MaystroDeliveryIntegration? maystroDelivery,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MaystroDeliveryIntegration? maystroDelivery,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)  $default,) {final _that = this;
 switch (_that) {
 case _StoreIntegrations():
-return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.maystroDelivery,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.maystroDelivery,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.sms,_that.telegram);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -465,10 +479,10 @@ return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAna
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MaystroDeliveryIntegration? maystroDelivery,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MaystroDeliveryIntegration? maystroDelivery,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreIntegrations() when $default != null:
-return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.maystroDelivery,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.maystroDelivery,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.sms,_that.telegram);case _:
   return null;
 
 }
@@ -480,7 +494,7 @@ return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAna
 @JsonSerializable()
 
 class _StoreIntegrations extends StoreIntegrations {
-  const _StoreIntegrations({final  Map<String, dynamic>? metadata = const {}, this.metaPixel, this.tiktokPixel, this.googleAnalytics, this.googleTags, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.maystroDelivery, this.googleSheet, this.webhooks, this.security, this.customFields, this.payment, this.dispatcher, final  Map<String, dynamic>? sms = const {}, final  Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
+  const _StoreIntegrations({final  Map<String, dynamic>? metadata = const {}, this.metaPixel, this.tiktokPixel, this.googleAnalytics, this.googleTags, this.clarity, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.maystroDelivery, this.googleSheet, this.webhooks, this.security, this.customFields, this.payment, this.dispatcher, final  Map<String, dynamic>? sms = const {}, final  Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
   factory _StoreIntegrations.fromJson(Map<String, dynamic> json) => _$StoreIntegrationsFromJson(json);
 
  final  Map<String, dynamic>? _metadata;
@@ -497,6 +511,8 @@ class _StoreIntegrations extends StoreIntegrations {
 @override final  TiktokPixelIntegration? tiktokPixel;
 @override final  GoogleAnalyticsIntegration? googleAnalytics;
 @override final  GoogleTagsIntegration? googleTags;
+/// Microsoft Clarity (trackingCode public in storefront; apiKey never in public JSON).
+@override final  ClarityIntegration? clarity;
 @override final  AiIntegration? ai;
 // Delivery Integrations
 @override final  YalidineDeliveryIntegration? yalidine;
@@ -554,16 +570,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrations&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&const DeepCollectionEquality().equals(other._sms, _sms)&&const DeepCollectionEquality().equals(other._telegram, _telegram));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrations&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&const DeepCollectionEquality().equals(other._sms, _sms)&&const DeepCollectionEquality().equals(other._telegram, _telegram));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_metadata),metaPixel,tiktokPixel,googleAnalytics,googleTags,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,maystroDelivery,googleSheet,webhooks,security,customFields,payment,dispatcher,const DeepCollectionEquality().hash(_sms),const DeepCollectionEquality().hash(_telegram)]);
+int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_metadata),metaPixel,tiktokPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,maystroDelivery,googleSheet,webhooks,security,customFields,payment,dispatcher,const DeepCollectionEquality().hash(_sms),const DeepCollectionEquality().hash(_telegram)]);
 
 @override
 String toString() {
-  return 'StoreIntegrations(metadata: $metadata, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, maystroDelivery: $maystroDelivery, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, sms: $sms, telegram: $telegram)';
+  return 'StoreIntegrations(metadata: $metadata, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, maystroDelivery: $maystroDelivery, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, sms: $sms, telegram: $telegram)';
 }
 
 
@@ -574,11 +590,11 @@ abstract mixin class _$StoreIntegrationsCopyWith<$Res> implements $StoreIntegrat
   factory _$StoreIntegrationsCopyWith(_StoreIntegrations value, $Res Function(_StoreIntegrations) _then) = __$StoreIntegrationsCopyWithImpl;
 @override @useResult
 $Res call({
- Map<String, dynamic>? metadata, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MaystroDeliveryIntegration? maystroDelivery, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, PaymentIntegration? payment, DispatcherIntegration? dispatcher, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
+ Map<String, dynamic>? metadata, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MaystroDeliveryIntegration? maystroDelivery, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, PaymentIntegration? payment, DispatcherIntegration? dispatcher, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
 });
 
 
-@override $MetaPixelIntegrationCopyWith<$Res>? get metaPixel;@override $TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;@override $GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;@override $GoogleTagsIntegrationCopyWith<$Res>? get googleTags;@override $AiIntegrationCopyWith<$Res>? get ai;@override $YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;@override $EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;@override $EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;@override $ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;@override $NoestDeliveryIntegrationCopyWith<$Res>? get noest;@override $OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;@override $ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;@override $ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;@override $MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;@override $GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;@override $WebhooksIntegrationCopyWith<$Res>? get webhooks;@override $SecurityIntegrationCopyWith<$Res>? get security;@override $CustomFieldsIntegrationCopyWith<$Res>? get customFields;@override $PaymentIntegrationCopyWith<$Res>? get payment;@override $DispatcherIntegrationCopyWith<$Res>? get dispatcher;
+@override $MetaPixelIntegrationCopyWith<$Res>? get metaPixel;@override $TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;@override $GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;@override $GoogleTagsIntegrationCopyWith<$Res>? get googleTags;@override $ClarityIntegrationCopyWith<$Res>? get clarity;@override $AiIntegrationCopyWith<$Res>? get ai;@override $YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;@override $EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;@override $EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;@override $ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;@override $NoestDeliveryIntegrationCopyWith<$Res>? get noest;@override $OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;@override $ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;@override $ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;@override $MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;@override $GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;@override $WebhooksIntegrationCopyWith<$Res>? get webhooks;@override $SecurityIntegrationCopyWith<$Res>? get security;@override $CustomFieldsIntegrationCopyWith<$Res>? get customFields;@override $PaymentIntegrationCopyWith<$Res>? get payment;@override $DispatcherIntegrationCopyWith<$Res>? get dispatcher;
 
 }
 /// @nodoc
@@ -591,14 +607,15 @@ class __$StoreIntegrationsCopyWithImpl<$Res>
 
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? metadata = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? maystroDelivery = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? metadata = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? maystroDelivery = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
   return _then(_StoreIntegrations(
 metadata: freezed == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,metaPixel: freezed == metaPixel ? _self.metaPixel : metaPixel // ignore: cast_nullable_to_non_nullable
 as MetaPixelIntegration?,tiktokPixel: freezed == tiktokPixel ? _self.tiktokPixel : tiktokPixel // ignore: cast_nullable_to_non_nullable
 as TiktokPixelIntegration?,googleAnalytics: freezed == googleAnalytics ? _self.googleAnalytics : googleAnalytics // ignore: cast_nullable_to_non_nullable
 as GoogleAnalyticsIntegration?,googleTags: freezed == googleTags ? _self.googleTags : googleTags // ignore: cast_nullable_to_non_nullable
-as GoogleTagsIntegration?,ai: freezed == ai ? _self.ai : ai // ignore: cast_nullable_to_non_nullable
+as GoogleTagsIntegration?,clarity: freezed == clarity ? _self.clarity : clarity // ignore: cast_nullable_to_non_nullable
+as ClarityIntegration?,ai: freezed == ai ? _self.ai : ai // ignore: cast_nullable_to_non_nullable
 as AiIntegration?,yalidine: freezed == yalidine ? _self.yalidine : yalidine // ignore: cast_nullable_to_non_nullable
 as YalidineDeliveryIntegration?,ecotrack: freezed == ecotrack ? _self.ecotrack : ecotrack // ignore: cast_nullable_to_non_nullable
 as EcotrackDeliveryIntegration?,ecomanager: freezed == ecomanager ? _self.ecomanager : ecomanager // ignore: cast_nullable_to_non_nullable
@@ -667,6 +684,18 @@ $GoogleTagsIntegrationCopyWith<$Res>? get googleTags {
 
   return $GoogleTagsIntegrationCopyWith<$Res>(_self.googleTags!, (value) {
     return _then(_self.copyWith(googleTags: value));
+  });
+}/// Create a copy of StoreIntegrations
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ClarityIntegrationCopyWith<$Res>? get clarity {
+    if (_self.clarity == null) {
+    return null;
+  }
+
+  return $ClarityIntegrationCopyWith<$Res>(_self.clarity!, (value) {
+    return _then(_self.copyWith(clarity: value));
   });
 }/// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
@@ -2844,6 +2873,284 @@ class __$GoogleTagsIntegrationCopyWithImpl<$Res>
 key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$ClarityIntegration {
+
+ bool get active; String get trackingCode; String? get apiKey; Map<String, dynamic> get metadata;
+/// Create a copy of ClarityIntegration
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ClarityIntegrationCopyWith<ClarityIntegration> get copyWith => _$ClarityIntegrationCopyWithImpl<ClarityIntegration>(this as ClarityIntegration, _$identity);
+
+  /// Serializes this ClarityIntegration to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClarityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.trackingCode, trackingCode) || other.trackingCode == trackingCode)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,active,trackingCode,apiKey,const DeepCollectionEquality().hash(metadata));
+
+@override
+String toString() {
+  return 'ClarityIntegration(active: $active, trackingCode: $trackingCode, apiKey: $apiKey, metadata: $metadata)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ClarityIntegrationCopyWith<$Res>  {
+  factory $ClarityIntegrationCopyWith(ClarityIntegration value, $Res Function(ClarityIntegration) _then) = _$ClarityIntegrationCopyWithImpl;
+@useResult
+$Res call({
+ bool active, String trackingCode, String? apiKey, Map<String, dynamic> metadata
+});
+
+
+
+
+}
+/// @nodoc
+class _$ClarityIntegrationCopyWithImpl<$Res>
+    implements $ClarityIntegrationCopyWith<$Res> {
+  _$ClarityIntegrationCopyWithImpl(this._self, this._then);
+
+  final ClarityIntegration _self;
+  final $Res Function(ClarityIntegration) _then;
+
+/// Create a copy of ClarityIntegration
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? trackingCode = null,Object? apiKey = freezed,Object? metadata = null,}) {
+  return _then(_self.copyWith(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,trackingCode: null == trackingCode ? _self.trackingCode : trackingCode // ignore: cast_nullable_to_non_nullable
+as String,apiKey: freezed == apiKey ? _self.apiKey : apiKey // ignore: cast_nullable_to_non_nullable
+as String?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ClarityIntegration].
+extension ClarityIntegrationPatterns on ClarityIntegration {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ClarityIntegration value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ClarityIntegration() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ClarityIntegration value)  $default,){
+final _that = this;
+switch (_that) {
+case _ClarityIntegration():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ClarityIntegration value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ClarityIntegration() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  String trackingCode,  String? apiKey,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ClarityIntegration() when $default != null:
+return $default(_that.active,_that.trackingCode,_that.apiKey,_that.metadata);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  String trackingCode,  String? apiKey,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+switch (_that) {
+case _ClarityIntegration():
+return $default(_that.active,_that.trackingCode,_that.apiKey,_that.metadata);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  String trackingCode,  String? apiKey,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+switch (_that) {
+case _ClarityIntegration() when $default != null:
+return $default(_that.active,_that.trackingCode,_that.apiKey,_that.metadata);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ClarityIntegration extends ClarityIntegration {
+  const _ClarityIntegration({this.active = true, required this.trackingCode, this.apiKey, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  factory _ClarityIntegration.fromJson(Map<String, dynamic> json) => _$ClarityIntegrationFromJson(json);
+
+@override@JsonKey() final  bool active;
+@override final  String trackingCode;
+@override final  String? apiKey;
+ final  Map<String, dynamic> _metadata;
+@override@JsonKey() Map<String, dynamic> get metadata {
+  if (_metadata is EqualUnmodifiableMapView) return _metadata;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_metadata);
+}
+
+
+/// Create a copy of ClarityIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ClarityIntegrationCopyWith<_ClarityIntegration> get copyWith => __$ClarityIntegrationCopyWithImpl<_ClarityIntegration>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ClarityIntegrationToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ClarityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.trackingCode, trackingCode) || other.trackingCode == trackingCode)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,active,trackingCode,apiKey,const DeepCollectionEquality().hash(_metadata));
+
+@override
+String toString() {
+  return 'ClarityIntegration(active: $active, trackingCode: $trackingCode, apiKey: $apiKey, metadata: $metadata)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ClarityIntegrationCopyWith<$Res> implements $ClarityIntegrationCopyWith<$Res> {
+  factory _$ClarityIntegrationCopyWith(_ClarityIntegration value, $Res Function(_ClarityIntegration) _then) = __$ClarityIntegrationCopyWithImpl;
+@override @useResult
+$Res call({
+ bool active, String trackingCode, String? apiKey, Map<String, dynamic> metadata
+});
+
+
+
+
+}
+/// @nodoc
+class __$ClarityIntegrationCopyWithImpl<$Res>
+    implements _$ClarityIntegrationCopyWith<$Res> {
+  __$ClarityIntegrationCopyWithImpl(this._self, this._then);
+
+  final _ClarityIntegration _self;
+  final $Res Function(_ClarityIntegration) _then;
+
+/// Create a copy of ClarityIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? trackingCode = null,Object? apiKey = freezed,Object? metadata = null,}) {
+  return _then(_ClarityIntegration(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,trackingCode: null == trackingCode ? _self.trackingCode : trackingCode // ignore: cast_nullable_to_non_nullable
+as String,apiKey: freezed == apiKey ? _self.apiKey : apiKey // ignore: cast_nullable_to_non_nullable
+as String?,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));
 }
@@ -6585,7 +6892,8 @@ as bool,
 /// @nodoc
 mixin _$SecurityIntegrationBackendProtection {
 
- bool get active; int? get phoneTtl; int? get ipTtl; bool get blockDirectOrders; bool get adsOnlyMode;
+ bool get active; int? get phoneTtl; int? get ipTtl;/// Cooldown in seconds for ad click id (e.g. Meta fbclid) rate limit; server default 7 days.
+ int? get adAttributionTtl; bool get blockDirectOrders; bool get adsOnlyMode;
 /// Create a copy of SecurityIntegrationBackendProtection
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -6598,16 +6906,16 @@ $SecurityIntegrationBackendProtectionCopyWith<SecurityIntegrationBackendProtecti
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityIntegrationBackendProtection&&(identical(other.active, active) || other.active == active)&&(identical(other.phoneTtl, phoneTtl) || other.phoneTtl == phoneTtl)&&(identical(other.ipTtl, ipTtl) || other.ipTtl == ipTtl)&&(identical(other.blockDirectOrders, blockDirectOrders) || other.blockDirectOrders == blockDirectOrders)&&(identical(other.adsOnlyMode, adsOnlyMode) || other.adsOnlyMode == adsOnlyMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityIntegrationBackendProtection&&(identical(other.active, active) || other.active == active)&&(identical(other.phoneTtl, phoneTtl) || other.phoneTtl == phoneTtl)&&(identical(other.ipTtl, ipTtl) || other.ipTtl == ipTtl)&&(identical(other.adAttributionTtl, adAttributionTtl) || other.adAttributionTtl == adAttributionTtl)&&(identical(other.blockDirectOrders, blockDirectOrders) || other.blockDirectOrders == blockDirectOrders)&&(identical(other.adsOnlyMode, adsOnlyMode) || other.adsOnlyMode == adsOnlyMode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,phoneTtl,ipTtl,blockDirectOrders,adsOnlyMode);
+int get hashCode => Object.hash(runtimeType,active,phoneTtl,ipTtl,adAttributionTtl,blockDirectOrders,adsOnlyMode);
 
 @override
 String toString() {
-  return 'SecurityIntegrationBackendProtection(active: $active, phoneTtl: $phoneTtl, ipTtl: $ipTtl, blockDirectOrders: $blockDirectOrders, adsOnlyMode: $adsOnlyMode)';
+  return 'SecurityIntegrationBackendProtection(active: $active, phoneTtl: $phoneTtl, ipTtl: $ipTtl, adAttributionTtl: $adAttributionTtl, blockDirectOrders: $blockDirectOrders, adsOnlyMode: $adsOnlyMode)';
 }
 
 
@@ -6618,7 +6926,7 @@ abstract mixin class $SecurityIntegrationBackendProtectionCopyWith<$Res>  {
   factory $SecurityIntegrationBackendProtectionCopyWith(SecurityIntegrationBackendProtection value, $Res Function(SecurityIntegrationBackendProtection) _then) = _$SecurityIntegrationBackendProtectionCopyWithImpl;
 @useResult
 $Res call({
- bool active, int? phoneTtl, int? ipTtl, bool blockDirectOrders, bool adsOnlyMode
+ bool active, int? phoneTtl, int? ipTtl, int? adAttributionTtl, bool blockDirectOrders, bool adsOnlyMode
 });
 
 
@@ -6635,11 +6943,12 @@ class _$SecurityIntegrationBackendProtectionCopyWithImpl<$Res>
 
 /// Create a copy of SecurityIntegrationBackendProtection
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? phoneTtl = freezed,Object? ipTtl = freezed,Object? blockDirectOrders = null,Object? adsOnlyMode = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? phoneTtl = freezed,Object? ipTtl = freezed,Object? adAttributionTtl = freezed,Object? blockDirectOrders = null,Object? adsOnlyMode = null,}) {
   return _then(_self.copyWith(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,phoneTtl: freezed == phoneTtl ? _self.phoneTtl : phoneTtl // ignore: cast_nullable_to_non_nullable
 as int?,ipTtl: freezed == ipTtl ? _self.ipTtl : ipTtl // ignore: cast_nullable_to_non_nullable
+as int?,adAttributionTtl: freezed == adAttributionTtl ? _self.adAttributionTtl : adAttributionTtl // ignore: cast_nullable_to_non_nullable
 as int?,blockDirectOrders: null == blockDirectOrders ? _self.blockDirectOrders : blockDirectOrders // ignore: cast_nullable_to_non_nullable
 as bool,adsOnlyMode: null == adsOnlyMode ? _self.adsOnlyMode : adsOnlyMode // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -6727,10 +7036,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  int? phoneTtl,  int? ipTtl,  bool blockDirectOrders,  bool adsOnlyMode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  int? phoneTtl,  int? ipTtl,  int? adAttributionTtl,  bool blockDirectOrders,  bool adsOnlyMode)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SecurityIntegrationBackendProtection() when $default != null:
-return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
+return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
   return orElse();
 
 }
@@ -6748,10 +7057,10 @@ return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.blockDirectOrders,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  int? phoneTtl,  int? ipTtl,  bool blockDirectOrders,  bool adsOnlyMode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  int? phoneTtl,  int? ipTtl,  int? adAttributionTtl,  bool blockDirectOrders,  bool adsOnlyMode)  $default,) {final _that = this;
 switch (_that) {
 case _SecurityIntegrationBackendProtection():
-return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
+return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -6768,10 +7077,10 @@ return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.blockDirectOrders,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  int? phoneTtl,  int? ipTtl,  bool blockDirectOrders,  bool adsOnlyMode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  int? phoneTtl,  int? ipTtl,  int? adAttributionTtl,  bool blockDirectOrders,  bool adsOnlyMode)?  $default,) {final _that = this;
 switch (_that) {
 case _SecurityIntegrationBackendProtection() when $default != null:
-return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
+return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
   return null;
 
 }
@@ -6783,12 +7092,14 @@ return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.blockDirectOrders,
 @JsonSerializable()
 
 class _SecurityIntegrationBackendProtection implements SecurityIntegrationBackendProtection {
-  const _SecurityIntegrationBackendProtection({this.active = false, this.phoneTtl, this.ipTtl, this.blockDirectOrders = false, this.adsOnlyMode = false});
+  const _SecurityIntegrationBackendProtection({this.active = false, this.phoneTtl, this.ipTtl, this.adAttributionTtl, this.blockDirectOrders = false, this.adsOnlyMode = false});
   factory _SecurityIntegrationBackendProtection.fromJson(Map<String, dynamic> json) => _$SecurityIntegrationBackendProtectionFromJson(json);
 
 @override@JsonKey() final  bool active;
 @override final  int? phoneTtl;
 @override final  int? ipTtl;
+/// Cooldown in seconds for ad click id (e.g. Meta fbclid) rate limit; server default 7 days.
+@override final  int? adAttributionTtl;
 @override@JsonKey() final  bool blockDirectOrders;
 @override@JsonKey() final  bool adsOnlyMode;
 
@@ -6805,16 +7116,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityIntegrationBackendProtection&&(identical(other.active, active) || other.active == active)&&(identical(other.phoneTtl, phoneTtl) || other.phoneTtl == phoneTtl)&&(identical(other.ipTtl, ipTtl) || other.ipTtl == ipTtl)&&(identical(other.blockDirectOrders, blockDirectOrders) || other.blockDirectOrders == blockDirectOrders)&&(identical(other.adsOnlyMode, adsOnlyMode) || other.adsOnlyMode == adsOnlyMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityIntegrationBackendProtection&&(identical(other.active, active) || other.active == active)&&(identical(other.phoneTtl, phoneTtl) || other.phoneTtl == phoneTtl)&&(identical(other.ipTtl, ipTtl) || other.ipTtl == ipTtl)&&(identical(other.adAttributionTtl, adAttributionTtl) || other.adAttributionTtl == adAttributionTtl)&&(identical(other.blockDirectOrders, blockDirectOrders) || other.blockDirectOrders == blockDirectOrders)&&(identical(other.adsOnlyMode, adsOnlyMode) || other.adsOnlyMode == adsOnlyMode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,phoneTtl,ipTtl,blockDirectOrders,adsOnlyMode);
+int get hashCode => Object.hash(runtimeType,active,phoneTtl,ipTtl,adAttributionTtl,blockDirectOrders,adsOnlyMode);
 
 @override
 String toString() {
-  return 'SecurityIntegrationBackendProtection(active: $active, phoneTtl: $phoneTtl, ipTtl: $ipTtl, blockDirectOrders: $blockDirectOrders, adsOnlyMode: $adsOnlyMode)';
+  return 'SecurityIntegrationBackendProtection(active: $active, phoneTtl: $phoneTtl, ipTtl: $ipTtl, adAttributionTtl: $adAttributionTtl, blockDirectOrders: $blockDirectOrders, adsOnlyMode: $adsOnlyMode)';
 }
 
 
@@ -6825,7 +7136,7 @@ abstract mixin class _$SecurityIntegrationBackendProtectionCopyWith<$Res> implem
   factory _$SecurityIntegrationBackendProtectionCopyWith(_SecurityIntegrationBackendProtection value, $Res Function(_SecurityIntegrationBackendProtection) _then) = __$SecurityIntegrationBackendProtectionCopyWithImpl;
 @override @useResult
 $Res call({
- bool active, int? phoneTtl, int? ipTtl, bool blockDirectOrders, bool adsOnlyMode
+ bool active, int? phoneTtl, int? ipTtl, int? adAttributionTtl, bool blockDirectOrders, bool adsOnlyMode
 });
 
 
@@ -6842,11 +7153,12 @@ class __$SecurityIntegrationBackendProtectionCopyWithImpl<$Res>
 
 /// Create a copy of SecurityIntegrationBackendProtection
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? phoneTtl = freezed,Object? ipTtl = freezed,Object? blockDirectOrders = null,Object? adsOnlyMode = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? phoneTtl = freezed,Object? ipTtl = freezed,Object? adAttributionTtl = freezed,Object? blockDirectOrders = null,Object? adsOnlyMode = null,}) {
   return _then(_SecurityIntegrationBackendProtection(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,phoneTtl: freezed == phoneTtl ? _self.phoneTtl : phoneTtl // ignore: cast_nullable_to_non_nullable
 as int?,ipTtl: freezed == ipTtl ? _self.ipTtl : ipTtl // ignore: cast_nullable_to_non_nullable
+as int?,adAttributionTtl: freezed == adAttributionTtl ? _self.adAttributionTtl : adAttributionTtl // ignore: cast_nullable_to_non_nullable
 as int?,blockDirectOrders: null == blockDirectOrders ? _self.blockDirectOrders : blockDirectOrders // ignore: cast_nullable_to_non_nullable
 as bool,adsOnlyMode: null == adsOnlyMode ? _self.adsOnlyMode : adsOnlyMode // ignore: cast_nullable_to_non_nullable
 as bool,

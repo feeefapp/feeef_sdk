@@ -615,6 +615,7 @@ _$SecurityIntegrationBackendProtectionFromJson(Map<String, dynamic> json) =>
       phoneTtl: (json['phoneTtl'] as num?)?.toInt(),
       ipTtl: (json['ipTtl'] as num?)?.toInt(),
       adAttributionTtl: (json['adAttributionTtl'] as num?)?.toInt(),
+      fingerprintTtl: (json['fingerprintTtl'] as num?)?.toInt(),
       blockDirectOrders: json['blockDirectOrders'] as bool? ?? false,
       adsOnlyMode: json['adsOnlyMode'] as bool? ?? false,
     );
@@ -626,6 +627,7 @@ Map<String, dynamic> _$SecurityIntegrationBackendProtectionToJson(
   'phoneTtl': instance.phoneTtl,
   'ipTtl': instance.ipTtl,
   'adAttributionTtl': instance.adAttributionTtl,
+  'fingerprintTtl': instance.fingerprintTtl,
   'blockDirectOrders': instance.blockDirectOrders,
   'adsOnlyMode': instance.adsOnlyMode,
 };

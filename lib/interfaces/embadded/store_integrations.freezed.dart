@@ -6893,7 +6893,8 @@ as bool,
 mixin _$SecurityIntegrationBackendProtection {
 
  bool get active; int? get phoneTtl; int? get ipTtl;/// Cooldown in seconds for ad click id (e.g. Meta fbclid) rate limit; server default 7 days.
- int? get adAttributionTtl; bool get blockDirectOrders; bool get adsOnlyMode;
+ int? get adAttributionTtl;/// Device fingerprint rate-limit window in seconds (same device cannot place another order until TTL elapses). Server default 3600s if unset.
+ int? get fingerprintTtl; bool get blockDirectOrders; bool get adsOnlyMode;
 /// Create a copy of SecurityIntegrationBackendProtection
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -6906,16 +6907,16 @@ $SecurityIntegrationBackendProtectionCopyWith<SecurityIntegrationBackendProtecti
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityIntegrationBackendProtection&&(identical(other.active, active) || other.active == active)&&(identical(other.phoneTtl, phoneTtl) || other.phoneTtl == phoneTtl)&&(identical(other.ipTtl, ipTtl) || other.ipTtl == ipTtl)&&(identical(other.adAttributionTtl, adAttributionTtl) || other.adAttributionTtl == adAttributionTtl)&&(identical(other.blockDirectOrders, blockDirectOrders) || other.blockDirectOrders == blockDirectOrders)&&(identical(other.adsOnlyMode, adsOnlyMode) || other.adsOnlyMode == adsOnlyMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityIntegrationBackendProtection&&(identical(other.active, active) || other.active == active)&&(identical(other.phoneTtl, phoneTtl) || other.phoneTtl == phoneTtl)&&(identical(other.ipTtl, ipTtl) || other.ipTtl == ipTtl)&&(identical(other.adAttributionTtl, adAttributionTtl) || other.adAttributionTtl == adAttributionTtl)&&(identical(other.fingerprintTtl, fingerprintTtl) || other.fingerprintTtl == fingerprintTtl)&&(identical(other.blockDirectOrders, blockDirectOrders) || other.blockDirectOrders == blockDirectOrders)&&(identical(other.adsOnlyMode, adsOnlyMode) || other.adsOnlyMode == adsOnlyMode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,phoneTtl,ipTtl,adAttributionTtl,blockDirectOrders,adsOnlyMode);
+int get hashCode => Object.hash(runtimeType,active,phoneTtl,ipTtl,adAttributionTtl,fingerprintTtl,blockDirectOrders,adsOnlyMode);
 
 @override
 String toString() {
-  return 'SecurityIntegrationBackendProtection(active: $active, phoneTtl: $phoneTtl, ipTtl: $ipTtl, adAttributionTtl: $adAttributionTtl, blockDirectOrders: $blockDirectOrders, adsOnlyMode: $adsOnlyMode)';
+  return 'SecurityIntegrationBackendProtection(active: $active, phoneTtl: $phoneTtl, ipTtl: $ipTtl, adAttributionTtl: $adAttributionTtl, fingerprintTtl: $fingerprintTtl, blockDirectOrders: $blockDirectOrders, adsOnlyMode: $adsOnlyMode)';
 }
 
 
@@ -6926,7 +6927,7 @@ abstract mixin class $SecurityIntegrationBackendProtectionCopyWith<$Res>  {
   factory $SecurityIntegrationBackendProtectionCopyWith(SecurityIntegrationBackendProtection value, $Res Function(SecurityIntegrationBackendProtection) _then) = _$SecurityIntegrationBackendProtectionCopyWithImpl;
 @useResult
 $Res call({
- bool active, int? phoneTtl, int? ipTtl, int? adAttributionTtl, bool blockDirectOrders, bool adsOnlyMode
+ bool active, int? phoneTtl, int? ipTtl, int? adAttributionTtl, int? fingerprintTtl, bool blockDirectOrders, bool adsOnlyMode
 });
 
 
@@ -6943,12 +6944,13 @@ class _$SecurityIntegrationBackendProtectionCopyWithImpl<$Res>
 
 /// Create a copy of SecurityIntegrationBackendProtection
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? phoneTtl = freezed,Object? ipTtl = freezed,Object? adAttributionTtl = freezed,Object? blockDirectOrders = null,Object? adsOnlyMode = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? phoneTtl = freezed,Object? ipTtl = freezed,Object? adAttributionTtl = freezed,Object? fingerprintTtl = freezed,Object? blockDirectOrders = null,Object? adsOnlyMode = null,}) {
   return _then(_self.copyWith(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,phoneTtl: freezed == phoneTtl ? _self.phoneTtl : phoneTtl // ignore: cast_nullable_to_non_nullable
 as int?,ipTtl: freezed == ipTtl ? _self.ipTtl : ipTtl // ignore: cast_nullable_to_non_nullable
 as int?,adAttributionTtl: freezed == adAttributionTtl ? _self.adAttributionTtl : adAttributionTtl // ignore: cast_nullable_to_non_nullable
+as int?,fingerprintTtl: freezed == fingerprintTtl ? _self.fingerprintTtl : fingerprintTtl // ignore: cast_nullable_to_non_nullable
 as int?,blockDirectOrders: null == blockDirectOrders ? _self.blockDirectOrders : blockDirectOrders // ignore: cast_nullable_to_non_nullable
 as bool,adsOnlyMode: null == adsOnlyMode ? _self.adsOnlyMode : adsOnlyMode // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -7036,10 +7038,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  int? phoneTtl,  int? ipTtl,  int? adAttributionTtl,  bool blockDirectOrders,  bool adsOnlyMode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  int? phoneTtl,  int? ipTtl,  int? adAttributionTtl,  int? fingerprintTtl,  bool blockDirectOrders,  bool adsOnlyMode)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SecurityIntegrationBackendProtection() when $default != null:
-return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
+return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_that.fingerprintTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
   return orElse();
 
 }
@@ -7057,10 +7059,10 @@ return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  int? phoneTtl,  int? ipTtl,  int? adAttributionTtl,  bool blockDirectOrders,  bool adsOnlyMode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  int? phoneTtl,  int? ipTtl,  int? adAttributionTtl,  int? fingerprintTtl,  bool blockDirectOrders,  bool adsOnlyMode)  $default,) {final _that = this;
 switch (_that) {
 case _SecurityIntegrationBackendProtection():
-return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
+return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_that.fingerprintTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -7077,10 +7079,10 @@ return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  int? phoneTtl,  int? ipTtl,  int? adAttributionTtl,  bool blockDirectOrders,  bool adsOnlyMode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  int? phoneTtl,  int? ipTtl,  int? adAttributionTtl,  int? fingerprintTtl,  bool blockDirectOrders,  bool adsOnlyMode)?  $default,) {final _that = this;
 switch (_that) {
 case _SecurityIntegrationBackendProtection() when $default != null:
-return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
+return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_that.fingerprintTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
   return null;
 
 }
@@ -7092,7 +7094,7 @@ return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_
 @JsonSerializable()
 
 class _SecurityIntegrationBackendProtection implements SecurityIntegrationBackendProtection {
-  const _SecurityIntegrationBackendProtection({this.active = false, this.phoneTtl, this.ipTtl, this.adAttributionTtl, this.blockDirectOrders = false, this.adsOnlyMode = false});
+  const _SecurityIntegrationBackendProtection({this.active = false, this.phoneTtl, this.ipTtl, this.adAttributionTtl, this.fingerprintTtl, this.blockDirectOrders = false, this.adsOnlyMode = false});
   factory _SecurityIntegrationBackendProtection.fromJson(Map<String, dynamic> json) => _$SecurityIntegrationBackendProtectionFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -7100,6 +7102,8 @@ class _SecurityIntegrationBackendProtection implements SecurityIntegrationBacken
 @override final  int? ipTtl;
 /// Cooldown in seconds for ad click id (e.g. Meta fbclid) rate limit; server default 7 days.
 @override final  int? adAttributionTtl;
+/// Device fingerprint rate-limit window in seconds (same device cannot place another order until TTL elapses). Server default 3600s if unset.
+@override final  int? fingerprintTtl;
 @override@JsonKey() final  bool blockDirectOrders;
 @override@JsonKey() final  bool adsOnlyMode;
 
@@ -7116,16 +7120,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityIntegrationBackendProtection&&(identical(other.active, active) || other.active == active)&&(identical(other.phoneTtl, phoneTtl) || other.phoneTtl == phoneTtl)&&(identical(other.ipTtl, ipTtl) || other.ipTtl == ipTtl)&&(identical(other.adAttributionTtl, adAttributionTtl) || other.adAttributionTtl == adAttributionTtl)&&(identical(other.blockDirectOrders, blockDirectOrders) || other.blockDirectOrders == blockDirectOrders)&&(identical(other.adsOnlyMode, adsOnlyMode) || other.adsOnlyMode == adsOnlyMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityIntegrationBackendProtection&&(identical(other.active, active) || other.active == active)&&(identical(other.phoneTtl, phoneTtl) || other.phoneTtl == phoneTtl)&&(identical(other.ipTtl, ipTtl) || other.ipTtl == ipTtl)&&(identical(other.adAttributionTtl, adAttributionTtl) || other.adAttributionTtl == adAttributionTtl)&&(identical(other.fingerprintTtl, fingerprintTtl) || other.fingerprintTtl == fingerprintTtl)&&(identical(other.blockDirectOrders, blockDirectOrders) || other.blockDirectOrders == blockDirectOrders)&&(identical(other.adsOnlyMode, adsOnlyMode) || other.adsOnlyMode == adsOnlyMode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,phoneTtl,ipTtl,adAttributionTtl,blockDirectOrders,adsOnlyMode);
+int get hashCode => Object.hash(runtimeType,active,phoneTtl,ipTtl,adAttributionTtl,fingerprintTtl,blockDirectOrders,adsOnlyMode);
 
 @override
 String toString() {
-  return 'SecurityIntegrationBackendProtection(active: $active, phoneTtl: $phoneTtl, ipTtl: $ipTtl, adAttributionTtl: $adAttributionTtl, blockDirectOrders: $blockDirectOrders, adsOnlyMode: $adsOnlyMode)';
+  return 'SecurityIntegrationBackendProtection(active: $active, phoneTtl: $phoneTtl, ipTtl: $ipTtl, adAttributionTtl: $adAttributionTtl, fingerprintTtl: $fingerprintTtl, blockDirectOrders: $blockDirectOrders, adsOnlyMode: $adsOnlyMode)';
 }
 
 
@@ -7136,7 +7140,7 @@ abstract mixin class _$SecurityIntegrationBackendProtectionCopyWith<$Res> implem
   factory _$SecurityIntegrationBackendProtectionCopyWith(_SecurityIntegrationBackendProtection value, $Res Function(_SecurityIntegrationBackendProtection) _then) = __$SecurityIntegrationBackendProtectionCopyWithImpl;
 @override @useResult
 $Res call({
- bool active, int? phoneTtl, int? ipTtl, int? adAttributionTtl, bool blockDirectOrders, bool adsOnlyMode
+ bool active, int? phoneTtl, int? ipTtl, int? adAttributionTtl, int? fingerprintTtl, bool blockDirectOrders, bool adsOnlyMode
 });
 
 
@@ -7153,12 +7157,13 @@ class __$SecurityIntegrationBackendProtectionCopyWithImpl<$Res>
 
 /// Create a copy of SecurityIntegrationBackendProtection
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? phoneTtl = freezed,Object? ipTtl = freezed,Object? adAttributionTtl = freezed,Object? blockDirectOrders = null,Object? adsOnlyMode = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? phoneTtl = freezed,Object? ipTtl = freezed,Object? adAttributionTtl = freezed,Object? fingerprintTtl = freezed,Object? blockDirectOrders = null,Object? adsOnlyMode = null,}) {
   return _then(_SecurityIntegrationBackendProtection(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,phoneTtl: freezed == phoneTtl ? _self.phoneTtl : phoneTtl // ignore: cast_nullable_to_non_nullable
 as int?,ipTtl: freezed == ipTtl ? _self.ipTtl : ipTtl // ignore: cast_nullable_to_non_nullable
 as int?,adAttributionTtl: freezed == adAttributionTtl ? _self.adAttributionTtl : adAttributionTtl // ignore: cast_nullable_to_non_nullable
+as int?,fingerprintTtl: freezed == fingerprintTtl ? _self.fingerprintTtl : fingerprintTtl // ignore: cast_nullable_to_non_nullable
 as int?,blockDirectOrders: null == blockDirectOrders ? _self.blockDirectOrders : blockDirectOrders // ignore: cast_nullable_to_non_nullable
 as bool,adsOnlyMode: null == adsOnlyMode ? _self.adsOnlyMode : adsOnlyMode // ignore: cast_nullable_to_non_nullable
 as bool,

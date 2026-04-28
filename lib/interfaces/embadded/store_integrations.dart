@@ -450,6 +450,8 @@ abstract class SecurityIntegrationBackendProtection
     int? ipTtl,
     /// Cooldown in seconds for ad click id (e.g. Meta fbclid) rate limit; server default 7 days.
     int? adAttributionTtl,
+    /// Device fingerprint rate-limit window in seconds (same device cannot place another order until TTL elapses). Server default 3600s if unset.
+    int? fingerprintTtl,
     @Default(false) bool blockDirectOrders,
     @Default(false) bool adsOnlyMode,
   }) = _SecurityIntegrationBackendProtection;

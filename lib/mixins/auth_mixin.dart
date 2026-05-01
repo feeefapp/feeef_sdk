@@ -267,6 +267,55 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
     }
   }
 
+  /// Signs in using a one-time Feeef auth code (OAuth-like semantics).
+  ///
+  /// This is intended for QR / cross-device login.
+  /// Endpoint: `POST /users/auth/code/consume` (public).
+  Future<AuthResponse<T>> signinWithCode({required String authCode}) async {
+    try {
+      final response = await client.post(
+        '/$table/auth/code/consume',
+        data: {'authCode': authCode},
+      );
+      auth = AuthResponse(
+        user: modelFromJson(response.data['user']),
+        token: AuthToken.fromJson(response.data['token']),
+      );
+      client.options.headers['Authorization'] = 'Bearer ${auth!.token.token}';
+      await _listenToRealtimeSubscription();
+      return auth!;
+    } on DioException catch (e) {
+      if (e.response?.statusCode != null &&
+          e.response!.statusCode! >= 400 &&
+          e.response!.statusCode! < 500) {
+        var errors = FeeefValidationException.fromJson(e.response?.data);
+        throw errors;
+      }
+      rethrow;
+    }
+  }
+
+  /// Creates a short-lived, single-use Feeef auth code for QR / device login.
+  ///
+  /// Endpoint: `POST /users/auth/code` (auth required).
+  Future<Map<String, dynamic>> createAuthCode({String? redirect}) async {
+    try {
+      final response = await client.post(
+        '/$table/auth/code',
+        data: {'redirect': redirect},
+      );
+      return Map<String, dynamic>.from(response.data as Map);
+    } on DioException catch (e) {
+      if (e.response?.statusCode != null &&
+          e.response!.statusCode! >= 400 &&
+          e.response!.statusCode! < 500) {
+        var errors = FeeefValidationException.fromJson(e.response?.data);
+        throw errors;
+      }
+      rethrow;
+    }
+  }
+
   Future<AuthResponse<T>> signup({
     required String referral,
     required String name,

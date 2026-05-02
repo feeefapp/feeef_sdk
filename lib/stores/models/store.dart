@@ -23,6 +23,26 @@ LiteOrdersReport? _storeLorFromJson(Object? o) {
   return null;
 }
 
+Object? _storeLorToJson(LiteOrdersReport? v) => v?.toJson();
+
+StoreTemplate? _storeTemplateFromJson(Object? o) {
+  if (o == null) return null;
+  if (o is Map<String, dynamic>) return StoreTemplate.fromJson(o);
+  if (o is Map) return StoreTemplate.fromJson(Map<String, dynamic>.from(o));
+  return null;
+}
+
+Object? _storeTemplateToJson(StoreTemplate? v) => v?.toJson();
+
+/// Normalizes API aliases before passing to generated `_$StoreFromJson`.
+Map<String, dynamic> _normalizedStoreJson(Map<String, dynamic> json) {
+  final m = Map<String, dynamic>.from(json);
+  if (m['templateId'] == null && m['template_id'] != null) {
+    m['templateId'] = m['template_id'];
+  }
+  return m;
+}
+
 /// Keys for integration fields; empty map `{}` is normalized to null when parsing.
 const _storeIntegrationKeys = [
   'metadata',
@@ -136,35 +156,15 @@ abstract class Store extends StoreEntity
     List<String>? metaPixelIds,
     @Default({}) Map<String, StoreMember> members,
     /// Present when list/show is called with `with[]=lor` and the user may view analytics.
-    @JsonKey(fromJson: _storeLorFromJson) LiteOrdersReport? lor,
+    @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson)
+    LiteOrdersReport? lor,
     /// Present when `with[]=template` — active [StoreTemplate] row (usually the store fork).
-    /// Parsed in [Store.fromJson] (generated JSON omits this field).
-    @JsonKey(includeFromJson: false, includeToJson: false) StoreTemplate? template,
+    @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson)
+    StoreTemplate? template,
   }) = _Store;
 
-  /// Normalizes `template_id` → [templateId], parses nested `template` from `with[]=template`.
-  factory Store.fromJson(Map<String, dynamic> json) {
-    final m = Map<String, dynamic>.from(json);
-    if (m['templateId'] == null && m['template_id'] != null) {
-      m['templateId'] = m['template_id'];
-    }
-    final tplRaw = m.remove('template');
-    final base = _$StoreFromJson(m);
-    if (tplRaw is Map) {
-      return base.copyWith(
-        template: StoreTemplate.fromJson(Map<String, dynamic>.from(tplRaw)),
-      );
-    }
-    return base;
-  }
-
-  /// Serializes this store; includes nested [template] when present (not part of `_$StoreToJson`).
-  Map<String, dynamic> toJson() {
-    final m = _$StoreToJson(this as _Store);
-    final t = template;
-    if (t != null) m['template'] = t.toJson();
-    return m;
-  }
+  factory Store.fromJson(Map<String, dynamic> json) =>
+      _$StoreFromJson(_normalizedStoreJson(json));
 }
 
 // StoreCreate

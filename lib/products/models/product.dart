@@ -2,7 +2,6 @@ import 'package:feeef/interfaces/embadded/embadded_category.dart';
 import 'package:feeef/interfaces/embadded/product_addon.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
 import 'package:feeef/interfaces/product.dart';
-import 'package:feeef/interfaces/category.dart';
 import 'package:feeef/categories/models/category.dart';
 import 'package:feeef/orders/models/lite_orders_report.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -18,6 +17,8 @@ LiteOrdersReport? _productLorFromJson(Object? o) {
   if (o is Map) return LiteOrdersReport.fromJson(Map<String, dynamic>.from(o));
   return null;
 }
+
+Object? _productLorToJson(LiteOrdersReport? v) => v?.toJson();
 
 @freezed
 abstract class Product extends ProductEntity
@@ -62,7 +63,8 @@ abstract class Product extends ProductEntity
     DateTime? blockedAt,
     @Default({}) Map<String, dynamic> metadata,
     /// Present when list/show is called with `with[]=lor` and the user may view analytics.
-    @JsonKey(fromJson: _productLorFromJson) LiteOrdersReport? lor,
+    @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)
+    LiteOrdersReport? lor,
   }) = _Product;
 
   factory Product.fromJson(Map<String, dynamic> json) =>

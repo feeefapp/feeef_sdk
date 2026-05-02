@@ -136,7 +136,7 @@ Map<String, dynamic> _$EmbaddedAddressToJson(_EmbaddedAddress instance) =>
       'country': instance.country,
       'street': instance.street,
       'zip': instance.zip,
-      'location': instance.location?.toJson(),
+      'location': instance.location,
       'metadata': instance.metadata,
     };
 
@@ -200,6 +200,9 @@ _StoreMember _$StoreMemberFromJson(Map<String, dynamic> json) => _StoreMember(
   createdAt: DateTime.parse(json['createdAt'] as String),
   active: json['active'] as bool? ?? false,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+  scopes:
+      (json['scopes'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
 );
 
 Map<String, dynamic> _$StoreMemberToJson(_StoreMember instance) =>
@@ -212,6 +215,7 @@ Map<String, dynamic> _$StoreMemberToJson(_StoreMember instance) =>
       'createdAt': instance.createdAt.toIso8601String(),
       'active': instance.active,
       'metadata': instance.metadata,
+      'scopes': instance.scopes,
     };
 
 const _$StoreMemberRoleEnumMap = {
@@ -237,24 +241,25 @@ Map<String, dynamic> _$StoreInviteStoreToJson(_StoreInviteStore instance) =>
     };
 
 _StoreInvite _$StoreInviteFromJson(Map<String, dynamic> json) => _StoreInvite(
-      id: json['id'] as String,
-      storeId: json['storeId'] as String,
-      email: json['email'] as String,
-      role: $enumDecode(_$StoreMemberRoleEnumMap, json['role']),
-      invitedBy: json['invitedBy'] as String,
-      status: $enumDecode(_$StoreInviteStatusEnumMap, json['status']),
-      acceptedAt: json['acceptedAt'] == null
-          ? null
-          : DateTime.parse(json['acceptedAt'] as String),
-      expiresAt: DateTime.parse(json['expiresAt'] as String),
-      metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
-      store: json['store'] == null
-          ? null
-          : StoreInviteStore.fromJson(json['store'] as Map<String, dynamic>),
-      token: json['token'] as String?,
-    );
+  id: json['id'] as String,
+  storeId: json['storeId'] as String,
+  email: json['email'] as String,
+  role: $enumDecode(_$StoreMemberRoleEnumMap, json['role']),
+  invitedBy: json['invitedBy'] as String,
+  status: $enumDecode(_$StoreInviteStatusEnumMap, json['status']),
+  acceptedAt: json['acceptedAt'] == null
+      ? null
+      : DateTime.parse(json['acceptedAt'] as String),
+  expiresAt: DateTime.parse(json['expiresAt'] as String),
+  metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+  createdAt: DateTime.parse(json['createdAt'] as String),
+  updatedAt: DateTime.parse(json['updatedAt'] as String),
+  store: json['store'] == null
+      ? null
+      : StoreInviteStore.fromJson(json['store'] as Map<String, dynamic>),
+  token: json['token'] as String?,
+  scopes: (json['scopes'] as List<dynamic>?)?.map((e) => e as String).toList(),
+);
 
 Map<String, dynamic> _$StoreInviteToJson(_StoreInvite instance) =>
     <String, dynamic>{
@@ -269,8 +274,9 @@ Map<String, dynamic> _$StoreInviteToJson(_StoreInvite instance) =>
       'metadata': instance.metadata,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
-      'store': instance.store?.toJson(),
+      'store': instance.store,
       'token': instance.token,
+      'scopes': instance.scopes,
     };
 
 const _$StoreInviteStatusEnumMap = {

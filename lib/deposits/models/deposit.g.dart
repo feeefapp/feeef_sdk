@@ -41,7 +41,7 @@ Map<String, dynamic> _$DepositToJson(_Deposit instance) => <String, dynamic>{
   'status': _$DepositStatusEnumMap[instance.status]!,
   'note': instance.note,
   'metadata': instance.metadata,
-  'history': instance.history.map((e) => e.toJson()).toList(),
+  'history': instance.history,
 };
 
 const _$DepositStatusEnumMap = {
@@ -108,7 +108,7 @@ Map<String, dynamic> _$DepositUpdateToJson(_DepositUpdate instance) =>
       'status': _$DepositStatusEnumMap[instance.status],
       'note': instance.note,
       'metadata': instance.metadata,
-      'history': instance.history?.map((e) => e.toJson()).toList(),
+      'history': instance.history,
     };
 
 _DepositHistory _$DepositHistoryFromJson(Map<String, dynamic> json) =>

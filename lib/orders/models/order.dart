@@ -19,6 +19,8 @@ abstract class Order extends OrderEntity
     required DateTime createdAt,
     required DateTime updatedAt,
     @Default({}) Map<String, dynamic> metadata,
+    /// Server-only fields (e.g. security treatment); not for client editing.
+    Map<String, dynamic>? claims,
     @Default([]) List<String> references,
     String? customerName,
     String? customerPhone,

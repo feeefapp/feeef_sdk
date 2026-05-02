@@ -17,6 +17,39 @@ LiteOrdersReport? _landingLorFromJson(Object? o) {
   return null;
 }
 
+Object? _landingLorToJson(LiteOrdersReport? v) => v?.toJson();
+
+ProductLandingPageTemplate? _landingPageTemplateFromJson(Object? o) {
+  if (o == null) return null;
+  if (o is Map<String, dynamic>) {
+    return ProductLandingPageTemplate.fromJson(o);
+  }
+  if (o is Map) {
+    return ProductLandingPageTemplate.fromJson(Map<String, dynamic>.from(o));
+  }
+  return null;
+}
+
+Object? _landingPageTemplateToJson(ProductLandingPageTemplate? v) => v?.toJson();
+
+Product? _landingProductFromJson(Object? o) {
+  if (o == null) return null;
+  if (o is Map<String, dynamic>) return Product.fromJson(o);
+  if (o is Map) return Product.fromJson(Map<String, dynamic>.from(o));
+  return null;
+}
+
+Object? _landingProductToJson(Product? v) => v?.toJson();
+
+Store? _landingStoreFromJson(Object? o) {
+  if (o == null) return null;
+  if (o is Map<String, dynamic>) return Store.fromJson(o);
+  if (o is Map) return Store.fromJson(Map<String, dynamic>.from(o));
+  return null;
+}
+
+Object? _landingStoreToJson(Store? v) => v?.toJson();
+
 @freezed
 abstract class ProductLandingPage extends ProductLandingPageEntity
     with _$ProductLandingPage
@@ -33,11 +66,15 @@ abstract class ProductLandingPage extends ProductLandingPageEntity
     required Map<String, dynamic> defaults,
     required String productId,
     required String storeId,
+    @JsonKey(fromJson: _landingPageTemplateFromJson, toJson: _landingPageTemplateToJson)
     ProductLandingPageTemplate? template,
+    @JsonKey(fromJson: _landingProductFromJson, toJson: _landingProductToJson)
     Product? product,
+    @JsonKey(fromJson: _landingStoreFromJson, toJson: _landingStoreToJson)
     Store? store,
     /// Present when list/show is called with `with[]=lor` and the user may view analytics.
-    @JsonKey(fromJson: _landingLorFromJson) LiteOrdersReport? lor,
+    @JsonKey(fromJson: _landingLorFromJson, toJson: _landingLorToJson)
+    LiteOrdersReport? lor,
   }) = _ProductLandingPage;
 
   /// Deserializes from API JSON. Normalizes null [defaults] so the generated

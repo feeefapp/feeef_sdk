@@ -32,9 +32,7 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
         ),
   clarity: json['clarity'] == null
       ? null
-      : ClarityIntegration.fromJson(
-          json['clarity'] as Map<String, dynamic>,
-        ),
+      : ClarityIntegration.fromJson(json['clarity'] as Map<String, dynamic>),
   ai: json['ai'] == null
       ? null
       : AiIntegration.fromJson(json['ai'] as Map<String, dynamic>),
@@ -114,27 +112,27 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
 Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
     <String, dynamic>{
       'metadata': instance.metadata,
-      'metaPixel': instance.metaPixel?.toJson(),
-      'tiktokPixel': instance.tiktokPixel?.toJson(),
-      'googleAnalytics': instance.googleAnalytics?.toJson(),
-      'googleTags': instance.googleTags?.toJson(),
-      'clarity': instance.clarity?.toJson(),
-      'ai': instance.ai?.toJson(),
-      'yalidine': instance.yalidine?.toJson(),
-      'ecotrack': instance.ecotrack?.toJson(),
-      'ecomanager': instance.ecomanager?.toJson(),
-      'procolis': instance.procolis?.toJson(),
-      'noest': instance.noest?.toJson(),
-      'orderdz': instance.orderdz?.toJson(),
-      'zimou': instance.zimou?.toJson(),
-      'zrexpress': instance.zrexpress?.toJson(),
-      'maystroDelivery': instance.maystroDelivery?.toJson(),
-      'googleSheet': instance.googleSheet?.toJson(),
-      'webhooks': instance.webhooks?.toJson(),
-      'security': instance.security?.toJson(),
-      'customFields': instance.customFields?.toJson(),
-      'payment': instance.payment?.toJson(),
-      'dispatcher': instance.dispatcher?.toJson(),
+      'metaPixel': instance.metaPixel,
+      'tiktokPixel': instance.tiktokPixel,
+      'googleAnalytics': instance.googleAnalytics,
+      'googleTags': instance.googleTags,
+      'clarity': instance.clarity,
+      'ai': instance.ai,
+      'yalidine': instance.yalidine,
+      'ecotrack': instance.ecotrack,
+      'ecomanager': instance.ecomanager,
+      'procolis': instance.procolis,
+      'noest': instance.noest,
+      'orderdz': instance.orderdz,
+      'zimou': instance.zimou,
+      'zrexpress': instance.zrexpress,
+      'maystroDelivery': instance.maystroDelivery,
+      'googleSheet': instance.googleSheet,
+      'webhooks': instance.webhooks,
+      'security': instance.security,
+      'customFields': instance.customFields,
+      'payment': instance.payment,
+      'dispatcher': instance.dispatcher,
       'sms': instance.sms,
       'telegram': instance.telegram,
     };
@@ -188,12 +186,12 @@ Map<String, dynamic> _$MetaPixelIntegrationToJson(
   _MetaPixelIntegration instance,
 ) => <String, dynamic>{
   'id': instance.id,
-  'pixels': instance.pixels.map((e) => e.toJson()).toList(),
+  'pixels': instance.pixels,
   'objective': _$MetaPixelEventEnumMap[instance.objective]!,
   'draftObjective': _$MetaPixelEventEnumMap[instance.draftObjective]!,
   'active': instance.active,
   'metadata': instance.metadata,
-  'oauth2': instance.oauth2?.toJson(),
+  'oauth2': instance.oauth2,
   'mode': _$PixelReportModeEnumMap[instance.mode],
 };
 
@@ -249,7 +247,7 @@ Map<String, dynamic> _$TiktokPixelIntegrationToJson(
   _TiktokPixelIntegration instance,
 ) => <String, dynamic>{
   'id': instance.id,
-  'pixels': instance.pixels.map((e) => e.toJson()).toList(),
+  'pixels': instance.pixels,
   'objective': _$TiktokPixelEventEnumMap[instance.objective]!,
   'draftObjective': _$TiktokPixelEventEnumMap[instance.draftObjective]!,
   'active': instance.active,
@@ -315,14 +313,13 @@ Map<String, dynamic> _$GoogleTagsIntegrationToJson(
   'metadata': instance.metadata,
 };
 
-_ClarityIntegration _$ClarityIntegrationFromJson(
-  Map<String, dynamic> json,
-) => _ClarityIntegration(
-  active: json['active'] as bool? ?? true,
-  trackingCode: json['trackingCode'] as String,
-  apiKey: json['apiKey'] as String?,
-  metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
-);
+_ClarityIntegration _$ClarityIntegrationFromJson(Map<String, dynamic> json) =>
+    _ClarityIntegration(
+      active: json['active'] as bool? ?? true,
+      trackingCode: json['trackingCode'] as String,
+      apiKey: json['apiKey'] as String?,
+      metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+    );
 
 Map<String, dynamic> _$ClarityIntegrationToJson(_ClarityIntegration instance) =>
     <String, dynamic>{
@@ -548,89 +545,226 @@ Map<String, dynamic> _$MaystroDeliveryIntegrationToJson(
   'metadata': instance.metadata,
 };
 
+_SecurityOption _$SecurityOptionFromJson(Map<String, dynamic> json) =>
+    _SecurityOption(
+      active: json['active'] as bool? ?? false,
+      ttl: (json['ttl'] as num?)?.toInt(),
+      treatment:
+          $enumDecodeNullable(_$SecurityTreatmentEnumMap, json['treatment']) ??
+          SecurityTreatment.block,
+    );
+
+Map<String, dynamic> _$SecurityOptionToJson(_SecurityOption instance) =>
+    <String, dynamic>{
+      'active': instance.active,
+      'ttl': instance.ttl,
+      'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
+    };
+
+const _$SecurityTreatmentEnumMap = {
+  SecurityTreatment.block: 'block',
+  SecurityTreatment.warning: 'warning',
+  SecurityTreatment.fake: 'fake',
+};
+
+_SecurityMinTimeOption _$SecurityMinTimeOptionFromJson(
+  Map<String, dynamic> json,
+) => _SecurityMinTimeOption(
+  active: json['active'] as bool? ?? false,
+  duration: (json['duration'] as num?)?.toInt() ?? 10,
+  treatment:
+      $enumDecodeNullable(_$SecurityTreatmentEnumMap, json['treatment']) ??
+      SecurityTreatment.block,
+);
+
+Map<String, dynamic> _$SecurityMinTimeOptionToJson(
+  _SecurityMinTimeOption instance,
+) => <String, dynamic>{
+  'active': instance.active,
+  'duration': instance.duration,
+  'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
+};
+
+_SecurityCountriesOption _$SecurityCountriesOptionFromJson(
+  Map<String, dynamic> json,
+) => _SecurityCountriesOption(
+  active: json['active'] as bool? ?? false,
+  treatment:
+      $enumDecodeNullable(_$SecurityTreatmentEnumMap, json['treatment']) ??
+      SecurityTreatment.block,
+  allowed: (json['allowed'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+  blocked:
+      (json['blocked'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+);
+
+Map<String, dynamic> _$SecurityCountriesOptionToJson(
+  _SecurityCountriesOption instance,
+) => <String, dynamic>{
+  'active': instance.active,
+  'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
+  'allowed': instance.allowed,
+  'blocked': instance.blocked,
+};
+
+_SecuritySourcesOption _$SecuritySourcesOptionFromJson(
+  Map<String, dynamic> json,
+) => _SecuritySourcesOption(
+  active: json['active'] as bool? ?? false,
+  treatment:
+      $enumDecodeNullable(_$SecurityTreatmentEnumMap, json['treatment']) ??
+      SecurityTreatment.block,
+  allowed: (json['allowed'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+  blocked:
+      (json['blocked'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+);
+
+Map<String, dynamic> _$SecuritySourcesOptionToJson(
+  _SecuritySourcesOption instance,
+) => <String, dynamic>{
+  'active': instance.active,
+  'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
+  'allowed': instance.allowed,
+  'blocked': instance.blocked,
+};
+
+_SecurityOptions _$SecurityOptionsFromJson(
+  Map<String, dynamic> json,
+) => _SecurityOptions(
+  fingerprint: json['fingerprint'] == null
+      ? null
+      : SecurityOption.fromJson(json['fingerprint'] as Map<String, dynamic>),
+  ip: json['ip'] == null
+      ? null
+      : SecurityOption.fromJson(json['ip'] as Map<String, dynamic>),
+  phone: json['phone'] == null
+      ? null
+      : SecurityOption.fromJson(json['phone'] as Map<String, dynamic>),
+  ads: json['ads'] == null
+      ? null
+      : SecurityOption.fromJson(json['ads'] as Map<String, dynamic>),
+  frontend: json['frontend'] == null
+      ? null
+      : SecurityOption.fromJson(json['frontend'] as Map<String, dynamic>),
+  doubleSend: json['doubleSend'] == null
+      ? null
+      : SecurityOption.fromJson(json['doubleSend'] as Map<String, dynamic>),
+  minTimeInPage: json['minTimeInPage'] == null
+      ? null
+      : SecurityMinTimeOption.fromJson(
+          json['minTimeInPage'] as Map<String, dynamic>,
+        ),
+  countries: json['countries'] == null
+      ? null
+      : SecurityCountriesOption.fromJson(
+          json['countries'] as Map<String, dynamic>,
+        ),
+  sources: json['sources'] == null
+      ? null
+      : SecuritySourcesOption.fromJson(json['sources'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$SecurityOptionsToJson(_SecurityOptions instance) =>
+    <String, dynamic>{
+      'fingerprint': instance.fingerprint,
+      'ip': instance.ip,
+      'phone': instance.phone,
+      'ads': instance.ads,
+      'frontend': instance.frontend,
+      'doubleSend': instance.doubleSend,
+      'minTimeInPage': instance.minTimeInPage,
+      'countries': instance.countries,
+      'sources': instance.sources,
+    };
+
 _SecurityIntegration _$SecurityIntegrationFromJson(Map<String, dynamic> json) =>
     _SecurityIntegration(
-      key: json['key'] as String?,
-      active: json['active'] as bool? ?? true,
-      ordersRateLimit: (json['ordersRateLimit'] as num?)?.toInt(),
-      ordersRateLimitDuration: (json['ordersRateLimitDuration'] as num?)
-          ?.toInt(),
-      hideProducts: json['hideProducts'] as bool?,
-      orders: json['orders'] == null
+      active: json['active'] as bool? ?? false,
+      options: json['options'] == null
           ? null
-          : SecurityIntegrationOrdersProtection.fromJson(
-              json['orders'] as Map<String, dynamic>,
-            ),
+          : SecurityOptions.fromJson(json['options'] as Map<String, dynamic>),
       metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
     );
 
 Map<String, dynamic> _$SecurityIntegrationToJson(
   _SecurityIntegration instance,
 ) => <String, dynamic>{
-  'key': instance.key,
   'active': instance.active,
-  'ordersRateLimit': instance.ordersRateLimit,
-  'ordersRateLimitDuration': instance.ordersRateLimitDuration,
-  'hideProducts': instance.hideProducts,
-  'orders': instance.orders?.toJson(),
+  'options': instance.options,
   'metadata': instance.metadata,
 };
 
-_SecurityIntegrationOrdersProtection
-_$SecurityIntegrationOrdersProtectionFromJson(Map<String, dynamic> json) =>
-    _SecurityIntegrationOrdersProtection(
-      frontend: json['frontend'] == null
-          ? null
-          : SecurityIntegrationFrontendProtection.fromJson(
-              json['frontend'] as Map<String, dynamic>,
-            ),
-      backend: json['backend'] == null
-          ? null
-          : SecurityIntegrationBackendProtection.fromJson(
-              json['backend'] as Map<String, dynamic>,
-            ),
-    );
+_PublicSecurityOption _$PublicSecurityOptionFromJson(
+  Map<String, dynamic> json,
+) => _PublicSecurityOption(
+  active: json['active'] as bool? ?? false,
+  ttl: (json['ttl'] as num?)?.toInt() ?? 0,
+  treatment:
+      $enumDecodeNullable(_$SecurityTreatmentEnumMap, json['treatment']) ??
+      SecurityTreatment.block,
+);
 
-Map<String, dynamic> _$SecurityIntegrationOrdersProtectionToJson(
-  _SecurityIntegrationOrdersProtection instance,
-) => <String, dynamic>{
-  'frontend': instance.frontend?.toJson(),
-  'backend': instance.backend?.toJson(),
-};
-
-_SecurityIntegrationFrontendProtection
-_$SecurityIntegrationFrontendProtectionFromJson(Map<String, dynamic> json) =>
-    _SecurityIntegrationFrontendProtection(
-      active: json['active'] as bool? ?? false,
-    );
-
-Map<String, dynamic> _$SecurityIntegrationFrontendProtectionToJson(
-  _SecurityIntegrationFrontendProtection instance,
-) => <String, dynamic>{'active': instance.active};
-
-_SecurityIntegrationBackendProtection
-_$SecurityIntegrationBackendProtectionFromJson(Map<String, dynamic> json) =>
-    _SecurityIntegrationBackendProtection(
-      active: json['active'] as bool? ?? false,
-      phoneTtl: (json['phoneTtl'] as num?)?.toInt(),
-      ipTtl: (json['ipTtl'] as num?)?.toInt(),
-      adAttributionTtl: (json['adAttributionTtl'] as num?)?.toInt(),
-      fingerprintTtl: (json['fingerprintTtl'] as num?)?.toInt(),
-      blockDirectOrders: json['blockDirectOrders'] as bool? ?? false,
-      adsOnlyMode: json['adsOnlyMode'] as bool? ?? false,
-    );
-
-Map<String, dynamic> _$SecurityIntegrationBackendProtectionToJson(
-  _SecurityIntegrationBackendProtection instance,
+Map<String, dynamic> _$PublicSecurityOptionToJson(
+  _PublicSecurityOption instance,
 ) => <String, dynamic>{
   'active': instance.active,
-  'phoneTtl': instance.phoneTtl,
-  'ipTtl': instance.ipTtl,
-  'adAttributionTtl': instance.adAttributionTtl,
-  'fingerprintTtl': instance.fingerprintTtl,
-  'blockDirectOrders': instance.blockDirectOrders,
-  'adsOnlyMode': instance.adsOnlyMode,
+  'ttl': instance.ttl,
+  'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
 };
+
+_PublicSecurityOptions _$PublicSecurityOptionsFromJson(
+  Map<String, dynamic> json,
+) => _PublicSecurityOptions(
+  frontend: json['frontend'] == null
+      ? null
+      : PublicSecurityOption.fromJson(json['frontend'] as Map<String, dynamic>),
+  doubleSend: json['doubleSend'] == null
+      ? null
+      : PublicSecurityOption.fromJson(
+          json['doubleSend'] as Map<String, dynamic>,
+        ),
+  minTimeInPage: json['minTimeInPage'] == null
+      ? null
+      : SecurityMinTimeOption.fromJson(
+          json['minTimeInPage'] as Map<String, dynamic>,
+        ),
+  countries: json['countries'] == null
+      ? null
+      : SecurityCountriesOption.fromJson(
+          json['countries'] as Map<String, dynamic>,
+        ),
+  sources: json['sources'] == null
+      ? null
+      : SecuritySourcesOption.fromJson(json['sources'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$PublicSecurityOptionsToJson(
+  _PublicSecurityOptions instance,
+) => <String, dynamic>{
+  'frontend': instance.frontend,
+  'doubleSend': instance.doubleSend,
+  'minTimeInPage': instance.minTimeInPage,
+  'countries': instance.countries,
+  'sources': instance.sources,
+};
+
+_PublicSecurityIntegration _$PublicSecurityIntegrationFromJson(
+  Map<String, dynamic> json,
+) => _PublicSecurityIntegration(
+  active: json['active'] as bool? ?? false,
+  options: json['options'] == null
+      ? const PublicSecurityOptions()
+      : PublicSecurityOptions.fromJson(json['options'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$PublicSecurityIntegrationToJson(
+  _PublicSecurityIntegration instance,
+) => <String, dynamic>{'active': instance.active, 'options': instance.options};
 
 _GoogleSheetsColumn _$GoogleSheetsColumnFromJson(Map<String, dynamic> json) =>
     _GoogleSheetsColumn(
@@ -670,7 +804,7 @@ Map<String, dynamic> _$GoogleSheetsIntegrationToJson(
   'name': instance.name,
   'active': instance.active,
   'oauth2': instance.oauth2,
-  'columns': instance.columns?.map((e) => e.toJson()).toList(),
+  'columns': instance.columns,
   'metadata': instance.metadata,
 };
 
@@ -726,7 +860,7 @@ _WebhooksIntegration _$WebhooksIntegrationFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$WebhooksIntegrationToJson(
   _WebhooksIntegration instance,
 ) => <String, dynamic>{
-  'webhooks': instance.webhooks.map((e) => e.toJson()).toList(),
+  'webhooks': instance.webhooks,
   'active': instance.active,
   'metadata': instance.metadata,
 };
@@ -795,7 +929,7 @@ _CustomFieldsIntegration _$CustomFieldsIntegrationFromJson(
 Map<String, dynamic> _$CustomFieldsIntegrationToJson(
   _CustomFieldsIntegration instance,
 ) => <String, dynamic>{
-  'fields': instance.fields.map((e) => e.toJson()).toList(),
+  'fields': instance.fields,
   'active': instance.active,
   'metadata': instance.metadata,
 };
@@ -840,7 +974,7 @@ _PaymentIntegration _$PaymentIntegrationFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$PaymentIntegrationToJson(_PaymentIntegration instance) =>
     <String, dynamic>{
       'active': instance.active,
-      'methods': instance.methods.map((e) => e.toJson()).toList(),
+      'methods': instance.methods,
       'defaultMethod': instance.defaultMethod,
       'metadata': instance.metadata,
     };
@@ -861,6 +995,6 @@ Map<String, dynamic> _$DispatcherIntegrationToJson(
   _DispatcherIntegration instance,
 ) => <String, dynamic>{
   'active': instance.active,
-  'strategy': instance.strategy?.toJson(),
+  'strategy': instance.strategy,
   'metadata': instance.metadata,
 };

@@ -17,11 +17,11 @@ _ProductReport _$ProductReportFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ProductReportToJson(_ProductReport instance) =>
     <String, dynamic>{
-      'today': instance.today.toJson(),
-      'yesterday': instance.yesterday.toJson(),
-      'week': instance.week.toJson(),
-      'month': instance.month.toJson(),
-      'totals': instance.totals.toJson(),
+      'today': instance.today,
+      'yesterday': instance.yesterday,
+      'week': instance.week,
+      'month': instance.month,
+      'totals': instance.totals,
     };
 
 _DayMetrics _$DayMetricsFromJson(Map<String, dynamic> json) => _DayMetrics(
@@ -91,11 +91,11 @@ _Totals _$TotalsFromJson(Map<String, dynamic> json) => _Totals(
 );
 
 Map<String, dynamic> _$TotalsToJson(_Totals instance) => <String, dynamic>{
-  'views': instance.views.toJson(),
-  'sales': instance.sales.toJson(),
-  'revenue': instance.revenue.toJson(),
-  'profit': instance.profit.toJson(),
-  'states': instance.states.toJson(),
+  'views': instance.views,
+  'sales': instance.sales,
+  'revenue': instance.revenue,
+  'profit': instance.profit,
+  'states': instance.states,
 };
 
 _TimeFrameTotals _$TimeFrameTotalsFromJson(Map<String, dynamic> json) =>

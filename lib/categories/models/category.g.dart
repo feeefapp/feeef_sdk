@@ -34,8 +34,8 @@ Map<String, dynamic> _$CategoryToJson(_Category instance) => <String, dynamic>{
   'description': instance.description,
   'photoUrl': instance.photoUrl,
   'metadata': instance.metadata,
-  'parent': instance.parent?.toJson(),
-  'children': instance.children?.map((e) => e.toJson()).toList(),
+  'parent': instance.parent,
+  'children': instance.children,
 };
 
 _CategoryCreate _$CategoryCreateFromJson(Map<String, dynamic> json) =>

@@ -16,9 +16,7 @@ _FeeefValidationException _$FeeefValidationExceptionFromJson(
 
 Map<String, dynamic> _$FeeefValidationExceptionToJson(
   _FeeefValidationException instance,
-) => <String, dynamic>{
-  'errors': instance.errors.map((e) => e.toJson()).toList(),
-};
+) => <String, dynamic>{'errors': instance.errors};
 
 _FeeefViolation _$FeeefViolationFromJson(Map<String, dynamic> json) =>
     _FeeefViolation(

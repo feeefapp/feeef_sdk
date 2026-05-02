@@ -11,7 +11,9 @@ _Country _$CountryFromJson(Map<String, dynamic> json) => _Country(
   name: json['name'] as String,
   phone: json['phone'] as String,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
-  locales: _localesFromJson(json['locales']),
+  locales: (json['locales'] as Map<String, dynamic>?)?.map(
+    (k, e) => MapEntry(k, e as String),
+  ),
   createdAt: DateTime.parse(json['createdAt'] as String),
 );
 

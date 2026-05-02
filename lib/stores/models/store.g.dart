@@ -87,7 +87,8 @@ _Store _$StoreFromJson(Map<String, dynamic> json) => _Store(
         (k, e) => MapEntry(k, StoreMember.fromJson(e as Map<String, dynamic>)),
       ) ??
       const {},
-  lor: json['lor'] == null ? null : _storeLorFromJson(json['lor']),
+  lor: _storeLorFromJson(json['lor']),
+  template: _storeTemplateFromJson(json['template']),
 );
 
 Map<String, dynamic> _$StoreToJson(_Store instance) => <String, dynamic>{
@@ -95,44 +96,36 @@ Map<String, dynamic> _$StoreToJson(_Store instance) => <String, dynamic>{
   'createdAt': instance.createdAt.toIso8601String(),
   'updatedAt': instance.updatedAt.toIso8601String(),
   'slug': instance.slug,
-  'banner': instance.banner?.toJson(),
-  'action': instance.action?.toJson(),
-  'domain': instance.domain?.toJson(),
-  'decoration': instance.decoration?.toJson(),
+  'banner': instance.banner,
+  'action': instance.action,
+  'domain': instance.domain,
+  'decoration': instance.decoration,
   'name': instance.name,
   'iconUrl': instance.iconUrl,
   'logoUrl': instance.logoUrl,
   'ondarkLogoUrl': instance.ondarkLogoUrl,
   'userId': instance.userId,
-  'categories': instance.categories.map((e) => e.toJson()).toList(),
-  'categoriesRelation': instance.categoriesRelation
-      ?.map((e) => e.toJson())
-      .toList(),
+  'categories': instance.categories,
+  'categoriesRelation': instance.categoriesRelation,
   'title': instance.title,
   'description': instance.description,
-  'addresses': instance.addresses.map((e) => e.toJson()).toList(),
-  'address': instance.address?.toJson(),
+  'addresses': instance.addresses,
+  'address': instance.address,
   'metadata': instance.metadata,
-  'contacts': instance.contacts.map((e) => e.toJson()).toList(),
+  'contacts': instance.contacts,
   'integrations': _storeIntegrationsToJson(instance.integrations),
   'defaultShippingRates': instance.defaultShippingRates,
   'verifiedAt': instance.verifiedAt?.toIso8601String(),
   'blockedAt': instance.blockedAt?.toIso8601String(),
-  'subscription': instance.subscription?.toJson(),
+  'subscription': instance.subscription,
   'due': instance.due,
-  'configs': instance.configs?.toJson(),
+  'configs': instance.configs,
   'shippingPriceId': instance.shippingPriceId,
   'templateId': instance.templateId,
   'metaPixelIds': instance.metaPixelIds,
-  'members': instance.members.map((k, e) => MapEntry(k, e.toJson())),
-  'lor': instance.lor == null
-      ? null
-      : <String, dynamic>{
-          'lastSync': instance.lor!.lastSync,
-          'lastItemDate': instance.lor!.lastItemDate,
-          'totalOrders': instance.lor!.totalOrders,
-          'data': instance.lor!.data,
-        },
+  'members': instance.members,
+  'lor': _storeLorToJson(instance.lor),
+  'template': _storeTemplateToJson(instance.template),
 };
 
 _StoreCreate _$StoreCreateFromJson(Map<String, dynamic> json) => _StoreCreate(
@@ -198,23 +191,23 @@ Map<String, dynamic> _$StoreCreateToJson(_StoreCreate instance) =>
       'id': instance.id,
       'name': instance.name,
       'slug': instance.slug,
-      'banner': instance.banner?.toJson(),
-      'action': instance.action?.toJson(),
-      'domain': instance.domain?.toJson(),
-      'decoration': instance.decoration?.toJson(),
+      'banner': instance.banner,
+      'action': instance.action,
+      'domain': instance.domain,
+      'decoration': instance.decoration,
       'logoUrl': instance.logoUrl,
       'ondarkLogoUrl': instance.ondarkLogoUrl,
-      'categories': instance.categories.map((e) => e.toJson()).toList(),
+      'categories': instance.categories,
       'title': instance.title,
       'description': instance.description,
-      'addresses': instance.addresses.map((e) => e.toJson()).toList(),
-      'address': instance.address?.toJson(),
+      'addresses': instance.addresses,
+      'address': instance.address,
       'metadata': instance.metadata,
-      'contacts': instance.contacts.map((e) => e.toJson()).toList(),
+      'contacts': instance.contacts,
       'integrations': _storeIntegrationsToJson(instance.integrations),
       'defaultShippingRates': instance.defaultShippingRates,
       'shippingPriceId': instance.shippingPriceId,
-      'subscription': instance.subscription?.toJson(),
+      'subscription': instance.subscription,
       'due': instance.due,
     };
 
@@ -267,32 +260,34 @@ _StoreUpdate _$StoreUpdateFromJson(Map<String, dynamic> json) => _StoreUpdate(
       ? null
       : StoreConfigs.fromJson(json['configs'] as Map<String, dynamic>),
   shippingPriceId: json['shippingPriceId'] as String?,
+  templateId: json['templateId'] as String?,
 );
 
 Map<String, dynamic> _$StoreUpdateToJson(_StoreUpdate instance) =>
     <String, dynamic>{
       'name': instance.name,
       'slug': instance.slug,
-      'banner': instance.banner?.toJson(),
-      'action': instance.action?.toJson(),
-      'domain': instance.domain?.toJson(),
-      'decoration': instance.decoration?.toJson(),
+      'banner': instance.banner,
+      'action': instance.action,
+      'domain': instance.domain,
+      'decoration': instance.decoration,
       'logoUrl': instance.logoUrl,
       'iconUrl': instance.iconUrl,
       'ondarkLogoUrl': instance.ondarkLogoUrl,
-      'categories': instance.categories?.map((e) => e.toJson()).toList(),
+      'categories': instance.categories,
       'title': instance.title,
       'description': instance.description,
-      'addresses': instance.addresses?.map((e) => e.toJson()).toList(),
-      'address': instance.address?.toJson(),
+      'addresses': instance.addresses,
+      'address': instance.address,
       'metadata': instance.metadata,
-      'contacts': instance.contacts?.map((e) => e.toJson()).toList(),
+      'contacts': instance.contacts,
       'integrations': _storeIntegrationsToJson(instance.integrations),
       'defaultShippingRates': instance.defaultShippingRates,
-      'subscription': instance.subscription?.toJson(),
+      'subscription': instance.subscription,
       'due': instance.due,
-      'configs': instance.configs?.toJson(),
+      'configs': instance.configs,
       'shippingPriceId': instance.shippingPriceId,
+      'templateId': instance.templateId,
     };
 
 _StoreSubscription _$StoreSubscriptionFromJson(Map<String, dynamic> json) =>
@@ -362,15 +357,13 @@ _StoreConfigs _$StoreConfigsFromJson(
 
 Map<String, dynamic> _$StoreConfigsToJson(_StoreConfigs instance) =>
     <String, dynamic>{
-      'currencies': instance.currencies.map((e) => e.toJson()).toList(),
+      'currencies': instance.currencies,
       'selectedCurrency': instance.selectedCurrency,
-      'languages': instance.languages.map((e) => e.toJson()).toList(),
+      'languages': instance.languages,
       'defaultLanguage': instance.defaultLanguage,
-      'countries': instance.countries.map((e) => e.toJson()).toList(),
+      'countries': instance.countries,
       'selectedCountry': instance.selectedCountry,
-      'customStatusMappings': instance.customStatusMappings
-          .map((e) => e.toJson())
-          .toList(),
+      'customStatusMappings': instance.customStatusMappings,
       'customStatusEnabled': instance.customStatusEnabled,
     };
 
@@ -389,9 +382,8 @@ _CustomStatusMapping _$CustomStatusMappingFromJson(Map<String, dynamic> json) =>
         _$PaymentStatusEnumMap,
         json['paymentStatus'],
       ),
-      next: (json['next'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
+      next:
+          (json['next'] as List<dynamic>?)?.map((e) => e as String).toList() ??
           const [],
     );
 

@@ -65,6 +65,7 @@ _Product _$ProductFromJson(Map<String, dynamic> json) => _Product(
       ? null
       : DateTime.parse(json['blockedAt'] as String),
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+  lor: _productLorFromJson(json['lor']),
 );
 
 Map<String, dynamic> _$ProductToJson(_Product instance) => <String, dynamic>{
@@ -80,8 +81,8 @@ Map<String, dynamic> _$ProductToJson(_Product instance) => <String, dynamic>{
   'shippingMethodId': instance.shippingMethodId,
   'shippingPriceId': instance.shippingPriceId,
   'categoryId': instance.categoryId,
-  'category': instance.category?.toJson(),
-  'categoryRelation': instance.categoryRelation?.toJson(),
+  'category': instance.category,
+  'categoryRelation': instance.categoryRelation,
   'title': instance.title,
   'description': instance.description,
   'body': instance.body,
@@ -94,16 +95,17 @@ Map<String, dynamic> _$ProductToJson(_Product instance) => <String, dynamic>{
   'sold': instance.sold,
   'views': instance.views,
   'likes': instance.likes,
-  'variant': instance.variant?.toJson(),
-  'offers': instance.offers?.map((e) => e.toJson()).toList(),
-  'addons': instance.addons?.map((e) => e.toJson()).toList(),
+  'variant': instance.variant,
+  'offers': instance.offers,
+  'addons': instance.addons,
   'dislikes': instance.dislikes,
   'status': _$ProductStatusEnumMap[instance.status]!,
   'type': _$ProductTypeEnumMap[instance.type]!,
-  'integrationsData': instance.integrationsData?.toJson(),
+  'integrationsData': instance.integrationsData,
   'verifiedAt': instance.verifiedAt?.toIso8601String(),
   'blockedAt': instance.blockedAt?.toIso8601String(),
   'metadata': instance.metadata,
+  'lor': _productLorToJson(instance.lor),
 };
 
 const _$ProductStatusEnumMap = {
@@ -150,11 +152,11 @@ _IntegrationsData _$IntegrationsDataFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$IntegrationsDataToJson(_IntegrationsData instance) =>
     <String, dynamic>{
-      'metaPixelData': instance.metaPixelData?.toJson(),
-      'tiktokPixelData': instance.tiktokPixelData?.toJson(),
-      'googleSheetsData': instance.googleSheetsData?.toJson(),
-      'paymentMethodData': instance.paymentMethodData?.toJson(),
-      'customFieldsData': instance.customFieldsData?.toJson(),
+      'metaPixelData': instance.metaPixelData,
+      'tiktokPixelData': instance.tiktokPixelData,
+      'googleSheetsData': instance.googleSheetsData,
+      'paymentMethodData': instance.paymentMethodData,
+      'customFieldsData': instance.customFieldsData,
     };
 
 _CustomFieldsIntegrationData _$CustomFieldsIntegrationDataFromJson(
@@ -171,7 +173,7 @@ _CustomFieldsIntegrationData _$CustomFieldsIntegrationDataFromJson(
 Map<String, dynamic> _$CustomFieldsIntegrationDataToJson(
   _CustomFieldsIntegrationData instance,
 ) => <String, dynamic>{
-  'fields': instance.fields.map((e) => e.toJson()).toList(),
+  'fields': instance.fields,
   'useProductFields': instance.useProductFields,
 };
 
@@ -260,7 +262,7 @@ Map<String, dynamic> _$GoogleSheetsDataToJson(_GoogleSheetsData instance) =>
       'sheetName': instance.sheetName,
       'spreadsheetId': instance.spreadsheetId,
       'nextRow': instance.nextRow,
-      'columns': instance.columns?.map((e) => e.toJson()).toList(),
+      'columns': instance.columns,
     };
 
 _PaymentMethodData _$PaymentMethodDataFromJson(Map<String, dynamic> json) =>
@@ -338,7 +340,7 @@ Map<String, dynamic> _$ProductCreateToJson(_ProductCreate instance) =>
       'shippingMethodId': instance.shippingMethodId,
       'shippingPriceId': instance.shippingPriceId,
       'categoryId': instance.categoryId,
-      'category': instance.category?.toJson(),
+      'category': instance.category,
       'title': instance.title,
       'description': instance.description,
       'body': instance.body,
@@ -348,10 +350,10 @@ Map<String, dynamic> _$ProductCreateToJson(_ProductCreate instance) =>
       'cost': instance.cost,
       'discount': instance.discount,
       'stock': instance.stock,
-      'variant': instance.variant?.toJson(),
-      'offers': instance.offers?.map((e) => e.toJson()).toList(),
-      'addons': instance.addons?.map((e) => e.toJson()).toList(),
-      'integrationsData': instance.integrationsData?.toJson(),
+      'variant': instance.variant,
+      'offers': instance.offers,
+      'addons': instance.addons,
+      'integrationsData': instance.integrationsData,
       'status': _$ProductStatusEnumMap[instance.status]!,
       'type': _$ProductTypeEnumMap[instance.type]!,
       'metadata': instance.metadata,
@@ -412,7 +414,7 @@ Map<String, dynamic> _$ProductUpdateToJson(_ProductUpdate instance) =>
       'shippingMethodId': instance.shippingMethodId,
       'shippingPriceId': instance.shippingPriceId,
       'categoryId': instance.categoryId,
-      'category': instance.category?.toJson(),
+      'category': instance.category,
       'title': instance.title,
       'description': instance.description,
       'body': instance.body,
@@ -422,10 +424,10 @@ Map<String, dynamic> _$ProductUpdateToJson(_ProductUpdate instance) =>
       'cost': instance.cost,
       'discount': instance.discount,
       'stock': instance.stock,
-      'variant': instance.variant?.toJson(),
-      'offers': instance.offers?.map((e) => e.toJson()).toList(),
-      'addons': instance.addons?.map((e) => e.toJson()).toList(),
-      'integrationsData': instance.integrationsData?.toJson(),
+      'variant': instance.variant,
+      'offers': instance.offers,
+      'addons': instance.addons,
+      'integrationsData': instance.integrationsData,
       'status': _$ProductStatusEnumMap[instance.status],
       'type': _$ProductTypeEnumMap[instance.type],
       'metadata': instance.metadata,

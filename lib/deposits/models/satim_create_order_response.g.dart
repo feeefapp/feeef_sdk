@@ -19,7 +19,7 @@ Map<String, dynamic> _$SatimCreateOrderResponseToJson(
 ) => <String, dynamic>{
   'success': instance.success,
   'deposit': instance.deposit,
-  'satim': instance.satim.toJson(),
+  'satim': instance.satim,
 };
 
 _SatimOrderData _$SatimOrderDataFromJson(Map<String, dynamic> json) =>

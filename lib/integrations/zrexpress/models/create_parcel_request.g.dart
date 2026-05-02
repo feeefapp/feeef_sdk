@@ -17,7 +17,7 @@ Map<String, dynamic> _$ZrexpressCustomerToJson(_ZrexpressCustomer instance) =>
     <String, dynamic>{
       'customerId': instance.customerId,
       'name': instance.name,
-      'phone': instance.phone.toJson(),
+      'phone': instance.phone,
     };
 
 _ZrexpressPhone _$ZrexpressPhoneFromJson(Map<String, dynamic> json) =>
@@ -101,9 +101,9 @@ Map<String, dynamic> _$ZrexpressParcelCreateRequestToJson(
   _ZrexpressParcelCreateRequest instance,
 ) => <String, dynamic>{
   'externalId': instance.externalId,
-  'customer': instance.customer.toJson(),
-  'deliveryAddress': instance.deliveryAddress.toJson(),
-  'orderedProducts': instance.orderedProducts.map((e) => e.toJson()).toList(),
+  'customer': instance.customer,
+  'deliveryAddress': instance.deliveryAddress,
+  'orderedProducts': instance.orderedProducts,
   'amount': instance.amount,
   'deliveryType': _$ZrexpressDeliveryTypeEnumMap[instance.deliveryType]!,
   'hubId': instance.hubId,
@@ -159,8 +159,8 @@ Map<String, dynamic> _$ZrexpressBulkResponseToJson(
   'totalRequested': instance.totalRequested,
   'successCount': instance.successCount,
   'failureCount': instance.failureCount,
-  'successes': instance.successes.map((e) => e.toJson()).toList(),
-  'failures': instance.failures.map((e) => e.toJson()).toList(),
+  'successes': instance.successes,
+  'failures': instance.failures,
 };
 
 _ZrexpressBulkSuccess _$ZrexpressBulkSuccessFromJson(
@@ -251,6 +251,6 @@ _ZrexpressIndividualLabelsResponse _$ZrexpressIndividualLabelsResponseFromJson(
 Map<String, dynamic> _$ZrexpressIndividualLabelsResponseToJson(
   _ZrexpressIndividualLabelsResponse instance,
 ) => <String, dynamic>{
-  'parcelLabelFiles': instance.parcelLabelFiles.map((e) => e.toJson()).toList(),
+  'parcelLabelFiles': instance.parcelLabelFiles,
   'failedTrackingNumbers': instance.failedTrackingNumbers,
 };

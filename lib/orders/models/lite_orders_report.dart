@@ -84,4 +84,19 @@ class LiteOrdersReport {
       data: [],
     );
   }
+
+  /// JSON shape aligned with API / [fromJson] (camelCase keys).
+  Map<String, dynamic> toJson() => {
+    'lastSync': lastSync,
+    'lastItemDate': lastItemDate,
+    'totalOrders': totalOrders,
+    'data': data
+        .map((row) => {
+              'completed': row.isNotEmpty ? row[0] : 0,
+              'cancelled':
+                  row.length > 1 ? row[1] : 0,
+              'rest': row.length > 2 ? row[2] : 0,
+            })
+        .toList(),
+  };
 }

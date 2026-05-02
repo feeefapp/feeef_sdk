@@ -15,8 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProductLandingPage {
 
- String get id; DateTime get createdAt; DateTime get updatedAt; String get name; String? get description; String? get templateId; Map<String, dynamic>? get schema; Map<String, dynamic> get defaults; String get productId; String get storeId; ProductLandingPageTemplate? get template; Product? get product; Store? get store;/// Present when list/show is called with `with[]=lor` and the user may view analytics.
-@JsonKey(fromJson: _landingLorFromJson) LiteOrdersReport? get lor;
+ String get id; DateTime get createdAt; DateTime get updatedAt; String get name; String? get description; String? get templateId; Map<String, dynamic>? get schema; Map<String, dynamic> get defaults; String get productId; String get storeId;@JsonKey(fromJson: _landingPageTemplateFromJson, toJson: _landingPageTemplateToJson) ProductLandingPageTemplate? get template;@JsonKey(fromJson: _landingProductFromJson, toJson: _landingProductToJson) Product? get product;@JsonKey(fromJson: _landingStoreFromJson, toJson: _landingStoreToJson) Store? get store;/// Present when list/show is called with `with[]=lor` and the user may view analytics.
+@JsonKey(fromJson: _landingLorFromJson, toJson: _landingLorToJson) LiteOrdersReport? get lor;
 /// Create a copy of ProductLandingPage
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $ProductLandingPageCopyWith<$Res>  {
   factory $ProductLandingPageCopyWith(ProductLandingPage value, $Res Function(ProductLandingPage) _then) = _$ProductLandingPageCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime createdAt, DateTime updatedAt, String name, String? description, String? templateId, Map<String, dynamic>? schema, Map<String, dynamic> defaults, String productId, String storeId, ProductLandingPageTemplate? template, Product? product, Store? store,@JsonKey(fromJson: _landingLorFromJson) LiteOrdersReport? lor
+ String id, DateTime createdAt, DateTime updatedAt, String name, String? description, String? templateId, Map<String, dynamic>? schema, Map<String, dynamic> defaults, String productId, String storeId,@JsonKey(fromJson: _landingPageTemplateFromJson, toJson: _landingPageTemplateToJson) ProductLandingPageTemplate? template,@JsonKey(fromJson: _landingProductFromJson, toJson: _landingProductToJson) Product? product,@JsonKey(fromJson: _landingStoreFromJson, toJson: _landingStoreToJson) Store? store,@JsonKey(fromJson: _landingLorFromJson, toJson: _landingLorToJson) LiteOrdersReport? lor
 });
 
 
@@ -203,7 +203,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String name,  String? description,  String? templateId,  Map<String, dynamic>? schema,  Map<String, dynamic> defaults,  String productId,  String storeId,  ProductLandingPageTemplate? template,  Product? product,  Store? store, @JsonKey(fromJson: _landingLorFromJson)  LiteOrdersReport? lor)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String name,  String? description,  String? templateId,  Map<String, dynamic>? schema,  Map<String, dynamic> defaults,  String productId,  String storeId, @JsonKey(fromJson: _landingPageTemplateFromJson, toJson: _landingPageTemplateToJson)  ProductLandingPageTemplate? template, @JsonKey(fromJson: _landingProductFromJson, toJson: _landingProductToJson)  Product? product, @JsonKey(fromJson: _landingStoreFromJson, toJson: _landingStoreToJson)  Store? store, @JsonKey(fromJson: _landingLorFromJson, toJson: _landingLorToJson)  LiteOrdersReport? lor)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProductLandingPage() when $default != null:
 return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.description,_that.templateId,_that.schema,_that.defaults,_that.productId,_that.storeId,_that.template,_that.product,_that.store,_that.lor);case _:
@@ -224,7 +224,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.descri
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String name,  String? description,  String? templateId,  Map<String, dynamic>? schema,  Map<String, dynamic> defaults,  String productId,  String storeId,  ProductLandingPageTemplate? template,  Product? product,  Store? store, @JsonKey(fromJson: _landingLorFromJson)  LiteOrdersReport? lor)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String name,  String? description,  String? templateId,  Map<String, dynamic>? schema,  Map<String, dynamic> defaults,  String productId,  String storeId, @JsonKey(fromJson: _landingPageTemplateFromJson, toJson: _landingPageTemplateToJson)  ProductLandingPageTemplate? template, @JsonKey(fromJson: _landingProductFromJson, toJson: _landingProductToJson)  Product? product, @JsonKey(fromJson: _landingStoreFromJson, toJson: _landingStoreToJson)  Store? store, @JsonKey(fromJson: _landingLorFromJson, toJson: _landingLorToJson)  LiteOrdersReport? lor)  $default,) {final _that = this;
 switch (_that) {
 case _ProductLandingPage():
 return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.description,_that.templateId,_that.schema,_that.defaults,_that.productId,_that.storeId,_that.template,_that.product,_that.store,_that.lor);case _:
@@ -244,7 +244,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.descri
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  DateTime updatedAt,  String name,  String? description,  String? templateId,  Map<String, dynamic>? schema,  Map<String, dynamic> defaults,  String productId,  String storeId,  ProductLandingPageTemplate? template,  Product? product,  Store? store, @JsonKey(fromJson: _landingLorFromJson)  LiteOrdersReport? lor)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  DateTime updatedAt,  String name,  String? description,  String? templateId,  Map<String, dynamic>? schema,  Map<String, dynamic> defaults,  String productId,  String storeId, @JsonKey(fromJson: _landingPageTemplateFromJson, toJson: _landingPageTemplateToJson)  ProductLandingPageTemplate? template, @JsonKey(fromJson: _landingProductFromJson, toJson: _landingProductToJson)  Product? product, @JsonKey(fromJson: _landingStoreFromJson, toJson: _landingStoreToJson)  Store? store, @JsonKey(fromJson: _landingLorFromJson, toJson: _landingLorToJson)  LiteOrdersReport? lor)?  $default,) {final _that = this;
 switch (_that) {
 case _ProductLandingPage() when $default != null:
 return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.description,_that.templateId,_that.schema,_that.defaults,_that.productId,_that.storeId,_that.template,_that.product,_that.store,_that.lor);case _:
@@ -259,7 +259,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.descri
 @JsonSerializable()
 
 class _ProductLandingPage extends ProductLandingPage {
-   _ProductLandingPage({required this.id, required this.createdAt, required this.updatedAt, required this.name, this.description, this.templateId, final  Map<String, dynamic>? schema, required final  Map<String, dynamic> defaults, required this.productId, required this.storeId, this.template, this.product, this.store, @JsonKey(fromJson: _landingLorFromJson) this.lor}): _schema = schema,_defaults = defaults,super._();
+   _ProductLandingPage({required this.id, required this.createdAt, required this.updatedAt, required this.name, this.description, this.templateId, final  Map<String, dynamic>? schema, required final  Map<String, dynamic> defaults, required this.productId, required this.storeId, @JsonKey(fromJson: _landingPageTemplateFromJson, toJson: _landingPageTemplateToJson) this.template, @JsonKey(fromJson: _landingProductFromJson, toJson: _landingProductToJson) this.product, @JsonKey(fromJson: _landingStoreFromJson, toJson: _landingStoreToJson) this.store, @JsonKey(fromJson: _landingLorFromJson, toJson: _landingLorToJson) this.lor}): _schema = schema,_defaults = defaults,super._();
   factory _ProductLandingPage.fromJson(Map<String, dynamic> json) => _$ProductLandingPageFromJson(json);
 
 @override final  String id;
@@ -286,11 +286,11 @@ class _ProductLandingPage extends ProductLandingPage {
 
 @override final  String productId;
 @override final  String storeId;
-@override final  ProductLandingPageTemplate? template;
-@override final  Product? product;
-@override final  Store? store;
+@override@JsonKey(fromJson: _landingPageTemplateFromJson, toJson: _landingPageTemplateToJson) final  ProductLandingPageTemplate? template;
+@override@JsonKey(fromJson: _landingProductFromJson, toJson: _landingProductToJson) final  Product? product;
+@override@JsonKey(fromJson: _landingStoreFromJson, toJson: _landingStoreToJson) final  Store? store;
 /// Present when list/show is called with `with[]=lor` and the user may view analytics.
-@override@JsonKey(fromJson: _landingLorFromJson) final  LiteOrdersReport? lor;
+@override@JsonKey(fromJson: _landingLorFromJson, toJson: _landingLorToJson) final  LiteOrdersReport? lor;
 
 /// Create a copy of ProductLandingPage
 /// with the given fields replaced by the non-null parameter values.
@@ -325,7 +325,7 @@ abstract mixin class _$ProductLandingPageCopyWith<$Res> implements $ProductLandi
   factory _$ProductLandingPageCopyWith(_ProductLandingPage value, $Res Function(_ProductLandingPage) _then) = __$ProductLandingPageCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime createdAt, DateTime updatedAt, String name, String? description, String? templateId, Map<String, dynamic>? schema, Map<String, dynamic> defaults, String productId, String storeId, ProductLandingPageTemplate? template, Product? product, Store? store,@JsonKey(fromJson: _landingLorFromJson) LiteOrdersReport? lor
+ String id, DateTime createdAt, DateTime updatedAt, String name, String? description, String? templateId, Map<String, dynamic>? schema, Map<String, dynamic> defaults, String productId, String storeId,@JsonKey(fromJson: _landingPageTemplateFromJson, toJson: _landingPageTemplateToJson) ProductLandingPageTemplate? template,@JsonKey(fromJson: _landingProductFromJson, toJson: _landingProductToJson) Product? product,@JsonKey(fromJson: _landingStoreFromJson, toJson: _landingStoreToJson) Store? store,@JsonKey(fromJson: _landingLorFromJson, toJson: _landingLorToJson) LiteOrdersReport? lor
 });
 
 

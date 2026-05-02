@@ -50,7 +50,7 @@ Map<String, dynamic> _$FeedbackToJson(_Feedback instance) => <String, dynamic>{
   'priority': _$FeedbackPriorityEnumMap[instance.priority]!,
   'metadata': instance.metadata,
   'appVersion': instance.appVersion,
-  'history': instance.history.map((e) => e.toJson()).toList(),
+  'history': instance.history,
   'createdAt': instance.createdAt.toIso8601String(),
   'updatedAt': instance.updatedAt.toIso8601String(),
   'resolvedAt': instance.resolvedAt?.toIso8601String(),

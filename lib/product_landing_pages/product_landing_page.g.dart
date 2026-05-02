@@ -18,17 +18,10 @@ _ProductLandingPage _$ProductLandingPageFromJson(Map<String, dynamic> json) =>
       defaults: json['defaults'] as Map<String, dynamic>,
       productId: json['productId'] as String,
       storeId: json['storeId'] as String,
-      template: json['template'] == null
-          ? null
-          : ProductLandingPageTemplate.fromJson(
-              json['template'] as Map<String, dynamic>,
-            ),
-      product: json['product'] == null
-          ? null
-          : Product.fromJson(json['product'] as Map<String, dynamic>),
-      store: json['store'] == null
-          ? null
-          : Store.fromJson(json['store'] as Map<String, dynamic>),
+      template: _landingPageTemplateFromJson(json['template']),
+      product: _landingProductFromJson(json['product']),
+      store: _landingStoreFromJson(json['store']),
+      lor: _landingLorFromJson(json['lor']),
     );
 
 Map<String, dynamic> _$ProductLandingPageToJson(_ProductLandingPage instance) =>
@@ -43,9 +36,10 @@ Map<String, dynamic> _$ProductLandingPageToJson(_ProductLandingPage instance) =>
       'defaults': instance.defaults,
       'productId': instance.productId,
       'storeId': instance.storeId,
-      'template': instance.template?.toJson(),
-      'product': instance.product?.toJson(),
-      'store': instance.store?.toJson(),
+      'template': _landingPageTemplateToJson(instance.template),
+      'product': _landingProductToJson(instance.product),
+      'store': _landingStoreToJson(instance.store),
+      'lor': _landingLorToJson(instance.lor),
     };
 
 _ProductLandingPageCreate _$ProductLandingPageCreateFromJson(

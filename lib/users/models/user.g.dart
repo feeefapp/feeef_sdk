@@ -50,7 +50,7 @@ Map<String, dynamic> _$UserToJson(_User instance) => <String, dynamic>{
   'partnerApprovedAt': instance.partnerApprovedAt?.toIso8601String(),
   'createdAt': instance.createdAt.toIso8601String(),
   'updatedAt': instance.updatedAt.toIso8601String(),
-  'wallet': instance.wallet.toJson(),
+  'wallet': instance.wallet,
   'metadata': instance.metadata,
   'social': instance.social,
   'claims': instance.claims,

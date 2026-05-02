@@ -35,7 +35,7 @@ Map<String, dynamic> _$CustomOrderTagHistoryToJson(
   _CustomOrderTagHistory instance,
 ) => <String, dynamic>{
   'userId': instance.userId,
-  'tag': instance.tag.toJson(),
+  'tag': instance.tag,
   'note': instance.note,
   'createdAt': instance.createdAt.toIso8601String(),
 };

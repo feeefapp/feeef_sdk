@@ -27,7 +27,7 @@ Map<String, dynamic> _$FileObjectToJson(_FileObject instance) =>
       'type': instance.type,
       'size': instance.size,
       'lastModified': instance.lastModified?.toIso8601String(),
-      'metadata': instance.metadata?.toJson(),
+      'metadata': instance.metadata,
       'isBeingDeleted': instance.isBeingDeleted,
     };
 
@@ -63,6 +63,6 @@ _FileListResponse _$FileListResponseFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$FileListResponseToJson(_FileListResponse instance) =>
     <String, dynamic>{
-      'objects': instance.objects.map((e) => e.toJson()).toList(),
+      'objects': instance.objects,
       'paginationToken': instance.paginationToken,
     };

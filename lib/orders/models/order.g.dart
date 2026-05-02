@@ -11,8 +11,11 @@ _Order _$OrderFromJson(Map<String, dynamic> json) => _Order(
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: DateTime.parse(json['updatedAt'] as String),
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+  claims: json['claims'] as Map<String, dynamic>?,
   references:
-      (json['references'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      (json['references'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
       const [],
   customerName: json['customerName'] as String?,
   customerPhone: json['customerPhone'] as String?,
@@ -28,7 +31,9 @@ _Order _$OrderFromJson(Map<String, dynamic> json) => _Order(
   shippingNote: json['shippingNote'] as String?,
   trackingCode: json['trackingCode'] as String?,
   paymentMethodId: json['paymentMethodId'] as String?,
-  shippingType: shippingTypeFromJson(json['shippingType']),
+  shippingType: json['shippingType'] == null
+      ? ShippingType.home
+      : shippingTypeFromJson(json['shippingType']),
   tags:
       (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
@@ -65,6 +70,7 @@ Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
   'createdAt': instance.createdAt.toIso8601String(),
   'updatedAt': instance.updatedAt.toIso8601String(),
   'metadata': instance.metadata,
+  'claims': instance.claims,
   'references': instance.references,
   'customerName': instance.customerName,
   'customerPhone': instance.customerPhone,
@@ -82,7 +88,7 @@ Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
   'paymentMethodId': instance.paymentMethodId,
   'shippingType': shippingTypeToJson(instance.shippingType),
   'tags': instance.tags,
-  'items': instance.items.map((e) => e.toJson()).toList(),
+  'items': instance.items,
   'subtotal': instance.subtotal,
   'shippingPrice': instance.shippingPrice,
   'total': instance.total,
@@ -187,7 +193,7 @@ Map<String, dynamic> _$OrderCreateToJson(_OrderCreate instance) =>
       'shippingMethodId': instance.shippingMethodId,
       'trackingCode': instance.trackingCode,
       'paymentMethodId': instance.paymentMethodId,
-      'items': instance.items.map((e) => e.toJson()).toList(),
+      'items': instance.items,
       'internalNote': instance.internalNote,
       'tags': instance.tags,
       'subtotal': instance.subtotal,
@@ -267,7 +273,7 @@ Map<String, dynamic> _$OrderUpdateToJson(_OrderUpdate instance) =>
       'shippingMethodId': instance.shippingMethodId,
       'trackingCode': instance.trackingCode,
       'paymentMethodId': instance.paymentMethodId,
-      'items': instance.items?.map((e) => e.toJson()).toList(),
+      'items': instance.items,
       'subtotal': instance.subtotal,
       'shippingPrice': instance.shippingPrice,
       'total': instance.total,

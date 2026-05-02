@@ -6002,9 +6002,1630 @@ as Map<String, dynamic>,
 
 
 /// @nodoc
+mixin _$SecurityOption {
+
+ bool get active; int? get ttl; SecurityTreatment get treatment;
+/// Create a copy of SecurityOption
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<SecurityOption> get copyWith => _$SecurityOptionCopyWithImpl<SecurityOption>(this as SecurityOption, _$identity);
+
+  /// Serializes this SecurityOption to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityOption&&(identical(other.active, active) || other.active == active)&&(identical(other.ttl, ttl) || other.ttl == ttl)&&(identical(other.treatment, treatment) || other.treatment == treatment));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,active,ttl,treatment);
+
+@override
+String toString() {
+  return 'SecurityOption(active: $active, ttl: $ttl, treatment: $treatment)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SecurityOptionCopyWith<$Res>  {
+  factory $SecurityOptionCopyWith(SecurityOption value, $Res Function(SecurityOption) _then) = _$SecurityOptionCopyWithImpl;
+@useResult
+$Res call({
+ bool active, int? ttl, SecurityTreatment treatment
+});
+
+
+
+
+}
+/// @nodoc
+class _$SecurityOptionCopyWithImpl<$Res>
+    implements $SecurityOptionCopyWith<$Res> {
+  _$SecurityOptionCopyWithImpl(this._self, this._then);
+
+  final SecurityOption _self;
+  final $Res Function(SecurityOption) _then;
+
+/// Create a copy of SecurityOption
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? ttl = freezed,Object? treatment = null,}) {
+  return _then(_self.copyWith(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,ttl: freezed == ttl ? _self.ttl : ttl // ignore: cast_nullable_to_non_nullable
+as int?,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SecurityOption].
+extension SecurityOptionPatterns on SecurityOption {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SecurityOption value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SecurityOption() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SecurityOption value)  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityOption():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SecurityOption value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityOption() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  int? ttl,  SecurityTreatment treatment)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SecurityOption() when $default != null:
+return $default(_that.active,_that.ttl,_that.treatment);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  int? ttl,  SecurityTreatment treatment)  $default,) {final _that = this;
+switch (_that) {
+case _SecurityOption():
+return $default(_that.active,_that.ttl,_that.treatment);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  int? ttl,  SecurityTreatment treatment)?  $default,) {final _that = this;
+switch (_that) {
+case _SecurityOption() when $default != null:
+return $default(_that.active,_that.ttl,_that.treatment);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SecurityOption implements SecurityOption {
+  const _SecurityOption({this.active = false, this.ttl, this.treatment = SecurityTreatment.block});
+  factory _SecurityOption.fromJson(Map<String, dynamic> json) => _$SecurityOptionFromJson(json);
+
+@override@JsonKey() final  bool active;
+@override final  int? ttl;
+@override@JsonKey() final  SecurityTreatment treatment;
+
+/// Create a copy of SecurityOption
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SecurityOptionCopyWith<_SecurityOption> get copyWith => __$SecurityOptionCopyWithImpl<_SecurityOption>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SecurityOptionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityOption&&(identical(other.active, active) || other.active == active)&&(identical(other.ttl, ttl) || other.ttl == ttl)&&(identical(other.treatment, treatment) || other.treatment == treatment));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,active,ttl,treatment);
+
+@override
+String toString() {
+  return 'SecurityOption(active: $active, ttl: $ttl, treatment: $treatment)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SecurityOptionCopyWith<$Res> implements $SecurityOptionCopyWith<$Res> {
+  factory _$SecurityOptionCopyWith(_SecurityOption value, $Res Function(_SecurityOption) _then) = __$SecurityOptionCopyWithImpl;
+@override @useResult
+$Res call({
+ bool active, int? ttl, SecurityTreatment treatment
+});
+
+
+
+
+}
+/// @nodoc
+class __$SecurityOptionCopyWithImpl<$Res>
+    implements _$SecurityOptionCopyWith<$Res> {
+  __$SecurityOptionCopyWithImpl(this._self, this._then);
+
+  final _SecurityOption _self;
+  final $Res Function(_SecurityOption) _then;
+
+/// Create a copy of SecurityOption
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? ttl = freezed,Object? treatment = null,}) {
+  return _then(_SecurityOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,ttl: freezed == ttl ? _self.ttl : ttl // ignore: cast_nullable_to_non_nullable
+as int?,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$SecurityMinTimeOption {
+
+ bool get active; int get duration;// seconds
+ SecurityTreatment get treatment;
+/// Create a copy of SecurityMinTimeOption
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SecurityMinTimeOptionCopyWith<SecurityMinTimeOption> get copyWith => _$SecurityMinTimeOptionCopyWithImpl<SecurityMinTimeOption>(this as SecurityMinTimeOption, _$identity);
+
+  /// Serializes this SecurityMinTimeOption to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityMinTimeOption&&(identical(other.active, active) || other.active == active)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.treatment, treatment) || other.treatment == treatment));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,active,duration,treatment);
+
+@override
+String toString() {
+  return 'SecurityMinTimeOption(active: $active, duration: $duration, treatment: $treatment)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SecurityMinTimeOptionCopyWith<$Res>  {
+  factory $SecurityMinTimeOptionCopyWith(SecurityMinTimeOption value, $Res Function(SecurityMinTimeOption) _then) = _$SecurityMinTimeOptionCopyWithImpl;
+@useResult
+$Res call({
+ bool active, int duration, SecurityTreatment treatment
+});
+
+
+
+
+}
+/// @nodoc
+class _$SecurityMinTimeOptionCopyWithImpl<$Res>
+    implements $SecurityMinTimeOptionCopyWith<$Res> {
+  _$SecurityMinTimeOptionCopyWithImpl(this._self, this._then);
+
+  final SecurityMinTimeOption _self;
+  final $Res Function(SecurityMinTimeOption) _then;
+
+/// Create a copy of SecurityMinTimeOption
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? duration = null,Object? treatment = null,}) {
+  return _then(_self.copyWith(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
+as int,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SecurityMinTimeOption].
+extension SecurityMinTimeOptionPatterns on SecurityMinTimeOption {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SecurityMinTimeOption value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SecurityMinTimeOption() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SecurityMinTimeOption value)  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityMinTimeOption():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SecurityMinTimeOption value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityMinTimeOption() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  int duration,  SecurityTreatment treatment)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SecurityMinTimeOption() when $default != null:
+return $default(_that.active,_that.duration,_that.treatment);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  int duration,  SecurityTreatment treatment)  $default,) {final _that = this;
+switch (_that) {
+case _SecurityMinTimeOption():
+return $default(_that.active,_that.duration,_that.treatment);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  int duration,  SecurityTreatment treatment)?  $default,) {final _that = this;
+switch (_that) {
+case _SecurityMinTimeOption() when $default != null:
+return $default(_that.active,_that.duration,_that.treatment);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SecurityMinTimeOption implements SecurityMinTimeOption {
+  const _SecurityMinTimeOption({this.active = false, this.duration = 10, this.treatment = SecurityTreatment.block});
+  factory _SecurityMinTimeOption.fromJson(Map<String, dynamic> json) => _$SecurityMinTimeOptionFromJson(json);
+
+@override@JsonKey() final  bool active;
+@override@JsonKey() final  int duration;
+// seconds
+@override@JsonKey() final  SecurityTreatment treatment;
+
+/// Create a copy of SecurityMinTimeOption
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SecurityMinTimeOptionCopyWith<_SecurityMinTimeOption> get copyWith => __$SecurityMinTimeOptionCopyWithImpl<_SecurityMinTimeOption>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SecurityMinTimeOptionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityMinTimeOption&&(identical(other.active, active) || other.active == active)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.treatment, treatment) || other.treatment == treatment));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,active,duration,treatment);
+
+@override
+String toString() {
+  return 'SecurityMinTimeOption(active: $active, duration: $duration, treatment: $treatment)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SecurityMinTimeOptionCopyWith<$Res> implements $SecurityMinTimeOptionCopyWith<$Res> {
+  factory _$SecurityMinTimeOptionCopyWith(_SecurityMinTimeOption value, $Res Function(_SecurityMinTimeOption) _then) = __$SecurityMinTimeOptionCopyWithImpl;
+@override @useResult
+$Res call({
+ bool active, int duration, SecurityTreatment treatment
+});
+
+
+
+
+}
+/// @nodoc
+class __$SecurityMinTimeOptionCopyWithImpl<$Res>
+    implements _$SecurityMinTimeOptionCopyWith<$Res> {
+  __$SecurityMinTimeOptionCopyWithImpl(this._self, this._then);
+
+  final _SecurityMinTimeOption _self;
+  final $Res Function(_SecurityMinTimeOption) _then;
+
+/// Create a copy of SecurityMinTimeOption
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? duration = null,Object? treatment = null,}) {
+  return _then(_SecurityMinTimeOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
+as int,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$SecurityCountriesOption {
+
+ bool get active; SecurityTreatment get treatment; List<String>? get allowed;// ISO codes; null/empty = allow all
+ List<String> get blocked;
+/// Create a copy of SecurityCountriesOption
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SecurityCountriesOptionCopyWith<SecurityCountriesOption> get copyWith => _$SecurityCountriesOptionCopyWithImpl<SecurityCountriesOption>(this as SecurityCountriesOption, _$identity);
+
+  /// Serializes this SecurityCountriesOption to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityCountriesOption&&(identical(other.active, active) || other.active == active)&&(identical(other.treatment, treatment) || other.treatment == treatment)&&const DeepCollectionEquality().equals(other.allowed, allowed)&&const DeepCollectionEquality().equals(other.blocked, blocked));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,active,treatment,const DeepCollectionEquality().hash(allowed),const DeepCollectionEquality().hash(blocked));
+
+@override
+String toString() {
+  return 'SecurityCountriesOption(active: $active, treatment: $treatment, allowed: $allowed, blocked: $blocked)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SecurityCountriesOptionCopyWith<$Res>  {
+  factory $SecurityCountriesOptionCopyWith(SecurityCountriesOption value, $Res Function(SecurityCountriesOption) _then) = _$SecurityCountriesOptionCopyWithImpl;
+@useResult
+$Res call({
+ bool active, SecurityTreatment treatment, List<String>? allowed, List<String> blocked
+});
+
+
+
+
+}
+/// @nodoc
+class _$SecurityCountriesOptionCopyWithImpl<$Res>
+    implements $SecurityCountriesOptionCopyWith<$Res> {
+  _$SecurityCountriesOptionCopyWithImpl(this._self, this._then);
+
+  final SecurityCountriesOption _self;
+  final $Res Function(SecurityCountriesOption) _then;
+
+/// Create a copy of SecurityCountriesOption
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? treatment = null,Object? allowed = freezed,Object? blocked = null,}) {
+  return _then(_self.copyWith(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,allowed: freezed == allowed ? _self.allowed : allowed // ignore: cast_nullable_to_non_nullable
+as List<String>?,blocked: null == blocked ? _self.blocked : blocked // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SecurityCountriesOption].
+extension SecurityCountriesOptionPatterns on SecurityCountriesOption {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SecurityCountriesOption value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SecurityCountriesOption() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SecurityCountriesOption value)  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityCountriesOption():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SecurityCountriesOption value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityCountriesOption() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  SecurityTreatment treatment,  List<String>? allowed,  List<String> blocked)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SecurityCountriesOption() when $default != null:
+return $default(_that.active,_that.treatment,_that.allowed,_that.blocked);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  SecurityTreatment treatment,  List<String>? allowed,  List<String> blocked)  $default,) {final _that = this;
+switch (_that) {
+case _SecurityCountriesOption():
+return $default(_that.active,_that.treatment,_that.allowed,_that.blocked);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  SecurityTreatment treatment,  List<String>? allowed,  List<String> blocked)?  $default,) {final _that = this;
+switch (_that) {
+case _SecurityCountriesOption() when $default != null:
+return $default(_that.active,_that.treatment,_that.allowed,_that.blocked);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SecurityCountriesOption implements SecurityCountriesOption {
+  const _SecurityCountriesOption({this.active = false, this.treatment = SecurityTreatment.block, final  List<String>? allowed, final  List<String> blocked = const []}): _allowed = allowed,_blocked = blocked;
+  factory _SecurityCountriesOption.fromJson(Map<String, dynamic> json) => _$SecurityCountriesOptionFromJson(json);
+
+@override@JsonKey() final  bool active;
+@override@JsonKey() final  SecurityTreatment treatment;
+ final  List<String>? _allowed;
+@override List<String>? get allowed {
+  final value = _allowed;
+  if (value == null) return null;
+  if (_allowed is EqualUnmodifiableListView) return _allowed;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+// ISO codes; null/empty = allow all
+ final  List<String> _blocked;
+// ISO codes; null/empty = allow all
+@override@JsonKey() List<String> get blocked {
+  if (_blocked is EqualUnmodifiableListView) return _blocked;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_blocked);
+}
+
+
+/// Create a copy of SecurityCountriesOption
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SecurityCountriesOptionCopyWith<_SecurityCountriesOption> get copyWith => __$SecurityCountriesOptionCopyWithImpl<_SecurityCountriesOption>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SecurityCountriesOptionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityCountriesOption&&(identical(other.active, active) || other.active == active)&&(identical(other.treatment, treatment) || other.treatment == treatment)&&const DeepCollectionEquality().equals(other._allowed, _allowed)&&const DeepCollectionEquality().equals(other._blocked, _blocked));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,active,treatment,const DeepCollectionEquality().hash(_allowed),const DeepCollectionEquality().hash(_blocked));
+
+@override
+String toString() {
+  return 'SecurityCountriesOption(active: $active, treatment: $treatment, allowed: $allowed, blocked: $blocked)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SecurityCountriesOptionCopyWith<$Res> implements $SecurityCountriesOptionCopyWith<$Res> {
+  factory _$SecurityCountriesOptionCopyWith(_SecurityCountriesOption value, $Res Function(_SecurityCountriesOption) _then) = __$SecurityCountriesOptionCopyWithImpl;
+@override @useResult
+$Res call({
+ bool active, SecurityTreatment treatment, List<String>? allowed, List<String> blocked
+});
+
+
+
+
+}
+/// @nodoc
+class __$SecurityCountriesOptionCopyWithImpl<$Res>
+    implements _$SecurityCountriesOptionCopyWith<$Res> {
+  __$SecurityCountriesOptionCopyWithImpl(this._self, this._then);
+
+  final _SecurityCountriesOption _self;
+  final $Res Function(_SecurityCountriesOption) _then;
+
+/// Create a copy of SecurityCountriesOption
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? treatment = null,Object? allowed = freezed,Object? blocked = null,}) {
+  return _then(_SecurityCountriesOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,allowed: freezed == allowed ? _self._allowed : allowed // ignore: cast_nullable_to_non_nullable
+as List<String>?,blocked: null == blocked ? _self._blocked : blocked // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$SecuritySourcesOption {
+
+ bool get active; SecurityTreatment get treatment; List<String>? get allowed;// e.g., ["ads", "organic"]; null = all
+ List<String> get blocked;
+/// Create a copy of SecuritySourcesOption
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SecuritySourcesOptionCopyWith<SecuritySourcesOption> get copyWith => _$SecuritySourcesOptionCopyWithImpl<SecuritySourcesOption>(this as SecuritySourcesOption, _$identity);
+
+  /// Serializes this SecuritySourcesOption to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecuritySourcesOption&&(identical(other.active, active) || other.active == active)&&(identical(other.treatment, treatment) || other.treatment == treatment)&&const DeepCollectionEquality().equals(other.allowed, allowed)&&const DeepCollectionEquality().equals(other.blocked, blocked));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,active,treatment,const DeepCollectionEquality().hash(allowed),const DeepCollectionEquality().hash(blocked));
+
+@override
+String toString() {
+  return 'SecuritySourcesOption(active: $active, treatment: $treatment, allowed: $allowed, blocked: $blocked)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SecuritySourcesOptionCopyWith<$Res>  {
+  factory $SecuritySourcesOptionCopyWith(SecuritySourcesOption value, $Res Function(SecuritySourcesOption) _then) = _$SecuritySourcesOptionCopyWithImpl;
+@useResult
+$Res call({
+ bool active, SecurityTreatment treatment, List<String>? allowed, List<String> blocked
+});
+
+
+
+
+}
+/// @nodoc
+class _$SecuritySourcesOptionCopyWithImpl<$Res>
+    implements $SecuritySourcesOptionCopyWith<$Res> {
+  _$SecuritySourcesOptionCopyWithImpl(this._self, this._then);
+
+  final SecuritySourcesOption _self;
+  final $Res Function(SecuritySourcesOption) _then;
+
+/// Create a copy of SecuritySourcesOption
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? treatment = null,Object? allowed = freezed,Object? blocked = null,}) {
+  return _then(_self.copyWith(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,allowed: freezed == allowed ? _self.allowed : allowed // ignore: cast_nullable_to_non_nullable
+as List<String>?,blocked: null == blocked ? _self.blocked : blocked // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SecuritySourcesOption].
+extension SecuritySourcesOptionPatterns on SecuritySourcesOption {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SecuritySourcesOption value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SecuritySourcesOption() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SecuritySourcesOption value)  $default,){
+final _that = this;
+switch (_that) {
+case _SecuritySourcesOption():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SecuritySourcesOption value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SecuritySourcesOption() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  SecurityTreatment treatment,  List<String>? allowed,  List<String> blocked)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SecuritySourcesOption() when $default != null:
+return $default(_that.active,_that.treatment,_that.allowed,_that.blocked);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  SecurityTreatment treatment,  List<String>? allowed,  List<String> blocked)  $default,) {final _that = this;
+switch (_that) {
+case _SecuritySourcesOption():
+return $default(_that.active,_that.treatment,_that.allowed,_that.blocked);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  SecurityTreatment treatment,  List<String>? allowed,  List<String> blocked)?  $default,) {final _that = this;
+switch (_that) {
+case _SecuritySourcesOption() when $default != null:
+return $default(_that.active,_that.treatment,_that.allowed,_that.blocked);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SecuritySourcesOption implements SecuritySourcesOption {
+  const _SecuritySourcesOption({this.active = false, this.treatment = SecurityTreatment.block, final  List<String>? allowed, final  List<String> blocked = const []}): _allowed = allowed,_blocked = blocked;
+  factory _SecuritySourcesOption.fromJson(Map<String, dynamic> json) => _$SecuritySourcesOptionFromJson(json);
+
+@override@JsonKey() final  bool active;
+@override@JsonKey() final  SecurityTreatment treatment;
+ final  List<String>? _allowed;
+@override List<String>? get allowed {
+  final value = _allowed;
+  if (value == null) return null;
+  if (_allowed is EqualUnmodifiableListView) return _allowed;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+// e.g., ["ads", "organic"]; null = all
+ final  List<String> _blocked;
+// e.g., ["ads", "organic"]; null = all
+@override@JsonKey() List<String> get blocked {
+  if (_blocked is EqualUnmodifiableListView) return _blocked;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_blocked);
+}
+
+
+/// Create a copy of SecuritySourcesOption
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SecuritySourcesOptionCopyWith<_SecuritySourcesOption> get copyWith => __$SecuritySourcesOptionCopyWithImpl<_SecuritySourcesOption>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SecuritySourcesOptionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecuritySourcesOption&&(identical(other.active, active) || other.active == active)&&(identical(other.treatment, treatment) || other.treatment == treatment)&&const DeepCollectionEquality().equals(other._allowed, _allowed)&&const DeepCollectionEquality().equals(other._blocked, _blocked));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,active,treatment,const DeepCollectionEquality().hash(_allowed),const DeepCollectionEquality().hash(_blocked));
+
+@override
+String toString() {
+  return 'SecuritySourcesOption(active: $active, treatment: $treatment, allowed: $allowed, blocked: $blocked)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SecuritySourcesOptionCopyWith<$Res> implements $SecuritySourcesOptionCopyWith<$Res> {
+  factory _$SecuritySourcesOptionCopyWith(_SecuritySourcesOption value, $Res Function(_SecuritySourcesOption) _then) = __$SecuritySourcesOptionCopyWithImpl;
+@override @useResult
+$Res call({
+ bool active, SecurityTreatment treatment, List<String>? allowed, List<String> blocked
+});
+
+
+
+
+}
+/// @nodoc
+class __$SecuritySourcesOptionCopyWithImpl<$Res>
+    implements _$SecuritySourcesOptionCopyWith<$Res> {
+  __$SecuritySourcesOptionCopyWithImpl(this._self, this._then);
+
+  final _SecuritySourcesOption _self;
+  final $Res Function(_SecuritySourcesOption) _then;
+
+/// Create a copy of SecuritySourcesOption
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? treatment = null,Object? allowed = freezed,Object? blocked = null,}) {
+  return _then(_SecuritySourcesOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,allowed: freezed == allowed ? _self._allowed : allowed // ignore: cast_nullable_to_non_nullable
+as List<String>?,blocked: null == blocked ? _self._blocked : blocked // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$SecurityOptions {
+
+ SecurityOption? get fingerprint; SecurityOption? get ip; SecurityOption? get phone; SecurityOption? get ads; SecurityOption? get frontend; SecurityOption? get doubleSend; SecurityMinTimeOption? get minTimeInPage; SecurityCountriesOption? get countries; SecuritySourcesOption? get sources;
+/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SecurityOptionsCopyWith<SecurityOptions> get copyWith => _$SecurityOptionsCopyWithImpl<SecurityOptions>(this as SecurityOptions, _$identity);
+
+  /// Serializes this SecurityOptions to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityOptions&&(identical(other.fingerprint, fingerprint) || other.fingerprint == fingerprint)&&(identical(other.ip, ip) || other.ip == ip)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.ads, ads) || other.ads == ads)&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.doubleSend, doubleSend) || other.doubleSend == doubleSend)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,fingerprint,ip,phone,ads,frontend,doubleSend,minTimeInPage,countries,sources);
+
+@override
+String toString() {
+  return 'SecurityOptions(fingerprint: $fingerprint, ip: $ip, phone: $phone, ads: $ads, frontend: $frontend, doubleSend: $doubleSend, minTimeInPage: $minTimeInPage, countries: $countries, sources: $sources)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SecurityOptionsCopyWith<$Res>  {
+  factory $SecurityOptionsCopyWith(SecurityOptions value, $Res Function(SecurityOptions) _then) = _$SecurityOptionsCopyWithImpl;
+@useResult
+$Res call({
+ SecurityOption? fingerprint, SecurityOption? ip, SecurityOption? phone, SecurityOption? ads, SecurityOption? frontend, SecurityOption? doubleSend, SecurityMinTimeOption? minTimeInPage, SecurityCountriesOption? countries, SecuritySourcesOption? sources
+});
+
+
+$SecurityOptionCopyWith<$Res>? get fingerprint;$SecurityOptionCopyWith<$Res>? get ip;$SecurityOptionCopyWith<$Res>? get phone;$SecurityOptionCopyWith<$Res>? get ads;$SecurityOptionCopyWith<$Res>? get frontend;$SecurityOptionCopyWith<$Res>? get doubleSend;$SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;$SecurityCountriesOptionCopyWith<$Res>? get countries;$SecuritySourcesOptionCopyWith<$Res>? get sources;
+
+}
+/// @nodoc
+class _$SecurityOptionsCopyWithImpl<$Res>
+    implements $SecurityOptionsCopyWith<$Res> {
+  _$SecurityOptionsCopyWithImpl(this._self, this._then);
+
+  final SecurityOptions _self;
+  final $Res Function(SecurityOptions) _then;
+
+/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? fingerprint = freezed,Object? ip = freezed,Object? phone = freezed,Object? ads = freezed,Object? frontend = freezed,Object? doubleSend = freezed,Object? minTimeInPage = freezed,Object? countries = freezed,Object? sources = freezed,}) {
+  return _then(_self.copyWith(
+fingerprint: freezed == fingerprint ? _self.fingerprint : fingerprint // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,ip: freezed == ip ? _self.ip : ip // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,ads: freezed == ads ? _self.ads : ads // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,frontend: freezed == frontend ? _self.frontend : frontend // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,doubleSend: freezed == doubleSend ? _self.doubleSend : doubleSend // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,minTimeInPage: freezed == minTimeInPage ? _self.minTimeInPage : minTimeInPage // ignore: cast_nullable_to_non_nullable
+as SecurityMinTimeOption?,countries: freezed == countries ? _self.countries : countries // ignore: cast_nullable_to_non_nullable
+as SecurityCountriesOption?,sources: freezed == sources ? _self.sources : sources // ignore: cast_nullable_to_non_nullable
+as SecuritySourcesOption?,
+  ));
+}
+/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get fingerprint {
+    if (_self.fingerprint == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.fingerprint!, (value) {
+    return _then(_self.copyWith(fingerprint: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get ip {
+    if (_self.ip == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.ip!, (value) {
+    return _then(_self.copyWith(ip: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get phone {
+    if (_self.phone == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.phone!, (value) {
+    return _then(_self.copyWith(phone: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get ads {
+    if (_self.ads == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.ads!, (value) {
+    return _then(_self.copyWith(ads: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get frontend {
+    if (_self.frontend == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.frontend!, (value) {
+    return _then(_self.copyWith(frontend: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get doubleSend {
+    if (_self.doubleSend == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.doubleSend!, (value) {
+    return _then(_self.copyWith(doubleSend: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage {
+    if (_self.minTimeInPage == null) {
+    return null;
+  }
+
+  return $SecurityMinTimeOptionCopyWith<$Res>(_self.minTimeInPage!, (value) {
+    return _then(_self.copyWith(minTimeInPage: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityCountriesOptionCopyWith<$Res>? get countries {
+    if (_self.countries == null) {
+    return null;
+  }
+
+  return $SecurityCountriesOptionCopyWith<$Res>(_self.countries!, (value) {
+    return _then(_self.copyWith(countries: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecuritySourcesOptionCopyWith<$Res>? get sources {
+    if (_self.sources == null) {
+    return null;
+  }
+
+  return $SecuritySourcesOptionCopyWith<$Res>(_self.sources!, (value) {
+    return _then(_self.copyWith(sources: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [SecurityOptions].
+extension SecurityOptionsPatterns on SecurityOptions {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SecurityOptions value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SecurityOptions() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SecurityOptions value)  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityOptions():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SecurityOptions value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityOptions() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SecurityOption? fingerprint,  SecurityOption? ip,  SecurityOption? phone,  SecurityOption? ads,  SecurityOption? frontend,  SecurityOption? doubleSend,  SecurityMinTimeOption? minTimeInPage,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SecurityOptions() when $default != null:
+return $default(_that.fingerprint,_that.ip,_that.phone,_that.ads,_that.frontend,_that.doubleSend,_that.minTimeInPage,_that.countries,_that.sources);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SecurityOption? fingerprint,  SecurityOption? ip,  SecurityOption? phone,  SecurityOption? ads,  SecurityOption? frontend,  SecurityOption? doubleSend,  SecurityMinTimeOption? minTimeInPage,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources)  $default,) {final _that = this;
+switch (_that) {
+case _SecurityOptions():
+return $default(_that.fingerprint,_that.ip,_that.phone,_that.ads,_that.frontend,_that.doubleSend,_that.minTimeInPage,_that.countries,_that.sources);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SecurityOption? fingerprint,  SecurityOption? ip,  SecurityOption? phone,  SecurityOption? ads,  SecurityOption? frontend,  SecurityOption? doubleSend,  SecurityMinTimeOption? minTimeInPage,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources)?  $default,) {final _that = this;
+switch (_that) {
+case _SecurityOptions() when $default != null:
+return $default(_that.fingerprint,_that.ip,_that.phone,_that.ads,_that.frontend,_that.doubleSend,_that.minTimeInPage,_that.countries,_that.sources);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SecurityOptions implements SecurityOptions {
+  const _SecurityOptions({this.fingerprint, this.ip, this.phone, this.ads, this.frontend, this.doubleSend, this.minTimeInPage, this.countries, this.sources});
+  factory _SecurityOptions.fromJson(Map<String, dynamic> json) => _$SecurityOptionsFromJson(json);
+
+@override final  SecurityOption? fingerprint;
+@override final  SecurityOption? ip;
+@override final  SecurityOption? phone;
+@override final  SecurityOption? ads;
+@override final  SecurityOption? frontend;
+@override final  SecurityOption? doubleSend;
+@override final  SecurityMinTimeOption? minTimeInPage;
+@override final  SecurityCountriesOption? countries;
+@override final  SecuritySourcesOption? sources;
+
+/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SecurityOptionsCopyWith<_SecurityOptions> get copyWith => __$SecurityOptionsCopyWithImpl<_SecurityOptions>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SecurityOptionsToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityOptions&&(identical(other.fingerprint, fingerprint) || other.fingerprint == fingerprint)&&(identical(other.ip, ip) || other.ip == ip)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.ads, ads) || other.ads == ads)&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.doubleSend, doubleSend) || other.doubleSend == doubleSend)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,fingerprint,ip,phone,ads,frontend,doubleSend,minTimeInPage,countries,sources);
+
+@override
+String toString() {
+  return 'SecurityOptions(fingerprint: $fingerprint, ip: $ip, phone: $phone, ads: $ads, frontend: $frontend, doubleSend: $doubleSend, minTimeInPage: $minTimeInPage, countries: $countries, sources: $sources)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SecurityOptionsCopyWith<$Res> implements $SecurityOptionsCopyWith<$Res> {
+  factory _$SecurityOptionsCopyWith(_SecurityOptions value, $Res Function(_SecurityOptions) _then) = __$SecurityOptionsCopyWithImpl;
+@override @useResult
+$Res call({
+ SecurityOption? fingerprint, SecurityOption? ip, SecurityOption? phone, SecurityOption? ads, SecurityOption? frontend, SecurityOption? doubleSend, SecurityMinTimeOption? minTimeInPage, SecurityCountriesOption? countries, SecuritySourcesOption? sources
+});
+
+
+@override $SecurityOptionCopyWith<$Res>? get fingerprint;@override $SecurityOptionCopyWith<$Res>? get ip;@override $SecurityOptionCopyWith<$Res>? get phone;@override $SecurityOptionCopyWith<$Res>? get ads;@override $SecurityOptionCopyWith<$Res>? get frontend;@override $SecurityOptionCopyWith<$Res>? get doubleSend;@override $SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;@override $SecurityCountriesOptionCopyWith<$Res>? get countries;@override $SecuritySourcesOptionCopyWith<$Res>? get sources;
+
+}
+/// @nodoc
+class __$SecurityOptionsCopyWithImpl<$Res>
+    implements _$SecurityOptionsCopyWith<$Res> {
+  __$SecurityOptionsCopyWithImpl(this._self, this._then);
+
+  final _SecurityOptions _self;
+  final $Res Function(_SecurityOptions) _then;
+
+/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? fingerprint = freezed,Object? ip = freezed,Object? phone = freezed,Object? ads = freezed,Object? frontend = freezed,Object? doubleSend = freezed,Object? minTimeInPage = freezed,Object? countries = freezed,Object? sources = freezed,}) {
+  return _then(_SecurityOptions(
+fingerprint: freezed == fingerprint ? _self.fingerprint : fingerprint // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,ip: freezed == ip ? _self.ip : ip // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,ads: freezed == ads ? _self.ads : ads // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,frontend: freezed == frontend ? _self.frontend : frontend // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,doubleSend: freezed == doubleSend ? _self.doubleSend : doubleSend // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,minTimeInPage: freezed == minTimeInPage ? _self.minTimeInPage : minTimeInPage // ignore: cast_nullable_to_non_nullable
+as SecurityMinTimeOption?,countries: freezed == countries ? _self.countries : countries // ignore: cast_nullable_to_non_nullable
+as SecurityCountriesOption?,sources: freezed == sources ? _self.sources : sources // ignore: cast_nullable_to_non_nullable
+as SecuritySourcesOption?,
+  ));
+}
+
+/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get fingerprint {
+    if (_self.fingerprint == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.fingerprint!, (value) {
+    return _then(_self.copyWith(fingerprint: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get ip {
+    if (_self.ip == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.ip!, (value) {
+    return _then(_self.copyWith(ip: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get phone {
+    if (_self.phone == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.phone!, (value) {
+    return _then(_self.copyWith(phone: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get ads {
+    if (_self.ads == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.ads!, (value) {
+    return _then(_self.copyWith(ads: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get frontend {
+    if (_self.frontend == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.frontend!, (value) {
+    return _then(_self.copyWith(frontend: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get doubleSend {
+    if (_self.doubleSend == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.doubleSend!, (value) {
+    return _then(_self.copyWith(doubleSend: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage {
+    if (_self.minTimeInPage == null) {
+    return null;
+  }
+
+  return $SecurityMinTimeOptionCopyWith<$Res>(_self.minTimeInPage!, (value) {
+    return _then(_self.copyWith(minTimeInPage: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityCountriesOptionCopyWith<$Res>? get countries {
+    if (_self.countries == null) {
+    return null;
+  }
+
+  return $SecurityCountriesOptionCopyWith<$Res>(_self.countries!, (value) {
+    return _then(_self.copyWith(countries: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecuritySourcesOptionCopyWith<$Res>? get sources {
+    if (_self.sources == null) {
+    return null;
+  }
+
+  return $SecuritySourcesOptionCopyWith<$Res>(_self.sources!, (value) {
+    return _then(_self.copyWith(sources: value));
+  });
+}
+}
+
+
+/// @nodoc
 mixin _$SecurityIntegration {
 
- String? get key; bool get active; int? get ordersRateLimit; int? get ordersRateLimitDuration; bool? get hideProducts; SecurityIntegrationOrdersProtection? get orders; Map<String, dynamic> get metadata;
+ bool get active; SecurityOptions? get options; Map<String, dynamic> get metadata;
 /// Create a copy of SecurityIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -6017,16 +7638,16 @@ $SecurityIntegrationCopyWith<SecurityIntegration> get copyWith => _$SecurityInte
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityIntegration&&(identical(other.key, key) || other.key == key)&&(identical(other.active, active) || other.active == active)&&(identical(other.ordersRateLimit, ordersRateLimit) || other.ordersRateLimit == ordersRateLimit)&&(identical(other.ordersRateLimitDuration, ordersRateLimitDuration) || other.ordersRateLimitDuration == ordersRateLimitDuration)&&(identical(other.hideProducts, hideProducts) || other.hideProducts == hideProducts)&&(identical(other.orders, orders) || other.orders == orders)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.options, options) || other.options == options)&&const DeepCollectionEquality().equals(other.metadata, metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,key,active,ordersRateLimit,ordersRateLimitDuration,hideProducts,orders,const DeepCollectionEquality().hash(metadata));
+int get hashCode => Object.hash(runtimeType,active,options,const DeepCollectionEquality().hash(metadata));
 
 @override
 String toString() {
-  return 'SecurityIntegration(key: $key, active: $active, ordersRateLimit: $ordersRateLimit, ordersRateLimitDuration: $ordersRateLimitDuration, hideProducts: $hideProducts, orders: $orders, metadata: $metadata)';
+  return 'SecurityIntegration(active: $active, options: $options, metadata: $metadata)';
 }
 
 
@@ -6037,11 +7658,11 @@ abstract mixin class $SecurityIntegrationCopyWith<$Res>  {
   factory $SecurityIntegrationCopyWith(SecurityIntegration value, $Res Function(SecurityIntegration) _then) = _$SecurityIntegrationCopyWithImpl;
 @useResult
 $Res call({
- String? key, bool active, int? ordersRateLimit, int? ordersRateLimitDuration, bool? hideProducts, SecurityIntegrationOrdersProtection? orders, Map<String, dynamic> metadata
+ bool active, SecurityOptions? options, Map<String, dynamic> metadata
 });
 
 
-$SecurityIntegrationOrdersProtectionCopyWith<$Res>? get orders;
+$SecurityOptionsCopyWith<$Res>? get options;
 
 }
 /// @nodoc
@@ -6054,15 +7675,11 @@ class _$SecurityIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of SecurityIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? key = freezed,Object? active = null,Object? ordersRateLimit = freezed,Object? ordersRateLimitDuration = freezed,Object? hideProducts = freezed,Object? orders = freezed,Object? metadata = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? options = freezed,Object? metadata = null,}) {
   return _then(_self.copyWith(
-key: freezed == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
-as String?,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
-as bool,ordersRateLimit: freezed == ordersRateLimit ? _self.ordersRateLimit : ordersRateLimit // ignore: cast_nullable_to_non_nullable
-as int?,ordersRateLimitDuration: freezed == ordersRateLimitDuration ? _self.ordersRateLimitDuration : ordersRateLimitDuration // ignore: cast_nullable_to_non_nullable
-as int?,hideProducts: freezed == hideProducts ? _self.hideProducts : hideProducts // ignore: cast_nullable_to_non_nullable
-as bool?,orders: freezed == orders ? _self.orders : orders // ignore: cast_nullable_to_non_nullable
-as SecurityIntegrationOrdersProtection?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,options: freezed == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
+as SecurityOptions?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));
 }
@@ -6070,13 +7687,13 @@ as Map<String, dynamic>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$SecurityIntegrationOrdersProtectionCopyWith<$Res>? get orders {
-    if (_self.orders == null) {
+$SecurityOptionsCopyWith<$Res>? get options {
+    if (_self.options == null) {
     return null;
   }
 
-  return $SecurityIntegrationOrdersProtectionCopyWith<$Res>(_self.orders!, (value) {
-    return _then(_self.copyWith(orders: value));
+  return $SecurityOptionsCopyWith<$Res>(_self.options!, (value) {
+    return _then(_self.copyWith(options: value));
   });
 }
 }
@@ -6160,10 +7777,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? key,  bool active,  int? ordersRateLimit,  int? ordersRateLimitDuration,  bool? hideProducts,  SecurityIntegrationOrdersProtection? orders,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  SecurityOptions? options,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SecurityIntegration() when $default != null:
-return $default(_that.key,_that.active,_that.ordersRateLimit,_that.ordersRateLimitDuration,_that.hideProducts,_that.orders,_that.metadata);case _:
+return $default(_that.active,_that.options,_that.metadata);case _:
   return orElse();
 
 }
@@ -6181,10 +7798,10 @@ return $default(_that.key,_that.active,_that.ordersRateLimit,_that.ordersRateLim
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? key,  bool active,  int? ordersRateLimit,  int? ordersRateLimitDuration,  bool? hideProducts,  SecurityIntegrationOrdersProtection? orders,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  SecurityOptions? options,  Map<String, dynamic> metadata)  $default,) {final _that = this;
 switch (_that) {
 case _SecurityIntegration():
-return $default(_that.key,_that.active,_that.ordersRateLimit,_that.ordersRateLimitDuration,_that.hideProducts,_that.orders,_that.metadata);case _:
+return $default(_that.active,_that.options,_that.metadata);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -6201,10 +7818,10 @@ return $default(_that.key,_that.active,_that.ordersRateLimit,_that.ordersRateLim
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? key,  bool active,  int? ordersRateLimit,  int? ordersRateLimitDuration,  bool? hideProducts,  SecurityIntegrationOrdersProtection? orders,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  SecurityOptions? options,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
 switch (_that) {
 case _SecurityIntegration() when $default != null:
-return $default(_that.key,_that.active,_that.ordersRateLimit,_that.ordersRateLimitDuration,_that.hideProducts,_that.orders,_that.metadata);case _:
+return $default(_that.active,_that.options,_that.metadata);case _:
   return null;
 
 }
@@ -6216,15 +7833,11 @@ return $default(_that.key,_that.active,_that.ordersRateLimit,_that.ordersRateLim
 @JsonSerializable()
 
 class _SecurityIntegration extends SecurityIntegration {
-  const _SecurityIntegration({this.key, this.active = true, this.ordersRateLimit, this.ordersRateLimitDuration, this.hideProducts, this.orders, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _SecurityIntegration({this.active = false, this.options, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _SecurityIntegration.fromJson(Map<String, dynamic> json) => _$SecurityIntegrationFromJson(json);
 
-@override final  String? key;
 @override@JsonKey() final  bool active;
-@override final  int? ordersRateLimit;
-@override final  int? ordersRateLimitDuration;
-@override final  bool? hideProducts;
-@override final  SecurityIntegrationOrdersProtection? orders;
+@override final  SecurityOptions? options;
  final  Map<String, dynamic> _metadata;
 @override@JsonKey() Map<String, dynamic> get metadata {
   if (_metadata is EqualUnmodifiableMapView) return _metadata;
@@ -6246,16 +7859,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityIntegration&&(identical(other.key, key) || other.key == key)&&(identical(other.active, active) || other.active == active)&&(identical(other.ordersRateLimit, ordersRateLimit) || other.ordersRateLimit == ordersRateLimit)&&(identical(other.ordersRateLimitDuration, ordersRateLimitDuration) || other.ordersRateLimitDuration == ordersRateLimitDuration)&&(identical(other.hideProducts, hideProducts) || other.hideProducts == hideProducts)&&(identical(other.orders, orders) || other.orders == orders)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.options, options) || other.options == options)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,key,active,ordersRateLimit,ordersRateLimitDuration,hideProducts,orders,const DeepCollectionEquality().hash(_metadata));
+int get hashCode => Object.hash(runtimeType,active,options,const DeepCollectionEquality().hash(_metadata));
 
 @override
 String toString() {
-  return 'SecurityIntegration(key: $key, active: $active, ordersRateLimit: $ordersRateLimit, ordersRateLimitDuration: $ordersRateLimitDuration, hideProducts: $hideProducts, orders: $orders, metadata: $metadata)';
+  return 'SecurityIntegration(active: $active, options: $options, metadata: $metadata)';
 }
 
 
@@ -6266,11 +7879,11 @@ abstract mixin class _$SecurityIntegrationCopyWith<$Res> implements $SecurityInt
   factory _$SecurityIntegrationCopyWith(_SecurityIntegration value, $Res Function(_SecurityIntegration) _then) = __$SecurityIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- String? key, bool active, int? ordersRateLimit, int? ordersRateLimitDuration, bool? hideProducts, SecurityIntegrationOrdersProtection? orders, Map<String, dynamic> metadata
+ bool active, SecurityOptions? options, Map<String, dynamic> metadata
 });
 
 
-@override $SecurityIntegrationOrdersProtectionCopyWith<$Res>? get orders;
+@override $SecurityOptionsCopyWith<$Res>? get options;
 
 }
 /// @nodoc
@@ -6283,15 +7896,11 @@ class __$SecurityIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of SecurityIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? key = freezed,Object? active = null,Object? ordersRateLimit = freezed,Object? ordersRateLimitDuration = freezed,Object? hideProducts = freezed,Object? orders = freezed,Object? metadata = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? options = freezed,Object? metadata = null,}) {
   return _then(_SecurityIntegration(
-key: freezed == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
-as String?,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
-as bool,ordersRateLimit: freezed == ordersRateLimit ? _self.ordersRateLimit : ordersRateLimit // ignore: cast_nullable_to_non_nullable
-as int?,ordersRateLimitDuration: freezed == ordersRateLimitDuration ? _self.ordersRateLimitDuration : ordersRateLimitDuration // ignore: cast_nullable_to_non_nullable
-as int?,hideProducts: freezed == hideProducts ? _self.hideProducts : hideProducts // ignore: cast_nullable_to_non_nullable
-as bool?,orders: freezed == orders ? _self.orders : orders // ignore: cast_nullable_to_non_nullable
-as SecurityIntegrationOrdersProtection?,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,options: freezed == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
+as SecurityOptions?,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));
 }
@@ -6300,108 +7909,416 @@ as Map<String, dynamic>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$SecurityIntegrationOrdersProtectionCopyWith<$Res>? get orders {
-    if (_self.orders == null) {
+$SecurityOptionsCopyWith<$Res>? get options {
+    if (_self.options == null) {
     return null;
   }
 
-  return $SecurityIntegrationOrdersProtectionCopyWith<$Res>(_self.orders!, (value) {
-    return _then(_self.copyWith(orders: value));
+  return $SecurityOptionsCopyWith<$Res>(_self.options!, (value) {
+    return _then(_self.copyWith(options: value));
   });
 }
 }
 
 
 /// @nodoc
-mixin _$SecurityIntegrationOrdersProtection {
+mixin _$PublicSecurityOption {
 
- SecurityIntegrationFrontendProtection? get frontend; SecurityIntegrationBackendProtection? get backend;
-/// Create a copy of SecurityIntegrationOrdersProtection
+ bool get active; int get ttl; SecurityTreatment get treatment;
+/// Create a copy of PublicSecurityOption
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$SecurityIntegrationOrdersProtectionCopyWith<SecurityIntegrationOrdersProtection> get copyWith => _$SecurityIntegrationOrdersProtectionCopyWithImpl<SecurityIntegrationOrdersProtection>(this as SecurityIntegrationOrdersProtection, _$identity);
+$PublicSecurityOptionCopyWith<PublicSecurityOption> get copyWith => _$PublicSecurityOptionCopyWithImpl<PublicSecurityOption>(this as PublicSecurityOption, _$identity);
 
-  /// Serializes this SecurityIntegrationOrdersProtection to a JSON map.
+  /// Serializes this PublicSecurityOption to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityIntegrationOrdersProtection&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.backend, backend) || other.backend == backend));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PublicSecurityOption&&(identical(other.active, active) || other.active == active)&&(identical(other.ttl, ttl) || other.ttl == ttl)&&(identical(other.treatment, treatment) || other.treatment == treatment));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,frontend,backend);
+int get hashCode => Object.hash(runtimeType,active,ttl,treatment);
 
 @override
 String toString() {
-  return 'SecurityIntegrationOrdersProtection(frontend: $frontend, backend: $backend)';
+  return 'PublicSecurityOption(active: $active, ttl: $ttl, treatment: $treatment)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SecurityIntegrationOrdersProtectionCopyWith<$Res>  {
-  factory $SecurityIntegrationOrdersProtectionCopyWith(SecurityIntegrationOrdersProtection value, $Res Function(SecurityIntegrationOrdersProtection) _then) = _$SecurityIntegrationOrdersProtectionCopyWithImpl;
+abstract mixin class $PublicSecurityOptionCopyWith<$Res>  {
+  factory $PublicSecurityOptionCopyWith(PublicSecurityOption value, $Res Function(PublicSecurityOption) _then) = _$PublicSecurityOptionCopyWithImpl;
 @useResult
 $Res call({
- SecurityIntegrationFrontendProtection? frontend, SecurityIntegrationBackendProtection? backend
+ bool active, int ttl, SecurityTreatment treatment
 });
 
 
-$SecurityIntegrationFrontendProtectionCopyWith<$Res>? get frontend;$SecurityIntegrationBackendProtectionCopyWith<$Res>? get backend;
+
 
 }
 /// @nodoc
-class _$SecurityIntegrationOrdersProtectionCopyWithImpl<$Res>
-    implements $SecurityIntegrationOrdersProtectionCopyWith<$Res> {
-  _$SecurityIntegrationOrdersProtectionCopyWithImpl(this._self, this._then);
+class _$PublicSecurityOptionCopyWithImpl<$Res>
+    implements $PublicSecurityOptionCopyWith<$Res> {
+  _$PublicSecurityOptionCopyWithImpl(this._self, this._then);
 
-  final SecurityIntegrationOrdersProtection _self;
-  final $Res Function(SecurityIntegrationOrdersProtection) _then;
+  final PublicSecurityOption _self;
+  final $Res Function(PublicSecurityOption) _then;
 
-/// Create a copy of SecurityIntegrationOrdersProtection
+/// Create a copy of PublicSecurityOption
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? frontend = freezed,Object? backend = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? ttl = null,Object? treatment = null,}) {
   return _then(_self.copyWith(
-frontend: freezed == frontend ? _self.frontend : frontend // ignore: cast_nullable_to_non_nullable
-as SecurityIntegrationFrontendProtection?,backend: freezed == backend ? _self.backend : backend // ignore: cast_nullable_to_non_nullable
-as SecurityIntegrationBackendProtection?,
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,ttl: null == ttl ? _self.ttl : ttl // ignore: cast_nullable_to_non_nullable
+as int,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,
   ));
 }
-/// Create a copy of SecurityIntegrationOrdersProtection
+
+}
+
+
+/// Adds pattern-matching-related methods to [PublicSecurityOption].
+extension PublicSecurityOptionPatterns on PublicSecurityOption {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PublicSecurityOption value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _PublicSecurityOption() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PublicSecurityOption value)  $default,){
+final _that = this;
+switch (_that) {
+case _PublicSecurityOption():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PublicSecurityOption value)?  $default,){
+final _that = this;
+switch (_that) {
+case _PublicSecurityOption() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  int ttl,  SecurityTreatment treatment)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _PublicSecurityOption() when $default != null:
+return $default(_that.active,_that.ttl,_that.treatment);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  int ttl,  SecurityTreatment treatment)  $default,) {final _that = this;
+switch (_that) {
+case _PublicSecurityOption():
+return $default(_that.active,_that.ttl,_that.treatment);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  int ttl,  SecurityTreatment treatment)?  $default,) {final _that = this;
+switch (_that) {
+case _PublicSecurityOption() when $default != null:
+return $default(_that.active,_that.ttl,_that.treatment);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _PublicSecurityOption implements PublicSecurityOption {
+  const _PublicSecurityOption({this.active = false, this.ttl = 0, this.treatment = SecurityTreatment.block});
+  factory _PublicSecurityOption.fromJson(Map<String, dynamic> json) => _$PublicSecurityOptionFromJson(json);
+
+@override@JsonKey() final  bool active;
+@override@JsonKey() final  int ttl;
+@override@JsonKey() final  SecurityTreatment treatment;
+
+/// Create a copy of PublicSecurityOption
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PublicSecurityOptionCopyWith<_PublicSecurityOption> get copyWith => __$PublicSecurityOptionCopyWithImpl<_PublicSecurityOption>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$PublicSecurityOptionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PublicSecurityOption&&(identical(other.active, active) || other.active == active)&&(identical(other.ttl, ttl) || other.ttl == ttl)&&(identical(other.treatment, treatment) || other.treatment == treatment));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,active,ttl,treatment);
+
+@override
+String toString() {
+  return 'PublicSecurityOption(active: $active, ttl: $ttl, treatment: $treatment)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PublicSecurityOptionCopyWith<$Res> implements $PublicSecurityOptionCopyWith<$Res> {
+  factory _$PublicSecurityOptionCopyWith(_PublicSecurityOption value, $Res Function(_PublicSecurityOption) _then) = __$PublicSecurityOptionCopyWithImpl;
+@override @useResult
+$Res call({
+ bool active, int ttl, SecurityTreatment treatment
+});
+
+
+
+
+}
+/// @nodoc
+class __$PublicSecurityOptionCopyWithImpl<$Res>
+    implements _$PublicSecurityOptionCopyWith<$Res> {
+  __$PublicSecurityOptionCopyWithImpl(this._self, this._then);
+
+  final _PublicSecurityOption _self;
+  final $Res Function(_PublicSecurityOption) _then;
+
+/// Create a copy of PublicSecurityOption
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? ttl = null,Object? treatment = null,}) {
+  return _then(_PublicSecurityOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,ttl: null == ttl ? _self.ttl : ttl // ignore: cast_nullable_to_non_nullable
+as int,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$PublicSecurityOptions {
+
+ PublicSecurityOption? get frontend; PublicSecurityOption? get doubleSend; SecurityMinTimeOption? get minTimeInPage; SecurityCountriesOption? get countries; SecuritySourcesOption? get sources;
+/// Create a copy of PublicSecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PublicSecurityOptionsCopyWith<PublicSecurityOptions> get copyWith => _$PublicSecurityOptionsCopyWithImpl<PublicSecurityOptions>(this as PublicSecurityOptions, _$identity);
+
+  /// Serializes this PublicSecurityOptions to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PublicSecurityOptions&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.doubleSend, doubleSend) || other.doubleSend == doubleSend)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,frontend,doubleSend,minTimeInPage,countries,sources);
+
+@override
+String toString() {
+  return 'PublicSecurityOptions(frontend: $frontend, doubleSend: $doubleSend, minTimeInPage: $minTimeInPage, countries: $countries, sources: $sources)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $PublicSecurityOptionsCopyWith<$Res>  {
+  factory $PublicSecurityOptionsCopyWith(PublicSecurityOptions value, $Res Function(PublicSecurityOptions) _then) = _$PublicSecurityOptionsCopyWithImpl;
+@useResult
+$Res call({
+ PublicSecurityOption? frontend, PublicSecurityOption? doubleSend, SecurityMinTimeOption? minTimeInPage, SecurityCountriesOption? countries, SecuritySourcesOption? sources
+});
+
+
+$PublicSecurityOptionCopyWith<$Res>? get frontend;$PublicSecurityOptionCopyWith<$Res>? get doubleSend;$SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;$SecurityCountriesOptionCopyWith<$Res>? get countries;$SecuritySourcesOptionCopyWith<$Res>? get sources;
+
+}
+/// @nodoc
+class _$PublicSecurityOptionsCopyWithImpl<$Res>
+    implements $PublicSecurityOptionsCopyWith<$Res> {
+  _$PublicSecurityOptionsCopyWithImpl(this._self, this._then);
+
+  final PublicSecurityOptions _self;
+  final $Res Function(PublicSecurityOptions) _then;
+
+/// Create a copy of PublicSecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? frontend = freezed,Object? doubleSend = freezed,Object? minTimeInPage = freezed,Object? countries = freezed,Object? sources = freezed,}) {
+  return _then(_self.copyWith(
+frontend: freezed == frontend ? _self.frontend : frontend // ignore: cast_nullable_to_non_nullable
+as PublicSecurityOption?,doubleSend: freezed == doubleSend ? _self.doubleSend : doubleSend // ignore: cast_nullable_to_non_nullable
+as PublicSecurityOption?,minTimeInPage: freezed == minTimeInPage ? _self.minTimeInPage : minTimeInPage // ignore: cast_nullable_to_non_nullable
+as SecurityMinTimeOption?,countries: freezed == countries ? _self.countries : countries // ignore: cast_nullable_to_non_nullable
+as SecurityCountriesOption?,sources: freezed == sources ? _self.sources : sources // ignore: cast_nullable_to_non_nullable
+as SecuritySourcesOption?,
+  ));
+}
+/// Create a copy of PublicSecurityOptions
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$SecurityIntegrationFrontendProtectionCopyWith<$Res>? get frontend {
+$PublicSecurityOptionCopyWith<$Res>? get frontend {
     if (_self.frontend == null) {
     return null;
   }
 
-  return $SecurityIntegrationFrontendProtectionCopyWith<$Res>(_self.frontend!, (value) {
+  return $PublicSecurityOptionCopyWith<$Res>(_self.frontend!, (value) {
     return _then(_self.copyWith(frontend: value));
   });
-}/// Create a copy of SecurityIntegrationOrdersProtection
+}/// Create a copy of PublicSecurityOptions
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$SecurityIntegrationBackendProtectionCopyWith<$Res>? get backend {
-    if (_self.backend == null) {
+$PublicSecurityOptionCopyWith<$Res>? get doubleSend {
+    if (_self.doubleSend == null) {
     return null;
   }
 
-  return $SecurityIntegrationBackendProtectionCopyWith<$Res>(_self.backend!, (value) {
-    return _then(_self.copyWith(backend: value));
+  return $PublicSecurityOptionCopyWith<$Res>(_self.doubleSend!, (value) {
+    return _then(_self.copyWith(doubleSend: value));
+  });
+}/// Create a copy of PublicSecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage {
+    if (_self.minTimeInPage == null) {
+    return null;
+  }
+
+  return $SecurityMinTimeOptionCopyWith<$Res>(_self.minTimeInPage!, (value) {
+    return _then(_self.copyWith(minTimeInPage: value));
+  });
+}/// Create a copy of PublicSecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityCountriesOptionCopyWith<$Res>? get countries {
+    if (_self.countries == null) {
+    return null;
+  }
+
+  return $SecurityCountriesOptionCopyWith<$Res>(_self.countries!, (value) {
+    return _then(_self.copyWith(countries: value));
+  });
+}/// Create a copy of PublicSecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecuritySourcesOptionCopyWith<$Res>? get sources {
+    if (_self.sources == null) {
+    return null;
+  }
+
+  return $SecuritySourcesOptionCopyWith<$Res>(_self.sources!, (value) {
+    return _then(_self.copyWith(sources: value));
   });
 }
 }
 
 
-/// Adds pattern-matching-related methods to [SecurityIntegrationOrdersProtection].
-extension SecurityIntegrationOrdersProtectionPatterns on SecurityIntegrationOrdersProtection {
+/// Adds pattern-matching-related methods to [PublicSecurityOptions].
+extension PublicSecurityOptionsPatterns on PublicSecurityOptions {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -6414,10 +8331,10 @@ extension SecurityIntegrationOrdersProtectionPatterns on SecurityIntegrationOrde
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SecurityIntegrationOrdersProtection value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PublicSecurityOptions value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _SecurityIntegrationOrdersProtection() when $default != null:
+case _PublicSecurityOptions() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -6436,10 +8353,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SecurityIntegrationOrdersProtection value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PublicSecurityOptions value)  $default,){
 final _that = this;
 switch (_that) {
-case _SecurityIntegrationOrdersProtection():
+case _PublicSecurityOptions():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -6457,10 +8374,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SecurityIntegrationOrdersProtection value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PublicSecurityOptions value)?  $default,){
 final _that = this;
 switch (_that) {
-case _SecurityIntegrationOrdersProtection() when $default != null:
+case _PublicSecurityOptions() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -6478,10 +8395,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SecurityIntegrationFrontendProtection? frontend,  SecurityIntegrationBackendProtection? backend)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PublicSecurityOption? frontend,  PublicSecurityOption? doubleSend,  SecurityMinTimeOption? minTimeInPage,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _SecurityIntegrationOrdersProtection() when $default != null:
-return $default(_that.frontend,_that.backend);case _:
+case _PublicSecurityOptions() when $default != null:
+return $default(_that.frontend,_that.doubleSend,_that.minTimeInPage,_that.countries,_that.sources);case _:
   return orElse();
 
 }
@@ -6499,10 +8416,10 @@ return $default(_that.frontend,_that.backend);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SecurityIntegrationFrontendProtection? frontend,  SecurityIntegrationBackendProtection? backend)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PublicSecurityOption? frontend,  PublicSecurityOption? doubleSend,  SecurityMinTimeOption? minTimeInPage,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources)  $default,) {final _that = this;
 switch (_that) {
-case _SecurityIntegrationOrdersProtection():
-return $default(_that.frontend,_that.backend);case _:
+case _PublicSecurityOptions():
+return $default(_that.frontend,_that.doubleSend,_that.minTimeInPage,_that.countries,_that.sources);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -6519,10 +8436,10 @@ return $default(_that.frontend,_that.backend);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SecurityIntegrationFrontendProtection? frontend,  SecurityIntegrationBackendProtection? backend)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PublicSecurityOption? frontend,  PublicSecurityOption? doubleSend,  SecurityMinTimeOption? minTimeInPage,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources)?  $default,) {final _that = this;
 switch (_that) {
-case _SecurityIntegrationOrdersProtection() when $default != null:
-return $default(_that.frontend,_that.backend);case _:
+case _PublicSecurityOptions() when $default != null:
+return $default(_that.frontend,_that.doubleSend,_that.minTimeInPage,_that.countries,_that.sources);case _:
   return null;
 
 }
@@ -6533,164 +8450,216 @@ return $default(_that.frontend,_that.backend);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _SecurityIntegrationOrdersProtection implements SecurityIntegrationOrdersProtection {
-  const _SecurityIntegrationOrdersProtection({this.frontend, this.backend});
-  factory _SecurityIntegrationOrdersProtection.fromJson(Map<String, dynamic> json) => _$SecurityIntegrationOrdersProtectionFromJson(json);
+class _PublicSecurityOptions implements PublicSecurityOptions {
+  const _PublicSecurityOptions({this.frontend, this.doubleSend, this.minTimeInPage, this.countries, this.sources});
+  factory _PublicSecurityOptions.fromJson(Map<String, dynamic> json) => _$PublicSecurityOptionsFromJson(json);
 
-@override final  SecurityIntegrationFrontendProtection? frontend;
-@override final  SecurityIntegrationBackendProtection? backend;
+@override final  PublicSecurityOption? frontend;
+@override final  PublicSecurityOption? doubleSend;
+@override final  SecurityMinTimeOption? minTimeInPage;
+@override final  SecurityCountriesOption? countries;
+@override final  SecuritySourcesOption? sources;
 
-/// Create a copy of SecurityIntegrationOrdersProtection
+/// Create a copy of PublicSecurityOptions
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$SecurityIntegrationOrdersProtectionCopyWith<_SecurityIntegrationOrdersProtection> get copyWith => __$SecurityIntegrationOrdersProtectionCopyWithImpl<_SecurityIntegrationOrdersProtection>(this, _$identity);
+_$PublicSecurityOptionsCopyWith<_PublicSecurityOptions> get copyWith => __$PublicSecurityOptionsCopyWithImpl<_PublicSecurityOptions>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$SecurityIntegrationOrdersProtectionToJson(this, );
+  return _$PublicSecurityOptionsToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityIntegrationOrdersProtection&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.backend, backend) || other.backend == backend));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PublicSecurityOptions&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.doubleSend, doubleSend) || other.doubleSend == doubleSend)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,frontend,backend);
+int get hashCode => Object.hash(runtimeType,frontend,doubleSend,minTimeInPage,countries,sources);
 
 @override
 String toString() {
-  return 'SecurityIntegrationOrdersProtection(frontend: $frontend, backend: $backend)';
+  return 'PublicSecurityOptions(frontend: $frontend, doubleSend: $doubleSend, minTimeInPage: $minTimeInPage, countries: $countries, sources: $sources)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$SecurityIntegrationOrdersProtectionCopyWith<$Res> implements $SecurityIntegrationOrdersProtectionCopyWith<$Res> {
-  factory _$SecurityIntegrationOrdersProtectionCopyWith(_SecurityIntegrationOrdersProtection value, $Res Function(_SecurityIntegrationOrdersProtection) _then) = __$SecurityIntegrationOrdersProtectionCopyWithImpl;
+abstract mixin class _$PublicSecurityOptionsCopyWith<$Res> implements $PublicSecurityOptionsCopyWith<$Res> {
+  factory _$PublicSecurityOptionsCopyWith(_PublicSecurityOptions value, $Res Function(_PublicSecurityOptions) _then) = __$PublicSecurityOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- SecurityIntegrationFrontendProtection? frontend, SecurityIntegrationBackendProtection? backend
+ PublicSecurityOption? frontend, PublicSecurityOption? doubleSend, SecurityMinTimeOption? minTimeInPage, SecurityCountriesOption? countries, SecuritySourcesOption? sources
 });
 
 
-@override $SecurityIntegrationFrontendProtectionCopyWith<$Res>? get frontend;@override $SecurityIntegrationBackendProtectionCopyWith<$Res>? get backend;
+@override $PublicSecurityOptionCopyWith<$Res>? get frontend;@override $PublicSecurityOptionCopyWith<$Res>? get doubleSend;@override $SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;@override $SecurityCountriesOptionCopyWith<$Res>? get countries;@override $SecuritySourcesOptionCopyWith<$Res>? get sources;
 
 }
 /// @nodoc
-class __$SecurityIntegrationOrdersProtectionCopyWithImpl<$Res>
-    implements _$SecurityIntegrationOrdersProtectionCopyWith<$Res> {
-  __$SecurityIntegrationOrdersProtectionCopyWithImpl(this._self, this._then);
+class __$PublicSecurityOptionsCopyWithImpl<$Res>
+    implements _$PublicSecurityOptionsCopyWith<$Res> {
+  __$PublicSecurityOptionsCopyWithImpl(this._self, this._then);
 
-  final _SecurityIntegrationOrdersProtection _self;
-  final $Res Function(_SecurityIntegrationOrdersProtection) _then;
+  final _PublicSecurityOptions _self;
+  final $Res Function(_PublicSecurityOptions) _then;
 
-/// Create a copy of SecurityIntegrationOrdersProtection
+/// Create a copy of PublicSecurityOptions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? frontend = freezed,Object? backend = freezed,}) {
-  return _then(_SecurityIntegrationOrdersProtection(
+@override @pragma('vm:prefer-inline') $Res call({Object? frontend = freezed,Object? doubleSend = freezed,Object? minTimeInPage = freezed,Object? countries = freezed,Object? sources = freezed,}) {
+  return _then(_PublicSecurityOptions(
 frontend: freezed == frontend ? _self.frontend : frontend // ignore: cast_nullable_to_non_nullable
-as SecurityIntegrationFrontendProtection?,backend: freezed == backend ? _self.backend : backend // ignore: cast_nullable_to_non_nullable
-as SecurityIntegrationBackendProtection?,
+as PublicSecurityOption?,doubleSend: freezed == doubleSend ? _self.doubleSend : doubleSend // ignore: cast_nullable_to_non_nullable
+as PublicSecurityOption?,minTimeInPage: freezed == minTimeInPage ? _self.minTimeInPage : minTimeInPage // ignore: cast_nullable_to_non_nullable
+as SecurityMinTimeOption?,countries: freezed == countries ? _self.countries : countries // ignore: cast_nullable_to_non_nullable
+as SecurityCountriesOption?,sources: freezed == sources ? _self.sources : sources // ignore: cast_nullable_to_non_nullable
+as SecuritySourcesOption?,
   ));
 }
 
-/// Create a copy of SecurityIntegrationOrdersProtection
+/// Create a copy of PublicSecurityOptions
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$SecurityIntegrationFrontendProtectionCopyWith<$Res>? get frontend {
+$PublicSecurityOptionCopyWith<$Res>? get frontend {
     if (_self.frontend == null) {
     return null;
   }
 
-  return $SecurityIntegrationFrontendProtectionCopyWith<$Res>(_self.frontend!, (value) {
+  return $PublicSecurityOptionCopyWith<$Res>(_self.frontend!, (value) {
     return _then(_self.copyWith(frontend: value));
   });
-}/// Create a copy of SecurityIntegrationOrdersProtection
+}/// Create a copy of PublicSecurityOptions
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$SecurityIntegrationBackendProtectionCopyWith<$Res>? get backend {
-    if (_self.backend == null) {
+$PublicSecurityOptionCopyWith<$Res>? get doubleSend {
+    if (_self.doubleSend == null) {
     return null;
   }
 
-  return $SecurityIntegrationBackendProtectionCopyWith<$Res>(_self.backend!, (value) {
-    return _then(_self.copyWith(backend: value));
+  return $PublicSecurityOptionCopyWith<$Res>(_self.doubleSend!, (value) {
+    return _then(_self.copyWith(doubleSend: value));
+  });
+}/// Create a copy of PublicSecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage {
+    if (_self.minTimeInPage == null) {
+    return null;
+  }
+
+  return $SecurityMinTimeOptionCopyWith<$Res>(_self.minTimeInPage!, (value) {
+    return _then(_self.copyWith(minTimeInPage: value));
+  });
+}/// Create a copy of PublicSecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityCountriesOptionCopyWith<$Res>? get countries {
+    if (_self.countries == null) {
+    return null;
+  }
+
+  return $SecurityCountriesOptionCopyWith<$Res>(_self.countries!, (value) {
+    return _then(_self.copyWith(countries: value));
+  });
+}/// Create a copy of PublicSecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecuritySourcesOptionCopyWith<$Res>? get sources {
+    if (_self.sources == null) {
+    return null;
+  }
+
+  return $SecuritySourcesOptionCopyWith<$Res>(_self.sources!, (value) {
+    return _then(_self.copyWith(sources: value));
   });
 }
 }
 
 
 /// @nodoc
-mixin _$SecurityIntegrationFrontendProtection {
+mixin _$PublicSecurityIntegration {
 
- bool get active;
-/// Create a copy of SecurityIntegrationFrontendProtection
+ bool get active; PublicSecurityOptions get options;
+/// Create a copy of PublicSecurityIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$SecurityIntegrationFrontendProtectionCopyWith<SecurityIntegrationFrontendProtection> get copyWith => _$SecurityIntegrationFrontendProtectionCopyWithImpl<SecurityIntegrationFrontendProtection>(this as SecurityIntegrationFrontendProtection, _$identity);
+$PublicSecurityIntegrationCopyWith<PublicSecurityIntegration> get copyWith => _$PublicSecurityIntegrationCopyWithImpl<PublicSecurityIntegration>(this as PublicSecurityIntegration, _$identity);
 
-  /// Serializes this SecurityIntegrationFrontendProtection to a JSON map.
+  /// Serializes this PublicSecurityIntegration to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityIntegrationFrontendProtection&&(identical(other.active, active) || other.active == active));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PublicSecurityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.options, options) || other.options == options));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active);
+int get hashCode => Object.hash(runtimeType,active,options);
 
 @override
 String toString() {
-  return 'SecurityIntegrationFrontendProtection(active: $active)';
+  return 'PublicSecurityIntegration(active: $active, options: $options)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SecurityIntegrationFrontendProtectionCopyWith<$Res>  {
-  factory $SecurityIntegrationFrontendProtectionCopyWith(SecurityIntegrationFrontendProtection value, $Res Function(SecurityIntegrationFrontendProtection) _then) = _$SecurityIntegrationFrontendProtectionCopyWithImpl;
+abstract mixin class $PublicSecurityIntegrationCopyWith<$Res>  {
+  factory $PublicSecurityIntegrationCopyWith(PublicSecurityIntegration value, $Res Function(PublicSecurityIntegration) _then) = _$PublicSecurityIntegrationCopyWithImpl;
 @useResult
 $Res call({
- bool active
+ bool active, PublicSecurityOptions options
 });
 
 
-
+$PublicSecurityOptionsCopyWith<$Res> get options;
 
 }
 /// @nodoc
-class _$SecurityIntegrationFrontendProtectionCopyWithImpl<$Res>
-    implements $SecurityIntegrationFrontendProtectionCopyWith<$Res> {
-  _$SecurityIntegrationFrontendProtectionCopyWithImpl(this._self, this._then);
+class _$PublicSecurityIntegrationCopyWithImpl<$Res>
+    implements $PublicSecurityIntegrationCopyWith<$Res> {
+  _$PublicSecurityIntegrationCopyWithImpl(this._self, this._then);
 
-  final SecurityIntegrationFrontendProtection _self;
-  final $Res Function(SecurityIntegrationFrontendProtection) _then;
+  final PublicSecurityIntegration _self;
+  final $Res Function(PublicSecurityIntegration) _then;
 
-/// Create a copy of SecurityIntegrationFrontendProtection
+/// Create a copy of PublicSecurityIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? active = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? options = null,}) {
   return _then(_self.copyWith(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,options: null == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
+as PublicSecurityOptions,
   ));
 }
-
+/// Create a copy of PublicSecurityIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PublicSecurityOptionsCopyWith<$Res> get options {
+  
+  return $PublicSecurityOptionsCopyWith<$Res>(_self.options, (value) {
+    return _then(_self.copyWith(options: value));
+  });
+}
 }
 
 
-/// Adds pattern-matching-related methods to [SecurityIntegrationFrontendProtection].
-extension SecurityIntegrationFrontendProtectionPatterns on SecurityIntegrationFrontendProtection {
+/// Adds pattern-matching-related methods to [PublicSecurityIntegration].
+extension PublicSecurityIntegrationPatterns on PublicSecurityIntegration {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -6703,10 +8672,10 @@ extension SecurityIntegrationFrontendProtectionPatterns on SecurityIntegrationFr
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SecurityIntegrationFrontendProtection value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PublicSecurityIntegration value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _SecurityIntegrationFrontendProtection() when $default != null:
+case _PublicSecurityIntegration() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -6725,10 +8694,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SecurityIntegrationFrontendProtection value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PublicSecurityIntegration value)  $default,){
 final _that = this;
 switch (_that) {
-case _SecurityIntegrationFrontendProtection():
+case _PublicSecurityIntegration():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -6746,10 +8715,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SecurityIntegrationFrontendProtection value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PublicSecurityIntegration value)?  $default,){
 final _that = this;
 switch (_that) {
-case _SecurityIntegrationFrontendProtection() when $default != null:
+case _PublicSecurityIntegration() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -6767,10 +8736,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  PublicSecurityOptions options)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _SecurityIntegrationFrontendProtection() when $default != null:
-return $default(_that.active);case _:
+case _PublicSecurityIntegration() when $default != null:
+return $default(_that.active,_that.options);case _:
   return orElse();
 
 }
@@ -6788,10 +8757,10 @@ return $default(_that.active);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  PublicSecurityOptions options)  $default,) {final _that = this;
 switch (_that) {
-case _SecurityIntegrationFrontendProtection():
-return $default(_that.active);case _:
+case _PublicSecurityIntegration():
+return $default(_that.active,_that.options);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -6808,10 +8777,10 @@ return $default(_that.active);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  PublicSecurityOptions options)?  $default,) {final _that = this;
 switch (_that) {
-case _SecurityIntegrationFrontendProtection() when $default != null:
-return $default(_that.active);case _:
+case _PublicSecurityIntegration() when $default != null:
+return $default(_that.active,_that.options);case _:
   return null;
 
 }
@@ -6822,355 +8791,81 @@ return $default(_that.active);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _SecurityIntegrationFrontendProtection implements SecurityIntegrationFrontendProtection {
-  const _SecurityIntegrationFrontendProtection({this.active = false});
-  factory _SecurityIntegrationFrontendProtection.fromJson(Map<String, dynamic> json) => _$SecurityIntegrationFrontendProtectionFromJson(json);
+class _PublicSecurityIntegration implements PublicSecurityIntegration {
+  const _PublicSecurityIntegration({this.active = false, this.options = const PublicSecurityOptions()});
+  factory _PublicSecurityIntegration.fromJson(Map<String, dynamic> json) => _$PublicSecurityIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
+@override@JsonKey() final  PublicSecurityOptions options;
 
-/// Create a copy of SecurityIntegrationFrontendProtection
+/// Create a copy of PublicSecurityIntegration
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$SecurityIntegrationFrontendProtectionCopyWith<_SecurityIntegrationFrontendProtection> get copyWith => __$SecurityIntegrationFrontendProtectionCopyWithImpl<_SecurityIntegrationFrontendProtection>(this, _$identity);
+_$PublicSecurityIntegrationCopyWith<_PublicSecurityIntegration> get copyWith => __$PublicSecurityIntegrationCopyWithImpl<_PublicSecurityIntegration>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$SecurityIntegrationFrontendProtectionToJson(this, );
+  return _$PublicSecurityIntegrationToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityIntegrationFrontendProtection&&(identical(other.active, active) || other.active == active));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PublicSecurityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.options, options) || other.options == options));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active);
+int get hashCode => Object.hash(runtimeType,active,options);
 
 @override
 String toString() {
-  return 'SecurityIntegrationFrontendProtection(active: $active)';
+  return 'PublicSecurityIntegration(active: $active, options: $options)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$SecurityIntegrationFrontendProtectionCopyWith<$Res> implements $SecurityIntegrationFrontendProtectionCopyWith<$Res> {
-  factory _$SecurityIntegrationFrontendProtectionCopyWith(_SecurityIntegrationFrontendProtection value, $Res Function(_SecurityIntegrationFrontendProtection) _then) = __$SecurityIntegrationFrontendProtectionCopyWithImpl;
+abstract mixin class _$PublicSecurityIntegrationCopyWith<$Res> implements $PublicSecurityIntegrationCopyWith<$Res> {
+  factory _$PublicSecurityIntegrationCopyWith(_PublicSecurityIntegration value, $Res Function(_PublicSecurityIntegration) _then) = __$PublicSecurityIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- bool active
+ bool active, PublicSecurityOptions options
 });
 
 
-
+@override $PublicSecurityOptionsCopyWith<$Res> get options;
 
 }
 /// @nodoc
-class __$SecurityIntegrationFrontendProtectionCopyWithImpl<$Res>
-    implements _$SecurityIntegrationFrontendProtectionCopyWith<$Res> {
-  __$SecurityIntegrationFrontendProtectionCopyWithImpl(this._self, this._then);
+class __$PublicSecurityIntegrationCopyWithImpl<$Res>
+    implements _$PublicSecurityIntegrationCopyWith<$Res> {
+  __$PublicSecurityIntegrationCopyWithImpl(this._self, this._then);
 
-  final _SecurityIntegrationFrontendProtection _self;
-  final $Res Function(_SecurityIntegrationFrontendProtection) _then;
+  final _PublicSecurityIntegration _self;
+  final $Res Function(_PublicSecurityIntegration) _then;
 
-/// Create a copy of SecurityIntegrationFrontendProtection
+/// Create a copy of PublicSecurityIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? active = null,}) {
-  return _then(_SecurityIntegrationFrontendProtection(
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? options = null,}) {
+  return _then(_PublicSecurityIntegration(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,options: null == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
+as PublicSecurityOptions,
   ));
 }
 
-
-}
-
-
-/// @nodoc
-mixin _$SecurityIntegrationBackendProtection {
-
- bool get active; int? get phoneTtl; int? get ipTtl;/// Cooldown in seconds for ad click id (e.g. Meta fbclid) rate limit; server default 7 days.
- int? get adAttributionTtl;/// Device fingerprint rate-limit window in seconds (same device cannot place another order until TTL elapses). Server default 3600s if unset.
- int? get fingerprintTtl; bool get blockDirectOrders; bool get adsOnlyMode;
-/// Create a copy of SecurityIntegrationBackendProtection
+/// Create a copy of PublicSecurityIntegration
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override
 @pragma('vm:prefer-inline')
-$SecurityIntegrationBackendProtectionCopyWith<SecurityIntegrationBackendProtection> get copyWith => _$SecurityIntegrationBackendProtectionCopyWithImpl<SecurityIntegrationBackendProtection>(this as SecurityIntegrationBackendProtection, _$identity);
-
-  /// Serializes this SecurityIntegrationBackendProtection to a JSON map.
-  Map<String, dynamic> toJson();
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityIntegrationBackendProtection&&(identical(other.active, active) || other.active == active)&&(identical(other.phoneTtl, phoneTtl) || other.phoneTtl == phoneTtl)&&(identical(other.ipTtl, ipTtl) || other.ipTtl == ipTtl)&&(identical(other.adAttributionTtl, adAttributionTtl) || other.adAttributionTtl == adAttributionTtl)&&(identical(other.fingerprintTtl, fingerprintTtl) || other.fingerprintTtl == fingerprintTtl)&&(identical(other.blockDirectOrders, blockDirectOrders) || other.blockDirectOrders == blockDirectOrders)&&(identical(other.adsOnlyMode, adsOnlyMode) || other.adsOnlyMode == adsOnlyMode));
+$PublicSecurityOptionsCopyWith<$Res> get options {
+  
+  return $PublicSecurityOptionsCopyWith<$Res>(_self.options, (value) {
+    return _then(_self.copyWith(options: value));
+  });
 }
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode => Object.hash(runtimeType,active,phoneTtl,ipTtl,adAttributionTtl,fingerprintTtl,blockDirectOrders,adsOnlyMode);
-
-@override
-String toString() {
-  return 'SecurityIntegrationBackendProtection(active: $active, phoneTtl: $phoneTtl, ipTtl: $ipTtl, adAttributionTtl: $adAttributionTtl, fingerprintTtl: $fingerprintTtl, blockDirectOrders: $blockDirectOrders, adsOnlyMode: $adsOnlyMode)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $SecurityIntegrationBackendProtectionCopyWith<$Res>  {
-  factory $SecurityIntegrationBackendProtectionCopyWith(SecurityIntegrationBackendProtection value, $Res Function(SecurityIntegrationBackendProtection) _then) = _$SecurityIntegrationBackendProtectionCopyWithImpl;
-@useResult
-$Res call({
- bool active, int? phoneTtl, int? ipTtl, int? adAttributionTtl, int? fingerprintTtl, bool blockDirectOrders, bool adsOnlyMode
-});
-
-
-
-
-}
-/// @nodoc
-class _$SecurityIntegrationBackendProtectionCopyWithImpl<$Res>
-    implements $SecurityIntegrationBackendProtectionCopyWith<$Res> {
-  _$SecurityIntegrationBackendProtectionCopyWithImpl(this._self, this._then);
-
-  final SecurityIntegrationBackendProtection _self;
-  final $Res Function(SecurityIntegrationBackendProtection) _then;
-
-/// Create a copy of SecurityIntegrationBackendProtection
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? phoneTtl = freezed,Object? ipTtl = freezed,Object? adAttributionTtl = freezed,Object? fingerprintTtl = freezed,Object? blockDirectOrders = null,Object? adsOnlyMode = null,}) {
-  return _then(_self.copyWith(
-active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
-as bool,phoneTtl: freezed == phoneTtl ? _self.phoneTtl : phoneTtl // ignore: cast_nullable_to_non_nullable
-as int?,ipTtl: freezed == ipTtl ? _self.ipTtl : ipTtl // ignore: cast_nullable_to_non_nullable
-as int?,adAttributionTtl: freezed == adAttributionTtl ? _self.adAttributionTtl : adAttributionTtl // ignore: cast_nullable_to_non_nullable
-as int?,fingerprintTtl: freezed == fingerprintTtl ? _self.fingerprintTtl : fingerprintTtl // ignore: cast_nullable_to_non_nullable
-as int?,blockDirectOrders: null == blockDirectOrders ? _self.blockDirectOrders : blockDirectOrders // ignore: cast_nullable_to_non_nullable
-as bool,adsOnlyMode: null == adsOnlyMode ? _self.adsOnlyMode : adsOnlyMode // ignore: cast_nullable_to_non_nullable
-as bool,
-  ));
-}
-
-}
-
-
-/// Adds pattern-matching-related methods to [SecurityIntegrationBackendProtection].
-extension SecurityIntegrationBackendProtectionPatterns on SecurityIntegrationBackendProtection {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SecurityIntegrationBackendProtection value)?  $default,{required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case _SecurityIntegrationBackendProtection() when $default != null:
-return $default(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SecurityIntegrationBackendProtection value)  $default,){
-final _that = this;
-switch (_that) {
-case _SecurityIntegrationBackendProtection():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SecurityIntegrationBackendProtection value)?  $default,){
-final _that = this;
-switch (_that) {
-case _SecurityIntegrationBackendProtection() when $default != null:
-return $default(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  int? phoneTtl,  int? ipTtl,  int? adAttributionTtl,  int? fingerprintTtl,  bool blockDirectOrders,  bool adsOnlyMode)?  $default,{required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case _SecurityIntegrationBackendProtection() when $default != null:
-return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_that.fingerprintTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  int? phoneTtl,  int? ipTtl,  int? adAttributionTtl,  int? fingerprintTtl,  bool blockDirectOrders,  bool adsOnlyMode)  $default,) {final _that = this;
-switch (_that) {
-case _SecurityIntegrationBackendProtection():
-return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_that.fingerprintTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  int? phoneTtl,  int? ipTtl,  int? adAttributionTtl,  int? fingerprintTtl,  bool blockDirectOrders,  bool adsOnlyMode)?  $default,) {final _that = this;
-switch (_that) {
-case _SecurityIntegrationBackendProtection() when $default != null:
-return $default(_that.active,_that.phoneTtl,_that.ipTtl,_that.adAttributionTtl,_that.fingerprintTtl,_that.blockDirectOrders,_that.adsOnlyMode);case _:
-  return null;
-
-}
-}
-
-}
-
-/// @nodoc
-@JsonSerializable()
-
-class _SecurityIntegrationBackendProtection implements SecurityIntegrationBackendProtection {
-  const _SecurityIntegrationBackendProtection({this.active = false, this.phoneTtl, this.ipTtl, this.adAttributionTtl, this.fingerprintTtl, this.blockDirectOrders = false, this.adsOnlyMode = false});
-  factory _SecurityIntegrationBackendProtection.fromJson(Map<String, dynamic> json) => _$SecurityIntegrationBackendProtectionFromJson(json);
-
-@override@JsonKey() final  bool active;
-@override final  int? phoneTtl;
-@override final  int? ipTtl;
-/// Cooldown in seconds for ad click id (e.g. Meta fbclid) rate limit; server default 7 days.
-@override final  int? adAttributionTtl;
-/// Device fingerprint rate-limit window in seconds (same device cannot place another order until TTL elapses). Server default 3600s if unset.
-@override final  int? fingerprintTtl;
-@override@JsonKey() final  bool blockDirectOrders;
-@override@JsonKey() final  bool adsOnlyMode;
-
-/// Create a copy of SecurityIntegrationBackendProtection
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$SecurityIntegrationBackendProtectionCopyWith<_SecurityIntegrationBackendProtection> get copyWith => __$SecurityIntegrationBackendProtectionCopyWithImpl<_SecurityIntegrationBackendProtection>(this, _$identity);
-
-@override
-Map<String, dynamic> toJson() {
-  return _$SecurityIntegrationBackendProtectionToJson(this, );
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityIntegrationBackendProtection&&(identical(other.active, active) || other.active == active)&&(identical(other.phoneTtl, phoneTtl) || other.phoneTtl == phoneTtl)&&(identical(other.ipTtl, ipTtl) || other.ipTtl == ipTtl)&&(identical(other.adAttributionTtl, adAttributionTtl) || other.adAttributionTtl == adAttributionTtl)&&(identical(other.fingerprintTtl, fingerprintTtl) || other.fingerprintTtl == fingerprintTtl)&&(identical(other.blockDirectOrders, blockDirectOrders) || other.blockDirectOrders == blockDirectOrders)&&(identical(other.adsOnlyMode, adsOnlyMode) || other.adsOnlyMode == adsOnlyMode));
-}
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode => Object.hash(runtimeType,active,phoneTtl,ipTtl,adAttributionTtl,fingerprintTtl,blockDirectOrders,adsOnlyMode);
-
-@override
-String toString() {
-  return 'SecurityIntegrationBackendProtection(active: $active, phoneTtl: $phoneTtl, ipTtl: $ipTtl, adAttributionTtl: $adAttributionTtl, fingerprintTtl: $fingerprintTtl, blockDirectOrders: $blockDirectOrders, adsOnlyMode: $adsOnlyMode)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$SecurityIntegrationBackendProtectionCopyWith<$Res> implements $SecurityIntegrationBackendProtectionCopyWith<$Res> {
-  factory _$SecurityIntegrationBackendProtectionCopyWith(_SecurityIntegrationBackendProtection value, $Res Function(_SecurityIntegrationBackendProtection) _then) = __$SecurityIntegrationBackendProtectionCopyWithImpl;
-@override @useResult
-$Res call({
- bool active, int? phoneTtl, int? ipTtl, int? adAttributionTtl, int? fingerprintTtl, bool blockDirectOrders, bool adsOnlyMode
-});
-
-
-
-
-}
-/// @nodoc
-class __$SecurityIntegrationBackendProtectionCopyWithImpl<$Res>
-    implements _$SecurityIntegrationBackendProtectionCopyWith<$Res> {
-  __$SecurityIntegrationBackendProtectionCopyWithImpl(this._self, this._then);
-
-  final _SecurityIntegrationBackendProtection _self;
-  final $Res Function(_SecurityIntegrationBackendProtection) _then;
-
-/// Create a copy of SecurityIntegrationBackendProtection
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? phoneTtl = freezed,Object? ipTtl = freezed,Object? adAttributionTtl = freezed,Object? fingerprintTtl = freezed,Object? blockDirectOrders = null,Object? adsOnlyMode = null,}) {
-  return _then(_SecurityIntegrationBackendProtection(
-active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
-as bool,phoneTtl: freezed == phoneTtl ? _self.phoneTtl : phoneTtl // ignore: cast_nullable_to_non_nullable
-as int?,ipTtl: freezed == ipTtl ? _self.ipTtl : ipTtl // ignore: cast_nullable_to_non_nullable
-as int?,adAttributionTtl: freezed == adAttributionTtl ? _self.adAttributionTtl : adAttributionTtl // ignore: cast_nullable_to_non_nullable
-as int?,fingerprintTtl: freezed == fingerprintTtl ? _self.fingerprintTtl : fingerprintTtl // ignore: cast_nullable_to_non_nullable
-as int?,blockDirectOrders: null == blockDirectOrders ? _self.blockDirectOrders : blockDirectOrders // ignore: cast_nullable_to_non_nullable
-as bool,adsOnlyMode: null == adsOnlyMode ? _self.adsOnlyMode : adsOnlyMode // ignore: cast_nullable_to_non_nullable
-as bool,
-  ));
-}
-
-
 }
 
 

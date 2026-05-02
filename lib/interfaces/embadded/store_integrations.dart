@@ -395,17 +395,95 @@ abstract class MaystroDeliveryIntegration with _$MaystroDeliveryIntegration {
 
 // ===================== SECURITY INTEGRATION =====================
 
-/// Security integration configuration for order protection layers.
+/// Treatment applied when a security violation is detected.
+enum SecurityTreatment {
+  block, // Reject order immediately (HTTP error)
+  warning, // Accept order but tag it; no pixel events sent
+  fake, // Pretend success but don't persist order (honeypot)
+}
+
+/// Base security option with TTL and treatment.
+///
+/// [ttl] is optional in API payloads (seconds). When null, the backend applies its own default per check.
+@freezed
+abstract class SecurityOption with _$SecurityOption {
+  const factory SecurityOption({
+    @Default(false) bool active,
+    int? ttl,
+    @Default(SecurityTreatment.block) SecurityTreatment treatment,
+  }) = _SecurityOption;
+
+  factory SecurityOption.fromJson(Map<String, dynamic> json) =>
+      _$SecurityOptionFromJson(json);
+}
+
+/// Min-time-on-page check option.
+@freezed
+abstract class SecurityMinTimeOption with _$SecurityMinTimeOption {
+  const factory SecurityMinTimeOption({
+    @Default(false) bool active,
+    @Default(10) int duration, // seconds
+    @Default(SecurityTreatment.block) SecurityTreatment treatment,
+  }) = _SecurityMinTimeOption;
+
+  factory SecurityMinTimeOption.fromJson(Map<String, dynamic> json) =>
+      _$SecurityMinTimeOptionFromJson(json);
+}
+
+/// Country filtering option with allowed/blocked lists.
+@freezed
+abstract class SecurityCountriesOption with _$SecurityCountriesOption {
+  const factory SecurityCountriesOption({
+    @Default(false) bool active,
+    @Default(SecurityTreatment.block) SecurityTreatment treatment,
+    List<String>? allowed, // ISO codes; null/empty = allow all
+    @Default([]) List<String> blocked, // Blocked wins over allowed
+  }) = _SecurityCountriesOption;
+
+  factory SecurityCountriesOption.fromJson(Map<String, dynamic> json) =>
+      _$SecurityCountriesOptionFromJson(json);
+}
+
+/// Traffic source filtering option with allowed/blocked lists.
+@freezed
+abstract class SecuritySourcesOption with _$SecuritySourcesOption {
+  const factory SecuritySourcesOption({
+    @Default(false) bool active,
+    @Default(SecurityTreatment.block) SecurityTreatment treatment,
+    List<String>? allowed, // e.g., ["ads", "organic"]; null = all
+    @Default([]) List<String> blocked, // e.g., ["direct"]
+  }) = _SecuritySourcesOption;
+
+  factory SecuritySourcesOption.fromJson(Map<String, dynamic> json) =>
+      _$SecuritySourcesOptionFromJson(json);
+}
+
+/// All security options (private - merchant app). Keys are optional/nullable like the API.
+@freezed
+abstract class SecurityOptions with _$SecurityOptions {
+  const factory SecurityOptions({
+    SecurityOption? fingerprint,
+    SecurityOption? ip,
+    SecurityOption? phone,
+    SecurityOption? ads,
+    SecurityOption? frontend,
+    SecurityOption? doubleSend,
+    SecurityMinTimeOption? minTimeInPage,
+    SecurityCountriesOption? countries,
+    SecuritySourcesOption? sources,
+  }) = _SecurityOptions;
+
+  factory SecurityOptions.fromJson(Map<String, dynamic> json) =>
+      _$SecurityOptionsFromJson(json);
+}
+
+/// Security integration configuration with options (private - merchant app).
 @freezed
 abstract class SecurityIntegration with _$SecurityIntegration {
   const SecurityIntegration._();
   const factory SecurityIntegration({
-    String? key,
-    @Default(true) bool active,
-    int? ordersRateLimit,
-    int? ordersRateLimitDuration,
-    bool? hideProducts,
-    SecurityIntegrationOrdersProtection? orders,
+    @Default(false) bool active,
+    SecurityOptions? options,
     @Default({}) Map<String, dynamic> metadata,
   }) = _SecurityIntegration;
 
@@ -413,52 +491,48 @@ abstract class SecurityIntegration with _$SecurityIntegration {
       _$SecurityIntegrationFromJson(json);
 }
 
-/// Frontend/backend protection configuration.
-@freezed
-abstract class SecurityIntegrationOrdersProtection
-    with _$SecurityIntegrationOrdersProtection {
-  const factory SecurityIntegrationOrdersProtection({
-    SecurityIntegrationFrontendProtection? frontend,
-    SecurityIntegrationBackendProtection? backend,
-  }) = _SecurityIntegrationOrdersProtection;
+// ===================== PUBLIC SECURITY (Storefront) =====================
 
-  factory SecurityIntegrationOrdersProtection.fromJson(
-    Map<String, dynamic> json,
-  ) => _$SecurityIntegrationOrdersProtectionFromJson(json);
+/// Public security option - only active, ttl, and treatment (storefront duplicate rule).
+@freezed
+abstract class PublicSecurityOption with _$PublicSecurityOption {
+  const factory PublicSecurityOption({
+    @Default(false) bool active,
+    @Default(0) int ttl,
+    @Default(SecurityTreatment.block) SecurityTreatment treatment,
+  }) = _PublicSecurityOption;
+
+  factory PublicSecurityOption.fromJson(Map<String, dynamic> json) =>
+      _$PublicSecurityOptionFromJson(json);
 }
 
-/// Frontend protection configuration (form blockers, etc.).
+/// Public security options for storefronts (rules the client may apply or display).
+///
+/// [fingerprint], [ip], [phone], and [ads] stay server-only.
 @freezed
-abstract class SecurityIntegrationFrontendProtection
-    with _$SecurityIntegrationFrontendProtection {
-  const factory SecurityIntegrationFrontendProtection({
-    @Default(false) bool active,
-  }) = _SecurityIntegrationFrontendProtection;
+abstract class PublicSecurityOptions with _$PublicSecurityOptions {
+  const factory PublicSecurityOptions({
+    PublicSecurityOption? frontend,
+    PublicSecurityOption? doubleSend,
+    SecurityMinTimeOption? minTimeInPage,
+    SecurityCountriesOption? countries,
+    SecuritySourcesOption? sources,
+  }) = _PublicSecurityOptions;
 
-  factory SecurityIntegrationFrontendProtection.fromJson(
-    Map<String, dynamic> json,
-  ) => _$SecurityIntegrationFrontendProtectionFromJson(json);
+  factory PublicSecurityOptions.fromJson(Map<String, dynamic> json) =>
+      _$PublicSecurityOptionsFromJson(json);
 }
 
-/// Backend protection configuration (rate limit, blocking direct orders, etc.).
+/// Public security integration - minimal data for storefronts.
 @freezed
-abstract class SecurityIntegrationBackendProtection
-    with _$SecurityIntegrationBackendProtection {
-  const factory SecurityIntegrationBackendProtection({
+abstract class PublicSecurityIntegration with _$PublicSecurityIntegration {
+  const factory PublicSecurityIntegration({
     @Default(false) bool active,
-    int? phoneTtl,
-    int? ipTtl,
-    /// Cooldown in seconds for ad click id (e.g. Meta fbclid) rate limit; server default 7 days.
-    int? adAttributionTtl,
-    /// Device fingerprint rate-limit window in seconds (same device cannot place another order until TTL elapses). Server default 3600s if unset.
-    int? fingerprintTtl,
-    @Default(false) bool blockDirectOrders,
-    @Default(false) bool adsOnlyMode,
-  }) = _SecurityIntegrationBackendProtection;
+    @Default(PublicSecurityOptions()) PublicSecurityOptions options,
+  }) = _PublicSecurityIntegration;
 
-  factory SecurityIntegrationBackendProtection.fromJson(
-    Map<String, dynamic> json,
-  ) => _$SecurityIntegrationBackendProtectionFromJson(json);
+  factory PublicSecurityIntegration.fromJson(Map<String, dynamic> json) =>
+      _$PublicSecurityIntegrationFromJson(json);
 }
 
 // ===================== GOOGLE SHEETS INTEGRATION =====================

@@ -11,6 +11,7 @@ part of 'store.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+
 /// @nodoc
 mixin _$Store {
 
@@ -18,15 +19,16 @@ mixin _$Store {
  StoreSubscription? get subscription; num? get due;// StoreConfigs
  StoreConfigs? get configs; String? get shippingPriceId; String? get templateId;// metaPixelIds
  List<String>? get metaPixelIds; Map<String, StoreMember> get members;/// Present when list/show is called with `with[]=lor` and the user may view analytics.
-@JsonKey(fromJson: _storeLorFromJson) LiteOrdersReport? get lor;/// Present when `with[]=template` — active [StoreTemplate] row (usually the store fork).
-/// Parsed in [Store.fromJson] (generated JSON omits this field).
-@JsonKey(includeFromJson: false, includeToJson: false) StoreTemplate? get template;
+@JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) LiteOrdersReport? get lor;/// Present when `with[]=template` — active [StoreTemplate] row (usually the store fork).
+@JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) StoreTemplate? get template;
 /// Create a copy of Store
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $StoreCopyWith<Store> get copyWith => _$StoreCopyWithImpl<Store>(this as Store, _$identity);
 
+  /// Serializes this Store to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -34,7 +36,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is Store&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.name, name) || other.name == name)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.userId, userId) || other.userId == userId)&&const DeepCollectionEquality().equals(other.categories, categories)&&const DeepCollectionEquality().equals(other.categoriesRelation, categoriesRelation)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.addresses, addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other.defaultShippingRates, defaultShippingRates)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due)&&(identical(other.configs, configs) || other.configs == configs)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.templateId, templateId) || other.templateId == templateId)&&const DeepCollectionEquality().equals(other.metaPixelIds, metaPixelIds)&&const DeepCollectionEquality().equals(other.members, members)&&(identical(other.lor, lor) || other.lor == lor)&&(identical(other.template, template) || other.template == template));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hashAll([runtimeType,id,createdAt,updatedAt,slug,banner,action,domain,decoration,name,iconUrl,logoUrl,ondarkLogoUrl,userId,const DeepCollectionEquality().hash(categories),const DeepCollectionEquality().hash(categoriesRelation),title,description,const DeepCollectionEquality().hash(addresses),address,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(contacts),integrations,const DeepCollectionEquality().hash(defaultShippingRates),verifiedAt,blockedAt,subscription,due,configs,shippingPriceId,templateId,const DeepCollectionEquality().hash(metaPixelIds),const DeepCollectionEquality().hash(members),lor,template]);
 
@@ -51,7 +53,7 @@ abstract mixin class $StoreCopyWith<$Res>  {
   factory $StoreCopyWith(Store value, $Res Function(Store) _then) = _$StoreCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime createdAt, DateTime updatedAt, String slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String name, String? iconUrl, String? logoUrl,@Deprecated("use logoUrl") String? ondarkLogoUrl, String userId, List<EmbaddedCategory> categories, List<Category>? categoriesRelation, String? title, String? description, List<EmbaddedAddress> addresses, EmbaddedAddress? address, Map<String, dynamic> metadata, List<EmbaddedContact> contacts,@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations integrations, List<List<num?>?> defaultShippingRates, DateTime? verifiedAt, DateTime? blockedAt, StoreSubscription? subscription, num? due, StoreConfigs? configs, String? shippingPriceId, String? templateId, List<String>? metaPixelIds, Map<String, StoreMember> members,@JsonKey(fromJson: _storeLorFromJson) LiteOrdersReport? lor,@JsonKey(includeFromJson: false, includeToJson: false) StoreTemplate? template
+ String id, DateTime createdAt, DateTime updatedAt, String slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String name, String? iconUrl, String? logoUrl,@Deprecated("use logoUrl") String? ondarkLogoUrl, String userId, List<EmbaddedCategory> categories, List<Category>? categoriesRelation, String? title, String? description, List<EmbaddedAddress> addresses, EmbaddedAddress? address, Map<String, dynamic> metadata, List<EmbaddedContact> contacts,@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations integrations, List<List<num?>?> defaultShippingRates, DateTime? verifiedAt, DateTime? blockedAt, StoreSubscription? subscription, num? due, StoreConfigs? configs, String? shippingPriceId, String? templateId, List<String>? metaPixelIds, Map<String, StoreMember> members,@JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) LiteOrdersReport? lor,@JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) StoreTemplate? template
 });
 
 
@@ -282,7 +284,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String name,  String? iconUrl,  String? logoUrl, @Deprecated("use logoUrl")  String? ondarkLogoUrl,  String userId,  List<EmbaddedCategory> categories,  List<Category>? categoriesRelation,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  DateTime? verifiedAt,  DateTime? blockedAt,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  List<String>? metaPixelIds,  Map<String, StoreMember> members, @JsonKey(fromJson: _storeLorFromJson)  LiteOrdersReport? lor, @JsonKey(includeFromJson: false, includeToJson: false)  StoreTemplate? template)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String name,  String? iconUrl,  String? logoUrl, @Deprecated("use logoUrl")  String? ondarkLogoUrl,  String userId,  List<EmbaddedCategory> categories,  List<Category>? categoriesRelation,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  DateTime? verifiedAt,  DateTime? blockedAt,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  List<String>? metaPixelIds,  Map<String, StoreMember> members, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson)  LiteOrdersReport? lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson)  StoreTemplate? template)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Store() when $default != null:
 return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.name,_that.iconUrl,_that.logoUrl,_that.ondarkLogoUrl,_that.userId,_that.categories,_that.categoriesRelation,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.verifiedAt,_that.blockedAt,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId,_that.metaPixelIds,_that.members,_that.lor,_that.template);case _:
@@ -303,7 +305,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String name,  String? iconUrl,  String? logoUrl, @Deprecated("use logoUrl")  String? ondarkLogoUrl,  String userId,  List<EmbaddedCategory> categories,  List<Category>? categoriesRelation,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  DateTime? verifiedAt,  DateTime? blockedAt,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  List<String>? metaPixelIds,  Map<String, StoreMember> members, @JsonKey(fromJson: _storeLorFromJson)  LiteOrdersReport? lor, @JsonKey(includeFromJson: false, includeToJson: false)  StoreTemplate? template)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String name,  String? iconUrl,  String? logoUrl, @Deprecated("use logoUrl")  String? ondarkLogoUrl,  String userId,  List<EmbaddedCategory> categories,  List<Category>? categoriesRelation,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  DateTime? verifiedAt,  DateTime? blockedAt,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  List<String>? metaPixelIds,  Map<String, StoreMember> members, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson)  LiteOrdersReport? lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson)  StoreTemplate? template)  $default,) {final _that = this;
 switch (_that) {
 case _Store():
 return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.name,_that.iconUrl,_that.logoUrl,_that.ondarkLogoUrl,_that.userId,_that.categories,_that.categoriesRelation,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.verifiedAt,_that.blockedAt,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId,_that.metaPixelIds,_that.members,_that.lor,_that.template);case _:
@@ -323,7 +325,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String name,  String? iconUrl,  String? logoUrl, @Deprecated("use logoUrl")  String? ondarkLogoUrl,  String userId,  List<EmbaddedCategory> categories,  List<Category>? categoriesRelation,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  DateTime? verifiedAt,  DateTime? blockedAt,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  List<String>? metaPixelIds,  Map<String, StoreMember> members, @JsonKey(fromJson: _storeLorFromJson)  LiteOrdersReport? lor, @JsonKey(includeFromJson: false, includeToJson: false)  StoreTemplate? template)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String name,  String? iconUrl,  String? logoUrl, @Deprecated("use logoUrl")  String? ondarkLogoUrl,  String userId,  List<EmbaddedCategory> categories,  List<Category>? categoriesRelation,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  DateTime? verifiedAt,  DateTime? blockedAt,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  List<String>? metaPixelIds,  Map<String, StoreMember> members, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson)  LiteOrdersReport? lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson)  StoreTemplate? template)?  $default,) {final _that = this;
 switch (_that) {
 case _Store() when $default != null:
 return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.name,_that.iconUrl,_that.logoUrl,_that.ondarkLogoUrl,_that.userId,_that.categories,_that.categoriesRelation,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.verifiedAt,_that.blockedAt,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId,_that.metaPixelIds,_that.members,_that.lor,_that.template);case _:
@@ -335,11 +337,11 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner
 }
 
 /// @nodoc
-
+@JsonSerializable()
 
 class _Store extends Store {
-   _Store({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.banner, this.action, this.domain, this.decoration, required this.name, this.iconUrl, this.logoUrl, @Deprecated("use logoUrl") this.ondarkLogoUrl, required this.userId, final  List<EmbaddedCategory> categories = const [], final  List<Category>? categoriesRelation, this.title, this.description, final  List<EmbaddedAddress> addresses = const [], this.address, final  Map<String, dynamic> metadata = const {}, final  List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(), final  List<List<num?>?> defaultShippingRates = const [], this.verifiedAt, this.blockedAt, this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId, final  List<String>? metaPixelIds, final  Map<String, StoreMember> members = const {}, @JsonKey(fromJson: _storeLorFromJson) this.lor, @JsonKey(includeFromJson: false, includeToJson: false) this.template}): _categories = categories,_categoriesRelation = categoriesRelation,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_metaPixelIds = metaPixelIds,_members = members,super._();
-  
+   _Store({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.banner, this.action, this.domain, this.decoration, required this.name, this.iconUrl, this.logoUrl, @Deprecated("use logoUrl") this.ondarkLogoUrl, required this.userId, final  List<EmbaddedCategory> categories = const [], final  List<Category>? categoriesRelation, this.title, this.description, final  List<EmbaddedAddress> addresses = const [], this.address, final  Map<String, dynamic> metadata = const {}, final  List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(), final  List<List<num?>?> defaultShippingRates = const [], this.verifiedAt, this.blockedAt, this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId, final  List<String>? metaPixelIds, final  Map<String, StoreMember> members = const {}, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) this.lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) this.template}): _categories = categories,_categoriesRelation = categoriesRelation,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_metaPixelIds = metaPixelIds,_members = members,super._();
+  factory _Store.fromJson(Map<String, dynamic> json) => _$StoreFromJson(json);
 
 @override final  String id;
 @override final  DateTime createdAt;
@@ -430,10 +432,9 @@ class _Store extends Store {
 }
 
 /// Present when list/show is called with `with[]=lor` and the user may view analytics.
-@override@JsonKey(fromJson: _storeLorFromJson) final  LiteOrdersReport? lor;
+@override@JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) final  LiteOrdersReport? lor;
 /// Present when `with[]=template` — active [StoreTemplate] row (usually the store fork).
-/// Parsed in [Store.fromJson] (generated JSON omits this field).
-@override@JsonKey(includeFromJson: false, includeToJson: false) final  StoreTemplate? template;
+@override@JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) final  StoreTemplate? template;
 
 /// Create a copy of Store
 /// with the given fields replaced by the non-null parameter values.
@@ -441,14 +442,17 @@ class _Store extends Store {
 @pragma('vm:prefer-inline')
 _$StoreCopyWith<_Store> get copyWith => __$StoreCopyWithImpl<_Store>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$StoreToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _Store&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.name, name) || other.name == name)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.userId, userId) || other.userId == userId)&&const DeepCollectionEquality().equals(other._categories, _categories)&&const DeepCollectionEquality().equals(other._categoriesRelation, _categoriesRelation)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._addresses, _addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other._defaultShippingRates, _defaultShippingRates)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due)&&(identical(other.configs, configs) || other.configs == configs)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.templateId, templateId) || other.templateId == templateId)&&const DeepCollectionEquality().equals(other._metaPixelIds, _metaPixelIds)&&const DeepCollectionEquality().equals(other._members, _members)&&(identical(other.lor, lor) || other.lor == lor)&&(identical(other.template, template) || other.template == template));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hashAll([runtimeType,id,createdAt,updatedAt,slug,banner,action,domain,decoration,name,iconUrl,logoUrl,ondarkLogoUrl,userId,const DeepCollectionEquality().hash(_categories),const DeepCollectionEquality().hash(_categoriesRelation),title,description,const DeepCollectionEquality().hash(_addresses),address,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_contacts),integrations,const DeepCollectionEquality().hash(_defaultShippingRates),verifiedAt,blockedAt,subscription,due,configs,shippingPriceId,templateId,const DeepCollectionEquality().hash(_metaPixelIds),const DeepCollectionEquality().hash(_members),lor,template]);
 
@@ -465,7 +469,7 @@ abstract mixin class _$StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
   factory _$StoreCopyWith(_Store value, $Res Function(_Store) _then) = __$StoreCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime createdAt, DateTime updatedAt, String slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String name, String? iconUrl, String? logoUrl,@Deprecated("use logoUrl") String? ondarkLogoUrl, String userId, List<EmbaddedCategory> categories, List<Category>? categoriesRelation, String? title, String? description, List<EmbaddedAddress> addresses, EmbaddedAddress? address, Map<String, dynamic> metadata, List<EmbaddedContact> contacts,@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations integrations, List<List<num?>?> defaultShippingRates, DateTime? verifiedAt, DateTime? blockedAt, StoreSubscription? subscription, num? due, StoreConfigs? configs, String? shippingPriceId, String? templateId, List<String>? metaPixelIds, Map<String, StoreMember> members,@JsonKey(fromJson: _storeLorFromJson) LiteOrdersReport? lor,@JsonKey(includeFromJson: false, includeToJson: false) StoreTemplate? template
+ String id, DateTime createdAt, DateTime updatedAt, String slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String name, String? iconUrl, String? logoUrl,@Deprecated("use logoUrl") String? ondarkLogoUrl, String userId, List<EmbaddedCategory> categories, List<Category>? categoriesRelation, String? title, String? description, List<EmbaddedAddress> addresses, EmbaddedAddress? address, Map<String, dynamic> metadata, List<EmbaddedContact> contacts,@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations integrations, List<List<num?>?> defaultShippingRates, DateTime? verifiedAt, DateTime? blockedAt, StoreSubscription? subscription, num? due, StoreConfigs? configs, String? shippingPriceId, String? templateId, List<String>? metaPixelIds, Map<String, StoreMember> members,@JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) LiteOrdersReport? lor,@JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) StoreTemplate? template
 });
 
 

@@ -68,6 +68,37 @@ enum PixelReportMode {
   both,
 }
 
+/// Which order field to watch for [PixelStatusRule] (server-side CAPI on status transition).
+@JsonEnum(alwaysCreate: true)
+enum PixelStatusDimension {
+  @JsonValue('orderStatus')
+  orderStatus,
+  @JsonValue('deliveryStatus')
+  deliveryStatus,
+  @JsonValue('paymentStatus')
+  paymentStatus,
+  @JsonValue('customStatus')
+  customStatus,
+}
+
+/// When the order transitions so [dimension] becomes [equals], send the configured pixel events (server).
+@freezed
+abstract class PixelStatusRule with _$PixelStatusRule {
+  const factory PixelStatusRule({
+    required String id,
+    required PixelStatusDimension dimension,
+    required String equals,
+    MetaPixelEvent? metaEvent,
+    TiktokPixelEvent? tiktokEvent,
+    /// When set, takes precedence over [metaEvent] (Meta CAPI custom name).
+    String? metaCustomEvent,
+    String? tiktokCustomEvent,
+  }) = _PixelStatusRule;
+
+  factory PixelStatusRule.fromJson(Map<String, dynamic> json) =>
+      _$PixelStatusRuleFromJson(json);
+}
+
 /// Facebook Marketing OAuth data for accessing Facebook Marketing API
 @freezed
 abstract class FacebookMarketingOAuth with _$FacebookMarketingOAuth {
@@ -101,6 +132,9 @@ abstract class MetaPixelIntegration with _$MetaPixelIntegration {
 
     /// Where to send events: server (CAPI), client (store frontend), or both. Null = auto.
     PixelReportMode? mode,
+
+    /// Server-only: fire CAPI when order/delivery/payment/custom status transitions into [equals].
+    @Default([]) List<PixelStatusRule> statusRules,
   }) = _MetaPixelIntegration;
 
   factory MetaPixelIntegration.fromJson(Map<String, dynamic> json) =>
@@ -135,6 +169,9 @@ abstract class TiktokPixelIntegration with _$TiktokPixelIntegration {
 
     /// Where to send events: server, client, or both. Null = auto.
     PixelReportMode? mode,
+
+    /// Server-only: fire Events API when order/delivery/payment/custom status transitions into [equals].
+    @Default([]) List<PixelStatusRule> statusRules,
   }) = _TiktokPixelIntegration;
 
   factory TiktokPixelIntegration.fromJson(Map<String, dynamic> json) =>

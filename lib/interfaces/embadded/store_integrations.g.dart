@@ -137,6 +137,63 @@ Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
       'telegram': instance.telegram,
     };
 
+_PixelStatusRule _$PixelStatusRuleFromJson(Map<String, dynamic> json) =>
+    _PixelStatusRule(
+      id: json['id'] as String,
+      dimension: $enumDecode(_$PixelStatusDimensionEnumMap, json['dimension']),
+      equals: json['equals'] as String,
+      metaEvent: $enumDecodeNullable(
+        _$MetaPixelEventEnumMap,
+        json['metaEvent'],
+      ),
+      tiktokEvent: $enumDecodeNullable(
+        _$TiktokPixelEventEnumMap,
+        json['tiktokEvent'],
+      ),
+      metaCustomEvent: json['metaCustomEvent'] as String?,
+      tiktokCustomEvent: json['tiktokCustomEvent'] as String?,
+    );
+
+Map<String, dynamic> _$PixelStatusRuleToJson(_PixelStatusRule instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'dimension': _$PixelStatusDimensionEnumMap[instance.dimension]!,
+      'equals': instance.equals,
+      'metaEvent': _$MetaPixelEventEnumMap[instance.metaEvent],
+      'tiktokEvent': _$TiktokPixelEventEnumMap[instance.tiktokEvent],
+      'metaCustomEvent': instance.metaCustomEvent,
+      'tiktokCustomEvent': instance.tiktokCustomEvent,
+    };
+
+const _$PixelStatusDimensionEnumMap = {
+  PixelStatusDimension.orderStatus: 'orderStatus',
+  PixelStatusDimension.deliveryStatus: 'deliveryStatus',
+  PixelStatusDimension.paymentStatus: 'paymentStatus',
+  PixelStatusDimension.customStatus: 'customStatus',
+};
+
+const _$MetaPixelEventEnumMap = {
+  MetaPixelEvent.none: 'none',
+  MetaPixelEvent.lead: 'lead',
+  MetaPixelEvent.purchase: 'purchase',
+  MetaPixelEvent.viewContent: 'viewContent',
+  MetaPixelEvent.addToCart: 'addToCart',
+  MetaPixelEvent.initiateCheckout: 'initiateCheckout',
+};
+
+const _$TiktokPixelEventEnumMap = {
+  TiktokPixelEvent.none: 'none',
+  TiktokPixelEvent.viewContent: 'viewContent',
+  TiktokPixelEvent.addToWishlist: 'addToWishlist',
+  TiktokPixelEvent.search: 'search',
+  TiktokPixelEvent.addPaymentInfo: 'addPaymentInfo',
+  TiktokPixelEvent.addToCart: 'addToCart',
+  TiktokPixelEvent.initiateCheckout: 'initiateCheckout',
+  TiktokPixelEvent.placeAnOrder: 'placeAnOrder',
+  TiktokPixelEvent.completeRegistration: 'completeRegistration',
+  TiktokPixelEvent.purchase: 'purchase',
+};
+
 _FacebookMarketingOAuth _$FacebookMarketingOAuthFromJson(
   Map<String, dynamic> json,
 ) => _FacebookMarketingOAuth(
@@ -180,6 +237,11 @@ _MetaPixelIntegration _$MetaPixelIntegrationFromJson(
       ? null
       : FacebookMarketingOAuth.fromJson(json['oauth2'] as Map<String, dynamic>),
   mode: $enumDecodeNullable(_$PixelReportModeEnumMap, json['mode']),
+  statusRules:
+      (json['statusRules'] as List<dynamic>?)
+          ?.map((e) => PixelStatusRule.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
 );
 
 Map<String, dynamic> _$MetaPixelIntegrationToJson(
@@ -193,15 +255,7 @@ Map<String, dynamic> _$MetaPixelIntegrationToJson(
   'metadata': instance.metadata,
   'oauth2': instance.oauth2,
   'mode': _$PixelReportModeEnumMap[instance.mode],
-};
-
-const _$MetaPixelEventEnumMap = {
-  MetaPixelEvent.none: 'none',
-  MetaPixelEvent.lead: 'lead',
-  MetaPixelEvent.purchase: 'purchase',
-  MetaPixelEvent.viewContent: 'viewContent',
-  MetaPixelEvent.addToCart: 'addToCart',
-  MetaPixelEvent.initiateCheckout: 'initiateCheckout',
+  'statusRules': instance.statusRules,
 };
 
 const _$PixelReportModeEnumMap = {
@@ -241,6 +295,11 @@ _TiktokPixelIntegration _$TiktokPixelIntegrationFromJson(
   active: json['active'] as bool? ?? true,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
   mode: $enumDecodeNullable(_$PixelReportModeEnumMap, json['mode']),
+  statusRules:
+      (json['statusRules'] as List<dynamic>?)
+          ?.map((e) => PixelStatusRule.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
 );
 
 Map<String, dynamic> _$TiktokPixelIntegrationToJson(
@@ -253,19 +312,7 @@ Map<String, dynamic> _$TiktokPixelIntegrationToJson(
   'active': instance.active,
   'metadata': instance.metadata,
   'mode': _$PixelReportModeEnumMap[instance.mode],
-};
-
-const _$TiktokPixelEventEnumMap = {
-  TiktokPixelEvent.none: 'none',
-  TiktokPixelEvent.viewContent: 'viewContent',
-  TiktokPixelEvent.addToWishlist: 'addToWishlist',
-  TiktokPixelEvent.search: 'search',
-  TiktokPixelEvent.addPaymentInfo: 'addPaymentInfo',
-  TiktokPixelEvent.addToCart: 'addToCart',
-  TiktokPixelEvent.initiateCheckout: 'initiateCheckout',
-  TiktokPixelEvent.placeAnOrder: 'placeAnOrder',
-  TiktokPixelEvent.completeRegistration: 'completeRegistration',
-  TiktokPixelEvent.purchase: 'purchase',
+  'statusRules': instance.statusRules,
 };
 
 _TiktokPixel _$TiktokPixelFromJson(Map<String, dynamic> json) => _TiktokPixel(

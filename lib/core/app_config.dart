@@ -1,3 +1,5 @@
+import 'package:feeef/core/models_catalog.dart';
+
 enum PopupStrategy { once, always, eachDay, tillInteract, dailyTillInteract }
 
 enum PopupActionType { externalUrl, route }
@@ -939,6 +941,8 @@ class AppConfig {
   final List<LanguageConfig> languages;
   final ExtraConfig? extra;
   final AIModelsConfig? aiModels;
+  /// Multi-provider catalog (`models` option); optional until backend populates.
+  final ModelsCatalogConfig? models;
 
   AppConfig({
     required this.update,
@@ -951,6 +955,7 @@ class AppConfig {
     required this.languages,
     this.extra,
     this.aiModels,
+    this.models,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -964,6 +969,23 @@ class AppConfig {
         if (aiFeature['aiModels'] != null) {
           aiModelsJson = Map<String, dynamic>.from(
             aiFeature['aiModels'] as Map,
+          );
+        }
+      }
+    }
+
+    ModelsCatalogConfig? modelsCatalog;
+    if (json['models'] != null) {
+      modelsCatalog = ModelsCatalogConfig.fromJson(
+        Map<String, dynamic>.from(json['models'] as Map),
+      );
+    } else {
+      final features = json['features'];
+      if (features is Map && features['ai'] is Map) {
+        final aiFeature = features['ai'] as Map;
+        if (aiFeature['models'] != null) {
+          modelsCatalog = ModelsCatalogConfig.fromJson(
+            Map<String, dynamic>.from(aiFeature['models'] as Map),
           );
         }
       }
@@ -994,6 +1016,7 @@ class AppConfig {
       aiModels: aiModelsJson != null
           ? AIModelsConfig.fromJson(aiModelsJson)
           : null,
+      models: modelsCatalog,
     );
   }
 
@@ -1007,6 +1030,7 @@ class AppConfig {
       'storePaymentMethods': storePaymentMethods!.toJson(),
     'currencies': currencies.map((e) => e.toJson()).toList(),
     if (aiModels != null) 'aiModels': aiModels!.toJson(),
+    if (models != null) 'models': models!.toJson(),
     'languages': languages.map((e) => e.toJson()).toList(),
     if (extra != null) 'extra': extra!.toJson(),
   };

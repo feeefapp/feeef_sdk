@@ -1369,6 +1369,8 @@ class Actions {
     List<Attachment>? attachments,
     String? model,
     String? storeId,
+    bool? googleSearch,
+    bool? imageSearch,
   }) async {
     final attachmentMaps = attachments != null && attachments.isNotEmpty
         ? attachments.map((a) => a.toJson()).toList()
@@ -1386,6 +1388,8 @@ class Actions {
       if (attachmentMaps != null && attachmentMaps.isNotEmpty)
         'attachments': jsonEncode(attachmentMaps),
       if (model != null && model.trim().isNotEmpty) 'model': model.trim(),
+      if (googleSearch != null) 'googleSearch': googleSearch,
+      if (imageSearch != null) 'imageSearch': imageSearch,
       if (imageBytes != null)
         'imageFile': MultipartFile.fromBytes(
           imageBytes,

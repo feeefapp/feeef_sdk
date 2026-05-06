@@ -6,6 +6,7 @@ import 'package:feeef/core/platforms.dart';
 
 export 'package:feeef/core/app_config.dart'
     show AIModel, AIModelsConfig, AIModelPricing;
+export 'package:feeef/core/models_catalog.dart';
 
 class ConfigRepository {
   final Dio client;

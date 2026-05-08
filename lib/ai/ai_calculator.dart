@@ -11,6 +11,7 @@ library;
 import 'dart:math' as math;
 
 import 'package:feeef/core/app_config.dart' show AIModelsBilling;
+import 'package:feeef/core/image_gen_caps.dart' show modelIdSupportsImageOutputTiers;
 
 /// Fallback DZD per USD when `aiModels.exchangeRate` is absent (mirror backend).
 const double fallbackAiExchangeRate = 260;
@@ -499,6 +500,7 @@ class AiCalculator {
     String? imageSize,
     int iterations = 1,
     int referenceImageCount = 0,
+    double featureAddonsDzd = 0,
   }) {
     final model = _findModel(modelId, 'gemini-3.1-flash-image-preview');
     final exchangeRate = config.exchangeRate;
@@ -539,9 +541,7 @@ class AiCalculator {
     // (2) Any model — input [resolution] tier surcharge above MEDIA_RESOLUTION_LOW
     // (same keys as output; applies even with zero reference images so the control
     // matches wallet + UX). Stacks with (1) when both output size and input tier apply.
-    // Match [AIService.generateOrEditImage]: Flash + Pro preview support output imageSize tiers.
-    final supportsImageSize = modelId == 'gemini-3.1-flash-image-preview' ||
-        modelId == 'gemini-3-pro-image-preview';
+    final supportsImageSize = modelIdSupportsImageOutputTiers(modelId);
     String outputResKey = 'MEDIA_RESOLUTION_HIGH';
     if (supportsImageSize && imageSize != null) {
       outputResKey = switch (imageSize) {
@@ -568,8 +568,10 @@ class AiCalculator {
     final resExtraDzd =
         _roundMoney(outputResExtraDzd + referenceResolutionExtraDzd);
 
+    final addonsDzd = _roundMoney(featureAddonsDzd);
+
     final userCostDzd = _roundMoney(
-      baseCostDzd + refExtraDzd + attachExtraDzd + resExtraDzd,
+      baseCostDzd + refExtraDzd + attachExtraDzd + resExtraDzd + addonsDzd,
     );
 
     return AiCostEstimate(
@@ -586,6 +588,7 @@ class AiCalculator {
         'outputResolutionExtraDzd': outputResExtraDzd,
         'referenceResolutionExtraDzd': referenceResolutionExtraDzd,
         'resolutionExtraDzd': resExtraDzd,
+        'featureAddonsDzd': addonsDzd,
         'iterations': iterations.toDouble(),
         'referenceImageCount': referenceImageCount.toDouble(),
         'attachmentCount': attachmentCount.toDouble(),
@@ -732,6 +735,7 @@ class AiCalculator {
     String? resolution,
     String? imageSize,
     int referenceImageCount = 0,
+    double featureAddonsDzd = 0,
   }) {
     final mid = imageModelId?.trim();
     if (mid == null || mid.isEmpty) {
@@ -757,6 +761,7 @@ class AiCalculator {
       resolution: resolution,
       imageSize: imageSize,
       referenceImageCount: referenceImageCount,
+      featureAddonsDzd: featureAddonsDzd,
     );
     var total = img.userCostDzd;
     if (total <= 0) {

@@ -37,6 +37,10 @@ class ModelCatalogRow {
   final String name;
   final String? description;
   final Map<String, dynamic>? architecture;
+  /// Optional Feeef extensions: `image_generation` under `capabilities`.
+  final Map<String, dynamic>? capabilities;
+  /// Optional OpenRouter-style pricing (per-token USD strings): `{ prompt, completion }`.
+  final Map<String, dynamic>? pricing;
 
   const ModelCatalogRow({
     required this.id,
@@ -44,6 +48,8 @@ class ModelCatalogRow {
     required this.name,
     this.description,
     this.architecture,
+    this.capabilities,
+    this.pricing,
   });
 
   factory ModelCatalogRow.fromJson(Map<String, dynamic> json) {
@@ -74,12 +80,23 @@ class ModelCatalogRow {
     mergeModalities('output_modalities', 'outputModalities', 'output_modalities');
     mergeModalities('input_modalities', 'inputModalities', 'input_modalities');
 
+    Map<String, dynamic>? cap;
+    if (json['capabilities'] is Map) {
+      cap = Map<String, dynamic>.from(json['capabilities'] as Map);
+    }
+    Map<String, dynamic>? pricing;
+    if (json['pricing'] is Map) {
+      pricing = Map<String, dynamic>.from(json['pricing'] as Map);
+    }
+
     return ModelCatalogRow(
       id: resolvedId,
       providerSlug: json['provider_slug'] as String,
       name: json['name'] as String? ?? resolvedId,
       description: json['description'] as String?,
       architecture: arch,
+      capabilities: cap,
+      pricing: pricing,
     );
   }
 }
@@ -119,6 +136,7 @@ class ModelsCatalogConfig {
                   'name': m.name,
                   if (m.description != null) 'description': m.description,
                   if (m.architecture != null) 'architecture': m.architecture,
+                  if (m.capabilities != null) 'capabilities': m.capabilities,
                 })
             .toList(),
       };

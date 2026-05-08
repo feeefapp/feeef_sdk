@@ -24,6 +24,24 @@ typedef StoreOrdersCountByFieldType = (
   bool truncated,
 );
 
+/// Dio / JSON often yields [Map<dynamic, dynamic>]. A naive `is Map<String, dynamic>`
+/// check fails, so [product] was parsed as null despite a valid payload.
+Map<String, dynamic>? _jsonObjectMap(dynamic value) {
+  if (value is Map<String, dynamic>) return Map<String, dynamic>.from(value);
+  if (value is Map) return Map<String, dynamic>.from(value);
+  return null;
+}
+
+bool _jsonBool(dynamic value) {
+  if (value is bool) return value;
+  if (value is String) {
+    final s = value.toLowerCase();
+    return s == 'true' || s == '1';
+  }
+  if (value is num) return value != 0;
+  return false;
+}
+
 enum SendEventToMetaPixelActionEvents {
   purchase,
   lead,
@@ -1122,6 +1140,8 @@ class Actions {
     List<Attachment>? attachments,
     /// When true, backend enables Gemini Google Search grounding (e.g. for price suggestions). May incur extra cost.
     bool? useSearchGrounding,
+    /// Catalog text model id (e.g. Gemini or OpenRouter slug). Optional; backend falls back to store default.
+    String? modelId,
   }) async {
     try {
       if (storeId.isEmpty) throw ArgumentError('storeId required');
@@ -1129,6 +1149,7 @@ class Actions {
       final attachmentMaps = attachments != null && attachments.isNotEmpty
           ? attachments.map((a) => a.toJson()).toList()
           : null;
+      final trimmedCatalogModelId = modelId?.trim();
       final payload = <String, dynamic>{
         'storeId': storeId,
         'input': input.trim(),
@@ -1141,39 +1162,41 @@ class Actions {
           'referenceImageLabels': referenceImageLabels,
         if (attachmentMaps != null) 'attachments': attachmentMaps,
         if (useSearchGrounding == true) 'useSearchGrounding': true,
+        if (trimmedCatalogModelId != null && trimmedCatalogModelId.isNotEmpty)
+          'modelId': trimmedCatalogModelId,
       };
       final resp = await client.post(
         '/actions/updateProductUsingAi',
         data: payload,
       );
-      final d = resp.data as Map<String, dynamic>;
+      final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
       return (
-        success: d['success'] as bool? ?? false,
+        success: _jsonBool(d['success']),
         mode: d['mode'] as String? ?? (productId != null ? 'update' : 'create'),
-        product: d['product'] is Map<String, dynamic>
-            ? Map<String, dynamic>.from(d['product'])
-            : null,
+        product: _jsonObjectMap(d['product']),
         message: d['message'] as String? ?? '',
         error: d['error'] as String?,
-        validationErrors: d['validationErrors'] is Map<String, dynamic>
-            ? Map<String, dynamic>.from(d['validationErrors'])
-            : null,
-        raw: d['raw'] as String?,
+        validationErrors: _jsonObjectMap(d['validationErrors']),
+        raw: d['raw'] is String ? d['raw'] as String : null,
       );
     } on DioException catch (e) {
       final res = e.response?.data;
+      final resMap = _jsonObjectMap(res);
+      final serverError = resMap != null
+          ? (resMap['error'] as String? ??
+              resMap['message'] as String? ??
+              e.message)
+          : e.message;
       return (
         success: false,
         mode: productId != null ? 'update' : 'create',
         product: null,
         message: 'AI product request failed',
-        error: e.message,
-        validationErrors:
-            res is Map<String, dynamic> &&
-                res['validationErrors'] is Map<String, dynamic>
-            ? Map<String, dynamic>.from(res['validationErrors'])
+        error: serverError,
+        validationErrors: resMap != null
+            ? _jsonObjectMap(resMap['validationErrors'])
             : null,
-        raw: res is Map<String, dynamic> ? jsonEncode(res) : null,
+        raw: resMap != null ? jsonEncode(resMap) : null,
       );
     } catch (e) {
       developer.log('Error in updateProductUsingAi: $e');
@@ -1371,6 +1394,9 @@ class Actions {
     String? storeId,
     bool? googleSearch,
     bool? imageSearch,
+    String? background,
+    String? quality,
+    String? outputFormat,
   }) async {
     final attachmentMaps = attachments != null && attachments.isNotEmpty
         ? attachments.map((a) => a.toJson()).toList()
@@ -1390,6 +1416,11 @@ class Actions {
       if (model != null && model.trim().isNotEmpty) 'model': model.trim(),
       if (googleSearch != null) 'googleSearch': googleSearch,
       if (imageSearch != null) 'imageSearch': imageSearch,
+      if (background != null && background.trim().isNotEmpty)
+        'background': background.trim(),
+      if (quality != null && quality.trim().isNotEmpty) 'quality': quality.trim(),
+      if (outputFormat != null && outputFormat.trim().isNotEmpty)
+        'outputFormat': outputFormat.trim(),
       if (imageBytes != null)
         'imageFile': MultipartFile.fromBytes(
           imageBytes,
@@ -1679,6 +1710,7 @@ class Actions {
     String? mediaResolution,
     /// Output image dimensions for models that support 1K/2K/4K (e.g. Flash/Pro image preview).
     String? imageSize,
+    String? background,
   }) async {
     try {
       if (text.trim().isEmpty && (attachments == null || attachments.isEmpty)) {
@@ -1697,6 +1729,8 @@ class Actions {
         if (mediaResolution != null && mediaResolution.trim().isNotEmpty)
           'mediaResolution': mediaResolution.trim(),
         if (imageSize != null && imageSize.trim().isNotEmpty) 'imageSize': imageSize.trim(),
+        if (background != null && background.trim().isNotEmpty)
+          'background': background.trim(),
       };
 
       final response = await client.post(

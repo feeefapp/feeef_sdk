@@ -1779,8 +1779,12 @@ class Actions {
   }
 
   /// generateLogo (LogoStudio)
-  /// Generates a logo using AI with RED/BLUE-only palette; green becomes alpha.
-  /// [color1], [color2]: AARRGGBB (32-bit) for the two brand colors.
+  /// Generates a PNG logo with transparent background (native alpha from the model).
+  ///
+  /// Provide either [colors] (ordered ARGB ints, client-enabled palette) or legacy
+  /// [color1] + [color2]. When [colors] is non-empty it takes precedence.
+  ///
+  /// [imageModel]: optional catalog model id (server resolves like landing-page image step).
   /// [attachments]: optional image/store/product references.
   Future<
     ({
@@ -1794,29 +1798,43 @@ class Actions {
   generateLogo({
     required String logoName,
     required String description,
-    required int color1,
-    required int color2,
+    int? color1,
+    int? color2,
+    List<int>? colors,
     String? aspectRatio,
+    String? imageModel,
     List<Attachment>? attachments,
     List<String>? referenceImageUrls,
     Map<String, String>? referenceImageLabels,
   }) async {
     try {
+      final hasPalette = colors != null && colors.isNotEmpty;
+      if (!hasPalette && (color1 == null || color2 == null)) {
+        throw ArgumentError(
+          'generateLogo requires colors or both color1 and color2',
+        );
+      }
       final attachmentMaps = attachments != null && attachments.isNotEmpty
           ? attachments.map((a) => a.toJson()).toList()
           : null;
       final requestData = <String, dynamic>{
         'logoName': logoName.trim(),
         'description': description.trim(),
-        'color1': color1,
-        'color2': color2,
         if (aspectRatio != null && aspectRatio.isNotEmpty) 'aspectRatio': aspectRatio,
+        if (imageModel != null && imageModel.trim().isNotEmpty)
+          'imageModel': imageModel.trim(),
         if (attachmentMaps != null) 'attachments': attachmentMaps,
         if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
           'referenceImageUrls': referenceImageUrls,
         if (referenceImageLabels != null && referenceImageLabels.isNotEmpty)
           'referenceImageLabels': referenceImageLabels,
       };
+      if (hasPalette) {
+        requestData['colors'] = colors;
+      } else {
+        requestData['color1'] = color1!;
+        requestData['color2'] = color2!;
+      }
 
       final response = await client.post(
         '/actions/generateLogo',

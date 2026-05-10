@@ -845,6 +845,8 @@ class Actions {
     List<Map<String, dynamic>>? attachments,
     bool? useSearchGrounding,
     String? textModel,
+    /// When cancelled (e.g. user tapped Stop), Dio throws [DioExceptionType.cancel].
+    CancelToken? cancelToken,
   }) async {
     try {
       if (storeId.isEmpty) {
@@ -874,6 +876,7 @@ class Actions {
       final response = await client.post(
         '/actions/generateCustomComponentCode',
         data: requestData,
+        cancelToken: cancelToken,
       );
 
       final responseData = response.data as Map<String, dynamic>;
@@ -894,6 +897,9 @@ class Actions {
       }
       return AICustomComponentResponse.fromJson(responseData);
     } on DioException catch (e) {
+      if (e.type == DioExceptionType.cancel) {
+        rethrow;
+      }
       developer.log('Network error during AI custom component generation: ${e.message}');
       return const AICustomComponentResponse(
         success: false,
@@ -1602,6 +1608,8 @@ class Actions {
   /// - [voiceName] Optional voice name (e.g., 'Leda', defaults to 'Leda')
   /// - [model] Optional AI model ID (defaults to 'gemini-2.5-pro-preview-tts')
   /// - [enhanceScript] Whether to enhance the script using text model first (defaults to true)
+  /// - [styleInstructions] Optional TTS style / delivery instructions (replaces server default narrator prompt)
+  /// - [speakers] Multi-speaker dialogue: exactly 2 entries `{ speakerAlias, voiceName }` (Gemini TTS); script lines `Alias: text`
   /// Returns a structured response with success status, audio URL, and metadata
   Future<
     ({
@@ -1620,6 +1628,8 @@ class Actions {
     String? voiceName,
     String? model,
     bool? enhanceScript,
+    String? styleInstructions,
+    List<Map<String, String>>? speakers,
   }) async {
     try {
       final attachmentMaps = attachments != null && attachments.isNotEmpty
@@ -1635,6 +1645,9 @@ class Actions {
           'voiceName': voiceName.trim(),
         if (model != null && model.trim().isNotEmpty) 'model': model.trim(),
         if (enhanceScript != null) 'enhanceScript': enhanceScript,
+        if (styleInstructions != null && styleInstructions.trim().isNotEmpty)
+          'styleInstructions': styleInstructions.trim(),
+        if (speakers != null && speakers.isNotEmpty) 'speakers': speakers,
       };
 
       final response = await client.post(

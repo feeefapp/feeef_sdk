@@ -42,6 +42,9 @@ class ModelCatalogRow {
   /// Optional OpenRouter-style pricing (per-token USD strings): `{ prompt, completion }`.
   final Map<String, dynamic>? pricing;
 
+  /// Azure OpenAI deployment name (`model` parameter); omit when catalog `id` is the deployment.
+  final String? azureDeployment;
+
   const ModelCatalogRow({
     required this.id,
     required this.providerSlug,
@@ -50,6 +53,7 @@ class ModelCatalogRow {
     this.architecture,
     this.capabilities,
     this.pricing,
+    this.azureDeployment,
   });
 
   factory ModelCatalogRow.fromJson(Map<String, dynamic> json) {
@@ -89,6 +93,10 @@ class ModelCatalogRow {
       pricing = Map<String, dynamic>.from(json['pricing'] as Map);
     }
 
+    final depRaw = json['azure_deployment'] ?? json['azureDeployment'];
+    final azureDeployment =
+        depRaw is String && depRaw.trim().isNotEmpty ? depRaw.trim() : null;
+
     return ModelCatalogRow(
       id: resolvedId,
       providerSlug: json['provider_slug'] as String,
@@ -97,6 +105,7 @@ class ModelCatalogRow {
       architecture: arch,
       capabilities: cap,
       pricing: pricing,
+      azureDeployment: azureDeployment,
     );
   }
 }
@@ -137,6 +146,8 @@ class ModelsCatalogConfig {
                   if (m.description != null) 'description': m.description,
                   if (m.architecture != null) 'architecture': m.architecture,
                   if (m.capabilities != null) 'capabilities': m.capabilities,
+                  if (m.azureDeployment != null)
+                    'azure_deployment': m.azureDeployment,
                 })
             .toList(),
       };

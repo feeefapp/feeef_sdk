@@ -5,6 +5,8 @@
 ///   replaced with the actual generated image URL before creating the page.
 /// - [emptyLandingPageDefaults]: Minimal structure (navbar + order button + space)
 ///   for a blank landing page; the user adds content in the editor.
+/// - [buildAiPlusLandingPageDefaults]: Same as empty plus one draft
+///   `feeef_ai_placeholder` after the navbar (AI custom component in editor).
 library;
 
 /// Placeholder string to replace with the generated image URL.
@@ -233,6 +235,65 @@ Map<String, dynamic> get imageLandingPageDefaults => {
         'corners': <String, dynamic>{},
       },
     };
+
+/// Wire keys for `feeef_ai_placeholder` rows (must match the template editor).
+///
+/// Duplicated here so the SDK does not depend on the merchant app's
+/// [TemplateComponent] helpers.
+abstract final class _AiPlaceholderWireKeys {
+  static const String prompt = '_feeefAiPrompt';
+  static const String status = '_feeefAiStatus';
+  static const String source = '_feeefAiSource';
+}
+
+abstract final class _AiPlaceholderStatusWire {
+  static const String draft = 'draft';
+}
+
+abstract final class _AiPlaceholderOriginWire {
+  static const String create = 'create';
+}
+
+/// Builds defaults like [emptyLandingPageDefaults] plus one draft
+/// `feeef_ai_placeholder` row after the navbar.
+///
+/// Merchants open the template editor with the AI custom-component composer
+/// ready; [seedPrompt] is stored on the placeholder (editable before generate).
+Map<String, dynamic> buildAiPlusLandingPageDefaults({
+  required String seedPrompt,
+}) {
+  final m = _deepCopy(emptyLandingPageDefaults);
+  final pages = m['pages'];
+  if (pages is! Map) return m;
+  final landing = pages['landing_page'];
+  if (landing is! Map) return m;
+  final sections = landing['sections'];
+  if (sections is! Map) return m;
+  final main = sections['main'];
+  if (main is! Map) return m;
+  final rawList = main['components'];
+  if (rawList is! List) return m;
+
+  final components = List<dynamic>.from(rawList);
+  final micro = DateTime.now().microsecondsSinceEpoch;
+  components.insert(1, {
+    'type': 'feeef_ai_placeholder',
+    'instanceId': 'feeef_ai_placeholder_$micro',
+    'title': null,
+    'code': null,
+    'propsSchema': null,
+    'slotsSchema': null,
+    'props': {
+      _AiPlaceholderWireKeys.prompt: seedPrompt,
+      _AiPlaceholderWireKeys.status: _AiPlaceholderStatusWire.draft,
+      _AiPlaceholderWireKeys.source: _AiPlaceholderOriginWire.create,
+    },
+    'children': <dynamic>[],
+    'slots': null,
+  });
+  main['components'] = components;
+  return m;
+}
 
 /// Default page structure for empty product landing pages.
 ///

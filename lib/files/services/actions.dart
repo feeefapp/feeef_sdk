@@ -24,6 +24,24 @@ typedef StoreOrdersCountByFieldType = (
   bool truncated,
 );
 
+/// Dio / JSON often yields [Map<dynamic, dynamic>]. A naive `is Map<String, dynamic>`
+/// check fails, so [product] was parsed as null despite a valid payload.
+Map<String, dynamic>? _jsonObjectMap(dynamic value) {
+  if (value is Map<String, dynamic>) return Map<String, dynamic>.from(value);
+  if (value is Map) return Map<String, dynamic>.from(value);
+  return null;
+}
+
+bool _jsonBool(dynamic value) {
+  if (value is bool) return value;
+  if (value is String) {
+    final s = value.toLowerCase();
+    return s == 'true' || s == '1';
+  }
+  if (value is num) return value != 0;
+  return false;
+}
+
 enum SendEventToMetaPixelActionEvents {
   purchase,
   lead,
@@ -67,6 +85,38 @@ class EcotrackLoginTokenResult {
       success: json['success'] as bool? ?? false,
       message: json['message'] as String? ?? '',
       apiToken: json['apiToken'] as String?,
+      profile: json['profile'] is Map
+          ? Map<String, dynamic>.from(json['profile'] as Map)
+          : null,
+    );
+  }
+}
+
+/// Result of [Actions.createMdmExpressApiKeyFromUserLogin] (MDM seller login proxied by API).
+class MdmExpressProvisionResult {
+  final bool success;
+  final String message;
+  final String? apiKey;
+  final String? mdmStoreId;
+  final String? mdmSellerId;
+  final Map<String, dynamic>? profile;
+
+  const MdmExpressProvisionResult({
+    required this.success,
+    required this.message,
+    this.apiKey,
+    this.mdmStoreId,
+    this.mdmSellerId,
+    this.profile,
+  });
+
+  factory MdmExpressProvisionResult.fromJson(Map<String, dynamic> json) {
+    return MdmExpressProvisionResult(
+      success: json['success'] as bool? ?? false,
+      message: json['message'] as String? ?? '',
+      apiKey: json['apiKey'] as String?,
+      mdmStoreId: json['mdmStoreId'] as String?,
+      mdmSellerId: json['mdmSellerId'] as String?,
       profile: json['profile'] is Map
           ? Map<String, dynamic>.from(json['profile'] as Map)
           : null,
@@ -385,6 +435,25 @@ class Actions {
     );
     final data = response.data ?? {};
     return EcotrackLoginTokenResult.fromJson(Map<String, dynamic>.from(data));
+  }
+
+  /// MDM Express: seller username/password → API key (default name `feeef`) + MDM store id via Feeef proxy.
+  Future<MdmExpressProvisionResult> createMdmExpressApiKeyFromUserLogin({
+    required String username,
+    required String password,
+    String? apiKeyName,
+  }) async {
+    final response = await client.post<Map<String, dynamic>>(
+      '/actions/createMdmExpressApiKeyFromUserLogin',
+      data: {
+        'username': username,
+        'password': password,
+        if (apiKeyName != null && apiKeyName.trim().isNotEmpty)
+          'apiKeyName': apiKeyName.trim(),
+      },
+    );
+    final data = response.data ?? {};
+    return MdmExpressProvisionResult.fromJson(Map<String, dynamic>.from(data));
   }
 
   /// Fetches products from a Youcan store.
@@ -827,6 +896,8 @@ class Actions {
     List<Map<String, dynamic>>? attachments,
     bool? useSearchGrounding,
     String? textModel,
+    /// When cancelled (e.g. user tapped Stop), Dio throws [DioExceptionType.cancel].
+    CancelToken? cancelToken,
   }) async {
     try {
       if (storeId.isEmpty) {
@@ -856,6 +927,7 @@ class Actions {
       final response = await client.post(
         '/actions/generateCustomComponentCode',
         data: requestData,
+        cancelToken: cancelToken,
       );
 
       final responseData = response.data as Map<String, dynamic>;
@@ -876,6 +948,9 @@ class Actions {
       }
       return AICustomComponentResponse.fromJson(responseData);
     } on DioException catch (e) {
+      if (e.type == DioExceptionType.cancel) {
+        rethrow;
+      }
       developer.log('Network error during AI custom component generation: ${e.message}');
       return const AICustomComponentResponse(
         success: false,
@@ -1122,6 +1197,8 @@ class Actions {
     List<Attachment>? attachments,
     /// When true, backend enables Gemini Google Search grounding (e.g. for price suggestions). May incur extra cost.
     bool? useSearchGrounding,
+    /// Catalog text model id (e.g. Gemini or OpenRouter slug). Optional; backend falls back to store default.
+    String? modelId,
   }) async {
     try {
       if (storeId.isEmpty) throw ArgumentError('storeId required');
@@ -1129,6 +1206,7 @@ class Actions {
       final attachmentMaps = attachments != null && attachments.isNotEmpty
           ? attachments.map((a) => a.toJson()).toList()
           : null;
+      final trimmedCatalogModelId = modelId?.trim();
       final payload = <String, dynamic>{
         'storeId': storeId,
         'input': input.trim(),
@@ -1141,39 +1219,41 @@ class Actions {
           'referenceImageLabels': referenceImageLabels,
         if (attachmentMaps != null) 'attachments': attachmentMaps,
         if (useSearchGrounding == true) 'useSearchGrounding': true,
+        if (trimmedCatalogModelId != null && trimmedCatalogModelId.isNotEmpty)
+          'modelId': trimmedCatalogModelId,
       };
       final resp = await client.post(
         '/actions/updateProductUsingAi',
         data: payload,
       );
-      final d = resp.data as Map<String, dynamic>;
+      final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
       return (
-        success: d['success'] as bool? ?? false,
+        success: _jsonBool(d['success']),
         mode: d['mode'] as String? ?? (productId != null ? 'update' : 'create'),
-        product: d['product'] is Map<String, dynamic>
-            ? Map<String, dynamic>.from(d['product'])
-            : null,
+        product: _jsonObjectMap(d['product']),
         message: d['message'] as String? ?? '',
         error: d['error'] as String?,
-        validationErrors: d['validationErrors'] is Map<String, dynamic>
-            ? Map<String, dynamic>.from(d['validationErrors'])
-            : null,
-        raw: d['raw'] as String?,
+        validationErrors: _jsonObjectMap(d['validationErrors']),
+        raw: d['raw'] is String ? d['raw'] as String : null,
       );
     } on DioException catch (e) {
       final res = e.response?.data;
+      final resMap = _jsonObjectMap(res);
+      final serverError = resMap != null
+          ? (resMap['error'] as String? ??
+              resMap['message'] as String? ??
+              e.message)
+          : e.message;
       return (
         success: false,
         mode: productId != null ? 'update' : 'create',
         product: null,
         message: 'AI product request failed',
-        error: e.message,
-        validationErrors:
-            res is Map<String, dynamic> &&
-                res['validationErrors'] is Map<String, dynamic>
-            ? Map<String, dynamic>.from(res['validationErrors'])
+        error: serverError,
+        validationErrors: resMap != null
+            ? _jsonObjectMap(resMap['validationErrors'])
             : null,
-        raw: res is Map<String, dynamic> ? jsonEncode(res) : null,
+        raw: resMap != null ? jsonEncode(resMap) : null,
       );
     } catch (e) {
       developer.log('Error in updateProductUsingAi: $e');
@@ -1369,6 +1449,11 @@ class Actions {
     List<Attachment>? attachments,
     String? model,
     String? storeId,
+    bool? googleSearch,
+    bool? imageSearch,
+    String? background,
+    String? quality,
+    String? outputFormat,
   }) async {
     final attachmentMaps = attachments != null && attachments.isNotEmpty
         ? attachments.map((a) => a.toJson()).toList()
@@ -1386,6 +1471,13 @@ class Actions {
       if (attachmentMaps != null && attachmentMaps.isNotEmpty)
         'attachments': jsonEncode(attachmentMaps),
       if (model != null && model.trim().isNotEmpty) 'model': model.trim(),
+      if (googleSearch != null) 'googleSearch': googleSearch,
+      if (imageSearch != null) 'imageSearch': imageSearch,
+      if (background != null && background.trim().isNotEmpty)
+        'background': background.trim(),
+      if (quality != null && quality.trim().isNotEmpty) 'quality': quality.trim(),
+      if (outputFormat != null && outputFormat.trim().isNotEmpty)
+        'outputFormat': outputFormat.trim(),
       if (imageBytes != null)
         'imageFile': MultipartFile.fromBytes(
           imageBytes,
@@ -1567,6 +1659,8 @@ class Actions {
   /// - [voiceName] Optional voice name (e.g., 'Leda', defaults to 'Leda')
   /// - [model] Optional AI model ID (defaults to 'gemini-2.5-pro-preview-tts')
   /// - [enhanceScript] Whether to enhance the script using text model first (defaults to true)
+  /// - [styleInstructions] Optional TTS style / delivery instructions (replaces server default narrator prompt)
+  /// - [speakers] Multi-speaker dialogue: exactly 2 entries `{ speakerAlias, voiceName }` (Gemini TTS); script lines `Alias: text`
   /// Returns a structured response with success status, audio URL, and metadata
   Future<
     ({
@@ -1585,6 +1679,8 @@ class Actions {
     String? voiceName,
     String? model,
     bool? enhanceScript,
+    String? styleInstructions,
+    List<Map<String, String>>? speakers,
   }) async {
     try {
       final attachmentMaps = attachments != null && attachments.isNotEmpty
@@ -1600,6 +1696,9 @@ class Actions {
           'voiceName': voiceName.trim(),
         if (model != null && model.trim().isNotEmpty) 'model': model.trim(),
         if (enhanceScript != null) 'enhanceScript': enhanceScript,
+        if (styleInstructions != null && styleInstructions.trim().isNotEmpty)
+          'styleInstructions': styleInstructions.trim(),
+        if (speakers != null && speakers.isNotEmpty) 'speakers': speakers,
       };
 
       final response = await client.post(
@@ -1675,6 +1774,19 @@ class Actions {
     String? mediaResolution,
     /// Output image dimensions for models that support 1K/2K/4K (e.g. Flash/Pro image preview).
     String? imageSize,
+    String? background,
+
+    /// When `false`, the server will NOT auto-resolve `product` attachments into
+    /// reference images (i.e. it skips `product.photoUrl` and `product.media`).
+    /// Use this when the merchant has manually curated which images to send via
+    /// `image` attachments — saves provider tokens and avoids product-image bloat.
+    /// When `null` (default), the server keeps the legacy behavior (`true`).
+    bool? loadProductImage,
+
+    /// Optional Step 1 hint: target N major content beats in the landing page
+    /// (hook, benefits, offers, trust marks, CTA…). Range 2–12. Drives copy
+    /// density without forcing a rigid count.
+    int? sectionsCount,
   }) async {
     try {
       if (text.trim().isEmpty && (attachments == null || attachments.isEmpty)) {
@@ -1693,6 +1805,10 @@ class Actions {
         if (mediaResolution != null && mediaResolution.trim().isNotEmpty)
           'mediaResolution': mediaResolution.trim(),
         if (imageSize != null && imageSize.trim().isNotEmpty) 'imageSize': imageSize.trim(),
+        if (background != null && background.trim().isNotEmpty)
+          'background': background.trim(),
+        if (loadProductImage != null) 'loadProductImage': loadProductImage,
+        if (sectionsCount != null) 'sectionsCount': sectionsCount,
       };
 
       final response = await client.post(
@@ -1741,8 +1857,12 @@ class Actions {
   }
 
   /// generateLogo (LogoStudio)
-  /// Generates a logo using AI with RED/BLUE-only palette; green becomes alpha.
-  /// [color1], [color2]: AARRGGBB (32-bit) for the two brand colors.
+  /// Generates a PNG logo with transparent background (native alpha from the model).
+  ///
+  /// Provide either [colors] (ordered ARGB ints, client-enabled palette) or legacy
+  /// [color1] + [color2]. When [colors] is non-empty it takes precedence.
+  ///
+  /// [imageModel]: optional catalog model id (server resolves like landing-page image step).
   /// [attachments]: optional image/store/product references.
   Future<
     ({
@@ -1756,29 +1876,43 @@ class Actions {
   generateLogo({
     required String logoName,
     required String description,
-    required int color1,
-    required int color2,
+    int? color1,
+    int? color2,
+    List<int>? colors,
     String? aspectRatio,
+    String? imageModel,
     List<Attachment>? attachments,
     List<String>? referenceImageUrls,
     Map<String, String>? referenceImageLabels,
   }) async {
     try {
+      final hasPalette = colors != null && colors.isNotEmpty;
+      if (!hasPalette && (color1 == null || color2 == null)) {
+        throw ArgumentError(
+          'generateLogo requires colors or both color1 and color2',
+        );
+      }
       final attachmentMaps = attachments != null && attachments.isNotEmpty
           ? attachments.map((a) => a.toJson()).toList()
           : null;
       final requestData = <String, dynamic>{
         'logoName': logoName.trim(),
         'description': description.trim(),
-        'color1': color1,
-        'color2': color2,
         if (aspectRatio != null && aspectRatio.isNotEmpty) 'aspectRatio': aspectRatio,
+        if (imageModel != null && imageModel.trim().isNotEmpty)
+          'imageModel': imageModel.trim(),
         if (attachmentMaps != null) 'attachments': attachmentMaps,
         if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
           'referenceImageUrls': referenceImageUrls,
         if (referenceImageLabels != null && referenceImageLabels.isNotEmpty)
           'referenceImageLabels': referenceImageLabels,
       };
+      if (hasPalette) {
+        requestData['colors'] = colors;
+      } else {
+        requestData['color1'] = color1!;
+        requestData['color2'] = color2!;
+      }
 
       final response = await client.post(
         '/actions/generateLogo',

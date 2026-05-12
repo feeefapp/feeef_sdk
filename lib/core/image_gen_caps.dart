@@ -45,13 +45,50 @@ class ImageGenCaps {
   final double transparentBackgroundAddonDzd;
 }
 
-bool modelIdSupportsImageOutputTiers(String modelId) {
+/// Catalog-driven check: a model supports `1K/2K/4K` output tiers iff its
+/// `capabilities.image_generation.output_size_tiers` is non-empty.
+///
+/// Prefer [imageOutputTiersForCatalogRow] (which inspects the row directly) so
+/// callers don't have to round-trip through full [resolveImageGenCaps] just to
+/// know whether to render the size picker.
+///
+/// Returns an empty list when the model has no row OR has no `output_size_tiers`
+/// declared. Callers should treat empty as "hide the picker / send `imageSize: null`".
+List<String> imageOutputTiersForCatalogRow(ModelCatalogRow? row) {
+  final raw = row?.capabilities?['image_generation'];
+  if (raw is! Map) return const [];
+  final tiers = _stringList(raw['output_size_tiers']);
+  if (tiers == null) return const [];
+  return tiers.where((t) => t == '1K' || t == '2K' || t == '4K').toList();
+}
+
+/// Catalog-driven preferred over id heuristics. When [row] is provided, the
+/// catalog is the single source of truth (matches backend behavior). When the
+/// caller has no catalog access, falls back to the legacy id-substring check —
+/// kept for back-compat with older clients, but **prefer passing the row**.
+///
+/// Bug guard: the old id-only check hardcoded `gemini-3.1-flash-image-preview`
+/// etc. When the catalog was migrated to direct provider ids (e.g.
+/// `gemini-2.5-flash-image`), this returned `false` for valid models — which
+/// silently dropped the user's `imageSize` choice and caused the backend to
+/// default to `"2K"`, producing `imageSize "2K" is not supported for this model`
+/// for any model whose `output_size_tiers` was `["1K"]`.
+bool modelIdSupportsImageOutputTiers(
+  String modelId, {
+  ModelCatalogRow? row,
+}) {
+  if (row != null) {
+    return imageOutputTiersForCatalogRow(row).isNotEmpty;
+  }
   final id = modelId.toLowerCase().trim();
   if (id == 'gemini-3.1-flash-image-preview' ||
       id == 'gemini-3-pro-image-preview') {
     return true;
   }
   if (id.contains('gemini-3.1-flash-image') || id.contains('gemini-3-pro-image')) {
+    return true;
+  }
+  if (id.contains('gemini-2.5-flash-image') || id.contains('gemini-2.5-pro-image')) {
     return true;
   }
   if (id.contains('gpt-5.4-image') || id.endsWith('gpt-5.4-image-2')) {

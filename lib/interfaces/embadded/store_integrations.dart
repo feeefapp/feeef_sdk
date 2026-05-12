@@ -35,6 +35,7 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     OrderdzDeliveryIntegration? orderdz,
     ZimouExpressDeliveryIntegration? zimou,
     ZrexpressDeliveryIntegration? zrexpress,
+    MdmExpressDeliveryIntegration? mdmExpress,
     MaystroDeliveryIntegration? maystroDelivery,
     // Google Sheets Integration
     GoogleSheetsIntegration? googleSheet,
@@ -410,6 +411,31 @@ abstract class ZrexpressDeliveryIntegration
 
   factory ZrexpressDeliveryIntegration.fromJson(Map<String, dynamic> json) =>
       _$ZrexpressDeliveryIntegrationFromJson(json);
+}
+
+/// MDM Express delivery integration (OpenAPI v2 at api.mdm.express).
+@freezed
+abstract class MdmExpressDeliveryIntegration with _$MdmExpressDeliveryIntegration {
+  const MdmExpressDeliveryIntegration._();
+  const factory MdmExpressDeliveryIntegration({
+    required String id,
+    /// MDM `x-api-key` when not using JWT.
+    String? apiKey,
+    /// Optional JWT (`Authorization: Bearer`); takes precedence over [apiKey].
+    String? bearerToken,
+    /// MDM store tracking id (e.g. `STR-…`) — `CreateOrderRequest.storeId`.
+    required String mdmStoreId,
+    /// MDM seller id (e.g. `SLR-…`) — service fees: `GET /api/sellers/{id}/service-fees`.
+    String? mdmSellerId,
+    String? webhookSecret,
+    @Default(true) bool active,
+    @Default(false) bool silentMode,
+    @Default(false) bool autoSend,
+    @Default({}) Map<String, dynamic> metadata,
+  }) = _MdmExpressDeliveryIntegration;
+
+  factory MdmExpressDeliveryIntegration.fromJson(Map<String, dynamic> json) =>
+      _$MdmExpressDeliveryIntegrationFromJson(json);
 }
 
 /// Maystro Delivery integration configuration.

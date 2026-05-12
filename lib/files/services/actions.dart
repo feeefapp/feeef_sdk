@@ -92,6 +92,38 @@ class EcotrackLoginTokenResult {
   }
 }
 
+/// Result of [Actions.createMdmExpressApiKeyFromUserLogin] (MDM seller login proxied by API).
+class MdmExpressProvisionResult {
+  final bool success;
+  final String message;
+  final String? apiKey;
+  final String? mdmStoreId;
+  final String? mdmSellerId;
+  final Map<String, dynamic>? profile;
+
+  const MdmExpressProvisionResult({
+    required this.success,
+    required this.message,
+    this.apiKey,
+    this.mdmStoreId,
+    this.mdmSellerId,
+    this.profile,
+  });
+
+  factory MdmExpressProvisionResult.fromJson(Map<String, dynamic> json) {
+    return MdmExpressProvisionResult(
+      success: json['success'] as bool? ?? false,
+      message: json['message'] as String? ?? '',
+      apiKey: json['apiKey'] as String?,
+      mdmStoreId: json['mdmStoreId'] as String?,
+      mdmSellerId: json['mdmSellerId'] as String?,
+      profile: json['profile'] is Map
+          ? Map<String, dynamic>.from(json['profile'] as Map)
+          : null,
+    );
+  }
+}
+
 /// Response model for AI code generation
 class AICodeGenerationResponse {
   final bool success;
@@ -403,6 +435,27 @@ class Actions {
     );
     final data = response.data ?? {};
     return EcotrackLoginTokenResult.fromJson(Map<String, dynamic>.from(data));
+  }
+
+  /// MDM Express: seller username/password → API key (default name `feeef`) + MDM store id via Feeef proxy.
+  Future<MdmExpressProvisionResult> createMdmExpressApiKeyFromUserLogin({
+    String? baseUrl,
+    required String username,
+    required String password,
+    String? apiKeyName,
+  }) async {
+    final response = await client.post<Map<String, dynamic>>(
+      '/actions/createMdmExpressApiKeyFromUserLogin',
+      data: {
+        if (baseUrl != null && baseUrl.trim().isNotEmpty) 'baseUrl': baseUrl.trim(),
+        'username': username,
+        'password': password,
+        if (apiKeyName != null && apiKeyName.trim().isNotEmpty)
+          'apiKeyName': apiKeyName.trim(),
+      },
+    );
+    final data = response.data ?? {};
+    return MdmExpressProvisionResult.fromJson(Map<String, dynamic>.from(data));
   }
 
   /// Fetches products from a Youcan store.
@@ -1724,6 +1777,18 @@ class Actions {
     /// Output image dimensions for models that support 1K/2K/4K (e.g. Flash/Pro image preview).
     String? imageSize,
     String? background,
+
+    /// When `false`, the server will NOT auto-resolve `product` attachments into
+    /// reference images (i.e. it skips `product.photoUrl` and `product.media`).
+    /// Use this when the merchant has manually curated which images to send via
+    /// `image` attachments — saves provider tokens and avoids product-image bloat.
+    /// When `null` (default), the server keeps the legacy behavior (`true`).
+    bool? loadProductImage,
+
+    /// Optional Step 1 hint: target N major content beats in the landing page
+    /// (hook, benefits, offers, trust marks, CTA…). Range 2–12. Drives copy
+    /// density without forcing a rigid count.
+    int? sectionsCount,
   }) async {
     try {
       if (text.trim().isEmpty && (attachments == null || attachments.isEmpty)) {
@@ -1744,6 +1809,8 @@ class Actions {
         if (imageSize != null && imageSize.trim().isNotEmpty) 'imageSize': imageSize.trim(),
         if (background != null && background.trim().isNotEmpty)
           'background': background.trim(),
+        if (loadProductImage != null) 'loadProductImage': loadProductImage,
+        if (sectionsCount != null) 'sectionsCount': sectionsCount,
       };
 
       final response = await client.post(

@@ -164,9 +164,22 @@ class ModelsCatalogConfig {
     return map;
   }
 
+  /// Canonicalize a Gemini-style model id by stripping any `models/` prefix and
+  /// lower-casing. Lets the wizard's lookups match regardless of how the backend
+  /// catalog stores the id (e.g. `models/gemini-3-pro-image-preview` vs
+  /// `gemini-3-pro-image-preview`). Both refer to the same API model.
+  static String canonicalModelId(String id) {
+    final trimmed = id.trim().toLowerCase();
+    if (trimmed.startsWith('models/')) {
+      return trimmed.substring(7);
+    }
+    return trimmed;
+  }
+
   ModelCatalogRow? modelById(String id) {
+    final target = canonicalModelId(id);
     for (final m in data) {
-      if (m.id == id) return m;
+      if (canonicalModelId(m.id) == target) return m;
     }
     return null;
   }
@@ -179,18 +192,47 @@ class ModelsCatalogConfig {
     return out.map((e) => e.toString());
   }
 
-  /// Whether output modalities include text (OpenRouter-style snake_case or camelCase).
-  static bool rowSupportsText(ModelCatalogRow row) {
-    final modes = _outputModalities(row).toList();
-    if (modes.isEmpty) return true;
-    final set = modes.toSet();
-    return set.contains('text') || set.contains('transcription');
+  /// True when the row declares image-generation params (`capabilities.image_generation`).
+  /// Used as a strong hint that the row produces images, even if the caller forgot to set
+  /// `output_modalities`.
+  static bool _hasImageGenerationCapability(ModelCatalogRow row) {
+    final caps = row.capabilities ?? const <String, dynamic>{};
+    if (caps.isEmpty) return false;
+    final ig = caps['image_generation'] ?? caps['imageGeneration'];
+    return ig is Map && ig.isNotEmpty;
   }
 
+  /// True when the row declares speech/TTS params, even if `output_modalities` is missing.
+  static bool _hasSpeechCapability(ModelCatalogRow row) {
+    final caps = row.capabilities ?? const <String, dynamic>{};
+    if (caps.isEmpty) return false;
+    final tts = caps['speech'] ?? caps['tts'] ?? caps['audio'];
+    return tts is Map && tts.isNotEmpty;
+  }
+
+  /// Whether output modalities include text (OpenRouter-style snake_case or camelCase).
+  ///
+  /// When `output_modalities` is missing on a row we used to return `true` (the OpenRouter catalog
+  /// is text-first by convention), but that let image- and speech-only rows leak into text-model
+  /// dropdowns when authored without explicit modalities. Now we exclude rows that clearly produce
+  /// non-text output even if modalities are absent.
+  static bool rowSupportsText(ModelCatalogRow row) {
+    final modes = _outputModalities(row).toList();
+    if (modes.isNotEmpty) {
+      final set = modes.toSet();
+      return set.contains('text') || set.contains('transcription');
+    }
+    if (_hasImageGenerationCapability(row)) return false;
+    if (_hasSpeechCapability(row)) return false;
+    return true;
+  }
+
+  /// Whether output modalities include image (or, when modalities are missing, the row declares
+  /// image-generation capabilities).
   static bool rowSupportsImage(ModelCatalogRow row) {
     final modes = _outputModalities(row).toList();
-    if (modes.isEmpty) return true;
-    return modes.contains('image');
+    if (modes.isNotEmpty) return modes.contains('image');
+    return _hasImageGenerationCapability(row);
   }
 
   /// TTS / speech output (e.g. Gemini Flash TTS — `output_modalities` contains `speech`).

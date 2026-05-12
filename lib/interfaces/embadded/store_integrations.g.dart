@@ -76,6 +76,11 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
       : ZrexpressDeliveryIntegration.fromJson(
           json['zrexpress'] as Map<String, dynamic>,
         ),
+  mdmExpress: json['mdmExpress'] == null
+      ? null
+      : MdmExpressDeliveryIntegration.fromJson(
+          json['mdmExpress'] as Map<String, dynamic>,
+        ),
   maystroDelivery: json['maystroDelivery'] == null
       ? null
       : MaystroDeliveryIntegration.fromJson(
@@ -126,6 +131,7 @@ Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
       'orderdz': instance.orderdz,
       'zimou': instance.zimou,
       'zrexpress': instance.zrexpress,
+      'mdmExpress': instance.mdmExpress,
       'maystroDelivery': instance.maystroDelivery,
       'googleSheet': instance.googleSheet,
       'webhooks': instance.webhooks,
@@ -563,6 +569,36 @@ Map<String, dynamic> _$ZrexpressDeliveryIntegrationToJson(
   'id': instance.id,
   'apiKey': instance.apiKey,
   'tenantId': instance.tenantId,
+  'webhookSecret': instance.webhookSecret,
+  'active': instance.active,
+  'silentMode': instance.silentMode,
+  'autoSend': instance.autoSend,
+  'metadata': instance.metadata,
+};
+
+_MdmExpressDeliveryIntegration _$MdmExpressDeliveryIntegrationFromJson(
+  Map<String, dynamic> json,
+) => _MdmExpressDeliveryIntegration(
+  id: json['id'] as String,
+  apiKey: json['apiKey'] as String?,
+  bearerToken: json['bearerToken'] as String?,
+  mdmStoreId: json['mdmStoreId'] as String,
+  mdmSellerId: json['mdmSellerId'] as String?,
+  webhookSecret: json['webhookSecret'] as String?,
+  active: json['active'] as bool? ?? true,
+  silentMode: json['silentMode'] as bool? ?? false,
+  autoSend: json['autoSend'] as bool? ?? false,
+  metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+);
+
+Map<String, dynamic> _$MdmExpressDeliveryIntegrationToJson(
+  _MdmExpressDeliveryIntegration instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'apiKey': instance.apiKey,
+  'bearerToken': instance.bearerToken,
+  'mdmStoreId': instance.mdmStoreId,
+  'mdmSellerId': instance.mdmSellerId,
   'webhookSecret': instance.webhookSecret,
   'active': instance.active,
   'silentMode': instance.silentMode,

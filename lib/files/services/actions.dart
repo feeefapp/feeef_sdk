@@ -439,7 +439,6 @@ class Actions {
 
   /// MDM Express: seller username/password → API key (default name `feeef`) + MDM store id via Feeef proxy.
   Future<MdmExpressProvisionResult> createMdmExpressApiKeyFromUserLogin({
-    String? baseUrl,
     required String username,
     required String password,
     String? apiKeyName,
@@ -447,7 +446,6 @@ class Actions {
     final response = await client.post<Map<String, dynamic>>(
       '/actions/createMdmExpressApiKeyFromUserLogin',
       data: {
-        if (baseUrl != null && baseUrl.trim().isNotEmpty) 'baseUrl': baseUrl.trim(),
         'username': username,
         'password': password,
         if (apiKeyName != null && apiKeyName.trim().isNotEmpty)

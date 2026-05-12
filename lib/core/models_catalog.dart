@@ -37,8 +37,10 @@ class ModelCatalogRow {
   final String name;
   final String? description;
   final Map<String, dynamic>? architecture;
+
   /// Optional Feeef extensions: `image_generation` under `capabilities`.
   final Map<String, dynamic>? capabilities;
+
   /// Optional OpenRouter-style pricing (per-token USD strings): `{ prompt, completion }`.
   final Map<String, dynamic>? pricing;
 
@@ -81,7 +83,11 @@ class ModelCatalogRow {
       }
     }
 
-    mergeModalities('output_modalities', 'outputModalities', 'output_modalities');
+    mergeModalities(
+      'output_modalities',
+      'outputModalities',
+      'output_modalities',
+    );
     mergeModalities('input_modalities', 'inputModalities', 'input_modalities');
 
     Map<String, dynamic>? cap;
@@ -94,8 +100,9 @@ class ModelCatalogRow {
     }
 
     final depRaw = json['azure_deployment'] ?? json['azureDeployment'];
-    final azureDeployment =
-        depRaw is String && depRaw.trim().isNotEmpty ? depRaw.trim() : null;
+    final azureDeployment = depRaw is String && depRaw.trim().isNotEmpty
+        ? depRaw.trim()
+        : null;
 
     return ModelCatalogRow(
       id: resolvedId,
@@ -129,28 +136,33 @@ class ModelsCatalogConfig {
   }
 
   Map<String, dynamic> toJson() => {
-        'providers': providers
-            .map((e) => {
-                  'slug': e.slug,
-                  'kind': e.kind,
-                  'baseUrl': e.baseUrl,
-                  if (e.displayName != null) 'displayName': e.displayName,
-                  if (e.name != null) 'name': e.name,
-                })
-            .toList(),
-        'data': data
-            .map((m) => {
-                  'id': m.id,
-                  'provider_slug': m.providerSlug,
-                  'name': m.name,
-                  if (m.description != null) 'description': m.description,
-                  if (m.architecture != null) 'architecture': m.architecture,
-                  if (m.capabilities != null) 'capabilities': m.capabilities,
-                  if (m.azureDeployment != null)
-                    'azure_deployment': m.azureDeployment,
-                })
-            .toList(),
-      };
+    'providers': providers
+        .map(
+          (e) => {
+            'slug': e.slug,
+            'kind': e.kind,
+            'baseUrl': e.baseUrl,
+            if (e.displayName != null) 'displayName': e.displayName,
+            if (e.name != null) 'name': e.name,
+          },
+        )
+        .toList(),
+    'data': data
+        .map(
+          (m) => {
+            'id': m.id,
+            'provider_slug': m.providerSlug,
+            'name': m.name,
+            if (m.description != null) 'description': m.description,
+            if (m.architecture != null) 'architecture': m.architecture,
+            if (m.capabilities != null) 'capabilities': m.capabilities,
+            if (m.pricing != null) 'pricing': m.pricing,
+            if (m.azureDeployment != null)
+              'azure_deployment': m.azureDeployment,
+          },
+        )
+        .toList(),
+  };
 
   /// Models grouped by [ProviderRegistryRow.slug] for nested menus.
   Map<String, List<ModelCatalogRow>> modelsByProviderSlug() {

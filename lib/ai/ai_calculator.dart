@@ -11,7 +11,8 @@ library;
 import 'dart:math' as math;
 
 import 'package:feeef/core/app_config.dart' show AIModelsBilling;
-import 'package:feeef/core/image_gen_caps.dart' show modelIdSupportsImageOutputTiers;
+import 'package:feeef/core/image_gen_caps.dart'
+    show modelIdSupportsImageOutputTiers;
 
 /// Fallback DZD per USD when `aiModels.exchangeRate` is absent (mirror backend).
 const double fallbackAiExchangeRate = 260;
@@ -100,50 +101,53 @@ ResolvedAiModelsBilling mergeAiModelsBilling(AIModelsBilling? partial) {
   final tts = ResolvedTtsTokenEstimate(
     whenScriptEmptyTokens:
         ttsIn?.whenScriptEmptyTokens ?? defaults.tts.whenScriptEmptyTokens,
-    whenAttachmentsOnlyTokens: ttsIn?.whenAttachmentsOnlyTokens ??
+    whenAttachmentsOnlyTokens:
+        ttsIn?.whenAttachmentsOnlyTokens ??
         defaults.tts.whenAttachmentsOnlyTokens,
-    promptBaseTokens:
-        ttsIn?.promptBaseTokens ?? defaults.tts.promptBaseTokens,
-    promptPerAttachmentTokens: ttsIn?.promptPerAttachmentTokens ??
+    promptBaseTokens: ttsIn?.promptBaseTokens ?? defaults.tts.promptBaseTokens,
+    promptPerAttachmentTokens:
+        ttsIn?.promptPerAttachmentTokens ??
         defaults.tts.promptPerAttachmentTokens,
     outputMinimumTokens:
         ttsIn?.outputMinimumTokens ?? defaults.tts.outputMinimumTokens,
-    outputToTextTokenRatio: ttsIn?.outputToTextTokenRatio ??
-        defaults.tts.outputToTextTokenRatio,
-    maxTotalTokens:
-        ttsIn?.maxTotalTokens ?? defaults.tts.maxTotalTokens,
+    outputToTextTokenRatio:
+        ttsIn?.outputToTextTokenRatio ?? defaults.tts.outputToTextTokenRatio,
+    maxTotalTokens: ttsIn?.maxTotalTokens ?? defaults.tts.maxTotalTokens,
   );
 
   return ResolvedAiModelsBilling(
-    retailMultiplier: partial.retailMarkup?.multiplier ??
-        defaults.retailMultiplier,
-    referenceAttachmentPerFileUsd: partial
-            .referenceAttachmentSurcharge?.perFileUsd ??
+    retailMultiplier:
+        partial.retailMarkup?.multiplier ?? defaults.retailMultiplier,
+    referenceAttachmentPerFileUsd:
+        partial.referenceAttachmentSurcharge?.perFileUsd ??
         defaults.referenceAttachmentPerFileUsd,
-    referenceAttachmentHighExtraPerFileUsd: partial
-            .referenceAttachmentSurcharge?.highResolutionExtraPerFileUsd ??
+    referenceAttachmentHighExtraPerFileUsd:
+        partial.referenceAttachmentSurcharge?.highResolutionExtraPerFileUsd ??
         defaults.referenceAttachmentHighExtraPerFileUsd,
-    referenceAttachmentLowDiscountPerFileUsd: partial
-            .referenceAttachmentSurcharge?.lowResolutionDiscountPerFileUsd ??
+    referenceAttachmentLowDiscountPerFileUsd:
+        partial.referenceAttachmentSurcharge?.lowResolutionDiscountPerFileUsd ??
         defaults.referenceAttachmentLowDiscountPerFileUsd,
-    imageFallbackProviderCostPerImageUsd: partial
-            .imageGeneration?.fallbackProviderCostPerImageUsd ??
+    imageFallbackProviderCostPerImageUsd:
+        partial.imageGeneration?.fallbackProviderCostPerImageUsd ??
         defaults.imageFallbackProviderCostPerImageUsd,
-    textFreeTierMaxTokens: partial.textGeneration?.freeTierMaxPromptTokens ??
+    textFreeTierMaxTokens:
+        partial.textGeneration?.freeTierMaxPromptTokens ??
         defaults.textFreeTierMaxTokens,
-    textDefaultPromptTokens: partial
-            .textGeneration?.estimatedPromptTokensDefault ??
+    textDefaultPromptTokens:
+        partial.textGeneration?.estimatedPromptTokensDefault ??
         defaults.textDefaultPromptTokens,
-    textDefaultOutputTokens: partial
-            .textGeneration?.estimatedOutputTokensDefault ??
+    textDefaultOutputTokens:
+        partial.textGeneration?.estimatedOutputTokensDefault ??
         defaults.textDefaultOutputTokens,
-    voiceMinimumChargeUsd: partial.voiceGeneration?.minimumChargeUsd ??
+    voiceMinimumChargeUsd:
+        partial.voiceGeneration?.minimumChargeUsd ??
         defaults.voiceMinimumChargeUsd,
-    voiceScriptEnhancementAddonUsd: partial
-            .voiceGeneration?.scriptEnhancementAddonUsd ??
+    voiceScriptEnhancementAddonUsd:
+        partial.voiceGeneration?.scriptEnhancementAddonUsd ??
         defaults.voiceScriptEnhancementAddonUsd,
     tts: tts,
-    landingPageFixedChargeUsd: partial.landingPageImage?.fixedChargeUsd ??
+    landingPageFixedChargeUsd:
+        partial.landingPageImage?.fixedChargeUsd ??
         defaults.landingPageFixedChargeUsd,
   );
 }
@@ -209,6 +213,16 @@ class AiModelConfig {
   final List<AiModelPricing> pricing;
   final double? localCost;
 
+  /// Flat provider USD per generated image from the multi-provider model
+  /// catalog (`pricing.image_output`). Used by image rows that do not exist in
+  /// legacy `aiModels.models`.
+  final double? imageOutputUsd;
+
+  /// Provider USD per generated image by output tier from the model catalog
+  /// (`pricing.image_output_per_size_usd`). Lets the client-side estimate
+  /// mirror backend billing for 1K/2K/4K image choices.
+  final Map<String, double> imageOutputPerSizeUsd;
+
   /// From `aiModels.models[].capabilities` (e.g. `voice`, `audio`) — used for TTS pricing fallbacks.
   final List<String> capabilities;
 
@@ -216,6 +230,8 @@ class AiModelConfig {
     required this.id,
     this.pricing = const [],
     this.localCost,
+    this.imageOutputUsd,
+    this.imageOutputPerSizeUsd = const {},
     this.capabilities = const [],
   });
 }
@@ -237,14 +253,15 @@ class AiCalculatorConfig {
     Map<String, double>? resolutionCosts,
     this.models = const [],
     ResolvedAiModelsBilling? billingResolved,
-  })  : exchangeRate = exchangeRate ?? fallbackAiExchangeRate,
-        resolutionCosts = resolutionCosts ??
-            const {
-              'MEDIA_RESOLUTION_LOW': 0,
-              'MEDIA_RESOLUTION_MEDIUM': 5,
-              'MEDIA_RESOLUTION_HIGH': 10,
-            },
-        billing = billingResolved ?? mergeAiModelsBilling(null);
+  }) : exchangeRate = exchangeRate ?? fallbackAiExchangeRate,
+       resolutionCosts =
+           resolutionCosts ??
+           const {
+             'MEDIA_RESOLUTION_LOW': 0,
+             'MEDIA_RESOLUTION_MEDIUM': 5,
+             'MEDIA_RESOLUTION_HIGH': 10,
+           },
+       billing = billingResolved ?? mergeAiModelsBilling(null);
 
   /// Build from raw JSON (e.g. from `appConfig.aiModels`).
   factory AiCalculatorConfig.fromJson(Map<String, dynamic> json) {
@@ -253,27 +270,35 @@ class AiCalculatorConfig {
         ? AIModelsBilling.fromJson(billingRaw)
         : null;
 
-    final models = (json['models'] as List<dynamic>?)
-            ?.map((m) => AiModelConfig(
-                  id: m['id'] as String? ?? '',
-                  localCost: (m['localCost'] as num?)?.toDouble(),
-                  capabilities: (m['capabilities'] as List<dynamic>?)
-                          ?.map((e) => e.toString())
-                          .toList() ??
-                      const [],
-                  pricing: (m['pricing'] as List<dynamic>?)
-                          ?.map((p) => AiModelPricing(
-                                inputPerMToken:
-                                    (p['input'] as num?)?.toDouble(),
-                                outputPerMToken:
-                                    (p['output'] as num?)?.toDouble(),
-                                unit: p['unit'] as String? ?? 'tokens',
-                                contextThreshold:
-                                    p['contextThreshold'] as String?,
-                              ))
-                          .toList() ??
-                      [],
-                ))
+    final models =
+        (json['models'] as List<dynamic>?)
+            ?.map(
+              (m) => AiModelConfig(
+                id: m['id'] as String? ?? '',
+                localCost: (m['localCost'] as num?)?.toDouble(),
+                capabilities:
+                    (m['capabilities'] as List<dynamic>?)
+                        ?.map((e) => e.toString())
+                        .toList() ??
+                    const [],
+                pricing:
+                    (m['pricing'] as List<dynamic>?)
+                        ?.map(
+                          (p) => AiModelPricing(
+                            inputPerMToken: (p['input'] as num?)?.toDouble(),
+                            outputPerMToken: (p['output'] as num?)?.toDouble(),
+                            unit: p['unit'] as String? ?? 'tokens',
+                            contextThreshold: p['contextThreshold'] as String?,
+                          ),
+                        )
+                        .toList() ??
+                    [],
+                imageOutputUsd: (m['imageOutputUsd'] as num?)?.toDouble(),
+                imageOutputPerSizeUsd: _doubleMapFromJson(
+                  m['imageOutputPerSizeUsd'],
+                ),
+              ),
+            )
             .toList() ??
         [];
 
@@ -291,13 +316,25 @@ class AiCalculatorConfig {
           (json['defaultImageCost'] as num?)?.toDouble() ?? 34.06,
       referenceImageCostDzd:
           (json['referenceImageCost'] as num?)?.toDouble() ?? 5,
-      resolutionCosts: resCosts.isEmpty
-          ? null
-          : resCosts,
+      resolutionCosts: resCosts.isEmpty ? null : resCosts,
       models: models,
       billingResolved: mergeAiModelsBilling(billingPartial),
     );
   }
+}
+
+Map<String, double> _doubleMapFromJson(dynamic raw) {
+  if (raw is! Map) return const {};
+  final out = <String, double>{};
+  for (final entry in raw.entries) {
+    final key = entry.key?.toString();
+    final value = entry.value;
+    final n = value is num ? value.toDouble() : double.tryParse('$value');
+    if (key != null && key.isNotEmpty && n != null && n > 0) {
+      out[key] = n;
+    }
+  }
+  return out;
 }
 
 double _roundMoney(double amount, [int precision = 3]) {
@@ -346,7 +383,8 @@ class AiCalculator {
           ? t.whenAttachmentsOnlyTokens
           : t.whenScriptEmptyTokens;
     }
-    final rawPrompt = t.promptBaseTokens +
+    final rawPrompt =
+        t.promptBaseTokens +
         textTok +
         attachmentCount * t.promptPerAttachmentTokens;
     final promptTokens = rawPrompt.clamp(0, t.maxTotalTokens);
@@ -358,13 +396,23 @@ class AiCalculator {
     return (promptTokens: promptTokens, outputTokens: outputTokens);
   }
 
+  /// Strip the optional Gemini catalog namespace (`models/foo`) so legacy
+  /// `aiModels.models` rows and catalog ids resolve consistently.
+  static String _stripCatalogNamespace(String id) {
+    final trimmed = id.trim();
+    final slash = trimmed.indexOf('/');
+    return slash >= 0 ? trimmed.substring(slash + 1) : trimmed;
+  }
+
   AiModelConfig? _findModel(String modelId, String fallbackId) {
+    final modelBare = _stripCatalogNamespace(modelId);
     final byId = config.models
-        .where((m) => m.id == modelId)
+        .where((m) => m.id == modelId || m.id == modelBare)
         .firstOrNull;
     if (byId != null) return byId;
+    final fallbackBare = _stripCatalogNamespace(fallbackId);
     final fallback = config.models
-        .where((m) => m.id == fallbackId)
+        .where((m) => m.id == fallbackId || m.id == fallbackBare)
         .firstOrNull;
     if (fallback != null) return fallback;
     return config.models.isNotEmpty ? config.models.first : null;
@@ -375,13 +423,39 @@ class AiCalculator {
     return m.capabilities.any((c) => c == 'voice' || c == 'audio');
   }
 
+  /// Catalog provider USD per image, optionally selected by output tier.
+  /// Legacy `pricing[unit:image]` is handled by [estimateImageGeneration] and
+  /// intentionally wins over this catalog fallback, matching the backend.
+  double? _pickCatalogImageProviderUsd(
+    AiModelConfig? model,
+    String? imageSize,
+  ) {
+    if (model == null) return null;
+    final perTier = model.imageOutputPerSizeUsd;
+    if (perTier.isNotEmpty) {
+      final ordered = <String>[
+        if (imageSize != null && imageSize.isNotEmpty) imageSize,
+        '1K',
+        '2K',
+        '4K',
+      ];
+      for (final key in ordered) {
+        final value = perTier[key];
+        if (value != null && value > 0) return value;
+      }
+      for (final value in perTier.values) {
+        if (value > 0) return value;
+      }
+    }
+    final flat = model.imageOutputUsd;
+    return flat != null && flat > 0 ? flat : null;
+  }
+
   /// TTS row resolution: never falls back to [config.models.first] (often an image model).
   AiModelConfig? _findVoiceModel(String modelId, String fallbackId) {
-    final byId =
-        config.models.where((m) => m.id == modelId).firstOrNull;
+    final byId = config.models.where((m) => m.id == modelId).firstOrNull;
     if (byId != null) return byId;
-    final fallback =
-        config.models.where((m) => m.id == fallbackId).firstOrNull;
+    final fallback = config.models.where((m) => m.id == fallbackId).firstOrNull;
     if (fallback != null) return fallback;
     for (final m in config.models) {
       if (_modelHasVoiceCapability(m)) return m;
@@ -394,14 +468,12 @@ class AiCalculator {
     if (model == null || model.pricing.isEmpty) return null;
     final voiceLike = _modelHasVoiceCapability(model);
     for (final unit in ['audio', 'voice']) {
-      final p =
-          model.pricing.where((x) => x.unit == unit).firstOrNull;
+      final p = model.pricing.where((x) => x.unit == unit).firstOrNull;
       final o = p?.outputPerMToken;
       if (o != null && o > 0) return o;
     }
     if (voiceLike) {
-      final img =
-          model.pricing.where((x) => x.unit == 'image').firstOrNull;
+      final img = model.pricing.where((x) => x.unit == 'image').firstOrNull;
       final o = img?.outputPerMToken;
       if (o != null && o > 0) return o;
     }
@@ -415,13 +487,12 @@ class AiCalculator {
     final rows = model.pricing.where((p) => p.unit == 'tokens').toList();
     if (rows.isEmpty) return null;
     final isLargeContext = totalTokens > 200000;
-    final preferred = rows
-            .where((p) {
-              final th = p.contextThreshold ?? '';
-              if (th.isEmpty) return false;
-              return isLargeContext ? th.contains('>') : th.contains('<=');
-            })
-            .firstOrNull ??
+    final preferred =
+        rows.where((p) {
+          final th = p.contextThreshold ?? '';
+          if (th.isEmpty) return false;
+          return isLargeContext ? th.contains('>') : th.contains('<=');
+        }).firstOrNull ??
         rows.first;
     final inp = preferred.inputPerMToken ?? 0.0;
     final out = preferred.outputPerMToken ?? 0.0;
@@ -435,8 +506,7 @@ class AiCalculator {
     required int outputTokens,
   }) {
     final b = config.billing;
-    final floorDzd =
-        _roundMoney(b.voiceMinimumChargeUsd * config.exchangeRate);
+    final floorDzd = _roundMoney(b.voiceMinimumChargeUsd * config.exchangeRate);
     final model = _findVoiceModel(modelId, 'gemini-2.5-pro-preview-tts');
     if (model == null) {
       return (floorDzd, false);
@@ -448,21 +518,18 @@ class AiCalculator {
     final flatUsd = _pickTtsProviderOutputUsd(model);
     if (flatUsd != null) {
       return (
-        _roundMoney(
-          flatUsd * config.exchangeRate * b.retailMultiplier,
-        ),
-        false
+        _roundMoney(flatUsd * config.exchangeRate * b.retailMultiplier),
+        false,
       );
     }
     final rates = _pickVoiceTokenPricing(model, promptTokens + outputTokens);
     if (rates != null) {
-      final providerUsd = (promptTokens / 1e6) * rates.input +
+      final providerUsd =
+          (promptTokens / 1e6) * rates.input +
           (outputTokens / 1e6) * rates.output;
       return (
-        _roundMoney(
-          providerUsd * config.exchangeRate * b.retailMultiplier,
-        ),
-        false
+        _roundMoney(providerUsd * config.exchangeRate * b.retailMultiplier),
+        false,
       );
     }
     return (floorDzd, false);
@@ -475,8 +542,7 @@ class AiCalculator {
   }) {
     if (attachmentCount <= 0) return 0.0;
     final b = config.billing;
-    var attachCostUsd =
-        attachmentCount * b.referenceAttachmentPerFileUsd;
+    var attachCostUsd = attachmentCount * b.referenceAttachmentPerFileUsd;
     if (attachmentResolution == 'high') {
       attachCostUsd +=
           attachmentCount * b.referenceAttachmentHighExtraPerFileUsd;
@@ -511,10 +577,12 @@ class AiCalculator {
         .where((p) => p.unit == 'image')
         .firstOrNull;
 
+    final catalogProviderUsd = _pickCatalogImageProviderUsd(model, imageSize);
     final providerCostUsd = imagePricing?.outputPerMToken != null
         ? imagePricing!.outputPerMToken!
-        : defaultImageCostDzd / exchangeRate;
-    final providerCostDzd = imagePricing?.outputPerMToken != null
+        : catalogProviderUsd ?? defaultImageCostDzd / exchangeRate;
+    final providerCostDzd =
+        (imagePricing?.outputPerMToken != null || catalogProviderUsd != null)
         ? providerCostUsd * exchangeRate
         : defaultImageCostDzd;
 
@@ -561,12 +629,12 @@ class AiCalculator {
       final lowCost = config.resolutionCosts['MEDIA_RESOLUTION_LOW'] ?? 0;
       final tierCost = config.resolutionCosts[resolution] ?? 0;
       final delta = tierCost - lowCost;
-      referenceResolutionExtraDzd =
-          delta > 0 ? _roundMoney(delta) : 0.0;
+      referenceResolutionExtraDzd = delta > 0 ? _roundMoney(delta) : 0.0;
     }
 
-    final resExtraDzd =
-        _roundMoney(outputResExtraDzd + referenceResolutionExtraDzd);
+    final resExtraDzd = _roundMoney(
+      outputResExtraDzd + referenceResolutionExtraDzd,
+    );
 
     final addonsDzd = _roundMoney(featureAddonsDzd);
 
@@ -607,10 +675,8 @@ class AiCalculator {
     int? estimatedOutputTokens,
   }) {
     final bg = config.billing;
-    final promptTokens =
-        estimatedPromptTokens ?? bg.textDefaultPromptTokens;
-    final outputTokens =
-        estimatedOutputTokens ?? bg.textDefaultOutputTokens;
+    final promptTokens = estimatedPromptTokens ?? bg.textDefaultPromptTokens;
+    final outputTokens = estimatedOutputTokens ?? bg.textDefaultOutputTokens;
     final totalTokens = promptTokens + outputTokens;
 
     final exchangeRate = config.exchangeRate;
@@ -619,8 +685,7 @@ class AiCalculator {
         .where((p) => p.unit == 'tokens')
         .firstOrNull;
 
-    if (tokenPricing == null ||
-        totalTokens < bg.textFreeTierMaxTokens) {
+    if (tokenPricing == null || totalTokens < bg.textFreeTierMaxTokens) {
       return AiCostEstimate(
         providerCostUsd: 0,
         providerCostDzd: 0,
@@ -640,10 +705,9 @@ class AiCalculator {
     final outputPrice = tokenPricing.outputPerMToken ?? 0;
     final providerCostUsd =
         (promptTokens / 1000000) * inputPrice +
-            (outputTokens / 1000000) * outputPrice;
+        (outputTokens / 1000000) * outputPrice;
     final providerCostDzd = providerCostUsd * exchangeRate;
-    final userCostDzd =
-        _roundMoney(providerCostDzd * bg.retailMultiplier);
+    final userCostDzd = _roundMoney(providerCostDzd * bg.retailMultiplier);
 
     return AiCostEstimate(
       providerCostUsd: providerCostUsd,
@@ -678,17 +742,13 @@ class AiCalculator {
     final exchangeRate = config.exchangeRate;
     final b = config.billing;
     final ttsCap = b.tts.maxTotalTokens;
-    final tokenEst = estimatedPromptTokens != null &&
-            estimatedOutputTokens != null
+    final tokenEst =
+        estimatedPromptTokens != null && estimatedOutputTokens != null
         ? (
             promptTokens: estimatedPromptTokens.clamp(0, ttsCap),
             outputTokens: estimatedOutputTokens.clamp(0, ttsCap),
           )
-        : _ttsTokenEstimatesFromBilling(
-            b,
-            scriptCharLength,
-            attachmentCount,
-          );
+        : _ttsTokenEstimatesFromBilling(b, scriptCharLength, attachmentCount);
     final (baseDzd, usedLocal) = _voiceoverBaseUserCostDzd(
       modelId: modelId,
       promptTokens: tokenEst.promptTokens,
@@ -777,9 +837,7 @@ class AiCalculator {
       exchangeRate: exchangeRate,
       multiplier: config.billing.retailMultiplier,
       usedLocalCost: img.usedLocalCost,
-      breakdown: {
-        'imageUserCostDzd': img.userCostDzd,
-      },
+      breakdown: {'imageUserCostDzd': img.userCostDzd},
     );
   }
 }

@@ -73,10 +73,7 @@ List<String> imageOutputTiersForCatalogRow(ModelCatalogRow? row) {
 /// silently dropped the user's `imageSize` choice and caused the backend to
 /// default to `"2K"`, producing `imageSize "2K" is not supported for this model`
 /// for any model whose `output_size_tiers` was `["1K"]`.
-bool modelIdSupportsImageOutputTiers(
-  String modelId, {
-  ModelCatalogRow? row,
-}) {
+bool modelIdSupportsImageOutputTiers(String modelId, {ModelCatalogRow? row}) {
   if (row != null) {
     return imageOutputTiersForCatalogRow(row).isNotEmpty;
   }
@@ -85,16 +82,21 @@ bool modelIdSupportsImageOutputTiers(
       id == 'gemini-3-pro-image-preview') {
     return true;
   }
-  if (id.contains('gemini-3.1-flash-image') || id.contains('gemini-3-pro-image')) {
+  if (id.contains('gemini-3.1-flash-image') ||
+      id.contains('gemini-3-pro-image')) {
     return true;
   }
-  if (id.contains('gemini-2.5-flash-image') || id.contains('gemini-2.5-pro-image')) {
+  if (id.contains('gemini-2.5-flash-image') ||
+      id.contains('gemini-2.5-pro-image')) {
     return true;
   }
   if (id.contains('gpt-5.4-image') || id.endsWith('gpt-5.4-image-2')) {
     return true;
   }
   if (id.contains('openai/gpt-5.4-image')) {
+    return true;
+  }
+  if (id.contains('gpt-image-') || id.startsWith('gpt-image')) {
     return true;
   }
   return false;
@@ -107,7 +109,8 @@ ImageGenCaps _defaultsForModel(ModelCatalogRow? row, String modelId) {
 
   if (isGoogle && (id.contains('flash-image') || id.contains('pro-image'))) {
     final flashImage =
-        id.contains('gemini-3.1-flash-image') || id.contains('flash-image-preview');
+        id.contains('gemini-3.1-flash-image') ||
+        id.contains('flash-image-preview');
     return ImageGenCaps(
       allowedAspectRatios: List<String>.from(kStandardImageAspectRatios),
       outputSizeTiers: const ['1K', '2K', '4K'],
@@ -179,8 +182,9 @@ ImageGenCaps resolveImageGenCaps(ModelCatalogRow? row, String modelId) {
   }
 
   return ImageGenCaps(
-    allowedAspectRatios:
-        aspects != null && aspects.isNotEmpty ? aspects : base.allowedAspectRatios,
+    allowedAspectRatios: aspects != null && aspects.isNotEmpty
+        ? aspects
+        : base.allowedAspectRatios,
     outputSizeTiers: outTiers != null && outTiers.isNotEmpty
         ? outTiers
         : base.outputSizeTiers,
@@ -195,7 +199,10 @@ ImageGenCaps resolveImageGenCaps(ModelCatalogRow? row, String modelId) {
 }
 
 /// Find catalog row by model id (matches backend `getCatalogModelId`).
-ModelCatalogRow? catalogRowForModelId(ModelsCatalogConfig? catalog, String modelId) {
+ModelCatalogRow? catalogRowForModelId(
+  ModelsCatalogConfig? catalog,
+  String modelId,
+) {
   final id = modelId.trim();
   if (id.isEmpty || catalog == null) return null;
   for (final r in catalog.data) {

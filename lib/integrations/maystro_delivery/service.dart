@@ -366,11 +366,24 @@ extension OrderMaystro on Order {
     return delivery as Map<String, dynamic>;
   }
 
-  String? get maystroDeliveryOrderId =>
-      _maystroData?['payload']?['orderId'] as String?;
+  String? get maystroDeliveryOrderId {
+    final payload = _maystroData?['payload'];
+    if (payload == null) return null;
+    final provider = payload['provider'] as Map<String, dynamic>?;
+    if (provider != null) {
+      return provider['orderId'] as String? ?? provider['id'] as String?;
+    }
+    return payload['orderId'] as String? ?? payload['id'] as String?;
+  }
 
   String? get maystroTrackingNumber {
-    final fromPayload = _maystroData?['payload']?['trackingNumber'] as String?;
+    final payload = _maystroData?['payload'];
+    if (payload == null) return trackingCode;
+    final provider = payload['provider'] as Map<String, dynamic>?;
+    if (provider != null) {
+      return provider['trackingNumber'] as String? ?? provider['tracking'] as String?;
+    }
+    final fromPayload = payload['trackingNumber'] as String? ?? payload['tracking'] as String?;
     if (fromPayload != null && fromPayload.isNotEmpty) return fromPayload;
     return trackingCode;
   }

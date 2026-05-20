@@ -40,6 +40,9 @@ Map<String, dynamic> _normalizedStoreJson(Map<String, dynamic> json) {
   if (m['templateId'] == null && m['template_id'] != null) {
     m['templateId'] = m['template_id'];
   }
+  if (m['projectId'] == null && m['project_id'] != null) {
+    m['projectId'] = m['project_id'];
+  }
   return m;
 }
 
@@ -152,6 +155,7 @@ abstract class Store extends StoreEntity
     StoreConfigs? configs,
     String? shippingPriceId,
     String? templateId,
+    String? projectId,
     // metaPixelIds
     List<String>? metaPixelIds,
     @Default({}) Map<String, StoreMember> members,
@@ -192,6 +196,7 @@ abstract class StoreCreate with _$StoreCreate implements ModelCreate {
     StoreIntegrations integrations,
     @Default([]) List<List<num?>?> defaultShippingRates,
     String? shippingPriceId,
+    String? projectId,
     // subscription
     StoreSubscription? subscription,
     num? due,
@@ -236,6 +241,7 @@ abstract class StoreUpdate with _$StoreUpdate implements ModelUpdate {
     StoreConfigs? configs,
     String? shippingPriceId,
     String? templateId,
+    String? projectId,
   }) = _StoreUpdate;
 
   factory StoreUpdate.fromJson(Map<String, dynamic> json) =>
@@ -363,10 +369,23 @@ abstract class StoreConfigs with _$StoreConfigs {
     String? selectedCountry,
     @Default([]) List<CustomStatusMapping> customStatusMappings,
     @Default(false) bool customStatusEnabled,
+    InventoryIntegration? inventory_integration,
   }) = _StoreConfigs;
 
   factory StoreConfigs.fromJson(Map<String, dynamic> json) =>
       _$StoreConfigsFromJson(json);
+}
+
+@freezed
+abstract class InventoryIntegration with _$InventoryIntegration {
+  const factory InventoryIntegration({
+    @Default([]) List<OrderStatus> reserve_on,
+    @Default([]) List<OrderStatus> unreserve_on,
+    @Default([]) List<OrderStatus> consume_on,
+  }) = _InventoryIntegration;
+
+  factory InventoryIntegration.fromJson(Map<String, dynamic> json) =>
+      _$InventoryIntegrationFromJson(json);
 }
 
 ///

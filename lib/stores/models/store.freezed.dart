@@ -17,7 +17,7 @@ mixin _$Store {
 
  String get id; DateTime get createdAt; DateTime get updatedAt; String get slug; StoreBanner? get banner; StoreAction? get action; StoreDomain? get domain; StoreDecoration? get decoration; String get name; String? get iconUrl; String? get logoUrl;@Deprecated("use logoUrl") String? get ondarkLogoUrl; String get userId; List<EmbaddedCategory> get categories; List<Category>? get categoriesRelation; String? get title; String? get description; List<EmbaddedAddress> get addresses; EmbaddedAddress? get address; Map<String, dynamic> get metadata; List<EmbaddedContact> get contacts;@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations get integrations; List<List<num?>?> get defaultShippingRates; DateTime? get verifiedAt; DateTime? get blockedAt;// subscription
  StoreSubscription? get subscription; num? get due;// StoreConfigs
- StoreConfigs? get configs; String? get shippingPriceId; String? get templateId;// metaPixelIds
+ StoreConfigs? get configs; String? get shippingPriceId; String? get templateId; String? get projectId;// metaPixelIds
  List<String>? get metaPixelIds; Map<String, StoreMember> get members;/// Present when list/show is called with `with[]=lor` and the user may view analytics.
 @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) LiteOrdersReport? get lor;/// Present when `with[]=template` — active [StoreTemplate] row (usually the store fork).
 @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) StoreTemplate? get template;
@@ -33,16 +33,16 @@ $StoreCopyWith<Store> get copyWith => _$StoreCopyWithImpl<Store>(this as Store, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Store&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.name, name) || other.name == name)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.userId, userId) || other.userId == userId)&&const DeepCollectionEquality().equals(other.categories, categories)&&const DeepCollectionEquality().equals(other.categoriesRelation, categoriesRelation)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.addresses, addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other.defaultShippingRates, defaultShippingRates)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due)&&(identical(other.configs, configs) || other.configs == configs)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.templateId, templateId) || other.templateId == templateId)&&const DeepCollectionEquality().equals(other.metaPixelIds, metaPixelIds)&&const DeepCollectionEquality().equals(other.members, members)&&(identical(other.lor, lor) || other.lor == lor)&&(identical(other.template, template) || other.template == template));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Store&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.name, name) || other.name == name)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.userId, userId) || other.userId == userId)&&const DeepCollectionEquality().equals(other.categories, categories)&&const DeepCollectionEquality().equals(other.categoriesRelation, categoriesRelation)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.addresses, addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other.defaultShippingRates, defaultShippingRates)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due)&&(identical(other.configs, configs) || other.configs == configs)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.templateId, templateId) || other.templateId == templateId)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&const DeepCollectionEquality().equals(other.metaPixelIds, metaPixelIds)&&const DeepCollectionEquality().equals(other.members, members)&&(identical(other.lor, lor) || other.lor == lor)&&(identical(other.template, template) || other.template == template));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,createdAt,updatedAt,slug,banner,action,domain,decoration,name,iconUrl,logoUrl,ondarkLogoUrl,userId,const DeepCollectionEquality().hash(categories),const DeepCollectionEquality().hash(categoriesRelation),title,description,const DeepCollectionEquality().hash(addresses),address,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(contacts),integrations,const DeepCollectionEquality().hash(defaultShippingRates),verifiedAt,blockedAt,subscription,due,configs,shippingPriceId,templateId,const DeepCollectionEquality().hash(metaPixelIds),const DeepCollectionEquality().hash(members),lor,template]);
+int get hashCode => Object.hashAll([runtimeType,id,createdAt,updatedAt,slug,banner,action,domain,decoration,name,iconUrl,logoUrl,ondarkLogoUrl,userId,const DeepCollectionEquality().hash(categories),const DeepCollectionEquality().hash(categoriesRelation),title,description,const DeepCollectionEquality().hash(addresses),address,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(contacts),integrations,const DeepCollectionEquality().hash(defaultShippingRates),verifiedAt,blockedAt,subscription,due,configs,shippingPriceId,templateId,projectId,const DeepCollectionEquality().hash(metaPixelIds),const DeepCollectionEquality().hash(members),lor,template]);
 
 @override
 String toString() {
-  return 'Store(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, name: $name, iconUrl: $iconUrl, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, userId: $userId, categories: $categories, categoriesRelation: $categoriesRelation, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, verifiedAt: $verifiedAt, blockedAt: $blockedAt, subscription: $subscription, due: $due, configs: $configs, shippingPriceId: $shippingPriceId, templateId: $templateId, metaPixelIds: $metaPixelIds, members: $members, lor: $lor, template: $template)';
+  return 'Store(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, name: $name, iconUrl: $iconUrl, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, userId: $userId, categories: $categories, categoriesRelation: $categoriesRelation, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, verifiedAt: $verifiedAt, blockedAt: $blockedAt, subscription: $subscription, due: $due, configs: $configs, shippingPriceId: $shippingPriceId, templateId: $templateId, projectId: $projectId, metaPixelIds: $metaPixelIds, members: $members, lor: $lor, template: $template)';
 }
 
 
@@ -53,7 +53,7 @@ abstract mixin class $StoreCopyWith<$Res>  {
   factory $StoreCopyWith(Store value, $Res Function(Store) _then) = _$StoreCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime createdAt, DateTime updatedAt, String slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String name, String? iconUrl, String? logoUrl,@Deprecated("use logoUrl") String? ondarkLogoUrl, String userId, List<EmbaddedCategory> categories, List<Category>? categoriesRelation, String? title, String? description, List<EmbaddedAddress> addresses, EmbaddedAddress? address, Map<String, dynamic> metadata, List<EmbaddedContact> contacts,@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations integrations, List<List<num?>?> defaultShippingRates, DateTime? verifiedAt, DateTime? blockedAt, StoreSubscription? subscription, num? due, StoreConfigs? configs, String? shippingPriceId, String? templateId, List<String>? metaPixelIds, Map<String, StoreMember> members,@JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) LiteOrdersReport? lor,@JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) StoreTemplate? template
+ String id, DateTime createdAt, DateTime updatedAt, String slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String name, String? iconUrl, String? logoUrl,@Deprecated("use logoUrl") String? ondarkLogoUrl, String userId, List<EmbaddedCategory> categories, List<Category>? categoriesRelation, String? title, String? description, List<EmbaddedAddress> addresses, EmbaddedAddress? address, Map<String, dynamic> metadata, List<EmbaddedContact> contacts,@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations integrations, List<List<num?>?> defaultShippingRates, DateTime? verifiedAt, DateTime? blockedAt, StoreSubscription? subscription, num? due, StoreConfigs? configs, String? shippingPriceId, String? templateId, String? projectId, List<String>? metaPixelIds, Map<String, StoreMember> members,@JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) LiteOrdersReport? lor,@JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) StoreTemplate? template
 });
 
 
@@ -70,7 +70,7 @@ class _$StoreCopyWithImpl<$Res>
 
 /// Create a copy of Store
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? slug = null,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? name = null,Object? iconUrl = freezed,Object? logoUrl = freezed,Object? ondarkLogoUrl = freezed,Object? userId = null,Object? categories = null,Object? categoriesRelation = freezed,Object? title = freezed,Object? description = freezed,Object? addresses = null,Object? address = freezed,Object? metadata = null,Object? contacts = null,Object? integrations = null,Object? defaultShippingRates = null,Object? verifiedAt = freezed,Object? blockedAt = freezed,Object? subscription = freezed,Object? due = freezed,Object? configs = freezed,Object? shippingPriceId = freezed,Object? templateId = freezed,Object? metaPixelIds = freezed,Object? members = null,Object? lor = freezed,Object? template = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? slug = null,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? name = null,Object? iconUrl = freezed,Object? logoUrl = freezed,Object? ondarkLogoUrl = freezed,Object? userId = null,Object? categories = null,Object? categoriesRelation = freezed,Object? title = freezed,Object? description = freezed,Object? addresses = null,Object? address = freezed,Object? metadata = null,Object? contacts = null,Object? integrations = null,Object? defaultShippingRates = null,Object? verifiedAt = freezed,Object? blockedAt = freezed,Object? subscription = freezed,Object? due = freezed,Object? configs = freezed,Object? shippingPriceId = freezed,Object? templateId = freezed,Object? projectId = freezed,Object? metaPixelIds = freezed,Object? members = null,Object? lor = freezed,Object? template = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
@@ -102,6 +102,7 @@ as StoreSubscription?,due: freezed == due ? _self.due : due // ignore: cast_null
 as num?,configs: freezed == configs ? _self.configs : configs // ignore: cast_nullable_to_non_nullable
 as StoreConfigs?,shippingPriceId: freezed == shippingPriceId ? _self.shippingPriceId : shippingPriceId // ignore: cast_nullable_to_non_nullable
 as String?,templateId: freezed == templateId ? _self.templateId : templateId // ignore: cast_nullable_to_non_nullable
+as String?,projectId: freezed == projectId ? _self.projectId : projectId // ignore: cast_nullable_to_non_nullable
 as String?,metaPixelIds: freezed == metaPixelIds ? _self.metaPixelIds : metaPixelIds // ignore: cast_nullable_to_non_nullable
 as List<String>?,members: null == members ? _self.members : members // ignore: cast_nullable_to_non_nullable
 as Map<String, StoreMember>,lor: freezed == lor ? _self.lor : lor // ignore: cast_nullable_to_non_nullable
@@ -284,10 +285,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String name,  String? iconUrl,  String? logoUrl, @Deprecated("use logoUrl")  String? ondarkLogoUrl,  String userId,  List<EmbaddedCategory> categories,  List<Category>? categoriesRelation,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  DateTime? verifiedAt,  DateTime? blockedAt,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  List<String>? metaPixelIds,  Map<String, StoreMember> members, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson)  LiteOrdersReport? lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson)  StoreTemplate? template)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String name,  String? iconUrl,  String? logoUrl, @Deprecated("use logoUrl")  String? ondarkLogoUrl,  String userId,  List<EmbaddedCategory> categories,  List<Category>? categoriesRelation,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  DateTime? verifiedAt,  DateTime? blockedAt,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  String? projectId,  List<String>? metaPixelIds,  Map<String, StoreMember> members, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson)  LiteOrdersReport? lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson)  StoreTemplate? template)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Store() when $default != null:
-return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.name,_that.iconUrl,_that.logoUrl,_that.ondarkLogoUrl,_that.userId,_that.categories,_that.categoriesRelation,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.verifiedAt,_that.blockedAt,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId,_that.metaPixelIds,_that.members,_that.lor,_that.template);case _:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.name,_that.iconUrl,_that.logoUrl,_that.ondarkLogoUrl,_that.userId,_that.categories,_that.categoriesRelation,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.verifiedAt,_that.blockedAt,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId,_that.projectId,_that.metaPixelIds,_that.members,_that.lor,_that.template);case _:
   return orElse();
 
 }
@@ -305,10 +306,10 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String name,  String? iconUrl,  String? logoUrl, @Deprecated("use logoUrl")  String? ondarkLogoUrl,  String userId,  List<EmbaddedCategory> categories,  List<Category>? categoriesRelation,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  DateTime? verifiedAt,  DateTime? blockedAt,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  List<String>? metaPixelIds,  Map<String, StoreMember> members, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson)  LiteOrdersReport? lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson)  StoreTemplate? template)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String name,  String? iconUrl,  String? logoUrl, @Deprecated("use logoUrl")  String? ondarkLogoUrl,  String userId,  List<EmbaddedCategory> categories,  List<Category>? categoriesRelation,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  DateTime? verifiedAt,  DateTime? blockedAt,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  String? projectId,  List<String>? metaPixelIds,  Map<String, StoreMember> members, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson)  LiteOrdersReport? lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson)  StoreTemplate? template)  $default,) {final _that = this;
 switch (_that) {
 case _Store():
-return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.name,_that.iconUrl,_that.logoUrl,_that.ondarkLogoUrl,_that.userId,_that.categories,_that.categoriesRelation,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.verifiedAt,_that.blockedAt,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId,_that.metaPixelIds,_that.members,_that.lor,_that.template);case _:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.name,_that.iconUrl,_that.logoUrl,_that.ondarkLogoUrl,_that.userId,_that.categories,_that.categoriesRelation,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.verifiedAt,_that.blockedAt,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId,_that.projectId,_that.metaPixelIds,_that.members,_that.lor,_that.template);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -325,10 +326,10 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String name,  String? iconUrl,  String? logoUrl, @Deprecated("use logoUrl")  String? ondarkLogoUrl,  String userId,  List<EmbaddedCategory> categories,  List<Category>? categoriesRelation,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  DateTime? verifiedAt,  DateTime? blockedAt,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  List<String>? metaPixelIds,  Map<String, StoreMember> members, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson)  LiteOrdersReport? lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson)  StoreTemplate? template)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String name,  String? iconUrl,  String? logoUrl, @Deprecated("use logoUrl")  String? ondarkLogoUrl,  String userId,  List<EmbaddedCategory> categories,  List<Category>? categoriesRelation,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  DateTime? verifiedAt,  DateTime? blockedAt,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  String? projectId,  List<String>? metaPixelIds,  Map<String, StoreMember> members, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson)  LiteOrdersReport? lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson)  StoreTemplate? template)?  $default,) {final _that = this;
 switch (_that) {
 case _Store() when $default != null:
-return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.name,_that.iconUrl,_that.logoUrl,_that.ondarkLogoUrl,_that.userId,_that.categories,_that.categoriesRelation,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.verifiedAt,_that.blockedAt,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId,_that.metaPixelIds,_that.members,_that.lor,_that.template);case _:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.name,_that.iconUrl,_that.logoUrl,_that.ondarkLogoUrl,_that.userId,_that.categories,_that.categoriesRelation,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.verifiedAt,_that.blockedAt,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId,_that.projectId,_that.metaPixelIds,_that.members,_that.lor,_that.template);case _:
   return null;
 
 }
@@ -340,7 +341,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner
 @JsonSerializable()
 
 class _Store extends Store {
-   _Store({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.banner, this.action, this.domain, this.decoration, required this.name, this.iconUrl, this.logoUrl, @Deprecated("use logoUrl") this.ondarkLogoUrl, required this.userId, final  List<EmbaddedCategory> categories = const [], final  List<Category>? categoriesRelation, this.title, this.description, final  List<EmbaddedAddress> addresses = const [], this.address, final  Map<String, dynamic> metadata = const {}, final  List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(), final  List<List<num?>?> defaultShippingRates = const [], this.verifiedAt, this.blockedAt, this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId, final  List<String>? metaPixelIds, final  Map<String, StoreMember> members = const {}, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) this.lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) this.template}): _categories = categories,_categoriesRelation = categoriesRelation,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_metaPixelIds = metaPixelIds,_members = members,super._();
+   _Store({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.banner, this.action, this.domain, this.decoration, required this.name, this.iconUrl, this.logoUrl, @Deprecated("use logoUrl") this.ondarkLogoUrl, required this.userId, final  List<EmbaddedCategory> categories = const [], final  List<Category>? categoriesRelation, this.title, this.description, final  List<EmbaddedAddress> addresses = const [], this.address, final  Map<String, dynamic> metadata = const {}, final  List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(), final  List<List<num?>?> defaultShippingRates = const [], this.verifiedAt, this.blockedAt, this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId, this.projectId, final  List<String>? metaPixelIds, final  Map<String, StoreMember> members = const {}, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) this.lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) this.template}): _categories = categories,_categoriesRelation = categoriesRelation,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_metaPixelIds = metaPixelIds,_members = members,super._();
   factory _Store.fromJson(Map<String, dynamic> json) => _$StoreFromJson(json);
 
 @override final  String id;
@@ -413,6 +414,7 @@ class _Store extends Store {
 @override final  StoreConfigs? configs;
 @override final  String? shippingPriceId;
 @override final  String? templateId;
+@override final  String? projectId;
 // metaPixelIds
  final  List<String>? _metaPixelIds;
 // metaPixelIds
@@ -449,16 +451,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Store&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.name, name) || other.name == name)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.userId, userId) || other.userId == userId)&&const DeepCollectionEquality().equals(other._categories, _categories)&&const DeepCollectionEquality().equals(other._categoriesRelation, _categoriesRelation)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._addresses, _addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other._defaultShippingRates, _defaultShippingRates)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due)&&(identical(other.configs, configs) || other.configs == configs)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.templateId, templateId) || other.templateId == templateId)&&const DeepCollectionEquality().equals(other._metaPixelIds, _metaPixelIds)&&const DeepCollectionEquality().equals(other._members, _members)&&(identical(other.lor, lor) || other.lor == lor)&&(identical(other.template, template) || other.template == template));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Store&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.name, name) || other.name == name)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.userId, userId) || other.userId == userId)&&const DeepCollectionEquality().equals(other._categories, _categories)&&const DeepCollectionEquality().equals(other._categoriesRelation, _categoriesRelation)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._addresses, _addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other._defaultShippingRates, _defaultShippingRates)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due)&&(identical(other.configs, configs) || other.configs == configs)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.templateId, templateId) || other.templateId == templateId)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&const DeepCollectionEquality().equals(other._metaPixelIds, _metaPixelIds)&&const DeepCollectionEquality().equals(other._members, _members)&&(identical(other.lor, lor) || other.lor == lor)&&(identical(other.template, template) || other.template == template));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,createdAt,updatedAt,slug,banner,action,domain,decoration,name,iconUrl,logoUrl,ondarkLogoUrl,userId,const DeepCollectionEquality().hash(_categories),const DeepCollectionEquality().hash(_categoriesRelation),title,description,const DeepCollectionEquality().hash(_addresses),address,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_contacts),integrations,const DeepCollectionEquality().hash(_defaultShippingRates),verifiedAt,blockedAt,subscription,due,configs,shippingPriceId,templateId,const DeepCollectionEquality().hash(_metaPixelIds),const DeepCollectionEquality().hash(_members),lor,template]);
+int get hashCode => Object.hashAll([runtimeType,id,createdAt,updatedAt,slug,banner,action,domain,decoration,name,iconUrl,logoUrl,ondarkLogoUrl,userId,const DeepCollectionEquality().hash(_categories),const DeepCollectionEquality().hash(_categoriesRelation),title,description,const DeepCollectionEquality().hash(_addresses),address,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_contacts),integrations,const DeepCollectionEquality().hash(_defaultShippingRates),verifiedAt,blockedAt,subscription,due,configs,shippingPriceId,templateId,projectId,const DeepCollectionEquality().hash(_metaPixelIds),const DeepCollectionEquality().hash(_members),lor,template]);
 
 @override
 String toString() {
-  return 'Store(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, name: $name, iconUrl: $iconUrl, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, userId: $userId, categories: $categories, categoriesRelation: $categoriesRelation, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, verifiedAt: $verifiedAt, blockedAt: $blockedAt, subscription: $subscription, due: $due, configs: $configs, shippingPriceId: $shippingPriceId, templateId: $templateId, metaPixelIds: $metaPixelIds, members: $members, lor: $lor, template: $template)';
+  return 'Store(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, name: $name, iconUrl: $iconUrl, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, userId: $userId, categories: $categories, categoriesRelation: $categoriesRelation, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, verifiedAt: $verifiedAt, blockedAt: $blockedAt, subscription: $subscription, due: $due, configs: $configs, shippingPriceId: $shippingPriceId, templateId: $templateId, projectId: $projectId, metaPixelIds: $metaPixelIds, members: $members, lor: $lor, template: $template)';
 }
 
 
@@ -469,7 +471,7 @@ abstract mixin class _$StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
   factory _$StoreCopyWith(_Store value, $Res Function(_Store) _then) = __$StoreCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime createdAt, DateTime updatedAt, String slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String name, String? iconUrl, String? logoUrl,@Deprecated("use logoUrl") String? ondarkLogoUrl, String userId, List<EmbaddedCategory> categories, List<Category>? categoriesRelation, String? title, String? description, List<EmbaddedAddress> addresses, EmbaddedAddress? address, Map<String, dynamic> metadata, List<EmbaddedContact> contacts,@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations integrations, List<List<num?>?> defaultShippingRates, DateTime? verifiedAt, DateTime? blockedAt, StoreSubscription? subscription, num? due, StoreConfigs? configs, String? shippingPriceId, String? templateId, List<String>? metaPixelIds, Map<String, StoreMember> members,@JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) LiteOrdersReport? lor,@JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) StoreTemplate? template
+ String id, DateTime createdAt, DateTime updatedAt, String slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String name, String? iconUrl, String? logoUrl,@Deprecated("use logoUrl") String? ondarkLogoUrl, String userId, List<EmbaddedCategory> categories, List<Category>? categoriesRelation, String? title, String? description, List<EmbaddedAddress> addresses, EmbaddedAddress? address, Map<String, dynamic> metadata, List<EmbaddedContact> contacts,@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations integrations, List<List<num?>?> defaultShippingRates, DateTime? verifiedAt, DateTime? blockedAt, StoreSubscription? subscription, num? due, StoreConfigs? configs, String? shippingPriceId, String? templateId, String? projectId, List<String>? metaPixelIds, Map<String, StoreMember> members,@JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) LiteOrdersReport? lor,@JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) StoreTemplate? template
 });
 
 
@@ -486,7 +488,7 @@ class __$StoreCopyWithImpl<$Res>
 
 /// Create a copy of Store
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? slug = null,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? name = null,Object? iconUrl = freezed,Object? logoUrl = freezed,Object? ondarkLogoUrl = freezed,Object? userId = null,Object? categories = null,Object? categoriesRelation = freezed,Object? title = freezed,Object? description = freezed,Object? addresses = null,Object? address = freezed,Object? metadata = null,Object? contacts = null,Object? integrations = null,Object? defaultShippingRates = null,Object? verifiedAt = freezed,Object? blockedAt = freezed,Object? subscription = freezed,Object? due = freezed,Object? configs = freezed,Object? shippingPriceId = freezed,Object? templateId = freezed,Object? metaPixelIds = freezed,Object? members = null,Object? lor = freezed,Object? template = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? slug = null,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? name = null,Object? iconUrl = freezed,Object? logoUrl = freezed,Object? ondarkLogoUrl = freezed,Object? userId = null,Object? categories = null,Object? categoriesRelation = freezed,Object? title = freezed,Object? description = freezed,Object? addresses = null,Object? address = freezed,Object? metadata = null,Object? contacts = null,Object? integrations = null,Object? defaultShippingRates = null,Object? verifiedAt = freezed,Object? blockedAt = freezed,Object? subscription = freezed,Object? due = freezed,Object? configs = freezed,Object? shippingPriceId = freezed,Object? templateId = freezed,Object? projectId = freezed,Object? metaPixelIds = freezed,Object? members = null,Object? lor = freezed,Object? template = freezed,}) {
   return _then(_Store(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
@@ -518,6 +520,7 @@ as StoreSubscription?,due: freezed == due ? _self.due : due // ignore: cast_null
 as num?,configs: freezed == configs ? _self.configs : configs // ignore: cast_nullable_to_non_nullable
 as StoreConfigs?,shippingPriceId: freezed == shippingPriceId ? _self.shippingPriceId : shippingPriceId // ignore: cast_nullable_to_non_nullable
 as String?,templateId: freezed == templateId ? _self.templateId : templateId // ignore: cast_nullable_to_non_nullable
+as String?,projectId: freezed == projectId ? _self.projectId : projectId // ignore: cast_nullable_to_non_nullable
 as String?,metaPixelIds: freezed == metaPixelIds ? _self._metaPixelIds : metaPixelIds // ignore: cast_nullable_to_non_nullable
 as List<String>?,members: null == members ? _self._members : members // ignore: cast_nullable_to_non_nullable
 as Map<String, StoreMember>,lor: freezed == lor ? _self.lor : lor // ignore: cast_nullable_to_non_nullable
@@ -626,7 +629,7 @@ $StoreConfigsCopyWith<$Res>? get configs {
 /// @nodoc
 mixin _$StoreCreate {
 
- String? get id; String get name; String get slug; StoreBanner? get banner; StoreAction? get action; StoreDomain? get domain; StoreDecoration? get decoration; String? get logoUrl; String? get ondarkLogoUrl; List<EmbaddedCategory> get categories; String? get title; String? get description; List<EmbaddedAddress> get addresses; EmbaddedAddress? get address; Map<String, dynamic> get metadata; List<EmbaddedContact> get contacts;@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations get integrations; List<List<num?>?> get defaultShippingRates; String? get shippingPriceId;// subscription
+ String? get id; String get name; String get slug; StoreBanner? get banner; StoreAction? get action; StoreDomain? get domain; StoreDecoration? get decoration; String? get logoUrl; String? get ondarkLogoUrl; List<EmbaddedCategory> get categories; String? get title; String? get description; List<EmbaddedAddress> get addresses; EmbaddedAddress? get address; Map<String, dynamic> get metadata; List<EmbaddedContact> get contacts;@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations get integrations; List<List<num?>?> get defaultShippingRates; String? get shippingPriceId; String? get projectId;// subscription
  StoreSubscription? get subscription; num? get due;
 /// Create a copy of StoreCreate
 /// with the given fields replaced by the non-null parameter values.
@@ -640,16 +643,16 @@ $StoreCreateCopyWith<StoreCreate> get copyWith => _$StoreCreateCopyWithImpl<Stor
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other.categories, categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.addresses, addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other.defaultShippingRates, defaultShippingRates)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other.categories, categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.addresses, addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other.defaultShippingRates, defaultShippingRates)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,slug,banner,action,domain,decoration,logoUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(categories),title,description,const DeepCollectionEquality().hash(addresses),address,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(contacts),integrations,const DeepCollectionEquality().hash(defaultShippingRates),shippingPriceId,subscription,due]);
+int get hashCode => Object.hashAll([runtimeType,id,name,slug,banner,action,domain,decoration,logoUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(categories),title,description,const DeepCollectionEquality().hash(addresses),address,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(contacts),integrations,const DeepCollectionEquality().hash(defaultShippingRates),shippingPriceId,projectId,subscription,due]);
 
 @override
 String toString() {
-  return 'StoreCreate(id: $id, name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, shippingPriceId: $shippingPriceId, subscription: $subscription, due: $due)';
+  return 'StoreCreate(id: $id, name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, shippingPriceId: $shippingPriceId, projectId: $projectId, subscription: $subscription, due: $due)';
 }
 
 
@@ -660,7 +663,7 @@ abstract mixin class $StoreCreateCopyWith<$Res>  {
   factory $StoreCreateCopyWith(StoreCreate value, $Res Function(StoreCreate) _then) = _$StoreCreateCopyWithImpl;
 @useResult
 $Res call({
- String? id, String name, String slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String? logoUrl, String? ondarkLogoUrl, List<EmbaddedCategory> categories, String? title, String? description, List<EmbaddedAddress> addresses, EmbaddedAddress? address, Map<String, dynamic> metadata, List<EmbaddedContact> contacts,@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations integrations, List<List<num?>?> defaultShippingRates, String? shippingPriceId, StoreSubscription? subscription, num? due
+ String? id, String name, String slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String? logoUrl, String? ondarkLogoUrl, List<EmbaddedCategory> categories, String? title, String? description, List<EmbaddedAddress> addresses, EmbaddedAddress? address, Map<String, dynamic> metadata, List<EmbaddedContact> contacts,@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations integrations, List<List<num?>?> defaultShippingRates, String? shippingPriceId, String? projectId, StoreSubscription? subscription, num? due
 });
 
 
@@ -677,7 +680,7 @@ class _$StoreCreateCopyWithImpl<$Res>
 
 /// Create a copy of StoreCreate
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? slug = null,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? logoUrl = freezed,Object? ondarkLogoUrl = freezed,Object? categories = null,Object? title = freezed,Object? description = freezed,Object? addresses = null,Object? address = freezed,Object? metadata = null,Object? contacts = null,Object? integrations = null,Object? defaultShippingRates = null,Object? shippingPriceId = freezed,Object? subscription = freezed,Object? due = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? slug = null,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? logoUrl = freezed,Object? ondarkLogoUrl = freezed,Object? categories = null,Object? title = freezed,Object? description = freezed,Object? addresses = null,Object? address = freezed,Object? metadata = null,Object? contacts = null,Object? integrations = null,Object? defaultShippingRates = null,Object? shippingPriceId = freezed,Object? projectId = freezed,Object? subscription = freezed,Object? due = freezed,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -698,6 +701,7 @@ as Map<String, dynamic>,contacts: null == contacts ? _self.contacts : contacts /
 as List<EmbaddedContact>,integrations: null == integrations ? _self.integrations : integrations // ignore: cast_nullable_to_non_nullable
 as StoreIntegrations,defaultShippingRates: null == defaultShippingRates ? _self.defaultShippingRates : defaultShippingRates // ignore: cast_nullable_to_non_nullable
 as List<List<num?>?>,shippingPriceId: freezed == shippingPriceId ? _self.shippingPriceId : shippingPriceId // ignore: cast_nullable_to_non_nullable
+as String?,projectId: freezed == projectId ? _self.projectId : projectId // ignore: cast_nullable_to_non_nullable
 as String?,subscription: freezed == subscription ? _self.subscription : subscription // ignore: cast_nullable_to_non_nullable
 as StoreSubscription?,due: freezed == due ? _self.due : due // ignore: cast_nullable_to_non_nullable
 as num?,
@@ -866,10 +870,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String? logoUrl,  String? ondarkLogoUrl,  List<EmbaddedCategory> categories,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  String? shippingPriceId,  StoreSubscription? subscription,  num? due)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String? logoUrl,  String? ondarkLogoUrl,  List<EmbaddedCategory> categories,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  String? shippingPriceId,  String? projectId,  StoreSubscription? subscription,  num? due)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreCreate() when $default != null:
-return $default(_that.id,_that.name,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.logoUrl,_that.ondarkLogoUrl,_that.categories,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.shippingPriceId,_that.subscription,_that.due);case _:
+return $default(_that.id,_that.name,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.logoUrl,_that.ondarkLogoUrl,_that.categories,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.shippingPriceId,_that.projectId,_that.subscription,_that.due);case _:
   return orElse();
 
 }
@@ -887,10 +891,10 @@ return $default(_that.id,_that.name,_that.slug,_that.banner,_that.action,_that.d
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String? logoUrl,  String? ondarkLogoUrl,  List<EmbaddedCategory> categories,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  String? shippingPriceId,  StoreSubscription? subscription,  num? due)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String? logoUrl,  String? ondarkLogoUrl,  List<EmbaddedCategory> categories,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  String? shippingPriceId,  String? projectId,  StoreSubscription? subscription,  num? due)  $default,) {final _that = this;
 switch (_that) {
 case _StoreCreate():
-return $default(_that.id,_that.name,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.logoUrl,_that.ondarkLogoUrl,_that.categories,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.shippingPriceId,_that.subscription,_that.due);case _:
+return $default(_that.id,_that.name,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.logoUrl,_that.ondarkLogoUrl,_that.categories,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.shippingPriceId,_that.projectId,_that.subscription,_that.due);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -907,10 +911,10 @@ return $default(_that.id,_that.name,_that.slug,_that.banner,_that.action,_that.d
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String? logoUrl,  String? ondarkLogoUrl,  List<EmbaddedCategory> categories,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  String? shippingPriceId,  StoreSubscription? subscription,  num? due)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  String slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String? logoUrl,  String? ondarkLogoUrl,  List<EmbaddedCategory> categories,  String? title,  String? description,  List<EmbaddedAddress> addresses,  EmbaddedAddress? address,  Map<String, dynamic> metadata,  List<EmbaddedContact> contacts, @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)  StoreIntegrations integrations,  List<List<num?>?> defaultShippingRates,  String? shippingPriceId,  String? projectId,  StoreSubscription? subscription,  num? due)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreCreate() when $default != null:
-return $default(_that.id,_that.name,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.logoUrl,_that.ondarkLogoUrl,_that.categories,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.shippingPriceId,_that.subscription,_that.due);case _:
+return $default(_that.id,_that.name,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.logoUrl,_that.ondarkLogoUrl,_that.categories,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.shippingPriceId,_that.projectId,_that.subscription,_that.due);case _:
   return null;
 
 }
@@ -922,7 +926,7 @@ return $default(_that.id,_that.name,_that.slug,_that.banner,_that.action,_that.d
 @JsonSerializable()
 
 class _StoreCreate implements StoreCreate {
-  const _StoreCreate({this.id, required this.name, required this.slug, this.banner, this.action, this.domain, this.decoration, this.logoUrl, this.ondarkLogoUrl, final  List<EmbaddedCategory> categories = const [], this.title, this.description, final  List<EmbaddedAddress> addresses = const [], this.address, final  Map<String, dynamic> metadata = const {}, final  List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(), final  List<List<num?>?> defaultShippingRates = const [], this.shippingPriceId, this.subscription, this.due}): _categories = categories,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates;
+  const _StoreCreate({this.id, required this.name, required this.slug, this.banner, this.action, this.domain, this.decoration, this.logoUrl, this.ondarkLogoUrl, final  List<EmbaddedCategory> categories = const [], this.title, this.description, final  List<EmbaddedAddress> addresses = const [], this.address, final  Map<String, dynamic> metadata = const {}, final  List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(), final  List<List<num?>?> defaultShippingRates = const [], this.shippingPriceId, this.projectId, this.subscription, this.due}): _categories = categories,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates;
   factory _StoreCreate.fromJson(Map<String, dynamic> json) => _$StoreCreateFromJson(json);
 
 @override final  String? id;
@@ -974,6 +978,7 @@ class _StoreCreate implements StoreCreate {
 }
 
 @override final  String? shippingPriceId;
+@override final  String? projectId;
 // subscription
 @override final  StoreSubscription? subscription;
 @override final  num? due;
@@ -991,16 +996,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other._categories, _categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._addresses, _addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other._defaultShippingRates, _defaultShippingRates)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other._categories, _categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._addresses, _addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other._defaultShippingRates, _defaultShippingRates)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,slug,banner,action,domain,decoration,logoUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(_categories),title,description,const DeepCollectionEquality().hash(_addresses),address,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_contacts),integrations,const DeepCollectionEquality().hash(_defaultShippingRates),shippingPriceId,subscription,due]);
+int get hashCode => Object.hashAll([runtimeType,id,name,slug,banner,action,domain,decoration,logoUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(_categories),title,description,const DeepCollectionEquality().hash(_addresses),address,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_contacts),integrations,const DeepCollectionEquality().hash(_defaultShippingRates),shippingPriceId,projectId,subscription,due]);
 
 @override
 String toString() {
-  return 'StoreCreate(id: $id, name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, shippingPriceId: $shippingPriceId, subscription: $subscription, due: $due)';
+  return 'StoreCreate(id: $id, name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, shippingPriceId: $shippingPriceId, projectId: $projectId, subscription: $subscription, due: $due)';
 }
 
 
@@ -1011,7 +1016,7 @@ abstract mixin class _$StoreCreateCopyWith<$Res> implements $StoreCreateCopyWith
   factory _$StoreCreateCopyWith(_StoreCreate value, $Res Function(_StoreCreate) _then) = __$StoreCreateCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String name, String slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String? logoUrl, String? ondarkLogoUrl, List<EmbaddedCategory> categories, String? title, String? description, List<EmbaddedAddress> addresses, EmbaddedAddress? address, Map<String, dynamic> metadata, List<EmbaddedContact> contacts,@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations integrations, List<List<num?>?> defaultShippingRates, String? shippingPriceId, StoreSubscription? subscription, num? due
+ String? id, String name, String slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String? logoUrl, String? ondarkLogoUrl, List<EmbaddedCategory> categories, String? title, String? description, List<EmbaddedAddress> addresses, EmbaddedAddress? address, Map<String, dynamic> metadata, List<EmbaddedContact> contacts,@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations integrations, List<List<num?>?> defaultShippingRates, String? shippingPriceId, String? projectId, StoreSubscription? subscription, num? due
 });
 
 
@@ -1028,7 +1033,7 @@ class __$StoreCreateCopyWithImpl<$Res>
 
 /// Create a copy of StoreCreate
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? slug = null,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? logoUrl = freezed,Object? ondarkLogoUrl = freezed,Object? categories = null,Object? title = freezed,Object? description = freezed,Object? addresses = null,Object? address = freezed,Object? metadata = null,Object? contacts = null,Object? integrations = null,Object? defaultShippingRates = null,Object? shippingPriceId = freezed,Object? subscription = freezed,Object? due = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? slug = null,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? logoUrl = freezed,Object? ondarkLogoUrl = freezed,Object? categories = null,Object? title = freezed,Object? description = freezed,Object? addresses = null,Object? address = freezed,Object? metadata = null,Object? contacts = null,Object? integrations = null,Object? defaultShippingRates = null,Object? shippingPriceId = freezed,Object? projectId = freezed,Object? subscription = freezed,Object? due = freezed,}) {
   return _then(_StoreCreate(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -1049,6 +1054,7 @@ as Map<String, dynamic>,contacts: null == contacts ? _self._contacts : contacts 
 as List<EmbaddedContact>,integrations: null == integrations ? _self.integrations : integrations // ignore: cast_nullable_to_non_nullable
 as StoreIntegrations,defaultShippingRates: null == defaultShippingRates ? _self._defaultShippingRates : defaultShippingRates // ignore: cast_nullable_to_non_nullable
 as List<List<num?>?>,shippingPriceId: freezed == shippingPriceId ? _self.shippingPriceId : shippingPriceId // ignore: cast_nullable_to_non_nullable
+as String?,projectId: freezed == projectId ? _self.projectId : projectId // ignore: cast_nullable_to_non_nullable
 as String?,subscription: freezed == subscription ? _self.subscription : subscription // ignore: cast_nullable_to_non_nullable
 as StoreSubscription?,due: freezed == due ? _self.due : due // ignore: cast_nullable_to_non_nullable
 as num?,
@@ -1146,7 +1152,7 @@ mixin _$StoreUpdate {
  String? get name; String? get slug; StoreBanner? get banner; StoreAction? get action; StoreDomain? get domain; StoreDecoration? get decoration; String? get logoUrl; String? get iconUrl; String? get ondarkLogoUrl; List<EmbaddedCategory>? get categories; String? get title; String? get description; List<EmbaddedAddress>? get addresses; EmbaddedAddress? get address; Map<String, dynamic>? get metadata; List<EmbaddedContact>? get contacts;@JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson) StoreIntegrations? get integrations; List<List<num?>?>? get defaultShippingRates;// ignore: invalid_annotation_target
 @JsonKey(includeFromJson: false) List<String> get setToNull;// subscription
  StoreSubscription? get subscription; num? get due;// StoreConfigs
- StoreConfigs? get configs; String? get shippingPriceId; String? get templateId;
+ StoreConfigs? get configs; String? get shippingPriceId; String? get templateId; String? get projectId;
 /// Create a copy of StoreUpdate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1159,16 +1165,16 @@ $StoreUpdateCopyWith<StoreUpdate> get copyWith => _$StoreUpdateCopyWithImpl<Stor
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other.categories, categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.addresses, addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other.defaultShippingRates, defaultShippingRates)&&const DeepCollectionEquality().equals(other.setToNull, setToNull)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due)&&(identical(other.configs, configs) || other.configs == configs)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.templateId, templateId) || other.templateId == templateId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other.categories, categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.addresses, addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other.defaultShippingRates, defaultShippingRates)&&const DeepCollectionEquality().equals(other.setToNull, setToNull)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due)&&(identical(other.configs, configs) || other.configs == configs)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.templateId, templateId) || other.templateId == templateId)&&(identical(other.projectId, projectId) || other.projectId == projectId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,name,slug,banner,action,domain,decoration,logoUrl,iconUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(categories),title,description,const DeepCollectionEquality().hash(addresses),address,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(contacts),integrations,const DeepCollectionEquality().hash(defaultShippingRates),const DeepCollectionEquality().hash(setToNull),subscription,due,configs,shippingPriceId,templateId]);
+int get hashCode => Object.hashAll([runtimeType,name,slug,banner,action,domain,decoration,logoUrl,iconUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(categories),title,description,const DeepCollectionEquality().hash(addresses),address,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(contacts),integrations,const DeepCollectionEquality().hash(defaultShippingRates),const DeepCollectionEquality().hash(setToNull),subscription,due,configs,shippingPriceId,templateId,projectId]);
 
 @override
 String toString() {
-  return 'StoreUpdate(name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, iconUrl: $iconUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, setToNull: $setToNull, subscription: $subscription, due: $due, configs: $configs, shippingPriceId: $shippingPriceId, templateId: $templateId)';
+  return 'StoreUpdate(name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, iconUrl: $iconUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, setToNull: $setToNull, subscription: $subscription, due: $due, configs: $configs, shippingPriceId: $shippingPriceId, templateId: $templateId, projectId: $projectId)';
 }
 
 
@@ -1179,7 +1185,7 @@ abstract mixin class $StoreUpdateCopyWith<$Res>  {
   factory $StoreUpdateCopyWith(StoreUpdate value, $Res Function(StoreUpdate) _then) = _$StoreUpdateCopyWithImpl;
 @useResult
 $Res call({
- String? name, String? slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String? logoUrl, String? iconUrl, String? ondarkLogoUrl, List<EmbaddedCategory>? categories, String? title, String? description, List<EmbaddedAddress>? addresses, EmbaddedAddress? address, Map<String, dynamic>? metadata, List<EmbaddedContact>? contacts,@JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson) StoreIntegrations? integrations, List<List<num?>?>? defaultShippingRates,@JsonKey(includeFromJson: false) List<String> setToNull, StoreSubscription? subscription, num? due, StoreConfigs? configs, String? shippingPriceId, String? templateId
+ String? name, String? slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String? logoUrl, String? iconUrl, String? ondarkLogoUrl, List<EmbaddedCategory>? categories, String? title, String? description, List<EmbaddedAddress>? addresses, EmbaddedAddress? address, Map<String, dynamic>? metadata, List<EmbaddedContact>? contacts,@JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson) StoreIntegrations? integrations, List<List<num?>?>? defaultShippingRates,@JsonKey(includeFromJson: false) List<String> setToNull, StoreSubscription? subscription, num? due, StoreConfigs? configs, String? shippingPriceId, String? templateId, String? projectId
 });
 
 
@@ -1196,7 +1202,7 @@ class _$StoreUpdateCopyWithImpl<$Res>
 
 /// Create a copy of StoreUpdate
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? slug = freezed,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? logoUrl = freezed,Object? iconUrl = freezed,Object? ondarkLogoUrl = freezed,Object? categories = freezed,Object? title = freezed,Object? description = freezed,Object? addresses = freezed,Object? address = freezed,Object? metadata = freezed,Object? contacts = freezed,Object? integrations = freezed,Object? defaultShippingRates = freezed,Object? setToNull = null,Object? subscription = freezed,Object? due = freezed,Object? configs = freezed,Object? shippingPriceId = freezed,Object? templateId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? slug = freezed,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? logoUrl = freezed,Object? iconUrl = freezed,Object? ondarkLogoUrl = freezed,Object? categories = freezed,Object? title = freezed,Object? description = freezed,Object? addresses = freezed,Object? address = freezed,Object? metadata = freezed,Object? contacts = freezed,Object? integrations = freezed,Object? defaultShippingRates = freezed,Object? setToNull = null,Object? subscription = freezed,Object? due = freezed,Object? configs = freezed,Object? shippingPriceId = freezed,Object? templateId = freezed,Object? projectId = freezed,}) {
   return _then(_self.copyWith(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,slug: freezed == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
@@ -1222,6 +1228,7 @@ as StoreSubscription?,due: freezed == due ? _self.due : due // ignore: cast_null
 as num?,configs: freezed == configs ? _self.configs : configs // ignore: cast_nullable_to_non_nullable
 as StoreConfigs?,shippingPriceId: freezed == shippingPriceId ? _self.shippingPriceId : shippingPriceId // ignore: cast_nullable_to_non_nullable
 as String?,templateId: freezed == templateId ? _self.templateId : templateId // ignore: cast_nullable_to_non_nullable
+as String?,projectId: freezed == projectId ? _self.projectId : projectId // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -1403,10 +1410,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String? logoUrl,  String? iconUrl,  String? ondarkLogoUrl,  List<EmbaddedCategory>? categories,  String? title,  String? description,  List<EmbaddedAddress>? addresses,  EmbaddedAddress? address,  Map<String, dynamic>? metadata,  List<EmbaddedContact>? contacts, @JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson)  StoreIntegrations? integrations,  List<List<num?>?>? defaultShippingRates, @JsonKey(includeFromJson: false)  List<String> setToNull,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String? logoUrl,  String? iconUrl,  String? ondarkLogoUrl,  List<EmbaddedCategory>? categories,  String? title,  String? description,  List<EmbaddedAddress>? addresses,  EmbaddedAddress? address,  Map<String, dynamic>? metadata,  List<EmbaddedContact>? contacts, @JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson)  StoreIntegrations? integrations,  List<List<num?>?>? defaultShippingRates, @JsonKey(includeFromJson: false)  List<String> setToNull,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  String? projectId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreUpdate() when $default != null:
-return $default(_that.name,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.logoUrl,_that.iconUrl,_that.ondarkLogoUrl,_that.categories,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.setToNull,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId);case _:
+return $default(_that.name,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.logoUrl,_that.iconUrl,_that.ondarkLogoUrl,_that.categories,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.setToNull,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId,_that.projectId);case _:
   return orElse();
 
 }
@@ -1424,10 +1431,10 @@ return $default(_that.name,_that.slug,_that.banner,_that.action,_that.domain,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String? logoUrl,  String? iconUrl,  String? ondarkLogoUrl,  List<EmbaddedCategory>? categories,  String? title,  String? description,  List<EmbaddedAddress>? addresses,  EmbaddedAddress? address,  Map<String, dynamic>? metadata,  List<EmbaddedContact>? contacts, @JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson)  StoreIntegrations? integrations,  List<List<num?>?>? defaultShippingRates, @JsonKey(includeFromJson: false)  List<String> setToNull,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String? logoUrl,  String? iconUrl,  String? ondarkLogoUrl,  List<EmbaddedCategory>? categories,  String? title,  String? description,  List<EmbaddedAddress>? addresses,  EmbaddedAddress? address,  Map<String, dynamic>? metadata,  List<EmbaddedContact>? contacts, @JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson)  StoreIntegrations? integrations,  List<List<num?>?>? defaultShippingRates, @JsonKey(includeFromJson: false)  List<String> setToNull,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  String? projectId)  $default,) {final _that = this;
 switch (_that) {
 case _StoreUpdate():
-return $default(_that.name,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.logoUrl,_that.iconUrl,_that.ondarkLogoUrl,_that.categories,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.setToNull,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId);case _:
+return $default(_that.name,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.logoUrl,_that.iconUrl,_that.ondarkLogoUrl,_that.categories,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.setToNull,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId,_that.projectId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1444,10 +1451,10 @@ return $default(_that.name,_that.slug,_that.banner,_that.action,_that.domain,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String? logoUrl,  String? iconUrl,  String? ondarkLogoUrl,  List<EmbaddedCategory>? categories,  String? title,  String? description,  List<EmbaddedAddress>? addresses,  EmbaddedAddress? address,  Map<String, dynamic>? metadata,  List<EmbaddedContact>? contacts, @JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson)  StoreIntegrations? integrations,  List<List<num?>?>? defaultShippingRates, @JsonKey(includeFromJson: false)  List<String> setToNull,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? slug,  StoreBanner? banner,  StoreAction? action,  StoreDomain? domain,  StoreDecoration? decoration,  String? logoUrl,  String? iconUrl,  String? ondarkLogoUrl,  List<EmbaddedCategory>? categories,  String? title,  String? description,  List<EmbaddedAddress>? addresses,  EmbaddedAddress? address,  Map<String, dynamic>? metadata,  List<EmbaddedContact>? contacts, @JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson)  StoreIntegrations? integrations,  List<List<num?>?>? defaultShippingRates, @JsonKey(includeFromJson: false)  List<String> setToNull,  StoreSubscription? subscription,  num? due,  StoreConfigs? configs,  String? shippingPriceId,  String? templateId,  String? projectId)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreUpdate() when $default != null:
-return $default(_that.name,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.logoUrl,_that.iconUrl,_that.ondarkLogoUrl,_that.categories,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.setToNull,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId);case _:
+return $default(_that.name,_that.slug,_that.banner,_that.action,_that.domain,_that.decoration,_that.logoUrl,_that.iconUrl,_that.ondarkLogoUrl,_that.categories,_that.title,_that.description,_that.addresses,_that.address,_that.metadata,_that.contacts,_that.integrations,_that.defaultShippingRates,_that.setToNull,_that.subscription,_that.due,_that.configs,_that.shippingPriceId,_that.templateId,_that.projectId);case _:
   return null;
 
 }
@@ -1459,7 +1466,7 @@ return $default(_that.name,_that.slug,_that.banner,_that.action,_that.domain,_th
 @JsonSerializable()
 
 class _StoreUpdate implements StoreUpdate {
-  const _StoreUpdate({this.name, this.slug, this.banner, this.action, this.domain, this.decoration, this.logoUrl, this.iconUrl, this.ondarkLogoUrl, final  List<EmbaddedCategory>? categories, this.title, this.description, final  List<EmbaddedAddress>? addresses, this.address, final  Map<String, dynamic>? metadata, final  List<EmbaddedContact>? contacts, @JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson) this.integrations, final  List<List<num?>?>? defaultShippingRates, @JsonKey(includeFromJson: false) final  List<String> setToNull = const [], this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId}): _categories = categories,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_setToNull = setToNull;
+  const _StoreUpdate({this.name, this.slug, this.banner, this.action, this.domain, this.decoration, this.logoUrl, this.iconUrl, this.ondarkLogoUrl, final  List<EmbaddedCategory>? categories, this.title, this.description, final  List<EmbaddedAddress>? addresses, this.address, final  Map<String, dynamic>? metadata, final  List<EmbaddedContact>? contacts, @JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson) this.integrations, final  List<List<num?>?>? defaultShippingRates, @JsonKey(includeFromJson: false) final  List<String> setToNull = const [], this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId, this.projectId}): _categories = categories,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_setToNull = setToNull;
   factory _StoreUpdate.fromJson(Map<String, dynamic> json) => _$StoreUpdateFromJson(json);
 
 @override final  String? name;
@@ -1536,6 +1543,7 @@ class _StoreUpdate implements StoreUpdate {
 @override final  StoreConfigs? configs;
 @override final  String? shippingPriceId;
 @override final  String? templateId;
+@override final  String? projectId;
 
 /// Create a copy of StoreUpdate
 /// with the given fields replaced by the non-null parameter values.
@@ -1550,16 +1558,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other._categories, _categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._addresses, _addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other._defaultShippingRates, _defaultShippingRates)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due)&&(identical(other.configs, configs) || other.configs == configs)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.templateId, templateId) || other.templateId == templateId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other._categories, _categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._addresses, _addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other._defaultShippingRates, _defaultShippingRates)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due)&&(identical(other.configs, configs) || other.configs == configs)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.templateId, templateId) || other.templateId == templateId)&&(identical(other.projectId, projectId) || other.projectId == projectId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,name,slug,banner,action,domain,decoration,logoUrl,iconUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(_categories),title,description,const DeepCollectionEquality().hash(_addresses),address,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_contacts),integrations,const DeepCollectionEquality().hash(_defaultShippingRates),const DeepCollectionEquality().hash(_setToNull),subscription,due,configs,shippingPriceId,templateId]);
+int get hashCode => Object.hashAll([runtimeType,name,slug,banner,action,domain,decoration,logoUrl,iconUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(_categories),title,description,const DeepCollectionEquality().hash(_addresses),address,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_contacts),integrations,const DeepCollectionEquality().hash(_defaultShippingRates),const DeepCollectionEquality().hash(_setToNull),subscription,due,configs,shippingPriceId,templateId,projectId]);
 
 @override
 String toString() {
-  return 'StoreUpdate(name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, iconUrl: $iconUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, setToNull: $setToNull, subscription: $subscription, due: $due, configs: $configs, shippingPriceId: $shippingPriceId, templateId: $templateId)';
+  return 'StoreUpdate(name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, iconUrl: $iconUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, setToNull: $setToNull, subscription: $subscription, due: $due, configs: $configs, shippingPriceId: $shippingPriceId, templateId: $templateId, projectId: $projectId)';
 }
 
 
@@ -1570,7 +1578,7 @@ abstract mixin class _$StoreUpdateCopyWith<$Res> implements $StoreUpdateCopyWith
   factory _$StoreUpdateCopyWith(_StoreUpdate value, $Res Function(_StoreUpdate) _then) = __$StoreUpdateCopyWithImpl;
 @override @useResult
 $Res call({
- String? name, String? slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String? logoUrl, String? iconUrl, String? ondarkLogoUrl, List<EmbaddedCategory>? categories, String? title, String? description, List<EmbaddedAddress>? addresses, EmbaddedAddress? address, Map<String, dynamic>? metadata, List<EmbaddedContact>? contacts,@JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson) StoreIntegrations? integrations, List<List<num?>?>? defaultShippingRates,@JsonKey(includeFromJson: false) List<String> setToNull, StoreSubscription? subscription, num? due, StoreConfigs? configs, String? shippingPriceId, String? templateId
+ String? name, String? slug, StoreBanner? banner, StoreAction? action, StoreDomain? domain, StoreDecoration? decoration, String? logoUrl, String? iconUrl, String? ondarkLogoUrl, List<EmbaddedCategory>? categories, String? title, String? description, List<EmbaddedAddress>? addresses, EmbaddedAddress? address, Map<String, dynamic>? metadata, List<EmbaddedContact>? contacts,@JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson) StoreIntegrations? integrations, List<List<num?>?>? defaultShippingRates,@JsonKey(includeFromJson: false) List<String> setToNull, StoreSubscription? subscription, num? due, StoreConfigs? configs, String? shippingPriceId, String? templateId, String? projectId
 });
 
 
@@ -1587,7 +1595,7 @@ class __$StoreUpdateCopyWithImpl<$Res>
 
 /// Create a copy of StoreUpdate
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? slug = freezed,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? logoUrl = freezed,Object? iconUrl = freezed,Object? ondarkLogoUrl = freezed,Object? categories = freezed,Object? title = freezed,Object? description = freezed,Object? addresses = freezed,Object? address = freezed,Object? metadata = freezed,Object? contacts = freezed,Object? integrations = freezed,Object? defaultShippingRates = freezed,Object? setToNull = null,Object? subscription = freezed,Object? due = freezed,Object? configs = freezed,Object? shippingPriceId = freezed,Object? templateId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? slug = freezed,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? logoUrl = freezed,Object? iconUrl = freezed,Object? ondarkLogoUrl = freezed,Object? categories = freezed,Object? title = freezed,Object? description = freezed,Object? addresses = freezed,Object? address = freezed,Object? metadata = freezed,Object? contacts = freezed,Object? integrations = freezed,Object? defaultShippingRates = freezed,Object? setToNull = null,Object? subscription = freezed,Object? due = freezed,Object? configs = freezed,Object? shippingPriceId = freezed,Object? templateId = freezed,Object? projectId = freezed,}) {
   return _then(_StoreUpdate(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,slug: freezed == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
@@ -1613,6 +1621,7 @@ as StoreSubscription?,due: freezed == due ? _self.due : due // ignore: cast_null
 as num?,configs: freezed == configs ? _self.configs : configs // ignore: cast_nullable_to_non_nullable
 as StoreConfigs?,shippingPriceId: freezed == shippingPriceId ? _self.shippingPriceId : shippingPriceId // ignore: cast_nullable_to_non_nullable
 as String?,templateId: freezed == templateId ? _self.templateId : templateId // ignore: cast_nullable_to_non_nullable
+as String?,projectId: freezed == projectId ? _self.projectId : projectId // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -2007,7 +2016,7 @@ as Map<String, dynamic>,
 /// @nodoc
 mixin _$StoreConfigs {
 
- List<StoreCurrencyConfig> get currencies; String? get selectedCurrency; List<StoreLanguageConfig> get languages; String? get defaultLanguage; List<StoreCountryConfig> get countries; String? get selectedCountry; List<CustomStatusMapping> get customStatusMappings; bool get customStatusEnabled;
+ List<StoreCurrencyConfig> get currencies; String? get selectedCurrency; List<StoreLanguageConfig> get languages; String? get defaultLanguage; List<StoreCountryConfig> get countries; String? get selectedCountry; List<CustomStatusMapping> get customStatusMappings; bool get customStatusEnabled; InventoryIntegration? get inventory_integration;
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2020,16 +2029,16 @@ $StoreConfigsCopyWith<StoreConfigs> get copyWith => _$StoreConfigsCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other.customStatusMappings, customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other.customStatusMappings, customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(currencies),selectedCurrency,const DeepCollectionEquality().hash(languages),defaultLanguage,const DeepCollectionEquality().hash(countries),selectedCountry,const DeepCollectionEquality().hash(customStatusMappings),customStatusEnabled);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(currencies),selectedCurrency,const DeepCollectionEquality().hash(languages),defaultLanguage,const DeepCollectionEquality().hash(countries),selectedCountry,const DeepCollectionEquality().hash(customStatusMappings),customStatusEnabled,inventory_integration);
 
 @override
 String toString() {
-  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled)';
+  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, inventory_integration: $inventory_integration)';
 }
 
 
@@ -2040,11 +2049,11 @@ abstract mixin class $StoreConfigsCopyWith<$Res>  {
   factory $StoreConfigsCopyWith(StoreConfigs value, $Res Function(StoreConfigs) _then) = _$StoreConfigsCopyWithImpl;
 @useResult
 $Res call({
- List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled
+ List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, InventoryIntegration? inventory_integration
 });
 
 
-
+$InventoryIntegrationCopyWith<$Res>? get inventory_integration;
 
 }
 /// @nodoc
@@ -2057,7 +2066,7 @@ class _$StoreConfigsCopyWithImpl<$Res>
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? inventory_integration = freezed,}) {
   return _then(_self.copyWith(
 currencies: null == currencies ? _self.currencies : currencies // ignore: cast_nullable_to_non_nullable
 as List<StoreCurrencyConfig>,selectedCurrency: freezed == selectedCurrency ? _self.selectedCurrency : selectedCurrency // ignore: cast_nullable_to_non_nullable
@@ -2067,10 +2076,23 @@ as String?,countries: null == countries ? _self.countries : countries // ignore:
 as List<StoreCountryConfig>,selectedCountry: freezed == selectedCountry ? _self.selectedCountry : selectedCountry // ignore: cast_nullable_to_non_nullable
 as String?,customStatusMappings: null == customStatusMappings ? _self.customStatusMappings : customStatusMappings // ignore: cast_nullable_to_non_nullable
 as List<CustomStatusMapping>,customStatusEnabled: null == customStatusEnabled ? _self.customStatusEnabled : customStatusEnabled // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,inventory_integration: freezed == inventory_integration ? _self.inventory_integration : inventory_integration // ignore: cast_nullable_to_non_nullable
+as InventoryIntegration?,
   ));
 }
+/// Create a copy of StoreConfigs
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$InventoryIntegrationCopyWith<$Res>? get inventory_integration {
+    if (_self.inventory_integration == null) {
+    return null;
+  }
 
+  return $InventoryIntegrationCopyWith<$Res>(_self.inventory_integration!, (value) {
+    return _then(_self.copyWith(inventory_integration: value));
+  });
+}
 }
 
 
@@ -2152,10 +2174,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreConfigs() when $default != null:
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration);case _:
   return orElse();
 
 }
@@ -2173,10 +2195,10 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration)  $default,) {final _that = this;
 switch (_that) {
 case _StoreConfigs():
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2193,10 +2215,10 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreConfigs() when $default != null:
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration);case _:
   return null;
 
 }
@@ -2208,7 +2230,7 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 @JsonSerializable()
 
 class _StoreConfigs implements StoreConfigs {
-  const _StoreConfigs({required final  List<StoreCurrencyConfig> currencies, this.selectedCurrency, final  List<StoreLanguageConfig> languages = const [], this.defaultLanguage, final  List<StoreCountryConfig> countries = const [], this.selectedCountry, final  List<CustomStatusMapping> customStatusMappings = const [], this.customStatusEnabled = false}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
+  const _StoreConfigs({required final  List<StoreCurrencyConfig> currencies, this.selectedCurrency, final  List<StoreLanguageConfig> languages = const [], this.defaultLanguage, final  List<StoreCountryConfig> countries = const [], this.selectedCountry, final  List<CustomStatusMapping> customStatusMappings = const [], this.customStatusEnabled = false, this.inventory_integration}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
   factory _StoreConfigs.fromJson(Map<String, dynamic> json) => _$StoreConfigsFromJson(json);
 
  final  List<StoreCurrencyConfig> _currencies;
@@ -2243,6 +2265,7 @@ class _StoreConfigs implements StoreConfigs {
 }
 
 @override@JsonKey() final  bool customStatusEnabled;
+@override final  InventoryIntegration? inventory_integration;
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
@@ -2257,16 +2280,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreConfigs&&const DeepCollectionEquality().equals(other._currencies, _currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other._languages, _languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other._countries, _countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other._customStatusMappings, _customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreConfigs&&const DeepCollectionEquality().equals(other._currencies, _currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other._languages, _languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other._countries, _countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other._customStatusMappings, _customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_currencies),selectedCurrency,const DeepCollectionEquality().hash(_languages),defaultLanguage,const DeepCollectionEquality().hash(_countries),selectedCountry,const DeepCollectionEquality().hash(_customStatusMappings),customStatusEnabled);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_currencies),selectedCurrency,const DeepCollectionEquality().hash(_languages),defaultLanguage,const DeepCollectionEquality().hash(_countries),selectedCountry,const DeepCollectionEquality().hash(_customStatusMappings),customStatusEnabled,inventory_integration);
 
 @override
 String toString() {
-  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled)';
+  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, inventory_integration: $inventory_integration)';
 }
 
 
@@ -2277,11 +2300,11 @@ abstract mixin class _$StoreConfigsCopyWith<$Res> implements $StoreConfigsCopyWi
   factory _$StoreConfigsCopyWith(_StoreConfigs value, $Res Function(_StoreConfigs) _then) = __$StoreConfigsCopyWithImpl;
 @override @useResult
 $Res call({
- List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled
+ List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, InventoryIntegration? inventory_integration
 });
 
 
-
+@override $InventoryIntegrationCopyWith<$Res>? get inventory_integration;
 
 }
 /// @nodoc
@@ -2294,7 +2317,7 @@ class __$StoreConfigsCopyWithImpl<$Res>
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? inventory_integration = freezed,}) {
   return _then(_StoreConfigs(
 currencies: null == currencies ? _self._currencies : currencies // ignore: cast_nullable_to_non_nullable
 as List<StoreCurrencyConfig>,selectedCurrency: freezed == selectedCurrency ? _self.selectedCurrency : selectedCurrency // ignore: cast_nullable_to_non_nullable
@@ -2304,7 +2327,307 @@ as String?,countries: null == countries ? _self._countries : countries // ignore
 as List<StoreCountryConfig>,selectedCountry: freezed == selectedCountry ? _self.selectedCountry : selectedCountry // ignore: cast_nullable_to_non_nullable
 as String?,customStatusMappings: null == customStatusMappings ? _self._customStatusMappings : customStatusMappings // ignore: cast_nullable_to_non_nullable
 as List<CustomStatusMapping>,customStatusEnabled: null == customStatusEnabled ? _self.customStatusEnabled : customStatusEnabled // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,inventory_integration: freezed == inventory_integration ? _self.inventory_integration : inventory_integration // ignore: cast_nullable_to_non_nullable
+as InventoryIntegration?,
+  ));
+}
+
+/// Create a copy of StoreConfigs
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$InventoryIntegrationCopyWith<$Res>? get inventory_integration {
+    if (_self.inventory_integration == null) {
+    return null;
+  }
+
+  return $InventoryIntegrationCopyWith<$Res>(_self.inventory_integration!, (value) {
+    return _then(_self.copyWith(inventory_integration: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$InventoryIntegration {
+
+ List<OrderStatus> get reserve_on; List<OrderStatus> get unreserve_on; List<OrderStatus> get consume_on;
+/// Create a copy of InventoryIntegration
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$InventoryIntegrationCopyWith<InventoryIntegration> get copyWith => _$InventoryIntegrationCopyWithImpl<InventoryIntegration>(this as InventoryIntegration, _$identity);
+
+  /// Serializes this InventoryIntegration to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryIntegration&&const DeepCollectionEquality().equals(other.reserve_on, reserve_on)&&const DeepCollectionEquality().equals(other.unreserve_on, unreserve_on)&&const DeepCollectionEquality().equals(other.consume_on, consume_on));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(reserve_on),const DeepCollectionEquality().hash(unreserve_on),const DeepCollectionEquality().hash(consume_on));
+
+@override
+String toString() {
+  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $InventoryIntegrationCopyWith<$Res>  {
+  factory $InventoryIntegrationCopyWith(InventoryIntegration value, $Res Function(InventoryIntegration) _then) = _$InventoryIntegrationCopyWithImpl;
+@useResult
+$Res call({
+ List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on
+});
+
+
+
+
+}
+/// @nodoc
+class _$InventoryIntegrationCopyWithImpl<$Res>
+    implements $InventoryIntegrationCopyWith<$Res> {
+  _$InventoryIntegrationCopyWithImpl(this._self, this._then);
+
+  final InventoryIntegration _self;
+  final $Res Function(InventoryIntegration) _then;
+
+/// Create a copy of InventoryIntegration
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,}) {
+  return _then(_self.copyWith(
+reserve_on: null == reserve_on ? _self.reserve_on : reserve_on // ignore: cast_nullable_to_non_nullable
+as List<OrderStatus>,unreserve_on: null == unreserve_on ? _self.unreserve_on : unreserve_on // ignore: cast_nullable_to_non_nullable
+as List<OrderStatus>,consume_on: null == consume_on ? _self.consume_on : consume_on // ignore: cast_nullable_to_non_nullable
+as List<OrderStatus>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [InventoryIntegration].
+extension InventoryIntegrationPatterns on InventoryIntegration {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _InventoryIntegration value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _InventoryIntegration() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _InventoryIntegration value)  $default,){
+final _that = this;
+switch (_that) {
+case _InventoryIntegration():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _InventoryIntegration value)?  $default,){
+final _that = this;
+switch (_that) {
+case _InventoryIntegration() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _InventoryIntegration() when $default != null:
+return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on)  $default,) {final _that = this;
+switch (_that) {
+case _InventoryIntegration():
+return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on)?  $default,) {final _that = this;
+switch (_that) {
+case _InventoryIntegration() when $default != null:
+return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _InventoryIntegration implements InventoryIntegration {
+  const _InventoryIntegration({final  List<OrderStatus> reserve_on = const [], final  List<OrderStatus> unreserve_on = const [], final  List<OrderStatus> consume_on = const []}): _reserve_on = reserve_on,_unreserve_on = unreserve_on,_consume_on = consume_on;
+  factory _InventoryIntegration.fromJson(Map<String, dynamic> json) => _$InventoryIntegrationFromJson(json);
+
+ final  List<OrderStatus> _reserve_on;
+@override@JsonKey() List<OrderStatus> get reserve_on {
+  if (_reserve_on is EqualUnmodifiableListView) return _reserve_on;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_reserve_on);
+}
+
+ final  List<OrderStatus> _unreserve_on;
+@override@JsonKey() List<OrderStatus> get unreserve_on {
+  if (_unreserve_on is EqualUnmodifiableListView) return _unreserve_on;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_unreserve_on);
+}
+
+ final  List<OrderStatus> _consume_on;
+@override@JsonKey() List<OrderStatus> get consume_on {
+  if (_consume_on is EqualUnmodifiableListView) return _consume_on;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_consume_on);
+}
+
+
+/// Create a copy of InventoryIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$InventoryIntegrationCopyWith<_InventoryIntegration> get copyWith => __$InventoryIntegrationCopyWithImpl<_InventoryIntegration>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$InventoryIntegrationToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryIntegration&&const DeepCollectionEquality().equals(other._reserve_on, _reserve_on)&&const DeepCollectionEquality().equals(other._unreserve_on, _unreserve_on)&&const DeepCollectionEquality().equals(other._consume_on, _consume_on));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_reserve_on),const DeepCollectionEquality().hash(_unreserve_on),const DeepCollectionEquality().hash(_consume_on));
+
+@override
+String toString() {
+  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$InventoryIntegrationCopyWith<$Res> implements $InventoryIntegrationCopyWith<$Res> {
+  factory _$InventoryIntegrationCopyWith(_InventoryIntegration value, $Res Function(_InventoryIntegration) _then) = __$InventoryIntegrationCopyWithImpl;
+@override @useResult
+$Res call({
+ List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on
+});
+
+
+
+
+}
+/// @nodoc
+class __$InventoryIntegrationCopyWithImpl<$Res>
+    implements _$InventoryIntegrationCopyWith<$Res> {
+  __$InventoryIntegrationCopyWithImpl(this._self, this._then);
+
+  final _InventoryIntegration _self;
+  final $Res Function(_InventoryIntegration) _then;
+
+/// Create a copy of InventoryIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,}) {
+  return _then(_InventoryIntegration(
+reserve_on: null == reserve_on ? _self._reserve_on : reserve_on // ignore: cast_nullable_to_non_nullable
+as List<OrderStatus>,unreserve_on: null == unreserve_on ? _self._unreserve_on : unreserve_on // ignore: cast_nullable_to_non_nullable
+as List<OrderStatus>,consume_on: null == consume_on ? _self._consume_on : consume_on // ignore: cast_nullable_to_non_nullable
+as List<OrderStatus>,
   ));
 }
 

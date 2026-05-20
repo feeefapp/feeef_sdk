@@ -79,6 +79,7 @@ _Store _$StoreFromJson(Map<String, dynamic> json) => _Store(
       : StoreConfigs.fromJson(json['configs'] as Map<String, dynamic>),
   shippingPriceId: json['shippingPriceId'] as String?,
   templateId: json['templateId'] as String?,
+  projectId: json['projectId'] as String?,
   metaPixelIds: (json['metaPixelIds'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
@@ -122,6 +123,7 @@ Map<String, dynamic> _$StoreToJson(_Store instance) => <String, dynamic>{
   'configs': instance.configs,
   'shippingPriceId': instance.shippingPriceId,
   'templateId': instance.templateId,
+  'projectId': instance.projectId,
   'metaPixelIds': instance.metaPixelIds,
   'members': instance.members,
   'lor': _storeLorToJson(instance.lor),
@@ -178,6 +180,7 @@ _StoreCreate _$StoreCreateFromJson(Map<String, dynamic> json) => _StoreCreate(
           .toList() ??
       const [],
   shippingPriceId: json['shippingPriceId'] as String?,
+  projectId: json['projectId'] as String?,
   subscription: json['subscription'] == null
       ? null
       : StoreSubscription.fromJson(
@@ -207,6 +210,7 @@ Map<String, dynamic> _$StoreCreateToJson(_StoreCreate instance) =>
       'integrations': _storeIntegrationsToJson(instance.integrations),
       'defaultShippingRates': instance.defaultShippingRates,
       'shippingPriceId': instance.shippingPriceId,
+      'projectId': instance.projectId,
       'subscription': instance.subscription,
       'due': instance.due,
     };
@@ -261,6 +265,7 @@ _StoreUpdate _$StoreUpdateFromJson(Map<String, dynamic> json) => _StoreUpdate(
       : StoreConfigs.fromJson(json['configs'] as Map<String, dynamic>),
   shippingPriceId: json['shippingPriceId'] as String?,
   templateId: json['templateId'] as String?,
+  projectId: json['projectId'] as String?,
 );
 
 Map<String, dynamic> _$StoreUpdateToJson(_StoreUpdate instance) =>
@@ -288,6 +293,7 @@ Map<String, dynamic> _$StoreUpdateToJson(_StoreUpdate instance) =>
       'configs': instance.configs,
       'shippingPriceId': instance.shippingPriceId,
       'templateId': instance.templateId,
+      'projectId': instance.projectId,
     };
 
 _StoreSubscription _$StoreSubscriptionFromJson(Map<String, dynamic> json) =>
@@ -353,6 +359,11 @@ _StoreConfigs _$StoreConfigsFromJson(
           .toList() ??
       const [],
   customStatusEnabled: json['customStatusEnabled'] as bool? ?? false,
+  inventory_integration: json['inventory_integration'] == null
+      ? null
+      : InventoryIntegration.fromJson(
+          json['inventory_integration'] as Map<String, dynamic>,
+        ),
 );
 
 Map<String, dynamic> _$StoreConfigsToJson(_StoreConfigs instance) =>
@@ -365,7 +376,52 @@ Map<String, dynamic> _$StoreConfigsToJson(_StoreConfigs instance) =>
       'selectedCountry': instance.selectedCountry,
       'customStatusMappings': instance.customStatusMappings,
       'customStatusEnabled': instance.customStatusEnabled,
+      'inventory_integration': instance.inventory_integration,
     };
+
+_InventoryIntegration _$InventoryIntegrationFromJson(
+  Map<String, dynamic> json,
+) => _InventoryIntegration(
+  reserve_on:
+      (json['reserve_on'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$OrderStatusEnumMap, e))
+          .toList() ??
+      const [],
+  unreserve_on:
+      (json['unreserve_on'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$OrderStatusEnumMap, e))
+          .toList() ??
+      const [],
+  consume_on:
+      (json['consume_on'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$OrderStatusEnumMap, e))
+          .toList() ??
+      const [],
+);
+
+Map<String, dynamic> _$InventoryIntegrationToJson(
+  _InventoryIntegration instance,
+) => <String, dynamic>{
+  'reserve_on': instance.reserve_on
+      .map((e) => _$OrderStatusEnumMap[e]!)
+      .toList(),
+  'unreserve_on': instance.unreserve_on
+      .map((e) => _$OrderStatusEnumMap[e]!)
+      .toList(),
+  'consume_on': instance.consume_on
+      .map((e) => _$OrderStatusEnumMap[e]!)
+      .toList(),
+};
+
+const _$OrderStatusEnumMap = {
+  OrderStatus.draft: 'draft',
+  OrderStatus.pending: 'pending',
+  OrderStatus.review: 'review',
+  OrderStatus.accepted: 'accepted',
+  OrderStatus.processing: 'processing',
+  OrderStatus.completed: 'completed',
+  OrderStatus.cancelled: 'cancelled',
+};
 
 _CustomStatusMapping _$CustomStatusMappingFromJson(Map<String, dynamic> json) =>
     _CustomStatusMapping(
@@ -398,16 +454,6 @@ Map<String, dynamic> _$CustomStatusMappingToJson(
   'deliveryStatus': _$DeliveryStatusEnumMap[instance.deliveryStatus],
   'paymentStatus': _$PaymentStatusEnumMap[instance.paymentStatus],
   'next': instance.next,
-};
-
-const _$OrderStatusEnumMap = {
-  OrderStatus.draft: 'draft',
-  OrderStatus.pending: 'pending',
-  OrderStatus.review: 'review',
-  OrderStatus.accepted: 'accepted',
-  OrderStatus.processing: 'processing',
-  OrderStatus.completed: 'completed',
-  OrderStatus.cancelled: 'cancelled',
 };
 
 const _$DeliveryStatusEnumMap = {

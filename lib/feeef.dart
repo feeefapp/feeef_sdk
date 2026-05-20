@@ -21,6 +21,8 @@ export 'core/validation/validation_exception.dart';
 export 'core/with_includes.dart';
 export 'feeef_client.dart';
 export 'feedbacks/feedback_repository.dart';
+export 'inventory/inventory_repository.dart';
+export 'inventory/models/inventory_models.dart';
 export 'image_prompt_templates/image_prompt_template.dart';
 export 'image_prompt_templates/image_prompt_template_repository.dart';
 export 'integrations/delivery/bulk_send_result.dart';

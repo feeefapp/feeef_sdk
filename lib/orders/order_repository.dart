@@ -213,6 +213,35 @@ class OrderRepository extends ModelRepository<Order>
       rethrow;
     }
   }
+
+  /// Returns items from an order to inventory.
+  Future<Map<String, dynamic>> returnOrder({
+    required String orderId,
+    required String reason,
+    String? correlationRef,
+    String? projectId,
+    required List<Map<String, dynamic>> deltas,
+  }) async {
+    try {
+      final response = await client.post(
+        '/orders/return',
+        data: {
+          'orderId': orderId,
+          'reason': reason,
+          if (correlationRef != null) 'correlationRef': correlationRef,
+          if (projectId != null) 'projectId': projectId,
+          'deltas': deltas,
+        },
+      );
+      return response.data;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 422) {
+        var errors = FeeefValidationException.fromJson(e.response?.data);
+        throw errors;
+      }
+      rethrow;
+    }
+  }
 }
 
 /// Represents the calculated pricing for an order.

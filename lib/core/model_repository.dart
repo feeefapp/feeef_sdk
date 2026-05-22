@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 
+import 'package:feeef/core/batch_models.dart';
 import 'package:feeef/core/feeef_storage.dart';
 import 'package:feeef/interfaces/helpers.dart';
 import 'package:feeef/realtime/realtime.dart';
@@ -53,4 +54,56 @@ abstract class ModelRepository<T extends Model> {
 
   T modelFromJson(dynamic json);
   Map<String, dynamic> modelToJson(T model);
+
+  /// Batch delete by resource name/id (`POST /{table}:batchDelete`).
+  ///
+  /// Override via [ModelDeleteManyMixin] on repositories that support it.
+  Future<BatchResult<T>> deleteMany({required BatchDeleteRequest request}) {
+    throw UnimplementedError('deleteMany is not supported for $table');
+  }
+
+  /// Batch update with field mask (`POST /{table}:batchUpdate`).
+  Future<BatchResult<T>> updateMany({required BatchUpdateManyRequest request}) {
+    throw UnimplementedError('updateMany is not supported for $table');
+  }
+
+  /// Batch create (`POST /{table}:batchCreate`).
+  Future<BatchResult<T>> createMany({required BatchCreateManyRequest request}) {
+    throw UnimplementedError('createMany is not supported for $table');
+  }
+
+  /// POST a batch action and parse the partial-success envelope (200 or 400 body).
+  Future<BatchResult<R>> postBatch<R>({
+    required String path,
+    required Map<String, dynamic> body,
+    R Function(Map<String, dynamic> json)? resourceFromJson,
+  }) async {
+    try {
+      final response = await client.post(path, data: body);
+      return BatchResult.fromJson(
+        response.data,
+        resourceFromJson: resourceFromJson,
+      );
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        return BatchResult.fromJson(
+          e.response!.data,
+          resourceFromJson: resourceFromJson,
+        );
+      }
+      rethrow;
+    }
+  }
+
+  /// `POST /{table}:{action}` for resource-specific batch ops (e.g. `:batchRelease`).
+  Future<BatchResult<R>> postBatchAction<R>({
+    required String action,
+    required Map<String, dynamic> body,
+    R Function(Map<String, dynamic> json)? resourceFromJson,
+  }) =>
+      postBatch<R>(
+        path: '/$table:$action',
+        body: body,
+        resourceFromJson: resourceFromJson,
+      );
 }

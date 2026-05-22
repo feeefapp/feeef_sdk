@@ -1,5 +1,6 @@
 // Inventory domain models — match backend API shapes exactly.
 
+import 'package:feeef/core/batch_models.dart';
 import 'package:feeef/interfaces/helpers.dart';
 
 class Project {
@@ -178,6 +179,34 @@ class InventoryWarehouse implements Model {
   Map<String, dynamic> toJson() => {'id': id, 'name': name, 'code': code};
 }
 
+class InventoryReservationLine {
+  final String reservationId;
+  final String inventoryObjectId;
+  final int quantity;
+  final InventoryObject? object;
+
+  const InventoryReservationLine({
+    required this.reservationId,
+    required this.inventoryObjectId,
+    required this.quantity,
+    this.object,
+  });
+
+  factory InventoryReservationLine.fromJson(Map<String, dynamic> json) {
+    InventoryObject? object;
+    final rawObject = json['object'];
+    if (rawObject is Map<String, dynamic>) {
+      object = InventoryObject.fromJson(rawObject);
+    }
+    return InventoryReservationLine(
+      reservationId: json['reservationId'] as String? ?? '',
+      inventoryObjectId: json['inventoryObjectId'] as String? ?? '',
+      quantity: (json['quantity'] as num?)?.toInt() ?? 0,
+      object: object,
+    );
+  }
+}
+
 class InventoryReservation implements Model {
   final String id;
   final String projectId;
@@ -185,6 +214,7 @@ class InventoryReservation implements Model {
   final String state; // 'active' | 'consumed' | 'released'
   final DateTime? expiresAt;
   final DateTime createdAt;
+  final List<InventoryReservationLine> lines;
 
   InventoryReservation({
     required this.id,
@@ -193,19 +223,34 @@ class InventoryReservation implements Model {
     required this.state,
     this.expiresAt,
     required this.createdAt,
+    this.lines = const [],
   });
 
-  factory InventoryReservation.fromJson(Map<String, dynamic> json) =>
-      InventoryReservation(
-        id: json['id'] as String,
-        projectId: json['projectId'] as String,
-        holderRef: json['holderRef'] as String,
-        state: json['state'] as String? ?? 'active',
-        expiresAt: json['expiresAt'] != null
-            ? DateTime.tryParse(json['expiresAt'] as String)
-            : null,
-        createdAt: DateTime.parse(json['createdAt'] as String),
-      );
+  factory InventoryReservation.fromJson(Map<String, dynamic> json) {
+    final rawLines = json['lines'];
+    final lines = rawLines is List
+        ? rawLines
+            .whereType<Map>()
+            .map(
+              (e) => InventoryReservationLine.fromJson(
+                Map<String, dynamic>.from(e),
+              ),
+            )
+            .toList()
+        : <InventoryReservationLine>[];
+
+    return InventoryReservation(
+      id: json['id'] as String,
+      projectId: json['projectId'] as String,
+      holderRef: json['holderRef'] as String,
+      state: json['state'] as String? ?? 'active',
+      expiresAt: json['expiresAt'] != null
+          ? DateTime.tryParse(json['expiresAt'] as String)
+          : null,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      lines: lines,
+    );
+  }
 }
 
 /// Note: no `id` field — `alias` string is the primary identifier.
@@ -370,9 +415,47 @@ class InventoryAliasCreate implements ModelCreate {
 }
 
 class InventoryAliasUpdate implements ModelUpdate {
-  const InventoryAliasUpdate();
+  final String? targetSku;
+
+  const InventoryAliasUpdate({this.targetSku, this.setToNull = const []});
+
   @override
-  List<String> get setToNull => const [];
+  final List<String> setToNull;
+
   @override
-  Map<String, dynamic> toJson() => {};
+  Map<String, dynamic> toJson() => {
+    if (targetSku != null) 'targetSku': targetSku,
+  };
+}
+
+// ─── Batch (Google AIP–style) ───────────────────────────────────────────────
+//
+// Use [BatchResult], [BatchDeleteRequest], etc. from `package:feeef/core/batch_models.dart`.
+// HTTP 200 does not mean all items succeeded — inspect [BatchResult.summary] and
+// [BatchResult.failedRequests] (keys are indices into the request `names` list).
+
+/// Typed batch update body for inventory objects (`objects.updateMany`).
+class InventoryBatchUpdateObjectsRequest extends BatchUpdateManyRequest {
+  InventoryBatchUpdateObjectsRequest({
+    required super.projectId,
+    required super.names,
+    required super.updateMask,
+    String? storageClass,
+    String? warehouseId,
+    String? namespace,
+    String? batch,
+    int? priority,
+    DateTime? expiresAt,
+    super.returnPartialSuccess = true,
+    super.requestId,
+  }) : super(
+          fields: {
+            if (storageClass != null) 'storageClass': storageClass,
+            if (warehouseId != null) 'warehouseId': warehouseId,
+            if (namespace != null) 'namespace': namespace,
+            if (batch != null) 'batch': batch,
+            if (priority != null) 'priority': priority,
+            if (expiresAt != null) 'expiresAt': expiresAt.toIso8601String(),
+          },
+        );
 }

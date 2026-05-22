@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:feeef/core/batch_models.dart';
 import 'package:feeef/core/list_response.dart';
 import 'package:feeef/core/resource_repository.dart';
 import 'package:feeef/interfaces/helpers.dart';
 import 'package:feeef/inventory/models/inventory_models.dart';
+import 'package:feeef/mixins/repository_batch_mixins.dart';
 
+/// Inventory API entry point. Prefer sub-repositories (`objects`, `warehouses`, …).
 class InventoryRepository {
   final Dio client;
   late final InventoryObjectResourceRepository objects;
@@ -20,74 +23,7 @@ class InventoryRepository {
     aliases = InventoryAliasResourceRepository(client: client);
   }
 
-  // ─── Objects ──────────────────────────────────────────────────────────────
-
-  Future<ListResponse<InventoryObject>> listObjects({
-    required String projectId,
-    String? namespace,
-    String? sku,
-    String? search,
-    int page = 0,
-    int limit = 50,
-    String? storageClass,
-    String? filterator,
-    String? orderBy,
-    String? orderDir,
-  }) async {
-    final response = await client.get(
-      '/inventory/objects',
-      queryParameters: {
-        'projectId': projectId,
-        if (namespace != null) 'namespace': namespace,
-        if (sku != null) 'sku': sku,
-        if (storageClass != null) 'storageClass': storageClass,
-        if (search != null && search.isNotEmpty) 'search': search,
-        if (filterator != null && filterator.isNotEmpty)
-          'filterator': filterator,
-        if (orderBy != null && orderBy.isNotEmpty) 'orderBy': orderBy,
-        if (orderDir != null && orderDir.isNotEmpty) 'orderDir': orderDir,
-        'page': page,
-        'limit': limit,
-      },
-    );
-    return ListResponse<InventoryObject>.fromJson(
-      response.data,
-      (json) => InventoryObject.fromJson(json as Map<String, dynamic>),
-    );
-  }
-
-  /// Stock a new inventory item (receive goods).
-  Future<InventoryObject> receive(InventoryReceiveInput data) async {
-    final response = await client.post(
-      '/inventory/objects',
-      data: data.toJson(),
-    );
-    return InventoryObject.fromJson(response.data as Map<String, dynamic>);
-  }
-
-  /// Apply quantity deltas to one or more inventory objects.
-  Future<void> applyDeltas({
-    required String projectId,
-    required List<Map<String, dynamic>> deltas,
-    required String reason,
-    String? correlationRef,
-  }) async {
-    await client.post(
-      '/inventory/objects/apply-deltas',
-      data: {
-        'projectId': projectId,
-        'deltas': deltas,
-        'reason': reason,
-        if (correlationRef != null) 'correlationRef': correlationRef,
-      },
-    );
-  }
-
-  Future<void> deleteObject(String id) async {
-    await client.delete('/inventory/objects/$id');
-  }
-
-  /// Returns a map of sku → available quantity for the given SKUs.
+  /// SKU → available quantity for the project.
   Future<Map<String, int>> availability({
     required String projectId,
     required List<String> skus,
@@ -101,69 +37,13 @@ class InventoryRepository {
     );
   }
 
-  // ─── Movements ────────────────────────────────────────────────────────────
-
-  Future<ListResponse<InventoryMovement>> listMovements({
-    required String projectId,
-    String? objectId,
-    String? correlationRef,
-    int page = 0,
-    int limit = 50,
-  }) async {
-    final response = await client.get(
-      '/inventory/movements',
-      queryParameters: {
-        'projectId': projectId,
-        if (objectId != null) 'objectId': objectId,
-        if (correlationRef != null) 'correlationRef': correlationRef,
-        'page': page,
-        'limit': limit,
-      },
-    );
-    return ListResponse<InventoryMovement>.fromJson(
-      response.data,
-      (json) => InventoryMovement.fromJson(json as Map<String, dynamic>),
-    );
-  }
-
-  // ─── Reservations ─────────────────────────────────────────────────────────
-
-  Future<ListResponse<InventoryReservation>> listReservations({
-    required String projectId,
-    String? state,
-    int page = 0,
-    int limit = 50,
-  }) async {
-    final response = await client.get(
-      '/inventory/reservations',
-      queryParameters: {
-        'projectId': projectId,
-        if (state != null) 'state': state,
-        'page': page,
-        'limit': limit,
-      },
-    );
-    return ListResponse<InventoryReservation>.fromJson(
-      response.data,
-      (json) => InventoryReservation.fromJson(json as Map<String, dynamic>),
-    );
-  }
-
   Future<ListResponse<InventoryReservation>> reservationsByHolder({
     required String projectId,
     required String holderRef,
-  }) async {
-    final response = await client.get(
-      '/inventory/reservations',
-      queryParameters: {'projectId': projectId, 'holderRef': holderRef},
-    );
-    return ListResponse<InventoryReservation>.fromJson(
-      response.data,
-      (json) => InventoryReservation.fromJson(json as Map<String, dynamic>),
-    );
-  }
-
-  // ─── Projects ─────────────────────────────────────────────────────────────
+  }) =>
+      reservations.list(
+        params: {'projectId': projectId, 'holderRef': holderRef},
+      );
 
   Future<ListResponse<Project>> listProjects() async {
     final response = await client.get('/inventory/projects');
@@ -181,83 +61,6 @@ class InventoryRepository {
     return Project.fromJson(response.data as Map<String, dynamic>);
   }
 
-  // ─── Aliases ──────────────────────────────────────────────────────────────
-
-  Future<ListResponse<InventoryAlias>> listAliases({
-    required String projectId,
-  }) async {
-    final response = await client.get(
-      '/inventory/aliases',
-      queryParameters: {'projectId': projectId},
-    );
-    return ListResponse<InventoryAlias>.fromJson(
-      response.data,
-      (json) => InventoryAlias.fromJson(json as Map<String, dynamic>),
-    );
-  }
-
-  Future<InventoryAlias> createAlias({
-    required String projectId,
-    required String alias,
-    required String targetSku,
-  }) async {
-    final response = await client.post(
-      '/inventory/aliases',
-      data: {'projectId': projectId, 'alias': alias, 'targetSku': targetSku},
-    );
-    return InventoryAlias.fromJson(response.data as Map<String, dynamic>);
-  }
-
-  Future<void> deleteAlias({
-    required String projectId,
-    required String alias,
-  }) async {
-    await client.delete(
-      '/inventory/aliases/$alias',
-      queryParameters: {'projectId': projectId},
-    );
-  }
-
-  // ─── Warehouses ───────────────────────────────────────────────────────────
-
-  Future<ListResponse<InventoryWarehouse>> listWarehouses({
-    required String projectId,
-  }) async {
-    final response = await client.get(
-      '/inventory/warehouses',
-      queryParameters: {'projectId': projectId},
-    );
-    return ListResponse<InventoryWarehouse>.fromJson(
-      response.data,
-      (json) => InventoryWarehouse.fromJson(json as Map<String, dynamic>),
-    );
-  }
-
-  Future<InventoryWarehouse> createWarehouse({
-    required String projectId,
-    required String name,
-    required String code,
-    String? namespacePrefix,
-  }) async {
-    final response = await client.post(
-      '/inventory/warehouses',
-      data: {
-        'projectId': projectId,
-        'name': name,
-        'code': code,
-        if (namespacePrefix != null && namespacePrefix.isNotEmpty)
-          'namespacePrefix': namespacePrefix,
-      },
-    );
-    return InventoryWarehouse.fromJson(response.data as Map<String, dynamic>);
-  }
-
-  Future<void> deleteWarehouse(String id) async {
-    await client.delete('/inventory/warehouses/$id');
-  }
-
-  // ─── Public ───────────────────────────────────────────────────────────────
-
   Future<Map<String, int>> publicAvailability({
     required String storeId,
     required List<String> skus,
@@ -273,14 +76,38 @@ class InventoryRepository {
 }
 
 class InventoryObjectUpdate implements ModelUpdate {
-  final Map<String, dynamic> data;
-  const InventoryObjectUpdate([this.data = const {}]);
+  final String? namespace;
+  final String? batch;
+  final String? storageClass;
+  final String? warehouseId;
+  final int? priority;
+  final DateTime? expiresAt;
+  final Map<String, dynamic>? metadata;
+
+  const InventoryObjectUpdate({
+    this.namespace,
+    this.batch,
+    this.storageClass,
+    this.warehouseId,
+    this.priority,
+    this.expiresAt,
+    this.metadata,
+    this.setToNull = const [],
+  });
 
   @override
-  List<String> get setToNull => const [];
+  final List<String> setToNull;
 
   @override
-  Map<String, dynamic> toJson() => data;
+  Map<String, dynamic> toJson() => {
+    if (namespace != null) 'namespace': namespace,
+    if (batch != null) 'batch': batch,
+    if (storageClass != null) 'storageClass': storageClass,
+    if (warehouseId != null) 'warehouseId': warehouseId,
+    if (priority != null) 'priority': priority,
+    if (expiresAt != null) 'expiresAt': expiresAt!.toIso8601String(),
+    if (metadata != null) 'metadata': metadata,
+  };
 }
 
 /// ResourceView-compatible adapter for inventory stock objects.
@@ -293,7 +120,8 @@ class InventoryObjectResourceRepository
           InventoryObject,
           InventoryReceiveInput,
           InventoryObjectUpdate
-        > {
+        >
+    with ModelDeleteManyMixin<InventoryObject>, ModelUpdateManyMixin<InventoryObject> {
   InventoryObjectResourceRepository({required Dio client})
     : super(client: client, table: 'inventory/objects');
 
@@ -323,12 +151,56 @@ class InventoryObjectResourceRepository
       model.toJson();
 
   @override
-  InventoryObjectUpdate updateFromJson(dynamic json) =>
-      InventoryObjectUpdate(Map<String, dynamic>.from(json as Map));
+  InventoryObjectUpdate updateFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return InventoryObjectUpdate(
+      namespace: m['namespace'] as String?,
+      batch: m['batch'] as String?,
+      storageClass: m['storageClass'] as String?,
+      warehouseId: m['warehouseId'] as String?,
+      priority: (m['priority'] as num?)?.toInt(),
+      expiresAt: m['expiresAt'] != null
+          ? DateTime.tryParse(m['expiresAt'] as String)
+          : null,
+      metadata: m['metadata'] as Map<String, dynamic>?,
+      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+          const [],
+    );
+  }
 
   @override
   Map<String, dynamic> updateToJson(InventoryObjectUpdate model) =>
       model.toJson();
+
+  @override
+  Future<InventoryObject> find({
+    required String id,
+    Map<String, dynamic>? params,
+  }) async {
+    final response = await client.get(
+      '/inventory/objects/$id',
+      queryParameters: params,
+      cancelToken: modelFindCancelToken,
+    );
+    return modelFromJson(response.data);
+  }
+
+  @override
+  Future<InventoryObject> update({
+    required String id,
+    InventoryObject? old,
+    required InventoryObjectUpdate data,
+    Map<String, dynamic>? params,
+  }) async {
+    final response = await client.put(
+      '/inventory/objects/$id',
+      data: {...data.toUpdateJson(), if (params != null) ...params},
+      cancelToken: modelUpdateCancelToken,
+    );
+    final model = modelFromJson(response.data);
+    addToUpdateStream(id, data);
+    return model;
+  }
 
   @override
   Future<ListResponse<InventoryObject>> list({
@@ -382,7 +254,24 @@ class InventoryObjectResourceRepository
       '/inventory/objects/$id',
       cancelToken: modelDeleteCancelToken,
     );
-    // The mixin stream controller is private, so consumers should refresh after delete.
+  }
+
+  /// Apply quantity deltas (`POST /inventory/objects/apply-deltas`).
+  Future<void> applyDeltas({
+    required String projectId,
+    required List<Map<String, dynamic>> deltas,
+    required String reason,
+    String? correlationRef,
+  }) async {
+    await client.post(
+      '/inventory/objects/apply-deltas',
+      data: {
+        'projectId': projectId,
+        'deltas': deltas,
+        'reason': reason,
+        if (correlationRef != null) 'correlationRef': correlationRef,
+      },
+    );
   }
 }
 
@@ -392,7 +281,8 @@ class InventoryWarehouseResourceRepository
           InventoryWarehouse,
           InventoryWarehouseCreate,
           InventoryWarehouseUpdate
-        > {
+        >
+    with ModelDeleteManyMixin<InventoryWarehouse> {
   InventoryWarehouseResourceRepository({required Dio client})
     : super(client: client, table: 'inventory/warehouses');
 
@@ -469,6 +359,23 @@ class InventoryWarehouseResourceRepository
     );
     final model = modelFromJson(response.data);
     addToCreateStream(model);
+    return model;
+  }
+
+  @override
+  Future<InventoryWarehouse> update({
+    required String id,
+    InventoryWarehouse? old,
+    required InventoryWarehouseUpdate data,
+    Map<String, dynamic>? params,
+  }) async {
+    final response = await client.put(
+      '/inventory/warehouses/$id',
+      data: {...data.toUpdateJson(), if (params != null) ...params},
+      cancelToken: modelUpdateCancelToken,
+    );
+    final model = modelFromJson(response.data);
+    addToUpdateStream(id, data);
     return model;
   }
 
@@ -567,11 +474,7 @@ class InventoryMovementResourceRepository
     required String id,
     Map<String, dynamic>? params,
   }) async {
-    await client.delete(
-      '/inventory/movements/$id',
-      queryParameters: params,
-      cancelToken: modelDeleteCancelToken,
-    );
+    throw UnsupportedError('Inventory movements are immutable audit records');
   }
 }
 
@@ -584,6 +487,43 @@ class InventoryReservationResourceRepository
         > {
   InventoryReservationResourceRepository({required Dio client})
     : super(client: client, table: 'inventory/reservations');
+
+  /// Batch release holds (`POST /inventory/reservations:batchRelease`).
+  Future<BatchResult<void>> releaseMany({
+    required BatchReleaseRequest request,
+  }) =>
+      postBatchAction<void>(
+        action: 'batchRelease',
+        body: request.toJson(),
+      );
+
+  /// Single release (`POST /inventory/reservations/:id:release`).
+  Future<void> release({
+    required String projectId,
+    required String id,
+  }) async {
+    await client.post(
+      '/inventory/reservations/$id:release',
+      queryParameters: {'projectId': projectId},
+    );
+  }
+
+  @override
+  Future<InventoryReservation> find({
+    required String id,
+    Map<String, dynamic>? params,
+  }) async {
+    final response = await client.get(
+      '/inventory/reservations/$id',
+      queryParameters: params,
+      cancelToken: modelFindCancelToken,
+    );
+    final data = response.data;
+    if (data is List && data.isNotEmpty) {
+      return modelFromJson(data.first);
+    }
+    return modelFromJson(data);
+  }
 
   @override
   InventoryReservation modelFromJson(dynamic json) =>
@@ -657,11 +597,7 @@ class InventoryReservationResourceRepository
     required String id,
     Map<String, dynamic>? params,
   }) async {
-    await client.delete(
-      '/inventory/reservations/$id',
-      queryParameters: params,
-      cancelToken: modelDeleteCancelToken,
-    );
+    throw UnsupportedError('Reservations cannot be deleted; use release instead');
   }
 }
 
@@ -671,7 +607,8 @@ class InventoryAliasResourceRepository
           InventoryAlias,
           InventoryAliasCreate,
           InventoryAliasUpdate
-        > {
+        >
+    with ModelDeleteManyMixin<InventoryAlias> {
   InventoryAliasResourceRepository({required Dio client})
     : super(client: client, table: 'inventory/aliases');
 
@@ -694,12 +631,36 @@ class InventoryAliasResourceRepository
       model.toJson();
 
   @override
-  InventoryAliasUpdate updateFromJson(dynamic json) =>
-      const InventoryAliasUpdate();
+  InventoryAliasUpdate updateFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return InventoryAliasUpdate(
+      targetSku: m['targetSku'] as String?,
+      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+          const [],
+    );
+  }
 
   @override
   Map<String, dynamic> updateToJson(InventoryAliasUpdate model) =>
       model.toJson();
+
+  @override
+  Future<InventoryAlias> update({
+    required String id,
+    InventoryAlias? old,
+    required InventoryAliasUpdate data,
+    Map<String, dynamic>? params,
+  }) async {
+    final response = await client.put(
+      '/inventory/aliases/$id',
+      data: data.toUpdateJson(),
+      queryParameters: params,
+      cancelToken: modelUpdateCancelToken,
+    );
+    final model = modelFromJson(response.data);
+    addToUpdateStream(id, data);
+    return model;
+  }
 
   @override
   Future<ListResponse<InventoryAlias>> list({

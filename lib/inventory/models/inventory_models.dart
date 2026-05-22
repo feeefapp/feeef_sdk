@@ -266,7 +266,7 @@ class InventoryReceiveInput implements ModelCreate {
     'projectId': projectId,
     'namespace': namespace,
     'sku': sku,
-    'batch': batch,
+    if (batch != null && batch!.isNotEmpty) 'batch': batch,
     'quantity': quantity,
     'warehouseId': warehouseId,
     'storageClass': storageClass,
@@ -314,11 +314,26 @@ class InventoryWarehouseCreate implements ModelCreate {
 }
 
 class InventoryWarehouseUpdate implements ModelUpdate {
-  const InventoryWarehouseUpdate();
+  final String? name;
+  final String? code;
+  final String? namespacePrefix;
+
+  const InventoryWarehouseUpdate({
+    this.name,
+    this.code,
+    this.namespacePrefix,
+    this.setToNull = const [],
+  });
+
   @override
-  List<String> get setToNull => const [];
+  final List<String> setToNull;
+
   @override
-  Map<String, dynamic> toJson() => {};
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'code': code,
+    'namespacePrefix': namespacePrefix,
+  };
 }
 
 class InventoryReservationCreate implements ModelCreate {

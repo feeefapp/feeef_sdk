@@ -418,7 +418,11 @@ class InventoryWarehouseResourceRepository
 
   @override
   InventoryWarehouseUpdate updateFromJson(dynamic json) =>
-      const InventoryWarehouseUpdate();
+      InventoryWarehouseUpdate(
+        name: json['name'] as String?,
+        code: json['code'] as String?,
+        namespacePrefix: json['namespacePrefix'] as String?,
+      );
 
   @override
   Map<String, dynamic> updateToJson(InventoryWarehouseUpdate model) =>

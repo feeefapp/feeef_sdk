@@ -296,6 +296,43 @@ Map<String, dynamic> _$StoreUpdateToJson(_StoreUpdate instance) =>
       'projectId': instance.projectId,
     };
 
+_StoreIntegrationSubscription _$StoreIntegrationSubscriptionFromJson(
+  Map<String, dynamic> json,
+) => _StoreIntegrationSubscription(
+  startAt: DateTime.parse(json['startAt'] as String),
+  expiresAt: json['expiresAt'] == null
+      ? null
+      : DateTime.parse(json['expiresAt'] as String),
+  status:
+      $enumDecodeNullable(_$IntegrationBillingStatusEnumMap, json['status']) ??
+      IntegrationBillingStatus.active,
+  price: json['price'] as num? ?? 0,
+  autoRenew: json['autoRenew'] as bool? ?? true,
+  failedAttempts: (json['failedAttempts'] as num?)?.toInt() ?? 0,
+  nextRetryAt: json['nextRetryAt'] == null
+      ? null
+      : DateTime.parse(json['nextRetryAt'] as String),
+);
+
+Map<String, dynamic> _$StoreIntegrationSubscriptionToJson(
+  _StoreIntegrationSubscription instance,
+) => <String, dynamic>{
+  'startAt': instance.startAt.toIso8601String(),
+  'expiresAt': instance.expiresAt?.toIso8601String(),
+  'status': _$IntegrationBillingStatusEnumMap[instance.status]!,
+  'price': instance.price,
+  'autoRenew': instance.autoRenew,
+  'failedAttempts': instance.failedAttempts,
+  'nextRetryAt': instance.nextRetryAt?.toIso8601String(),
+};
+
+const _$IntegrationBillingStatusEnumMap = {
+  IntegrationBillingStatus.active: 'active',
+  IntegrationBillingStatus.grace: 'grace',
+  IntegrationBillingStatus.past_due: 'past_due',
+  IntegrationBillingStatus.canceled: 'canceled',
+};
+
 _StoreSubscription _$StoreSubscriptionFromJson(Map<String, dynamic> json) =>
     _StoreSubscription(
       type: $enumDecode(_$StoreSubscriptionTypeEnumMap, json['type']),
@@ -307,6 +344,14 @@ _StoreSubscription _$StoreSubscriptionFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['expiresAt'] as String),
       metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+      integrations:
+          (json['integrations'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+              k,
+              StoreIntegrationSubscription.fromJson(e as Map<String, dynamic>),
+            ),
+          ) ??
+          const {},
     );
 
 Map<String, dynamic> _$StoreSubscriptionToJson(_StoreSubscription instance) =>
@@ -318,12 +363,14 @@ Map<String, dynamic> _$StoreSubscriptionToJson(_StoreSubscription instance) =>
       'startedAt': instance.startedAt.toIso8601String(),
       'expiresAt': instance.expiresAt?.toIso8601String(),
       'metadata': instance.metadata,
+      'integrations': instance.integrations,
     };
 
 const _$StoreSubscriptionTypeEnumMap = {
   StoreSubscriptionType.free: 'free',
   StoreSubscriptionType.premium: 'premium',
   StoreSubscriptionType.vip: 'vip',
+  StoreSubscriptionType.ultra: 'ultra',
   StoreSubscriptionType.custom: 'custom',
 };
 

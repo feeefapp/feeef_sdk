@@ -37,6 +37,7 @@ export 'integrations/google_sheets_integration_api.dart';
 export 'integrations/noest/noest_delivery_integration_api.dart';
 export 'integrations/procolis/procolis_delivery_integration_api.dart';
 export 'integrations/yalidine/yalidine_delivery_integration_api.dart';
+export 'integrations/integration_subscription_api.dart';
 export 'mixins/mixins.dart';
 export 'mixins/repository_mixins.dart';
 export 'apps/models/app.dart';

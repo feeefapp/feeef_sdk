@@ -23,7 +23,7 @@ class InventoryRepository {
     aliases = InventoryAliasResourceRepository(client: client);
   }
 
-  /// SKU → available quantity for the project.
+  /// Scoped SKU → aggregated available quantity (`tshirtx` or `tshirtx*`).
   Future<Map<String, int>> availability({
     required String projectId,
     required List<String> skus,
@@ -32,7 +32,16 @@ class InventoryRepository {
       '/inventory/availability',
       queryParameters: {'projectId': projectId, 'skus': skus.join(',')},
     );
-    return (response.data as Map).map(
+    final raw = response.data;
+    final Map<String, dynamic> map;
+    if (raw is Map && raw['data'] is Map) {
+      map = Map<String, dynamic>.from(raw['data'] as Map);
+    } else if (raw is Map) {
+      map = Map<String, dynamic>.from(raw);
+    } else {
+      return {};
+    }
+    return map.map(
       (key, value) => MapEntry(key.toString(), (value as num?)?.toInt() ?? 0),
     );
   }
@@ -61,15 +70,25 @@ class InventoryRepository {
     return Project.fromJson(response.data as Map<String, dynamic>);
   }
 
+  /// Storefront scoped availability (`tshirtx` or `tshirtx*`).
   Future<Map<String, int>> publicAvailability({
     required String storeId,
     required List<String> skus,
   }) async {
-    final response = await client.get(
+    final response = await client.post(
       '/inventory/public/availability',
-      queryParameters: {'storeId': storeId, 'skus': skus.join(',')},
+      data: {'storeId': storeId, 'skus': skus},
     );
-    return (response.data as Map).map(
+    final raw = response.data;
+    final Map<String, dynamic> map;
+    if (raw is Map && raw['data'] is Map) {
+      map = Map<String, dynamic>.from(raw['data'] as Map);
+    } else if (raw is Map) {
+      map = Map<String, dynamic>.from(raw);
+    } else {
+      return {};
+    }
+    return map.map(
       (key, value) => MapEntry(key.toString(), (value as num?)?.toInt() ?? 0),
     );
   }

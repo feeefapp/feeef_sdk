@@ -1727,9 +1727,290 @@ $StoreConfigsCopyWith<$Res>? get configs {
 
 
 /// @nodoc
+mixin _$StoreIntegrationSubscription {
+
+ DateTime get startAt; DateTime? get expiresAt; IntegrationBillingStatus get status; num get price; bool get autoRenew; int get failedAttempts; DateTime? get nextRetryAt;
+/// Create a copy of StoreIntegrationSubscription
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$StoreIntegrationSubscriptionCopyWith<StoreIntegrationSubscription> get copyWith => _$StoreIntegrationSubscriptionCopyWithImpl<StoreIntegrationSubscription>(this as StoreIntegrationSubscription, _$identity);
+
+  /// Serializes this StoreIntegrationSubscription to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrationSubscription&&(identical(other.startAt, startAt) || other.startAt == startAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.status, status) || other.status == status)&&(identical(other.price, price) || other.price == price)&&(identical(other.autoRenew, autoRenew) || other.autoRenew == autoRenew)&&(identical(other.failedAttempts, failedAttempts) || other.failedAttempts == failedAttempts)&&(identical(other.nextRetryAt, nextRetryAt) || other.nextRetryAt == nextRetryAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,startAt,expiresAt,status,price,autoRenew,failedAttempts,nextRetryAt);
+
+@override
+String toString() {
+  return 'StoreIntegrationSubscription(startAt: $startAt, expiresAt: $expiresAt, status: $status, price: $price, autoRenew: $autoRenew, failedAttempts: $failedAttempts, nextRetryAt: $nextRetryAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $StoreIntegrationSubscriptionCopyWith<$Res>  {
+  factory $StoreIntegrationSubscriptionCopyWith(StoreIntegrationSubscription value, $Res Function(StoreIntegrationSubscription) _then) = _$StoreIntegrationSubscriptionCopyWithImpl;
+@useResult
+$Res call({
+ DateTime startAt, DateTime? expiresAt, IntegrationBillingStatus status, num price, bool autoRenew, int failedAttempts, DateTime? nextRetryAt
+});
+
+
+
+
+}
+/// @nodoc
+class _$StoreIntegrationSubscriptionCopyWithImpl<$Res>
+    implements $StoreIntegrationSubscriptionCopyWith<$Res> {
+  _$StoreIntegrationSubscriptionCopyWithImpl(this._self, this._then);
+
+  final StoreIntegrationSubscription _self;
+  final $Res Function(StoreIntegrationSubscription) _then;
+
+/// Create a copy of StoreIntegrationSubscription
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? startAt = null,Object? expiresAt = freezed,Object? status = null,Object? price = null,Object? autoRenew = null,Object? failedAttempts = null,Object? nextRetryAt = freezed,}) {
+  return _then(_self.copyWith(
+startAt: null == startAt ? _self.startAt : startAt // ignore: cast_nullable_to_non_nullable
+as DateTime,expiresAt: freezed == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as IntegrationBillingStatus,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
+as num,autoRenew: null == autoRenew ? _self.autoRenew : autoRenew // ignore: cast_nullable_to_non_nullable
+as bool,failedAttempts: null == failedAttempts ? _self.failedAttempts : failedAttempts // ignore: cast_nullable_to_non_nullable
+as int,nextRetryAt: freezed == nextRetryAt ? _self.nextRetryAt : nextRetryAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [StoreIntegrationSubscription].
+extension StoreIntegrationSubscriptionPatterns on StoreIntegrationSubscription {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _StoreIntegrationSubscription value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _StoreIntegrationSubscription() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _StoreIntegrationSubscription value)  $default,){
+final _that = this;
+switch (_that) {
+case _StoreIntegrationSubscription():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _StoreIntegrationSubscription value)?  $default,){
+final _that = this;
+switch (_that) {
+case _StoreIntegrationSubscription() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime startAt,  DateTime? expiresAt,  IntegrationBillingStatus status,  num price,  bool autoRenew,  int failedAttempts,  DateTime? nextRetryAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _StoreIntegrationSubscription() when $default != null:
+return $default(_that.startAt,_that.expiresAt,_that.status,_that.price,_that.autoRenew,_that.failedAttempts,_that.nextRetryAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime startAt,  DateTime? expiresAt,  IntegrationBillingStatus status,  num price,  bool autoRenew,  int failedAttempts,  DateTime? nextRetryAt)  $default,) {final _that = this;
+switch (_that) {
+case _StoreIntegrationSubscription():
+return $default(_that.startAt,_that.expiresAt,_that.status,_that.price,_that.autoRenew,_that.failedAttempts,_that.nextRetryAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime startAt,  DateTime? expiresAt,  IntegrationBillingStatus status,  num price,  bool autoRenew,  int failedAttempts,  DateTime? nextRetryAt)?  $default,) {final _that = this;
+switch (_that) {
+case _StoreIntegrationSubscription() when $default != null:
+return $default(_that.startAt,_that.expiresAt,_that.status,_that.price,_that.autoRenew,_that.failedAttempts,_that.nextRetryAt);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _StoreIntegrationSubscription implements StoreIntegrationSubscription {
+  const _StoreIntegrationSubscription({required this.startAt, this.expiresAt, this.status = IntegrationBillingStatus.active, this.price = 0, this.autoRenew = true, this.failedAttempts = 0, this.nextRetryAt});
+  factory _StoreIntegrationSubscription.fromJson(Map<String, dynamic> json) => _$StoreIntegrationSubscriptionFromJson(json);
+
+@override final  DateTime startAt;
+@override final  DateTime? expiresAt;
+@override@JsonKey() final  IntegrationBillingStatus status;
+@override@JsonKey() final  num price;
+@override@JsonKey() final  bool autoRenew;
+@override@JsonKey() final  int failedAttempts;
+@override final  DateTime? nextRetryAt;
+
+/// Create a copy of StoreIntegrationSubscription
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$StoreIntegrationSubscriptionCopyWith<_StoreIntegrationSubscription> get copyWith => __$StoreIntegrationSubscriptionCopyWithImpl<_StoreIntegrationSubscription>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$StoreIntegrationSubscriptionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrationSubscription&&(identical(other.startAt, startAt) || other.startAt == startAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.status, status) || other.status == status)&&(identical(other.price, price) || other.price == price)&&(identical(other.autoRenew, autoRenew) || other.autoRenew == autoRenew)&&(identical(other.failedAttempts, failedAttempts) || other.failedAttempts == failedAttempts)&&(identical(other.nextRetryAt, nextRetryAt) || other.nextRetryAt == nextRetryAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,startAt,expiresAt,status,price,autoRenew,failedAttempts,nextRetryAt);
+
+@override
+String toString() {
+  return 'StoreIntegrationSubscription(startAt: $startAt, expiresAt: $expiresAt, status: $status, price: $price, autoRenew: $autoRenew, failedAttempts: $failedAttempts, nextRetryAt: $nextRetryAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$StoreIntegrationSubscriptionCopyWith<$Res> implements $StoreIntegrationSubscriptionCopyWith<$Res> {
+  factory _$StoreIntegrationSubscriptionCopyWith(_StoreIntegrationSubscription value, $Res Function(_StoreIntegrationSubscription) _then) = __$StoreIntegrationSubscriptionCopyWithImpl;
+@override @useResult
+$Res call({
+ DateTime startAt, DateTime? expiresAt, IntegrationBillingStatus status, num price, bool autoRenew, int failedAttempts, DateTime? nextRetryAt
+});
+
+
+
+
+}
+/// @nodoc
+class __$StoreIntegrationSubscriptionCopyWithImpl<$Res>
+    implements _$StoreIntegrationSubscriptionCopyWith<$Res> {
+  __$StoreIntegrationSubscriptionCopyWithImpl(this._self, this._then);
+
+  final _StoreIntegrationSubscription _self;
+  final $Res Function(_StoreIntegrationSubscription) _then;
+
+/// Create a copy of StoreIntegrationSubscription
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? startAt = null,Object? expiresAt = freezed,Object? status = null,Object? price = null,Object? autoRenew = null,Object? failedAttempts = null,Object? nextRetryAt = freezed,}) {
+  return _then(_StoreIntegrationSubscription(
+startAt: null == startAt ? _self.startAt : startAt // ignore: cast_nullable_to_non_nullable
+as DateTime,expiresAt: freezed == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as IntegrationBillingStatus,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
+as num,autoRenew: null == autoRenew ? _self.autoRenew : autoRenew // ignore: cast_nullable_to_non_nullable
+as bool,failedAttempts: null == failedAttempts ? _self.failedAttempts : failedAttempts // ignore: cast_nullable_to_non_nullable
+as int,nextRetryAt: freezed == nextRetryAt ? _self.nextRetryAt : nextRetryAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$StoreSubscription {
 
- StoreSubscriptionType get type; StoreSubscriptionStatus get status; num get quota; num get consumed; DateTime get startedAt; DateTime? get expiresAt; Map<String, dynamic> get metadata;
+ StoreSubscriptionType get type; StoreSubscriptionStatus get status; num get quota; num get consumed; DateTime get startedAt; DateTime? get expiresAt; Map<String, dynamic> get metadata; Map<String, StoreIntegrationSubscription> get integrations;
 /// Create a copy of StoreSubscription
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1742,16 +2023,16 @@ $StoreSubscriptionCopyWith<StoreSubscription> get copyWith => _$StoreSubscriptio
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreSubscription&&(identical(other.type, type) || other.type == type)&&(identical(other.status, status) || other.status == status)&&(identical(other.quota, quota) || other.quota == quota)&&(identical(other.consumed, consumed) || other.consumed == consumed)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreSubscription&&(identical(other.type, type) || other.type == type)&&(identical(other.status, status) || other.status == status)&&(identical(other.quota, quota) || other.quota == quota)&&(identical(other.consumed, consumed) || other.consumed == consumed)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.integrations, integrations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,type,status,quota,consumed,startedAt,expiresAt,const DeepCollectionEquality().hash(metadata));
+int get hashCode => Object.hash(runtimeType,type,status,quota,consumed,startedAt,expiresAt,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(integrations));
 
 @override
 String toString() {
-  return 'StoreSubscription(type: $type, status: $status, quota: $quota, consumed: $consumed, startedAt: $startedAt, expiresAt: $expiresAt, metadata: $metadata)';
+  return 'StoreSubscription(type: $type, status: $status, quota: $quota, consumed: $consumed, startedAt: $startedAt, expiresAt: $expiresAt, metadata: $metadata, integrations: $integrations)';
 }
 
 
@@ -1762,7 +2043,7 @@ abstract mixin class $StoreSubscriptionCopyWith<$Res>  {
   factory $StoreSubscriptionCopyWith(StoreSubscription value, $Res Function(StoreSubscription) _then) = _$StoreSubscriptionCopyWithImpl;
 @useResult
 $Res call({
- StoreSubscriptionType type, StoreSubscriptionStatus status, num quota, num consumed, DateTime startedAt, DateTime? expiresAt, Map<String, dynamic> metadata
+ StoreSubscriptionType type, StoreSubscriptionStatus status, num quota, num consumed, DateTime startedAt, DateTime? expiresAt, Map<String, dynamic> metadata, Map<String, StoreIntegrationSubscription> integrations
 });
 
 
@@ -1779,7 +2060,7 @@ class _$StoreSubscriptionCopyWithImpl<$Res>
 
 /// Create a copy of StoreSubscription
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? status = null,Object? quota = null,Object? consumed = null,Object? startedAt = null,Object? expiresAt = freezed,Object? metadata = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? status = null,Object? quota = null,Object? consumed = null,Object? startedAt = null,Object? expiresAt = freezed,Object? metadata = null,Object? integrations = null,}) {
   return _then(_self.copyWith(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as StoreSubscriptionType,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
@@ -1788,7 +2069,8 @@ as num,consumed: null == consumed ? _self.consumed : consumed // ignore: cast_nu
 as num,startedAt: null == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,expiresAt: freezed == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>,
+as Map<String, dynamic>,integrations: null == integrations ? _self.integrations : integrations // ignore: cast_nullable_to_non_nullable
+as Map<String, StoreIntegrationSubscription>,
   ));
 }
 
@@ -1873,10 +2155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StoreSubscriptionType type,  StoreSubscriptionStatus status,  num quota,  num consumed,  DateTime startedAt,  DateTime? expiresAt,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StoreSubscriptionType type,  StoreSubscriptionStatus status,  num quota,  num consumed,  DateTime startedAt,  DateTime? expiresAt,  Map<String, dynamic> metadata,  Map<String, StoreIntegrationSubscription> integrations)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreSubscription() when $default != null:
-return $default(_that.type,_that.status,_that.quota,_that.consumed,_that.startedAt,_that.expiresAt,_that.metadata);case _:
+return $default(_that.type,_that.status,_that.quota,_that.consumed,_that.startedAt,_that.expiresAt,_that.metadata,_that.integrations);case _:
   return orElse();
 
 }
@@ -1894,10 +2176,10 @@ return $default(_that.type,_that.status,_that.quota,_that.consumed,_that.started
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StoreSubscriptionType type,  StoreSubscriptionStatus status,  num quota,  num consumed,  DateTime startedAt,  DateTime? expiresAt,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StoreSubscriptionType type,  StoreSubscriptionStatus status,  num quota,  num consumed,  DateTime startedAt,  DateTime? expiresAt,  Map<String, dynamic> metadata,  Map<String, StoreIntegrationSubscription> integrations)  $default,) {final _that = this;
 switch (_that) {
 case _StoreSubscription():
-return $default(_that.type,_that.status,_that.quota,_that.consumed,_that.startedAt,_that.expiresAt,_that.metadata);case _:
+return $default(_that.type,_that.status,_that.quota,_that.consumed,_that.startedAt,_that.expiresAt,_that.metadata,_that.integrations);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1914,10 +2196,10 @@ return $default(_that.type,_that.status,_that.quota,_that.consumed,_that.started
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StoreSubscriptionType type,  StoreSubscriptionStatus status,  num quota,  num consumed,  DateTime startedAt,  DateTime? expiresAt,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StoreSubscriptionType type,  StoreSubscriptionStatus status,  num quota,  num consumed,  DateTime startedAt,  DateTime? expiresAt,  Map<String, dynamic> metadata,  Map<String, StoreIntegrationSubscription> integrations)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreSubscription() when $default != null:
-return $default(_that.type,_that.status,_that.quota,_that.consumed,_that.startedAt,_that.expiresAt,_that.metadata);case _:
+return $default(_that.type,_that.status,_that.quota,_that.consumed,_that.startedAt,_that.expiresAt,_that.metadata,_that.integrations);case _:
   return null;
 
 }
@@ -1929,7 +2211,7 @@ return $default(_that.type,_that.status,_that.quota,_that.consumed,_that.started
 @JsonSerializable()
 
 class _StoreSubscription implements StoreSubscription {
-  const _StoreSubscription({required this.type, required this.status, this.quota = 0, this.consumed = 0, required this.startedAt, this.expiresAt, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _StoreSubscription({required this.type, required this.status, this.quota = 0, this.consumed = 0, required this.startedAt, this.expiresAt, final  Map<String, dynamic> metadata = const {}, final  Map<String, StoreIntegrationSubscription> integrations = const {}}): _metadata = metadata,_integrations = integrations;
   factory _StoreSubscription.fromJson(Map<String, dynamic> json) => _$StoreSubscriptionFromJson(json);
 
 @override final  StoreSubscriptionType type;
@@ -1943,6 +2225,13 @@ class _StoreSubscription implements StoreSubscription {
   if (_metadata is EqualUnmodifiableMapView) return _metadata;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableMapView(_metadata);
+}
+
+ final  Map<String, StoreIntegrationSubscription> _integrations;
+@override@JsonKey() Map<String, StoreIntegrationSubscription> get integrations {
+  if (_integrations is EqualUnmodifiableMapView) return _integrations;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_integrations);
 }
 
 
@@ -1959,16 +2248,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreSubscription&&(identical(other.type, type) || other.type == type)&&(identical(other.status, status) || other.status == status)&&(identical(other.quota, quota) || other.quota == quota)&&(identical(other.consumed, consumed) || other.consumed == consumed)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreSubscription&&(identical(other.type, type) || other.type == type)&&(identical(other.status, status) || other.status == status)&&(identical(other.quota, quota) || other.quota == quota)&&(identical(other.consumed, consumed) || other.consumed == consumed)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._integrations, _integrations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,type,status,quota,consumed,startedAt,expiresAt,const DeepCollectionEquality().hash(_metadata));
+int get hashCode => Object.hash(runtimeType,type,status,quota,consumed,startedAt,expiresAt,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_integrations));
 
 @override
 String toString() {
-  return 'StoreSubscription(type: $type, status: $status, quota: $quota, consumed: $consumed, startedAt: $startedAt, expiresAt: $expiresAt, metadata: $metadata)';
+  return 'StoreSubscription(type: $type, status: $status, quota: $quota, consumed: $consumed, startedAt: $startedAt, expiresAt: $expiresAt, metadata: $metadata, integrations: $integrations)';
 }
 
 
@@ -1979,7 +2268,7 @@ abstract mixin class _$StoreSubscriptionCopyWith<$Res> implements $StoreSubscrip
   factory _$StoreSubscriptionCopyWith(_StoreSubscription value, $Res Function(_StoreSubscription) _then) = __$StoreSubscriptionCopyWithImpl;
 @override @useResult
 $Res call({
- StoreSubscriptionType type, StoreSubscriptionStatus status, num quota, num consumed, DateTime startedAt, DateTime? expiresAt, Map<String, dynamic> metadata
+ StoreSubscriptionType type, StoreSubscriptionStatus status, num quota, num consumed, DateTime startedAt, DateTime? expiresAt, Map<String, dynamic> metadata, Map<String, StoreIntegrationSubscription> integrations
 });
 
 
@@ -1996,7 +2285,7 @@ class __$StoreSubscriptionCopyWithImpl<$Res>
 
 /// Create a copy of StoreSubscription
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? status = null,Object? quota = null,Object? consumed = null,Object? startedAt = null,Object? expiresAt = freezed,Object? metadata = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? status = null,Object? quota = null,Object? consumed = null,Object? startedAt = null,Object? expiresAt = freezed,Object? metadata = null,Object? integrations = null,}) {
   return _then(_StoreSubscription(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as StoreSubscriptionType,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
@@ -2005,7 +2294,8 @@ as num,consumed: null == consumed ? _self.consumed : consumed // ignore: cast_nu
 as num,startedAt: null == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,expiresAt: freezed == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>,
+as Map<String, dynamic>,integrations: null == integrations ? _self._integrations : integrations // ignore: cast_nullable_to_non_nullable
+as Map<String, StoreIntegrationSubscription>,
   ));
 }
 

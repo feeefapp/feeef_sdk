@@ -323,6 +323,30 @@ extension StoreExtensions on Store {
 ///
 /// StoreSubscription
 ///
+/// Per-integration billing lifecycle (on store.subscription.integrations).
+enum IntegrationBillingStatus {
+  active,
+  grace,
+  past_due,
+  canceled,
+}
+
+@freezed
+abstract class StoreIntegrationSubscription with _$StoreIntegrationSubscription {
+  const factory StoreIntegrationSubscription({
+    required DateTime startAt,
+    DateTime? expiresAt,
+    @Default(IntegrationBillingStatus.active) IntegrationBillingStatus status,
+    @Default(0) num price,
+    @Default(true) bool autoRenew,
+    @Default(0) int failedAttempts,
+    DateTime? nextRetryAt,
+  }) = _StoreIntegrationSubscription;
+
+  factory StoreIntegrationSubscription.fromJson(Map<String, dynamic> json) =>
+      _$StoreIntegrationSubscriptionFromJson(json);
+}
+
 @freezed
 abstract class StoreSubscription with _$StoreSubscription {
   const factory StoreSubscription({
@@ -333,13 +357,15 @@ abstract class StoreSubscription with _$StoreSubscription {
     required DateTime startedAt,
     DateTime? expiresAt,
     @Default({}) Map<String, dynamic> metadata,
+    @Default({})
+    Map<String, StoreIntegrationSubscription> integrations,
   }) = _StoreSubscription;
 
   factory StoreSubscription.fromJson(Map<String, dynamic> json) =>
       _$StoreSubscriptionFromJson(json);
 }
 
-enum StoreSubscriptionType { free, premium, vip, custom }
+enum StoreSubscriptionType { free, premium, vip, ultra, custom }
 
 enum StoreSubscriptionStatus { active, inactive, expired, canceled }
 
@@ -478,11 +504,33 @@ extension StoreSubscriptionExtensions on StoreSubscription {
   bool get isPaid {
     return type != StoreSubscriptionType.free;
   }
+  bool get isUltra {
+    return type == StoreSubscriptionType.ultra;
+  }
   bool get isSoonExpired {
     return expiresAt != null && expiresAt!.isBefore(DateTime.now().add(Duration(days: 7)));
   }
   bool get canUpgrade {
     return !isPaid && !isExpired && !isSoonExpired;
+  }
+
+  /// Billing entry for a paid integration subscription.
+  StoreIntegrationSubscription? integrationBilling(String integrationId) {
+    return integrations[integrationId];
+  }
+
+  /// True when per-integration billing allows usage (active/grace and not expired).
+  bool isIntegrationBillingEntitled(String integrationId) {
+    final entry = integrations[integrationId];
+    if (entry == null) return false;
+    if (entry.status == IntegrationBillingStatus.canceled) return false;
+    if (entry.status != IntegrationBillingStatus.active &&
+        entry.status != IntegrationBillingStatus.grace) {
+      return false;
+    }
+    final exp = entry.expiresAt;
+    if (exp != null && exp.isBefore(DateTime.now())) return false;
+    return true;
   }
 }
 

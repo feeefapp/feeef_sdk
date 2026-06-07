@@ -25,6 +25,8 @@ export 'core/batch_models.dart';
 export 'mixins/repository_batch_mixins.dart';
 export 'inventory/inventory_repository.dart';
 export 'inventory/models/inventory_models.dart';
+export 'finance/finance_repository.dart';
+export 'finance/models/finance_models.dart';
 export 'image_prompt_templates/image_prompt_template.dart';
 export 'image_prompt_templates/image_prompt_template_repository.dart';
 export 'integrations/delivery/bulk_send_result.dart';

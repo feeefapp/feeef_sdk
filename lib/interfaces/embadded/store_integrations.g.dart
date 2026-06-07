@@ -115,6 +115,11 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
       : StoreInventoryIntegration.fromJson(
           json['inventory'] as Map<String, dynamic>,
         ),
+  finance: json['finance'] == null
+      ? null
+      : StoreFinanceIntegration.fromJson(
+          json['finance'] as Map<String, dynamic>,
+        ),
   sms: json['sms'] as Map<String, dynamic>? ?? const {},
   telegram: json['telegram'] as Map<String, dynamic>? ?? const {},
 );
@@ -145,6 +150,7 @@ Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
       'payment': instance.payment,
       'dispatcher': instance.dispatcher,
       'inventory': instance.inventory,
+      'finance': instance.finance,
       'sms': instance.sms,
       'telegram': instance.telegram,
     };
@@ -797,6 +803,20 @@ _StoreInventoryIntegration _$StoreInventoryIntegrationFromJson(
 
 Map<String, dynamic> _$StoreInventoryIntegrationToJson(
   _StoreInventoryIntegration instance,
+) => <String, dynamic>{
+  'active': instance.active,
+  'metadata': instance.metadata,
+};
+
+_StoreFinanceIntegration _$StoreFinanceIntegrationFromJson(
+  Map<String, dynamic> json,
+) => _StoreFinanceIntegration(
+  active: json['active'] as bool? ?? false,
+  metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+);
+
+Map<String, dynamic> _$StoreFinanceIntegrationToJson(
+  _StoreFinanceIntegration instance,
 ) => <String, dynamic>{
   'active': instance.active,
   'metadata': instance.metadata,

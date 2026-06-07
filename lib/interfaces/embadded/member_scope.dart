@@ -38,6 +38,9 @@ abstract final class MemberScope {
   static const inventory = 'inventory';
   static const inventoryRead = 'inventory.read';
 
+  static const finance = 'finance';
+  static const financeRead = 'finance.read';
+
   static const wildcard = '*';
 
   static const List<String> all = [
@@ -64,6 +67,8 @@ abstract final class MemberScope {
     storeTemplatesRead,
     inventory,
     inventoryRead,
+    finance,
+    financeRead,
     wildcard,
   ];
 }

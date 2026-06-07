@@ -51,6 +51,8 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     DispatcherIntegration? dispatcher,
     /// Inventory module (warehouses, stock, order reserve/consume).
     StoreInventoryIntegration? inventory,
+    /// Finance module (procurement, accounting).
+    StoreFinanceIntegration? finance,
     // Communication Integrations
     @Default({}) Map<String, dynamic>? sms,
     @Default({}) Map<String, dynamic>? telegram,
@@ -569,6 +571,21 @@ abstract class StoreInventoryIntegration with _$StoreInventoryIntegration {
 
   factory StoreInventoryIntegration.fromJson(Map<String, dynamic> json) =>
       _$StoreInventoryIntegrationFromJson(json);
+}
+
+// ===================== FINANCE INTEGRATION =====================
+
+/// Finance module toggle (procurement + accounting). Billing + active flag.
+@freezed
+abstract class StoreFinanceIntegration with _$StoreFinanceIntegration {
+  const StoreFinanceIntegration._();
+  const factory StoreFinanceIntegration({
+    @Default(false) bool active,
+    @Default({}) Map<String, dynamic> metadata,
+  }) = _StoreFinanceIntegration;
+
+  factory StoreFinanceIntegration.fromJson(Map<String, dynamic> json) =>
+      _$StoreFinanceIntegrationFromJson(json);
 }
 
 // ===================== PUBLIC SECURITY (Storefront) =====================

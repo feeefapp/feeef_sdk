@@ -411,6 +411,11 @@ _StoreConfigs _$StoreConfigsFromJson(
       : InventoryIntegration.fromJson(
           json['inventory_integration'] as Map<String, dynamic>,
         ),
+  finance_integration: json['finance_integration'] == null
+      ? null
+      : FinanceIntegration.fromJson(
+          json['finance_integration'] as Map<String, dynamic>,
+        ),
 );
 
 Map<String, dynamic> _$StoreConfigsToJson(_StoreConfigs instance) =>
@@ -424,6 +429,7 @@ Map<String, dynamic> _$StoreConfigsToJson(_StoreConfigs instance) =>
       'customStatusMappings': instance.customStatusMappings,
       'customStatusEnabled': instance.customStatusEnabled,
       'inventory_integration': instance.inventory_integration,
+      'finance_integration': instance.finance_integration,
     };
 
 _InventoryIntegration _$InventoryIntegrationFromJson(
@@ -469,6 +475,22 @@ const _$OrderStatusEnumMap = {
   OrderStatus.completed: 'completed',
   OrderStatus.cancelled: 'cancelled',
 };
+
+_FinanceIntegration _$FinanceIntegrationFromJson(Map<String, dynamic> json) =>
+    _FinanceIntegration(
+      recognize_on:
+          (json['recognize_on'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$OrderStatusEnumMap, e))
+              .toList() ??
+          const [],
+    );
+
+Map<String, dynamic> _$FinanceIntegrationToJson(_FinanceIntegration instance) =>
+    <String, dynamic>{
+      'recognize_on': instance.recognize_on
+          .map((e) => _$OrderStatusEnumMap[e]!)
+          .toList(),
+    };
 
 _CustomStatusMapping _$CustomStatusMappingFromJson(Map<String, dynamic> json) =>
     _CustomStatusMapping(

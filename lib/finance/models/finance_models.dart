@@ -508,3 +508,773 @@ class PurchaseReceiptUpdate implements ModelUpdate {
   @override
   Map<String, dynamic> toJson() => {};
 }
+
+// ─── Phase 2: financial accounts ───────────────────────────────────────────────
+
+enum FinancialAccountType { cash, bank, ewallet }
+
+FinancialAccountType _accountTypeFrom(String? v) => FinancialAccountType.values
+    .firstWhere((e) => e.name == v, orElse: () => FinancialAccountType.cash);
+
+class FinancialAccount implements Model {
+  @override
+  final String id;
+  final String projectId;
+  final String name;
+  final FinancialAccountType type;
+  final String? currency;
+  final double openingBalance;
+  final bool isDefault;
+  final Map<String, dynamic> metadata;
+
+  /// Derived current balance (present on `show`).
+  final double? balance;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  FinancialAccount({
+    required this.id,
+    required this.projectId,
+    required this.name,
+    required this.type,
+    this.currency,
+    this.openingBalance = 0,
+    this.isDefault = false,
+    this.metadata = const {},
+    this.balance,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory FinancialAccount.fromJson(Map<String, dynamic> json) =>
+      FinancialAccount(
+        id: json['id'] as String,
+        projectId: json['projectId'] as String,
+        name: json['name'] as String,
+        type: _accountTypeFrom(json['type'] as String?),
+        currency: json['currency'] as String?,
+        openingBalance: _toDouble(json['openingBalance']),
+        isDefault: json['isDefault'] == true,
+        metadata: (json['metadata'] as Map?)?.cast<String, dynamic>() ?? const {},
+        balance: json['balance'] == null ? null : _toDouble(json['balance']),
+        createdAt: DateTime.parse(json['createdAt'] as String),
+        updatedAt: DateTime.parse(json['updatedAt'] as String),
+      );
+
+  Map<String, dynamic> toJson() => {'id': id, 'name': name};
+}
+
+class FinancialAccountCreate implements ModelCreate {
+  final String projectId;
+  final String name;
+  final FinancialAccountType? type;
+  final String? currency;
+  final double? openingBalance;
+  final bool? isDefault;
+  final Map<String, dynamic>? metadata;
+
+  const FinancialAccountCreate({
+    required this.projectId,
+    required this.name,
+    this.type,
+    this.currency,
+    this.openingBalance,
+    this.isDefault,
+    this.metadata,
+  });
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'projectId': projectId,
+        'name': name,
+        if (type != null) 'type': type!.name,
+        if (currency != null) 'currency': currency,
+        if (openingBalance != null) 'openingBalance': openingBalance,
+        if (isDefault != null) 'isDefault': isDefault,
+        if (metadata != null) 'metadata': metadata,
+      };
+}
+
+class FinancialAccountUpdate implements ModelUpdate {
+  final String? name;
+  final FinancialAccountType? type;
+  final String? currency;
+  final double? openingBalance;
+  final bool? isDefault;
+  final Map<String, dynamic>? metadata;
+
+  const FinancialAccountUpdate({
+    this.name,
+    this.type,
+    this.currency,
+    this.openingBalance,
+    this.isDefault,
+    this.metadata,
+    this.setToNull = const [],
+  });
+
+  @override
+  final List<String> setToNull;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'type': type?.name,
+        'currency': currency,
+        'openingBalance': openingBalance,
+        'isDefault': isDefault,
+        'metadata': metadata,
+      };
+}
+
+// ─── Phase 2: supplier bills + payments ─────────────────────────────────────────
+
+enum SupplierBillStatus { draft, open, partial, paid, void$ }
+
+SupplierBillStatus _billStatusFrom(String? v) {
+  switch (v) {
+    case 'draft':
+      return SupplierBillStatus.draft;
+    case 'partial':
+      return SupplierBillStatus.partial;
+    case 'paid':
+      return SupplierBillStatus.paid;
+    case 'void':
+      return SupplierBillStatus.void$;
+    default:
+      return SupplierBillStatus.open;
+  }
+}
+
+class SupplierPayment implements Model {
+  @override
+  final String id;
+  final String projectId;
+  final String supplierBillId;
+  final String financialAccountId;
+  final double amount;
+  final DateTime paidAt;
+  final String? method;
+  final String? reference;
+
+  SupplierPayment({
+    required this.id,
+    required this.projectId,
+    required this.supplierBillId,
+    required this.financialAccountId,
+    required this.amount,
+    required this.paidAt,
+    this.method,
+    this.reference,
+  });
+
+  factory SupplierPayment.fromJson(Map<String, dynamic> json) => SupplierPayment(
+        id: json['id'] as String,
+        projectId: json['projectId'] as String,
+        supplierBillId: json['supplierBillId'] as String,
+        financialAccountId: json['financialAccountId'] as String,
+        amount: _toDouble(json['amount']),
+        paidAt: json['paidAt'] != null
+            ? DateTime.parse(json['paidAt'] as String)
+            : DateTime.now(),
+        method: json['method'] as String?,
+        reference: json['reference'] as String?,
+      );
+
+  Map<String, dynamic> toJson() => {'id': id, 'amount': amount};
+}
+
+class SupplierBill implements Model {
+  @override
+  final String id;
+  final String projectId;
+  final String supplierId;
+  final String? purchaseReceiptId;
+  final String? reference;
+  final DateTime billDate;
+  final DateTime? dueDate;
+  final String? currency;
+  final double totalAmount;
+  final double paidAmount;
+  final double balanceDue;
+  final SupplierBillStatus status;
+  final String? notes;
+  final List<SupplierPayment> payments;
+
+  SupplierBill({
+    required this.id,
+    required this.projectId,
+    required this.supplierId,
+    this.purchaseReceiptId,
+    this.reference,
+    required this.billDate,
+    this.dueDate,
+    this.currency,
+    this.totalAmount = 0,
+    this.paidAmount = 0,
+    double? balanceDue,
+    required this.status,
+    this.notes,
+    this.payments = const [],
+  }) : balanceDue = balanceDue ?? (totalAmount - paidAmount);
+
+  factory SupplierBill.fromJson(Map<String, dynamic> json) {
+    final rawPayments = json['payments'];
+    final payments = rawPayments is List
+        ? rawPayments
+            .whereType<Map>()
+            .map((e) => SupplierPayment.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : <SupplierPayment>[];
+    return SupplierBill(
+      id: json['id'] as String,
+      projectId: json['projectId'] as String,
+      supplierId: json['supplierId'] as String,
+      purchaseReceiptId: json['purchaseReceiptId'] as String?,
+      reference: json['reference'] as String?,
+      billDate: json['billDate'] != null
+          ? DateTime.parse(json['billDate'] as String)
+          : DateTime.now(),
+      dueDate: json['dueDate'] != null
+          ? DateTime.tryParse(json['dueDate'] as String)
+          : null,
+      currency: json['currency'] as String?,
+      totalAmount: _toDouble(json['totalAmount']),
+      paidAmount: _toDouble(json['paidAmount']),
+      balanceDue:
+          json['balanceDue'] == null ? null : _toDouble(json['balanceDue']),
+      status: _billStatusFrom(json['status'] as String?),
+      notes: json['notes'] as String?,
+      payments: payments,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {'id': id, 'supplierId': supplierId};
+}
+
+class SupplierBillCreate implements ModelCreate {
+  final String projectId;
+  final String supplierId;
+  final String? purchaseReceiptId;
+  final String? reference;
+  final DateTime billDate;
+  final DateTime? dueDate;
+  final String? currency;
+  final double totalAmount;
+  final String? notes;
+
+  const SupplierBillCreate({
+    required this.projectId,
+    required this.supplierId,
+    this.purchaseReceiptId,
+    this.reference,
+    required this.billDate,
+    this.dueDate,
+    this.currency,
+    required this.totalAmount,
+    this.notes,
+  });
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'projectId': projectId,
+        'supplierId': supplierId,
+        if (purchaseReceiptId != null) 'purchaseReceiptId': purchaseReceiptId,
+        if (reference != null) 'reference': reference,
+        'billDate': billDate.toIso8601String(),
+        if (dueDate != null) 'dueDate': dueDate!.toIso8601String(),
+        if (currency != null) 'currency': currency,
+        'totalAmount': totalAmount,
+        if (notes != null) 'notes': notes,
+      };
+}
+
+/// Input for recording a (partial) payment against a supplier bill.
+class PaySupplierBillInput {
+  final String projectId;
+  final String financialAccountId;
+  final double amount;
+  final DateTime? paidAt;
+  final String? method;
+  final String? reference;
+  final bool? allowOverpay;
+
+  const PaySupplierBillInput({
+    required this.projectId,
+    required this.financialAccountId,
+    required this.amount,
+    this.paidAt,
+    this.method,
+    this.reference,
+    this.allowOverpay,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'projectId': projectId,
+        'financialAccountId': financialAccountId,
+        'amount': amount,
+        if (paidAt != null) 'paidAt': paidAt!.toIso8601String(),
+        if (method != null) 'method': method,
+        if (reference != null) 'reference': reference,
+        if (allowOverpay != null) 'allowOverpay': allowOverpay,
+      };
+}
+
+// ─── Phase 2: customer payments + receivables ───────────────────────────────────
+
+class CustomerPayment implements Model {
+  @override
+  final String id;
+  final String projectId;
+  final String orderId;
+  final String financialAccountId;
+  final double amount;
+  final DateTime receivedAt;
+  final String? method;
+  final String? reference;
+
+  CustomerPayment({
+    required this.id,
+    required this.projectId,
+    required this.orderId,
+    required this.financialAccountId,
+    required this.amount,
+    required this.receivedAt,
+    this.method,
+    this.reference,
+  });
+
+  factory CustomerPayment.fromJson(Map<String, dynamic> json) => CustomerPayment(
+        id: json['id'] as String,
+        projectId: json['projectId'] as String,
+        orderId: json['orderId'] as String,
+        financialAccountId: json['financialAccountId'] as String,
+        amount: _toDouble(json['amount']),
+        receivedAt: json['receivedAt'] != null
+            ? DateTime.parse(json['receivedAt'] as String)
+            : DateTime.now(),
+        method: json['method'] as String?,
+        reference: json['reference'] as String?,
+      );
+
+  Map<String, dynamic> toJson() => {'id': id, 'amount': amount};
+}
+
+/// Input for recording a customer / COD payment against an order.
+class CollectCustomerPaymentInput {
+  final String projectId;
+  final String financialAccountId;
+  final double amount;
+  final DateTime? receivedAt;
+  final String? method;
+  final String? reference;
+  final bool? allowOverpay;
+
+  const CollectCustomerPaymentInput({
+    required this.projectId,
+    required this.financialAccountId,
+    required this.amount,
+    this.receivedAt,
+    this.method,
+    this.reference,
+    this.allowOverpay,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'projectId': projectId,
+        'financialAccountId': financialAccountId,
+        'amount': amount,
+        if (receivedAt != null) 'receivedAt': receivedAt!.toIso8601String(),
+        if (method != null) 'method': method,
+        if (reference != null) 'reference': reference,
+        if (allowOverpay != null) 'allowOverpay': allowOverpay,
+      };
+}
+
+/// A derived open order receivable.
+class Receivable {
+  final String orderId;
+  final String storeId;
+  final double total;
+  final double paid;
+  final double balanceDue;
+  final String status;
+  final String deliveryStatus;
+  final bool codInTransit;
+
+  const Receivable({
+    required this.orderId,
+    required this.storeId,
+    required this.total,
+    required this.paid,
+    required this.balanceDue,
+    required this.status,
+    required this.deliveryStatus,
+    required this.codInTransit,
+  });
+
+  factory Receivable.fromJson(Map<String, dynamic> json) => Receivable(
+        orderId: json['orderId'] as String,
+        storeId: json['storeId'] as String? ?? '',
+        total: _toDouble(json['total']),
+        paid: _toDouble(json['paid']),
+        balanceDue: _toDouble(json['balanceDue']),
+        status: json['status'] as String? ?? '',
+        deliveryStatus: json['deliveryStatus'] as String? ?? '',
+        codInTransit: json['codInTransit'] == true,
+      );
+}
+
+// ─── Phase 2: expenses + categories ─────────────────────────────────────────────
+
+enum ExpenseStatus { draft, recorded, voided }
+
+ExpenseStatus _expenseStatusFrom(String? v) => ExpenseStatus.values
+    .firstWhere((e) => e.name == v, orElse: () => ExpenseStatus.recorded);
+
+class ExpenseCategory implements Model {
+  @override
+  final String id;
+  final String projectId;
+  final String name;
+  final String? parentId;
+  final Map<String, dynamic> metadata;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  ExpenseCategory({
+    required this.id,
+    required this.projectId,
+    required this.name,
+    this.parentId,
+    this.metadata = const {},
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory ExpenseCategory.fromJson(Map<String, dynamic> json) => ExpenseCategory(
+        id: json['id'] as String,
+        projectId: json['projectId'] as String,
+        name: json['name'] as String,
+        parentId: json['parentId'] as String?,
+        metadata: (json['metadata'] as Map?)?.cast<String, dynamic>() ?? const {},
+        createdAt: DateTime.parse(json['createdAt'] as String),
+        updatedAt: DateTime.parse(json['updatedAt'] as String),
+      );
+
+  Map<String, dynamic> toJson() => {'id': id, 'name': name};
+}
+
+class ExpenseCategoryCreate implements ModelCreate {
+  final String projectId;
+  final String name;
+  final String? parentId;
+  final Map<String, dynamic>? metadata;
+
+  const ExpenseCategoryCreate({
+    required this.projectId,
+    required this.name,
+    this.parentId,
+    this.metadata,
+  });
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'projectId': projectId,
+        'name': name,
+        if (parentId != null) 'parentId': parentId,
+        if (metadata != null) 'metadata': metadata,
+      };
+}
+
+class ExpenseCategoryUpdate implements ModelUpdate {
+  final String? name;
+  final String? parentId;
+  final Map<String, dynamic>? metadata;
+
+  const ExpenseCategoryUpdate({
+    this.name,
+    this.parentId,
+    this.metadata,
+    this.setToNull = const [],
+  });
+
+  @override
+  final List<String> setToNull;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'parentId': parentId,
+        'metadata': metadata,
+      };
+}
+
+class Expense implements Model {
+  @override
+  final String id;
+  final String projectId;
+  final String? categoryId;
+  final String? supplierId;
+  final String? financialAccountId;
+  final double amount;
+  final String? currency;
+  final DateTime spentAt;
+  final String? paymentMethod;
+  final ExpenseStatus status;
+  final String? reference;
+  final String? note;
+  final List<dynamic> attachments;
+
+  Expense({
+    required this.id,
+    required this.projectId,
+    this.categoryId,
+    this.supplierId,
+    this.financialAccountId,
+    required this.amount,
+    this.currency,
+    required this.spentAt,
+    this.paymentMethod,
+    required this.status,
+    this.reference,
+    this.note,
+    this.attachments = const [],
+  });
+
+  factory Expense.fromJson(Map<String, dynamic> json) => Expense(
+        id: json['id'] as String,
+        projectId: json['projectId'] as String,
+        categoryId: json['categoryId'] as String?,
+        supplierId: json['supplierId'] as String?,
+        financialAccountId: json['financialAccountId'] as String?,
+        amount: _toDouble(json['amount']),
+        currency: json['currency'] as String?,
+        spentAt: json['spentAt'] != null
+            ? DateTime.parse(json['spentAt'] as String)
+            : DateTime.now(),
+        paymentMethod: json['paymentMethod'] as String?,
+        status: _expenseStatusFrom(json['status'] as String?),
+        reference: json['reference'] as String?,
+        note: json['note'] as String?,
+        attachments: (json['attachments'] as List?) ?? const [],
+      );
+
+  Map<String, dynamic> toJson() => {'id': id, 'amount': amount};
+}
+
+class ExpenseCreate implements ModelCreate {
+  final String projectId;
+  final String? categoryId;
+  final String? supplierId;
+  final String? financialAccountId;
+  final double amount;
+  final String? currency;
+  final DateTime spentAt;
+  final String? paymentMethod;
+  final ExpenseStatus? status;
+  final String? reference;
+  final String? note;
+  final List<dynamic>? attachments;
+
+  const ExpenseCreate({
+    required this.projectId,
+    this.categoryId,
+    this.supplierId,
+    this.financialAccountId,
+    required this.amount,
+    this.currency,
+    required this.spentAt,
+    this.paymentMethod,
+    this.status,
+    this.reference,
+    this.note,
+    this.attachments,
+  });
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'projectId': projectId,
+        if (categoryId != null) 'categoryId': categoryId,
+        if (supplierId != null) 'supplierId': supplierId,
+        if (financialAccountId != null) 'financialAccountId': financialAccountId,
+        'amount': amount,
+        if (currency != null) 'currency': currency,
+        'spentAt': spentAt.toIso8601String(),
+        if (paymentMethod != null) 'paymentMethod': paymentMethod,
+        if (status != null) 'status': status!.name,
+        if (reference != null) 'reference': reference,
+        if (note != null) 'note': note,
+        if (attachments != null) 'attachments': attachments,
+      };
+}
+
+class ExpenseUpdate implements ModelUpdate {
+  final String? categoryId;
+  final String? supplierId;
+  final String? financialAccountId;
+  final double? amount;
+  final String? currency;
+  final DateTime? spentAt;
+  final String? paymentMethod;
+  final ExpenseStatus? status;
+  final String? reference;
+  final String? note;
+  final List<dynamic>? attachments;
+
+  const ExpenseUpdate({
+    this.categoryId,
+    this.supplierId,
+    this.financialAccountId,
+    this.amount,
+    this.currency,
+    this.spentAt,
+    this.paymentMethod,
+    this.status,
+    this.reference,
+    this.note,
+    this.attachments,
+    this.setToNull = const [],
+  });
+
+  @override
+  final List<String> setToNull;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'categoryId': categoryId,
+        'supplierId': supplierId,
+        'financialAccountId': financialAccountId,
+        'amount': amount,
+        'currency': currency,
+        'spentAt': spentAt?.toIso8601String(),
+        'paymentMethod': paymentMethod,
+        'status': status?.name,
+        'reference': reference,
+        'note': note,
+        'attachments': attachments,
+      };
+}
+
+// ─── Phase 2: reports ───────────────────────────────────────────────────────────
+
+class FinanceOverview {
+  final double cash;
+  final double inventoryValuation;
+  final double accountsReceivable;
+  final double accountsPayable;
+  final double netPosition;
+
+  const FinanceOverview({
+    required this.cash,
+    required this.inventoryValuation,
+    required this.accountsReceivable,
+    required this.accountsPayable,
+    required this.netPosition,
+  });
+
+  factory FinanceOverview.fromJson(Map<String, dynamic> json) => FinanceOverview(
+        cash: _toDouble(json['cash']),
+        inventoryValuation: _toDouble(json['inventoryValuation']),
+        accountsReceivable: _toDouble(json['accountsReceivable']),
+        accountsPayable: _toDouble(json['accountsPayable']),
+        netPosition: _toDouble(json['netPosition']),
+      );
+}
+
+class AgingBucket {
+  final String label;
+  final double amount;
+  const AgingBucket({required this.label, required this.amount});
+
+  factory AgingBucket.fromJson(Map<String, dynamic> json) => AgingBucket(
+        label: json['label'] as String? ?? '',
+        amount: _toDouble(json['amount']),
+      );
+}
+
+class AgingResult {
+  final List<AgingBucket> buckets;
+  final double total;
+  const AgingResult({required this.buckets, required this.total});
+
+  factory AgingResult.fromJson(Map<String, dynamic> json) => AgingResult(
+        buckets: (json['buckets'] as List?)
+                ?.whereType<Map>()
+                .map((e) => AgingBucket.fromJson(Map<String, dynamic>.from(e)))
+                .toList() ??
+            const [],
+        total: _toDouble(json['total']),
+      );
+}
+
+class CashAccountBalance {
+  final String id;
+  final String name;
+  final FinancialAccountType type;
+  final String? currency;
+  final double balance;
+
+  const CashAccountBalance({
+    required this.id,
+    required this.name,
+    required this.type,
+    this.currency,
+    required this.balance,
+  });
+
+  factory CashAccountBalance.fromJson(Map<String, dynamic> json) =>
+      CashAccountBalance(
+        id: json['id'] as String,
+        name: json['name'] as String? ?? '',
+        type: _accountTypeFrom(json['type'] as String?),
+        currency: json['currency'] as String?,
+        balance: _toDouble(json['balance']),
+      );
+}
+
+class CashPosition {
+  final List<CashAccountBalance> accounts;
+  final double total;
+  const CashPosition({required this.accounts, required this.total});
+
+  factory CashPosition.fromJson(Map<String, dynamic> json) => CashPosition(
+        accounts: (json['accounts'] as List?)
+                ?.whereType<Map>()
+                .map((e) =>
+                    CashAccountBalance.fromJson(Map<String, dynamic>.from(e)))
+                .toList() ??
+            const [],
+        total: _toDouble(json['total']),
+      );
+}
+
+class PnlReport {
+  final String? from;
+  final String? to;
+  final double revenue;
+  final double cogs;
+  final double grossProfit;
+  final double expenses;
+  final double netProfit;
+
+  const PnlReport({
+    this.from,
+    this.to,
+    required this.revenue,
+    required this.cogs,
+    required this.grossProfit,
+    required this.expenses,
+    required this.netProfit,
+  });
+
+  factory PnlReport.fromJson(Map<String, dynamic> json) => PnlReport(
+        from: json['from'] as String?,
+        to: json['to'] as String?,
+        revenue: _toDouble(json['revenue']),
+        cogs: _toDouble(json['cogs']),
+        grossProfit: _toDouble(json['grossProfit']),
+        expenses: _toDouble(json['expenses']),
+        netProfit: _toDouble(json['netProfit']),
+      );
+}

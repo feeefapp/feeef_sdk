@@ -14,11 +14,24 @@ class FinanceRepository {
   late final SupplierResourceRepository suppliers;
   late final PurchaseOrderResourceRepository purchaseOrders;
   late final PurchaseReceiptResourceRepository purchaseReceipts;
+  // Phase 2
+  late final FinancialAccountResourceRepository financialAccounts;
+  late final SupplierBillResourceRepository supplierBills;
+  late final SupplierPaymentResourceRepository supplierPayments;
+  late final CustomerPaymentResourceRepository customerPayments;
+  late final ExpenseResourceRepository expenses;
+  late final ExpenseCategoryResourceRepository expenseCategories;
 
   FinanceRepository({required this.client}) {
     suppliers = SupplierResourceRepository(client: client);
     purchaseOrders = PurchaseOrderResourceRepository(client: client);
     purchaseReceipts = PurchaseReceiptResourceRepository(client: client);
+    financialAccounts = FinancialAccountResourceRepository(client: client);
+    supplierBills = SupplierBillResourceRepository(client: client);
+    supplierPayments = SupplierPaymentResourceRepository(client: client);
+    customerPayments = CustomerPaymentResourceRepository(client: client);
+    expenses = ExpenseResourceRepository(client: client);
+    expenseCategories = ExpenseCategoryResourceRepository(client: client);
   }
 
   /// Post a receipt: stock goods into inventory at batch cost (idempotent).
@@ -34,6 +47,71 @@ class FinanceRepository {
     required String id,
   }) =>
       purchaseReceipts.void$(projectId: projectId, id: id);
+
+  /// Open order receivables (derived, read-only).
+  Future<List<Receivable>> listReceivables({required String projectId}) async {
+    final response = await client.get(
+      '/finance/receivables',
+      queryParameters: {'projectId': projectId},
+    );
+    final data = response.data['data'] ?? response.data;
+    return (data as List)
+        .whereType<Map>()
+        .map((e) => Receivable.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+  }
+
+  /// Record a customer / COD payment against an order.
+  Future<CustomerPayment> collectPayment({
+    required String orderId,
+    required CollectCustomerPaymentInput data,
+  }) async {
+    final response = await client.post(
+      '/finance/orders/$orderId:collect',
+      data: data.toJson(),
+      queryParameters: {'projectId': data.projectId},
+    );
+    return CustomerPayment.fromJson(response.data as Map<String, dynamic>);
+  }
+
+  // ─── Reports ──────────────────────────────────────────────────────────────
+
+  Future<FinanceOverview> overview({required String projectId}) async {
+    final response = await client.get('/finance/reports/overview',
+        queryParameters: {'projectId': projectId});
+    return FinanceOverview.fromJson(response.data as Map<String, dynamic>);
+  }
+
+  Future<CashPosition> cashPosition({required String projectId}) async {
+    final response = await client.get('/finance/reports/cash-position',
+        queryParameters: {'projectId': projectId});
+    return CashPosition.fromJson(response.data as Map<String, dynamic>);
+  }
+
+  Future<AgingResult> apAging({required String projectId}) async {
+    final response = await client.get('/finance/reports/ap-aging',
+        queryParameters: {'projectId': projectId});
+    return AgingResult.fromJson(response.data as Map<String, dynamic>);
+  }
+
+  Future<AgingResult> arAging({required String projectId}) async {
+    final response = await client.get('/finance/reports/ar-aging',
+        queryParameters: {'projectId': projectId});
+    return AgingResult.fromJson(response.data as Map<String, dynamic>);
+  }
+
+  Future<PnlReport> pnl({
+    required String projectId,
+    String? from,
+    String? to,
+  }) async {
+    final response = await client.get('/finance/reports/pnl', queryParameters: {
+      'projectId': projectId,
+      if (from != null) 'from': from,
+      if (to != null) 'to': to,
+    });
+    return PnlReport.fromJson(response.data as Map<String, dynamic>);
+  }
 }
 
 // ─── Suppliers ────────────────────────────────────────────────────────────────
@@ -473,4 +551,359 @@ class PurchaseReceiptResourceRepository extends ResourceRepository<
     );
     return modelFromJson(response.data);
   }
+}
+
+// ─── Phase 2: financial accounts ────────────────────────────────────────────────
+
+class FinancialAccountResourceRepository extends ResourceRepository<
+    FinancialAccount,
+    FinancialAccountCreate,
+    FinancialAccountUpdate> with ModelDeleteManyMixin<FinancialAccount> {
+  FinancialAccountResourceRepository({required Dio client})
+      : super(client: client, table: 'finance/financial-accounts');
+
+  @override
+  FinancialAccount modelFromJson(dynamic json) =>
+      FinancialAccount.fromJson(json as Map<String, dynamic>);
+
+  @override
+  Map<String, dynamic> modelToJson(FinancialAccount model) => model.toJson();
+
+  @override
+  FinancialAccountCreate createFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return FinancialAccountCreate(
+      projectId: m['projectId'] as String? ?? '',
+      name: m['name'] as String? ?? '',
+      currency: m['currency'] as String?,
+      metadata: m['metadata'] as Map<String, dynamic>?,
+    );
+  }
+
+  @override
+  Map<String, dynamic> createToJson(FinancialAccountCreate model) =>
+      model.toJson();
+
+  @override
+  FinancialAccountUpdate updateFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return FinancialAccountUpdate(
+      name: m['name'] as String?,
+      currency: m['currency'] as String?,
+      metadata: m['metadata'] as Map<String, dynamic>?,
+      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+          const [],
+    );
+  }
+
+  @override
+  Map<String, dynamic> updateToJson(FinancialAccountUpdate model) =>
+      model.toJson();
+}
+
+// ─── Phase 2: supplier bills ────────────────────────────────────────────────────
+
+class SupplierBillResourceRepository extends ResourceRepository<SupplierBill,
+    SupplierBillCreate, PurchaseReceiptUpdate> {
+  SupplierBillResourceRepository({required Dio client})
+      : super(client: client, table: 'finance/supplier-bills');
+
+  @override
+  SupplierBill modelFromJson(dynamic json) =>
+      SupplierBill.fromJson(json as Map<String, dynamic>);
+
+  @override
+  Map<String, dynamic> modelToJson(SupplierBill model) => model.toJson();
+
+  @override
+  SupplierBillCreate createFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return SupplierBillCreate(
+      projectId: m['projectId'] as String? ?? '',
+      supplierId: m['supplierId'] as String? ?? '',
+      purchaseReceiptId: m['purchaseReceiptId'] as String?,
+      reference: m['reference'] as String?,
+      billDate: m['billDate'] != null
+          ? DateTime.parse(m['billDate'] as String)
+          : DateTime.now(),
+      dueDate: m['dueDate'] != null
+          ? DateTime.tryParse(m['dueDate'] as String)
+          : null,
+      currency: m['currency'] as String?,
+      totalAmount: (m['totalAmount'] as num?)?.toDouble() ?? 0,
+      notes: m['notes'] as String?,
+    );
+  }
+
+  @override
+  Map<String, dynamic> createToJson(SupplierBillCreate model) => model.toJson();
+
+  @override
+  PurchaseReceiptUpdate updateFromJson(dynamic json) =>
+      const PurchaseReceiptUpdate();
+
+  @override
+  Map<String, dynamic> updateToJson(PurchaseReceiptUpdate model) =>
+      model.toJson();
+
+  @override
+  Future<SupplierBill> update({
+    required String id,
+    SupplierBill? old,
+    required PurchaseReceiptUpdate data,
+    Map<String, dynamic>? params,
+  }) async {
+    throw UnsupportedError('Supplier bills are managed via payments.');
+  }
+
+  @override
+  Future<void> delete({required String id, Map<String, dynamic>? params}) async {
+    throw UnsupportedError('Supplier bills cannot be deleted; void instead.');
+  }
+
+  /// Record a (partial) payment against a bill.
+  Future<SupplierBill> pay({
+    required String id,
+    required PaySupplierBillInput data,
+  }) async {
+    final response = await client.post(
+      '/finance/supplier-bills/$id:pay',
+      data: data.toJson(),
+      queryParameters: {'projectId': data.projectId},
+    );
+    // Server returns `{ bill, payment }`.
+    final body = response.data as Map<String, dynamic>;
+    return SupplierBill.fromJson(body['bill'] as Map<String, dynamic>);
+  }
+}
+
+// ─── Phase 2: supplier payments ─────────────────────────────────────────────────
+
+class SupplierPaymentResourceRepository extends ResourceRepository<
+    SupplierPayment, PaySupplierBillInputModel, PurchaseReceiptUpdate> {
+  SupplierPaymentResourceRepository({required Dio client})
+      : super(client: client, table: 'finance/supplier-payments');
+
+  @override
+  SupplierPayment modelFromJson(dynamic json) =>
+      SupplierPayment.fromJson(json as Map<String, dynamic>);
+
+  @override
+  Map<String, dynamic> modelToJson(SupplierPayment model) => model.toJson();
+
+  @override
+  PaySupplierBillInputModel createFromJson(dynamic json) =>
+      const PaySupplierBillInputModel();
+
+  @override
+  Map<String, dynamic> createToJson(PaySupplierBillInputModel model) =>
+      model.toJson();
+
+  @override
+  PurchaseReceiptUpdate updateFromJson(dynamic json) =>
+      const PurchaseReceiptUpdate();
+
+  @override
+  Map<String, dynamic> updateToJson(PurchaseReceiptUpdate model) =>
+      model.toJson();
+
+  @override
+  Future<SupplierPayment> create({
+    required PaySupplierBillInputModel data,
+    Map<String, dynamic>? params,
+  }) async {
+    throw UnsupportedError('Record payments via supplierBills.pay().');
+  }
+
+  @override
+  Future<SupplierPayment> update({
+    required String id,
+    SupplierPayment? old,
+    required PurchaseReceiptUpdate data,
+    Map<String, dynamic>? params,
+  }) async {
+    throw UnsupportedError('Supplier payments are immutable; void instead.');
+  }
+
+  /// Void a payment and recompute the parent bill.
+  Future<SupplierBill> void$({
+    required String projectId,
+    required String id,
+  }) async {
+    final response = await client.post(
+      '/finance/supplier-payments/$id:void',
+      queryParameters: {'projectId': projectId},
+    );
+    return SupplierBill.fromJson(response.data as Map<String, dynamic>);
+  }
+}
+
+// ─── Phase 2: customer payments ─────────────────────────────────────────────────
+
+class CustomerPaymentResourceRepository extends ResourceRepository<
+    CustomerPayment, PaySupplierBillInputModel, PurchaseReceiptUpdate> {
+  CustomerPaymentResourceRepository({required Dio client})
+      : super(client: client, table: 'finance/customer-payments');
+
+  @override
+  CustomerPayment modelFromJson(dynamic json) =>
+      CustomerPayment.fromJson(json as Map<String, dynamic>);
+
+  @override
+  Map<String, dynamic> modelToJson(CustomerPayment model) => model.toJson();
+
+  @override
+  PaySupplierBillInputModel createFromJson(dynamic json) =>
+      const PaySupplierBillInputModel();
+
+  @override
+  Map<String, dynamic> createToJson(PaySupplierBillInputModel model) =>
+      model.toJson();
+
+  @override
+  PurchaseReceiptUpdate updateFromJson(dynamic json) =>
+      const PurchaseReceiptUpdate();
+
+  @override
+  Map<String, dynamic> updateToJson(PurchaseReceiptUpdate model) =>
+      model.toJson();
+
+  @override
+  Future<CustomerPayment> create({
+    required PaySupplierBillInputModel data,
+    Map<String, dynamic>? params,
+  }) async {
+    throw UnsupportedError('Record payments via FinanceRepository.collectPayment().');
+  }
+
+  @override
+  Future<CustomerPayment> update({
+    required String id,
+    CustomerPayment? old,
+    required PurchaseReceiptUpdate data,
+    Map<String, dynamic>? params,
+  }) async {
+    throw UnsupportedError('Customer payments are immutable; void instead.');
+  }
+
+  /// Void a customer payment.
+  Future<void> void$({required String projectId, required String id}) async {
+    await client.post(
+      '/finance/customer-payments/$id:void',
+      queryParameters: {'projectId': projectId},
+    );
+  }
+}
+
+/// Placeholder create type for payment repositories whose creation happens via
+/// dedicated endpoints (`supplier-bills:pay`, `orders:collect`).
+class PaySupplierBillInputModel implements ModelCreate {
+  const PaySupplierBillInputModel();
+
+  @override
+  Map<String, dynamic> toJson() => const {};
+}
+
+// ─── Phase 2: expenses ──────────────────────────────────────────────────────────
+
+class ExpenseResourceRepository
+    extends ResourceRepository<Expense, ExpenseCreate, ExpenseUpdate>
+    with ModelDeleteManyMixin<Expense> {
+  ExpenseResourceRepository({required Dio client})
+      : super(client: client, table: 'finance/expenses');
+
+  @override
+  Expense modelFromJson(dynamic json) =>
+      Expense.fromJson(json as Map<String, dynamic>);
+
+  @override
+  Map<String, dynamic> modelToJson(Expense model) => model.toJson();
+
+  @override
+  ExpenseCreate createFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return ExpenseCreate(
+      projectId: m['projectId'] as String? ?? '',
+      categoryId: m['categoryId'] as String?,
+      supplierId: m['supplierId'] as String?,
+      financialAccountId: m['financialAccountId'] as String?,
+      amount: (m['amount'] as num?)?.toDouble() ?? 0,
+      currency: m['currency'] as String?,
+      spentAt: m['spentAt'] != null
+          ? DateTime.parse(m['spentAt'] as String)
+          : DateTime.now(),
+      paymentMethod: m['paymentMethod'] as String?,
+      reference: m['reference'] as String?,
+      note: m['note'] as String?,
+    );
+  }
+
+  @override
+  Map<String, dynamic> createToJson(ExpenseCreate model) => model.toJson();
+
+  @override
+  ExpenseUpdate updateFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return ExpenseUpdate(
+      categoryId: m['categoryId'] as String?,
+      supplierId: m['supplierId'] as String?,
+      financialAccountId: m['financialAccountId'] as String?,
+      amount: (m['amount'] as num?)?.toDouble(),
+      currency: m['currency'] as String?,
+      paymentMethod: m['paymentMethod'] as String?,
+      reference: m['reference'] as String?,
+      note: m['note'] as String?,
+      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+          const [],
+    );
+  }
+
+  @override
+  Map<String, dynamic> updateToJson(ExpenseUpdate model) => model.toJson();
+}
+
+// ─── Phase 2: expense categories ────────────────────────────────────────────────
+
+class ExpenseCategoryResourceRepository extends ResourceRepository<
+    ExpenseCategory, ExpenseCategoryCreate, ExpenseCategoryUpdate> {
+  ExpenseCategoryResourceRepository({required Dio client})
+      : super(client: client, table: 'finance/expense-categories');
+
+  @override
+  ExpenseCategory modelFromJson(dynamic json) =>
+      ExpenseCategory.fromJson(json as Map<String, dynamic>);
+
+  @override
+  Map<String, dynamic> modelToJson(ExpenseCategory model) => model.toJson();
+
+  @override
+  ExpenseCategoryCreate createFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return ExpenseCategoryCreate(
+      projectId: m['projectId'] as String? ?? '',
+      name: m['name'] as String? ?? '',
+      parentId: m['parentId'] as String?,
+      metadata: m['metadata'] as Map<String, dynamic>?,
+    );
+  }
+
+  @override
+  Map<String, dynamic> createToJson(ExpenseCategoryCreate model) =>
+      model.toJson();
+
+  @override
+  ExpenseCategoryUpdate updateFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return ExpenseCategoryUpdate(
+      name: m['name'] as String?,
+      parentId: m['parentId'] as String?,
+      metadata: m['metadata'] as Map<String, dynamic>?,
+      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+          const [],
+    );
+  }
+
+  @override
+  Map<String, dynamic> updateToJson(ExpenseCategoryUpdate model) =>
+      model.toJson();
 }

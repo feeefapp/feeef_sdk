@@ -396,6 +396,7 @@ abstract class StoreConfigs with _$StoreConfigs {
     @Default([]) List<CustomStatusMapping> customStatusMappings,
     @Default(false) bool customStatusEnabled,
     InventoryIntegration? inventory_integration,
+    FinanceIntegration? finance_integration,
   }) = _StoreConfigs;
 
   factory StoreConfigs.fromJson(Map<String, dynamic> json) =>
@@ -412,6 +413,17 @@ abstract class InventoryIntegration with _$InventoryIntegration {
 
   factory InventoryIntegration.fromJson(Map<String, dynamic> json) =>
       _$InventoryIntegrationFromJson(json);
+}
+
+/// Order → finance behavior: when revenue/COGS are recognized for an order.
+@freezed
+abstract class FinanceIntegration with _$FinanceIntegration {
+  const factory FinanceIntegration({
+    @Default([]) List<OrderStatus> recognize_on,
+  }) = _FinanceIntegration;
+
+  factory FinanceIntegration.fromJson(Map<String, dynamic> json) =>
+      _$FinanceIntegrationFromJson(json);
 }
 
 ///

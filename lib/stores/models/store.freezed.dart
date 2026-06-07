@@ -2306,7 +2306,7 @@ as Map<String, StoreIntegrationSubscription>,
 /// @nodoc
 mixin _$StoreConfigs {
 
- List<StoreCurrencyConfig> get currencies; String? get selectedCurrency; List<StoreLanguageConfig> get languages; String? get defaultLanguage; List<StoreCountryConfig> get countries; String? get selectedCountry; List<CustomStatusMapping> get customStatusMappings; bool get customStatusEnabled; InventoryIntegration? get inventory_integration;
+ List<StoreCurrencyConfig> get currencies; String? get selectedCurrency; List<StoreLanguageConfig> get languages; String? get defaultLanguage; List<StoreCountryConfig> get countries; String? get selectedCountry; List<CustomStatusMapping> get customStatusMappings; bool get customStatusEnabled; InventoryIntegration? get inventory_integration; FinanceIntegration? get finance_integration;
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2319,16 +2319,16 @@ $StoreConfigsCopyWith<StoreConfigs> get copyWith => _$StoreConfigsCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other.customStatusMappings, customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other.customStatusMappings, customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration)&&(identical(other.finance_integration, finance_integration) || other.finance_integration == finance_integration));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(currencies),selectedCurrency,const DeepCollectionEquality().hash(languages),defaultLanguage,const DeepCollectionEquality().hash(countries),selectedCountry,const DeepCollectionEquality().hash(customStatusMappings),customStatusEnabled,inventory_integration);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(currencies),selectedCurrency,const DeepCollectionEquality().hash(languages),defaultLanguage,const DeepCollectionEquality().hash(countries),selectedCountry,const DeepCollectionEquality().hash(customStatusMappings),customStatusEnabled,inventory_integration,finance_integration);
 
 @override
 String toString() {
-  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, inventory_integration: $inventory_integration)';
+  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, inventory_integration: $inventory_integration, finance_integration: $finance_integration)';
 }
 
 
@@ -2339,11 +2339,11 @@ abstract mixin class $StoreConfigsCopyWith<$Res>  {
   factory $StoreConfigsCopyWith(StoreConfigs value, $Res Function(StoreConfigs) _then) = _$StoreConfigsCopyWithImpl;
 @useResult
 $Res call({
- List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, InventoryIntegration? inventory_integration
+ List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration
 });
 
 
-$InventoryIntegrationCopyWith<$Res>? get inventory_integration;
+$InventoryIntegrationCopyWith<$Res>? get inventory_integration;$FinanceIntegrationCopyWith<$Res>? get finance_integration;
 
 }
 /// @nodoc
@@ -2356,7 +2356,7 @@ class _$StoreConfigsCopyWithImpl<$Res>
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? inventory_integration = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? inventory_integration = freezed,Object? finance_integration = freezed,}) {
   return _then(_self.copyWith(
 currencies: null == currencies ? _self.currencies : currencies // ignore: cast_nullable_to_non_nullable
 as List<StoreCurrencyConfig>,selectedCurrency: freezed == selectedCurrency ? _self.selectedCurrency : selectedCurrency // ignore: cast_nullable_to_non_nullable
@@ -2367,7 +2367,8 @@ as List<StoreCountryConfig>,selectedCountry: freezed == selectedCountry ? _self.
 as String?,customStatusMappings: null == customStatusMappings ? _self.customStatusMappings : customStatusMappings // ignore: cast_nullable_to_non_nullable
 as List<CustomStatusMapping>,customStatusEnabled: null == customStatusEnabled ? _self.customStatusEnabled : customStatusEnabled // ignore: cast_nullable_to_non_nullable
 as bool,inventory_integration: freezed == inventory_integration ? _self.inventory_integration : inventory_integration // ignore: cast_nullable_to_non_nullable
-as InventoryIntegration?,
+as InventoryIntegration?,finance_integration: freezed == finance_integration ? _self.finance_integration : finance_integration // ignore: cast_nullable_to_non_nullable
+as FinanceIntegration?,
   ));
 }
 /// Create a copy of StoreConfigs
@@ -2381,6 +2382,18 @@ $InventoryIntegrationCopyWith<$Res>? get inventory_integration {
 
   return $InventoryIntegrationCopyWith<$Res>(_self.inventory_integration!, (value) {
     return _then(_self.copyWith(inventory_integration: value));
+  });
+}/// Create a copy of StoreConfigs
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FinanceIntegrationCopyWith<$Res>? get finance_integration {
+    if (_self.finance_integration == null) {
+    return null;
+  }
+
+  return $FinanceIntegrationCopyWith<$Res>(_self.finance_integration!, (value) {
+    return _then(_self.copyWith(finance_integration: value));
   });
 }
 }
@@ -2464,10 +2477,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreConfigs() when $default != null:
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration,_that.finance_integration);case _:
   return orElse();
 
 }
@@ -2485,10 +2498,10 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)  $default,) {final _that = this;
 switch (_that) {
 case _StoreConfigs():
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration,_that.finance_integration);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2505,10 +2518,10 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreConfigs() when $default != null:
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration,_that.finance_integration);case _:
   return null;
 
 }
@@ -2520,7 +2533,7 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 @JsonSerializable()
 
 class _StoreConfigs implements StoreConfigs {
-  const _StoreConfigs({required final  List<StoreCurrencyConfig> currencies, this.selectedCurrency, final  List<StoreLanguageConfig> languages = const [], this.defaultLanguage, final  List<StoreCountryConfig> countries = const [], this.selectedCountry, final  List<CustomStatusMapping> customStatusMappings = const [], this.customStatusEnabled = false, this.inventory_integration}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
+  const _StoreConfigs({required final  List<StoreCurrencyConfig> currencies, this.selectedCurrency, final  List<StoreLanguageConfig> languages = const [], this.defaultLanguage, final  List<StoreCountryConfig> countries = const [], this.selectedCountry, final  List<CustomStatusMapping> customStatusMappings = const [], this.customStatusEnabled = false, this.inventory_integration, this.finance_integration}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
   factory _StoreConfigs.fromJson(Map<String, dynamic> json) => _$StoreConfigsFromJson(json);
 
  final  List<StoreCurrencyConfig> _currencies;
@@ -2556,6 +2569,7 @@ class _StoreConfigs implements StoreConfigs {
 
 @override@JsonKey() final  bool customStatusEnabled;
 @override final  InventoryIntegration? inventory_integration;
+@override final  FinanceIntegration? finance_integration;
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
@@ -2570,16 +2584,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreConfigs&&const DeepCollectionEquality().equals(other._currencies, _currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other._languages, _languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other._countries, _countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other._customStatusMappings, _customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreConfigs&&const DeepCollectionEquality().equals(other._currencies, _currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other._languages, _languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other._countries, _countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other._customStatusMappings, _customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration)&&(identical(other.finance_integration, finance_integration) || other.finance_integration == finance_integration));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_currencies),selectedCurrency,const DeepCollectionEquality().hash(_languages),defaultLanguage,const DeepCollectionEquality().hash(_countries),selectedCountry,const DeepCollectionEquality().hash(_customStatusMappings),customStatusEnabled,inventory_integration);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_currencies),selectedCurrency,const DeepCollectionEquality().hash(_languages),defaultLanguage,const DeepCollectionEquality().hash(_countries),selectedCountry,const DeepCollectionEquality().hash(_customStatusMappings),customStatusEnabled,inventory_integration,finance_integration);
 
 @override
 String toString() {
-  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, inventory_integration: $inventory_integration)';
+  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, inventory_integration: $inventory_integration, finance_integration: $finance_integration)';
 }
 
 
@@ -2590,11 +2604,11 @@ abstract mixin class _$StoreConfigsCopyWith<$Res> implements $StoreConfigsCopyWi
   factory _$StoreConfigsCopyWith(_StoreConfigs value, $Res Function(_StoreConfigs) _then) = __$StoreConfigsCopyWithImpl;
 @override @useResult
 $Res call({
- List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, InventoryIntegration? inventory_integration
+ List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration
 });
 
 
-@override $InventoryIntegrationCopyWith<$Res>? get inventory_integration;
+@override $InventoryIntegrationCopyWith<$Res>? get inventory_integration;@override $FinanceIntegrationCopyWith<$Res>? get finance_integration;
 
 }
 /// @nodoc
@@ -2607,7 +2621,7 @@ class __$StoreConfigsCopyWithImpl<$Res>
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? inventory_integration = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? inventory_integration = freezed,Object? finance_integration = freezed,}) {
   return _then(_StoreConfigs(
 currencies: null == currencies ? _self._currencies : currencies // ignore: cast_nullable_to_non_nullable
 as List<StoreCurrencyConfig>,selectedCurrency: freezed == selectedCurrency ? _self.selectedCurrency : selectedCurrency // ignore: cast_nullable_to_non_nullable
@@ -2618,7 +2632,8 @@ as List<StoreCountryConfig>,selectedCountry: freezed == selectedCountry ? _self.
 as String?,customStatusMappings: null == customStatusMappings ? _self._customStatusMappings : customStatusMappings // ignore: cast_nullable_to_non_nullable
 as List<CustomStatusMapping>,customStatusEnabled: null == customStatusEnabled ? _self.customStatusEnabled : customStatusEnabled // ignore: cast_nullable_to_non_nullable
 as bool,inventory_integration: freezed == inventory_integration ? _self.inventory_integration : inventory_integration // ignore: cast_nullable_to_non_nullable
-as InventoryIntegration?,
+as InventoryIntegration?,finance_integration: freezed == finance_integration ? _self.finance_integration : finance_integration // ignore: cast_nullable_to_non_nullable
+as FinanceIntegration?,
   ));
 }
 
@@ -2633,6 +2648,18 @@ $InventoryIntegrationCopyWith<$Res>? get inventory_integration {
 
   return $InventoryIntegrationCopyWith<$Res>(_self.inventory_integration!, (value) {
     return _then(_self.copyWith(inventory_integration: value));
+  });
+}/// Create a copy of StoreConfigs
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FinanceIntegrationCopyWith<$Res>? get finance_integration {
+    if (_self.finance_integration == null) {
+    return null;
+  }
+
+  return $FinanceIntegrationCopyWith<$Res>(_self.finance_integration!, (value) {
+    return _then(_self.copyWith(finance_integration: value));
   });
 }
 }
@@ -2917,6 +2944,275 @@ class __$InventoryIntegrationCopyWithImpl<$Res>
 reserve_on: null == reserve_on ? _self._reserve_on : reserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,unreserve_on: null == unreserve_on ? _self._unreserve_on : unreserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,consume_on: null == consume_on ? _self._consume_on : consume_on // ignore: cast_nullable_to_non_nullable
+as List<OrderStatus>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$FinanceIntegration {
+
+ List<OrderStatus> get recognize_on;
+/// Create a copy of FinanceIntegration
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FinanceIntegrationCopyWith<FinanceIntegration> get copyWith => _$FinanceIntegrationCopyWithImpl<FinanceIntegration>(this as FinanceIntegration, _$identity);
+
+  /// Serializes this FinanceIntegration to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinanceIntegration&&const DeepCollectionEquality().equals(other.recognize_on, recognize_on));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(recognize_on));
+
+@override
+String toString() {
+  return 'FinanceIntegration(recognize_on: $recognize_on)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $FinanceIntegrationCopyWith<$Res>  {
+  factory $FinanceIntegrationCopyWith(FinanceIntegration value, $Res Function(FinanceIntegration) _then) = _$FinanceIntegrationCopyWithImpl;
+@useResult
+$Res call({
+ List<OrderStatus> recognize_on
+});
+
+
+
+
+}
+/// @nodoc
+class _$FinanceIntegrationCopyWithImpl<$Res>
+    implements $FinanceIntegrationCopyWith<$Res> {
+  _$FinanceIntegrationCopyWithImpl(this._self, this._then);
+
+  final FinanceIntegration _self;
+  final $Res Function(FinanceIntegration) _then;
+
+/// Create a copy of FinanceIntegration
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? recognize_on = null,}) {
+  return _then(_self.copyWith(
+recognize_on: null == recognize_on ? _self.recognize_on : recognize_on // ignore: cast_nullable_to_non_nullable
+as List<OrderStatus>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [FinanceIntegration].
+extension FinanceIntegrationPatterns on FinanceIntegration {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _FinanceIntegration value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _FinanceIntegration() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _FinanceIntegration value)  $default,){
+final _that = this;
+switch (_that) {
+case _FinanceIntegration():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _FinanceIntegration value)?  $default,){
+final _that = this;
+switch (_that) {
+case _FinanceIntegration() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<OrderStatus> recognize_on)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _FinanceIntegration() when $default != null:
+return $default(_that.recognize_on);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<OrderStatus> recognize_on)  $default,) {final _that = this;
+switch (_that) {
+case _FinanceIntegration():
+return $default(_that.recognize_on);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<OrderStatus> recognize_on)?  $default,) {final _that = this;
+switch (_that) {
+case _FinanceIntegration() when $default != null:
+return $default(_that.recognize_on);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _FinanceIntegration implements FinanceIntegration {
+  const _FinanceIntegration({final  List<OrderStatus> recognize_on = const []}): _recognize_on = recognize_on;
+  factory _FinanceIntegration.fromJson(Map<String, dynamic> json) => _$FinanceIntegrationFromJson(json);
+
+ final  List<OrderStatus> _recognize_on;
+@override@JsonKey() List<OrderStatus> get recognize_on {
+  if (_recognize_on is EqualUnmodifiableListView) return _recognize_on;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_recognize_on);
+}
+
+
+/// Create a copy of FinanceIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FinanceIntegrationCopyWith<_FinanceIntegration> get copyWith => __$FinanceIntegrationCopyWithImpl<_FinanceIntegration>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$FinanceIntegrationToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinanceIntegration&&const DeepCollectionEquality().equals(other._recognize_on, _recognize_on));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_recognize_on));
+
+@override
+String toString() {
+  return 'FinanceIntegration(recognize_on: $recognize_on)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$FinanceIntegrationCopyWith<$Res> implements $FinanceIntegrationCopyWith<$Res> {
+  factory _$FinanceIntegrationCopyWith(_FinanceIntegration value, $Res Function(_FinanceIntegration) _then) = __$FinanceIntegrationCopyWithImpl;
+@override @useResult
+$Res call({
+ List<OrderStatus> recognize_on
+});
+
+
+
+
+}
+/// @nodoc
+class __$FinanceIntegrationCopyWithImpl<$Res>
+    implements _$FinanceIntegrationCopyWith<$Res> {
+  __$FinanceIntegrationCopyWithImpl(this._self, this._then);
+
+  final _FinanceIntegration _self;
+  final $Res Function(_FinanceIntegration) _then;
+
+/// Create a copy of FinanceIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? recognize_on = null,}) {
+  return _then(_FinanceIntegration(
+recognize_on: null == recognize_on ? _self._recognize_on : recognize_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,
   ));
 }

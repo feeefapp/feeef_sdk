@@ -21,6 +21,7 @@ class FinanceRepository {
   late final CustomerPaymentResourceRepository customerPayments;
   late final ExpenseResourceRepository expenses;
   late final ExpenseCategoryResourceRepository expenseCategories;
+  late final ReceivableResourceRepository receivables;
 
   FinanceRepository({required this.client}) {
     suppliers = SupplierResourceRepository(client: client);
@@ -32,6 +33,7 @@ class FinanceRepository {
     customerPayments = CustomerPaymentResourceRepository(client: client);
     expenses = ExpenseResourceRepository(client: client);
     expenseCategories = ExpenseCategoryResourceRepository(client: client);
+    receivables = ReceivableResourceRepository(client: client);
   }
 
   /// Post a receipt: stock goods into inventory at batch cost (idempotent).
@@ -67,7 +69,7 @@ class FinanceRepository {
     required CollectCustomerPaymentInput data,
   }) async {
     final response = await client.post(
-      '/finance/orders/$orderId:collect',
+      '/finance/orders/$orderId/collect',
       data: data.toJson(),
       queryParameters: {'projectId': data.projectId},
     );
@@ -534,7 +536,7 @@ class PurchaseReceiptResourceRepository extends ResourceRepository<
     required String id,
   }) async {
     final response = await client.post(
-      '/finance/purchase-receipts/$id:post',
+      '/finance/purchase-receipts/$id/post',
       queryParameters: {'projectId': projectId},
     );
     return modelFromJson(response.data);
@@ -546,7 +548,7 @@ class PurchaseReceiptResourceRepository extends ResourceRepository<
     required String id,
   }) async {
     final response = await client.post(
-      '/finance/purchase-receipts/$id:void',
+      '/finance/purchase-receipts/$id/void',
       queryParameters: {'projectId': projectId},
     );
     return modelFromJson(response.data);
@@ -568,6 +570,109 @@ class FinancialAccountResourceRepository extends ResourceRepository<
 
   @override
   Map<String, dynamic> modelToJson(FinancialAccount model) => model.toJson();
+
+  @override
+  Future<ListResponse<FinancialAccount>> list({
+    int? page,
+    int? offset,
+    int? limit,
+    Map<String, dynamic>? params,
+  }) async {
+    final qp = <String, dynamic>{...?params};
+    final q = qp.remove('q') ?? qp.remove('searchQuery');
+    if (q != null && q.toString().trim().isNotEmpty) {
+      qp['search'] = q.toString().trim();
+    }
+    final response = await client.get(
+      '/finance/financial-accounts',
+      queryParameters: {
+        if (page != null) 'page': page,
+        if (offset != null) 'offset': offset,
+        if (limit != null) 'limit': limit,
+        ...qp,
+      },
+      cancelToken: modelListCancelToken,
+    );
+    return _parseFinancialAccountListResponse(response.data);
+  }
+
+  /// Parses plain arrays and Lucid paginator payloads (`{ meta, data }`).
+  ListResponse<FinancialAccount> _parseFinancialAccountListResponse(dynamic body) {
+    if (body is List) {
+      final items = body
+          .whereType<Map>()
+          .map((e) => modelFromJson(Map<String, dynamic>.from(e)))
+          .toList();
+      return ListResponse(data: items, total: items.length, page: 1, limit: items.length);
+    }
+
+    if (body is Map) {
+      final map = Map<String, dynamic>.from(body);
+      final meta = map['meta'] is Map ? Map<String, dynamic>.from(map['meta'] as Map) : null;
+      final rawData = map['data'];
+      final rows = _coerceJsonList(rawData)
+          .whereType<Map>()
+          .map((e) => modelFromJson(Map<String, dynamic>.from(e)))
+          .toList();
+      return ListResponse(
+        data: rows,
+        total: _asInt(meta?['total'] ?? map['total']) ?? rows.length,
+        page: _asInt(meta?['currentPage'] ?? meta?['current_page']),
+        limit: _asInt(meta?['perPage'] ?? meta?['per_page']),
+      );
+    }
+
+    return ListResponse(data: const []);
+  }
+
+  List<dynamic> _coerceJsonList(dynamic rawData) {
+    if (rawData is List) return rawData;
+    if (rawData is Map && rawData.isNotEmpty) {
+      if (rawData.values.every((v) => v is Map)) {
+        return rawData.values.toList();
+      }
+    }
+    return const [];
+  }
+
+  int? _asInt(dynamic value) {
+    if (value == null) return null;
+    if (value is int) return value;
+    if (value is num) return value.toInt();
+    return int.tryParse(value.toString());
+  }
+
+  @override
+  Future<FinancialAccount> create({
+    required FinancialAccountCreate data,
+    Map<String, dynamic>? params,
+  }) async {
+    final response = await client.post(
+      '/finance/financial-accounts',
+      data: {...data.toJson(), if (params != null) ...params},
+      cancelToken: modelCreateCancelToken,
+    );
+    final model = modelFromJson(response.data);
+    addToCreateStream(model);
+    return model;
+  }
+
+  @override
+  Future<FinancialAccount> update({
+    required String id,
+    FinancialAccount? old,
+    required FinancialAccountUpdate data,
+    Map<String, dynamic>? params,
+  }) async {
+    final response = await client.put(
+      '/finance/financial-accounts/$id',
+      data: {...data.toUpdateJson(), if (params != null) ...params},
+      cancelToken: modelUpdateCancelToken,
+    );
+    final model = modelFromJson(response.data);
+    addToUpdateStream(id, data);
+    return model;
+  }
 
   @override
   FinancialAccountCreate createFromJson(dynamic json) {
@@ -667,7 +772,7 @@ class SupplierBillResourceRepository extends ResourceRepository<SupplierBill,
     required PaySupplierBillInput data,
   }) async {
     final response = await client.post(
-      '/finance/supplier-bills/$id:pay',
+      '/finance/supplier-bills/$id/pay',
       data: data.toJson(),
       queryParameters: {'projectId': data.projectId},
     );
@@ -731,7 +836,7 @@ class SupplierPaymentResourceRepository extends ResourceRepository<
     required String id,
   }) async {
     final response = await client.post(
-      '/finance/supplier-payments/$id:void',
+      '/finance/supplier-payments/$id/void',
       queryParameters: {'projectId': projectId},
     );
     return SupplierBill.fromJson(response.data as Map<String, dynamic>);
@@ -789,19 +894,129 @@ class CustomerPaymentResourceRepository extends ResourceRepository<
   /// Void a customer payment.
   Future<void> void$({required String projectId, required String id}) async {
     await client.post(
-      '/finance/customer-payments/$id:void',
+      '/finance/customer-payments/$id/void',
       queryParameters: {'projectId': projectId},
     );
   }
 }
 
 /// Placeholder create type for payment repositories whose creation happens via
-/// dedicated endpoints (`supplier-bills:pay`, `orders:collect`).
+/// dedicated endpoints (`supplier-bills/pay`, `orders/collect`).
 class PaySupplierBillInputModel implements ModelCreate {
   const PaySupplierBillInputModel();
 
   @override
   Map<String, dynamic> toJson() => const {};
+}
+
+// ─── Phase 2: receivables (derived, read-only) ────────────────────────────────
+
+class ReceivableNoopCreate implements ModelCreate {
+  const ReceivableNoopCreate();
+
+  @override
+  Map<String, dynamic> toJson() => const {};
+}
+
+class ReceivableNoopUpdate implements ModelUpdate {
+  const ReceivableNoopUpdate();
+
+  @override
+  Map<String, dynamic> toJson() => const {};
+
+  @override
+  List<String> get setToNull => const [];
+}
+
+class ReceivableResourceRepository extends ResourceRepository<Receivable,
+    ReceivableNoopCreate, ReceivableNoopUpdate> {
+  ReceivableResourceRepository({required Dio client})
+      : super(client: client, table: 'finance/receivables');
+
+  @override
+  Receivable modelFromJson(dynamic json) =>
+      Receivable.fromJson(json as Map<String, dynamic>);
+
+  @override
+  Map<String, dynamic> modelToJson(Receivable model) =>
+      {'orderId': model.orderId};
+
+  @override
+  ReceivableNoopCreate createFromJson(dynamic json) => const ReceivableNoopCreate();
+
+  @override
+  Map<String, dynamic> createToJson(ReceivableNoopCreate model) => model.toJson();
+
+  @override
+  ReceivableNoopUpdate updateFromJson(dynamic json) => const ReceivableNoopUpdate();
+
+  @override
+  Map<String, dynamic> updateToJson(ReceivableNoopUpdate model) => model.toUpdateJson();
+
+  @override
+  Future<ListResponse<Receivable>> list({
+    int? page,
+    int? offset,
+    int? limit,
+    Map<String, dynamic>? params,
+  }) async {
+    final qp = Map<String, dynamic>.from(params ?? {});
+    final projectId = qp.remove('projectId') as String?;
+    final q = (qp.remove('q') ?? qp.remove('searchQuery'))?.toString().trim();
+    final codRaw = qp.remove('codInTransit');
+    final codOnly = codRaw == true || codRaw == 'true';
+
+    final response = await client.get(
+      '/finance/receivables',
+      queryParameters: {if (projectId != null) 'projectId': projectId},
+      cancelToken: modelListCancelToken,
+    );
+    final data = response.data['data'] ?? response.data;
+    var items = (data as List)
+        .whereType<Map>()
+        .map((e) => modelFromJson(Map<String, dynamic>.from(e)))
+        .toList();
+
+    if (q != null && q.isNotEmpty) {
+      final lower = q.toLowerCase();
+      items = items
+          .where((r) => r.orderId.toLowerCase().contains(lower))
+          .toList();
+    }
+    if (codOnly == true) {
+      items = items.where((r) => r.codInTransit).toList();
+    }
+
+    return ListResponse(
+      data: items,
+      total: items.length,
+      page: 1,
+      limit: items.length,
+    );
+  }
+
+  @override
+  Future<Receivable> create({
+    required ReceivableNoopCreate data,
+    Map<String, dynamic>? params,
+  }) async {
+    throw UnsupportedError('Receivables are derived from orders.');
+  }
+
+  @override
+  Future<Receivable> update({
+    required String id,
+    Receivable? old,
+    required ReceivableNoopUpdate data,
+    Map<String, dynamic>? params,
+  }) async {
+    throw UnsupportedError('Receivables are read-only.');
+  }
+
+  @override
+  Future<void> delete({required String id, Map<String, dynamic>? params}) async {
+    throw UnsupportedError('Receivables are read-only.');
+  }
 }
 
 // ─── Phase 2: expenses ──────────────────────────────────────────────────────────

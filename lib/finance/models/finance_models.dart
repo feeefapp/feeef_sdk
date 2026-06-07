@@ -11,6 +11,13 @@ double _toDouble(dynamic v) =>
 int _toInt(dynamic v) =>
     v == null ? 0 : (v is num ? v.toInt() : int.tryParse(v.toString()) ?? 0);
 
+DateTime _parseFinanceDate(dynamic v) {
+  if (v == null) return DateTime.now();
+  if (v is DateTime) return v;
+  if (v is String && v.isNotEmpty) return DateTime.parse(v);
+  return DateTime.now();
+}
+
 // ─── Supplier ────────────────────────────────────────────────────────────────
 
 class Supplier implements Model {
@@ -548,17 +555,17 @@ class FinancialAccount implements Model {
 
   factory FinancialAccount.fromJson(Map<String, dynamic> json) =>
       FinancialAccount(
-        id: json['id'] as String,
-        projectId: json['projectId'] as String,
-        name: json['name'] as String,
-        type: _accountTypeFrom(json['type'] as String?),
-        currency: json['currency'] as String?,
-        openingBalance: _toDouble(json['openingBalance']),
-        isDefault: json['isDefault'] == true,
+        id: json['id']?.toString() ?? '',
+        projectId: (json['projectId'] ?? json['project_id'])?.toString() ?? '',
+        name: json['name']?.toString() ?? '',
+        type: _accountTypeFrom(json['type']?.toString()),
+        currency: json['currency']?.toString(),
+        openingBalance: _toDouble(json['openingBalance'] ?? json['opening_balance']),
+        isDefault: json['isDefault'] == true || json['is_default'] == true,
         metadata: (json['metadata'] as Map?)?.cast<String, dynamic>() ?? const {},
         balance: json['balance'] == null ? null : _toDouble(json['balance']),
-        createdAt: DateTime.parse(json['createdAt'] as String),
-        updatedAt: DateTime.parse(json['updatedAt'] as String),
+        createdAt: _parseFinanceDate(json['createdAt'] ?? json['created_at']),
+        updatedAt: _parseFinanceDate(json['updatedAt'] ?? json['updated_at']),
       );
 
   Map<String, dynamic> toJson() => {'id': id, 'name': name};
@@ -891,8 +898,8 @@ class CollectCustomerPaymentInput {
       };
 }
 
-/// A derived open order receivable.
-class Receivable {
+/// A derived open order receivable (read-only; [id] aliases [orderId]).
+class Receivable implements Model {
   final String orderId;
   final String storeId;
   final double total;
@@ -912,6 +919,9 @@ class Receivable {
     required this.deliveryStatus,
     required this.codInTransit,
   });
+
+  @override
+  String get id => orderId;
 
   factory Receivable.fromJson(Map<String, dynamic> json) => Receivable(
         orderId: json['orderId'] as String,

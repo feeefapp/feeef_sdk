@@ -43,9 +43,9 @@ class ListResponse<T> {
     final meta = json['meta'];
     return ListResponse(
       data: listData.map((e) => fromJson(e)).toList(),
-      total: meta?['total'],
-      page: meta?['currentPage'],
-      limit: meta?['perPage'],
+      total: meta?['total'] ?? json['total'],
+      page: meta?['currentPage'] ?? meta?['current_page'],
+      limit: meta?['perPage'] ?? meta?['per_page'],
     );
   }
 

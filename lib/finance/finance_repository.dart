@@ -367,7 +367,7 @@ class PurchaseOrderResourceRepository extends ResourceRepository<PurchaseOrder,
     required String id,
   }) async {
     final response = await client.post(
-      '/finance/purchase-orders/$id:send',
+      '/finance/purchase-orders/$id/send',
       queryParameters: {'projectId': projectId},
     );
     return modelFromJson(response.data);
@@ -379,7 +379,7 @@ class PurchaseOrderResourceRepository extends ResourceRepository<PurchaseOrder,
     required String id,
   }) async {
     final response = await client.post(
-      '/finance/purchase-orders/$id:cancel',
+      '/finance/purchase-orders/$id/cancel',
       queryParameters: {'projectId': projectId},
     );
     return modelFromJson(response.data);
@@ -392,7 +392,7 @@ class PurchaseOrderResourceRepository extends ResourceRepository<PurchaseOrder,
     required PurchaseOrderStatus status,
   }) async {
     final response = await client.post(
-      '/finance/purchase-orders/$id:status',
+      '/finance/purchase-orders/$id/status',
       data: {'status': status.name},
       queryParameters: {'projectId': projectId},
     );

@@ -21,6 +21,9 @@ enum TransferType {
   @JsonValue('ai_generation')
   aiGeneration,
 
+  @JsonValue('integration_subscription')
+  integrationSubscription,
+
   refund,
   adjustment,
 }

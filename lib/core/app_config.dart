@@ -930,6 +930,77 @@ class AIModelsConfig {
   };
 }
 
+/// Per-integration catalog item from options.integrations.
+class IntegrationCatalogItemConfig {
+  final num price;
+  final bool active;
+  final List<String> includedInPlans;
+  final String name;
+
+  IntegrationCatalogItemConfig({
+    required this.price,
+    required this.active,
+    required this.includedInPlans,
+    required this.name,
+  });
+
+  factory IntegrationCatalogItemConfig.fromJson(Map<String, dynamic> json) {
+    return IntegrationCatalogItemConfig(
+      price: json['price'] ?? 0,
+      active: json['active'] ?? true,
+      includedInPlans: List<String>.from(json['includedInPlans'] ?? []),
+      name: json['name'] ?? '',
+    );
+  }
+}
+
+class IntegrationsBillingRulesConfig {
+  final int graceAttempts;
+  final int backoffBaseHours;
+  final int maxFailedDays;
+  final int billingPeriodDays;
+
+  IntegrationsBillingRulesConfig({
+    required this.graceAttempts,
+    required this.backoffBaseHours,
+    required this.maxFailedDays,
+    required this.billingPeriodDays,
+  });
+
+  factory IntegrationsBillingRulesConfig.fromJson(Map<String, dynamic> json) {
+    return IntegrationsBillingRulesConfig(
+      graceAttempts: json['graceAttempts'] ?? 1,
+      backoffBaseHours: json['backoffBaseHours'] ?? 6,
+      maxFailedDays: json['maxFailedDays'] ?? 7,
+      billingPeriodDays: json['billingPeriodDays'] ?? 30,
+    );
+  }
+}
+
+class IntegrationsConfig {
+  final IntegrationsBillingRulesConfig billing;
+  final Map<String, IntegrationCatalogItemConfig> items;
+
+  IntegrationsConfig({required this.billing, required this.items});
+
+  factory IntegrationsConfig.fromJson(Map<String, dynamic> json) {
+    final rawItems = json['items'] as Map<String, dynamic>? ?? {};
+    return IntegrationsConfig(
+      billing: IntegrationsBillingRulesConfig.fromJson(
+        Map<String, dynamic>.from(json['billing'] as Map? ?? {}),
+      ),
+      items: rawItems.map(
+        (k, v) => MapEntry(
+          k,
+          IntegrationCatalogItemConfig.fromJson(
+            Map<String, dynamic>.from(v as Map),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class AppConfig {
   final UpdateConfig update;
   final List<PopupConfig> popups;
@@ -943,6 +1014,7 @@ class AppConfig {
   final AIModelsConfig? aiModels;
   /// Multi-provider catalog (`models` option); optional until backend populates.
   final ModelsCatalogConfig? models;
+  final IntegrationsConfig? integrations;
 
   AppConfig({
     required this.update,
@@ -956,6 +1028,7 @@ class AppConfig {
     this.extra,
     this.aiModels,
     this.models,
+    this.integrations,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -1017,6 +1090,11 @@ class AppConfig {
           ? AIModelsConfig.fromJson(aiModelsJson)
           : null,
       models: modelsCatalog,
+      integrations: json['integrations'] != null
+          ? IntegrationsConfig.fromJson(
+              Map<String, dynamic>.from(json['integrations'] as Map),
+            )
+          : null,
     );
   }
 
@@ -1033,5 +1111,6 @@ class AppConfig {
     if (models != null) 'models': models!.toJson(),
     'languages': languages.map((e) => e.toJson()).toList(),
     if (extra != null) 'extra': extra!.toJson(),
+    if (integrations != null) 'integrations': {'billing': {}, 'items': {}},
   };
 }

@@ -275,6 +275,30 @@ class StoreRepository extends ModelRepository<Store>
     }
   }
 
+  /// Subscribe to a paid integration (wallet charge).
+  Future<Map<String, dynamic>> subscribeIntegration({
+    required String storeId,
+    required String integrationId,
+  }) async {
+    final res = await client.post(
+      '/$table/$storeId/integrations/subscription/subscribe',
+      data: {'integrationId': integrationId},
+    );
+    return Map<String, dynamic>.from(res.data as Map);
+  }
+
+  /// Cancel auto-renew for a paid integration.
+  Future<Map<String, dynamic>> cancelIntegrationSubscription({
+    required String storeId,
+    required String integrationId,
+  }) async {
+    final res = await client.post(
+      '/$table/$storeId/integrations/subscription/cancel',
+      data: {'integrationId': integrationId},
+    );
+    return Map<String, dynamic>.from(res.data as Map);
+  }
+
   Future<Map<String, dynamic>> payDue({
     required String storeId,
     required double amount,

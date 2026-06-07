@@ -35,6 +35,9 @@ abstract final class MemberScope {
   static const storeTemplates = 'store_templates';
   static const storeTemplatesRead = 'store_templates.read';
 
+  static const inventory = 'inventory';
+  static const inventoryRead = 'inventory.read';
+
   static const wildcard = '*';
 
   static const List<String> all = [
@@ -59,6 +62,8 @@ abstract final class MemberScope {
     templateComponentsRead,
     storeTemplates,
     storeTemplatesRead,
+    inventory,
+    inventoryRead,
     wildcard,
   ];
 }

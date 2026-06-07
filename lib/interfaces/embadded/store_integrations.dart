@@ -49,6 +49,8 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     PaymentIntegration? payment,
     // Dispatcher Integration (order assignment to confirmers)
     DispatcherIntegration? dispatcher,
+    /// Inventory module (warehouses, stock, order reserve/consume).
+    StoreInventoryIntegration? inventory,
     // Communication Integrations
     @Default({}) Map<String, dynamic>? sms,
     @Default({}) Map<String, dynamic>? telegram,
@@ -552,6 +554,21 @@ abstract class SecurityIntegration with _$SecurityIntegration {
 
   factory SecurityIntegration.fromJson(Map<String, dynamic> json) =>
       _$SecurityIntegrationFromJson(json);
+}
+
+// ===================== INVENTORY INTEGRATION =====================
+
+/// Marketplace inventory module toggle (distinct from [InventoryIntegration] order hooks in [StoreConfigs]).
+@freezed
+abstract class StoreInventoryIntegration with _$StoreInventoryIntegration {
+  const StoreInventoryIntegration._();
+  const factory StoreInventoryIntegration({
+    @Default(false) bool active,
+    @Default({}) Map<String, dynamic> metadata,
+  }) = _StoreInventoryIntegration;
+
+  factory StoreInventoryIntegration.fromJson(Map<String, dynamic> json) =>
+      _$StoreInventoryIntegrationFromJson(json);
 }
 
 // ===================== PUBLIC SECURITY (Storefront) =====================

@@ -37,6 +37,7 @@ const _$TransferTypeEnumMap = {
   TransferType.storeDue: 'store_due',
   TransferType.userTransfer: 'user_transfer',
   TransferType.aiGeneration: 'ai_generation',
+  TransferType.integrationSubscription: 'integration_subscription',
   TransferType.refund: 'refund',
   TransferType.adjustment: 'adjustment',
 };

@@ -29,4 +29,7 @@ abstract class StoreEntity {
 
   /// Active full-site template id (`store_templates.id`), if any.
   String? get templateId;
+
+  /// Linked inventory project ID.
+  String? get projectId;
 }

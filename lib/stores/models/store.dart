@@ -40,6 +40,9 @@ Map<String, dynamic> _normalizedStoreJson(Map<String, dynamic> json) {
   if (m['templateId'] == null && m['template_id'] != null) {
     m['templateId'] = m['template_id'];
   }
+  if (m['projectId'] == null && m['project_id'] != null) {
+    m['projectId'] = m['project_id'];
+  }
   return m;
 }
 
@@ -152,6 +155,7 @@ abstract class Store extends StoreEntity
     StoreConfigs? configs,
     String? shippingPriceId,
     String? templateId,
+    String? projectId,
     // metaPixelIds
     List<String>? metaPixelIds,
     @Default({}) Map<String, StoreMember> members,
@@ -192,6 +196,7 @@ abstract class StoreCreate with _$StoreCreate implements ModelCreate {
     StoreIntegrations integrations,
     @Default([]) List<List<num?>?> defaultShippingRates,
     String? shippingPriceId,
+    String? projectId,
     // subscription
     StoreSubscription? subscription,
     num? due,
@@ -236,6 +241,7 @@ abstract class StoreUpdate with _$StoreUpdate implements ModelUpdate {
     StoreConfigs? configs,
     String? shippingPriceId,
     String? templateId,
+    String? projectId,
   }) = _StoreUpdate;
 
   factory StoreUpdate.fromJson(Map<String, dynamic> json) =>
@@ -317,6 +323,30 @@ extension StoreExtensions on Store {
 ///
 /// StoreSubscription
 ///
+/// Per-integration billing lifecycle (on store.subscription.integrations).
+enum IntegrationBillingStatus {
+  active,
+  grace,
+  past_due,
+  canceled,
+}
+
+@freezed
+abstract class StoreIntegrationSubscription with _$StoreIntegrationSubscription {
+  const factory StoreIntegrationSubscription({
+    required DateTime startAt,
+    DateTime? expiresAt,
+    @Default(IntegrationBillingStatus.active) IntegrationBillingStatus status,
+    @Default(0) num price,
+    @Default(true) bool autoRenew,
+    @Default(0) int failedAttempts,
+    DateTime? nextRetryAt,
+  }) = _StoreIntegrationSubscription;
+
+  factory StoreIntegrationSubscription.fromJson(Map<String, dynamic> json) =>
+      _$StoreIntegrationSubscriptionFromJson(json);
+}
+
 @freezed
 abstract class StoreSubscription with _$StoreSubscription {
   const factory StoreSubscription({
@@ -327,13 +357,15 @@ abstract class StoreSubscription with _$StoreSubscription {
     required DateTime startedAt,
     DateTime? expiresAt,
     @Default({}) Map<String, dynamic> metadata,
+    @Default({})
+    Map<String, StoreIntegrationSubscription> integrations,
   }) = _StoreSubscription;
 
   factory StoreSubscription.fromJson(Map<String, dynamic> json) =>
       _$StoreSubscriptionFromJson(json);
 }
 
-enum StoreSubscriptionType { free, premium, vip, custom }
+enum StoreSubscriptionType { free, premium, vip, ultra, custom }
 
 enum StoreSubscriptionStatus { active, inactive, expired, canceled }
 
@@ -363,10 +395,23 @@ abstract class StoreConfigs with _$StoreConfigs {
     String? selectedCountry,
     @Default([]) List<CustomStatusMapping> customStatusMappings,
     @Default(false) bool customStatusEnabled,
+    InventoryIntegration? inventory_integration,
   }) = _StoreConfigs;
 
   factory StoreConfigs.fromJson(Map<String, dynamic> json) =>
       _$StoreConfigsFromJson(json);
+}
+
+@freezed
+abstract class InventoryIntegration with _$InventoryIntegration {
+  const factory InventoryIntegration({
+    @Default([]) List<OrderStatus> reserve_on,
+    @Default([]) List<OrderStatus> unreserve_on,
+    @Default([]) List<OrderStatus> consume_on,
+  }) = _InventoryIntegration;
+
+  factory InventoryIntegration.fromJson(Map<String, dynamic> json) =>
+      _$InventoryIntegrationFromJson(json);
 }
 
 ///
@@ -459,11 +504,33 @@ extension StoreSubscriptionExtensions on StoreSubscription {
   bool get isPaid {
     return type != StoreSubscriptionType.free;
   }
+  bool get isUltra {
+    return type == StoreSubscriptionType.ultra;
+  }
   bool get isSoonExpired {
     return expiresAt != null && expiresAt!.isBefore(DateTime.now().add(Duration(days: 7)));
   }
   bool get canUpgrade {
     return !isPaid && !isExpired && !isSoonExpired;
+  }
+
+  /// Billing entry for a paid integration subscription.
+  StoreIntegrationSubscription? integrationBilling(String integrationId) {
+    return integrations[integrationId];
+  }
+
+  /// True when per-integration billing allows usage (active/grace and not expired).
+  bool isIntegrationBillingEntitled(String integrationId) {
+    final entry = integrations[integrationId];
+    if (entry == null) return false;
+    if (entry.status == IntegrationBillingStatus.canceled) return false;
+    if (entry.status != IntegrationBillingStatus.active &&
+        entry.status != IntegrationBillingStatus.grace) {
+      return false;
+    }
+    final exp = entry.expiresAt;
+    if (exp != null && exp.isBefore(DateTime.now())) return false;
+    return true;
   }
 }
 

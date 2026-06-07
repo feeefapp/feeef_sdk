@@ -110,6 +110,11 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
       : DispatcherIntegration.fromJson(
           json['dispatcher'] as Map<String, dynamic>,
         ),
+  inventory: json['inventory'] == null
+      ? null
+      : StoreInventoryIntegration.fromJson(
+          json['inventory'] as Map<String, dynamic>,
+        ),
   sms: json['sms'] as Map<String, dynamic>? ?? const {},
   telegram: json['telegram'] as Map<String, dynamic>? ?? const {},
 );
@@ -139,6 +144,7 @@ Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
       'customFields': instance.customFields,
       'payment': instance.payment,
       'dispatcher': instance.dispatcher,
+      'inventory': instance.inventory,
       'sms': instance.sms,
       'telegram': instance.telegram,
     };
@@ -779,6 +785,20 @@ Map<String, dynamic> _$SecurityIntegrationToJson(
 ) => <String, dynamic>{
   'active': instance.active,
   'options': instance.options,
+  'metadata': instance.metadata,
+};
+
+_StoreInventoryIntegration _$StoreInventoryIntegrationFromJson(
+  Map<String, dynamic> json,
+) => _StoreInventoryIntegration(
+  active: json['active'] as bool? ?? false,
+  metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+);
+
+Map<String, dynamic> _$StoreInventoryIntegrationToJson(
+  _StoreInventoryIntegration instance,
+) => <String, dynamic>{
+  'active': instance.active,
   'metadata': instance.metadata,
 };
 

@@ -476,6 +476,48 @@ const _$OrderStatusEnumMap = {
   OrderStatus.cancelled: 'cancelled',
 };
 
+_FinancePdfSettings _$FinancePdfSettingsFromJson(Map<String, dynamic> json) =>
+    _FinancePdfSettings(
+      paperSize:
+          $enumDecodeNullable(
+            _$FinancePdfPaperSizeEnumMap,
+            json['paperSize'],
+          ) ??
+          FinancePdfPaperSize.a4,
+      showQrCode: json['showQrCode'] as bool? ?? true,
+      showLogo: json['showLogo'] as bool? ?? true,
+      showStoreContact: json['showStoreContact'] as bool? ?? true,
+      showSupplierDetails: json['showSupplierDetails'] as bool? ?? true,
+      showDocumentId: json['showDocumentId'] as bool? ?? true,
+      showFooter: json['showFooter'] as bool? ?? true,
+      showStatusBadge: json['showStatusBadge'] as bool? ?? true,
+      showSignatureLines: json['showSignatureLines'] as bool? ?? false,
+      showPaymentHistory: json['showPaymentHistory'] as bool? ?? true,
+      footerNote: json['footerNote'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$FinancePdfSettingsToJson(_FinancePdfSettings instance) =>
+    <String, dynamic>{
+      'paperSize': _$FinancePdfPaperSizeEnumMap[instance.paperSize]!,
+      'showQrCode': instance.showQrCode,
+      'showLogo': instance.showLogo,
+      'showStoreContact': instance.showStoreContact,
+      'showSupplierDetails': instance.showSupplierDetails,
+      'showDocumentId': instance.showDocumentId,
+      'showFooter': instance.showFooter,
+      'showStatusBadge': instance.showStatusBadge,
+      'showSignatureLines': instance.showSignatureLines,
+      'showPaymentHistory': instance.showPaymentHistory,
+      'footerNote': instance.footerNote,
+    };
+
+const _$FinancePdfPaperSizeEnumMap = {
+  FinancePdfPaperSize.a4: 'a4',
+  FinancePdfPaperSize.letter: 'letter',
+  FinancePdfPaperSize.a5: 'a5',
+  FinancePdfPaperSize.legal: 'legal',
+};
+
 _FinanceIntegration _$FinanceIntegrationFromJson(Map<String, dynamic> json) =>
     _FinanceIntegration(
       recognize_on:
@@ -483,6 +525,9 @@ _FinanceIntegration _$FinanceIntegrationFromJson(Map<String, dynamic> json) =>
               ?.map((e) => $enumDecode(_$OrderStatusEnumMap, e))
               .toList() ??
           const [],
+      pdf: json['pdf'] == null
+          ? const FinancePdfSettings()
+          : FinancePdfSettings.fromJson(json['pdf'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$FinanceIntegrationToJson(_FinanceIntegration instance) =>
@@ -490,6 +535,7 @@ Map<String, dynamic> _$FinanceIntegrationToJson(_FinanceIntegration instance) =>
       'recognize_on': instance.recognize_on
           .map((e) => _$OrderStatusEnumMap[e]!)
           .toList(),
+      'pdf': instance.pdf,
     };
 
 _CustomStatusMapping _$CustomStatusMappingFromJson(Map<String, dynamic> json) =>

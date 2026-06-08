@@ -415,11 +415,45 @@ abstract class InventoryIntegration with _$InventoryIntegration {
       _$InventoryIntegrationFromJson(json);
 }
 
+/// Paper size for finance PDF documents (purchase orders, receipts, bills).
+enum FinancePdfPaperSize {
+  @JsonValue('a4')
+  a4,
+  @JsonValue('letter')
+  letter,
+  @JsonValue('a5')
+  a5,
+  @JsonValue('legal')
+  legal,
+}
+
+/// Layout and content options for finance PDF documents.
+@freezed
+abstract class FinancePdfSettings with _$FinancePdfSettings {
+  const factory FinancePdfSettings({
+    @Default(FinancePdfPaperSize.a4) FinancePdfPaperSize paperSize,
+    @Default(true) bool showQrCode,
+    @Default(true) bool showLogo,
+    @Default(true) bool showStoreContact,
+    @Default(true) bool showSupplierDetails,
+    @Default(true) bool showDocumentId,
+    @Default(true) bool showFooter,
+    @Default(true) bool showStatusBadge,
+    @Default(false) bool showSignatureLines,
+    @Default(true) bool showPaymentHistory,
+    @Default('') String footerNote,
+  }) = _FinancePdfSettings;
+
+  factory FinancePdfSettings.fromJson(Map<String, dynamic> json) =>
+      _$FinancePdfSettingsFromJson(json);
+}
+
 /// Order → finance behavior: when revenue/COGS are recognized for an order.
 @freezed
 abstract class FinanceIntegration with _$FinanceIntegration {
   const factory FinanceIntegration({
     @Default([]) List<OrderStatus> recognize_on,
+    @Default(FinancePdfSettings()) FinancePdfSettings pdf,
   }) = _FinanceIntegration;
 
   factory FinanceIntegration.fromJson(Map<String, dynamic> json) =>

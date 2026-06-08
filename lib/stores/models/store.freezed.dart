@@ -2953,9 +2953,302 @@ as List<OrderStatus>,
 
 
 /// @nodoc
+mixin _$FinancePdfSettings {
+
+ FinancePdfPaperSize get paperSize; bool get showQrCode; bool get showLogo; bool get showStoreContact; bool get showSupplierDetails; bool get showDocumentId; bool get showFooter; bool get showStatusBadge; bool get showSignatureLines; bool get showPaymentHistory; String get footerNote;
+/// Create a copy of FinancePdfSettings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FinancePdfSettingsCopyWith<FinancePdfSettings> get copyWith => _$FinancePdfSettingsCopyWithImpl<FinancePdfSettings>(this as FinancePdfSettings, _$identity);
+
+  /// Serializes this FinancePdfSettings to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinancePdfSettings&&(identical(other.paperSize, paperSize) || other.paperSize == paperSize)&&(identical(other.showQrCode, showQrCode) || other.showQrCode == showQrCode)&&(identical(other.showLogo, showLogo) || other.showLogo == showLogo)&&(identical(other.showStoreContact, showStoreContact) || other.showStoreContact == showStoreContact)&&(identical(other.showSupplierDetails, showSupplierDetails) || other.showSupplierDetails == showSupplierDetails)&&(identical(other.showDocumentId, showDocumentId) || other.showDocumentId == showDocumentId)&&(identical(other.showFooter, showFooter) || other.showFooter == showFooter)&&(identical(other.showStatusBadge, showStatusBadge) || other.showStatusBadge == showStatusBadge)&&(identical(other.showSignatureLines, showSignatureLines) || other.showSignatureLines == showSignatureLines)&&(identical(other.showPaymentHistory, showPaymentHistory) || other.showPaymentHistory == showPaymentHistory)&&(identical(other.footerNote, footerNote) || other.footerNote == footerNote));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,paperSize,showQrCode,showLogo,showStoreContact,showSupplierDetails,showDocumentId,showFooter,showStatusBadge,showSignatureLines,showPaymentHistory,footerNote);
+
+@override
+String toString() {
+  return 'FinancePdfSettings(paperSize: $paperSize, showQrCode: $showQrCode, showLogo: $showLogo, showStoreContact: $showStoreContact, showSupplierDetails: $showSupplierDetails, showDocumentId: $showDocumentId, showFooter: $showFooter, showStatusBadge: $showStatusBadge, showSignatureLines: $showSignatureLines, showPaymentHistory: $showPaymentHistory, footerNote: $footerNote)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $FinancePdfSettingsCopyWith<$Res>  {
+  factory $FinancePdfSettingsCopyWith(FinancePdfSettings value, $Res Function(FinancePdfSettings) _then) = _$FinancePdfSettingsCopyWithImpl;
+@useResult
+$Res call({
+ FinancePdfPaperSize paperSize, bool showQrCode, bool showLogo, bool showStoreContact, bool showSupplierDetails, bool showDocumentId, bool showFooter, bool showStatusBadge, bool showSignatureLines, bool showPaymentHistory, String footerNote
+});
+
+
+
+
+}
+/// @nodoc
+class _$FinancePdfSettingsCopyWithImpl<$Res>
+    implements $FinancePdfSettingsCopyWith<$Res> {
+  _$FinancePdfSettingsCopyWithImpl(this._self, this._then);
+
+  final FinancePdfSettings _self;
+  final $Res Function(FinancePdfSettings) _then;
+
+/// Create a copy of FinancePdfSettings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? paperSize = null,Object? showQrCode = null,Object? showLogo = null,Object? showStoreContact = null,Object? showSupplierDetails = null,Object? showDocumentId = null,Object? showFooter = null,Object? showStatusBadge = null,Object? showSignatureLines = null,Object? showPaymentHistory = null,Object? footerNote = null,}) {
+  return _then(_self.copyWith(
+paperSize: null == paperSize ? _self.paperSize : paperSize // ignore: cast_nullable_to_non_nullable
+as FinancePdfPaperSize,showQrCode: null == showQrCode ? _self.showQrCode : showQrCode // ignore: cast_nullable_to_non_nullable
+as bool,showLogo: null == showLogo ? _self.showLogo : showLogo // ignore: cast_nullable_to_non_nullable
+as bool,showStoreContact: null == showStoreContact ? _self.showStoreContact : showStoreContact // ignore: cast_nullable_to_non_nullable
+as bool,showSupplierDetails: null == showSupplierDetails ? _self.showSupplierDetails : showSupplierDetails // ignore: cast_nullable_to_non_nullable
+as bool,showDocumentId: null == showDocumentId ? _self.showDocumentId : showDocumentId // ignore: cast_nullable_to_non_nullable
+as bool,showFooter: null == showFooter ? _self.showFooter : showFooter // ignore: cast_nullable_to_non_nullable
+as bool,showStatusBadge: null == showStatusBadge ? _self.showStatusBadge : showStatusBadge // ignore: cast_nullable_to_non_nullable
+as bool,showSignatureLines: null == showSignatureLines ? _self.showSignatureLines : showSignatureLines // ignore: cast_nullable_to_non_nullable
+as bool,showPaymentHistory: null == showPaymentHistory ? _self.showPaymentHistory : showPaymentHistory // ignore: cast_nullable_to_non_nullable
+as bool,footerNote: null == footerNote ? _self.footerNote : footerNote // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [FinancePdfSettings].
+extension FinancePdfSettingsPatterns on FinancePdfSettings {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _FinancePdfSettings value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _FinancePdfSettings() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _FinancePdfSettings value)  $default,){
+final _that = this;
+switch (_that) {
+case _FinancePdfSettings():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _FinancePdfSettings value)?  $default,){
+final _that = this;
+switch (_that) {
+case _FinancePdfSettings() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FinancePdfPaperSize paperSize,  bool showQrCode,  bool showLogo,  bool showStoreContact,  bool showSupplierDetails,  bool showDocumentId,  bool showFooter,  bool showStatusBadge,  bool showSignatureLines,  bool showPaymentHistory,  String footerNote)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _FinancePdfSettings() when $default != null:
+return $default(_that.paperSize,_that.showQrCode,_that.showLogo,_that.showStoreContact,_that.showSupplierDetails,_that.showDocumentId,_that.showFooter,_that.showStatusBadge,_that.showSignatureLines,_that.showPaymentHistory,_that.footerNote);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FinancePdfPaperSize paperSize,  bool showQrCode,  bool showLogo,  bool showStoreContact,  bool showSupplierDetails,  bool showDocumentId,  bool showFooter,  bool showStatusBadge,  bool showSignatureLines,  bool showPaymentHistory,  String footerNote)  $default,) {final _that = this;
+switch (_that) {
+case _FinancePdfSettings():
+return $default(_that.paperSize,_that.showQrCode,_that.showLogo,_that.showStoreContact,_that.showSupplierDetails,_that.showDocumentId,_that.showFooter,_that.showStatusBadge,_that.showSignatureLines,_that.showPaymentHistory,_that.footerNote);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FinancePdfPaperSize paperSize,  bool showQrCode,  bool showLogo,  bool showStoreContact,  bool showSupplierDetails,  bool showDocumentId,  bool showFooter,  bool showStatusBadge,  bool showSignatureLines,  bool showPaymentHistory,  String footerNote)?  $default,) {final _that = this;
+switch (_that) {
+case _FinancePdfSettings() when $default != null:
+return $default(_that.paperSize,_that.showQrCode,_that.showLogo,_that.showStoreContact,_that.showSupplierDetails,_that.showDocumentId,_that.showFooter,_that.showStatusBadge,_that.showSignatureLines,_that.showPaymentHistory,_that.footerNote);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _FinancePdfSettings implements FinancePdfSettings {
+  const _FinancePdfSettings({this.paperSize = FinancePdfPaperSize.a4, this.showQrCode = true, this.showLogo = true, this.showStoreContact = true, this.showSupplierDetails = true, this.showDocumentId = true, this.showFooter = true, this.showStatusBadge = true, this.showSignatureLines = false, this.showPaymentHistory = true, this.footerNote = ''});
+  factory _FinancePdfSettings.fromJson(Map<String, dynamic> json) => _$FinancePdfSettingsFromJson(json);
+
+@override@JsonKey() final  FinancePdfPaperSize paperSize;
+@override@JsonKey() final  bool showQrCode;
+@override@JsonKey() final  bool showLogo;
+@override@JsonKey() final  bool showStoreContact;
+@override@JsonKey() final  bool showSupplierDetails;
+@override@JsonKey() final  bool showDocumentId;
+@override@JsonKey() final  bool showFooter;
+@override@JsonKey() final  bool showStatusBadge;
+@override@JsonKey() final  bool showSignatureLines;
+@override@JsonKey() final  bool showPaymentHistory;
+@override@JsonKey() final  String footerNote;
+
+/// Create a copy of FinancePdfSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FinancePdfSettingsCopyWith<_FinancePdfSettings> get copyWith => __$FinancePdfSettingsCopyWithImpl<_FinancePdfSettings>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$FinancePdfSettingsToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinancePdfSettings&&(identical(other.paperSize, paperSize) || other.paperSize == paperSize)&&(identical(other.showQrCode, showQrCode) || other.showQrCode == showQrCode)&&(identical(other.showLogo, showLogo) || other.showLogo == showLogo)&&(identical(other.showStoreContact, showStoreContact) || other.showStoreContact == showStoreContact)&&(identical(other.showSupplierDetails, showSupplierDetails) || other.showSupplierDetails == showSupplierDetails)&&(identical(other.showDocumentId, showDocumentId) || other.showDocumentId == showDocumentId)&&(identical(other.showFooter, showFooter) || other.showFooter == showFooter)&&(identical(other.showStatusBadge, showStatusBadge) || other.showStatusBadge == showStatusBadge)&&(identical(other.showSignatureLines, showSignatureLines) || other.showSignatureLines == showSignatureLines)&&(identical(other.showPaymentHistory, showPaymentHistory) || other.showPaymentHistory == showPaymentHistory)&&(identical(other.footerNote, footerNote) || other.footerNote == footerNote));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,paperSize,showQrCode,showLogo,showStoreContact,showSupplierDetails,showDocumentId,showFooter,showStatusBadge,showSignatureLines,showPaymentHistory,footerNote);
+
+@override
+String toString() {
+  return 'FinancePdfSettings(paperSize: $paperSize, showQrCode: $showQrCode, showLogo: $showLogo, showStoreContact: $showStoreContact, showSupplierDetails: $showSupplierDetails, showDocumentId: $showDocumentId, showFooter: $showFooter, showStatusBadge: $showStatusBadge, showSignatureLines: $showSignatureLines, showPaymentHistory: $showPaymentHistory, footerNote: $footerNote)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$FinancePdfSettingsCopyWith<$Res> implements $FinancePdfSettingsCopyWith<$Res> {
+  factory _$FinancePdfSettingsCopyWith(_FinancePdfSettings value, $Res Function(_FinancePdfSettings) _then) = __$FinancePdfSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ FinancePdfPaperSize paperSize, bool showQrCode, bool showLogo, bool showStoreContact, bool showSupplierDetails, bool showDocumentId, bool showFooter, bool showStatusBadge, bool showSignatureLines, bool showPaymentHistory, String footerNote
+});
+
+
+
+
+}
+/// @nodoc
+class __$FinancePdfSettingsCopyWithImpl<$Res>
+    implements _$FinancePdfSettingsCopyWith<$Res> {
+  __$FinancePdfSettingsCopyWithImpl(this._self, this._then);
+
+  final _FinancePdfSettings _self;
+  final $Res Function(_FinancePdfSettings) _then;
+
+/// Create a copy of FinancePdfSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? paperSize = null,Object? showQrCode = null,Object? showLogo = null,Object? showStoreContact = null,Object? showSupplierDetails = null,Object? showDocumentId = null,Object? showFooter = null,Object? showStatusBadge = null,Object? showSignatureLines = null,Object? showPaymentHistory = null,Object? footerNote = null,}) {
+  return _then(_FinancePdfSettings(
+paperSize: null == paperSize ? _self.paperSize : paperSize // ignore: cast_nullable_to_non_nullable
+as FinancePdfPaperSize,showQrCode: null == showQrCode ? _self.showQrCode : showQrCode // ignore: cast_nullable_to_non_nullable
+as bool,showLogo: null == showLogo ? _self.showLogo : showLogo // ignore: cast_nullable_to_non_nullable
+as bool,showStoreContact: null == showStoreContact ? _self.showStoreContact : showStoreContact // ignore: cast_nullable_to_non_nullable
+as bool,showSupplierDetails: null == showSupplierDetails ? _self.showSupplierDetails : showSupplierDetails // ignore: cast_nullable_to_non_nullable
+as bool,showDocumentId: null == showDocumentId ? _self.showDocumentId : showDocumentId // ignore: cast_nullable_to_non_nullable
+as bool,showFooter: null == showFooter ? _self.showFooter : showFooter // ignore: cast_nullable_to_non_nullable
+as bool,showStatusBadge: null == showStatusBadge ? _self.showStatusBadge : showStatusBadge // ignore: cast_nullable_to_non_nullable
+as bool,showSignatureLines: null == showSignatureLines ? _self.showSignatureLines : showSignatureLines // ignore: cast_nullable_to_non_nullable
+as bool,showPaymentHistory: null == showPaymentHistory ? _self.showPaymentHistory : showPaymentHistory // ignore: cast_nullable_to_non_nullable
+as bool,footerNote: null == footerNote ? _self.footerNote : footerNote // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$FinanceIntegration {
 
- List<OrderStatus> get recognize_on;
+ List<OrderStatus> get recognize_on; FinancePdfSettings get pdf;
 /// Create a copy of FinanceIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2968,16 +3261,16 @@ $FinanceIntegrationCopyWith<FinanceIntegration> get copyWith => _$FinanceIntegra
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinanceIntegration&&const DeepCollectionEquality().equals(other.recognize_on, recognize_on));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinanceIntegration&&const DeepCollectionEquality().equals(other.recognize_on, recognize_on)&&(identical(other.pdf, pdf) || other.pdf == pdf));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(recognize_on));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(recognize_on),pdf);
 
 @override
 String toString() {
-  return 'FinanceIntegration(recognize_on: $recognize_on)';
+  return 'FinanceIntegration(recognize_on: $recognize_on, pdf: $pdf)';
 }
 
 
@@ -2988,11 +3281,11 @@ abstract mixin class $FinanceIntegrationCopyWith<$Res>  {
   factory $FinanceIntegrationCopyWith(FinanceIntegration value, $Res Function(FinanceIntegration) _then) = _$FinanceIntegrationCopyWithImpl;
 @useResult
 $Res call({
- List<OrderStatus> recognize_on
+ List<OrderStatus> recognize_on, FinancePdfSettings pdf
 });
 
 
-
+$FinancePdfSettingsCopyWith<$Res> get pdf;
 
 }
 /// @nodoc
@@ -3005,13 +3298,23 @@ class _$FinanceIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of FinanceIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? recognize_on = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? recognize_on = null,Object? pdf = null,}) {
   return _then(_self.copyWith(
 recognize_on: null == recognize_on ? _self.recognize_on : recognize_on // ignore: cast_nullable_to_non_nullable
-as List<OrderStatus>,
+as List<OrderStatus>,pdf: null == pdf ? _self.pdf : pdf // ignore: cast_nullable_to_non_nullable
+as FinancePdfSettings,
   ));
 }
-
+/// Create a copy of FinanceIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FinancePdfSettingsCopyWith<$Res> get pdf {
+  
+  return $FinancePdfSettingsCopyWith<$Res>(_self.pdf, (value) {
+    return _then(_self.copyWith(pdf: value));
+  });
+}
 }
 
 
@@ -3093,10 +3396,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<OrderStatus> recognize_on)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<OrderStatus> recognize_on,  FinancePdfSettings pdf)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FinanceIntegration() when $default != null:
-return $default(_that.recognize_on);case _:
+return $default(_that.recognize_on,_that.pdf);case _:
   return orElse();
 
 }
@@ -3114,10 +3417,10 @@ return $default(_that.recognize_on);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<OrderStatus> recognize_on)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<OrderStatus> recognize_on,  FinancePdfSettings pdf)  $default,) {final _that = this;
 switch (_that) {
 case _FinanceIntegration():
-return $default(_that.recognize_on);case _:
+return $default(_that.recognize_on,_that.pdf);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -3134,10 +3437,10 @@ return $default(_that.recognize_on);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<OrderStatus> recognize_on)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<OrderStatus> recognize_on,  FinancePdfSettings pdf)?  $default,) {final _that = this;
 switch (_that) {
 case _FinanceIntegration() when $default != null:
-return $default(_that.recognize_on);case _:
+return $default(_that.recognize_on,_that.pdf);case _:
   return null;
 
 }
@@ -3149,7 +3452,7 @@ return $default(_that.recognize_on);case _:
 @JsonSerializable()
 
 class _FinanceIntegration implements FinanceIntegration {
-  const _FinanceIntegration({final  List<OrderStatus> recognize_on = const []}): _recognize_on = recognize_on;
+  const _FinanceIntegration({final  List<OrderStatus> recognize_on = const [], this.pdf = const FinancePdfSettings()}): _recognize_on = recognize_on;
   factory _FinanceIntegration.fromJson(Map<String, dynamic> json) => _$FinanceIntegrationFromJson(json);
 
  final  List<OrderStatus> _recognize_on;
@@ -3159,6 +3462,7 @@ class _FinanceIntegration implements FinanceIntegration {
   return EqualUnmodifiableListView(_recognize_on);
 }
 
+@override@JsonKey() final  FinancePdfSettings pdf;
 
 /// Create a copy of FinanceIntegration
 /// with the given fields replaced by the non-null parameter values.
@@ -3173,16 +3477,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinanceIntegration&&const DeepCollectionEquality().equals(other._recognize_on, _recognize_on));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinanceIntegration&&const DeepCollectionEquality().equals(other._recognize_on, _recognize_on)&&(identical(other.pdf, pdf) || other.pdf == pdf));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_recognize_on));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_recognize_on),pdf);
 
 @override
 String toString() {
-  return 'FinanceIntegration(recognize_on: $recognize_on)';
+  return 'FinanceIntegration(recognize_on: $recognize_on, pdf: $pdf)';
 }
 
 
@@ -3193,11 +3497,11 @@ abstract mixin class _$FinanceIntegrationCopyWith<$Res> implements $FinanceInteg
   factory _$FinanceIntegrationCopyWith(_FinanceIntegration value, $Res Function(_FinanceIntegration) _then) = __$FinanceIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- List<OrderStatus> recognize_on
+ List<OrderStatus> recognize_on, FinancePdfSettings pdf
 });
 
 
-
+@override $FinancePdfSettingsCopyWith<$Res> get pdf;
 
 }
 /// @nodoc
@@ -3210,14 +3514,24 @@ class __$FinanceIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of FinanceIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? recognize_on = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? recognize_on = null,Object? pdf = null,}) {
   return _then(_FinanceIntegration(
 recognize_on: null == recognize_on ? _self._recognize_on : recognize_on // ignore: cast_nullable_to_non_nullable
-as List<OrderStatus>,
+as List<OrderStatus>,pdf: null == pdf ? _self.pdf : pdf // ignore: cast_nullable_to_non_nullable
+as FinancePdfSettings,
   ));
 }
 
-
+/// Create a copy of FinanceIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FinancePdfSettingsCopyWith<$Res> get pdf {
+  
+  return $FinancePdfSettingsCopyWith<$Res>(_self.pdf, (value) {
+    return _then(_self.copyWith(pdf: value));
+  });
+}
 }
 
 

@@ -1224,6 +1224,10 @@ class FinanceOverview {
   final double netProfit;
   final String? pnlFrom;
   final String? pnlTo;
+  final AgingResult? apAging;
+  final AgingResult? arAging;
+  final CashPosition? cashPosition;
+  final PnlReport? pnl;
 
   const FinanceOverview({
     required this.cash,
@@ -1234,6 +1238,10 @@ class FinanceOverview {
     this.netProfit = 0,
     this.pnlFrom,
     this.pnlTo,
+    this.apAging,
+    this.arAging,
+    this.cashPosition,
+    this.pnl,
   });
 
   factory FinanceOverview.fromJson(Map<String, dynamic> json) => FinanceOverview(
@@ -1245,6 +1253,21 @@ class FinanceOverview {
         netProfit: _toDouble(json['netProfit']),
         pnlFrom: json['pnlFrom'] as String?,
         pnlTo: json['pnlTo'] as String?,
+        apAging: json['apAging'] != null
+            ? AgingResult.fromJson(
+                Map<String, dynamic>.from(json['apAging'] as Map))
+            : null,
+        arAging: json['arAging'] != null
+            ? AgingResult.fromJson(
+                Map<String, dynamic>.from(json['arAging'] as Map))
+            : null,
+        cashPosition: json['cashPosition'] != null
+            ? CashPosition.fromJson(
+                Map<String, dynamic>.from(json['cashPosition'] as Map))
+            : null,
+        pnl: json['pnl'] != null
+            ? PnlReport.fromJson(Map<String, dynamic>.from(json['pnl'] as Map))
+            : null,
       );
 }
 
@@ -1323,6 +1346,7 @@ class PnlReport {
   final double grossProfit;
   final double expenses;
   final double netProfit;
+  final List<PnlDayRow>? byDay;
 
   const PnlReport({
     this.from,
@@ -1332,6 +1356,7 @@ class PnlReport {
     required this.grossProfit,
     required this.expenses,
     required this.netProfit,
+    this.byDay,
   });
 
   factory PnlReport.fromJson(Map<String, dynamic> json) => PnlReport(
@@ -1341,6 +1366,36 @@ class PnlReport {
         cogs: _toDouble(json['cogs']),
         grossProfit: _toDouble(json['grossProfit']),
         expenses: _toDouble(json['expenses']),
+        netProfit: _toDouble(json['netProfit']),
+        byDay: (json['byDay'] as List<dynamic>?)
+            ?.map((e) => PnlDayRow.fromJson(Map<String, dynamic>.from(e)))
+            .toList(),
+      );
+}
+
+class PnlDayRow {
+  final String day;
+  final double revenue;
+  final double cogs;
+  final double expenses;
+  final double grossProfit;
+  final double netProfit;
+
+  const PnlDayRow({
+    required this.day,
+    required this.revenue,
+    required this.cogs,
+    required this.expenses,
+    required this.grossProfit,
+    required this.netProfit,
+  });
+
+  factory PnlDayRow.fromJson(Map<String, dynamic> json) => PnlDayRow(
+        day: json['day'] as String? ?? '',
+        revenue: _toDouble(json['revenue']),
+        cogs: _toDouble(json['cogs']),
+        expenses: _toDouble(json['expenses']),
+        grossProfit: _toDouble(json['grossProfit']),
         netProfit: _toDouble(json['netProfit']),
       );
 }

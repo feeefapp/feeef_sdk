@@ -2668,7 +2668,7 @@ $FinanceIntegrationCopyWith<$Res>? get finance_integration {
 /// @nodoc
 mixin _$InventoryIntegration {
 
- List<OrderStatus> get reserve_on; List<OrderStatus> get unreserve_on; List<OrderStatus> get consume_on;
+ List<OrderStatus> get reserve_on; List<OrderStatus> get unreserve_on; List<OrderStatus> get consume_on; MissingInventoryBucketPolicy get missing_bucket_policy;
 /// Create a copy of InventoryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2681,16 +2681,16 @@ $InventoryIntegrationCopyWith<InventoryIntegration> get copyWith => _$InventoryI
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryIntegration&&const DeepCollectionEquality().equals(other.reserve_on, reserve_on)&&const DeepCollectionEquality().equals(other.unreserve_on, unreserve_on)&&const DeepCollectionEquality().equals(other.consume_on, consume_on));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryIntegration&&const DeepCollectionEquality().equals(other.reserve_on, reserve_on)&&const DeepCollectionEquality().equals(other.unreserve_on, unreserve_on)&&const DeepCollectionEquality().equals(other.consume_on, consume_on)&&(identical(other.missing_bucket_policy, missing_bucket_policy) || other.missing_bucket_policy == missing_bucket_policy));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(reserve_on),const DeepCollectionEquality().hash(unreserve_on),const DeepCollectionEquality().hash(consume_on));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(reserve_on),const DeepCollectionEquality().hash(unreserve_on),const DeepCollectionEquality().hash(consume_on),missing_bucket_policy);
 
 @override
 String toString() {
-  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on)';
+  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on, missing_bucket_policy: $missing_bucket_policy)';
 }
 
 
@@ -2701,7 +2701,7 @@ abstract mixin class $InventoryIntegrationCopyWith<$Res>  {
   factory $InventoryIntegrationCopyWith(InventoryIntegration value, $Res Function(InventoryIntegration) _then) = _$InventoryIntegrationCopyWithImpl;
 @useResult
 $Res call({
- List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on
+ List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on, MissingInventoryBucketPolicy missing_bucket_policy
 });
 
 
@@ -2718,12 +2718,13 @@ class _$InventoryIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of InventoryIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,Object? missing_bucket_policy = null,}) {
   return _then(_self.copyWith(
 reserve_on: null == reserve_on ? _self.reserve_on : reserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,unreserve_on: null == unreserve_on ? _self.unreserve_on : unreserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,consume_on: null == consume_on ? _self.consume_on : consume_on // ignore: cast_nullable_to_non_nullable
-as List<OrderStatus>,
+as List<OrderStatus>,missing_bucket_policy: null == missing_bucket_policy ? _self.missing_bucket_policy : missing_bucket_policy // ignore: cast_nullable_to_non_nullable
+as MissingInventoryBucketPolicy,
   ));
 }
 
@@ -2808,10 +2809,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on,  MissingInventoryBucketPolicy missing_bucket_policy)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _InventoryIntegration() when $default != null:
-return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
+return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.missing_bucket_policy);case _:
   return orElse();
 
 }
@@ -2829,10 +2830,10 @@ return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on,  MissingInventoryBucketPolicy missing_bucket_policy)  $default,) {final _that = this;
 switch (_that) {
 case _InventoryIntegration():
-return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
+return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.missing_bucket_policy);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2849,10 +2850,10 @@ return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on,  MissingInventoryBucketPolicy missing_bucket_policy)?  $default,) {final _that = this;
 switch (_that) {
 case _InventoryIntegration() when $default != null:
-return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
+return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.missing_bucket_policy);case _:
   return null;
 
 }
@@ -2864,7 +2865,7 @@ return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
 @JsonSerializable()
 
 class _InventoryIntegration implements InventoryIntegration {
-  const _InventoryIntegration({final  List<OrderStatus> reserve_on = const [], final  List<OrderStatus> unreserve_on = const [], final  List<OrderStatus> consume_on = const []}): _reserve_on = reserve_on,_unreserve_on = unreserve_on,_consume_on = consume_on;
+  const _InventoryIntegration({final  List<OrderStatus> reserve_on = const [], final  List<OrderStatus> unreserve_on = const [], final  List<OrderStatus> consume_on = const [], this.missing_bucket_policy = MissingInventoryBucketPolicy.ignore}): _reserve_on = reserve_on,_unreserve_on = unreserve_on,_consume_on = consume_on;
   factory _InventoryIntegration.fromJson(Map<String, dynamic> json) => _$InventoryIntegrationFromJson(json);
 
  final  List<OrderStatus> _reserve_on;
@@ -2888,6 +2889,7 @@ class _InventoryIntegration implements InventoryIntegration {
   return EqualUnmodifiableListView(_consume_on);
 }
 
+@override@JsonKey() final  MissingInventoryBucketPolicy missing_bucket_policy;
 
 /// Create a copy of InventoryIntegration
 /// with the given fields replaced by the non-null parameter values.
@@ -2902,16 +2904,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryIntegration&&const DeepCollectionEquality().equals(other._reserve_on, _reserve_on)&&const DeepCollectionEquality().equals(other._unreserve_on, _unreserve_on)&&const DeepCollectionEquality().equals(other._consume_on, _consume_on));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryIntegration&&const DeepCollectionEquality().equals(other._reserve_on, _reserve_on)&&const DeepCollectionEquality().equals(other._unreserve_on, _unreserve_on)&&const DeepCollectionEquality().equals(other._consume_on, _consume_on)&&(identical(other.missing_bucket_policy, missing_bucket_policy) || other.missing_bucket_policy == missing_bucket_policy));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_reserve_on),const DeepCollectionEquality().hash(_unreserve_on),const DeepCollectionEquality().hash(_consume_on));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_reserve_on),const DeepCollectionEquality().hash(_unreserve_on),const DeepCollectionEquality().hash(_consume_on),missing_bucket_policy);
 
 @override
 String toString() {
-  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on)';
+  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on, missing_bucket_policy: $missing_bucket_policy)';
 }
 
 
@@ -2922,7 +2924,7 @@ abstract mixin class _$InventoryIntegrationCopyWith<$Res> implements $InventoryI
   factory _$InventoryIntegrationCopyWith(_InventoryIntegration value, $Res Function(_InventoryIntegration) _then) = __$InventoryIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on
+ List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on, MissingInventoryBucketPolicy missing_bucket_policy
 });
 
 
@@ -2939,12 +2941,13 @@ class __$InventoryIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of InventoryIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,Object? missing_bucket_policy = null,}) {
   return _then(_InventoryIntegration(
 reserve_on: null == reserve_on ? _self._reserve_on : reserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,unreserve_on: null == unreserve_on ? _self._unreserve_on : unreserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,consume_on: null == consume_on ? _self._consume_on : consume_on // ignore: cast_nullable_to_non_nullable
-as List<OrderStatus>,
+as List<OrderStatus>,missing_bucket_policy: null == missing_bucket_policy ? _self.missing_bucket_policy : missing_bucket_policy // ignore: cast_nullable_to_non_nullable
+as MissingInventoryBucketPolicy,
   ));
 }
 
@@ -3248,7 +3251,8 @@ as String,
 /// @nodoc
 mixin _$FinanceIntegration {
 
- List<OrderStatus> get recognize_on; FinancePdfSettings get pdf;
+ List<OrderStatus> get recognize_on; FinancePdfSettings get pdf;/// Cash-basis metrics ignore payments/expenses before this UTC timestamp.
+ String? get activated_at;
 /// Create a copy of FinanceIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -3261,16 +3265,16 @@ $FinanceIntegrationCopyWith<FinanceIntegration> get copyWith => _$FinanceIntegra
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinanceIntegration&&const DeepCollectionEquality().equals(other.recognize_on, recognize_on)&&(identical(other.pdf, pdf) || other.pdf == pdf));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinanceIntegration&&const DeepCollectionEquality().equals(other.recognize_on, recognize_on)&&(identical(other.pdf, pdf) || other.pdf == pdf)&&(identical(other.activated_at, activated_at) || other.activated_at == activated_at));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(recognize_on),pdf);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(recognize_on),pdf,activated_at);
 
 @override
 String toString() {
-  return 'FinanceIntegration(recognize_on: $recognize_on, pdf: $pdf)';
+  return 'FinanceIntegration(recognize_on: $recognize_on, pdf: $pdf, activated_at: $activated_at)';
 }
 
 
@@ -3281,7 +3285,7 @@ abstract mixin class $FinanceIntegrationCopyWith<$Res>  {
   factory $FinanceIntegrationCopyWith(FinanceIntegration value, $Res Function(FinanceIntegration) _then) = _$FinanceIntegrationCopyWithImpl;
 @useResult
 $Res call({
- List<OrderStatus> recognize_on, FinancePdfSettings pdf
+ List<OrderStatus> recognize_on, FinancePdfSettings pdf, String? activated_at
 });
 
 
@@ -3298,11 +3302,12 @@ class _$FinanceIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of FinanceIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? recognize_on = null,Object? pdf = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? recognize_on = null,Object? pdf = null,Object? activated_at = freezed,}) {
   return _then(_self.copyWith(
 recognize_on: null == recognize_on ? _self.recognize_on : recognize_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,pdf: null == pdf ? _self.pdf : pdf // ignore: cast_nullable_to_non_nullable
-as FinancePdfSettings,
+as FinancePdfSettings,activated_at: freezed == activated_at ? _self.activated_at : activated_at // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 /// Create a copy of FinanceIntegration
@@ -3396,10 +3401,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<OrderStatus> recognize_on,  FinancePdfSettings pdf)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<OrderStatus> recognize_on,  FinancePdfSettings pdf,  String? activated_at)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FinanceIntegration() when $default != null:
-return $default(_that.recognize_on,_that.pdf);case _:
+return $default(_that.recognize_on,_that.pdf,_that.activated_at);case _:
   return orElse();
 
 }
@@ -3417,10 +3422,10 @@ return $default(_that.recognize_on,_that.pdf);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<OrderStatus> recognize_on,  FinancePdfSettings pdf)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<OrderStatus> recognize_on,  FinancePdfSettings pdf,  String? activated_at)  $default,) {final _that = this;
 switch (_that) {
 case _FinanceIntegration():
-return $default(_that.recognize_on,_that.pdf);case _:
+return $default(_that.recognize_on,_that.pdf,_that.activated_at);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -3437,10 +3442,10 @@ return $default(_that.recognize_on,_that.pdf);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<OrderStatus> recognize_on,  FinancePdfSettings pdf)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<OrderStatus> recognize_on,  FinancePdfSettings pdf,  String? activated_at)?  $default,) {final _that = this;
 switch (_that) {
 case _FinanceIntegration() when $default != null:
-return $default(_that.recognize_on,_that.pdf);case _:
+return $default(_that.recognize_on,_that.pdf,_that.activated_at);case _:
   return null;
 
 }
@@ -3452,7 +3457,7 @@ return $default(_that.recognize_on,_that.pdf);case _:
 @JsonSerializable()
 
 class _FinanceIntegration implements FinanceIntegration {
-  const _FinanceIntegration({final  List<OrderStatus> recognize_on = const [], this.pdf = const FinancePdfSettings()}): _recognize_on = recognize_on;
+  const _FinanceIntegration({final  List<OrderStatus> recognize_on = const [], this.pdf = const FinancePdfSettings(), this.activated_at}): _recognize_on = recognize_on;
   factory _FinanceIntegration.fromJson(Map<String, dynamic> json) => _$FinanceIntegrationFromJson(json);
 
  final  List<OrderStatus> _recognize_on;
@@ -3463,6 +3468,8 @@ class _FinanceIntegration implements FinanceIntegration {
 }
 
 @override@JsonKey() final  FinancePdfSettings pdf;
+/// Cash-basis metrics ignore payments/expenses before this UTC timestamp.
+@override final  String? activated_at;
 
 /// Create a copy of FinanceIntegration
 /// with the given fields replaced by the non-null parameter values.
@@ -3477,16 +3484,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinanceIntegration&&const DeepCollectionEquality().equals(other._recognize_on, _recognize_on)&&(identical(other.pdf, pdf) || other.pdf == pdf));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinanceIntegration&&const DeepCollectionEquality().equals(other._recognize_on, _recognize_on)&&(identical(other.pdf, pdf) || other.pdf == pdf)&&(identical(other.activated_at, activated_at) || other.activated_at == activated_at));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_recognize_on),pdf);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_recognize_on),pdf,activated_at);
 
 @override
 String toString() {
-  return 'FinanceIntegration(recognize_on: $recognize_on, pdf: $pdf)';
+  return 'FinanceIntegration(recognize_on: $recognize_on, pdf: $pdf, activated_at: $activated_at)';
 }
 
 
@@ -3497,7 +3504,7 @@ abstract mixin class _$FinanceIntegrationCopyWith<$Res> implements $FinanceInteg
   factory _$FinanceIntegrationCopyWith(_FinanceIntegration value, $Res Function(_FinanceIntegration) _then) = __$FinanceIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- List<OrderStatus> recognize_on, FinancePdfSettings pdf
+ List<OrderStatus> recognize_on, FinancePdfSettings pdf, String? activated_at
 });
 
 
@@ -3514,11 +3521,12 @@ class __$FinanceIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of FinanceIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? recognize_on = null,Object? pdf = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? recognize_on = null,Object? pdf = null,Object? activated_at = freezed,}) {
   return _then(_FinanceIntegration(
 recognize_on: null == recognize_on ? _self._recognize_on : recognize_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,pdf: null == pdf ? _self.pdf : pdf // ignore: cast_nullable_to_non_nullable
-as FinancePdfSettings,
+as FinancePdfSettings,activated_at: freezed == activated_at ? _self.activated_at : activated_at // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

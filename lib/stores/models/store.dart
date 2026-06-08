@@ -403,12 +403,22 @@ abstract class StoreConfigs with _$StoreConfigs {
       _$StoreConfigsFromJson(json);
 }
 
+/// How order sync handles line items with no inventory bucket for their SKU.
+enum MissingInventoryBucketPolicy {
+  @JsonValue('ignore')
+  ignore,
+  @JsonValue('reject')
+  reject,
+}
+
 @freezed
 abstract class InventoryIntegration with _$InventoryIntegration {
   const factory InventoryIntegration({
     @Default([]) List<OrderStatus> reserve_on,
     @Default([]) List<OrderStatus> unreserve_on,
     @Default([]) List<OrderStatus> consume_on,
+    @Default(MissingInventoryBucketPolicy.ignore)
+    MissingInventoryBucketPolicy missing_bucket_policy,
   }) = _InventoryIntegration;
 
   factory InventoryIntegration.fromJson(Map<String, dynamic> json) =>
@@ -454,6 +464,8 @@ abstract class FinanceIntegration with _$FinanceIntegration {
   const factory FinanceIntegration({
     @Default([]) List<OrderStatus> recognize_on,
     @Default(FinancePdfSettings()) FinancePdfSettings pdf,
+    /// Cash-basis metrics ignore payments/expenses before this UTC timestamp.
+    String? activated_at,
   }) = _FinanceIntegration;
 
   factory FinanceIntegration.fromJson(Map<String, dynamic> json) =>

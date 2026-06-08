@@ -183,9 +183,16 @@ class FinanceRepository {
 
   // ─── Reports ──────────────────────────────────────────────────────────────
 
-  Future<FinanceOverview> overview({required String projectId}) async {
-    final response = await client.get('/finance/reports/overview',
-        queryParameters: {'projectId': projectId});
+  Future<FinanceOverview> overview({
+    required String projectId,
+    String? from,
+    String? to,
+  }) async {
+    final response = await client.get('/finance/reports/overview', queryParameters: {
+      'projectId': projectId,
+      if (from != null) 'from': from,
+      if (to != null) 'to': to,
+    });
     return FinanceOverview.fromJson(response.data as Map<String, dynamic>);
   }
 
@@ -211,11 +218,13 @@ class FinanceRepository {
     required String projectId,
     String? from,
     String? to,
+    String? groupBy,
   }) async {
     final response = await client.get('/finance/reports/pnl', queryParameters: {
       'projectId': projectId,
       if (from != null) 'from': from,
       if (to != null) 'to': to,
+      if (groupBy != null) 'groupBy': groupBy,
     });
     return PnlReport.fromJson(response.data as Map<String, dynamic>);
   }

@@ -450,6 +450,12 @@ _InventoryIntegration _$InventoryIntegrationFromJson(
           ?.map((e) => $enumDecode(_$OrderStatusEnumMap, e))
           .toList() ??
       const [],
+  missing_bucket_policy:
+      $enumDecodeNullable(
+        _$MissingInventoryBucketPolicyEnumMap,
+        json['missing_bucket_policy'],
+      ) ??
+      MissingInventoryBucketPolicy.ignore,
 );
 
 Map<String, dynamic> _$InventoryIntegrationToJson(
@@ -464,6 +470,8 @@ Map<String, dynamic> _$InventoryIntegrationToJson(
   'consume_on': instance.consume_on
       .map((e) => _$OrderStatusEnumMap[e]!)
       .toList(),
+  'missing_bucket_policy':
+      _$MissingInventoryBucketPolicyEnumMap[instance.missing_bucket_policy]!,
 };
 
 const _$OrderStatusEnumMap = {
@@ -474,6 +482,11 @@ const _$OrderStatusEnumMap = {
   OrderStatus.processing: 'processing',
   OrderStatus.completed: 'completed',
   OrderStatus.cancelled: 'cancelled',
+};
+
+const _$MissingInventoryBucketPolicyEnumMap = {
+  MissingInventoryBucketPolicy.ignore: 'ignore',
+  MissingInventoryBucketPolicy.reject: 'reject',
 };
 
 _FinancePdfSettings _$FinancePdfSettingsFromJson(Map<String, dynamic> json) =>
@@ -528,6 +541,7 @@ _FinanceIntegration _$FinanceIntegrationFromJson(Map<String, dynamic> json) =>
       pdf: json['pdf'] == null
           ? const FinancePdfSettings()
           : FinancePdfSettings.fromJson(json['pdf'] as Map<String, dynamic>),
+      activated_at: json['activated_at'] as String?,
     );
 
 Map<String, dynamic> _$FinanceIntegrationToJson(_FinanceIntegration instance) =>
@@ -536,6 +550,7 @@ Map<String, dynamic> _$FinanceIntegrationToJson(_FinanceIntegration instance) =>
           .map((e) => _$OrderStatusEnumMap[e]!)
           .toList(),
       'pdf': instance.pdf,
+      'activated_at': instance.activated_at,
     };
 
 _CustomStatusMapping _$CustomStatusMappingFromJson(Map<String, dynamic> json) =>

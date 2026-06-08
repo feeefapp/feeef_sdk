@@ -411,12 +411,28 @@ enum MissingInventoryBucketPolicy {
   reject,
 }
 
+/// When an order field equals [equals], apply reserve / release / consume (inventory sync).
+@freezed
+abstract class InventoryLifecycleRule with _$InventoryLifecycleRule {
+  const factory InventoryLifecycleRule({
+    required String id,
+    required PixelStatusDimension dimension,
+    required String equals,
+  }) = _InventoryLifecycleRule;
+
+  factory InventoryLifecycleRule.fromJson(Map<String, dynamic> json) =>
+      _$InventoryLifecycleRuleFromJson(json);
+}
+
 @freezed
 abstract class InventoryIntegration with _$InventoryIntegration {
   const factory InventoryIntegration({
     @Default([]) List<OrderStatus> reserve_on,
     @Default([]) List<OrderStatus> unreserve_on,
     @Default([]) List<OrderStatus> consume_on,
+    @Default([]) List<InventoryLifecycleRule> reserve_rules,
+    @Default([]) List<InventoryLifecycleRule> unreserve_rules,
+    @Default([]) List<InventoryLifecycleRule> consume_rules,
     @Default(MissingInventoryBucketPolicy.ignore)
     MissingInventoryBucketPolicy missing_bucket_policy,
   }) = _InventoryIntegration;

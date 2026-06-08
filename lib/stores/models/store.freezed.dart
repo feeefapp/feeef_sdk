@@ -2666,9 +2666,278 @@ $FinanceIntegrationCopyWith<$Res>? get finance_integration {
 
 
 /// @nodoc
+mixin _$InventoryLifecycleRule {
+
+ String get id; PixelStatusDimension get dimension; String get equals;
+/// Create a copy of InventoryLifecycleRule
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$InventoryLifecycleRuleCopyWith<InventoryLifecycleRule> get copyWith => _$InventoryLifecycleRuleCopyWithImpl<InventoryLifecycleRule>(this as InventoryLifecycleRule, _$identity);
+
+  /// Serializes this InventoryLifecycleRule to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryLifecycleRule&&(identical(other.id, id) || other.id == id)&&(identical(other.dimension, dimension) || other.dimension == dimension)&&(identical(other.equals, equals) || other.equals == equals));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,dimension,equals);
+
+@override
+String toString() {
+  return 'InventoryLifecycleRule(id: $id, dimension: $dimension, equals: $equals)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $InventoryLifecycleRuleCopyWith<$Res>  {
+  factory $InventoryLifecycleRuleCopyWith(InventoryLifecycleRule value, $Res Function(InventoryLifecycleRule) _then) = _$InventoryLifecycleRuleCopyWithImpl;
+@useResult
+$Res call({
+ String id, PixelStatusDimension dimension, String equals
+});
+
+
+
+
+}
+/// @nodoc
+class _$InventoryLifecycleRuleCopyWithImpl<$Res>
+    implements $InventoryLifecycleRuleCopyWith<$Res> {
+  _$InventoryLifecycleRuleCopyWithImpl(this._self, this._then);
+
+  final InventoryLifecycleRule _self;
+  final $Res Function(InventoryLifecycleRule) _then;
+
+/// Create a copy of InventoryLifecycleRule
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? dimension = null,Object? equals = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,dimension: null == dimension ? _self.dimension : dimension // ignore: cast_nullable_to_non_nullable
+as PixelStatusDimension,equals: null == equals ? _self.equals : equals // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [InventoryLifecycleRule].
+extension InventoryLifecycleRulePatterns on InventoryLifecycleRule {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _InventoryLifecycleRule value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _InventoryLifecycleRule() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _InventoryLifecycleRule value)  $default,){
+final _that = this;
+switch (_that) {
+case _InventoryLifecycleRule():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _InventoryLifecycleRule value)?  $default,){
+final _that = this;
+switch (_that) {
+case _InventoryLifecycleRule() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  PixelStatusDimension dimension,  String equals)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _InventoryLifecycleRule() when $default != null:
+return $default(_that.id,_that.dimension,_that.equals);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  PixelStatusDimension dimension,  String equals)  $default,) {final _that = this;
+switch (_that) {
+case _InventoryLifecycleRule():
+return $default(_that.id,_that.dimension,_that.equals);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  PixelStatusDimension dimension,  String equals)?  $default,) {final _that = this;
+switch (_that) {
+case _InventoryLifecycleRule() when $default != null:
+return $default(_that.id,_that.dimension,_that.equals);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _InventoryLifecycleRule implements InventoryLifecycleRule {
+  const _InventoryLifecycleRule({required this.id, required this.dimension, required this.equals});
+  factory _InventoryLifecycleRule.fromJson(Map<String, dynamic> json) => _$InventoryLifecycleRuleFromJson(json);
+
+@override final  String id;
+@override final  PixelStatusDimension dimension;
+@override final  String equals;
+
+/// Create a copy of InventoryLifecycleRule
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$InventoryLifecycleRuleCopyWith<_InventoryLifecycleRule> get copyWith => __$InventoryLifecycleRuleCopyWithImpl<_InventoryLifecycleRule>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$InventoryLifecycleRuleToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryLifecycleRule&&(identical(other.id, id) || other.id == id)&&(identical(other.dimension, dimension) || other.dimension == dimension)&&(identical(other.equals, equals) || other.equals == equals));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,dimension,equals);
+
+@override
+String toString() {
+  return 'InventoryLifecycleRule(id: $id, dimension: $dimension, equals: $equals)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$InventoryLifecycleRuleCopyWith<$Res> implements $InventoryLifecycleRuleCopyWith<$Res> {
+  factory _$InventoryLifecycleRuleCopyWith(_InventoryLifecycleRule value, $Res Function(_InventoryLifecycleRule) _then) = __$InventoryLifecycleRuleCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, PixelStatusDimension dimension, String equals
+});
+
+
+
+
+}
+/// @nodoc
+class __$InventoryLifecycleRuleCopyWithImpl<$Res>
+    implements _$InventoryLifecycleRuleCopyWith<$Res> {
+  __$InventoryLifecycleRuleCopyWithImpl(this._self, this._then);
+
+  final _InventoryLifecycleRule _self;
+  final $Res Function(_InventoryLifecycleRule) _then;
+
+/// Create a copy of InventoryLifecycleRule
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? dimension = null,Object? equals = null,}) {
+  return _then(_InventoryLifecycleRule(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,dimension: null == dimension ? _self.dimension : dimension // ignore: cast_nullable_to_non_nullable
+as PixelStatusDimension,equals: null == equals ? _self.equals : equals // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$InventoryIntegration {
 
- List<OrderStatus> get reserve_on; List<OrderStatus> get unreserve_on; List<OrderStatus> get consume_on; MissingInventoryBucketPolicy get missing_bucket_policy;
+ List<OrderStatus> get reserve_on; List<OrderStatus> get unreserve_on; List<OrderStatus> get consume_on; List<InventoryLifecycleRule> get reserve_rules; List<InventoryLifecycleRule> get unreserve_rules; List<InventoryLifecycleRule> get consume_rules; MissingInventoryBucketPolicy get missing_bucket_policy;
 /// Create a copy of InventoryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2681,16 +2950,16 @@ $InventoryIntegrationCopyWith<InventoryIntegration> get copyWith => _$InventoryI
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryIntegration&&const DeepCollectionEquality().equals(other.reserve_on, reserve_on)&&const DeepCollectionEquality().equals(other.unreserve_on, unreserve_on)&&const DeepCollectionEquality().equals(other.consume_on, consume_on)&&(identical(other.missing_bucket_policy, missing_bucket_policy) || other.missing_bucket_policy == missing_bucket_policy));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryIntegration&&const DeepCollectionEquality().equals(other.reserve_on, reserve_on)&&const DeepCollectionEquality().equals(other.unreserve_on, unreserve_on)&&const DeepCollectionEquality().equals(other.consume_on, consume_on)&&const DeepCollectionEquality().equals(other.reserve_rules, reserve_rules)&&const DeepCollectionEquality().equals(other.unreserve_rules, unreserve_rules)&&const DeepCollectionEquality().equals(other.consume_rules, consume_rules)&&(identical(other.missing_bucket_policy, missing_bucket_policy) || other.missing_bucket_policy == missing_bucket_policy));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(reserve_on),const DeepCollectionEquality().hash(unreserve_on),const DeepCollectionEquality().hash(consume_on),missing_bucket_policy);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(reserve_on),const DeepCollectionEquality().hash(unreserve_on),const DeepCollectionEquality().hash(consume_on),const DeepCollectionEquality().hash(reserve_rules),const DeepCollectionEquality().hash(unreserve_rules),const DeepCollectionEquality().hash(consume_rules),missing_bucket_policy);
 
 @override
 String toString() {
-  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on, missing_bucket_policy: $missing_bucket_policy)';
+  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on, reserve_rules: $reserve_rules, unreserve_rules: $unreserve_rules, consume_rules: $consume_rules, missing_bucket_policy: $missing_bucket_policy)';
 }
 
 
@@ -2701,7 +2970,7 @@ abstract mixin class $InventoryIntegrationCopyWith<$Res>  {
   factory $InventoryIntegrationCopyWith(InventoryIntegration value, $Res Function(InventoryIntegration) _then) = _$InventoryIntegrationCopyWithImpl;
 @useResult
 $Res call({
- List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on, MissingInventoryBucketPolicy missing_bucket_policy
+ List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on, List<InventoryLifecycleRule> reserve_rules, List<InventoryLifecycleRule> unreserve_rules, List<InventoryLifecycleRule> consume_rules, MissingInventoryBucketPolicy missing_bucket_policy
 });
 
 
@@ -2718,12 +2987,15 @@ class _$InventoryIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of InventoryIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,Object? missing_bucket_policy = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,Object? reserve_rules = null,Object? unreserve_rules = null,Object? consume_rules = null,Object? missing_bucket_policy = null,}) {
   return _then(_self.copyWith(
 reserve_on: null == reserve_on ? _self.reserve_on : reserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,unreserve_on: null == unreserve_on ? _self.unreserve_on : unreserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,consume_on: null == consume_on ? _self.consume_on : consume_on // ignore: cast_nullable_to_non_nullable
-as List<OrderStatus>,missing_bucket_policy: null == missing_bucket_policy ? _self.missing_bucket_policy : missing_bucket_policy // ignore: cast_nullable_to_non_nullable
+as List<OrderStatus>,reserve_rules: null == reserve_rules ? _self.reserve_rules : reserve_rules // ignore: cast_nullable_to_non_nullable
+as List<InventoryLifecycleRule>,unreserve_rules: null == unreserve_rules ? _self.unreserve_rules : unreserve_rules // ignore: cast_nullable_to_non_nullable
+as List<InventoryLifecycleRule>,consume_rules: null == consume_rules ? _self.consume_rules : consume_rules // ignore: cast_nullable_to_non_nullable
+as List<InventoryLifecycleRule>,missing_bucket_policy: null == missing_bucket_policy ? _self.missing_bucket_policy : missing_bucket_policy // ignore: cast_nullable_to_non_nullable
 as MissingInventoryBucketPolicy,
   ));
 }
@@ -2809,10 +3081,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on,  MissingInventoryBucketPolicy missing_bucket_policy)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on,  List<InventoryLifecycleRule> reserve_rules,  List<InventoryLifecycleRule> unreserve_rules,  List<InventoryLifecycleRule> consume_rules,  MissingInventoryBucketPolicy missing_bucket_policy)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _InventoryIntegration() when $default != null:
-return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.missing_bucket_policy);case _:
+return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.reserve_rules,_that.unreserve_rules,_that.consume_rules,_that.missing_bucket_policy);case _:
   return orElse();
 
 }
@@ -2830,10 +3102,10 @@ return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.missi
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on,  MissingInventoryBucketPolicy missing_bucket_policy)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on,  List<InventoryLifecycleRule> reserve_rules,  List<InventoryLifecycleRule> unreserve_rules,  List<InventoryLifecycleRule> consume_rules,  MissingInventoryBucketPolicy missing_bucket_policy)  $default,) {final _that = this;
 switch (_that) {
 case _InventoryIntegration():
-return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.missing_bucket_policy);case _:
+return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.reserve_rules,_that.unreserve_rules,_that.consume_rules,_that.missing_bucket_policy);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2850,10 +3122,10 @@ return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.missi
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on,  MissingInventoryBucketPolicy missing_bucket_policy)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on,  List<InventoryLifecycleRule> reserve_rules,  List<InventoryLifecycleRule> unreserve_rules,  List<InventoryLifecycleRule> consume_rules,  MissingInventoryBucketPolicy missing_bucket_policy)?  $default,) {final _that = this;
 switch (_that) {
 case _InventoryIntegration() when $default != null:
-return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.missing_bucket_policy);case _:
+return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.reserve_rules,_that.unreserve_rules,_that.consume_rules,_that.missing_bucket_policy);case _:
   return null;
 
 }
@@ -2865,7 +3137,7 @@ return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.missi
 @JsonSerializable()
 
 class _InventoryIntegration implements InventoryIntegration {
-  const _InventoryIntegration({final  List<OrderStatus> reserve_on = const [], final  List<OrderStatus> unreserve_on = const [], final  List<OrderStatus> consume_on = const [], this.missing_bucket_policy = MissingInventoryBucketPolicy.ignore}): _reserve_on = reserve_on,_unreserve_on = unreserve_on,_consume_on = consume_on;
+  const _InventoryIntegration({final  List<OrderStatus> reserve_on = const [], final  List<OrderStatus> unreserve_on = const [], final  List<OrderStatus> consume_on = const [], final  List<InventoryLifecycleRule> reserve_rules = const [], final  List<InventoryLifecycleRule> unreserve_rules = const [], final  List<InventoryLifecycleRule> consume_rules = const [], this.missing_bucket_policy = MissingInventoryBucketPolicy.ignore}): _reserve_on = reserve_on,_unreserve_on = unreserve_on,_consume_on = consume_on,_reserve_rules = reserve_rules,_unreserve_rules = unreserve_rules,_consume_rules = consume_rules;
   factory _InventoryIntegration.fromJson(Map<String, dynamic> json) => _$InventoryIntegrationFromJson(json);
 
  final  List<OrderStatus> _reserve_on;
@@ -2889,6 +3161,27 @@ class _InventoryIntegration implements InventoryIntegration {
   return EqualUnmodifiableListView(_consume_on);
 }
 
+ final  List<InventoryLifecycleRule> _reserve_rules;
+@override@JsonKey() List<InventoryLifecycleRule> get reserve_rules {
+  if (_reserve_rules is EqualUnmodifiableListView) return _reserve_rules;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_reserve_rules);
+}
+
+ final  List<InventoryLifecycleRule> _unreserve_rules;
+@override@JsonKey() List<InventoryLifecycleRule> get unreserve_rules {
+  if (_unreserve_rules is EqualUnmodifiableListView) return _unreserve_rules;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_unreserve_rules);
+}
+
+ final  List<InventoryLifecycleRule> _consume_rules;
+@override@JsonKey() List<InventoryLifecycleRule> get consume_rules {
+  if (_consume_rules is EqualUnmodifiableListView) return _consume_rules;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_consume_rules);
+}
+
 @override@JsonKey() final  MissingInventoryBucketPolicy missing_bucket_policy;
 
 /// Create a copy of InventoryIntegration
@@ -2904,16 +3197,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryIntegration&&const DeepCollectionEquality().equals(other._reserve_on, _reserve_on)&&const DeepCollectionEquality().equals(other._unreserve_on, _unreserve_on)&&const DeepCollectionEquality().equals(other._consume_on, _consume_on)&&(identical(other.missing_bucket_policy, missing_bucket_policy) || other.missing_bucket_policy == missing_bucket_policy));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryIntegration&&const DeepCollectionEquality().equals(other._reserve_on, _reserve_on)&&const DeepCollectionEquality().equals(other._unreserve_on, _unreserve_on)&&const DeepCollectionEquality().equals(other._consume_on, _consume_on)&&const DeepCollectionEquality().equals(other._reserve_rules, _reserve_rules)&&const DeepCollectionEquality().equals(other._unreserve_rules, _unreserve_rules)&&const DeepCollectionEquality().equals(other._consume_rules, _consume_rules)&&(identical(other.missing_bucket_policy, missing_bucket_policy) || other.missing_bucket_policy == missing_bucket_policy));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_reserve_on),const DeepCollectionEquality().hash(_unreserve_on),const DeepCollectionEquality().hash(_consume_on),missing_bucket_policy);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_reserve_on),const DeepCollectionEquality().hash(_unreserve_on),const DeepCollectionEquality().hash(_consume_on),const DeepCollectionEquality().hash(_reserve_rules),const DeepCollectionEquality().hash(_unreserve_rules),const DeepCollectionEquality().hash(_consume_rules),missing_bucket_policy);
 
 @override
 String toString() {
-  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on, missing_bucket_policy: $missing_bucket_policy)';
+  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on, reserve_rules: $reserve_rules, unreserve_rules: $unreserve_rules, consume_rules: $consume_rules, missing_bucket_policy: $missing_bucket_policy)';
 }
 
 
@@ -2924,7 +3217,7 @@ abstract mixin class _$InventoryIntegrationCopyWith<$Res> implements $InventoryI
   factory _$InventoryIntegrationCopyWith(_InventoryIntegration value, $Res Function(_InventoryIntegration) _then) = __$InventoryIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on, MissingInventoryBucketPolicy missing_bucket_policy
+ List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on, List<InventoryLifecycleRule> reserve_rules, List<InventoryLifecycleRule> unreserve_rules, List<InventoryLifecycleRule> consume_rules, MissingInventoryBucketPolicy missing_bucket_policy
 });
 
 
@@ -2941,12 +3234,15 @@ class __$InventoryIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of InventoryIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,Object? missing_bucket_policy = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,Object? reserve_rules = null,Object? unreserve_rules = null,Object? consume_rules = null,Object? missing_bucket_policy = null,}) {
   return _then(_InventoryIntegration(
 reserve_on: null == reserve_on ? _self._reserve_on : reserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,unreserve_on: null == unreserve_on ? _self._unreserve_on : unreserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,consume_on: null == consume_on ? _self._consume_on : consume_on // ignore: cast_nullable_to_non_nullable
-as List<OrderStatus>,missing_bucket_policy: null == missing_bucket_policy ? _self.missing_bucket_policy : missing_bucket_policy // ignore: cast_nullable_to_non_nullable
+as List<OrderStatus>,reserve_rules: null == reserve_rules ? _self._reserve_rules : reserve_rules // ignore: cast_nullable_to_non_nullable
+as List<InventoryLifecycleRule>,unreserve_rules: null == unreserve_rules ? _self._unreserve_rules : unreserve_rules // ignore: cast_nullable_to_non_nullable
+as List<InventoryLifecycleRule>,consume_rules: null == consume_rules ? _self._consume_rules : consume_rules // ignore: cast_nullable_to_non_nullable
+as List<InventoryLifecycleRule>,missing_bucket_policy: null == missing_bucket_policy ? _self.missing_bucket_policy : missing_bucket_policy // ignore: cast_nullable_to_non_nullable
 as MissingInventoryBucketPolicy,
   ));
 }

@@ -155,6 +155,17 @@ class FinanceRepository {
   }) =>
       purchaseReceipts.void$(projectId: projectId, id: id);
 
+  /// Wipes all project-scoped finance data (owner-only). Requires [confirm] == `RESET`.
+  Future<void> resetData({
+    required String projectId,
+    String confirm = 'RESET',
+  }) async {
+    await client.post(
+      '/finance/reset',
+      data: {'projectId': projectId, 'confirm': confirm},
+    );
+  }
+
   /// Open order receivables (derived, read-only).
   Future<List<Receivable>> listReceivables({required String projectId}) async {
     final response = await client.get(

@@ -432,6 +432,29 @@ Map<String, dynamic> _$StoreConfigsToJson(_StoreConfigs instance) =>
       'finance_integration': instance.finance_integration,
     };
 
+_InventoryLifecycleRule _$InventoryLifecycleRuleFromJson(
+  Map<String, dynamic> json,
+) => _InventoryLifecycleRule(
+  id: json['id'] as String,
+  dimension: $enumDecode(_$PixelStatusDimensionEnumMap, json['dimension']),
+  equals: json['equals'] as String,
+);
+
+Map<String, dynamic> _$InventoryLifecycleRuleToJson(
+  _InventoryLifecycleRule instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'dimension': _$PixelStatusDimensionEnumMap[instance.dimension]!,
+  'equals': instance.equals,
+};
+
+const _$PixelStatusDimensionEnumMap = {
+  PixelStatusDimension.orderStatus: 'orderStatus',
+  PixelStatusDimension.deliveryStatus: 'deliveryStatus',
+  PixelStatusDimension.paymentStatus: 'paymentStatus',
+  PixelStatusDimension.customStatus: 'customStatus',
+};
+
 _InventoryIntegration _$InventoryIntegrationFromJson(
   Map<String, dynamic> json,
 ) => _InventoryIntegration(
@@ -448,6 +471,27 @@ _InventoryIntegration _$InventoryIntegrationFromJson(
   consume_on:
       (json['consume_on'] as List<dynamic>?)
           ?.map((e) => $enumDecode(_$OrderStatusEnumMap, e))
+          .toList() ??
+      const [],
+  reserve_rules:
+      (json['reserve_rules'] as List<dynamic>?)
+          ?.map(
+            (e) => InventoryLifecycleRule.fromJson(e as Map<String, dynamic>),
+          )
+          .toList() ??
+      const [],
+  unreserve_rules:
+      (json['unreserve_rules'] as List<dynamic>?)
+          ?.map(
+            (e) => InventoryLifecycleRule.fromJson(e as Map<String, dynamic>),
+          )
+          .toList() ??
+      const [],
+  consume_rules:
+      (json['consume_rules'] as List<dynamic>?)
+          ?.map(
+            (e) => InventoryLifecycleRule.fromJson(e as Map<String, dynamic>),
+          )
           .toList() ??
       const [],
   missing_bucket_policy:
@@ -470,6 +514,9 @@ Map<String, dynamic> _$InventoryIntegrationToJson(
   'consume_on': instance.consume_on
       .map((e) => _$OrderStatusEnumMap[e]!)
       .toList(),
+  'reserve_rules': instance.reserve_rules,
+  'unreserve_rules': instance.unreserve_rules,
+  'consume_rules': instance.consume_rules,
   'missing_bucket_policy':
       _$MissingInventoryBucketPolicyEnumMap[instance.missing_bucket_policy]!,
 };

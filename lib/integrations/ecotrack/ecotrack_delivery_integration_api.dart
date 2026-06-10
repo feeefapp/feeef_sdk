@@ -408,6 +408,10 @@ class EcotrackSyncResult {
   final int? totalFetched;
   final int? totalUpdated;
   final int? totalSkipped;
+  /// COD payout batches processed from Ecotrack cash-in history.
+  final int? totalCashinTransactions;
+  /// Orders marked `payment_status: received` from cash-in sync.
+  final int? totalPaymentReceived;
   final String? syncedAt;
   final List<String>? errors;
 
@@ -418,6 +422,8 @@ class EcotrackSyncResult {
     this.totalFetched,
     this.totalUpdated,
     this.totalSkipped,
+    this.totalCashinTransactions,
+    this.totalPaymentReceived,
     this.syncedAt,
     this.errors,
   });
@@ -430,6 +436,8 @@ class EcotrackSyncResult {
       totalFetched: json['totalFetched'],
       totalUpdated: json['totalUpdated'],
       totalSkipped: json['totalSkipped'],
+      totalCashinTransactions: json['totalCashinTransactions'],
+      totalPaymentReceived: json['totalPaymentReceived'],
       syncedAt: json['syncedAt'],
       errors: json['errors'] != null ? List<String>.from(json['errors']) : null,
     );
@@ -440,12 +448,15 @@ class EcotrackSyncResult {
 class EcotrackSyncStatus {
   final bool canSync;
   final String? lastSyncAt;
+  /// Latest Ecotrack cash-in payout archived-at processed (integration metadata).
+  final String? lastCashinSyncAt;
   final String? nextSyncAvailableAt;
   final int? minutesUntilNextSync;
 
   EcotrackSyncStatus({
     required this.canSync,
     this.lastSyncAt,
+    this.lastCashinSyncAt,
     this.nextSyncAvailableAt,
     this.minutesUntilNextSync,
   });
@@ -454,6 +465,7 @@ class EcotrackSyncStatus {
     return EcotrackSyncStatus(
       canSync: json['canSync'] ?? true,
       lastSyncAt: json['lastSyncAt'],
+      lastCashinSyncAt: json['lastCashinSyncAt'],
       nextSyncAvailableAt: json['nextSyncAvailableAt'],
       minutesUntilNextSync: json['minutesUntilNextSync'],
     );
@@ -461,8 +473,15 @@ class EcotrackSyncStatus {
 
   String get statusMessage {
     if (canSync) {
+      final parts = <String>[];
       if (lastSyncAt != null) {
-        return 'المزامنة متاحة (آخر مزامنة: ${_formatDateTime(lastSyncAt!)})';
+        parts.add('آخر مزامنة: ${_formatDateTime(lastSyncAt!)}');
+      }
+      if (lastCashinSyncAt != null) {
+        parts.add('آخر دفعة مستلمة: ${_formatDateTime(lastCashinSyncAt!)}');
+      }
+      if (parts.isNotEmpty) {
+        return 'المزامنة متاحة (${parts.join(' · ')})';
       }
       return 'المزامنة متاحة';
     }

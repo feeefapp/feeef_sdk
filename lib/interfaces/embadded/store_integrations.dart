@@ -307,6 +307,12 @@ abstract class EcotrackDeliveryIntegration with _$EcotrackDeliveryIntegration {
     if (v == false) return false;
     return true;
   }
+
+  /// Latest Ecotrack COD payout (`transaction_archived_at`) processed by cash-in sync.
+  String? get lastCashinSyncAt {
+    final v = metadata['lastCashinSyncAt'];
+    return v is String && v.isNotEmpty ? v : null;
+  }
 }
 
 /// Ecomanager delivery service integration configuration.

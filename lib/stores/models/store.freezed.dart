@@ -2306,7 +2306,7 @@ as Map<String, StoreIntegrationSubscription>,
 /// @nodoc
 mixin _$StoreConfigs {
 
- List<StoreCurrencyConfig> get currencies; String? get selectedCurrency; List<StoreLanguageConfig> get languages; String? get defaultLanguage; List<StoreCountryConfig> get countries; String? get selectedCountry; List<CustomStatusMapping> get customStatusMappings; bool get customStatusEnabled; InventoryIntegration? get inventory_integration;
+ List<StoreCurrencyConfig> get currencies; String? get selectedCurrency; List<StoreLanguageConfig> get languages; String? get defaultLanguage; List<StoreCountryConfig> get countries; String? get selectedCountry; List<CustomStatusMapping> get customStatusMappings; bool get customStatusEnabled; InventoryIntegration? get inventory_integration; FinanceIntegration? get finance_integration;
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2319,16 +2319,16 @@ $StoreConfigsCopyWith<StoreConfigs> get copyWith => _$StoreConfigsCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other.customStatusMappings, customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other.customStatusMappings, customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration)&&(identical(other.finance_integration, finance_integration) || other.finance_integration == finance_integration));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(currencies),selectedCurrency,const DeepCollectionEquality().hash(languages),defaultLanguage,const DeepCollectionEquality().hash(countries),selectedCountry,const DeepCollectionEquality().hash(customStatusMappings),customStatusEnabled,inventory_integration);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(currencies),selectedCurrency,const DeepCollectionEquality().hash(languages),defaultLanguage,const DeepCollectionEquality().hash(countries),selectedCountry,const DeepCollectionEquality().hash(customStatusMappings),customStatusEnabled,inventory_integration,finance_integration);
 
 @override
 String toString() {
-  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, inventory_integration: $inventory_integration)';
+  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, inventory_integration: $inventory_integration, finance_integration: $finance_integration)';
 }
 
 
@@ -2339,11 +2339,11 @@ abstract mixin class $StoreConfigsCopyWith<$Res>  {
   factory $StoreConfigsCopyWith(StoreConfigs value, $Res Function(StoreConfigs) _then) = _$StoreConfigsCopyWithImpl;
 @useResult
 $Res call({
- List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, InventoryIntegration? inventory_integration
+ List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration
 });
 
 
-$InventoryIntegrationCopyWith<$Res>? get inventory_integration;
+$InventoryIntegrationCopyWith<$Res>? get inventory_integration;$FinanceIntegrationCopyWith<$Res>? get finance_integration;
 
 }
 /// @nodoc
@@ -2356,7 +2356,7 @@ class _$StoreConfigsCopyWithImpl<$Res>
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? inventory_integration = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? inventory_integration = freezed,Object? finance_integration = freezed,}) {
   return _then(_self.copyWith(
 currencies: null == currencies ? _self.currencies : currencies // ignore: cast_nullable_to_non_nullable
 as List<StoreCurrencyConfig>,selectedCurrency: freezed == selectedCurrency ? _self.selectedCurrency : selectedCurrency // ignore: cast_nullable_to_non_nullable
@@ -2367,7 +2367,8 @@ as List<StoreCountryConfig>,selectedCountry: freezed == selectedCountry ? _self.
 as String?,customStatusMappings: null == customStatusMappings ? _self.customStatusMappings : customStatusMappings // ignore: cast_nullable_to_non_nullable
 as List<CustomStatusMapping>,customStatusEnabled: null == customStatusEnabled ? _self.customStatusEnabled : customStatusEnabled // ignore: cast_nullable_to_non_nullable
 as bool,inventory_integration: freezed == inventory_integration ? _self.inventory_integration : inventory_integration // ignore: cast_nullable_to_non_nullable
-as InventoryIntegration?,
+as InventoryIntegration?,finance_integration: freezed == finance_integration ? _self.finance_integration : finance_integration // ignore: cast_nullable_to_non_nullable
+as FinanceIntegration?,
   ));
 }
 /// Create a copy of StoreConfigs
@@ -2381,6 +2382,18 @@ $InventoryIntegrationCopyWith<$Res>? get inventory_integration {
 
   return $InventoryIntegrationCopyWith<$Res>(_self.inventory_integration!, (value) {
     return _then(_self.copyWith(inventory_integration: value));
+  });
+}/// Create a copy of StoreConfigs
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FinanceIntegrationCopyWith<$Res>? get finance_integration {
+    if (_self.finance_integration == null) {
+    return null;
+  }
+
+  return $FinanceIntegrationCopyWith<$Res>(_self.finance_integration!, (value) {
+    return _then(_self.copyWith(finance_integration: value));
   });
 }
 }
@@ -2464,10 +2477,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreConfigs() when $default != null:
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration,_that.finance_integration);case _:
   return orElse();
 
 }
@@ -2485,10 +2498,10 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)  $default,) {final _that = this;
 switch (_that) {
 case _StoreConfigs():
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration,_that.finance_integration);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2505,10 +2518,10 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreConfigs() when $default != null:
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration,_that.finance_integration);case _:
   return null;
 
 }
@@ -2520,7 +2533,7 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 @JsonSerializable()
 
 class _StoreConfigs implements StoreConfigs {
-  const _StoreConfigs({required final  List<StoreCurrencyConfig> currencies, this.selectedCurrency, final  List<StoreLanguageConfig> languages = const [], this.defaultLanguage, final  List<StoreCountryConfig> countries = const [], this.selectedCountry, final  List<CustomStatusMapping> customStatusMappings = const [], this.customStatusEnabled = false, this.inventory_integration}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
+  const _StoreConfigs({required final  List<StoreCurrencyConfig> currencies, this.selectedCurrency, final  List<StoreLanguageConfig> languages = const [], this.defaultLanguage, final  List<StoreCountryConfig> countries = const [], this.selectedCountry, final  List<CustomStatusMapping> customStatusMappings = const [], this.customStatusEnabled = false, this.inventory_integration, this.finance_integration}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
   factory _StoreConfigs.fromJson(Map<String, dynamic> json) => _$StoreConfigsFromJson(json);
 
  final  List<StoreCurrencyConfig> _currencies;
@@ -2556,6 +2569,7 @@ class _StoreConfigs implements StoreConfigs {
 
 @override@JsonKey() final  bool customStatusEnabled;
 @override final  InventoryIntegration? inventory_integration;
+@override final  FinanceIntegration? finance_integration;
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
@@ -2570,16 +2584,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreConfigs&&const DeepCollectionEquality().equals(other._currencies, _currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other._languages, _languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other._countries, _countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other._customStatusMappings, _customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreConfigs&&const DeepCollectionEquality().equals(other._currencies, _currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other._languages, _languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other._countries, _countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other._customStatusMappings, _customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration)&&(identical(other.finance_integration, finance_integration) || other.finance_integration == finance_integration));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_currencies),selectedCurrency,const DeepCollectionEquality().hash(_languages),defaultLanguage,const DeepCollectionEquality().hash(_countries),selectedCountry,const DeepCollectionEquality().hash(_customStatusMappings),customStatusEnabled,inventory_integration);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_currencies),selectedCurrency,const DeepCollectionEquality().hash(_languages),defaultLanguage,const DeepCollectionEquality().hash(_countries),selectedCountry,const DeepCollectionEquality().hash(_customStatusMappings),customStatusEnabled,inventory_integration,finance_integration);
 
 @override
 String toString() {
-  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, inventory_integration: $inventory_integration)';
+  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, inventory_integration: $inventory_integration, finance_integration: $finance_integration)';
 }
 
 
@@ -2590,11 +2604,11 @@ abstract mixin class _$StoreConfigsCopyWith<$Res> implements $StoreConfigsCopyWi
   factory _$StoreConfigsCopyWith(_StoreConfigs value, $Res Function(_StoreConfigs) _then) = __$StoreConfigsCopyWithImpl;
 @override @useResult
 $Res call({
- List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, InventoryIntegration? inventory_integration
+ List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration
 });
 
 
-@override $InventoryIntegrationCopyWith<$Res>? get inventory_integration;
+@override $InventoryIntegrationCopyWith<$Res>? get inventory_integration;@override $FinanceIntegrationCopyWith<$Res>? get finance_integration;
 
 }
 /// @nodoc
@@ -2607,7 +2621,7 @@ class __$StoreConfigsCopyWithImpl<$Res>
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? inventory_integration = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? inventory_integration = freezed,Object? finance_integration = freezed,}) {
   return _then(_StoreConfigs(
 currencies: null == currencies ? _self._currencies : currencies // ignore: cast_nullable_to_non_nullable
 as List<StoreCurrencyConfig>,selectedCurrency: freezed == selectedCurrency ? _self.selectedCurrency : selectedCurrency // ignore: cast_nullable_to_non_nullable
@@ -2618,7 +2632,8 @@ as List<StoreCountryConfig>,selectedCountry: freezed == selectedCountry ? _self.
 as String?,customStatusMappings: null == customStatusMappings ? _self._customStatusMappings : customStatusMappings // ignore: cast_nullable_to_non_nullable
 as List<CustomStatusMapping>,customStatusEnabled: null == customStatusEnabled ? _self.customStatusEnabled : customStatusEnabled // ignore: cast_nullable_to_non_nullable
 as bool,inventory_integration: freezed == inventory_integration ? _self.inventory_integration : inventory_integration // ignore: cast_nullable_to_non_nullable
-as InventoryIntegration?,
+as InventoryIntegration?,finance_integration: freezed == finance_integration ? _self.finance_integration : finance_integration // ignore: cast_nullable_to_non_nullable
+as FinanceIntegration?,
   ));
 }
 
@@ -2634,14 +2649,295 @@ $InventoryIntegrationCopyWith<$Res>? get inventory_integration {
   return $InventoryIntegrationCopyWith<$Res>(_self.inventory_integration!, (value) {
     return _then(_self.copyWith(inventory_integration: value));
   });
+}/// Create a copy of StoreConfigs
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FinanceIntegrationCopyWith<$Res>? get finance_integration {
+    if (_self.finance_integration == null) {
+    return null;
+  }
+
+  return $FinanceIntegrationCopyWith<$Res>(_self.finance_integration!, (value) {
+    return _then(_self.copyWith(finance_integration: value));
+  });
 }
+}
+
+
+/// @nodoc
+mixin _$InventoryLifecycleRule {
+
+ String get id; PixelStatusDimension get dimension; String get equals;
+/// Create a copy of InventoryLifecycleRule
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$InventoryLifecycleRuleCopyWith<InventoryLifecycleRule> get copyWith => _$InventoryLifecycleRuleCopyWithImpl<InventoryLifecycleRule>(this as InventoryLifecycleRule, _$identity);
+
+  /// Serializes this InventoryLifecycleRule to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryLifecycleRule&&(identical(other.id, id) || other.id == id)&&(identical(other.dimension, dimension) || other.dimension == dimension)&&(identical(other.equals, equals) || other.equals == equals));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,dimension,equals);
+
+@override
+String toString() {
+  return 'InventoryLifecycleRule(id: $id, dimension: $dimension, equals: $equals)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $InventoryLifecycleRuleCopyWith<$Res>  {
+  factory $InventoryLifecycleRuleCopyWith(InventoryLifecycleRule value, $Res Function(InventoryLifecycleRule) _then) = _$InventoryLifecycleRuleCopyWithImpl;
+@useResult
+$Res call({
+ String id, PixelStatusDimension dimension, String equals
+});
+
+
+
+
+}
+/// @nodoc
+class _$InventoryLifecycleRuleCopyWithImpl<$Res>
+    implements $InventoryLifecycleRuleCopyWith<$Res> {
+  _$InventoryLifecycleRuleCopyWithImpl(this._self, this._then);
+
+  final InventoryLifecycleRule _self;
+  final $Res Function(InventoryLifecycleRule) _then;
+
+/// Create a copy of InventoryLifecycleRule
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? dimension = null,Object? equals = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,dimension: null == dimension ? _self.dimension : dimension // ignore: cast_nullable_to_non_nullable
+as PixelStatusDimension,equals: null == equals ? _self.equals : equals // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [InventoryLifecycleRule].
+extension InventoryLifecycleRulePatterns on InventoryLifecycleRule {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _InventoryLifecycleRule value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _InventoryLifecycleRule() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _InventoryLifecycleRule value)  $default,){
+final _that = this;
+switch (_that) {
+case _InventoryLifecycleRule():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _InventoryLifecycleRule value)?  $default,){
+final _that = this;
+switch (_that) {
+case _InventoryLifecycleRule() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  PixelStatusDimension dimension,  String equals)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _InventoryLifecycleRule() when $default != null:
+return $default(_that.id,_that.dimension,_that.equals);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  PixelStatusDimension dimension,  String equals)  $default,) {final _that = this;
+switch (_that) {
+case _InventoryLifecycleRule():
+return $default(_that.id,_that.dimension,_that.equals);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  PixelStatusDimension dimension,  String equals)?  $default,) {final _that = this;
+switch (_that) {
+case _InventoryLifecycleRule() when $default != null:
+return $default(_that.id,_that.dimension,_that.equals);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _InventoryLifecycleRule implements InventoryLifecycleRule {
+  const _InventoryLifecycleRule({required this.id, required this.dimension, required this.equals});
+  factory _InventoryLifecycleRule.fromJson(Map<String, dynamic> json) => _$InventoryLifecycleRuleFromJson(json);
+
+@override final  String id;
+@override final  PixelStatusDimension dimension;
+@override final  String equals;
+
+/// Create a copy of InventoryLifecycleRule
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$InventoryLifecycleRuleCopyWith<_InventoryLifecycleRule> get copyWith => __$InventoryLifecycleRuleCopyWithImpl<_InventoryLifecycleRule>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$InventoryLifecycleRuleToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryLifecycleRule&&(identical(other.id, id) || other.id == id)&&(identical(other.dimension, dimension) || other.dimension == dimension)&&(identical(other.equals, equals) || other.equals == equals));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,dimension,equals);
+
+@override
+String toString() {
+  return 'InventoryLifecycleRule(id: $id, dimension: $dimension, equals: $equals)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$InventoryLifecycleRuleCopyWith<$Res> implements $InventoryLifecycleRuleCopyWith<$Res> {
+  factory _$InventoryLifecycleRuleCopyWith(_InventoryLifecycleRule value, $Res Function(_InventoryLifecycleRule) _then) = __$InventoryLifecycleRuleCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, PixelStatusDimension dimension, String equals
+});
+
+
+
+
+}
+/// @nodoc
+class __$InventoryLifecycleRuleCopyWithImpl<$Res>
+    implements _$InventoryLifecycleRuleCopyWith<$Res> {
+  __$InventoryLifecycleRuleCopyWithImpl(this._self, this._then);
+
+  final _InventoryLifecycleRule _self;
+  final $Res Function(_InventoryLifecycleRule) _then;
+
+/// Create a copy of InventoryLifecycleRule
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? dimension = null,Object? equals = null,}) {
+  return _then(_InventoryLifecycleRule(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,dimension: null == dimension ? _self.dimension : dimension // ignore: cast_nullable_to_non_nullable
+as PixelStatusDimension,equals: null == equals ? _self.equals : equals // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
 }
 
 
 /// @nodoc
 mixin _$InventoryIntegration {
 
- List<OrderStatus> get reserve_on; List<OrderStatus> get unreserve_on; List<OrderStatus> get consume_on;
+ List<OrderStatus> get reserve_on; List<OrderStatus> get unreserve_on; List<OrderStatus> get consume_on; List<InventoryLifecycleRule> get reserve_rules; List<InventoryLifecycleRule> get unreserve_rules; List<InventoryLifecycleRule> get consume_rules; MissingInventoryBucketPolicy get missing_bucket_policy;
 /// Create a copy of InventoryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2654,16 +2950,16 @@ $InventoryIntegrationCopyWith<InventoryIntegration> get copyWith => _$InventoryI
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryIntegration&&const DeepCollectionEquality().equals(other.reserve_on, reserve_on)&&const DeepCollectionEquality().equals(other.unreserve_on, unreserve_on)&&const DeepCollectionEquality().equals(other.consume_on, consume_on));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryIntegration&&const DeepCollectionEquality().equals(other.reserve_on, reserve_on)&&const DeepCollectionEquality().equals(other.unreserve_on, unreserve_on)&&const DeepCollectionEquality().equals(other.consume_on, consume_on)&&const DeepCollectionEquality().equals(other.reserve_rules, reserve_rules)&&const DeepCollectionEquality().equals(other.unreserve_rules, unreserve_rules)&&const DeepCollectionEquality().equals(other.consume_rules, consume_rules)&&(identical(other.missing_bucket_policy, missing_bucket_policy) || other.missing_bucket_policy == missing_bucket_policy));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(reserve_on),const DeepCollectionEquality().hash(unreserve_on),const DeepCollectionEquality().hash(consume_on));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(reserve_on),const DeepCollectionEquality().hash(unreserve_on),const DeepCollectionEquality().hash(consume_on),const DeepCollectionEquality().hash(reserve_rules),const DeepCollectionEquality().hash(unreserve_rules),const DeepCollectionEquality().hash(consume_rules),missing_bucket_policy);
 
 @override
 String toString() {
-  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on)';
+  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on, reserve_rules: $reserve_rules, unreserve_rules: $unreserve_rules, consume_rules: $consume_rules, missing_bucket_policy: $missing_bucket_policy)';
 }
 
 
@@ -2674,7 +2970,7 @@ abstract mixin class $InventoryIntegrationCopyWith<$Res>  {
   factory $InventoryIntegrationCopyWith(InventoryIntegration value, $Res Function(InventoryIntegration) _then) = _$InventoryIntegrationCopyWithImpl;
 @useResult
 $Res call({
- List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on
+ List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on, List<InventoryLifecycleRule> reserve_rules, List<InventoryLifecycleRule> unreserve_rules, List<InventoryLifecycleRule> consume_rules, MissingInventoryBucketPolicy missing_bucket_policy
 });
 
 
@@ -2691,12 +2987,16 @@ class _$InventoryIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of InventoryIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,Object? reserve_rules = null,Object? unreserve_rules = null,Object? consume_rules = null,Object? missing_bucket_policy = null,}) {
   return _then(_self.copyWith(
 reserve_on: null == reserve_on ? _self.reserve_on : reserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,unreserve_on: null == unreserve_on ? _self.unreserve_on : unreserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,consume_on: null == consume_on ? _self.consume_on : consume_on // ignore: cast_nullable_to_non_nullable
-as List<OrderStatus>,
+as List<OrderStatus>,reserve_rules: null == reserve_rules ? _self.reserve_rules : reserve_rules // ignore: cast_nullable_to_non_nullable
+as List<InventoryLifecycleRule>,unreserve_rules: null == unreserve_rules ? _self.unreserve_rules : unreserve_rules // ignore: cast_nullable_to_non_nullable
+as List<InventoryLifecycleRule>,consume_rules: null == consume_rules ? _self.consume_rules : consume_rules // ignore: cast_nullable_to_non_nullable
+as List<InventoryLifecycleRule>,missing_bucket_policy: null == missing_bucket_policy ? _self.missing_bucket_policy : missing_bucket_policy // ignore: cast_nullable_to_non_nullable
+as MissingInventoryBucketPolicy,
   ));
 }
 
@@ -2781,10 +3081,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on,  List<InventoryLifecycleRule> reserve_rules,  List<InventoryLifecycleRule> unreserve_rules,  List<InventoryLifecycleRule> consume_rules,  MissingInventoryBucketPolicy missing_bucket_policy)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _InventoryIntegration() when $default != null:
-return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
+return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.reserve_rules,_that.unreserve_rules,_that.consume_rules,_that.missing_bucket_policy);case _:
   return orElse();
 
 }
@@ -2802,10 +3102,10 @@ return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on,  List<InventoryLifecycleRule> reserve_rules,  List<InventoryLifecycleRule> unreserve_rules,  List<InventoryLifecycleRule> consume_rules,  MissingInventoryBucketPolicy missing_bucket_policy)  $default,) {final _that = this;
 switch (_that) {
 case _InventoryIntegration():
-return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
+return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.reserve_rules,_that.unreserve_rules,_that.consume_rules,_that.missing_bucket_policy);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2822,10 +3122,10 @@ return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<OrderStatus> reserve_on,  List<OrderStatus> unreserve_on,  List<OrderStatus> consume_on,  List<InventoryLifecycleRule> reserve_rules,  List<InventoryLifecycleRule> unreserve_rules,  List<InventoryLifecycleRule> consume_rules,  MissingInventoryBucketPolicy missing_bucket_policy)?  $default,) {final _that = this;
 switch (_that) {
 case _InventoryIntegration() when $default != null:
-return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
+return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.reserve_rules,_that.unreserve_rules,_that.consume_rules,_that.missing_bucket_policy);case _:
   return null;
 
 }
@@ -2837,7 +3137,7 @@ return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on);case _:
 @JsonSerializable()
 
 class _InventoryIntegration implements InventoryIntegration {
-  const _InventoryIntegration({final  List<OrderStatus> reserve_on = const [], final  List<OrderStatus> unreserve_on = const [], final  List<OrderStatus> consume_on = const []}): _reserve_on = reserve_on,_unreserve_on = unreserve_on,_consume_on = consume_on;
+  const _InventoryIntegration({final  List<OrderStatus> reserve_on = const [], final  List<OrderStatus> unreserve_on = const [], final  List<OrderStatus> consume_on = const [], final  List<InventoryLifecycleRule> reserve_rules = const [], final  List<InventoryLifecycleRule> unreserve_rules = const [], final  List<InventoryLifecycleRule> consume_rules = const [], this.missing_bucket_policy = MissingInventoryBucketPolicy.ignore}): _reserve_on = reserve_on,_unreserve_on = unreserve_on,_consume_on = consume_on,_reserve_rules = reserve_rules,_unreserve_rules = unreserve_rules,_consume_rules = consume_rules;
   factory _InventoryIntegration.fromJson(Map<String, dynamic> json) => _$InventoryIntegrationFromJson(json);
 
  final  List<OrderStatus> _reserve_on;
@@ -2861,6 +3161,28 @@ class _InventoryIntegration implements InventoryIntegration {
   return EqualUnmodifiableListView(_consume_on);
 }
 
+ final  List<InventoryLifecycleRule> _reserve_rules;
+@override@JsonKey() List<InventoryLifecycleRule> get reserve_rules {
+  if (_reserve_rules is EqualUnmodifiableListView) return _reserve_rules;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_reserve_rules);
+}
+
+ final  List<InventoryLifecycleRule> _unreserve_rules;
+@override@JsonKey() List<InventoryLifecycleRule> get unreserve_rules {
+  if (_unreserve_rules is EqualUnmodifiableListView) return _unreserve_rules;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_unreserve_rules);
+}
+
+ final  List<InventoryLifecycleRule> _consume_rules;
+@override@JsonKey() List<InventoryLifecycleRule> get consume_rules {
+  if (_consume_rules is EqualUnmodifiableListView) return _consume_rules;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_consume_rules);
+}
+
+@override@JsonKey() final  MissingInventoryBucketPolicy missing_bucket_policy;
 
 /// Create a copy of InventoryIntegration
 /// with the given fields replaced by the non-null parameter values.
@@ -2875,16 +3197,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryIntegration&&const DeepCollectionEquality().equals(other._reserve_on, _reserve_on)&&const DeepCollectionEquality().equals(other._unreserve_on, _unreserve_on)&&const DeepCollectionEquality().equals(other._consume_on, _consume_on));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryIntegration&&const DeepCollectionEquality().equals(other._reserve_on, _reserve_on)&&const DeepCollectionEquality().equals(other._unreserve_on, _unreserve_on)&&const DeepCollectionEquality().equals(other._consume_on, _consume_on)&&const DeepCollectionEquality().equals(other._reserve_rules, _reserve_rules)&&const DeepCollectionEquality().equals(other._unreserve_rules, _unreserve_rules)&&const DeepCollectionEquality().equals(other._consume_rules, _consume_rules)&&(identical(other.missing_bucket_policy, missing_bucket_policy) || other.missing_bucket_policy == missing_bucket_policy));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_reserve_on),const DeepCollectionEquality().hash(_unreserve_on),const DeepCollectionEquality().hash(_consume_on));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_reserve_on),const DeepCollectionEquality().hash(_unreserve_on),const DeepCollectionEquality().hash(_consume_on),const DeepCollectionEquality().hash(_reserve_rules),const DeepCollectionEquality().hash(_unreserve_rules),const DeepCollectionEquality().hash(_consume_rules),missing_bucket_policy);
 
 @override
 String toString() {
-  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on)';
+  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on, reserve_rules: $reserve_rules, unreserve_rules: $unreserve_rules, consume_rules: $consume_rules, missing_bucket_policy: $missing_bucket_policy)';
 }
 
 
@@ -2895,7 +3217,7 @@ abstract mixin class _$InventoryIntegrationCopyWith<$Res> implements $InventoryI
   factory _$InventoryIntegrationCopyWith(_InventoryIntegration value, $Res Function(_InventoryIntegration) _then) = __$InventoryIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on
+ List<OrderStatus> reserve_on, List<OrderStatus> unreserve_on, List<OrderStatus> consume_on, List<InventoryLifecycleRule> reserve_rules, List<InventoryLifecycleRule> unreserve_rules, List<InventoryLifecycleRule> consume_rules, MissingInventoryBucketPolicy missing_bucket_policy
 });
 
 
@@ -2912,16 +3234,608 @@ class __$InventoryIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of InventoryIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,Object? reserve_rules = null,Object? unreserve_rules = null,Object? consume_rules = null,Object? missing_bucket_policy = null,}) {
   return _then(_InventoryIntegration(
 reserve_on: null == reserve_on ? _self._reserve_on : reserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,unreserve_on: null == unreserve_on ? _self._unreserve_on : unreserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,consume_on: null == consume_on ? _self._consume_on : consume_on // ignore: cast_nullable_to_non_nullable
-as List<OrderStatus>,
+as List<OrderStatus>,reserve_rules: null == reserve_rules ? _self._reserve_rules : reserve_rules // ignore: cast_nullable_to_non_nullable
+as List<InventoryLifecycleRule>,unreserve_rules: null == unreserve_rules ? _self._unreserve_rules : unreserve_rules // ignore: cast_nullable_to_non_nullable
+as List<InventoryLifecycleRule>,consume_rules: null == consume_rules ? _self._consume_rules : consume_rules // ignore: cast_nullable_to_non_nullable
+as List<InventoryLifecycleRule>,missing_bucket_policy: null == missing_bucket_policy ? _self.missing_bucket_policy : missing_bucket_policy // ignore: cast_nullable_to_non_nullable
+as MissingInventoryBucketPolicy,
   ));
 }
 
 
+}
+
+
+/// @nodoc
+mixin _$FinancePdfSettings {
+
+ FinancePdfPaperSize get paperSize; bool get showQrCode; bool get showLogo; bool get showStoreContact; bool get showSupplierDetails; bool get showDocumentId; bool get showFooter; bool get showStatusBadge; bool get showSignatureLines; bool get showPaymentHistory; String get footerNote;
+/// Create a copy of FinancePdfSettings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FinancePdfSettingsCopyWith<FinancePdfSettings> get copyWith => _$FinancePdfSettingsCopyWithImpl<FinancePdfSettings>(this as FinancePdfSettings, _$identity);
+
+  /// Serializes this FinancePdfSettings to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinancePdfSettings&&(identical(other.paperSize, paperSize) || other.paperSize == paperSize)&&(identical(other.showQrCode, showQrCode) || other.showQrCode == showQrCode)&&(identical(other.showLogo, showLogo) || other.showLogo == showLogo)&&(identical(other.showStoreContact, showStoreContact) || other.showStoreContact == showStoreContact)&&(identical(other.showSupplierDetails, showSupplierDetails) || other.showSupplierDetails == showSupplierDetails)&&(identical(other.showDocumentId, showDocumentId) || other.showDocumentId == showDocumentId)&&(identical(other.showFooter, showFooter) || other.showFooter == showFooter)&&(identical(other.showStatusBadge, showStatusBadge) || other.showStatusBadge == showStatusBadge)&&(identical(other.showSignatureLines, showSignatureLines) || other.showSignatureLines == showSignatureLines)&&(identical(other.showPaymentHistory, showPaymentHistory) || other.showPaymentHistory == showPaymentHistory)&&(identical(other.footerNote, footerNote) || other.footerNote == footerNote));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,paperSize,showQrCode,showLogo,showStoreContact,showSupplierDetails,showDocumentId,showFooter,showStatusBadge,showSignatureLines,showPaymentHistory,footerNote);
+
+@override
+String toString() {
+  return 'FinancePdfSettings(paperSize: $paperSize, showQrCode: $showQrCode, showLogo: $showLogo, showStoreContact: $showStoreContact, showSupplierDetails: $showSupplierDetails, showDocumentId: $showDocumentId, showFooter: $showFooter, showStatusBadge: $showStatusBadge, showSignatureLines: $showSignatureLines, showPaymentHistory: $showPaymentHistory, footerNote: $footerNote)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $FinancePdfSettingsCopyWith<$Res>  {
+  factory $FinancePdfSettingsCopyWith(FinancePdfSettings value, $Res Function(FinancePdfSettings) _then) = _$FinancePdfSettingsCopyWithImpl;
+@useResult
+$Res call({
+ FinancePdfPaperSize paperSize, bool showQrCode, bool showLogo, bool showStoreContact, bool showSupplierDetails, bool showDocumentId, bool showFooter, bool showStatusBadge, bool showSignatureLines, bool showPaymentHistory, String footerNote
+});
+
+
+
+
+}
+/// @nodoc
+class _$FinancePdfSettingsCopyWithImpl<$Res>
+    implements $FinancePdfSettingsCopyWith<$Res> {
+  _$FinancePdfSettingsCopyWithImpl(this._self, this._then);
+
+  final FinancePdfSettings _self;
+  final $Res Function(FinancePdfSettings) _then;
+
+/// Create a copy of FinancePdfSettings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? paperSize = null,Object? showQrCode = null,Object? showLogo = null,Object? showStoreContact = null,Object? showSupplierDetails = null,Object? showDocumentId = null,Object? showFooter = null,Object? showStatusBadge = null,Object? showSignatureLines = null,Object? showPaymentHistory = null,Object? footerNote = null,}) {
+  return _then(_self.copyWith(
+paperSize: null == paperSize ? _self.paperSize : paperSize // ignore: cast_nullable_to_non_nullable
+as FinancePdfPaperSize,showQrCode: null == showQrCode ? _self.showQrCode : showQrCode // ignore: cast_nullable_to_non_nullable
+as bool,showLogo: null == showLogo ? _self.showLogo : showLogo // ignore: cast_nullable_to_non_nullable
+as bool,showStoreContact: null == showStoreContact ? _self.showStoreContact : showStoreContact // ignore: cast_nullable_to_non_nullable
+as bool,showSupplierDetails: null == showSupplierDetails ? _self.showSupplierDetails : showSupplierDetails // ignore: cast_nullable_to_non_nullable
+as bool,showDocumentId: null == showDocumentId ? _self.showDocumentId : showDocumentId // ignore: cast_nullable_to_non_nullable
+as bool,showFooter: null == showFooter ? _self.showFooter : showFooter // ignore: cast_nullable_to_non_nullable
+as bool,showStatusBadge: null == showStatusBadge ? _self.showStatusBadge : showStatusBadge // ignore: cast_nullable_to_non_nullable
+as bool,showSignatureLines: null == showSignatureLines ? _self.showSignatureLines : showSignatureLines // ignore: cast_nullable_to_non_nullable
+as bool,showPaymentHistory: null == showPaymentHistory ? _self.showPaymentHistory : showPaymentHistory // ignore: cast_nullable_to_non_nullable
+as bool,footerNote: null == footerNote ? _self.footerNote : footerNote // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [FinancePdfSettings].
+extension FinancePdfSettingsPatterns on FinancePdfSettings {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _FinancePdfSettings value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _FinancePdfSettings() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _FinancePdfSettings value)  $default,){
+final _that = this;
+switch (_that) {
+case _FinancePdfSettings():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _FinancePdfSettings value)?  $default,){
+final _that = this;
+switch (_that) {
+case _FinancePdfSettings() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FinancePdfPaperSize paperSize,  bool showQrCode,  bool showLogo,  bool showStoreContact,  bool showSupplierDetails,  bool showDocumentId,  bool showFooter,  bool showStatusBadge,  bool showSignatureLines,  bool showPaymentHistory,  String footerNote)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _FinancePdfSettings() when $default != null:
+return $default(_that.paperSize,_that.showQrCode,_that.showLogo,_that.showStoreContact,_that.showSupplierDetails,_that.showDocumentId,_that.showFooter,_that.showStatusBadge,_that.showSignatureLines,_that.showPaymentHistory,_that.footerNote);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FinancePdfPaperSize paperSize,  bool showQrCode,  bool showLogo,  bool showStoreContact,  bool showSupplierDetails,  bool showDocumentId,  bool showFooter,  bool showStatusBadge,  bool showSignatureLines,  bool showPaymentHistory,  String footerNote)  $default,) {final _that = this;
+switch (_that) {
+case _FinancePdfSettings():
+return $default(_that.paperSize,_that.showQrCode,_that.showLogo,_that.showStoreContact,_that.showSupplierDetails,_that.showDocumentId,_that.showFooter,_that.showStatusBadge,_that.showSignatureLines,_that.showPaymentHistory,_that.footerNote);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FinancePdfPaperSize paperSize,  bool showQrCode,  bool showLogo,  bool showStoreContact,  bool showSupplierDetails,  bool showDocumentId,  bool showFooter,  bool showStatusBadge,  bool showSignatureLines,  bool showPaymentHistory,  String footerNote)?  $default,) {final _that = this;
+switch (_that) {
+case _FinancePdfSettings() when $default != null:
+return $default(_that.paperSize,_that.showQrCode,_that.showLogo,_that.showStoreContact,_that.showSupplierDetails,_that.showDocumentId,_that.showFooter,_that.showStatusBadge,_that.showSignatureLines,_that.showPaymentHistory,_that.footerNote);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _FinancePdfSettings implements FinancePdfSettings {
+  const _FinancePdfSettings({this.paperSize = FinancePdfPaperSize.a4, this.showQrCode = true, this.showLogo = true, this.showStoreContact = true, this.showSupplierDetails = true, this.showDocumentId = true, this.showFooter = true, this.showStatusBadge = true, this.showSignatureLines = false, this.showPaymentHistory = true, this.footerNote = ''});
+  factory _FinancePdfSettings.fromJson(Map<String, dynamic> json) => _$FinancePdfSettingsFromJson(json);
+
+@override@JsonKey() final  FinancePdfPaperSize paperSize;
+@override@JsonKey() final  bool showQrCode;
+@override@JsonKey() final  bool showLogo;
+@override@JsonKey() final  bool showStoreContact;
+@override@JsonKey() final  bool showSupplierDetails;
+@override@JsonKey() final  bool showDocumentId;
+@override@JsonKey() final  bool showFooter;
+@override@JsonKey() final  bool showStatusBadge;
+@override@JsonKey() final  bool showSignatureLines;
+@override@JsonKey() final  bool showPaymentHistory;
+@override@JsonKey() final  String footerNote;
+
+/// Create a copy of FinancePdfSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FinancePdfSettingsCopyWith<_FinancePdfSettings> get copyWith => __$FinancePdfSettingsCopyWithImpl<_FinancePdfSettings>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$FinancePdfSettingsToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinancePdfSettings&&(identical(other.paperSize, paperSize) || other.paperSize == paperSize)&&(identical(other.showQrCode, showQrCode) || other.showQrCode == showQrCode)&&(identical(other.showLogo, showLogo) || other.showLogo == showLogo)&&(identical(other.showStoreContact, showStoreContact) || other.showStoreContact == showStoreContact)&&(identical(other.showSupplierDetails, showSupplierDetails) || other.showSupplierDetails == showSupplierDetails)&&(identical(other.showDocumentId, showDocumentId) || other.showDocumentId == showDocumentId)&&(identical(other.showFooter, showFooter) || other.showFooter == showFooter)&&(identical(other.showStatusBadge, showStatusBadge) || other.showStatusBadge == showStatusBadge)&&(identical(other.showSignatureLines, showSignatureLines) || other.showSignatureLines == showSignatureLines)&&(identical(other.showPaymentHistory, showPaymentHistory) || other.showPaymentHistory == showPaymentHistory)&&(identical(other.footerNote, footerNote) || other.footerNote == footerNote));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,paperSize,showQrCode,showLogo,showStoreContact,showSupplierDetails,showDocumentId,showFooter,showStatusBadge,showSignatureLines,showPaymentHistory,footerNote);
+
+@override
+String toString() {
+  return 'FinancePdfSettings(paperSize: $paperSize, showQrCode: $showQrCode, showLogo: $showLogo, showStoreContact: $showStoreContact, showSupplierDetails: $showSupplierDetails, showDocumentId: $showDocumentId, showFooter: $showFooter, showStatusBadge: $showStatusBadge, showSignatureLines: $showSignatureLines, showPaymentHistory: $showPaymentHistory, footerNote: $footerNote)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$FinancePdfSettingsCopyWith<$Res> implements $FinancePdfSettingsCopyWith<$Res> {
+  factory _$FinancePdfSettingsCopyWith(_FinancePdfSettings value, $Res Function(_FinancePdfSettings) _then) = __$FinancePdfSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ FinancePdfPaperSize paperSize, bool showQrCode, bool showLogo, bool showStoreContact, bool showSupplierDetails, bool showDocumentId, bool showFooter, bool showStatusBadge, bool showSignatureLines, bool showPaymentHistory, String footerNote
+});
+
+
+
+
+}
+/// @nodoc
+class __$FinancePdfSettingsCopyWithImpl<$Res>
+    implements _$FinancePdfSettingsCopyWith<$Res> {
+  __$FinancePdfSettingsCopyWithImpl(this._self, this._then);
+
+  final _FinancePdfSettings _self;
+  final $Res Function(_FinancePdfSettings) _then;
+
+/// Create a copy of FinancePdfSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? paperSize = null,Object? showQrCode = null,Object? showLogo = null,Object? showStoreContact = null,Object? showSupplierDetails = null,Object? showDocumentId = null,Object? showFooter = null,Object? showStatusBadge = null,Object? showSignatureLines = null,Object? showPaymentHistory = null,Object? footerNote = null,}) {
+  return _then(_FinancePdfSettings(
+paperSize: null == paperSize ? _self.paperSize : paperSize // ignore: cast_nullable_to_non_nullable
+as FinancePdfPaperSize,showQrCode: null == showQrCode ? _self.showQrCode : showQrCode // ignore: cast_nullable_to_non_nullable
+as bool,showLogo: null == showLogo ? _self.showLogo : showLogo // ignore: cast_nullable_to_non_nullable
+as bool,showStoreContact: null == showStoreContact ? _self.showStoreContact : showStoreContact // ignore: cast_nullable_to_non_nullable
+as bool,showSupplierDetails: null == showSupplierDetails ? _self.showSupplierDetails : showSupplierDetails // ignore: cast_nullable_to_non_nullable
+as bool,showDocumentId: null == showDocumentId ? _self.showDocumentId : showDocumentId // ignore: cast_nullable_to_non_nullable
+as bool,showFooter: null == showFooter ? _self.showFooter : showFooter // ignore: cast_nullable_to_non_nullable
+as bool,showStatusBadge: null == showStatusBadge ? _self.showStatusBadge : showStatusBadge // ignore: cast_nullable_to_non_nullable
+as bool,showSignatureLines: null == showSignatureLines ? _self.showSignatureLines : showSignatureLines // ignore: cast_nullable_to_non_nullable
+as bool,showPaymentHistory: null == showPaymentHistory ? _self.showPaymentHistory : showPaymentHistory // ignore: cast_nullable_to_non_nullable
+as bool,footerNote: null == footerNote ? _self.footerNote : footerNote // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$FinanceIntegration {
+
+ List<OrderStatus> get recognize_on; FinancePdfSettings get pdf;/// Cash-basis metrics ignore payments/expenses before this UTC timestamp.
+ String? get activated_at;
+/// Create a copy of FinanceIntegration
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FinanceIntegrationCopyWith<FinanceIntegration> get copyWith => _$FinanceIntegrationCopyWithImpl<FinanceIntegration>(this as FinanceIntegration, _$identity);
+
+  /// Serializes this FinanceIntegration to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinanceIntegration&&const DeepCollectionEquality().equals(other.recognize_on, recognize_on)&&(identical(other.pdf, pdf) || other.pdf == pdf)&&(identical(other.activated_at, activated_at) || other.activated_at == activated_at));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(recognize_on),pdf,activated_at);
+
+@override
+String toString() {
+  return 'FinanceIntegration(recognize_on: $recognize_on, pdf: $pdf, activated_at: $activated_at)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $FinanceIntegrationCopyWith<$Res>  {
+  factory $FinanceIntegrationCopyWith(FinanceIntegration value, $Res Function(FinanceIntegration) _then) = _$FinanceIntegrationCopyWithImpl;
+@useResult
+$Res call({
+ List<OrderStatus> recognize_on, FinancePdfSettings pdf, String? activated_at
+});
+
+
+$FinancePdfSettingsCopyWith<$Res> get pdf;
+
+}
+/// @nodoc
+class _$FinanceIntegrationCopyWithImpl<$Res>
+    implements $FinanceIntegrationCopyWith<$Res> {
+  _$FinanceIntegrationCopyWithImpl(this._self, this._then);
+
+  final FinanceIntegration _self;
+  final $Res Function(FinanceIntegration) _then;
+
+/// Create a copy of FinanceIntegration
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? recognize_on = null,Object? pdf = null,Object? activated_at = freezed,}) {
+  return _then(_self.copyWith(
+recognize_on: null == recognize_on ? _self.recognize_on : recognize_on // ignore: cast_nullable_to_non_nullable
+as List<OrderStatus>,pdf: null == pdf ? _self.pdf : pdf // ignore: cast_nullable_to_non_nullable
+as FinancePdfSettings,activated_at: freezed == activated_at ? _self.activated_at : activated_at // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+/// Create a copy of FinanceIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FinancePdfSettingsCopyWith<$Res> get pdf {
+  
+  return $FinancePdfSettingsCopyWith<$Res>(_self.pdf, (value) {
+    return _then(_self.copyWith(pdf: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [FinanceIntegration].
+extension FinanceIntegrationPatterns on FinanceIntegration {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _FinanceIntegration value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _FinanceIntegration() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _FinanceIntegration value)  $default,){
+final _that = this;
+switch (_that) {
+case _FinanceIntegration():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _FinanceIntegration value)?  $default,){
+final _that = this;
+switch (_that) {
+case _FinanceIntegration() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<OrderStatus> recognize_on,  FinancePdfSettings pdf,  String? activated_at)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _FinanceIntegration() when $default != null:
+return $default(_that.recognize_on,_that.pdf,_that.activated_at);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<OrderStatus> recognize_on,  FinancePdfSettings pdf,  String? activated_at)  $default,) {final _that = this;
+switch (_that) {
+case _FinanceIntegration():
+return $default(_that.recognize_on,_that.pdf,_that.activated_at);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<OrderStatus> recognize_on,  FinancePdfSettings pdf,  String? activated_at)?  $default,) {final _that = this;
+switch (_that) {
+case _FinanceIntegration() when $default != null:
+return $default(_that.recognize_on,_that.pdf,_that.activated_at);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _FinanceIntegration implements FinanceIntegration {
+  const _FinanceIntegration({final  List<OrderStatus> recognize_on = const [], this.pdf = const FinancePdfSettings(), this.activated_at}): _recognize_on = recognize_on;
+  factory _FinanceIntegration.fromJson(Map<String, dynamic> json) => _$FinanceIntegrationFromJson(json);
+
+ final  List<OrderStatus> _recognize_on;
+@override@JsonKey() List<OrderStatus> get recognize_on {
+  if (_recognize_on is EqualUnmodifiableListView) return _recognize_on;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_recognize_on);
+}
+
+@override@JsonKey() final  FinancePdfSettings pdf;
+/// Cash-basis metrics ignore payments/expenses before this UTC timestamp.
+@override final  String? activated_at;
+
+/// Create a copy of FinanceIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FinanceIntegrationCopyWith<_FinanceIntegration> get copyWith => __$FinanceIntegrationCopyWithImpl<_FinanceIntegration>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$FinanceIntegrationToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinanceIntegration&&const DeepCollectionEquality().equals(other._recognize_on, _recognize_on)&&(identical(other.pdf, pdf) || other.pdf == pdf)&&(identical(other.activated_at, activated_at) || other.activated_at == activated_at));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_recognize_on),pdf,activated_at);
+
+@override
+String toString() {
+  return 'FinanceIntegration(recognize_on: $recognize_on, pdf: $pdf, activated_at: $activated_at)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$FinanceIntegrationCopyWith<$Res> implements $FinanceIntegrationCopyWith<$Res> {
+  factory _$FinanceIntegrationCopyWith(_FinanceIntegration value, $Res Function(_FinanceIntegration) _then) = __$FinanceIntegrationCopyWithImpl;
+@override @useResult
+$Res call({
+ List<OrderStatus> recognize_on, FinancePdfSettings pdf, String? activated_at
+});
+
+
+@override $FinancePdfSettingsCopyWith<$Res> get pdf;
+
+}
+/// @nodoc
+class __$FinanceIntegrationCopyWithImpl<$Res>
+    implements _$FinanceIntegrationCopyWith<$Res> {
+  __$FinanceIntegrationCopyWithImpl(this._self, this._then);
+
+  final _FinanceIntegration _self;
+  final $Res Function(_FinanceIntegration) _then;
+
+/// Create a copy of FinanceIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? recognize_on = null,Object? pdf = null,Object? activated_at = freezed,}) {
+  return _then(_FinanceIntegration(
+recognize_on: null == recognize_on ? _self._recognize_on : recognize_on // ignore: cast_nullable_to_non_nullable
+as List<OrderStatus>,pdf: null == pdf ? _self.pdf : pdf // ignore: cast_nullable_to_non_nullable
+as FinancePdfSettings,activated_at: freezed == activated_at ? _self.activated_at : activated_at // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+/// Create a copy of FinanceIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FinancePdfSettingsCopyWith<$Res> get pdf {
+  
+  return $FinancePdfSettingsCopyWith<$Res>(_self.pdf, (value) {
+    return _then(_self.copyWith(pdf: value));
+  });
+}
 }
 
 

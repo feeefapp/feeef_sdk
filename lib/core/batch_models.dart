@@ -186,3 +186,53 @@ class BatchReleaseRequest {
         if (requestId != null) 'requestId': requestId,
       };
 }
+
+/// Body for `POST /finance/supplier-bills:batchPay`.
+class BatchPaySupplierBillsRequest {
+  final String projectId;
+  final String financialAccountId;
+  final List<String> names;
+  final bool returnPartialSuccess;
+  final String? requestId;
+
+  const BatchPaySupplierBillsRequest({
+    required this.projectId,
+    required this.financialAccountId,
+    required this.names,
+    this.returnPartialSuccess = true,
+    this.requestId,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'projectId': projectId,
+        'financialAccountId': financialAccountId,
+        'names': names,
+        'returnPartialSuccess': returnPartialSuccess,
+        if (requestId != null) 'requestId': requestId,
+      };
+}
+
+/// Body for `POST /finance/receivables:batchCollect`.
+class BatchCollectReceivablesRequest {
+  final String projectId;
+  final String financialAccountId;
+  final List<String> names;
+  final bool returnPartialSuccess;
+  final String? requestId;
+
+  const BatchCollectReceivablesRequest({
+    required this.projectId,
+    required this.financialAccountId,
+    required this.names,
+    this.returnPartialSuccess = true,
+    this.requestId,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'projectId': projectId,
+        'financialAccountId': financialAccountId,
+        'names': names,
+        'returnPartialSuccess': returnPartialSuccess,
+        if (requestId != null) 'requestId': requestId,
+      };
+}

@@ -51,6 +51,8 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     DispatcherIntegration? dispatcher,
     /// Inventory module (warehouses, stock, order reserve/consume).
     StoreInventoryIntegration? inventory,
+    /// Finance module (procurement, accounting).
+    StoreFinanceIntegration? finance,
     // Communication Integrations
     @Default({}) Map<String, dynamic>? sms,
     @Default({}) Map<String, dynamic>? telegram,
@@ -304,6 +306,35 @@ abstract class EcotrackDeliveryIntegration with _$EcotrackDeliveryIntegration {
     final v = metadata['parcelStock'];
     if (v == false) return false;
     return true;
+  }
+
+  /// Latest Ecotrack COD payout (`transaction_archived_at`) processed by cash-in sync.
+  String? get lastCashinSyncAt {
+    final v = metadata['lastCashinSyncAt'];
+    return v is String && v.isNotEmpty ? v : null;
+  }
+
+  /// Max COD payout batches per cash-in sync. `0` = unlimited. Default `4`.
+  int get cashinMaxTransactionsPerSync {
+    final v = metadata['cashinMaxTransactionsPerSync'];
+    if (v == null) return 4;
+    if (v is int) return v;
+    if (v is num) return v.toInt();
+    return 4;
+  }
+
+  /// Whether cash-in sync processes all pending payout batches (no per-run cap).
+  bool get cashinMaxTransactionsUnlimited => cashinMaxTransactionsPerSync <= 0;
+
+  /// Ecotrack cash-in `transaction_id` values already processed and skipped on later syncs.
+  List<int> get processedCashinTransactionIds {
+    final v = metadata['processedCashinTransactionIds'];
+    if (v is! List) return const [];
+    return v
+        .whereType<num>()
+        .map((id) => id.toInt())
+        .where((id) => id > 0)
+        .toList(growable: false);
   }
 }
 
@@ -569,6 +600,21 @@ abstract class StoreInventoryIntegration with _$StoreInventoryIntegration {
 
   factory StoreInventoryIntegration.fromJson(Map<String, dynamic> json) =>
       _$StoreInventoryIntegrationFromJson(json);
+}
+
+// ===================== FINANCE INTEGRATION =====================
+
+/// Finance module toggle (procurement + accounting). Billing + active flag.
+@freezed
+abstract class StoreFinanceIntegration with _$StoreFinanceIntegration {
+  const StoreFinanceIntegration._();
+  const factory StoreFinanceIntegration({
+    @Default(false) bool active,
+    @Default({}) Map<String, dynamic> metadata,
+  }) = _StoreFinanceIntegration;
+
+  factory StoreFinanceIntegration.fromJson(Map<String, dynamic> json) =>
+      _$StoreFinanceIntegrationFromJson(json);
 }
 
 // ===================== PUBLIC SECURITY (Storefront) =====================

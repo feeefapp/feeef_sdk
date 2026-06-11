@@ -411,6 +411,11 @@ _StoreConfigs _$StoreConfigsFromJson(
       : InventoryIntegration.fromJson(
           json['inventory_integration'] as Map<String, dynamic>,
         ),
+  finance_integration: json['finance_integration'] == null
+      ? null
+      : FinanceIntegration.fromJson(
+          json['finance_integration'] as Map<String, dynamic>,
+        ),
 );
 
 Map<String, dynamic> _$StoreConfigsToJson(_StoreConfigs instance) =>
@@ -424,7 +429,31 @@ Map<String, dynamic> _$StoreConfigsToJson(_StoreConfigs instance) =>
       'customStatusMappings': instance.customStatusMappings,
       'customStatusEnabled': instance.customStatusEnabled,
       'inventory_integration': instance.inventory_integration,
+      'finance_integration': instance.finance_integration,
     };
+
+_InventoryLifecycleRule _$InventoryLifecycleRuleFromJson(
+  Map<String, dynamic> json,
+) => _InventoryLifecycleRule(
+  id: json['id'] as String,
+  dimension: $enumDecode(_$PixelStatusDimensionEnumMap, json['dimension']),
+  equals: json['equals'] as String,
+);
+
+Map<String, dynamic> _$InventoryLifecycleRuleToJson(
+  _InventoryLifecycleRule instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'dimension': _$PixelStatusDimensionEnumMap[instance.dimension]!,
+  'equals': instance.equals,
+};
+
+const _$PixelStatusDimensionEnumMap = {
+  PixelStatusDimension.orderStatus: 'orderStatus',
+  PixelStatusDimension.deliveryStatus: 'deliveryStatus',
+  PixelStatusDimension.paymentStatus: 'paymentStatus',
+  PixelStatusDimension.customStatus: 'customStatus',
+};
 
 _InventoryIntegration _$InventoryIntegrationFromJson(
   Map<String, dynamic> json,
@@ -444,6 +473,33 @@ _InventoryIntegration _$InventoryIntegrationFromJson(
           ?.map((e) => $enumDecode(_$OrderStatusEnumMap, e))
           .toList() ??
       const [],
+  reserve_rules:
+      (json['reserve_rules'] as List<dynamic>?)
+          ?.map(
+            (e) => InventoryLifecycleRule.fromJson(e as Map<String, dynamic>),
+          )
+          .toList() ??
+      const [],
+  unreserve_rules:
+      (json['unreserve_rules'] as List<dynamic>?)
+          ?.map(
+            (e) => InventoryLifecycleRule.fromJson(e as Map<String, dynamic>),
+          )
+          .toList() ??
+      const [],
+  consume_rules:
+      (json['consume_rules'] as List<dynamic>?)
+          ?.map(
+            (e) => InventoryLifecycleRule.fromJson(e as Map<String, dynamic>),
+          )
+          .toList() ??
+      const [],
+  missing_bucket_policy:
+      $enumDecodeNullable(
+        _$MissingInventoryBucketPolicyEnumMap,
+        json['missing_bucket_policy'],
+      ) ??
+      MissingInventoryBucketPolicy.ignore,
 );
 
 Map<String, dynamic> _$InventoryIntegrationToJson(
@@ -458,6 +514,11 @@ Map<String, dynamic> _$InventoryIntegrationToJson(
   'consume_on': instance.consume_on
       .map((e) => _$OrderStatusEnumMap[e]!)
       .toList(),
+  'reserve_rules': instance.reserve_rules,
+  'unreserve_rules': instance.unreserve_rules,
+  'consume_rules': instance.consume_rules,
+  'missing_bucket_policy':
+      _$MissingInventoryBucketPolicyEnumMap[instance.missing_bucket_policy]!,
 };
 
 const _$OrderStatusEnumMap = {
@@ -469,6 +530,75 @@ const _$OrderStatusEnumMap = {
   OrderStatus.completed: 'completed',
   OrderStatus.cancelled: 'cancelled',
 };
+
+const _$MissingInventoryBucketPolicyEnumMap = {
+  MissingInventoryBucketPolicy.ignore: 'ignore',
+  MissingInventoryBucketPolicy.reject: 'reject',
+};
+
+_FinancePdfSettings _$FinancePdfSettingsFromJson(Map<String, dynamic> json) =>
+    _FinancePdfSettings(
+      paperSize:
+          $enumDecodeNullable(
+            _$FinancePdfPaperSizeEnumMap,
+            json['paperSize'],
+          ) ??
+          FinancePdfPaperSize.a4,
+      showQrCode: json['showQrCode'] as bool? ?? true,
+      showLogo: json['showLogo'] as bool? ?? true,
+      showStoreContact: json['showStoreContact'] as bool? ?? true,
+      showSupplierDetails: json['showSupplierDetails'] as bool? ?? true,
+      showDocumentId: json['showDocumentId'] as bool? ?? true,
+      showFooter: json['showFooter'] as bool? ?? true,
+      showStatusBadge: json['showStatusBadge'] as bool? ?? true,
+      showSignatureLines: json['showSignatureLines'] as bool? ?? false,
+      showPaymentHistory: json['showPaymentHistory'] as bool? ?? true,
+      footerNote: json['footerNote'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$FinancePdfSettingsToJson(_FinancePdfSettings instance) =>
+    <String, dynamic>{
+      'paperSize': _$FinancePdfPaperSizeEnumMap[instance.paperSize]!,
+      'showQrCode': instance.showQrCode,
+      'showLogo': instance.showLogo,
+      'showStoreContact': instance.showStoreContact,
+      'showSupplierDetails': instance.showSupplierDetails,
+      'showDocumentId': instance.showDocumentId,
+      'showFooter': instance.showFooter,
+      'showStatusBadge': instance.showStatusBadge,
+      'showSignatureLines': instance.showSignatureLines,
+      'showPaymentHistory': instance.showPaymentHistory,
+      'footerNote': instance.footerNote,
+    };
+
+const _$FinancePdfPaperSizeEnumMap = {
+  FinancePdfPaperSize.a4: 'a4',
+  FinancePdfPaperSize.letter: 'letter',
+  FinancePdfPaperSize.a5: 'a5',
+  FinancePdfPaperSize.legal: 'legal',
+};
+
+_FinanceIntegration _$FinanceIntegrationFromJson(Map<String, dynamic> json) =>
+    _FinanceIntegration(
+      recognize_on:
+          (json['recognize_on'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$OrderStatusEnumMap, e))
+              .toList() ??
+          const [],
+      pdf: json['pdf'] == null
+          ? const FinancePdfSettings()
+          : FinancePdfSettings.fromJson(json['pdf'] as Map<String, dynamic>),
+      activated_at: json['activated_at'] as String?,
+    );
+
+Map<String, dynamic> _$FinanceIntegrationToJson(_FinanceIntegration instance) =>
+    <String, dynamic>{
+      'recognize_on': instance.recognize_on
+          .map((e) => _$OrderStatusEnumMap[e]!)
+          .toList(),
+      'pdf': instance.pdf,
+      'activated_at': instance.activated_at,
+    };
 
 _CustomStatusMapping _$CustomStatusMappingFromJson(Map<String, dynamic> json) =>
     _CustomStatusMapping(

@@ -92,6 +92,17 @@ class InventoryRepository {
       (key, value) => MapEntry(key.toString(), (value as num?)?.toInt() ?? 0),
     );
   }
+
+  /// Wipes all project-scoped inventory data (owner-only). Requires [confirm] == `RESET`.
+  Future<void> resetData({
+    required String projectId,
+    String confirm = 'RESET',
+  }) async {
+    await client.post(
+      '/inventory/reset',
+      data: {'projectId': projectId, 'confirm': confirm},
+    );
+  }
 }
 
 class InventoryObjectUpdate implements ModelUpdate {

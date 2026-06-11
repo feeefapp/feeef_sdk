@@ -313,6 +313,29 @@ abstract class EcotrackDeliveryIntegration with _$EcotrackDeliveryIntegration {
     final v = metadata['lastCashinSyncAt'];
     return v is String && v.isNotEmpty ? v : null;
   }
+
+  /// Max COD payout batches per cash-in sync. `0` = unlimited. Default `4`.
+  int get cashinMaxTransactionsPerSync {
+    final v = metadata['cashinMaxTransactionsPerSync'];
+    if (v == null) return 4;
+    if (v is int) return v;
+    if (v is num) return v.toInt();
+    return 4;
+  }
+
+  /// Whether cash-in sync processes all pending payout batches (no per-run cap).
+  bool get cashinMaxTransactionsUnlimited => cashinMaxTransactionsPerSync <= 0;
+
+  /// Ecotrack cash-in `transaction_id` values already processed and skipped on later syncs.
+  List<int> get processedCashinTransactionIds {
+    final v = metadata['processedCashinTransactionIds'];
+    if (v is! List) return const [];
+    return v
+        .whereType<num>()
+        .map((id) => id.toInt())
+        .where((id) => id > 0)
+        .toList(growable: false);
+  }
 }
 
 /// Ecomanager delivery service integration configuration.

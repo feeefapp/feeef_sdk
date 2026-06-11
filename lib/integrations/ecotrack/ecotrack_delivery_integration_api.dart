@@ -298,6 +298,31 @@ class EcotrackDeliveryIntegrationApi {
     }
   }
 
+  /// Sync only COD payouts marked received by Ecotrack (cash-in history).
+  /// Does not update in-process delivery statuses.
+  ///
+  /// When [forceAll] is true, ignores the last-sync watermark and per-run cap,
+  /// but still skips [EcotrackDeliveryIntegration.processedCashinTransactionIds].
+  Future<EcotrackSyncResult> triggerCashinSync({bool forceAll = false}) async {
+    try {
+      final response = await client.post(
+        '/stores/$storeId/integrations/ecotrack/sync/cashin',
+        data: forceAll ? {'forceAll': true} : null,
+      );
+
+      return EcotrackSyncResult.fromJson(response.data);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 422) {
+        var errors = FeeefValidationException.fromJson(e.response?.data);
+        throw errors;
+      }
+      if (e.response?.data != null) {
+        return EcotrackSyncResult.fromJson(e.response!.data);
+      }
+      rethrow;
+    }
+  }
+
   Future<EcotrackSyncResult> triggerSync({
     DateTime? startDate,
     DateTime? endDate,
@@ -412,6 +437,10 @@ class EcotrackSyncResult {
   final int? totalCashinTransactions;
   /// Orders marked `payment_status: received` from cash-in sync.
   final int? totalPaymentReceived;
+  /// Customer payments created in Finance from cash-in sync.
+  final int? totalFinancePaymentsCreated;
+  /// Total amount collected into Finance from cash-in sync.
+  final num? totalFinanceAmountCollected;
   final String? syncedAt;
   final List<String>? errors;
 
@@ -424,6 +453,8 @@ class EcotrackSyncResult {
     this.totalSkipped,
     this.totalCashinTransactions,
     this.totalPaymentReceived,
+    this.totalFinancePaymentsCreated,
+    this.totalFinanceAmountCollected,
     this.syncedAt,
     this.errors,
   });
@@ -438,6 +469,8 @@ class EcotrackSyncResult {
       totalSkipped: json['totalSkipped'],
       totalCashinTransactions: json['totalCashinTransactions'],
       totalPaymentReceived: json['totalPaymentReceived'],
+      totalFinancePaymentsCreated: json['totalFinancePaymentsCreated'],
+      totalFinanceAmountCollected: json['totalFinanceAmountCollected'],
       syncedAt: json['syncedAt'],
       errors: json['errors'] != null ? List<String>.from(json['errors']) : null,
     );

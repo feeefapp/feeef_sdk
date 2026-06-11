@@ -1322,6 +1322,16 @@ class ReceivableResourceRepository extends ResourceRepository<Receivable,
   Future<void> delete({required String id, Map<String, dynamic>? params}) async {
     throw UnsupportedError('Receivables are read-only.');
   }
+
+  /// Batch collect full remaining balance on each open receivable (by order id).
+  Future<BatchResult<Receivable>> batchCollect({
+    required BatchCollectReceivablesRequest request,
+  }) =>
+      postBatchAction<Receivable>(
+        action: 'batchCollect',
+        body: request.toJson(),
+        resourceFromJson: modelFromJson,
+      );
 }
 
 // ─── Phase 2: expenses ──────────────────────────────────────────────────────────

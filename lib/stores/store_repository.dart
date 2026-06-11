@@ -70,6 +70,16 @@ class StoreRepository extends ModelRepository<Store>
     );
   }
 
+  /// Backfill `projectId` for legacy stores (finance/inventory). Returns the updated store.
+  Future<Store> ensureProject({required String id}) async {
+    final response = await client.post('/$table/$id/ensure-project');
+    final data = response.data;
+    if (data is Map<String, dynamic> && data['store'] is Map<String, dynamic>) {
+      return modelFromJson(data['store']);
+    }
+    throw StateError('Invalid ensure-project response');
+  }
+
   /// Store summary metrics for [id] in the optional [from]–[to] date range. Returns [StoreSummary].
   Future<StoreSummary> summary({
     required String id,

@@ -1265,39 +1265,20 @@ class ReceivableResourceRepository extends ResourceRepository<Receivable,
     int? limit,
     Map<String, dynamic>? params,
   }) async {
-    final qp = Map<String, dynamic>.from(params ?? {});
-    final projectId = qp.remove('projectId') as String?;
-    final q = (qp.remove('q') ?? qp.remove('searchQuery'))?.toString().trim();
-    final codRaw = qp.remove('codInTransit');
-    final codOnly = codRaw == true || codRaw == 'true';
-
+    if (!_hasFinanceProjectId(params)) {
+      return ListResponse(data: const []);
+    }
     final response = await client.get(
       '/finance/receivables',
-      queryParameters: {if (projectId != null) 'projectId': projectId},
+      queryParameters: _financeListQuery(
+        params: params,
+        page: page,
+        offset: offset,
+        limit: limit,
+      ),
       cancelToken: modelListCancelToken,
     );
-    final data = response.data['data'] ?? response.data;
-    var items = (data as List)
-        .whereType<Map>()
-        .map((e) => modelFromJson(Map<String, dynamic>.from(e)))
-        .toList();
-
-    if (q != null && q.isNotEmpty) {
-      final lower = q.toLowerCase();
-      items = items
-          .where((r) => r.orderId.toLowerCase().contains(lower))
-          .toList();
-    }
-    if (codOnly == true) {
-      items = items.where((r) => r.codInTransit).toList();
-    }
-
-    return ListResponse(
-      data: items,
-      total: items.length,
-      page: 1,
-      limit: items.length,
-    );
+    return parseFinanceListResponse(response.data, modelFromJson);
   }
 
   @override

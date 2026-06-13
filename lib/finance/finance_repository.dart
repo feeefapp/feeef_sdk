@@ -167,6 +167,7 @@ class FinanceRepository {
   }
 
   /// Open order receivables (derived, read-only).
+  @Deprecated('Use ReceivableResourceRepository.findDetail instead')
   Future<List<Receivable>> listReceivables({required String projectId}) async {
     final response = await client.get(
       '/finance/receivables',
@@ -1257,6 +1258,35 @@ class ReceivableResourceRepository extends ResourceRepository<Receivable,
 
   @override
   Map<String, dynamic> updateToJson(ReceivableNoopUpdate model) => model.toUpdateJson();
+
+  /// GET /finance/receivables/:orderId — receivable + order scoped by [projectId].
+  @override
+  Future<Receivable> find({
+    required String id,
+    Map<String, dynamic>? params,
+  }) async {
+    final detail = await findDetail(orderId: id, params: params);
+    return detail.receivable;
+  }
+
+  /// Loads receivable balances and the linked order by [orderId] (not a generic
+  /// `GET /orders/:id` — uses finance project scope).
+  Future<ReceivableDetail> findDetail({
+    required String orderId,
+    Map<String, dynamic>? params,
+  }) async {
+    if (!_hasFinanceProjectId(params)) {
+      throw StateError('projectId is required to load a receivable detail');
+    }
+    final response = await client.get(
+      '/finance/receivables/$orderId',
+      queryParameters: params,
+      cancelToken: modelFindCancelToken,
+    );
+    return ReceivableDetail.fromJson(
+      Map<String, dynamic>.from(response.data as Map),
+    );
+  }
 
   @override
   Future<ListResponse<Receivable>> list({

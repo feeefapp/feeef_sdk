@@ -982,6 +982,29 @@ class Receivable implements Model {
       );
 }
 
+/// Receivable row plus the linked merchant order (finance detail panel).
+class ReceivableDetail {
+  final Receivable receivable;
+  final Map<String, dynamic> orderJson;
+
+  const ReceivableDetail({
+    required this.receivable,
+    required this.orderJson,
+  });
+
+  factory ReceivableDetail.fromJson(Map<String, dynamic> json) {
+    final receivableRaw = json['receivable'];
+    final orderRaw = json['order'];
+    if (receivableRaw is! Map || orderRaw is! Map) {
+      throw FormatException('ReceivableDetail requires receivable and order maps');
+    }
+    return ReceivableDetail(
+      receivable: Receivable.fromJson(Map<String, dynamic>.from(receivableRaw)),
+      orderJson: Map<String, dynamic>.from(orderRaw),
+    );
+  }
+}
+
 // ─── Phase 2: expenses + categories ─────────────────────────────────────────────
 
 enum ExpenseStatus { draft, recorded, voided }

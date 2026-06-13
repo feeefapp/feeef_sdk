@@ -304,6 +304,50 @@ extension StoreExtensions on Store {
     var rawKey = utf8.decode(base64Url.decode(encodedKey));
     return rawKey.split('.').first; // Assuming the store id is the first part
   }
+
+  /// Merges [update] onto this store without a JSON round-trip.
+  ///
+  /// [Store.toJson] leaves nested freezed values as typed objects; merging via
+  /// `fromJson({...toJson(), ...toUpdateJson()})` fails for fields like [banner].
+  Store applyUpdate(StoreUpdate update) {
+    final patch = update.toUpdateJson();
+    if (patch.isEmpty) return this;
+
+    return copyWith(
+      name: patch.containsKey('name') ? update.name! : name,
+      slug: patch.containsKey('slug') ? update.slug! : slug,
+      banner: patch.containsKey('banner') ? update.banner : banner,
+      action: patch.containsKey('action') ? update.action : action,
+      domain: patch.containsKey('domain') ? update.domain : domain,
+      decoration: patch.containsKey('decoration') ? update.decoration : decoration,
+      logoUrl: patch.containsKey('logoUrl') ? update.logoUrl : logoUrl,
+      iconUrl: patch.containsKey('iconUrl') ? update.iconUrl : iconUrl,
+      ondarkLogoUrl:
+          patch.containsKey('ondarkLogoUrl') ? update.ondarkLogoUrl : ondarkLogoUrl,
+      categories:
+          patch.containsKey('categories') ? update.categories! : categories,
+      title: patch.containsKey('title') ? update.title : title,
+      description:
+          patch.containsKey('description') ? update.description : description,
+      addresses: patch.containsKey('addresses') ? update.addresses! : addresses,
+      address: patch.containsKey('address') ? update.address : address,
+      metadata: patch.containsKey('metadata') ? update.metadata! : metadata,
+      contacts: patch.containsKey('contacts') ? update.contacts! : contacts,
+      integrations:
+          patch.containsKey('integrations') ? update.integrations! : integrations,
+      defaultShippingRates: patch.containsKey('defaultShippingRates')
+          ? update.defaultShippingRates!
+          : defaultShippingRates,
+      subscription:
+          patch.containsKey('subscription') ? update.subscription : subscription,
+      due: patch.containsKey('due') ? update.due : due,
+      configs: patch.containsKey('configs') ? update.configs : configs,
+      shippingPriceId:
+          patch.containsKey('shippingPriceId') ? update.shippingPriceId : shippingPriceId,
+      templateId: patch.containsKey('templateId') ? update.templateId : templateId,
+      projectId: patch.containsKey('projectId') ? update.projectId : projectId,
+    );
+  }
 }
 
 // export enum StoreSubscriptionType {

@@ -1101,10 +1101,13 @@ class Expense implements Model {
 
   factory Expense.fromJson(Map<String, dynamic> json) => Expense(
         id: json['id'] as String,
-        projectId: json['projectId'] as String,
-        categoryId: json['categoryId'] as String?,
-        supplierId: json['supplierId'] as String?,
-        financialAccountId: json['financialAccountId'] as String?,
+        projectId:
+            (json['projectId'] ?? json['project_id'])?.toString() ?? '',
+        categoryId: (json['categoryId'] ?? json['category_id'])?.toString(),
+        supplierId: (json['supplierId'] ?? json['supplier_id'])?.toString(),
+        financialAccountId:
+            (json['financialAccountId'] ?? json['financial_account_id'])
+                ?.toString(),
         amount: _toDouble(json['amount']),
         currency: json['currency'] as String?,
         spentAt: json['spentAt'] != null

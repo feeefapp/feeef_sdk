@@ -77,6 +77,21 @@ void main() {
       expect(memberHasScope(m, MemberScope.shippingPrices), isFalse);
     });
 
+    test('store.integrations implies inventory and finance scopes', () {
+      final m = StoreMember(
+        userId: 'u1',
+        name: 'A',
+        role: StoreMemberRole.editor,
+        createdAt: DateTime.now(),
+        scopes: [MemberScope.storeIntegrations],
+      );
+      expect(memberHasScope(m, MemberScope.inventoryRead), isTrue);
+      expect(memberHasScope(m, MemberScope.financeRead), isTrue);
+      expect(memberHasScope(m, MemberScope.inventory), isTrue);
+      expect(memberHasScope(m, MemberScope.finance), isTrue);
+      expect(memberHasScope(m, MemberScope.storeMembers), isFalse);
+    });
+
     test('legacy shipping_methods alias implies shipping_prices', () {
       final m = StoreMember(
         userId: 'u1',

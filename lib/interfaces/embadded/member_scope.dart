@@ -97,6 +97,15 @@ bool memberHasScope(StoreMember? member, String required) {
   if (expanded.contains(MemberScope.wildcard)) return true;
   if (expanded.contains(MemberScope.store)) return true;
   if (expanded.contains(required)) return true;
+  if (expanded.contains(MemberScope.storeIntegrations)) {
+    const implied = {
+      MemberScope.inventory,
+      MemberScope.inventoryRead,
+      MemberScope.finance,
+      MemberScope.financeRead,
+    };
+    if (implied.contains(required)) return true;
+  }
   final dot = required.indexOf('.');
   if (dot > 0) {
     final parent = required.substring(0, dot);

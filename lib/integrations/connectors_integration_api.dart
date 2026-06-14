@@ -58,6 +58,71 @@ class ConnectorsIntegrationApi {
     return response.data['installUrl'] as String;
   }
 
+  /// Returns Google Sheets OAuth URL for inbound connector setup.
+  Future<String> getGoogleSheetsInstallUrl(
+    String storeId, {
+    bool popup = false,
+    String? origin,
+    String? callbackScheme,
+  }) async {
+    final response = await client.get(
+      '/stores/$storeId/integrations/connectors/google-sheets/install-url',
+      queryParameters: {
+        if (popup) 'popup': 'true',
+        if (origin != null && origin.isNotEmpty) 'origin': origin,
+        if (callbackScheme != null && callbackScheme.isNotEmpty)
+          'callbackScheme': callbackScheme,
+      },
+    );
+    return response.data['installUrl'] as String;
+  }
+
+  /// Lists spreadsheets accessible by a Google Sheets connector.
+  Future<List<Map<String, dynamic>>> listGoogleSpreadsheets(
+    String storeId,
+    String connectorId,
+  ) async {
+    final response = await client.get(
+      '/stores/$storeId/integrations/connectors/$connectorId/google-sheets/spreadsheets',
+    );
+    final list = response.data['spreadsheets'] as List<dynamic>? ?? [];
+    return list.map((e) => Map<String, dynamic>.from(e as Map)).toList();
+  }
+
+  /// Lists tabs in a spreadsheet for connector configuration.
+  Future<List<Map<String, dynamic>>> listGoogleSheetTabs(
+    String storeId,
+    String connectorId,
+    String spreadsheetId,
+  ) async {
+    final response = await client.get(
+      '/stores/$storeId/integrations/connectors/$connectorId/google-sheets/spreadsheets/$spreadsheetId/tabs',
+    );
+    final list = response.data['tabs'] as List<dynamic>? ?? [];
+    return list.map((e) => Map<String, dynamic>.from(e as Map)).toList();
+  }
+
+  /// Binds spreadsheet + tab and runs initial order pull.
+  Future<ConnectorConfig> configureGoogleSheetsConnector(
+    String storeId,
+    String connectorId, {
+    required String spreadsheetId,
+    required String sheetName,
+    String? spreadsheetName,
+  }) async {
+    final response = await client.post(
+      '/stores/$storeId/integrations/connectors/$connectorId/google-sheets/configure',
+      data: {
+        'spreadsheetId': spreadsheetId,
+        'sheetName': sheetName,
+        if (spreadsheetName != null && spreadsheetName.isNotEmpty)
+          'spreadsheetName': spreadsheetName,
+      },
+    );
+    final data = response.data as Map<String, dynamic>;
+    return ConnectorConfig.fromJson(data['connector'] as Map<String, dynamic>);
+  }
+
   /// Fetches one-time mobile OAuth payload after deep-link callback.
   Future<Map<String, dynamic>> fetchMobileOAuthResult(String nonce) async {
     final response = await client.get(

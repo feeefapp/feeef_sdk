@@ -20,6 +20,7 @@ import 'package:feeef/files/services/file_service.dart';
 import 'package:feeef/feedbacks/feedback_repository.dart';
 import 'package:feeef/inventory/inventory_repository.dart';
 import 'package:feeef/finance/finance_repository.dart';
+import 'package:feeef/integrations/connectors_integration_api.dart';
 import 'package:feeef/apps/app_repository.dart';
 import 'package:feeef/oauth/oauth_repository.dart';
 import 'package:feeef/image_prompt_templates/image_prompt_template_repository.dart';
@@ -150,6 +151,7 @@ class Feeef {
   late final PromoRepository promos;
   late final InventoryRepository inventory;
   late final FinanceRepository finance;
+  late final ConnectorsIntegrationApi connectors;
 
   late final CurrencyRepository currencies;
   late final CountryRepository countries;
@@ -191,6 +193,7 @@ class Feeef {
     promos = PromoRepository(client: client);
     inventory = InventoryRepository(client: client);
     finance = FinanceRepository(client: client);
+    connectors = ConnectorsIntegrationApi(client: client);
     files = FileService(client: client);
 
     currencies = CurrencyRepository(client: client);

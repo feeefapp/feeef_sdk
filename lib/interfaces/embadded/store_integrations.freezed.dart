@@ -26,7 +26,8 @@ mixin _$StoreIntegrations {
  PaymentIntegration? get payment;// Dispatcher Integration (order assignment to confirmers)
  DispatcherIntegration? get dispatcher;/// Inventory module (warehouses, stock, order reserve/consume).
  StoreInventoryIntegration? get inventory;/// Finance module (procurement, accounting).
- StoreFinanceIntegration? get finance;// Communication Integrations
+ StoreFinanceIntegration? get finance;/// Inbound platform connectors (Shopify, YouCan, Google Sheets, …).
+ ConnectorsIntegration? get connectors;// Communication Integrations
  Map<String, dynamic>? get sms; Map<String, dynamic>? get telegram;
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
@@ -40,16 +41,16 @@ $StoreIntegrationsCopyWith<StoreIntegrations> get copyWith => _$StoreIntegration
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&const DeepCollectionEquality().equals(other.sms, sms)&&const DeepCollectionEquality().equals(other.telegram, telegram));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&(identical(other.connectors, connectors) || other.connectors == connectors)&&const DeepCollectionEquality().equals(other.sms, sms)&&const DeepCollectionEquality().equals(other.telegram, telegram));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(metadata),metaPixel,tiktokPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,maystroDelivery,googleSheet,webhooks,security,customFields,payment,dispatcher,inventory,finance,const DeepCollectionEquality().hash(sms),const DeepCollectionEquality().hash(telegram)]);
+int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(metadata),metaPixel,tiktokPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,maystroDelivery,googleSheet,webhooks,security,customFields,payment,dispatcher,inventory,finance,connectors,const DeepCollectionEquality().hash(sms),const DeepCollectionEquality().hash(telegram)]);
 
 @override
 String toString() {
-  return 'StoreIntegrations(metadata: $metadata, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, maystroDelivery: $maystroDelivery, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, sms: $sms, telegram: $telegram)';
+  return 'StoreIntegrations(metadata: $metadata, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, maystroDelivery: $maystroDelivery, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, connectors: $connectors, sms: $sms, telegram: $telegram)';
 }
 
 
@@ -60,11 +61,11 @@ abstract mixin class $StoreIntegrationsCopyWith<$Res>  {
   factory $StoreIntegrationsCopyWith(StoreIntegrations value, $Res Function(StoreIntegrations) _then) = _$StoreIntegrationsCopyWithImpl;
 @useResult
 $Res call({
- Map<String, dynamic>? metadata, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, MaystroDeliveryIntegration? maystroDelivery, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
+ Map<String, dynamic>? metadata, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, MaystroDeliveryIntegration? maystroDelivery, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, ConnectorsIntegration? connectors, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
 });
 
 
-$MetaPixelIntegrationCopyWith<$Res>? get metaPixel;$TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;$GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;$GoogleTagsIntegrationCopyWith<$Res>? get googleTags;$ClarityIntegrationCopyWith<$Res>? get clarity;$AiIntegrationCopyWith<$Res>? get ai;$YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;$EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;$EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;$ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;$NoestDeliveryIntegrationCopyWith<$Res>? get noest;$OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;$ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;$ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;$MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;$MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;$GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;$WebhooksIntegrationCopyWith<$Res>? get webhooks;$SecurityIntegrationCopyWith<$Res>? get security;$CustomFieldsIntegrationCopyWith<$Res>? get customFields;$PaymentIntegrationCopyWith<$Res>? get payment;$DispatcherIntegrationCopyWith<$Res>? get dispatcher;$StoreInventoryIntegrationCopyWith<$Res>? get inventory;$StoreFinanceIntegrationCopyWith<$Res>? get finance;
+$MetaPixelIntegrationCopyWith<$Res>? get metaPixel;$TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;$GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;$GoogleTagsIntegrationCopyWith<$Res>? get googleTags;$ClarityIntegrationCopyWith<$Res>? get clarity;$AiIntegrationCopyWith<$Res>? get ai;$YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;$EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;$EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;$ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;$NoestDeliveryIntegrationCopyWith<$Res>? get noest;$OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;$ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;$ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;$MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;$MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;$GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;$WebhooksIntegrationCopyWith<$Res>? get webhooks;$SecurityIntegrationCopyWith<$Res>? get security;$CustomFieldsIntegrationCopyWith<$Res>? get customFields;$PaymentIntegrationCopyWith<$Res>? get payment;$DispatcherIntegrationCopyWith<$Res>? get dispatcher;$StoreInventoryIntegrationCopyWith<$Res>? get inventory;$StoreFinanceIntegrationCopyWith<$Res>? get finance;$ConnectorsIntegrationCopyWith<$Res>? get connectors;
 
 }
 /// @nodoc
@@ -77,7 +78,7 @@ class _$StoreIntegrationsCopyWithImpl<$Res>
 
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? metadata = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? maystroDelivery = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? metadata = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? maystroDelivery = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? connectors = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
   return _then(_self.copyWith(
 metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,metaPixel: freezed == metaPixel ? _self.metaPixel : metaPixel // ignore: cast_nullable_to_non_nullable
@@ -104,7 +105,8 @@ as CustomFieldsIntegration?,payment: freezed == payment ? _self.payment : paymen
 as PaymentIntegration?,dispatcher: freezed == dispatcher ? _self.dispatcher : dispatcher // ignore: cast_nullable_to_non_nullable
 as DispatcherIntegration?,inventory: freezed == inventory ? _self.inventory : inventory // ignore: cast_nullable_to_non_nullable
 as StoreInventoryIntegration?,finance: freezed == finance ? _self.finance : finance // ignore: cast_nullable_to_non_nullable
-as StoreFinanceIntegration?,sms: freezed == sms ? _self.sms : sms // ignore: cast_nullable_to_non_nullable
+as StoreFinanceIntegration?,connectors: freezed == connectors ? _self.connectors : connectors // ignore: cast_nullable_to_non_nullable
+as ConnectorsIntegration?,sms: freezed == sms ? _self.sms : sms // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,telegram: freezed == telegram ? _self.telegram : telegram // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,
   ));
@@ -397,6 +399,18 @@ $StoreFinanceIntegrationCopyWith<$Res>? get finance {
   return $StoreFinanceIntegrationCopyWith<$Res>(_self.finance!, (value) {
     return _then(_self.copyWith(finance: value));
   });
+}/// Create a copy of StoreIntegrations
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ConnectorsIntegrationCopyWith<$Res>? get connectors {
+    if (_self.connectors == null) {
+    return null;
+  }
+
+  return $ConnectorsIntegrationCopyWith<$Res>(_self.connectors!, (value) {
+    return _then(_self.copyWith(connectors: value));
+  });
 }
 }
 
@@ -479,10 +493,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  MaystroDeliveryIntegration? maystroDelivery,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  MaystroDeliveryIntegration? maystroDelivery,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreIntegrations() when $default != null:
-return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.maystroDelivery,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.maystroDelivery,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.connectors,_that.sms,_that.telegram);case _:
   return orElse();
 
 }
@@ -500,10 +514,10 @@ return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAna
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  MaystroDeliveryIntegration? maystroDelivery,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  MaystroDeliveryIntegration? maystroDelivery,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)  $default,) {final _that = this;
 switch (_that) {
 case _StoreIntegrations():
-return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.maystroDelivery,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.maystroDelivery,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.connectors,_that.sms,_that.telegram);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -520,10 +534,10 @@ return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAna
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  MaystroDeliveryIntegration? maystroDelivery,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  MaystroDeliveryIntegration? maystroDelivery,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreIntegrations() when $default != null:
-return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.maystroDelivery,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.maystroDelivery,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.connectors,_that.sms,_that.telegram);case _:
   return null;
 
 }
@@ -535,7 +549,7 @@ return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAna
 @JsonSerializable()
 
 class _StoreIntegrations extends StoreIntegrations {
-  const _StoreIntegrations({final  Map<String, dynamic>? metadata = const {}, this.metaPixel, this.tiktokPixel, this.googleAnalytics, this.googleTags, this.clarity, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.mdmExpress, this.maystroDelivery, this.googleSheet, this.webhooks, this.security, this.customFields, this.payment, this.dispatcher, this.inventory, this.finance, final  Map<String, dynamic>? sms = const {}, final  Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
+  const _StoreIntegrations({final  Map<String, dynamic>? metadata = const {}, this.metaPixel, this.tiktokPixel, this.googleAnalytics, this.googleTags, this.clarity, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.mdmExpress, this.maystroDelivery, this.googleSheet, this.webhooks, this.security, this.customFields, this.payment, this.dispatcher, this.inventory, this.finance, this.connectors, final  Map<String, dynamic>? sms = const {}, final  Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
   factory _StoreIntegrations.fromJson(Map<String, dynamic> json) => _$StoreIntegrationsFromJson(json);
 
  final  Map<String, dynamic>? _metadata;
@@ -582,6 +596,8 @@ class _StoreIntegrations extends StoreIntegrations {
 @override final  StoreInventoryIntegration? inventory;
 /// Finance module (procurement, accounting).
 @override final  StoreFinanceIntegration? finance;
+/// Inbound platform connectors (Shopify, YouCan, Google Sheets, …).
+@override final  ConnectorsIntegration? connectors;
 // Communication Integrations
  final  Map<String, dynamic>? _sms;
 // Communication Integrations
@@ -616,16 +632,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrations&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&const DeepCollectionEquality().equals(other._sms, _sms)&&const DeepCollectionEquality().equals(other._telegram, _telegram));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrations&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&(identical(other.connectors, connectors) || other.connectors == connectors)&&const DeepCollectionEquality().equals(other._sms, _sms)&&const DeepCollectionEquality().equals(other._telegram, _telegram));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_metadata),metaPixel,tiktokPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,maystroDelivery,googleSheet,webhooks,security,customFields,payment,dispatcher,inventory,finance,const DeepCollectionEquality().hash(_sms),const DeepCollectionEquality().hash(_telegram)]);
+int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_metadata),metaPixel,tiktokPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,maystroDelivery,googleSheet,webhooks,security,customFields,payment,dispatcher,inventory,finance,connectors,const DeepCollectionEquality().hash(_sms),const DeepCollectionEquality().hash(_telegram)]);
 
 @override
 String toString() {
-  return 'StoreIntegrations(metadata: $metadata, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, maystroDelivery: $maystroDelivery, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, sms: $sms, telegram: $telegram)';
+  return 'StoreIntegrations(metadata: $metadata, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, maystroDelivery: $maystroDelivery, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, connectors: $connectors, sms: $sms, telegram: $telegram)';
 }
 
 
@@ -636,11 +652,11 @@ abstract mixin class _$StoreIntegrationsCopyWith<$Res> implements $StoreIntegrat
   factory _$StoreIntegrationsCopyWith(_StoreIntegrations value, $Res Function(_StoreIntegrations) _then) = __$StoreIntegrationsCopyWithImpl;
 @override @useResult
 $Res call({
- Map<String, dynamic>? metadata, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, MaystroDeliveryIntegration? maystroDelivery, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
+ Map<String, dynamic>? metadata, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, MaystroDeliveryIntegration? maystroDelivery, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, ConnectorsIntegration? connectors, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
 });
 
 
-@override $MetaPixelIntegrationCopyWith<$Res>? get metaPixel;@override $TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;@override $GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;@override $GoogleTagsIntegrationCopyWith<$Res>? get googleTags;@override $ClarityIntegrationCopyWith<$Res>? get clarity;@override $AiIntegrationCopyWith<$Res>? get ai;@override $YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;@override $EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;@override $EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;@override $ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;@override $NoestDeliveryIntegrationCopyWith<$Res>? get noest;@override $OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;@override $ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;@override $ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;@override $MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;@override $MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;@override $GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;@override $WebhooksIntegrationCopyWith<$Res>? get webhooks;@override $SecurityIntegrationCopyWith<$Res>? get security;@override $CustomFieldsIntegrationCopyWith<$Res>? get customFields;@override $PaymentIntegrationCopyWith<$Res>? get payment;@override $DispatcherIntegrationCopyWith<$Res>? get dispatcher;@override $StoreInventoryIntegrationCopyWith<$Res>? get inventory;@override $StoreFinanceIntegrationCopyWith<$Res>? get finance;
+@override $MetaPixelIntegrationCopyWith<$Res>? get metaPixel;@override $TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;@override $GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;@override $GoogleTagsIntegrationCopyWith<$Res>? get googleTags;@override $ClarityIntegrationCopyWith<$Res>? get clarity;@override $AiIntegrationCopyWith<$Res>? get ai;@override $YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;@override $EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;@override $EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;@override $ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;@override $NoestDeliveryIntegrationCopyWith<$Res>? get noest;@override $OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;@override $ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;@override $ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;@override $MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;@override $MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;@override $GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;@override $WebhooksIntegrationCopyWith<$Res>? get webhooks;@override $SecurityIntegrationCopyWith<$Res>? get security;@override $CustomFieldsIntegrationCopyWith<$Res>? get customFields;@override $PaymentIntegrationCopyWith<$Res>? get payment;@override $DispatcherIntegrationCopyWith<$Res>? get dispatcher;@override $StoreInventoryIntegrationCopyWith<$Res>? get inventory;@override $StoreFinanceIntegrationCopyWith<$Res>? get finance;@override $ConnectorsIntegrationCopyWith<$Res>? get connectors;
 
 }
 /// @nodoc
@@ -653,7 +669,7 @@ class __$StoreIntegrationsCopyWithImpl<$Res>
 
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? metadata = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? maystroDelivery = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? metadata = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? maystroDelivery = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? connectors = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
   return _then(_StoreIntegrations(
 metadata: freezed == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,metaPixel: freezed == metaPixel ? _self.metaPixel : metaPixel // ignore: cast_nullable_to_non_nullable
@@ -680,7 +696,8 @@ as CustomFieldsIntegration?,payment: freezed == payment ? _self.payment : paymen
 as PaymentIntegration?,dispatcher: freezed == dispatcher ? _self.dispatcher : dispatcher // ignore: cast_nullable_to_non_nullable
 as DispatcherIntegration?,inventory: freezed == inventory ? _self.inventory : inventory // ignore: cast_nullable_to_non_nullable
 as StoreInventoryIntegration?,finance: freezed == finance ? _self.finance : finance // ignore: cast_nullable_to_non_nullable
-as StoreFinanceIntegration?,sms: freezed == sms ? _self._sms : sms // ignore: cast_nullable_to_non_nullable
+as StoreFinanceIntegration?,connectors: freezed == connectors ? _self.connectors : connectors // ignore: cast_nullable_to_non_nullable
+as ConnectorsIntegration?,sms: freezed == sms ? _self._sms : sms // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,telegram: freezed == telegram ? _self._telegram : telegram // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,
   ));
@@ -973,6 +990,18 @@ $StoreFinanceIntegrationCopyWith<$Res>? get finance {
 
   return $StoreFinanceIntegrationCopyWith<$Res>(_self.finance!, (value) {
     return _then(_self.copyWith(finance: value));
+  });
+}/// Create a copy of StoreIntegrations
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ConnectorsIntegrationCopyWith<$Res>? get connectors {
+    if (_self.connectors == null) {
+    return null;
+  }
+
+  return $ConnectorsIntegrationCopyWith<$Res>(_self.connectors!, (value) {
+    return _then(_self.copyWith(connectors: value));
   });
 }
 }
@@ -12775,6 +12804,918 @@ $OrdersDispatchStrategyCopyWith<$Res>? get strategy {
     return _then(_self.copyWith(strategy: value));
   });
 }
+}
+
+
+/// @nodoc
+mixin _$ConnectorAuth {
+
+ String get authType; String? get accessToken; String? get refreshToken; List<String> get scopes; String? get expiresAt; String? get apiKey; String? get baseUrl; Map<String, dynamic> get metadata;
+/// Create a copy of ConnectorAuth
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ConnectorAuthCopyWith<ConnectorAuth> get copyWith => _$ConnectorAuthCopyWithImpl<ConnectorAuth>(this as ConnectorAuth, _$identity);
+
+  /// Serializes this ConnectorAuth to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConnectorAuth&&(identical(other.authType, authType) || other.authType == authType)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,authType,accessToken,refreshToken,const DeepCollectionEquality().hash(scopes),expiresAt,apiKey,baseUrl,const DeepCollectionEquality().hash(metadata));
+
+@override
+String toString() {
+  return 'ConnectorAuth(authType: $authType, accessToken: $accessToken, refreshToken: $refreshToken, scopes: $scopes, expiresAt: $expiresAt, apiKey: $apiKey, baseUrl: $baseUrl, metadata: $metadata)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ConnectorAuthCopyWith<$Res>  {
+  factory $ConnectorAuthCopyWith(ConnectorAuth value, $Res Function(ConnectorAuth) _then) = _$ConnectorAuthCopyWithImpl;
+@useResult
+$Res call({
+ String authType, String? accessToken, String? refreshToken, List<String> scopes, String? expiresAt, String? apiKey, String? baseUrl, Map<String, dynamic> metadata
+});
+
+
+
+
+}
+/// @nodoc
+class _$ConnectorAuthCopyWithImpl<$Res>
+    implements $ConnectorAuthCopyWith<$Res> {
+  _$ConnectorAuthCopyWithImpl(this._self, this._then);
+
+  final ConnectorAuth _self;
+  final $Res Function(ConnectorAuth) _then;
+
+/// Create a copy of ConnectorAuth
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? authType = null,Object? accessToken = freezed,Object? refreshToken = freezed,Object? scopes = null,Object? expiresAt = freezed,Object? apiKey = freezed,Object? baseUrl = freezed,Object? metadata = null,}) {
+  return _then(_self.copyWith(
+authType: null == authType ? _self.authType : authType // ignore: cast_nullable_to_non_nullable
+as String,accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
+as String?,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
+as String?,scopes: null == scopes ? _self.scopes : scopes // ignore: cast_nullable_to_non_nullable
+as List<String>,expiresAt: freezed == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
+as String?,apiKey: freezed == apiKey ? _self.apiKey : apiKey // ignore: cast_nullable_to_non_nullable
+as String?,baseUrl: freezed == baseUrl ? _self.baseUrl : baseUrl // ignore: cast_nullable_to_non_nullable
+as String?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ConnectorAuth].
+extension ConnectorAuthPatterns on ConnectorAuth {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ConnectorAuth value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ConnectorAuth() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ConnectorAuth value)  $default,){
+final _that = this;
+switch (_that) {
+case _ConnectorAuth():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ConnectorAuth value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ConnectorAuth() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String authType,  String? accessToken,  String? refreshToken,  List<String> scopes,  String? expiresAt,  String? apiKey,  String? baseUrl,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ConnectorAuth() when $default != null:
+return $default(_that.authType,_that.accessToken,_that.refreshToken,_that.scopes,_that.expiresAt,_that.apiKey,_that.baseUrl,_that.metadata);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String authType,  String? accessToken,  String? refreshToken,  List<String> scopes,  String? expiresAt,  String? apiKey,  String? baseUrl,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+switch (_that) {
+case _ConnectorAuth():
+return $default(_that.authType,_that.accessToken,_that.refreshToken,_that.scopes,_that.expiresAt,_that.apiKey,_that.baseUrl,_that.metadata);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String authType,  String? accessToken,  String? refreshToken,  List<String> scopes,  String? expiresAt,  String? apiKey,  String? baseUrl,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+switch (_that) {
+case _ConnectorAuth() when $default != null:
+return $default(_that.authType,_that.accessToken,_that.refreshToken,_that.scopes,_that.expiresAt,_that.apiKey,_that.baseUrl,_that.metadata);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ConnectorAuth implements ConnectorAuth {
+  const _ConnectorAuth({this.authType = 'public', this.accessToken, this.refreshToken, final  List<String> scopes = const [], this.expiresAt, this.apiKey, this.baseUrl, final  Map<String, dynamic> metadata = const {}}): _scopes = scopes,_metadata = metadata;
+  factory _ConnectorAuth.fromJson(Map<String, dynamic> json) => _$ConnectorAuthFromJson(json);
+
+@override@JsonKey() final  String authType;
+@override final  String? accessToken;
+@override final  String? refreshToken;
+ final  List<String> _scopes;
+@override@JsonKey() List<String> get scopes {
+  if (_scopes is EqualUnmodifiableListView) return _scopes;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_scopes);
+}
+
+@override final  String? expiresAt;
+@override final  String? apiKey;
+@override final  String? baseUrl;
+ final  Map<String, dynamic> _metadata;
+@override@JsonKey() Map<String, dynamic> get metadata {
+  if (_metadata is EqualUnmodifiableMapView) return _metadata;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_metadata);
+}
+
+
+/// Create a copy of ConnectorAuth
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ConnectorAuthCopyWith<_ConnectorAuth> get copyWith => __$ConnectorAuthCopyWithImpl<_ConnectorAuth>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ConnectorAuthToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConnectorAuth&&(identical(other.authType, authType) || other.authType == authType)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,authType,accessToken,refreshToken,const DeepCollectionEquality().hash(_scopes),expiresAt,apiKey,baseUrl,const DeepCollectionEquality().hash(_metadata));
+
+@override
+String toString() {
+  return 'ConnectorAuth(authType: $authType, accessToken: $accessToken, refreshToken: $refreshToken, scopes: $scopes, expiresAt: $expiresAt, apiKey: $apiKey, baseUrl: $baseUrl, metadata: $metadata)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ConnectorAuthCopyWith<$Res> implements $ConnectorAuthCopyWith<$Res> {
+  factory _$ConnectorAuthCopyWith(_ConnectorAuth value, $Res Function(_ConnectorAuth) _then) = __$ConnectorAuthCopyWithImpl;
+@override @useResult
+$Res call({
+ String authType, String? accessToken, String? refreshToken, List<String> scopes, String? expiresAt, String? apiKey, String? baseUrl, Map<String, dynamic> metadata
+});
+
+
+
+
+}
+/// @nodoc
+class __$ConnectorAuthCopyWithImpl<$Res>
+    implements _$ConnectorAuthCopyWith<$Res> {
+  __$ConnectorAuthCopyWithImpl(this._self, this._then);
+
+  final _ConnectorAuth _self;
+  final $Res Function(_ConnectorAuth) _then;
+
+/// Create a copy of ConnectorAuth
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? authType = null,Object? accessToken = freezed,Object? refreshToken = freezed,Object? scopes = null,Object? expiresAt = freezed,Object? apiKey = freezed,Object? baseUrl = freezed,Object? metadata = null,}) {
+  return _then(_ConnectorAuth(
+authType: null == authType ? _self.authType : authType // ignore: cast_nullable_to_non_nullable
+as String,accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
+as String?,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
+as String?,scopes: null == scopes ? _self._scopes : scopes // ignore: cast_nullable_to_non_nullable
+as List<String>,expiresAt: freezed == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
+as String?,apiKey: freezed == apiKey ? _self.apiKey : apiKey // ignore: cast_nullable_to_non_nullable
+as String?,baseUrl: freezed == baseUrl ? _self.baseUrl : baseUrl // ignore: cast_nullable_to_non_nullable
+as String?,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$ConnectorConfig {
+
+ String get id; String get type; bool get active; String? get name; String get status; String? get externalId; Map<String, dynamic> get fieldMapping; Map<String, dynamic> get syncState; ConnectorAuth? get auth; String? get createdAt; Map<String, dynamic> get metadata;
+/// Create a copy of ConnectorConfig
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ConnectorConfigCopyWith<ConnectorConfig> get copyWith => _$ConnectorConfigCopyWithImpl<ConnectorConfig>(this as ConnectorConfig, _$identity);
+
+  /// Serializes this ConnectorConfig to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConnectorConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.active, active) || other.active == active)&&(identical(other.name, name) || other.name == name)&&(identical(other.status, status) || other.status == status)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&const DeepCollectionEquality().equals(other.fieldMapping, fieldMapping)&&const DeepCollectionEquality().equals(other.syncState, syncState)&&(identical(other.auth, auth) || other.auth == auth)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,type,active,name,status,externalId,const DeepCollectionEquality().hash(fieldMapping),const DeepCollectionEquality().hash(syncState),auth,createdAt,const DeepCollectionEquality().hash(metadata));
+
+@override
+String toString() {
+  return 'ConnectorConfig(id: $id, type: $type, active: $active, name: $name, status: $status, externalId: $externalId, fieldMapping: $fieldMapping, syncState: $syncState, auth: $auth, createdAt: $createdAt, metadata: $metadata)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ConnectorConfigCopyWith<$Res>  {
+  factory $ConnectorConfigCopyWith(ConnectorConfig value, $Res Function(ConnectorConfig) _then) = _$ConnectorConfigCopyWithImpl;
+@useResult
+$Res call({
+ String id, String type, bool active, String? name, String status, String? externalId, Map<String, dynamic> fieldMapping, Map<String, dynamic> syncState, ConnectorAuth? auth, String? createdAt, Map<String, dynamic> metadata
+});
+
+
+$ConnectorAuthCopyWith<$Res>? get auth;
+
+}
+/// @nodoc
+class _$ConnectorConfigCopyWithImpl<$Res>
+    implements $ConnectorConfigCopyWith<$Res> {
+  _$ConnectorConfigCopyWithImpl(this._self, this._then);
+
+  final ConnectorConfig _self;
+  final $Res Function(ConnectorConfig) _then;
+
+/// Create a copy of ConnectorConfig
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? type = null,Object? active = null,Object? name = freezed,Object? status = null,Object? externalId = freezed,Object? fieldMapping = null,Object? syncState = null,Object? auth = freezed,Object? createdAt = freezed,Object? metadata = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,externalId: freezed == externalId ? _self.externalId : externalId // ignore: cast_nullable_to_non_nullable
+as String?,fieldMapping: null == fieldMapping ? _self.fieldMapping : fieldMapping // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,syncState: null == syncState ? _self.syncState : syncState // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,auth: freezed == auth ? _self.auth : auth // ignore: cast_nullable_to_non_nullable
+as ConnectorAuth?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+/// Create a copy of ConnectorConfig
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ConnectorAuthCopyWith<$Res>? get auth {
+    if (_self.auth == null) {
+    return null;
+  }
+
+  return $ConnectorAuthCopyWith<$Res>(_self.auth!, (value) {
+    return _then(_self.copyWith(auth: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [ConnectorConfig].
+extension ConnectorConfigPatterns on ConnectorConfig {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ConnectorConfig value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ConnectorConfig() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ConnectorConfig value)  $default,){
+final _that = this;
+switch (_that) {
+case _ConnectorConfig():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ConnectorConfig value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ConnectorConfig() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String type,  bool active,  String? name,  String status,  String? externalId,  Map<String, dynamic> fieldMapping,  Map<String, dynamic> syncState,  ConnectorAuth? auth,  String? createdAt,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ConnectorConfig() when $default != null:
+return $default(_that.id,_that.type,_that.active,_that.name,_that.status,_that.externalId,_that.fieldMapping,_that.syncState,_that.auth,_that.createdAt,_that.metadata);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String type,  bool active,  String? name,  String status,  String? externalId,  Map<String, dynamic> fieldMapping,  Map<String, dynamic> syncState,  ConnectorAuth? auth,  String? createdAt,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+switch (_that) {
+case _ConnectorConfig():
+return $default(_that.id,_that.type,_that.active,_that.name,_that.status,_that.externalId,_that.fieldMapping,_that.syncState,_that.auth,_that.createdAt,_that.metadata);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String type,  bool active,  String? name,  String status,  String? externalId,  Map<String, dynamic> fieldMapping,  Map<String, dynamic> syncState,  ConnectorAuth? auth,  String? createdAt,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+switch (_that) {
+case _ConnectorConfig() when $default != null:
+return $default(_that.id,_that.type,_that.active,_that.name,_that.status,_that.externalId,_that.fieldMapping,_that.syncState,_that.auth,_that.createdAt,_that.metadata);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ConnectorConfig implements ConnectorConfig {
+  const _ConnectorConfig({required this.id, required this.type, this.active = true, this.name, this.status = 'connected', this.externalId, final  Map<String, dynamic> fieldMapping = const {}, final  Map<String, dynamic> syncState = const {}, this.auth, this.createdAt, final  Map<String, dynamic> metadata = const {}}): _fieldMapping = fieldMapping,_syncState = syncState,_metadata = metadata;
+  factory _ConnectorConfig.fromJson(Map<String, dynamic> json) => _$ConnectorConfigFromJson(json);
+
+@override final  String id;
+@override final  String type;
+@override@JsonKey() final  bool active;
+@override final  String? name;
+@override@JsonKey() final  String status;
+@override final  String? externalId;
+ final  Map<String, dynamic> _fieldMapping;
+@override@JsonKey() Map<String, dynamic> get fieldMapping {
+  if (_fieldMapping is EqualUnmodifiableMapView) return _fieldMapping;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_fieldMapping);
+}
+
+ final  Map<String, dynamic> _syncState;
+@override@JsonKey() Map<String, dynamic> get syncState {
+  if (_syncState is EqualUnmodifiableMapView) return _syncState;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_syncState);
+}
+
+@override final  ConnectorAuth? auth;
+@override final  String? createdAt;
+ final  Map<String, dynamic> _metadata;
+@override@JsonKey() Map<String, dynamic> get metadata {
+  if (_metadata is EqualUnmodifiableMapView) return _metadata;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_metadata);
+}
+
+
+/// Create a copy of ConnectorConfig
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ConnectorConfigCopyWith<_ConnectorConfig> get copyWith => __$ConnectorConfigCopyWithImpl<_ConnectorConfig>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ConnectorConfigToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConnectorConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.active, active) || other.active == active)&&(identical(other.name, name) || other.name == name)&&(identical(other.status, status) || other.status == status)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&const DeepCollectionEquality().equals(other._fieldMapping, _fieldMapping)&&const DeepCollectionEquality().equals(other._syncState, _syncState)&&(identical(other.auth, auth) || other.auth == auth)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,type,active,name,status,externalId,const DeepCollectionEquality().hash(_fieldMapping),const DeepCollectionEquality().hash(_syncState),auth,createdAt,const DeepCollectionEquality().hash(_metadata));
+
+@override
+String toString() {
+  return 'ConnectorConfig(id: $id, type: $type, active: $active, name: $name, status: $status, externalId: $externalId, fieldMapping: $fieldMapping, syncState: $syncState, auth: $auth, createdAt: $createdAt, metadata: $metadata)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ConnectorConfigCopyWith<$Res> implements $ConnectorConfigCopyWith<$Res> {
+  factory _$ConnectorConfigCopyWith(_ConnectorConfig value, $Res Function(_ConnectorConfig) _then) = __$ConnectorConfigCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, String type, bool active, String? name, String status, String? externalId, Map<String, dynamic> fieldMapping, Map<String, dynamic> syncState, ConnectorAuth? auth, String? createdAt, Map<String, dynamic> metadata
+});
+
+
+@override $ConnectorAuthCopyWith<$Res>? get auth;
+
+}
+/// @nodoc
+class __$ConnectorConfigCopyWithImpl<$Res>
+    implements _$ConnectorConfigCopyWith<$Res> {
+  __$ConnectorConfigCopyWithImpl(this._self, this._then);
+
+  final _ConnectorConfig _self;
+  final $Res Function(_ConnectorConfig) _then;
+
+/// Create a copy of ConnectorConfig
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? type = null,Object? active = null,Object? name = freezed,Object? status = null,Object? externalId = freezed,Object? fieldMapping = null,Object? syncState = null,Object? auth = freezed,Object? createdAt = freezed,Object? metadata = null,}) {
+  return _then(_ConnectorConfig(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,externalId: freezed == externalId ? _self.externalId : externalId // ignore: cast_nullable_to_non_nullable
+as String?,fieldMapping: null == fieldMapping ? _self._fieldMapping : fieldMapping // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,syncState: null == syncState ? _self._syncState : syncState // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,auth: freezed == auth ? _self.auth : auth // ignore: cast_nullable_to_non_nullable
+as ConnectorAuth?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String?,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+/// Create a copy of ConnectorConfig
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ConnectorAuthCopyWith<$Res>? get auth {
+    if (_self.auth == null) {
+    return null;
+  }
+
+  return $ConnectorAuthCopyWith<$Res>(_self.auth!, (value) {
+    return _then(_self.copyWith(auth: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$ConnectorsIntegration {
+
+ bool get active; List<ConnectorConfig> get connectors; Map<String, dynamic> get metadata;
+/// Create a copy of ConnectorsIntegration
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ConnectorsIntegrationCopyWith<ConnectorsIntegration> get copyWith => _$ConnectorsIntegrationCopyWithImpl<ConnectorsIntegration>(this as ConnectorsIntegration, _$identity);
+
+  /// Serializes this ConnectorsIntegration to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConnectorsIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.connectors, connectors)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,active,const DeepCollectionEquality().hash(connectors),const DeepCollectionEquality().hash(metadata));
+
+@override
+String toString() {
+  return 'ConnectorsIntegration(active: $active, connectors: $connectors, metadata: $metadata)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ConnectorsIntegrationCopyWith<$Res>  {
+  factory $ConnectorsIntegrationCopyWith(ConnectorsIntegration value, $Res Function(ConnectorsIntegration) _then) = _$ConnectorsIntegrationCopyWithImpl;
+@useResult
+$Res call({
+ bool active, List<ConnectorConfig> connectors, Map<String, dynamic> metadata
+});
+
+
+
+
+}
+/// @nodoc
+class _$ConnectorsIntegrationCopyWithImpl<$Res>
+    implements $ConnectorsIntegrationCopyWith<$Res> {
+  _$ConnectorsIntegrationCopyWithImpl(this._self, this._then);
+
+  final ConnectorsIntegration _self;
+  final $Res Function(ConnectorsIntegration) _then;
+
+/// Create a copy of ConnectorsIntegration
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? connectors = null,Object? metadata = null,}) {
+  return _then(_self.copyWith(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,connectors: null == connectors ? _self.connectors : connectors // ignore: cast_nullable_to_non_nullable
+as List<ConnectorConfig>,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ConnectorsIntegration].
+extension ConnectorsIntegrationPatterns on ConnectorsIntegration {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ConnectorsIntegration value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ConnectorsIntegration() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ConnectorsIntegration value)  $default,){
+final _that = this;
+switch (_that) {
+case _ConnectorsIntegration():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ConnectorsIntegration value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ConnectorsIntegration() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  List<ConnectorConfig> connectors,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ConnectorsIntegration() when $default != null:
+return $default(_that.active,_that.connectors,_that.metadata);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  List<ConnectorConfig> connectors,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+switch (_that) {
+case _ConnectorsIntegration():
+return $default(_that.active,_that.connectors,_that.metadata);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  List<ConnectorConfig> connectors,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+switch (_that) {
+case _ConnectorsIntegration() when $default != null:
+return $default(_that.active,_that.connectors,_that.metadata);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ConnectorsIntegration implements ConnectorsIntegration {
+  const _ConnectorsIntegration({this.active = true, final  List<ConnectorConfig> connectors = const [], final  Map<String, dynamic> metadata = const {}}): _connectors = connectors,_metadata = metadata;
+  factory _ConnectorsIntegration.fromJson(Map<String, dynamic> json) => _$ConnectorsIntegrationFromJson(json);
+
+@override@JsonKey() final  bool active;
+ final  List<ConnectorConfig> _connectors;
+@override@JsonKey() List<ConnectorConfig> get connectors {
+  if (_connectors is EqualUnmodifiableListView) return _connectors;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_connectors);
+}
+
+ final  Map<String, dynamic> _metadata;
+@override@JsonKey() Map<String, dynamic> get metadata {
+  if (_metadata is EqualUnmodifiableMapView) return _metadata;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_metadata);
+}
+
+
+/// Create a copy of ConnectorsIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ConnectorsIntegrationCopyWith<_ConnectorsIntegration> get copyWith => __$ConnectorsIntegrationCopyWithImpl<_ConnectorsIntegration>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ConnectorsIntegrationToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConnectorsIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._connectors, _connectors)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,active,const DeepCollectionEquality().hash(_connectors),const DeepCollectionEquality().hash(_metadata));
+
+@override
+String toString() {
+  return 'ConnectorsIntegration(active: $active, connectors: $connectors, metadata: $metadata)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ConnectorsIntegrationCopyWith<$Res> implements $ConnectorsIntegrationCopyWith<$Res> {
+  factory _$ConnectorsIntegrationCopyWith(_ConnectorsIntegration value, $Res Function(_ConnectorsIntegration) _then) = __$ConnectorsIntegrationCopyWithImpl;
+@override @useResult
+$Res call({
+ bool active, List<ConnectorConfig> connectors, Map<String, dynamic> metadata
+});
+
+
+
+
+}
+/// @nodoc
+class __$ConnectorsIntegrationCopyWithImpl<$Res>
+    implements _$ConnectorsIntegrationCopyWith<$Res> {
+  __$ConnectorsIntegrationCopyWithImpl(this._self, this._then);
+
+  final _ConnectorsIntegration _self;
+  final $Res Function(_ConnectorsIntegration) _then;
+
+/// Create a copy of ConnectorsIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? connectors = null,Object? metadata = null,}) {
+  return _then(_ConnectorsIntegration(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,connectors: null == connectors ? _self._connectors : connectors // ignore: cast_nullable_to_non_nullable
+as List<ConnectorConfig>,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+
 }
 
 // dart format on

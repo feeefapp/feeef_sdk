@@ -120,6 +120,11 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
       : StoreFinanceIntegration.fromJson(
           json['finance'] as Map<String, dynamic>,
         ),
+  connectors: json['connectors'] == null
+      ? null
+      : ConnectorsIntegration.fromJson(
+          json['connectors'] as Map<String, dynamic>,
+        ),
   sms: json['sms'] as Map<String, dynamic>? ?? const {},
   telegram: json['telegram'] as Map<String, dynamic>? ?? const {},
 );
@@ -151,6 +156,7 @@ Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
       'dispatcher': instance.dispatcher,
       'inventory': instance.inventory,
       'finance': instance.finance,
+      'connectors': instance.connectors,
       'sms': instance.sms,
       'telegram': instance.telegram,
     };
@@ -1119,5 +1125,85 @@ Map<String, dynamic> _$DispatcherIntegrationToJson(
 ) => <String, dynamic>{
   'active': instance.active,
   'strategy': instance.strategy,
+  'metadata': instance.metadata,
+};
+
+_ConnectorAuth _$ConnectorAuthFromJson(Map<String, dynamic> json) =>
+    _ConnectorAuth(
+      authType: json['authType'] as String? ?? 'public',
+      accessToken: json['accessToken'] as String?,
+      refreshToken: json['refreshToken'] as String?,
+      scopes:
+          (json['scopes'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      expiresAt: json['expiresAt'] as String?,
+      apiKey: json['apiKey'] as String?,
+      baseUrl: json['baseUrl'] as String?,
+      metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+    );
+
+Map<String, dynamic> _$ConnectorAuthToJson(_ConnectorAuth instance) =>
+    <String, dynamic>{
+      'authType': instance.authType,
+      'accessToken': instance.accessToken,
+      'refreshToken': instance.refreshToken,
+      'scopes': instance.scopes,
+      'expiresAt': instance.expiresAt,
+      'apiKey': instance.apiKey,
+      'baseUrl': instance.baseUrl,
+      'metadata': instance.metadata,
+    };
+
+_ConnectorConfig _$ConnectorConfigFromJson(Map<String, dynamic> json) =>
+    _ConnectorConfig(
+      id: json['id'] as String,
+      type: json['type'] as String,
+      active: json['active'] as bool? ?? true,
+      name: json['name'] as String?,
+      status: json['status'] as String? ?? 'connected',
+      externalId: json['externalId'] as String?,
+      fieldMapping: json['fieldMapping'] as Map<String, dynamic>? ?? const {},
+      syncState: json['syncState'] as Map<String, dynamic>? ?? const {},
+      auth: json['auth'] == null
+          ? null
+          : ConnectorAuth.fromJson(json['auth'] as Map<String, dynamic>),
+      createdAt: json['createdAt'] as String?,
+      metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+    );
+
+Map<String, dynamic> _$ConnectorConfigToJson(_ConnectorConfig instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'type': instance.type,
+      'active': instance.active,
+      'name': instance.name,
+      'status': instance.status,
+      'externalId': instance.externalId,
+      'fieldMapping': instance.fieldMapping,
+      'syncState': instance.syncState,
+      'auth': instance.auth,
+      'createdAt': instance.createdAt,
+      'metadata': instance.metadata,
+    };
+
+_ConnectorsIntegration _$ConnectorsIntegrationFromJson(
+  Map<String, dynamic> json,
+) => _ConnectorsIntegration(
+  active: json['active'] as bool? ?? true,
+  connectors:
+      (json['connectors'] as List<dynamic>?)
+          ?.map((e) => ConnectorConfig.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+);
+
+Map<String, dynamic> _$ConnectorsIntegrationToJson(
+  _ConnectorsIntegration instance,
+) => <String, dynamic>{
+  'active': instance.active,
+  'connectors': instance.connectors,
   'metadata': instance.metadata,
 };

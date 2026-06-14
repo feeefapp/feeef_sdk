@@ -53,6 +53,8 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     StoreInventoryIntegration? inventory,
     /// Finance module (procurement, accounting).
     StoreFinanceIntegration? finance,
+    /// Inbound platform connectors (Shopify, YouCan, Google Sheets, …).
+    ConnectorsIntegration? connectors,
     // Communication Integrations
     @Default({}) Map<String, dynamic>? sms,
     @Default({}) Map<String, dynamic>? telegram,
@@ -919,4 +921,58 @@ abstract class DispatcherIntegration with _$DispatcherIntegration {
 
   factory DispatcherIntegration.fromJson(Map<String, dynamic> json) =>
       _$DispatcherIntegrationFromJson(json);
+}
+
+// ===================== INBOUND CONNECTORS INTEGRATION =====================
+
+/// Polymorphic connector auth (`oauth2` | `apiKey` | `public`). Flat shape for JSON round-trip.
+@freezed
+abstract class ConnectorAuth with _$ConnectorAuth {
+  const factory ConnectorAuth({
+    @Default('public') String authType,
+    String? accessToken,
+    String? refreshToken,
+    @Default([]) List<String> scopes,
+    String? expiresAt,
+    String? apiKey,
+    String? baseUrl,
+    @Default({}) Map<String, dynamic> metadata,
+  }) = _ConnectorAuth;
+
+  factory ConnectorAuth.fromJson(Map<String, dynamic> json) =>
+      _$ConnectorAuthFromJson(json);
+}
+
+/// Single linked external platform (Shopify shop, YouCan store, …).
+@freezed
+abstract class ConnectorConfig with _$ConnectorConfig {
+  const factory ConnectorConfig({
+    required String id,
+    required String type,
+    @Default(true) bool active,
+    String? name,
+    @Default('connected') String status,
+    String? externalId,
+    @Default({}) Map<String, dynamic> fieldMapping,
+    @Default({}) Map<String, dynamic> syncState,
+    ConnectorAuth? auth,
+    String? createdAt,
+    @Default({}) Map<String, dynamic> metadata,
+  }) = _ConnectorConfig;
+
+  factory ConnectorConfig.fromJson(Map<String, dynamic> json) =>
+      _$ConnectorConfigFromJson(json);
+}
+
+/// Inbound connectors integration (`store.integrations.connectors`).
+@freezed
+abstract class ConnectorsIntegration with _$ConnectorsIntegration {
+  const factory ConnectorsIntegration({
+    @Default(true) bool active,
+    @Default([]) List<ConnectorConfig> connectors,
+    @Default({}) Map<String, dynamic> metadata,
+  }) = _ConnectorsIntegration;
+
+  factory ConnectorsIntegration.fromJson(Map<String, dynamic> json) =>
+      _$ConnectorsIntegrationFromJson(json);
 }

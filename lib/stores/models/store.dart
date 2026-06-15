@@ -149,6 +149,7 @@ abstract class Store extends StoreEntity
     DateTime? verifiedAt,
     DateTime? blockedAt,
     // subscription
+    @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson)
     StoreSubscription? subscription,
     num? due,
     // StoreConfigs
@@ -198,6 +199,7 @@ abstract class StoreCreate with _$StoreCreate implements ModelCreate {
     String? shippingPriceId,
     String? projectId,
     // subscription
+    @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson)
     StoreSubscription? subscription,
     num? due,
   }) = _StoreCreate;
@@ -235,6 +237,7 @@ abstract class StoreUpdate with _$StoreUpdate implements ModelUpdate {
     // ignore: invalid_annotation_target
     @JsonKey(includeFromJson: false) @Default([]) List<String> setToNull,
     // subscription
+    @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson)
     StoreSubscription? subscription,
     num? due,
     // StoreConfigs
@@ -367,6 +370,45 @@ extension StoreExtensions on Store {
 ///
 /// StoreSubscription
 ///
+Map<String, StoreIntegrationSubscription>
+    _storeSubscriptionIntegrationsFromJson(Object? json) {
+  if (json == null) return const {};
+  if (json is! Map) return const {};
+  return json.map(
+    (key, value) {
+      if (value is StoreIntegrationSubscription) {
+        return MapEntry(key as String, value);
+      }
+      final map = value is Map<String, dynamic>
+          ? value
+          : Map<String, dynamic>.from(value as Map);
+      return MapEntry(
+        key as String,
+        StoreIntegrationSubscription.fromJson(map),
+      );
+    },
+  );
+}
+
+Map<String, dynamic> _storeSubscriptionIntegrationsToJson(
+  Map<String, StoreIntegrationSubscription> integrations,
+) {
+  return integrations.map((key, value) => MapEntry(key, value.toJson()));
+}
+
+StoreSubscription? _storeSubscriptionFromJson(Object? json) {
+  if (json == null) return null;
+  if (json is StoreSubscription) return json;
+  if (json is Map<String, dynamic>) return StoreSubscription.fromJson(json);
+  if (json is Map) {
+    return StoreSubscription.fromJson(Map<String, dynamic>.from(json));
+  }
+  return null;
+}
+
+Object? _storeSubscriptionToJson(StoreSubscription? subscription) =>
+    subscription?.toJson();
+
 /// Per-integration billing lifecycle (on store.subscription.integrations).
 enum IntegrationBillingStatus {
   active,
@@ -402,6 +444,10 @@ abstract class StoreSubscription with _$StoreSubscription {
     DateTime? expiresAt,
     @Default({}) Map<String, dynamic> metadata,
     @Default({})
+    @JsonKey(
+      fromJson: _storeSubscriptionIntegrationsFromJson,
+      toJson: _storeSubscriptionIntegrationsToJson,
+    )
     Map<String, StoreIntegrationSubscription> integrations,
   }) = _StoreSubscription;
 

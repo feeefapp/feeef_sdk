@@ -68,11 +68,7 @@ _Store _$StoreFromJson(Map<String, dynamic> json) => _Store(
   blockedAt: json['blockedAt'] == null
       ? null
       : DateTime.parse(json['blockedAt'] as String),
-  subscription: json['subscription'] == null
-      ? null
-      : StoreSubscription.fromJson(
-          json['subscription'] as Map<String, dynamic>,
-        ),
+  subscription: _storeSubscriptionFromJson(json['subscription']),
   due: json['due'] as num?,
   configs: json['configs'] == null
       ? null
@@ -118,7 +114,7 @@ Map<String, dynamic> _$StoreToJson(_Store instance) => <String, dynamic>{
   'defaultShippingRates': instance.defaultShippingRates,
   'verifiedAt': instance.verifiedAt?.toIso8601String(),
   'blockedAt': instance.blockedAt?.toIso8601String(),
-  'subscription': instance.subscription,
+  'subscription': _storeSubscriptionToJson(instance.subscription),
   'due': instance.due,
   'configs': instance.configs,
   'shippingPriceId': instance.shippingPriceId,
@@ -181,11 +177,7 @@ _StoreCreate _$StoreCreateFromJson(Map<String, dynamic> json) => _StoreCreate(
       const [],
   shippingPriceId: json['shippingPriceId'] as String?,
   projectId: json['projectId'] as String?,
-  subscription: json['subscription'] == null
-      ? null
-      : StoreSubscription.fromJson(
-          json['subscription'] as Map<String, dynamic>,
-        ),
+  subscription: _storeSubscriptionFromJson(json['subscription']),
   due: json['due'] as num?,
 );
 
@@ -211,7 +203,7 @@ Map<String, dynamic> _$StoreCreateToJson(_StoreCreate instance) =>
       'defaultShippingRates': instance.defaultShippingRates,
       'shippingPriceId': instance.shippingPriceId,
       'projectId': instance.projectId,
-      'subscription': instance.subscription,
+      'subscription': _storeSubscriptionToJson(instance.subscription),
       'due': instance.due,
     };
 
@@ -254,11 +246,7 @@ _StoreUpdate _$StoreUpdateFromJson(Map<String, dynamic> json) => _StoreUpdate(
   defaultShippingRates: (json['defaultShippingRates'] as List<dynamic>?)
       ?.map((e) => (e as List<dynamic>?)?.map((e) => e as num?).toList())
       .toList(),
-  subscription: json['subscription'] == null
-      ? null
-      : StoreSubscription.fromJson(
-          json['subscription'] as Map<String, dynamic>,
-        ),
+  subscription: _storeSubscriptionFromJson(json['subscription']),
   due: json['due'] as num?,
   configs: json['configs'] == null
       ? null
@@ -288,7 +276,7 @@ Map<String, dynamic> _$StoreUpdateToJson(_StoreUpdate instance) =>
       'contacts': instance.contacts,
       'integrations': _storeIntegrationsToJson(instance.integrations),
       'defaultShippingRates': instance.defaultShippingRates,
-      'subscription': instance.subscription,
+      'subscription': _storeSubscriptionToJson(instance.subscription),
       'due': instance.due,
       'configs': instance.configs,
       'shippingPriceId': instance.shippingPriceId,
@@ -344,27 +332,23 @@ _StoreSubscription _$StoreSubscriptionFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['expiresAt'] as String),
       metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
-      integrations:
-          (json['integrations'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(
-              k,
-              StoreIntegrationSubscription.fromJson(e as Map<String, dynamic>),
-            ),
-          ) ??
-          const {},
+      integrations: json['integrations'] == null
+          ? const {}
+          : _storeSubscriptionIntegrationsFromJson(json['integrations']),
     );
 
-Map<String, dynamic> _$StoreSubscriptionToJson(_StoreSubscription instance) =>
-    <String, dynamic>{
-      'type': _$StoreSubscriptionTypeEnumMap[instance.type]!,
-      'status': _$StoreSubscriptionStatusEnumMap[instance.status]!,
-      'quota': instance.quota,
-      'consumed': instance.consumed,
-      'startedAt': instance.startedAt.toIso8601String(),
-      'expiresAt': instance.expiresAt?.toIso8601String(),
-      'metadata': instance.metadata,
-      'integrations': instance.integrations,
-    };
+Map<String, dynamic> _$StoreSubscriptionToJson(
+  _StoreSubscription instance,
+) => <String, dynamic>{
+  'type': _$StoreSubscriptionTypeEnumMap[instance.type]!,
+  'status': _$StoreSubscriptionStatusEnumMap[instance.status]!,
+  'quota': instance.quota,
+  'consumed': instance.consumed,
+  'startedAt': instance.startedAt.toIso8601String(),
+  'expiresAt': instance.expiresAt?.toIso8601String(),
+  'metadata': instance.metadata,
+  'integrations': _storeSubscriptionIntegrationsToJson(instance.integrations),
+};
 
 const _$StoreSubscriptionTypeEnumMap = {
   StoreSubscriptionType.free: 'free',

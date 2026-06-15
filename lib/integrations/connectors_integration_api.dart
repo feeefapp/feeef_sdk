@@ -58,12 +58,13 @@ class ConnectorsIntegrationApi {
     return response.data['installUrl'] as String;
   }
 
-  /// Returns Google Sheets OAuth URL for inbound connector setup.
-  Future<String> getGoogleSheetsInstallUrl(
+  /// Starts Google Sheets connector setup — reuses export OAuth when already linked, else returns install URL.
+  Future<Map<String, dynamic>> prepareGoogleSheetsConnector(
     String storeId, {
     bool popup = false,
     String? origin,
     String? callbackScheme,
+    bool forceOAuth = false,
   }) async {
     final response = await client.get(
       '/stores/$storeId/integrations/connectors/google-sheets/install-url',
@@ -72,12 +73,32 @@ class ConnectorsIntegrationApi {
         if (origin != null && origin.isNotEmpty) 'origin': origin,
         if (callbackScheme != null && callbackScheme.isNotEmpty)
           'callbackScheme': callbackScheme,
+        if (forceOAuth) 'forceOAuth': 'true',
       },
     );
-    return response.data['installUrl'] as String;
+    return Map<String, dynamic>.from(response.data as Map);
   }
 
-  /// Lists spreadsheets accessible by a Google Sheets connector.
+  /// Returns Google Sheets OAuth URL for inbound connector setup.
+  Future<String> getGoogleSheetsInstallUrl(
+    String storeId, {
+    bool popup = false,
+    String? origin,
+    String? callbackScheme,
+  }) async {
+    final prep = await prepareGoogleSheetsConnector(
+      storeId,
+      popup: popup,
+      origin: origin,
+      callbackScheme: callbackScheme,
+    );
+    if (prep['linked'] == true) {
+      throw StateError('Google Sheets already linked — use prepareGoogleSheetsConnector');
+    }
+    return prep['installUrl'] as String;
+  }
+
+  /// Lists spreadsheets this app can access (drive.file — created/opened by Feeef).
   Future<List<Map<String, dynamic>>> listGoogleSpreadsheets(
     String storeId,
     String connectorId,
@@ -87,6 +108,23 @@ class ConnectorsIntegrationApi {
     );
     final list = response.data['spreadsheets'] as List<dynamic>? ?? [];
     return list.map((e) => Map<String, dynamic>.from(e as Map)).toList();
+  }
+
+  /// Creates a new spreadsheet owned by the app with a default Orders tab.
+  Future<Map<String, dynamic>> createGoogleSpreadsheet(
+    String storeId,
+    String connectorId, {
+    String? title,
+    String? sheetName,
+  }) async {
+    final response = await client.post(
+      '/stores/$storeId/integrations/connectors/$connectorId/google-sheets/spreadsheets',
+      data: {
+        if (title != null && title.isNotEmpty) 'title': title,
+        if (sheetName != null && sheetName.isNotEmpty) 'sheetName': sheetName,
+      },
+    );
+    return Map<String, dynamic>.from(response.data['spreadsheet'] as Map);
   }
 
   /// Lists tabs in a spreadsheet for connector configuration.
@@ -102,6 +140,20 @@ class ConnectorsIntegrationApi {
     return list.map((e) => Map<String, dynamic>.from(e as Map)).toList();
   }
 
+  /// Reads row-1 headers and suggested column mapping for a sheet tab.
+  Future<Map<String, dynamic>> fetchGoogleSheetHeaders(
+    String storeId,
+    String connectorId,
+    String spreadsheetId,
+    String sheetName,
+  ) async {
+    final encodedSheet = Uri.encodeComponent(sheetName);
+    final response = await client.get(
+      '/stores/$storeId/integrations/connectors/$connectorId/google-sheets/spreadsheets/$spreadsheetId/sheets/$encodedSheet/headers',
+    );
+    return Map<String, dynamic>.from(response.data as Map);
+  }
+
   /// Binds spreadsheet + tab and runs initial order pull.
   Future<ConnectorConfig> configureGoogleSheetsConnector(
     String storeId,
@@ -109,6 +161,7 @@ class ConnectorsIntegrationApi {
     required String spreadsheetId,
     required String sheetName,
     String? spreadsheetName,
+    Map<String, String>? orderFieldMapping,
   }) async {
     final response = await client.post(
       '/stores/$storeId/integrations/connectors/$connectorId/google-sheets/configure',
@@ -117,6 +170,26 @@ class ConnectorsIntegrationApi {
         'sheetName': sheetName,
         if (spreadsheetName != null && spreadsheetName.isNotEmpty)
           'spreadsheetName': spreadsheetName,
+        if (orderFieldMapping != null && orderFieldMapping.isNotEmpty)
+          'fieldMapping': {'order': orderFieldMapping},
+      },
+    );
+    final data = response.data as Map<String, dynamic>;
+    return ConnectorConfig.fromJson(data['connector'] as Map<String, dynamic>);
+  }
+
+  /// Updates order column mapping and optionally re-pulls orders.
+  Future<ConnectorConfig> updateGoogleSheetsFieldMapping(
+    String storeId,
+    String connectorId, {
+    required Map<String, String> orderFieldMapping,
+    bool pullOrders = true,
+  }) async {
+    final response = await client.post(
+      '/stores/$storeId/integrations/connectors/$connectorId/google-sheets/field-mapping',
+      data: {
+        'fieldMapping': {'order': orderFieldMapping},
+        'pullOrders': pullOrders,
       },
     );
     final data = response.data as Map<String, dynamic>;

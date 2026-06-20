@@ -6,6 +6,7 @@
 library;
 
 export 'ai/ai_calculator.dart';
+export 'chat/chat.dart';
 export 'attachments/attachment.dart';
 export 'core/errors.dart';
 export 'core/image_gen_caps.dart';

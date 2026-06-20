@@ -7,6 +7,12 @@ class Realtime {
 
   Map<String, Subscription> subscriptions = {};
 
+  /// Mirrors [Transmit.statusStream] (connected / reconnecting / disconnected).
+  Stream<TransmitStatus> get statusStream => transmit.statusStream;
+
+  bool get isConnected => transmit.isConnected;
+  bool get isReconnecting => transmit.isReconnecting;
+
   Future<Subscription> subscribe(String channel) async {
     if (subscriptions.containsKey(channel)) {
       await unsubscribe(channel);

@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:cuid2/cuid2.dart';
 import 'package:dio/dio.dart';
 
+import 'package:feeef/chat/chat_repository.dart';
 import 'package:feeef/ai/ai_repository.dart';
 import 'package:feeef/core/feeef_config.dart';
 import 'package:feeef/core/feeef_storage.dart';
@@ -151,6 +152,7 @@ class Feeef {
   late final PromoRepository promos;
   late final InventoryRepository inventory;
   late final FinanceRepository finance;
+  late final ChatRepository chat;
   late final ConnectorsIntegrationApi connectors;
 
   late final CurrencyRepository currencies;
@@ -279,6 +281,7 @@ class Feeef {
       developer.log('-- Received message on $channel');
     });
     realtime = Realtime(transmit: transmit);
+    chat = ChatRepository(client: client, realtime: realtime);
     users = UserRepository(
       client: client,
       realtime: realtime,

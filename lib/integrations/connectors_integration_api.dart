@@ -230,4 +230,74 @@ class ConnectorsIntegrationApi {
     final data = response.data as Map<String, dynamic>;
     return ConnectorConfig.fromJson(data['connector'] as Map<String, dynamic>);
   }
+
+  /// Returns Facebook Lead Ads OAuth URL.
+  Future<String> getFacebookLeadsInstallUrl(
+    String storeId, {
+    bool popup = false,
+    String? origin,
+    String? callbackScheme,
+  }) async {
+    final response = await client.get(
+      '/stores/$storeId/integrations/connectors/facebook-leads/install-url',
+      queryParameters: {
+        if (popup) 'popup': 'true',
+        if (origin != null && origin.isNotEmpty) 'origin': origin,
+        if (callbackScheme != null && callbackScheme.isNotEmpty)
+          'callbackScheme': callbackScheme,
+      },
+    );
+    return response.data['installUrl'] as String;
+  }
+
+  /// Lists Facebook Pages after OAuth (for Page picker).
+  Future<Map<String, dynamic>> listFacebookPages(
+    String storeId, {
+    required String connectorId,
+  }) async {
+    final response = await client.get(
+      '/stores/$storeId/integrations/connectors/facebook-leads/pages',
+      queryParameters: {'connectorId': connectorId},
+    );
+    return Map<String, dynamic>.from(response.data as Map);
+  }
+
+  /// Lists lead gen forms on a Facebook Page.
+  Future<List<Map<String, dynamic>>> listFacebookLeadForms(
+    String storeId, {
+    required String connectorId,
+    required String pageId,
+  }) async {
+    final response = await client.get(
+      '/stores/$storeId/integrations/connectors/facebook-leads/forms',
+      queryParameters: {
+        'connectorId': connectorId,
+        'pageId': pageId,
+      },
+    );
+    final list = response.data['forms'] as List<dynamic>? ?? [];
+    return list.map((e) => Map<String, dynamic>.from(e as Map)).toList();
+  }
+
+  /// Binds a Facebook Page and runs initial lead import.
+  Future<ConnectorConfig> configureFacebookLeadsConnector(
+    String storeId, {
+    required String connectorId,
+    required String pageId,
+    List<String>? formIds,
+    Map<String, String>? orderFieldMapping,
+  }) async {
+    final response = await client.post(
+      '/stores/$storeId/integrations/connectors/facebook-leads/configure',
+      data: {
+        'connectorId': connectorId,
+        'pageId': pageId,
+        if (formIds != null && formIds.isNotEmpty) 'formIds': formIds,
+        if (orderFieldMapping != null && orderFieldMapping.isNotEmpty)
+          'fieldMapping': {'order': orderFieldMapping},
+      },
+    );
+    final data = response.data as Map<String, dynamic>;
+    return ConnectorConfig.fromJson(data['connector'] as Map<String, dynamic>);
+  }
 }

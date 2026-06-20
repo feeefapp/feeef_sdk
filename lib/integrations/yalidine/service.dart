@@ -430,6 +430,20 @@ class YalidineDeliveryService
 
       return (tracking: tracking, ticket: ticket);
     } on DioException catch (e) {
+      // Parse structured carrier rejection (HTTP 400 with { success: false, error })
+      final data = e.response?.data;
+      if (data is Map) {
+        final errorData = Map<String, dynamic>.from(data);
+        if (errorData['success'] == false) {
+          throw YalidineApiException(
+            message: errorData['error'] as String? ??
+                errorData['message'] as String? ??
+                'Failed to create parcel',
+            orderId: request.orderId,
+          );
+        }
+      }
+
       // Parse Yalidine validation errors (Laravel format)
       if (e.response?.statusCode == 422 && e.response?.data != null) {
         final errorData = e.response!.data as Map<String, dynamic>;
@@ -543,7 +557,9 @@ class YalidineDeliveryService
       final List<YalidineCreatedParcel> created = [];
       for (final item in createdRaw) {
         final parcelData = item as Map<String, dynamic>;
-        final orderId = parcelData['order_id'] as String?;
+        final orderId =
+            parcelData['order_id'] as String? ??
+            parcelData['reference'] as String?;
 
         if (orderId != null) {
           created.add((
@@ -567,8 +583,14 @@ class YalidineDeliveryService
       for (final item in failedRaw) {
         final parcelData = item as Map<String, dynamic>;
         failed.add((
-          orderId: parcelData['order_id'] as String? ?? '',
-          error: parcelData['error'] as String? ?? 'Unknown error',
+          orderId:
+              parcelData['order_id'] as String? ??
+              parcelData['reference'] as String? ??
+              '',
+          error:
+              parcelData['error'] as String? ??
+              parcelData['message'] as String? ??
+              'Unknown error',
         ));
       }
 
@@ -582,6 +604,18 @@ class YalidineDeliveryService
         ),
       );
     } on DioException catch (e) {
+      final data = e.response?.data;
+      if (data is Map) {
+        final errorData = Map<String, dynamic>.from(data);
+        if (errorData['success'] == false) {
+          throw YalidineApiException(
+            message: errorData['error'] as String? ??
+                errorData['message'] as String? ??
+                'Bulk send failed',
+          );
+        }
+      }
+
       // Handle bulk API errors
       if (e.response?.statusCode == 422 && e.response?.data != null) {
         final errorData = e.response!.data as Map<String, dynamic>;

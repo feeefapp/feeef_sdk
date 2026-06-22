@@ -22,6 +22,19 @@ void main() {
     expect(parts['p1'], 'Hello world');
   });
 
+  test('ChatRealtimeBridge creates transcript row for orphan part delta', () {
+    final transcript = ChatRealtimeBridge.ensureTranscriptPartForDelta(
+      const [],
+      const ChatGenerationEvent(
+        event: 'chat.part.delta',
+        data: {'partId': 'p1', 'text': 'Hi'},
+      ),
+    );
+    expect(transcript, hasLength(1));
+    expect(transcript.first['id'], 'p1');
+    expect(transcript.first['type'], 'text');
+  });
+
   test('ChatRealtimeBridge merges snapshot parts', () {
     final snap = ChatGenerationSnapshot(
       id: 'g1',

@@ -57,12 +57,59 @@ class ChatPartInput {
   };
 }
 
+/// MCP tool confirmation policy for a conversation (`manual` | `readonly` | `all`).
+class ChatToolPolicy {
+  final String mode;
+  final List<String> autoApprove;
+  final List<String> requireConfirm;
+
+  const ChatToolPolicy({
+    this.mode = 'manual',
+    this.autoApprove = const [],
+    this.requireConfirm = const [],
+  });
+
+  bool get isAutoEnabled => mode == 'readonly' || mode == 'all' || autoApprove.isNotEmpty;
+
+  factory ChatToolPolicy.fromJson(Map<String, dynamic>? json) {
+    if (json == null || json.isEmpty) return const ChatToolPolicy();
+    return ChatToolPolicy(
+      mode: json['mode'] as String? ?? 'manual',
+      autoApprove: (json['autoApprove'] as List<dynamic>? ?? const [])
+          .map((e) => e.toString())
+          .toList(),
+      requireConfirm: (json['requireConfirm'] as List<dynamic>? ?? const [])
+          .map((e) => e.toString())
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'mode': mode,
+    if (autoApprove.isNotEmpty) 'autoApprove': autoApprove,
+    if (requireConfirm.isNotEmpty) 'requireConfirm': requireConfirm,
+  };
+
+  ChatToolPolicy copyWith({
+    String? mode,
+    List<String>? autoApprove,
+    List<String>? requireConfirm,
+  }) {
+    return ChatToolPolicy(
+      mode: mode ?? this.mode,
+      autoApprove: autoApprove ?? this.autoApprove,
+      requireConfirm: requireConfirm ?? this.requireConfirm,
+    );
+  }
+}
+
 class ChatConversation {
   final String id;
   final String? title;
   final String modelId;
   final List<ChatResourceRef> resources;
   final List<String> mcpServerIds;
+  final ChatToolPolicy toolPolicy;
   final String? preview;
   final int? resourceCount;
   final DateTime? updatedAt;
@@ -74,6 +121,7 @@ class ChatConversation {
     required this.modelId,
     this.resources = const [],
     this.mcpServerIds = const [],
+    this.toolPolicy = const ChatToolPolicy(),
     this.preview,
     this.resourceCount,
     this.updatedAt,
@@ -93,6 +141,11 @@ class ChatConversation {
       mcpServerIds: (json['mcpServerIds'] as List<dynamic>? ?? const [])
           .map((e) => e.toString())
           .toList(),
+      toolPolicy: ChatToolPolicy.fromJson(
+        json['toolPolicy'] is Map
+            ? Map<String, dynamic>.from(json['toolPolicy'] as Map)
+            : null,
+      ),
       preview: json['preview'] as String?,
       resourceCount: (json['resourceCount'] as num?)?.toInt(),
       updatedAt: json['updatedAt'] != null ? DateTime.tryParse(json['updatedAt'] as String) : null,
@@ -120,6 +173,7 @@ class ChatConversationUpdate {
   final List<ChatResourceRef>? resources;
   final List<String>? mcpServerIds;
   final bool? archived;
+  final ChatToolPolicy? toolPolicy;
 
   const ChatConversationUpdate({
     this.title,
@@ -127,6 +181,7 @@ class ChatConversationUpdate {
     this.resources,
     this.mcpServerIds,
     this.archived,
+    this.toolPolicy,
   });
 
   Map<String, dynamic> toJson() => {
@@ -135,6 +190,7 @@ class ChatConversationUpdate {
     if (resources != null) 'resources': [for (final r in resources!) r.toJson()],
     if (mcpServerIds != null) 'mcpServerIds': mcpServerIds,
     if (archived != null) 'archived': archived,
+    if (toolPolicy != null) 'toolPolicy': toolPolicy!.toJson(),
   };
 }
 

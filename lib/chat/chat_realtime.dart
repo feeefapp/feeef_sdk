@@ -82,6 +82,26 @@ class ChatRealtimeBridge {
       ..sort((a, b) => ((a['position'] as int?) ?? 0).compareTo((b['position'] as int?) ?? 0));
   }
 
+  /// Ensures a transcript row exists before the first [ChatGenerationEvent.isPartDelta].
+  static List<Map<String, dynamic>> ensureTranscriptPartForDelta(
+    List<Map<String, dynamic>> current,
+    ChatGenerationEvent event,
+  ) {
+    if (!event.isPartDelta) return current;
+    final partId = event.data['partId'] as String? ?? '';
+    if (partId.isEmpty || current.any((p) => p['id'] == partId)) return current;
+    return [
+      ...current,
+      {
+        'id': partId,
+        'type': 'text',
+        'state': 'streaming',
+        'content': <String, dynamic>{'text': ''},
+        'position': current.length,
+      },
+    ];
+  }
+
   /// Applies a single Transmit [ChatGenerationEvent] to part text map.
   static Map<String, String> applyEvent(
     Map<String, String> current,

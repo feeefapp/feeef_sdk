@@ -88,6 +88,13 @@ class ChatMessagesRepository {
     });
     return ChatSendResponse.fromJson(Map<String, dynamic>.from(res.data as Map));
   }
+
+  Future<void> delete({
+    required String conversationId,
+    required String messageId,
+  }) async {
+    await client.delete('/chat/conversations/$conversationId/messages/$messageId');
+  }
 }
 
 /// `ff.chat.generations.*` — Transmit primary, REST poll fallback.

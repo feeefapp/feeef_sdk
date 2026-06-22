@@ -64,7 +64,7 @@ class ChatToolPolicy {
   final List<String> requireConfirm;
 
   const ChatToolPolicy({
-    this.mode = 'manual',
+    this.mode = 'readonly',
     this.autoApprove = const [],
     this.requireConfirm = const [],
   });
@@ -74,7 +74,7 @@ class ChatToolPolicy {
   factory ChatToolPolicy.fromJson(Map<String, dynamic>? json) {
     if (json == null || json.isEmpty) return const ChatToolPolicy();
     return ChatToolPolicy(
-      mode: json['mode'] as String? ?? 'manual',
+      mode: json['mode'] as String? ?? 'readonly',
       autoApprove: (json['autoApprove'] as List<dynamic>? ?? const [])
           .map((e) => e.toString())
           .toList(),

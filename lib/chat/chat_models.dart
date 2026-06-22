@@ -18,6 +18,9 @@ class ChatResourceRef {
   factory ChatResourceRef.product(String id, {String? label}) =>
       ChatResourceRef(type: 'product', id: id, label: label);
 
+  factory ChatResourceRef.order(String id, {String? label}) =>
+      ChatResourceRef(type: 'order', id: id, label: label);
+
   Map<String, dynamic> toJson() => {
     'type': type,
     if (id != null) 'id': id,

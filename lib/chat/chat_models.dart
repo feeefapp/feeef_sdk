@@ -95,7 +95,8 @@ class ChatToolPolicy {
     'mode': mode,
     if (autoApprove.isNotEmpty) 'autoApprove': autoApprove,
     if (requireConfirm.isNotEmpty) 'requireConfirm': requireConfirm,
-    if (!compositionEnabled) 'compositionEnabled': compositionEnabled,
+    // Always sent so PATCH merges can turn composition back on (backend default is true).
+    'compositionEnabled': compositionEnabled,
   };
 
   ChatToolPolicy copyWith({

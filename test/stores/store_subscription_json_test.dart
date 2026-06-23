@@ -3,6 +3,20 @@ import 'package:test/test.dart';
 
 void main() {
   group('StoreSubscription JSON', () {
+    test('accepts legacy pro plan type from API', () {
+      final startedAt = DateTime.utc(2024, 6, 1);
+      final subscription = StoreSubscription.fromJson({
+        'type': 'pro',
+        'status': 'active',
+        'quota': 0,
+        'consumed': 0,
+        'startedAt': startedAt.toIso8601String(),
+      });
+
+      expect(subscription.type, StoreSubscriptionType.premium);
+      expect(subscription.toJson()['type'], 'premium');
+    });
+
     test('round-trips integration billing entries', () {
       final startedAt = DateTime.utc(2024, 6, 1);
       final integrationStart = DateTime.utc(2024, 6, 15);

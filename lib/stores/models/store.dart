@@ -406,6 +406,14 @@ StoreSubscription? _storeSubscriptionFromJson(Object? json) {
   return null;
 }
 
+Map<String, dynamic> _normalizeSubscriptionJson(Map<String, dynamic> json) {
+  final normalized = Map<String, dynamic>.from(json);
+  if (normalized['type'] == 'pro') {
+    normalized['type'] = 'premium';
+  }
+  return normalized;
+}
+
 Object? _storeSubscriptionToJson(StoreSubscription? subscription) =>
     subscription?.toJson();
 
@@ -452,7 +460,7 @@ abstract class StoreSubscription with _$StoreSubscription {
   }) = _StoreSubscription;
 
   factory StoreSubscription.fromJson(Map<String, dynamic> json) =>
-      _$StoreSubscriptionFromJson(json);
+      _$StoreSubscriptionFromJson(_normalizeSubscriptionJson(json));
 }
 
 enum StoreSubscriptionType { free, premium, vip, ultra, custom }

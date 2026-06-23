@@ -65,11 +65,14 @@ class ChatToolPolicy {
   final String mode;
   final List<String> autoApprove;
   final List<String> requireConfirm;
+  /// TRINITY thinker→worker→verifier orchestration ("Composition"). Defaults to on.
+  final bool compositionEnabled;
 
   const ChatToolPolicy({
     this.mode = 'readonly',
     this.autoApprove = const [],
     this.requireConfirm = const [],
+    this.compositionEnabled = true,
   });
 
   bool get isAutoEnabled => mode == 'readonly' || mode == 'all' || autoApprove.isNotEmpty;
@@ -84,6 +87,7 @@ class ChatToolPolicy {
       requireConfirm: (json['requireConfirm'] as List<dynamic>? ?? const [])
           .map((e) => e.toString())
           .toList(),
+      compositionEnabled: json['compositionEnabled'] as bool? ?? true,
     );
   }
 
@@ -91,17 +95,20 @@ class ChatToolPolicy {
     'mode': mode,
     if (autoApprove.isNotEmpty) 'autoApprove': autoApprove,
     if (requireConfirm.isNotEmpty) 'requireConfirm': requireConfirm,
+    if (!compositionEnabled) 'compositionEnabled': compositionEnabled,
   };
 
   ChatToolPolicy copyWith({
     String? mode,
     List<String>? autoApprove,
     List<String>? requireConfirm,
+    bool? compositionEnabled,
   }) {
     return ChatToolPolicy(
       mode: mode ?? this.mode,
       autoApprove: autoApprove ?? this.autoApprove,
       requireConfirm: requireConfirm ?? this.requireConfirm,
+      compositionEnabled: compositionEnabled ?? this.compositionEnabled,
     );
   }
 }

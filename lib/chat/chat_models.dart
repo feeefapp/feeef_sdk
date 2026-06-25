@@ -330,6 +330,7 @@ class ChatActiveGeneration {
       status == 'pending' ||
       status == 'streaming' ||
       status == 'awaiting_confirm' ||
+      status == 'awaiting_client_tool' ||
       status == 'awaiting_input';
 }
 
@@ -355,16 +356,21 @@ class ChatConversationDetail {
   final List<ChatMessage> messages;
   final ChatMessagesMeta messagesMeta;
   final ChatActiveGeneration? activeGeneration;
+  final List<ChatQueuedPrompt> promptQueue;
+  final String? queueTransmitChannel;
 
   const ChatConversationDetail({
     required this.conversation,
     required this.messages,
     this.messagesMeta = const ChatMessagesMeta(hasMore: false),
     this.activeGeneration,
+    this.promptQueue = const [],
+    this.queueTransmitChannel,
   });
 
   factory ChatConversationDetail.fromJson(Map<String, dynamic> json) {
     final rawMessages = json['messages'] as List<dynamic>? ?? const [];
+    final rawQueue = json['promptQueue'] as List<dynamic>? ?? const [];
     return ChatConversationDetail(
       conversation: ChatConversation.fromJson(json),
       messages: rawMessages
@@ -381,8 +387,70 @@ class ChatConversationDetail {
               Map<String, dynamic>.from(json['activeGeneration'] as Map),
             )
           : null,
+      promptQueue: rawQueue
+          .whereType<Map>()
+          .map((e) => ChatQueuedPrompt.fromJson(Map<String, dynamic>.from(e)))
+          .toList(),
+      queueTransmitChannel: json['queueTransmitChannel'] as String?,
     );
   }
+}
+
+/// One queued follow-up prompt for a conversation (max 5).
+class ChatQueuedPrompt {
+  final String id;
+  final int position;
+  final List<ChatPartInput> parts;
+  final String previewText;
+  final DateTime? createdAt;
+
+  const ChatQueuedPrompt({
+    required this.id,
+    required this.position,
+    required this.parts,
+    required this.previewText,
+    this.createdAt,
+  });
+
+  static const int maxItems = 5;
+
+  factory ChatQueuedPrompt.fromJson(Map<String, dynamic> json) {
+    final rawParts = json['parts'] as List<dynamic>? ?? const [];
+    return ChatQueuedPrompt(
+      id: json['id'] as String,
+      position: (json['position'] as num?)?.toInt() ?? 0,
+      parts: rawParts
+          .whereType<Map>()
+          .map((e) => _partInputFromJson(Map<String, dynamic>.from(e)))
+          .whereType<ChatPartInput>()
+          .toList(),
+      previewText: json['previewText'] as String? ?? '',
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'] as String)
+          : null,
+    );
+  }
+
+  static ChatPartInput? _partInputFromJson(Map<String, dynamic> json) {
+    final type = json['type'] as String?;
+    if (type == 'text') {
+      final text = json['text'] as String?;
+      if (text == null) return null;
+      return ChatPartInput.text(text);
+    }
+    if (type == 'attachment') {
+      final attachment = json['attachment'];
+      if (attachment is! Map) return null;
+      return ChatPartInput.attachment(Map<String, dynamic>.from(attachment));
+    }
+    return null;
+  }
+
+  String get primaryText => parts
+      .where((p) => p.type == 'text')
+      .map((p) => p.text ?? '')
+      .join(' ')
+      .trim();
 }
 
 class ChatMessagePart {

@@ -273,6 +273,116 @@ class ChatBillingRepository {
   }
 }
 
+/// `ff.chat.queue.*` — per-conversation prompt queue while generating.
+class ChatQueueRepository {
+  ChatQueueRepository({required this.client});
+  final Dio client;
+
+  Future<ChatPromptQueuePage> list(String conversationId) async {
+    final res = await client.get('/chat/conversations/$conversationId/queue');
+    final body = Map<String, dynamic>.from(res.data as Map);
+    return ChatPromptQueuePage.fromJson(body);
+  }
+
+  Future<List<ChatQueuedPrompt>> enqueue({
+    required String conversationId,
+    required List<ChatPartInput> parts,
+  }) async {
+    final res = await client.post('/chat/conversations/$conversationId/queue', data: {
+      'parts': [for (final p in parts) p.toJson()],
+    });
+    return _itemsFromResponse(res.data);
+  }
+
+  Future<List<ChatQueuedPrompt>> update({
+    required String conversationId,
+    required String itemId,
+    required List<ChatPartInput> parts,
+  }) async {
+    final res = await client.patch(
+      '/chat/conversations/$conversationId/queue/$itemId',
+      data: {
+        'parts': [for (final p in parts) p.toJson()],
+      },
+    );
+    return _itemsFromResponse(res.data);
+  }
+
+  Future<List<ChatQueuedPrompt>> delete({
+    required String conversationId,
+    required String itemId,
+  }) async {
+    final res = await client.delete('/chat/conversations/$conversationId/queue/$itemId');
+    return _itemsFromResponse(res.data);
+  }
+
+  Future<List<ChatQueuedPrompt>> reorder({
+    required String conversationId,
+    required List<String> orderedIds,
+  }) async {
+    final res = await client.put('/chat/conversations/$conversationId/queue/reorder', data: {
+      'orderedIds': orderedIds,
+    });
+    return _itemsFromResponse(res.data);
+  }
+
+  Future<ChatQueueConsumeResult> consume({
+    required String conversationId,
+    String? itemId,
+  }) async {
+    final res = await client.post(
+      '/chat/conversations/$conversationId/queue/consume',
+      data: {if (itemId != null) 'itemId': itemId},
+    );
+    final body = Map<String, dynamic>.from(res.data as Map);
+    final itemRaw = body['item'];
+    return ChatQueueConsumeResult(
+      item: itemRaw is Map
+          ? ChatQueuedPrompt.fromJson(Map<String, dynamic>.from(itemRaw))
+          : null,
+      items: _itemsFromList(body['items']),
+    );
+  }
+
+  List<ChatQueuedPrompt> _itemsFromResponse(dynamic data) {
+    if (data is! Map) return const [];
+    return _itemsFromList(data['items']);
+  }
+
+  List<ChatQueuedPrompt> _itemsFromList(dynamic raw) {
+    if (raw is! List) return const [];
+    return raw
+        .whereType<Map>()
+        .map((e) => ChatQueuedPrompt.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+  }
+}
+
+class ChatPromptQueuePage {
+  final List<ChatQueuedPrompt> items;
+  final String? transmitChannel;
+
+  const ChatPromptQueuePage({required this.items, this.transmitChannel});
+
+  factory ChatPromptQueuePage.fromJson(Map<String, dynamic> json) {
+    final raw = json['items'] as List<dynamic>? ?? const [];
+    return ChatPromptQueuePage(
+      items: raw
+          .whereType<Map>()
+          .map((e) => ChatQueuedPrompt.fromJson(Map<String, dynamic>.from(e)))
+          .toList(),
+      transmitChannel: json['transmitChannel'] as String?,
+    );
+  }
+}
+
+class ChatQueueConsumeResult {
+  final ChatQueuedPrompt? item;
+  final List<ChatQueuedPrompt> items;
+
+  const ChatQueueConsumeResult({required this.item, required this.items});
+}
+
 /// Chat API entrypoint — `ff.chat.conversations.create(...)`, etc.
 class ChatRepository {
   ChatRepository({required Dio client, required Realtime realtime})
@@ -282,7 +392,8 @@ class ChatRepository {
       jobs = ChatJobsRepository(client: client),
       mcpServers = ChatMcpServersRepository(client: client),
       models = ChatModelsRepository(client: client),
-      billing = ChatBillingRepository(client: client);
+      billing = ChatBillingRepository(client: client),
+      queue = ChatQueueRepository(client: client);
 
   final ChatConversationsRepository conversations;
   final ChatMessagesRepository messages;
@@ -291,4 +402,5 @@ class ChatRepository {
   final ChatMcpServersRepository mcpServers;
   final ChatModelsRepository models;
   final ChatBillingRepository billing;
+  final ChatQueueRepository queue;
 }

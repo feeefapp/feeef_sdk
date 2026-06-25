@@ -164,6 +164,7 @@ class ChatRealtimeBridge {
         'content': {...prevContent, ...patchContent},
         if (event.data['position'] != null)
           'position': (event.data['position'] as num?)?.toInt(),
+        if (event.data['state'] != null) 'state': event.data['state'],
       };
     } else {
       next.add({

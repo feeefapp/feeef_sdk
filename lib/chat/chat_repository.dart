@@ -185,14 +185,15 @@ class ChatMcpServersRepository {
     bool enabled = true,
     Map<String, String>? headers,
   }) async {
-    final res = await client.post('/chat/mcp-servers', data: {
+    final payload = {
       'name': name,
       'url': url,
       'transport': transport,
       'isDefault': isDefault,
       'enabled': enabled,
       if (headers != null && headers.isNotEmpty) 'headers': headers,
-    });
+    };
+    final res = await client.post('/chat/mcp-servers', data: payload);
     return ChatMcpServer.fromJson(Map<String, dynamic>.from(res.data as Map));
   }
 

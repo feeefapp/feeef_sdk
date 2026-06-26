@@ -99,6 +99,16 @@ class ChatToolPolicy {
     );
   }
 
+  static Map<String, dynamic>? toolPolicyJsonFromConversation(Map<String, dynamic> json) {
+    if (json['toolPolicy'] is Map) {
+      return Map<String, dynamic>.from(json['toolPolicy'] as Map);
+    }
+    if (json['tool_policy'] is Map) {
+      return Map<String, dynamic>.from(json['tool_policy'] as Map);
+    }
+    return null;
+  }
+
   Map<String, dynamic> toJson() => {
     'mode': mode,
     if (autoApprove.isNotEmpty) 'autoApprove': autoApprove,
@@ -167,9 +177,7 @@ class ChatConversation {
           .map((e) => e.toString())
           .toList(),
       toolPolicy: ChatToolPolicy.fromJson(
-        json['toolPolicy'] is Map
-            ? Map<String, dynamic>.from(json['toolPolicy'] as Map)
-            : null,
+        ChatToolPolicy.toolPolicyJsonFromConversation(json),
       ),
       preview: json['preview'] as String?,
       resourceCount: (json['resourceCount'] as num?)?.toInt(),

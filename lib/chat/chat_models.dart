@@ -67,12 +67,18 @@ class ChatToolPolicy {
   final List<String> requireConfirm;
   /// TRINITY thinker→worker→verifier orchestration ("Composition"). Defaults to on.
   final bool compositionEnabled;
+  /// Collapsed planning / thinking captions (`agent_note`). Defaults to on.
+  final bool thinkingEnabled;
+  /// Checklist UI (`agent_todos`) and plan tools. Defaults to on.
+  final bool todosEnabled;
 
   const ChatToolPolicy({
     this.mode = 'readonly',
     this.autoApprove = const [],
     this.requireConfirm = const [],
     this.compositionEnabled = true,
+    this.thinkingEnabled = true,
+    this.todosEnabled = true,
   });
 
   bool get isAutoEnabled => mode == 'readonly' || mode == 'all' || autoApprove.isNotEmpty;
@@ -88,6 +94,8 @@ class ChatToolPolicy {
           .map((e) => e.toString())
           .toList(),
       compositionEnabled: json['compositionEnabled'] as bool? ?? true,
+      thinkingEnabled: json['thinkingEnabled'] as bool? ?? true,
+      todosEnabled: json['todosEnabled'] as bool? ?? true,
     );
   }
 
@@ -95,8 +103,10 @@ class ChatToolPolicy {
     'mode': mode,
     if (autoApprove.isNotEmpty) 'autoApprove': autoApprove,
     if (requireConfirm.isNotEmpty) 'requireConfirm': requireConfirm,
-    // Always sent so PATCH merges can turn composition back on (backend default is true).
+    // Always sent so PATCH merges can turn features back on (backend default is true).
     'compositionEnabled': compositionEnabled,
+    'thinkingEnabled': thinkingEnabled,
+    'todosEnabled': todosEnabled,
   };
 
   ChatToolPolicy copyWith({
@@ -104,12 +114,16 @@ class ChatToolPolicy {
     List<String>? autoApprove,
     List<String>? requireConfirm,
     bool? compositionEnabled,
+    bool? thinkingEnabled,
+    bool? todosEnabled,
   }) {
     return ChatToolPolicy(
       mode: mode ?? this.mode,
       autoApprove: autoApprove ?? this.autoApprove,
       requireConfirm: requireConfirm ?? this.requireConfirm,
       compositionEnabled: compositionEnabled ?? this.compositionEnabled,
+      thinkingEnabled: thinkingEnabled ?? this.thinkingEnabled,
+      todosEnabled: todosEnabled ?? this.todosEnabled,
     );
   }
 }
@@ -237,6 +251,7 @@ class ChatSendResponse {
     this.ok = true,
     this.error,
     this.errorMessage,
+    this.alreadyHandled = false,
   });
 
   final SendMessageResult? message;
@@ -247,6 +262,8 @@ class ChatSendResponse {
   final bool ok;
   final String? error;
   final String? errorMessage;
+  /// True when the backend already processed this user event (idempotent retry).
+  final bool alreadyHandled;
 
   factory ChatSendResponse.fromJson(Map<String, dynamic> json) {
     if (json['type'] == 'user_event') {
@@ -258,6 +275,7 @@ class ChatSendResponse {
         generationId: json['generationId'] as String?,
         assistantMessageId: json['assistantMessageId'] as String?,
         transmitChannel: json['transmitChannel'] as String?,
+        alreadyHandled: json['alreadyHandled'] as bool? ?? false,
       );
     }
     final message = SendMessageResult.fromJson(json);

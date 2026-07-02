@@ -5,12 +5,7 @@ class ChatResourceRef {
   final String? label;
   final Map<String, dynamic>? meta;
 
-  const ChatResourceRef({
-    required this.type,
-    this.id,
-    this.label,
-    this.meta,
-  });
+  const ChatResourceRef({required this.type, this.id, this.label, this.meta});
 
   factory ChatResourceRef.store(String id, {String? label}) =>
       ChatResourceRef(type: 'store', id: id, label: label);
@@ -28,12 +23,15 @@ class ChatResourceRef {
     if (meta != null) 'meta': meta,
   };
 
-  factory ChatResourceRef.fromJson(Map<String, dynamic> json) => ChatResourceRef(
-    type: json['type'] as String,
-    id: json['id'] as String?,
-    label: json['label'] as String?,
-    meta: json['meta'] is Map ? Map<String, dynamic>.from(json['meta'] as Map) : null,
-  );
+  factory ChatResourceRef.fromJson(Map<String, dynamic> json) =>
+      ChatResourceRef(
+        type: json['type'] as String,
+        id: json['id'] as String?,
+        label: json['label'] as String?,
+        meta: json['meta'] is Map
+            ? Map<String, dynamic>.from(json['meta'] as Map)
+            : null,
+      );
 }
 
 class ChatPartInput {
@@ -65,10 +63,13 @@ class ChatToolPolicy {
   final String mode;
   final List<String> autoApprove;
   final List<String> requireConfirm;
+
   /// TRINITY thinker→worker→verifier orchestration ("Composition"). Defaults to on.
   final bool compositionEnabled;
+
   /// Collapsed planning / thinking captions (`agent_note`). Defaults to on.
   final bool thinkingEnabled;
+
   /// Checklist UI (`agent_todos`) and plan tools. Defaults to on.
   final bool todosEnabled;
 
@@ -81,7 +82,8 @@ class ChatToolPolicy {
     this.todosEnabled = true,
   });
 
-  bool get isAutoEnabled => mode == 'readonly' || mode == 'all' || autoApprove.isNotEmpty;
+  bool get isAutoEnabled =>
+      mode == 'readonly' || mode == 'all' || autoApprove.isNotEmpty;
 
   factory ChatToolPolicy.fromJson(Map<String, dynamic>? json) {
     if (json == null || json.isEmpty) return const ChatToolPolicy();
@@ -99,7 +101,9 @@ class ChatToolPolicy {
     );
   }
 
-  static Map<String, dynamic>? toolPolicyJsonFromConversation(Map<String, dynamic> json) {
+  static Map<String, dynamic>? toolPolicyJsonFromConversation(
+    Map<String, dynamic> json,
+  ) {
     if (json['toolPolicy'] is Map) {
       return Map<String, dynamic>.from(json['toolPolicy'] as Map);
     }
@@ -181,8 +185,12 @@ class ChatConversation {
       ),
       preview: json['preview'] as String?,
       resourceCount: (json['resourceCount'] as num?)?.toInt(),
-      updatedAt: json['updatedAt'] != null ? DateTime.tryParse(json['updatedAt'] as String) : null,
-      createdAt: json['createdAt'] != null ? DateTime.tryParse(json['createdAt'] as String) : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.tryParse(json['updatedAt'] as String)
+          : null,
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'] as String)
+          : null,
     );
   }
 }
@@ -220,7 +228,8 @@ class ChatConversationUpdate {
   Map<String, dynamic> toJson() => {
     if (title != null) 'title': title,
     if (modelId != null) 'modelId': modelId,
-    if (resources != null) 'resources': [for (final r in resources!) r.toJson()],
+    if (resources != null)
+      'resources': [for (final r in resources!) r.toJson()],
     if (mcpServerIds != null) 'mcpServerIds': mcpServerIds,
     if (archived != null) 'archived': archived,
     if (toolPolicy != null) 'toolPolicy': toolPolicy!.toJson(),
@@ -240,12 +249,13 @@ class SendMessageResult {
     required this.transmitChannel,
   });
 
-  factory SendMessageResult.fromJson(Map<String, dynamic> json) => SendMessageResult(
-    userMessageId: json['userMessageId'] as String? ?? '',
-    assistantMessageId: json['assistantMessageId'] as String? ?? '',
-    generationId: json['generationId'] as String? ?? '',
-    transmitChannel: json['transmitChannel'] as String? ?? '',
-  );
+  factory SendMessageResult.fromJson(Map<String, dynamic> json) =>
+      SendMessageResult(
+        userMessageId: json['userMessageId'] as String? ?? '',
+        assistantMessageId: json['assistantMessageId'] as String? ?? '',
+        generationId: json['generationId'] as String? ?? '',
+        transmitChannel: json['transmitChannel'] as String? ?? '',
+      );
 }
 
 /// Response from `POST /chat/conversations/:id/messages` (normal send or user event).
@@ -270,6 +280,7 @@ class ChatSendResponse {
   final bool ok;
   final String? error;
   final String? errorMessage;
+
   /// True when the backend already processed this user event (idempotent retry).
   final bool alreadyHandled;
 
@@ -344,13 +355,14 @@ class ChatActiveGeneration {
     required this.transmitChannel,
   });
 
-  factory ChatActiveGeneration.fromJson(Map<String, dynamic> json) => ChatActiveGeneration(
-    id: json['id'] as String,
-    status: json['status'] as String,
-    assistantMessageId: json['assistantMessageId'] as String,
-    seq: (json['seq'] as num?)?.toInt() ?? 0,
-    transmitChannel: json['transmitChannel'] as String? ?? '',
-  );
+  factory ChatActiveGeneration.fromJson(Map<String, dynamic> json) =>
+      ChatActiveGeneration(
+        id: json['id'] as String,
+        status: json['status'] as String,
+        assistantMessageId: json['assistantMessageId'] as String,
+        seq: (json['seq'] as num?)?.toInt() ?? 0,
+        transmitChannel: json['transmitChannel'] as String? ?? '',
+      );
 
   bool get isLive =>
       status == 'pending' ||
@@ -365,15 +377,13 @@ class ChatMessagesMeta {
   final bool hasMore;
   final String? oldestMessageId;
 
-  const ChatMessagesMeta({
-    required this.hasMore,
-    this.oldestMessageId,
-  });
+  const ChatMessagesMeta({required this.hasMore, this.oldestMessageId});
 
-  factory ChatMessagesMeta.fromJson(Map<String, dynamic>? json) => ChatMessagesMeta(
-    hasMore: json?['hasMore'] as bool? ?? false,
-    oldestMessageId: json?['oldestMessageId'] as String?,
-  );
+  factory ChatMessagesMeta.fromJson(Map<String, dynamic>? json) =>
+      ChatMessagesMeta(
+        hasMore: json?['hasMore'] as bool? ?? false,
+        oldestMessageId: json?['oldestMessageId'] as String?,
+      );
 }
 
 /// Full conversation payload from `GET /chat/conversations/:id`.
@@ -494,18 +504,20 @@ class ChatMessagePart {
     this.position = 0,
   });
 
-  factory ChatMessagePart.fromJson(Map<String, dynamic> json) => ChatMessagePart(
-    id: json['id'] as String,
-    type: json['type'] as String,
-    state: json['state'] as String?,
-    content: Map<String, dynamic>.from(json['content'] as Map? ?? {}),
-    position: (json['position'] as num?)?.toInt() ?? 0,
-  );
+  factory ChatMessagePart.fromJson(Map<String, dynamic> json) =>
+      ChatMessagePart(
+        id: json['id'] as String,
+        type: json['type'] as String,
+        state: json['state'] as String?,
+        content: Map<String, dynamic>.from(json['content'] as Map? ?? {}),
+        position: (json['position'] as num?)?.toInt() ?? 0,
+      );
 
   String get text => content['text'] as String? ?? '';
 
-  String get reasoningText =>
-      type == 'reasoning' || type == 'agent_note' ? text : content['text'] as String? ?? '';
+  String get reasoningText => type == 'reasoning' || type == 'agent_note'
+      ? text
+      : content['text'] as String? ?? '';
 
   Map<String, dynamic>? get toolInvocation =>
       type == 'tool_invocation' ? content : null;
@@ -514,10 +526,14 @@ class ChatMessagePart {
       type == 'tool_result_summary' ? content : null;
 
   String get invocationId =>
-      content['invocationId'] as String? ?? content['confirmId'] as String? ?? '';
+      content['invocationId'] as String? ??
+      content['confirmId'] as String? ??
+      '';
 
   String get confirmId =>
-      content['confirmId'] as String? ?? content['invocationId'] as String? ?? '';
+      content['confirmId'] as String? ??
+      content['invocationId'] as String? ??
+      '';
 }
 
 class ChatGenerationSnapshot {
@@ -549,7 +565,10 @@ class ChatGenerationSnapshot {
           .whereType<Map>()
           .map((e) => ChatMessagePart.fromJson(Map<String, dynamic>.from(e)))
           .toList(),
-      jobs: rawJobs.whereType<Map>().map((e) => Map<String, dynamic>.from(e)).toList(),
+      jobs: rawJobs
+          .whereType<Map>()
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList(),
     );
   }
 }
@@ -565,7 +584,9 @@ class ChatGenerationEvent {
       final map = Map<String, dynamic>.from(payload);
       return ChatGenerationEvent(
         event: map['event'] as String? ?? '',
-        data: map['data'] is Map ? Map<String, dynamic>.from(map['data'] as Map) : map,
+        data: map['data'] is Map
+            ? Map<String, dynamic>.from(map['data'] as Map)
+            : map,
       );
     }
     return const ChatGenerationEvent(event: '', data: {});
@@ -707,11 +728,15 @@ class ChatMcpProbeResult {
         toolCount: json['toolCount'] as int? ?? 0,
         tools: (json['tools'] as List<dynamic>? ?? const [])
             .whereType<Map>()
-            .map((e) => ChatMcpToolSummary.fromJson(Map<String, dynamic>.from(e)))
+            .map(
+              (e) => ChatMcpToolSummary.fromJson(Map<String, dynamic>.from(e)),
+            )
             .toList(),
         error: json['error'] as String?,
         oauth: json['oauth'] is Map
-            ? ChatMcpOAuthInfo.fromJson(Map<String, dynamic>.from(json['oauth'] as Map))
+            ? ChatMcpOAuthInfo.fromJson(
+                Map<String, dynamic>.from(json['oauth'] as Map),
+              )
             : null,
       );
 }
@@ -729,14 +754,15 @@ class ChatModelOption {
     required this.capabilities,
   });
 
-  factory ChatModelOption.fromJson(Map<String, dynamic> json) => ChatModelOption(
-    id: json['id'] as String,
-    name: json['name'] as String,
-    providerSlug: json['providerSlug'] as String,
-    capabilities: (json['capabilities'] as List<dynamic>? ?? const ['text'])
-        .map((e) => e.toString())
-        .toList(),
-  );
+  factory ChatModelOption.fromJson(Map<String, dynamic> json) =>
+      ChatModelOption(
+        id: json['id'] as String,
+        name: json['name'] as String,
+        providerSlug: json['providerSlug'] as String,
+        capabilities: (json['capabilities'] as List<dynamic>? ?? const ['text'])
+            .map((e) => e.toString())
+            .toList(),
+      );
 }
 
 class ChatCostEstimate {
@@ -745,7 +771,78 @@ class ChatCostEstimate {
   const ChatCostEstimate(this.raw);
 
   factory ChatCostEstimate.fromJson(Map<String, dynamic> json) =>
-      ChatCostEstimate(json['estimate'] is Map ? Map<String, dynamic>.from(json['estimate'] as Map) : json);
+      ChatCostEstimate(
+        json['estimate'] is Map
+            ? Map<String, dynamic>.from(json['estimate'] as Map)
+            : json,
+      );
 
   num? get userCostDzd => raw['userCostDzd'] as num?;
+}
+
+/// A user-scoped agent rule (markdown injected into the system prompt).
+///
+/// Like Cursor's .cursor/rules — users create custom instructions that shape
+/// the agent's behaviour across all conversations.
+class ChatRule {
+  final String id;
+  final String name;
+  final String? description;
+  final String content;
+  final bool enabled;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
+  const ChatRule({
+    required this.id,
+    required this.name,
+    this.description,
+    required this.content,
+    required this.enabled,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory ChatRule.fromJson(Map<String, dynamic> json) => ChatRule(
+    id: json['id'] as String,
+    name: json['name'] as String,
+    description: json['description'] as String?,
+    content: json['content'] as String,
+    enabled: json['enabled'] as bool? ?? true,
+    createdAt: json['createdAt'] is String
+        ? DateTime.tryParse(json['createdAt'] as String)
+        : null,
+    updatedAt: json['updatedAt'] is String
+        ? DateTime.tryParse(json['updatedAt'] as String)
+        : null,
+  );
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name': name,
+    if (description != null) 'description': description,
+    'content': content,
+    'enabled': enabled,
+  };
+}
+
+/// A skill catalog entry discovered from the MCP server via docs_skill_list.
+class ChatSkill {
+  final String name;
+  final String description;
+  final List<String> references;
+
+  const ChatSkill({
+    required this.name,
+    required this.description,
+    this.references = const [],
+  });
+
+  factory ChatSkill.fromJson(Map<String, dynamic> json) => ChatSkill(
+    name: json['name'] as String,
+    description: json['description'] as String? ?? '',
+    references: (json['references'] as List<dynamic>? ?? const [])
+        .whereType<String>()
+        .toList(),
+  );
 }

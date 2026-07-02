@@ -15,13 +15,19 @@ class ChatConversationsRepository {
     List<ChatResourceRef>? resources,
     List<String>? mcpServerIds,
   }) async {
-    final res = await client.post('/chat/conversations', data: {
-      'modelId': modelId,
-      if (title != null) 'title': title,
-      if (resources != null) 'resources': [for (final r in resources) r.toJson()],
-      if (mcpServerIds != null) 'mcpServerIds': mcpServerIds,
-    });
-    return ChatConversation.fromJson(Map<String, dynamic>.from(res.data as Map));
+    final res = await client.post(
+      '/chat/conversations',
+      data: {
+        'modelId': modelId,
+        if (title != null) 'title': title,
+        if (resources != null)
+          'resources': [for (final r in resources) r.toJson()],
+        if (mcpServerIds != null) 'mcpServerIds': mcpServerIds,
+      },
+    );
+    return ChatConversation.fromJson(
+      Map<String, dynamic>.from(res.data as Map),
+    );
   }
 
   Future<ChatConversationPage> list({
@@ -30,14 +36,19 @@ class ChatConversationsRepository {
     String? q,
     bool archived = false,
   }) async {
-    final res = await client.get('/chat/conversations', queryParameters: {
-      'page': page,
-      'limit': limit,
-      if (q != null && q.isNotEmpty) 'q': q,
-      'archived': archived,
-    });
+    final res = await client.get(
+      '/chat/conversations',
+      queryParameters: {
+        'page': page,
+        'limit': limit,
+        if (q != null && q.isNotEmpty) 'q': q,
+        'archived': archived,
+      },
+    );
     final body = Map<String, dynamic>.from(res.data as Map);
-    final meta = body['meta'] is Map ? Map<String, dynamic>.from(body['meta'] as Map) : <String, dynamic>{};
+    final meta = body['meta'] is Map
+        ? Map<String, dynamic>.from(body['meta'] as Map)
+        : <String, dynamic>{};
     final data = (body['data'] as List<dynamic>? ?? const [])
         .whereType<Map>()
         .map((e) => ChatConversation.fromJson(Map<String, dynamic>.from(e)))
@@ -62,9 +73,17 @@ class ChatConversationsRepository {
     );
   }
 
-  Future<ChatConversation> update(String id, ChatConversationUpdate patch) async {
-    final res = await client.patch('/chat/conversations/$id', data: patch.toJson());
-    return ChatConversation.fromJson(Map<String, dynamic>.from(res.data as Map));
+  Future<ChatConversation> update(
+    String id,
+    ChatConversationUpdate patch,
+  ) async {
+    final res = await client.patch(
+      '/chat/conversations/$id',
+      data: patch.toJson(),
+    );
+    return ChatConversation.fromJson(
+      Map<String, dynamic>.from(res.data as Map),
+    );
   }
 
   Future<void> delete(String id) async {
@@ -82,18 +101,25 @@ class ChatMessagesRepository {
     List<ChatPartInput>? parts,
     Map<String, dynamic>? userEvent,
   }) async {
-    final res = await client.post('/chat/conversations/$conversationId/messages', data: {
-      if (parts != null) 'parts': [for (final p in parts) p.toJson()],
-      if (userEvent != null) 'userEvent': userEvent,
-    });
-    return ChatSendResponse.fromJson(Map<String, dynamic>.from(res.data as Map));
+    final res = await client.post(
+      '/chat/conversations/$conversationId/messages',
+      data: {
+        if (parts != null) 'parts': [for (final p in parts) p.toJson()],
+        if (userEvent != null) 'userEvent': userEvent,
+      },
+    );
+    return ChatSendResponse.fromJson(
+      Map<String, dynamic>.from(res.data as Map),
+    );
   }
 
   Future<void> delete({
     required String conversationId,
     required String messageId,
   }) async {
-    await client.delete('/chat/conversations/$conversationId/messages/$messageId');
+    await client.delete(
+      '/chat/conversations/$conversationId/messages/$messageId',
+    );
   }
 }
 
@@ -122,7 +148,10 @@ class ChatGenerationsRepository {
         });
         sub.onMessage((data) {
           final event = ChatGenerationEvent.fromRealtime(data);
-          if (!gotStart && (event.isGenerationStart || event.isPartDelta || event.isPartPatch)) {
+          if (!gotStart &&
+              (event.isGenerationStart ||
+                  event.isPartDelta ||
+                  event.isPartPatch)) {
             gotStart = true;
             onRealtimeActive?.call();
           }
@@ -141,12 +170,17 @@ class ChatGenerationsRepository {
     return controller.stream;
   }
 
-  Future<ChatGenerationSnapshot> get(String generationId, {int? sinceSeq}) async {
+  Future<ChatGenerationSnapshot> get(
+    String generationId, {
+    int? sinceSeq,
+  }) async {
     final res = await client.get(
       '/chat/generations/$generationId',
       queryParameters: {if (sinceSeq != null) 'sinceSeq': sinceSeq},
     );
-    return ChatGenerationSnapshot.fromJson(Map<String, dynamic>.from(res.data as Map));
+    return ChatGenerationSnapshot.fromJson(
+      Map<String, dynamic>.from(res.data as Map),
+    );
   }
 
   Future<void> cancel(String generationId) async {
@@ -197,10 +231,7 @@ class ChatMcpServersRepository {
     return ChatMcpServer.fromJson(Map<String, dynamic>.from(res.data as Map));
   }
 
-  Future<ChatMcpServer> update(
-    String id,
-    Map<String, dynamic> patch,
-  ) async {
+  Future<ChatMcpServer> update(String id, Map<String, dynamic> patch) async {
     final res = await client.patch('/chat/mcp-servers/$id', data: patch);
     return ChatMcpServer.fromJson(Map<String, dynamic>.from(res.data as Map));
   }
@@ -211,18 +242,23 @@ class ChatMcpServersRepository {
 
   Future<ChatMcpProbeResult> test(String id) async {
     final res = await client.post('/chat/mcp-servers/$id/test');
-    return ChatMcpProbeResult.fromJson(Map<String, dynamic>.from(res.data as Map));
+    return ChatMcpProbeResult.fromJson(
+      Map<String, dynamic>.from(res.data as Map),
+    );
   }
 
   Future<ChatMcpProbeResult> listTools(String id) async {
     final res = await client.get('/chat/mcp-servers/$id/tools');
-    return ChatMcpProbeResult.fromJson(Map<String, dynamic>.from(res.data as Map));
+    return ChatMcpProbeResult.fromJson(
+      Map<String, dynamic>.from(res.data as Map),
+    );
   }
 
   Future<String> startOAuth(String id, {required String redirectUri}) async {
-    final res = await client.post('/chat/mcp-servers/$id/oauth/start', data: {
-      'redirectUri': redirectUri,
-    });
+    final res = await client.post(
+      '/chat/mcp-servers/$id/oauth/start',
+      data: {'redirectUri': redirectUri},
+    );
     final body = Map<String, dynamic>.from(res.data as Map);
     return body['authorizeUrl'] as String;
   }
@@ -232,10 +268,10 @@ class ChatMcpServersRepository {
     required String code,
     String? redirectUri,
   }) async {
-    final res = await client.post('/chat/mcp-servers/$id/oauth/complete', data: {
-      'code': code,
-      if (redirectUri != null) 'redirectUri': redirectUri,
-    });
+    final res = await client.post(
+      '/chat/mcp-servers/$id/oauth/complete',
+      data: {'code': code, if (redirectUri != null) 'redirectUri': redirectUri},
+    );
     final body = Map<String, dynamic>.from(res.data as Map);
     return ChatMcpServer.fromJson(
       Map<String, dynamic>.from(body['server'] as Map),
@@ -265,11 +301,76 @@ class ChatBillingRepository {
     required String capability,
     required Map<String, dynamic> params,
   }) async {
-    final res = await client.post('/chat/estimate', data: {
-      'capability': capability,
-      'params': params,
-    });
-    return ChatCostEstimate.fromJson(Map<String, dynamic>.from(res.data as Map));
+    final res = await client.post(
+      '/chat/estimate',
+      data: {'capability': capability, 'params': params},
+    );
+    return ChatCostEstimate.fromJson(
+      Map<String, dynamic>.from(res.data as Map),
+    );
+  }
+}
+
+/// `ff.chat.rules.*` — user-scoped agent rules (markdown system prompt injection).
+class ChatRulesRepository {
+  ChatRulesRepository({required this.client});
+  final Dio client;
+
+  Future<List<ChatRule>> list() async {
+    final res = await client.get('/chat/rules');
+    final body = Map<String, dynamic>.from(res.data as Map);
+    return (body['data'] as List<dynamic>? ?? const [])
+        .whereType<Map>()
+        .map((e) => ChatRule.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+  }
+
+  Future<ChatRule> create({
+    required String name,
+    required String content,
+    String? description,
+    bool enabled = true,
+  }) async {
+    final res = await client.post(
+      '/chat/rules',
+      data: {
+        'name': name,
+        'content': content,
+        if (description != null) 'description': description,
+        'enabled': enabled,
+      },
+    );
+    return ChatRule.fromJson(Map<String, dynamic>.from(res.data as Map));
+  }
+
+  Future<ChatRule> update(String id, {Map<String, dynamic>? patch}) async {
+    final res = await client.patch('/chat/rules/$id', data: patch ?? {});
+    return ChatRule.fromJson(Map<String, dynamic>.from(res.data as Map));
+  }
+
+  Future<void> delete(String id) async {
+    await client.delete('/chat/rules/$id');
+  }
+}
+
+/// `ff.chat.skills.*` — skill catalog discovered from MCP servers.
+class ChatSkillsRepository {
+  ChatSkillsRepository({required this.client});
+  final Dio client;
+
+  Future<List<ChatSkill>> list({List<String>? mcpServerIds}) async {
+    final res = await client.get(
+      '/chat/skills',
+      queryParameters: {
+        if (mcpServerIds != null && mcpServerIds.isNotEmpty)
+          'mcp_server_ids': mcpServerIds,
+      },
+    );
+    final body = Map<String, dynamic>.from(res.data as Map);
+    return (body['data'] as List<dynamic>? ?? const [])
+        .whereType<Map>()
+        .map((e) => ChatSkill.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
   }
 }
 
@@ -288,9 +389,12 @@ class ChatQueueRepository {
     required String conversationId,
     required List<ChatPartInput> parts,
   }) async {
-    final res = await client.post('/chat/conversations/$conversationId/queue', data: {
-      'parts': [for (final p in parts) p.toJson()],
-    });
+    final res = await client.post(
+      '/chat/conversations/$conversationId/queue',
+      data: {
+        'parts': [for (final p in parts) p.toJson()],
+      },
+    );
     return _itemsFromResponse(res.data);
   }
 
@@ -312,7 +416,9 @@ class ChatQueueRepository {
     required String conversationId,
     required String itemId,
   }) async {
-    final res = await client.delete('/chat/conversations/$conversationId/queue/$itemId');
+    final res = await client.delete(
+      '/chat/conversations/$conversationId/queue/$itemId',
+    );
     return _itemsFromResponse(res.data);
   }
 
@@ -320,9 +426,10 @@ class ChatQueueRepository {
     required String conversationId,
     required List<String> orderedIds,
   }) async {
-    final res = await client.put('/chat/conversations/$conversationId/queue/reorder', data: {
-      'orderedIds': orderedIds,
-    });
+    final res = await client.put(
+      '/chat/conversations/$conversationId/queue/reorder',
+      data: {'orderedIds': orderedIds},
+    );
     return _itemsFromResponse(res.data);
   }
 
@@ -388,12 +495,17 @@ class ChatRepository {
   ChatRepository({required Dio client, required Realtime realtime})
     : conversations = ChatConversationsRepository(client: client),
       messages = ChatMessagesRepository(client: client),
-      generations = ChatGenerationsRepository(client: client, realtime: realtime),
+      generations = ChatGenerationsRepository(
+        client: client,
+        realtime: realtime,
+      ),
       jobs = ChatJobsRepository(client: client),
       mcpServers = ChatMcpServersRepository(client: client),
       models = ChatModelsRepository(client: client),
       billing = ChatBillingRepository(client: client),
-      queue = ChatQueueRepository(client: client);
+      queue = ChatQueueRepository(client: client),
+      rules = ChatRulesRepository(client: client),
+      skills = ChatSkillsRepository(client: client);
 
   final ChatConversationsRepository conversations;
   final ChatMessagesRepository messages;
@@ -403,4 +515,6 @@ class ChatRepository {
   final ChatModelsRepository models;
   final ChatBillingRepository billing;
   final ChatQueueRepository queue;
+  final ChatRulesRepository rules;
+  final ChatSkillsRepository skills;
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.16
+
+- **actions**: `updateShippingPriceUsingAi` — creates or updates a shipping price configuration using natural language instructions processed by backend AI. Mirrors `updateProductUsingAi`: supports `attachments` (image, url, audio, store, product), `modelId` (catalog text model override), `useSearchGrounding`, and `forceStatus`. Returns a record `(success, mode, shippingPrice, message, error, validationErrors, raw)`. Backend endpoint: `POST /actions/updateShippingPriceUsingAi`.
+
 ## 1.0.6
 
 - **stores**: `CustomStatusMapping` adds optional `next` (`List<String>`, default `[]`) — workflow codes (or names) of suggested next statuses. Persisted in `configs.customStatusMappings[].next` JSON; validated on store update by the API.

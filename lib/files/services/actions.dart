@@ -1269,6 +1269,108 @@ class Actions {
     }
   }
 
+  /// updateShippingPriceUsingAi
+  /// Creates or updates a shipping price configuration using natural language
+  /// instructions processed by backend AI. Mirrors [updateProductUsingAi] but
+  /// targets the `shipping_prices` table.
+  ///
+  /// mode inferred: if shippingPriceId provided => update else create unless
+  /// explicit mode passed.
+  ///
+  /// Returns a record for ergonomic deconstruction:
+  /// `(success, mode, shippingPrice, message, error, validationErrors, raw)`.
+  Future<
+    ({
+      bool success,
+      String mode,
+      Map<String, dynamic>? shippingPrice,
+      String message,
+      String? error,
+      Map<String, dynamic>? validationErrors,
+      String? raw,
+    })
+  >
+  updateShippingPriceUsingAi({
+    required String storeId,
+    required String input,
+    String? shippingPriceId,
+    String? mode,
+    String? forceStatus,
+    List<String>? referenceImageUrls,
+    Map<String, String>? referenceImageLabels,
+    List<Attachment>? attachments,
+    bool? useSearchGrounding,
+    String? modelId,
+  }) async {
+    try {
+      if (storeId.isEmpty) throw ArgumentError('storeId required');
+      if (input.trim().isEmpty) throw ArgumentError('input required');
+      final attachmentMaps = attachments != null && attachments.isNotEmpty
+          ? attachments.map((a) => a.toJson()).toList()
+          : null;
+      final trimmedCatalogModelId = modelId?.trim();
+      final payload = <String, dynamic>{
+        'storeId': storeId,
+        'input': input.trim(),
+        if (shippingPriceId != null) 'shippingPriceId': shippingPriceId,
+        if (mode != null) 'mode': mode,
+        if (forceStatus != null) 'forceStatus': forceStatus,
+        if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
+          'referenceImageUrls': referenceImageUrls,
+        if (referenceImageLabels != null && referenceImageLabels.isNotEmpty)
+          'referenceImageLabels': referenceImageLabels,
+        if (attachmentMaps != null) 'attachments': attachmentMaps,
+        if (useSearchGrounding == true) 'useSearchGrounding': true,
+        if (trimmedCatalogModelId != null && trimmedCatalogModelId.isNotEmpty)
+          'modelId': trimmedCatalogModelId,
+      };
+      final resp = await client.post(
+        '/actions/updateShippingPriceUsingAi',
+        data: payload,
+      );
+      final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
+      return (
+        success: _jsonBool(d['success']),
+        mode: d['mode'] as String? ??
+            (shippingPriceId != null ? 'update' : 'create'),
+        shippingPrice: _jsonObjectMap(d['shippingPrice']),
+        message: d['message'] as String? ?? '',
+        error: d['error'] as String?,
+        validationErrors: _jsonObjectMap(d['validationErrors']),
+        raw: d['raw'] is String ? d['raw'] as String : null,
+      );
+    } on DioException catch (e) {
+      final res = e.response?.data;
+      final resMap = _jsonObjectMap(res);
+      final serverError = resMap != null
+          ? (resMap['error'] as String? ??
+              resMap['message'] as String? ??
+              e.message)
+          : e.message;
+      return (
+        success: false,
+        mode: shippingPriceId != null ? 'update' : 'create',
+        shippingPrice: null,
+        message: 'AI shipping price request failed',
+        error: serverError,
+        validationErrors:
+            resMap != null ? _jsonObjectMap(resMap['validationErrors']) : null,
+        raw: resMap != null ? jsonEncode(resMap) : null,
+      );
+    } catch (e) {
+      developer.log('Error in updateShippingPriceUsingAi: $e');
+      return (
+        success: false,
+        mode: shippingPriceId != null ? 'update' : 'create',
+        shippingPrice: null,
+        message: 'Unexpected error',
+        error: 'An unexpected error occurred. Please try again.',
+        validationErrors: null,
+        raw: null,
+      );
+    }
+  }
+
   /// editOrGenerateSimpleImage
   /// Generates or edits an image using AI based on a text prompt and/or existing image
   ///

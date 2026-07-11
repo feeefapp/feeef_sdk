@@ -117,6 +117,32 @@ class StoreRepository extends ModelRepository<Store>
     return LiteOrdersReport.fromApiResponse(response.data);
   }
 
+  /// Batch store LOR for dashboard lists — returns only stores the caller may view.
+  Future<Map<String, LiteOrdersReport>> liteOrdersReportBatch({
+    required List<String> storeIds,
+  }) async {
+    if (storeIds.isEmpty) return {};
+    final response = await client.post(
+      '/$table/analytics/lor/batch',
+      data: {'storeIds': storeIds},
+    );
+    final body = response.data;
+    final out = <String, LiteOrdersReport>{};
+    if (body is! Map) return out;
+    final map = Map<String, dynamic>.from(body);
+    final lorMap = map['lor'];
+    if (lorMap is! Map) return out;
+    for (final entry in lorMap.entries) {
+      final value = entry.value;
+      if (value is Map) {
+        out['${entry.key}'] = LiteOrdersReport.fromJson(
+          Map<String, dynamic>.from(value),
+        );
+      }
+    }
+    return out;
+  }
+
   Future<embadded.StoreMember> addMember({
     String? name,
     required String storeId,

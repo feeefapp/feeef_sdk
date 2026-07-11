@@ -232,6 +232,10 @@ class Feeef {
     client.options.headers['Accept'] = 'application/json';
     client.options.headers['X-Requested-With'] = 'XMLHttpRequest';
 
+    if (Feeef.debugMode) {
+      _installPerfTraceInterceptor(client);
+    }
+
     final transmitBaseUrl = config != null
         ? config.baseUrl
         : (baseUrl.endsWith('/api/v1')
@@ -295,4 +299,35 @@ class Feeef {
     realtime.init();
     await configs.init();
   }
+}
+
+/// Tags each API call with `X-Client-Trace-Id` and logs round-trip latency in debug builds.
+void _installPerfTraceInterceptor(Dio client) {
+  client.interceptors.add(
+    InterceptorsWrapper(
+      onRequest: (options, handler) {
+        options.headers['X-Client-Trace-Id'] = cuid();
+        options.extra['_perfStartMs'] = DateTime.now().millisecondsSinceEpoch;
+        handler.next(options);
+      },
+      onResponse: (response, handler) {
+        _logPerfResponse(response.requestOptions, response.statusCode);
+        handler.next(response);
+      },
+      onError: (error, handler) {
+        _logPerfResponse(error.requestOptions, error.response?.statusCode);
+        handler.next(error);
+      },
+    ),
+  );
+}
+
+void _logPerfResponse(RequestOptions options, int? statusCode) {
+  final startMs = options.extra['_perfStartMs'] as int?;
+  if (startMs == null) return;
+  final elapsed = DateTime.now().millisecondsSinceEpoch - startMs;
+  developer.log(
+    '[Perf] ${options.method} ${options.uri} → ${statusCode ?? '—'} ${elapsed}ms',
+    name: 'feeef.perf',
+  );
 }

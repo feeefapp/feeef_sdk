@@ -135,6 +135,7 @@ class Feeef {
   late final StoreTemplatesRepository storeTemplates;
   late final ShippingMethodRepository shippingMethods;
   late final ShippingPriceRepository shippingPrices;
+  late final ShippingPriceResourceRepository shippingPricesResource;
   late final OrderRepository orders;
   late final FeedbackRepository feedbacks;
   late final CategoryRepository categories;
@@ -185,6 +186,7 @@ class Feeef {
     storeTemplates = StoreTemplatesRepository(client: client);
     shippingMethods = ShippingMethodRepository(client: client);
     shippingPrices = ShippingPriceRepository(client: client);
+    shippingPricesResource = ShippingPriceResourceRepository(client: client);
     feedbacks = FeedbackRepository(client: client);
     categories = CategoryRepository(client: client);
     deposits = DepositRepository(client: client);

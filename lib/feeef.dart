@@ -55,6 +55,8 @@ export 'product_landing_page_templates/product_landing_page_template_repository.
 export 'product_landing_pages/product_landing_page_repository.dart';
 export 'products/product_repository.dart';
 export 'shipping_methods/shipping_method_repository.dart';
+export 'shipping_prices/models/shipping_price.dart';
+export 'shipping_prices/shipping_price_repository.dart';
 export 'promos/promo.dart';
 export 'interfaces/template_component.dart';
 export 'template_components/template_component.dart';

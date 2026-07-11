@@ -1,8 +1,39 @@
+import 'package:dio/dio.dart';
 import 'package:feeef/core/list_response.dart';
+import 'package:feeef/core/resource_repository.dart';
 
 import '../feeef.dart';
 import '../interfaces/shipping_price.dart';
 import 'models/shipping_price.dart';
+
+/// ResourceRepository adapter for [ResourceView] / filterator list UIs.
+class ShippingPriceResourceRepository extends ResourceRepository<
+    ShippingPrice, ShippingPriceCreate, ShippingPriceUpdate> {
+  ShippingPriceResourceRepository({required Dio client})
+      : super(client: client, table: 'shipping_prices');
+
+  @override
+  ShippingPriceCreate createFromJson(json) =>
+      ShippingPriceCreate.fromJson(json);
+
+  @override
+  Map<String, dynamic> createToJson(ShippingPriceCreate model) =>
+      model.toJson();
+
+  @override
+  ShippingPrice modelFromJson(json) => ShippingPrice.fromJson(json);
+
+  @override
+  Map<String, dynamic> modelToJson(ShippingPrice model) => model.toJson();
+
+  @override
+  ShippingPriceUpdate updateFromJson(json) =>
+      ShippingPriceUpdate.fromJson(json);
+
+  @override
+  Map<String, dynamic> updateToJson(ShippingPriceUpdate model) =>
+      model.toJson();
+}
 
 /// Repository for managing shipping prices
 /// Simple CRUD operations similar to shipping methods

@@ -533,7 +533,7 @@ abstract class InventoryIntegration with _$InventoryIntegration {
     @Default([]) List<InventoryLifecycleRule> consume_rules,
     @Default(MissingInventoryBucketPolicy.ignore)
     MissingInventoryBucketPolicy missing_bucket_policy,
-    @Default(false) bool allow_backorder,
+    @Default(true) bool allow_backorder,
   }) = _InventoryIntegration;
 
   factory InventoryIntegration.fromJson(Map<String, dynamic> json) =>

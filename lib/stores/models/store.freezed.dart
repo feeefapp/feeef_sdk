@@ -3138,7 +3138,7 @@ return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.reser
 @JsonSerializable()
 
 class _InventoryIntegration implements InventoryIntegration {
-  const _InventoryIntegration({final  List<OrderStatus> reserve_on = const [], final  List<OrderStatus> unreserve_on = const [], final  List<OrderStatus> consume_on = const [], final  List<InventoryLifecycleRule> reserve_rules = const [], final  List<InventoryLifecycleRule> unreserve_rules = const [], final  List<InventoryLifecycleRule> consume_rules = const [], this.missing_bucket_policy = MissingInventoryBucketPolicy.ignore, this.allow_backorder = false}): _reserve_on = reserve_on,_unreserve_on = unreserve_on,_consume_on = consume_on,_reserve_rules = reserve_rules,_unreserve_rules = unreserve_rules,_consume_rules = consume_rules;
+  const _InventoryIntegration({final  List<OrderStatus> reserve_on = const [], final  List<OrderStatus> unreserve_on = const [], final  List<OrderStatus> consume_on = const [], final  List<InventoryLifecycleRule> reserve_rules = const [], final  List<InventoryLifecycleRule> unreserve_rules = const [], final  List<InventoryLifecycleRule> consume_rules = const [], this.missing_bucket_policy = MissingInventoryBucketPolicy.ignore, this.allow_backorder = true}): _reserve_on = reserve_on,_unreserve_on = unreserve_on,_consume_on = consume_on,_reserve_rules = reserve_rules,_unreserve_rules = unreserve_rules,_consume_rules = consume_rules;
   factory _InventoryIntegration.fromJson(Map<String, dynamic> json) => _$InventoryIntegrationFromJson(json);
 
  final  List<OrderStatus> _reserve_on;

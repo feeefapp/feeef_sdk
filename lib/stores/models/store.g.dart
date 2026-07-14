@@ -484,7 +484,7 @@ _InventoryIntegration _$InventoryIntegrationFromJson(
         json['missing_bucket_policy'],
       ) ??
       MissingInventoryBucketPolicy.ignore,
-  allow_backorder: json['allow_backorder'] as bool? ?? false,
+  allow_backorder: json['allow_backorder'] as bool? ?? true,
 );
 
 Map<String, dynamic> _$InventoryIntegrationToJson(

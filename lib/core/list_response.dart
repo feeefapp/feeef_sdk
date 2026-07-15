@@ -8,8 +8,16 @@ class ListResponse<T> {
   final int? total;
   final int? page;
   final int? limit;
+  /// Per-status counts from list meta when the request used non-base filters.
+  final Map<String, int>? statusCounts;
 
-  ListResponse({required this.data, this.total, this.page, this.limit});
+  ListResponse({
+    required this.data,
+    this.total,
+    this.page,
+    this.limit,
+    this.statusCounts,
+  });
 
   factory ListResponse.fromJson(dynamic json, T Function(dynamic) fromJson) {
     if (json is List) {
@@ -41,11 +49,19 @@ class ListResponse<T> {
     }
 
     final meta = json['meta'];
+    Map<String, int>? statusCounts;
+    final rawStatusCounts = meta?['statusCounts'];
+    if (rawStatusCounts is Map) {
+      statusCounts = rawStatusCounts.map(
+        (key, value) => MapEntry(key.toString(), (value as num).toInt()),
+      );
+    }
     return ListResponse(
       data: listData.map((e) => fromJson(e)).toList(),
       total: meta?['total'] ?? json['total'],
       page: meta?['currentPage'] ?? meta?['current_page'],
       limit: meta?['perPage'] ?? meta?['per_page'],
+      statusCounts: statusCounts,
     );
   }
 

@@ -7,6 +7,7 @@ import 'package:feeef/core/model_repository.dart';
 import 'package:feeef/core/validation/validation_exception.dart';
 import 'package:feeef/interfaces/embadded/store.dart' as embadded;
 import 'package:feeef/interfaces/embadded/store_summary.dart';
+import 'package:feeef/interfaces/embadded/store_order_status_counts.dart';
 import 'package:feeef/mixins/repository_mixins.dart';
 import 'package:feeef/orders/models/lite_orders_report.dart';
 import 'package:feeef/stores/models/store.dart';
@@ -94,6 +95,14 @@ class StoreRepository extends ModelRepository<Store>
       },
     );
     return StoreSummary.fromJson(response.data);
+  }
+
+  /// All-time operational order status counts for the orders tab badges.
+  Future<StoreOrderStatusCounts> orderStatusCounts({required String id}) async {
+    final response = await client.get('/$table/$id/orders/status-counts');
+    return StoreOrderStatusCounts.fromJson(
+      Map<String, dynamic>.from(response.data as Map),
+    );
   }
 
   /// Order counts by date for store [id]. Returns map of date → count. Use for charts.

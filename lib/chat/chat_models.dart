@@ -73,6 +73,9 @@ class ChatToolPolicy {
   /// Checklist UI (`agent_todos`) and plan tools. Defaults to on.
   final bool todosEnabled;
 
+  /// Skill ids preloaded into the system prompt (built-in + MCP).
+  final List<String> pinnedSkills;
+
   const ChatToolPolicy({
     this.mode = 'readonly',
     this.autoApprove = const [],
@@ -80,6 +83,7 @@ class ChatToolPolicy {
     this.compositionEnabled = true,
     this.thinkingEnabled = true,
     this.todosEnabled = true,
+    this.pinnedSkills = const [],
   });
 
   bool get isAutoEnabled =>
@@ -98,6 +102,9 @@ class ChatToolPolicy {
       compositionEnabled: json['compositionEnabled'] as bool? ?? true,
       thinkingEnabled: json['thinkingEnabled'] as bool? ?? true,
       todosEnabled: json['todosEnabled'] as bool? ?? true,
+      pinnedSkills: (json['pinnedSkills'] as List<dynamic>? ?? const [])
+          .map((e) => e.toString())
+          .toList(),
     );
   }
 
@@ -121,6 +128,7 @@ class ChatToolPolicy {
     'compositionEnabled': compositionEnabled,
     'thinkingEnabled': thinkingEnabled,
     'todosEnabled': todosEnabled,
+    if (pinnedSkills.isNotEmpty) 'pinnedSkills': pinnedSkills,
   };
 
   ChatToolPolicy copyWith({
@@ -130,6 +138,7 @@ class ChatToolPolicy {
     bool? compositionEnabled,
     bool? thinkingEnabled,
     bool? todosEnabled,
+    List<String>? pinnedSkills,
   }) {
     return ChatToolPolicy(
       mode: mode ?? this.mode,
@@ -138,6 +147,7 @@ class ChatToolPolicy {
       compositionEnabled: compositionEnabled ?? this.compositionEnabled,
       thinkingEnabled: thinkingEnabled ?? this.thinkingEnabled,
       todosEnabled: todosEnabled ?? this.todosEnabled,
+      pinnedSkills: pinnedSkills ?? this.pinnedSkills,
     );
   }
 }
@@ -826,17 +836,60 @@ class ChatRule {
   };
 }
 
-/// A skill catalog entry discovered from the MCP server via docs_skill_list.
+/// Skill origin in the merged catalog.
+enum ChatSkillSource {
+  builtin,
+  mcp,
+  marketplace,
+  mine;
+
+  static ChatSkillSource? fromJson(String? raw) {
+    switch (raw) {
+      case 'builtin':
+        return ChatSkillSource.builtin;
+      case 'mcp':
+        return ChatSkillSource.mcp;
+      case 'marketplace':
+        return ChatSkillSource.marketplace;
+      case 'mine':
+        return ChatSkillSource.mine;
+      default:
+        return null;
+    }
+  }
+
+  String toJson() => name;
+}
+
+/// A skill catalog entry — MCP, built-in, or marketplace SKILL.md.
 class ChatSkill {
   final String name;
   final String description;
   final List<String> references;
+  final String? id;
+  final ChatSkillSource? source;
+  final String? authorName;
+  final String? whenToUse;
+  final int installCount;
+  final bool published;
+  final String? status;
 
   const ChatSkill({
     required this.name,
     required this.description,
     this.references = const [],
+    this.id,
+    this.source,
+    this.authorName,
+    this.whenToUse,
+    this.installCount = 0,
+    this.published = false,
+    this.status,
   });
+
+  bool get isMarketplace =>
+      source == ChatSkillSource.marketplace ||
+      (source == ChatSkillSource.mine && published);
 
   factory ChatSkill.fromJson(Map<String, dynamic> json) => ChatSkill(
     name: json['name'] as String,
@@ -844,5 +897,60 @@ class ChatSkill {
     references: (json['references'] as List<dynamic>? ?? const [])
         .whereType<String>()
         .toList(),
+    id: json['id'] as String?,
+    source: ChatSkillSource.fromJson(json['source'] as String?),
+    authorName: json['authorName'] as String?,
+    whenToUse: json['whenToUse'] as String?,
+    installCount: json['installCount'] as int? ?? 0,
+    published: json['published'] as bool? ?? false,
+    status: json['status'] as String?,
   );
+}
+
+/// Full user skill listing (Claude Code SKILL.md package).
+class ChatSkillListing {
+  final String id;
+  final String name;
+  final String description;
+  final String? whenToUse;
+  final bool disableModelInvocation;
+  final List<String> allowedTools;
+  final String skillMd;
+  final List<String> references;
+  final String status;
+  final bool published;
+  final int installCount;
+
+  const ChatSkillListing({
+    required this.id,
+    required this.name,
+    required this.description,
+    this.whenToUse,
+    this.disableModelInvocation = false,
+    this.allowedTools = const [],
+    required this.skillMd,
+    this.references = const [],
+    required this.status,
+    this.published = false,
+    this.installCount = 0,
+  });
+
+  factory ChatSkillListing.fromJson(Map<String, dynamic> json) =>
+      ChatSkillListing(
+        id: json['id'] as String,
+        name: json['name'] as String,
+        description: json['description'] as String? ?? '',
+        whenToUse: json['whenToUse'] as String?,
+        disableModelInvocation: json['disableModelInvocation'] as bool? ?? false,
+        allowedTools: (json['allowedTools'] as List<dynamic>? ?? const [])
+            .whereType<String>()
+            .toList(),
+        skillMd: json['skillMd'] as String,
+        references: (json['references'] as List<dynamic>? ?? const [])
+            .whereType<String>()
+            .toList(),
+        status: json['status'] as String? ?? 'draft',
+        published: json['published'] as bool? ?? false,
+        installCount: json['installCount'] as int? ?? 0,
+      );
 }

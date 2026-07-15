@@ -353,7 +353,7 @@ class ChatRulesRepository {
   }
 }
 
-/// `ff.chat.skills.*` — skill catalog discovered from MCP servers.
+/// `ff.chat.skills.*` — skill catalog, marketplace, and user SKILL.md listings.
 class ChatSkillsRepository {
   ChatSkillsRepository({required this.client});
   final Dio client;
@@ -371,6 +371,85 @@ class ChatSkillsRepository {
         .whereType<Map>()
         .map((e) => ChatSkill.fromJson(Map<String, dynamic>.from(e)))
         .toList();
+  }
+
+  Future<({List<ChatSkill> skills, int total})> marketplace({
+    String? query,
+    int page = 1,
+    int limit = 24,
+  }) async {
+    final res = await client.get(
+      '/chat/skills/marketplace',
+      queryParameters: {
+        if (query != null && query.isNotEmpty) 'q': query,
+        'page': page,
+        'limit': limit,
+      },
+    );
+    final body = Map<String, dynamic>.from(res.data as Map);
+    final meta = Map<String, dynamic>.from(body['meta'] as Map? ?? const {});
+    final skills = (body['data'] as List<dynamic>? ?? const [])
+        .whereType<Map>()
+        .map((e) => ChatSkill.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+    return (skills: skills, total: meta['total'] as int? ?? skills.length);
+  }
+
+  Future<List<ChatSkill>> mine() async {
+    final res = await client.get('/chat/skills/mine');
+    final body = Map<String, dynamic>.from(res.data as Map);
+    return (body['data'] as List<dynamic>? ?? const [])
+        .whereType<Map>()
+        .map((e) => ChatSkill.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+  }
+
+  Future<String> template() async {
+    final res = await client.get('/chat/skills/template');
+    final body = Map<String, dynamic>.from(res.data as Map);
+    return body['skillMd'] as String? ?? '';
+  }
+
+  Future<ChatSkillListing> show(String id) async {
+    final res = await client.get('/chat/skills/$id');
+    return ChatSkillListing.fromJson(
+      Map<String, dynamic>.from(res.data as Map),
+    );
+  }
+
+  Future<ChatSkillListing> create({required String skillMd}) async {
+    final res = await client.post('/chat/skills', data: {'skillMd': skillMd});
+    return ChatSkillListing.fromJson(
+      Map<String, dynamic>.from(res.data as Map),
+    );
+  }
+
+  Future<ChatSkillListing> update({
+    required String id,
+    required String skillMd,
+  }) async {
+    final res = await client.patch('/chat/skills/$id', data: {'skillMd': skillMd});
+    return ChatSkillListing.fromJson(
+      Map<String, dynamic>.from(res.data as Map),
+    );
+  }
+
+  Future<ChatSkillListing> publish(String id) async {
+    final res = await client.post('/chat/skills/$id/publish');
+    return ChatSkillListing.fromJson(
+      Map<String, dynamic>.from(res.data as Map),
+    );
+  }
+
+  Future<ChatSkillListing> unpublish(String id) async {
+    final res = await client.post('/chat/skills/$id/unpublish');
+    return ChatSkillListing.fromJson(
+      Map<String, dynamic>.from(res.data as Map),
+    );
+  }
+
+  Future<void> delete(String id) async {
+    await client.delete('/chat/skills/$id');
   }
 }
 

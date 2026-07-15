@@ -877,11 +877,13 @@ class Actions {
   /// [attachments] Optional unified attachments: image (URL), url (page URL), product (product ID).
   ///   Each item: `{ type: 'image'|'url'|'product', value: string, label?: string, prompt?: string }`.
   /// [useSearchGrounding] When provided, enables or disables Gemini Google Search grounding.
-  /// [textModel] Optional text model override (e.g. `gemini-flash-lite-latest`).
-  ///   Must match an active, text-capable row in the backend's `aiModels` config
-  ///   (see `configs/aiModels`); unknown / inactive ids are silently replaced
-  ///   server-side with the store-integration default, so callers can pass a
-  ///   stale cache safely. Leave null to let the server pick.
+  /// [textModel] Optional text model override. Accepts either a bare catalog id
+  ///   (e.g. `gemini-flash-lite-latest`) or a composite chat model id
+  ///   (`provider/model`, e.g. `google/gemini-3-pro`) so the template-editor
+  ///   agent can route codegen through the same model the user selected for
+  ///   the conversation. Unknown / inactive ids fall back server-side.
+  /// [styleContext] Optional compact style digest of neighboring page
+  ///   components so generated blocks visually match their siblings.
   Future<AICustomComponentResponse> generateCustomComponentCode({
     required String storeId,
     required String input,
@@ -896,6 +898,7 @@ class Actions {
     List<Map<String, dynamic>>? attachments,
     bool? useSearchGrounding,
     String? textModel,
+    String? styleContext,
     /// When cancelled (e.g. user tapped Stop), Dio throws [DioExceptionType.cancel].
     CancelToken? cancelToken,
   }) async {
@@ -922,6 +925,8 @@ class Actions {
         if (attachments != null && attachments.isNotEmpty) 'attachments': attachments,
         if (useSearchGrounding != null) 'useSearchGrounding': useSearchGrounding,
         if (textModel != null && textModel.trim().isNotEmpty) 'textModel': textModel.trim(),
+        if (styleContext != null && styleContext.trim().isNotEmpty)
+          'styleContext': styleContext.trim(),
       };
 
       final response = await client.post(

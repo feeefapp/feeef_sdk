@@ -57,6 +57,10 @@ class OrderRepository extends ModelRepository<Order>
     String? shippingState,
     String? shippingCity,
     String? deliveryService,
+    /// Presence (`kOrderFilterAny`) or a specific variant path.
+    String? variant,
+    /// Presence (`kOrderFilterAny`) or a specific offer code.
+    String? offer,
     DeliveryStatus? deliveryStatus,
     PaymentStatus? paymentStatus,
     dynamic customStatus,
@@ -89,6 +93,8 @@ class OrderRepository extends ModelRepository<Order>
         if (shippingState != null) 'shippingState': shippingState,
         if (shippingCity != null) 'shippingCity': shippingCity,
         if (deliveryService != null) 'deliveryService': deliveryService,
+        if (variant != null) 'variant': variant,
+        if (offer != null) 'offer': offer,
         if (deliveryStatus != null) 'deliveryStatus': deliveryStatus.name,
         if (paymentStatus != null) 'paymentStatus': paymentStatus.name,
         if (customStatus != null) 'customStatus': customStatus,

@@ -152,4 +152,36 @@ class StoreTemplatesRepository extends ResourceRepository<
       Map<String, dynamic>.from(response.data as Map),
     );
   }
+
+  /// GET locales bundle for theme i18n hydrate.
+  Future<StoreTemplateLocalesBundle> listLocales({
+    required String templateId,
+    CancelToken? cancelToken,
+  }) async {
+    final response = await client.get(
+      '/$table/$templateId/locales',
+      cancelToken: cancelToken,
+    );
+    return StoreTemplateLocalesBundle.fromJson(
+      Map<String, dynamic>.from(response.data as Map),
+    );
+  }
+
+  /// Replace the full locale set (CLI / publish).
+  Future<StoreTemplateLocalesBundle> replaceLocales({
+    required String templateId,
+    required List<StoreTemplateLocaleInput> locales,
+    CancelToken? cancelToken,
+  }) async {
+    final response = await client.put(
+      '/$table/$templateId/locales',
+      data: {
+        'locales': locales.map((e) => e.toJson()).toList(growable: false),
+      },
+      cancelToken: cancelToken,
+    );
+    return StoreTemplateLocalesBundle.fromJson(
+      Map<String, dynamic>.from(response.data as Map),
+    );
+  }
 }

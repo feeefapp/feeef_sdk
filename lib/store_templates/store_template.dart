@@ -292,3 +292,105 @@ class StoreTemplateInstallResult {
     );
   }
 }
+
+/// One row in `store_template_locales`.
+class StoreTemplateLocale {
+  const StoreTemplateLocale({
+    required this.id,
+    required this.storeTemplateId,
+    required this.locale,
+    this.messages = const {},
+    this.isDefault = false,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  final String id;
+  final String storeTemplateId;
+  final String locale;
+  final Map<String, dynamic> messages;
+  final bool isDefault;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
+  factory StoreTemplateLocale.fromJson(Map<String, dynamic> json) {
+    return StoreTemplateLocale(
+      id: json['id'] as String,
+      storeTemplateId:
+          (json['storeTemplateId'] ?? json['store_template_id']) as String,
+      locale: json['locale'] as String,
+      messages: _stringKeyedMap(json['messages']),
+      isDefault: (json['isDefault'] ?? json['is_default']) == true,
+      createdAt: _parseDate(json['createdAt'] ?? json['created_at']),
+      updatedAt: _parseDate(json['updatedAt'] ?? json['updated_at']),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'storeTemplateId': storeTemplateId,
+        'locale': locale,
+        'messages': messages,
+        'isDefault': isDefault,
+        if (createdAt != null) 'createdAt': createdAt!.toIso8601String(),
+        if (updatedAt != null) 'updatedAt': updatedAt!.toIso8601String(),
+      };
+}
+
+/// Input for create / replace locale rows.
+class StoreTemplateLocaleInput {
+  const StoreTemplateLocaleInput({
+    required this.locale,
+    required this.messages,
+    this.isDefault = false,
+  });
+
+  final String locale;
+  final Map<String, dynamic> messages;
+  final bool isDefault;
+
+  Map<String, dynamic> toJson() => {
+        'locale': locale,
+        'messages': messages,
+        'isDefault': isDefault,
+      };
+}
+
+/// Storefront-friendly i18n bundle from GET/PUT locales.
+class StoreTemplateLocalesBundle {
+  const StoreTemplateLocalesBundle({
+    required this.defaultLocale,
+    required this.locales,
+    required this.messages,
+    this.rows = const [],
+  });
+
+  final String defaultLocale;
+  final List<String> locales;
+  final Map<String, Map<String, dynamic>> messages;
+  final List<StoreTemplateLocale> rows;
+
+  factory StoreTemplateLocalesBundle.fromJson(Map<String, dynamic> json) {
+    final rawMessages = json['messages'];
+    final messages = <String, Map<String, dynamic>>{};
+    if (rawMessages is Map) {
+      for (final e in rawMessages.entries) {
+        messages[e.key.toString()] = _stringKeyedMap(e.value);
+      }
+    }
+    return StoreTemplateLocalesBundle(
+      defaultLocale: (json['defaultLocale'] ?? json['default_locale'] ?? 'en')
+          as String,
+      locales: _stringList(json['locales']),
+      messages: messages,
+      rows: (json['rows'] as List?)
+              ?.whereType<Map>()
+              .map(
+                (m) =>
+                    StoreTemplateLocale.fromJson(Map<String, dynamic>.from(m)),
+              )
+              .toList(growable: false) ??
+          const [],
+    );
+  }
+}

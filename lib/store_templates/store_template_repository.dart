@@ -81,6 +81,7 @@ class StoreTemplatesRepository extends ResourceRepository<
       policy: m['policy'] is String
           ? TemplateComponentPolicy.fromWire(m['policy'] as String?)
           : null,
+      salesClosed: m['salesClosed'] as bool? ?? m['sales_closed'] as bool?,
       setToNull:
           (m['setToNull'] as List?)
               ?.map((item) => item.toString())
@@ -141,14 +142,113 @@ class StoreTemplatesRepository extends ResourceRepository<
   Future<StoreTemplateInstallResult> install({
     required String id,
     required String storeId,
+    String? releaseId,
     CancelToken? cancelToken,
   }) async {
     final response = await client.post(
       '/$table/$id/install',
-      data: {'storeId': storeId},
+      data: {
+        'storeId': storeId,
+        if (releaseId != null) 'releaseId': releaseId,
+      },
       cancelToken: cancelToken,
     );
     return StoreTemplateInstallResult.fromJson(
+      Map<String, dynamic>.from(response.data as Map),
+    );
+  }
+
+  /// One-time wallet purchase → forever license for [storeId].
+  Future<StoreTemplatePurchaseResult> purchase({
+    required String id,
+    required String storeId,
+    CancelToken? cancelToken,
+  }) async {
+    final response = await client.post(
+      '/$table/$id/purchase',
+      data: {'storeId': storeId},
+      cancelToken: cancelToken,
+    );
+    return StoreTemplatePurchaseResult.fromJson(
+      Map<String, dynamic>.from(response.data as Map),
+    );
+  }
+
+  /// Immutable release history (newest first).
+  Future<List<StoreTemplateReleaseSummary>> listReleases({
+    required String id,
+    String? storeId,
+    CancelToken? cancelToken,
+  }) async {
+    final response = await client.get(
+      '/$table/$id/releases',
+      queryParameters: {
+        if (storeId != null) 'storeId': storeId,
+      },
+      cancelToken: cancelToken,
+    );
+    final body = response.data;
+    final list = body is Map && body['data'] is List
+        ? body['data'] as List
+        : body is List
+            ? body
+            : const [];
+    return list
+        .whereType<Map>()
+        .map(
+          (e) => StoreTemplateReleaseSummary.fromJson(
+            Map<String, dynamic>.from(e),
+          ),
+        )
+        .toList(growable: false);
+  }
+
+  Future<StoreTemplateReviewListResult> listReviews({
+    required String id,
+    int? page,
+    int? limit,
+    CancelToken? cancelToken,
+  }) async {
+    final response = await client.get(
+      '/$table/$id/reviews',
+      queryParameters: {
+        if (page != null) 'page': page,
+        if (limit != null) 'limit': limit,
+      },
+      cancelToken: cancelToken,
+    );
+    return StoreTemplateReviewListResult.fromJson(
+      Map<String, dynamic>.from(response.data as Map),
+    );
+  }
+
+  Future<StoreTemplateReviewUpsertResult> upsertReview({
+    required String id,
+    required String storeId,
+    required int rating,
+    String? body,
+    CancelToken? cancelToken,
+  }) async {
+    final response = await client.post(
+      '/$table/$id/reviews',
+      data: {
+        'storeId': storeId,
+        'rating': rating,
+        if (body != null) 'body': body,
+      },
+      cancelToken: cancelToken,
+    );
+    return StoreTemplateReviewUpsertResult.fromJson(
+      Map<String, dynamic>.from(response.data as Map),
+    );
+  }
+
+  Future<StoreTemplateEarnings> earnings({CancelToken? cancelToken}) async {
+    final response = await client.get(
+      '/store_templates_earnings',
+      cancelToken: cancelToken,
+    );
+    return StoreTemplateEarnings.fromJson(
       Map<String, dynamic>.from(response.data as Map),
     );
   }

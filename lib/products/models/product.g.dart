@@ -189,6 +189,11 @@ _MetaPixelData _$MetaPixelDataFromJson(Map<String, dynamic> json) =>
         _$MetaPixelEventEnumMap,
         json['draftObjective'],
       ),
+      statusRules:
+          (json['statusRules'] as List<dynamic>?)
+              ?.map((e) => PixelStatusRule.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$MetaPixelDataToJson(_MetaPixelData instance) =>
@@ -197,6 +202,7 @@ Map<String, dynamic> _$MetaPixelDataToJson(_MetaPixelData instance) =>
       'ids': instance.ids,
       'objective': _$MetaPixelEventEnumMap[instance.objective],
       'draftObjective': _$MetaPixelEventEnumMap[instance.draftObjective],
+      'statusRules': instance.statusRules,
     };
 
 const _$MetaPixelEventEnumMap = {
@@ -220,6 +226,11 @@ _TiktokPixelData _$TiktokPixelDataFromJson(Map<String, dynamic> json) =>
         _$TiktokPixelEventEnumMap,
         json['draftObjective'],
       ),
+      statusRules:
+          (json['statusRules'] as List<dynamic>?)
+              ?.map((e) => PixelStatusRule.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$TiktokPixelDataToJson(_TiktokPixelData instance) =>
@@ -228,6 +239,7 @@ Map<String, dynamic> _$TiktokPixelDataToJson(_TiktokPixelData instance) =>
       'ids': instance.ids,
       'objective': _$TiktokPixelEventEnumMap[instance.objective],
       'draftObjective': _$TiktokPixelEventEnumMap[instance.draftObjective],
+      'statusRules': instance.statusRules,
     };
 
 const _$TiktokPixelEventEnumMap = {

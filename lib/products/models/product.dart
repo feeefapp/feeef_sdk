@@ -118,6 +118,8 @@ abstract class MetaPixelData extends MetaPixelDataEntity with _$MetaPixelData {
     List<String>? ids,
     MetaPixelEvent? objective,
     MetaPixelEvent? draftObjective,
+    /// Product-level status rules; empty → inherit store rules on `order:updated`.
+    @Default([]) List<PixelStatusRule> statusRules,
   }) = _MetaPixelData;
 
   factory MetaPixelData.fromJson(Map<String, dynamic> json) =>
@@ -134,6 +136,8 @@ abstract class TiktokPixelData extends TiktokPixelDataEntity
     List<String>? ids,
     TiktokPixelEvent? objective,
     TiktokPixelEvent? draftObjective,
+    /// Product-level status rules; empty → inherit store rules on `order:updated`.
+    @Default([]) List<PixelStatusRule> statusRules,
   }) = _TiktokPixelData;
 
   factory TiktokPixelData.fromJson(Map<String, dynamic> json) =>

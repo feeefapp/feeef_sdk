@@ -1,5 +1,7 @@
 import 'package:feeef/interfaces/embadded/embadded_category.dart';
 import 'package:feeef/interfaces/embadded/product_addon.dart';
+import 'package:feeef/interfaces/embadded/store_integrations.dart'
+    show PixelStatusRule;
 
 import '../products/models/product.dart';
 import 'embadded/product_variant.dart';
@@ -148,6 +150,9 @@ abstract class MetaPixelDataEntity extends BaseIntegrationEntity {
   List<String>? get ids;
   MetaPixelEvent? get objective;
   MetaPixelEvent? get draftObjective;
+
+  /// Product-level status transition rules; empty/null → use store rules.
+  List<PixelStatusRule> get statusRules;
 }
 
 abstract class TiktokPixelDataEntity extends BaseIntegrationEntity {
@@ -156,6 +161,9 @@ abstract class TiktokPixelDataEntity extends BaseIntegrationEntity {
   List<String>? get ids;
   TiktokPixelEvent? get objective;
   TiktokPixelEvent? get draftObjective;
+
+  /// Product-level status transition rules; empty/null → use store rules.
+  List<PixelStatusRule> get statusRules;
 }
 
 // export interface GoogleSheetsData {

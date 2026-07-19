@@ -1191,7 +1191,8 @@ as bool,
 /// @nodoc
 mixin _$MetaPixelData {
 
- bool get enabled; List<String>? get ids; MetaPixelEvent? get objective; MetaPixelEvent? get draftObjective;
+ bool get enabled; List<String>? get ids; MetaPixelEvent? get objective; MetaPixelEvent? get draftObjective;/// Product-level status rules; empty → inherit store rules on `order:updated`.
+ List<PixelStatusRule> get statusRules;
 /// Create a copy of MetaPixelData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1204,16 +1205,16 @@ $MetaPixelDataCopyWith<MetaPixelData> get copyWith => _$MetaPixelDataCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.ids, ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.ids, ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&const DeepCollectionEquality().equals(other.statusRules, statusRules));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(ids),objective,draftObjective);
+int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(ids),objective,draftObjective,const DeepCollectionEquality().hash(statusRules));
 
 @override
 String toString() {
-  return 'MetaPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective)';
+  return 'MetaPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective, statusRules: $statusRules)';
 }
 
 
@@ -1224,7 +1225,7 @@ abstract mixin class $MetaPixelDataCopyWith<$Res>  {
   factory $MetaPixelDataCopyWith(MetaPixelData value, $Res Function(MetaPixelData) _then) = _$MetaPixelDataCopyWithImpl;
 @useResult
 $Res call({
- bool enabled, List<String>? ids, MetaPixelEvent? objective, MetaPixelEvent? draftObjective
+ bool enabled, List<String>? ids, MetaPixelEvent? objective, MetaPixelEvent? draftObjective, List<PixelStatusRule> statusRules
 });
 
 
@@ -1241,13 +1242,14 @@ class _$MetaPixelDataCopyWithImpl<$Res>
 
 /// Create a copy of MetaPixelData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? ids = freezed,Object? objective = freezed,Object? draftObjective = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? ids = freezed,Object? objective = freezed,Object? draftObjective = freezed,Object? statusRules = null,}) {
   return _then(_self.copyWith(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,ids: freezed == ids ? _self.ids : ids // ignore: cast_nullable_to_non_nullable
 as List<String>?,objective: freezed == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
 as MetaPixelEvent?,draftObjective: freezed == draftObjective ? _self.draftObjective : draftObjective // ignore: cast_nullable_to_non_nullable
-as MetaPixelEvent?,
+as MetaPixelEvent?,statusRules: null == statusRules ? _self.statusRules : statusRules // ignore: cast_nullable_to_non_nullable
+as List<PixelStatusRule>,
   ));
 }
 
@@ -1332,10 +1334,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool enabled,  List<String>? ids,  MetaPixelEvent? objective,  MetaPixelEvent? draftObjective)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool enabled,  List<String>? ids,  MetaPixelEvent? objective,  MetaPixelEvent? draftObjective,  List<PixelStatusRule> statusRules)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MetaPixelData() when $default != null:
-return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective);case _:
+return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective,_that.statusRules);case _:
   return orElse();
 
 }
@@ -1353,10 +1355,10 @@ return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool enabled,  List<String>? ids,  MetaPixelEvent? objective,  MetaPixelEvent? draftObjective)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool enabled,  List<String>? ids,  MetaPixelEvent? objective,  MetaPixelEvent? draftObjective,  List<PixelStatusRule> statusRules)  $default,) {final _that = this;
 switch (_that) {
 case _MetaPixelData():
-return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective);case _:
+return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective,_that.statusRules);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1373,10 +1375,10 @@ return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool enabled,  List<String>? ids,  MetaPixelEvent? objective,  MetaPixelEvent? draftObjective)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool enabled,  List<String>? ids,  MetaPixelEvent? objective,  MetaPixelEvent? draftObjective,  List<PixelStatusRule> statusRules)?  $default,) {final _that = this;
 switch (_that) {
 case _MetaPixelData() when $default != null:
-return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective);case _:
+return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective,_that.statusRules);case _:
   return null;
 
 }
@@ -1388,7 +1390,7 @@ return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective);ca
 @JsonSerializable()
 
 class _MetaPixelData extends MetaPixelData {
-   _MetaPixelData({this.enabled = true, final  List<String>? ids, this.objective, this.draftObjective}): _ids = ids,super._();
+   _MetaPixelData({this.enabled = true, final  List<String>? ids, this.objective, this.draftObjective, final  List<PixelStatusRule> statusRules = const []}): _ids = ids,_statusRules = statusRules,super._();
   factory _MetaPixelData.fromJson(Map<String, dynamic> json) => _$MetaPixelDataFromJson(json);
 
 @override@JsonKey() final  bool enabled;
@@ -1403,6 +1405,15 @@ class _MetaPixelData extends MetaPixelData {
 
 @override final  MetaPixelEvent? objective;
 @override final  MetaPixelEvent? draftObjective;
+/// Product-level status rules; empty → inherit store rules on `order:updated`.
+ final  List<PixelStatusRule> _statusRules;
+/// Product-level status rules; empty → inherit store rules on `order:updated`.
+@override@JsonKey() List<PixelStatusRule> get statusRules {
+  if (_statusRules is EqualUnmodifiableListView) return _statusRules;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_statusRules);
+}
+
 
 /// Create a copy of MetaPixelData
 /// with the given fields replaced by the non-null parameter values.
@@ -1417,16 +1428,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other._ids, _ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other._ids, _ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&const DeepCollectionEquality().equals(other._statusRules, _statusRules));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(_ids),objective,draftObjective);
+int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(_ids),objective,draftObjective,const DeepCollectionEquality().hash(_statusRules));
 
 @override
 String toString() {
-  return 'MetaPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective)';
+  return 'MetaPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective, statusRules: $statusRules)';
 }
 
 
@@ -1437,7 +1448,7 @@ abstract mixin class _$MetaPixelDataCopyWith<$Res> implements $MetaPixelDataCopy
   factory _$MetaPixelDataCopyWith(_MetaPixelData value, $Res Function(_MetaPixelData) _then) = __$MetaPixelDataCopyWithImpl;
 @override @useResult
 $Res call({
- bool enabled, List<String>? ids, MetaPixelEvent? objective, MetaPixelEvent? draftObjective
+ bool enabled, List<String>? ids, MetaPixelEvent? objective, MetaPixelEvent? draftObjective, List<PixelStatusRule> statusRules
 });
 
 
@@ -1454,13 +1465,14 @@ class __$MetaPixelDataCopyWithImpl<$Res>
 
 /// Create a copy of MetaPixelData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? enabled = null,Object? ids = freezed,Object? objective = freezed,Object? draftObjective = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? enabled = null,Object? ids = freezed,Object? objective = freezed,Object? draftObjective = freezed,Object? statusRules = null,}) {
   return _then(_MetaPixelData(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,ids: freezed == ids ? _self._ids : ids // ignore: cast_nullable_to_non_nullable
 as List<String>?,objective: freezed == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
 as MetaPixelEvent?,draftObjective: freezed == draftObjective ? _self.draftObjective : draftObjective // ignore: cast_nullable_to_non_nullable
-as MetaPixelEvent?,
+as MetaPixelEvent?,statusRules: null == statusRules ? _self._statusRules : statusRules // ignore: cast_nullable_to_non_nullable
+as List<PixelStatusRule>,
   ));
 }
 
@@ -1471,7 +1483,8 @@ as MetaPixelEvent?,
 /// @nodoc
 mixin _$TiktokPixelData {
 
- bool get enabled; List<String>? get ids; TiktokPixelEvent? get objective; TiktokPixelEvent? get draftObjective;
+ bool get enabled; List<String>? get ids; TiktokPixelEvent? get objective; TiktokPixelEvent? get draftObjective;/// Product-level status rules; empty → inherit store rules on `order:updated`.
+ List<PixelStatusRule> get statusRules;
 /// Create a copy of TiktokPixelData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1484,16 +1497,16 @@ $TiktokPixelDataCopyWith<TiktokPixelData> get copyWith => _$TiktokPixelDataCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TiktokPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.ids, ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TiktokPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.ids, ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&const DeepCollectionEquality().equals(other.statusRules, statusRules));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(ids),objective,draftObjective);
+int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(ids),objective,draftObjective,const DeepCollectionEquality().hash(statusRules));
 
 @override
 String toString() {
-  return 'TiktokPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective)';
+  return 'TiktokPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective, statusRules: $statusRules)';
 }
 
 
@@ -1504,7 +1517,7 @@ abstract mixin class $TiktokPixelDataCopyWith<$Res>  {
   factory $TiktokPixelDataCopyWith(TiktokPixelData value, $Res Function(TiktokPixelData) _then) = _$TiktokPixelDataCopyWithImpl;
 @useResult
 $Res call({
- bool enabled, List<String>? ids, TiktokPixelEvent? objective, TiktokPixelEvent? draftObjective
+ bool enabled, List<String>? ids, TiktokPixelEvent? objective, TiktokPixelEvent? draftObjective, List<PixelStatusRule> statusRules
 });
 
 
@@ -1521,13 +1534,14 @@ class _$TiktokPixelDataCopyWithImpl<$Res>
 
 /// Create a copy of TiktokPixelData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? ids = freezed,Object? objective = freezed,Object? draftObjective = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? ids = freezed,Object? objective = freezed,Object? draftObjective = freezed,Object? statusRules = null,}) {
   return _then(_self.copyWith(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,ids: freezed == ids ? _self.ids : ids // ignore: cast_nullable_to_non_nullable
 as List<String>?,objective: freezed == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
 as TiktokPixelEvent?,draftObjective: freezed == draftObjective ? _self.draftObjective : draftObjective // ignore: cast_nullable_to_non_nullable
-as TiktokPixelEvent?,
+as TiktokPixelEvent?,statusRules: null == statusRules ? _self.statusRules : statusRules // ignore: cast_nullable_to_non_nullable
+as List<PixelStatusRule>,
   ));
 }
 
@@ -1612,10 +1626,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool enabled,  List<String>? ids,  TiktokPixelEvent? objective,  TiktokPixelEvent? draftObjective)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool enabled,  List<String>? ids,  TiktokPixelEvent? objective,  TiktokPixelEvent? draftObjective,  List<PixelStatusRule> statusRules)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TiktokPixelData() when $default != null:
-return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective);case _:
+return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective,_that.statusRules);case _:
   return orElse();
 
 }
@@ -1633,10 +1647,10 @@ return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool enabled,  List<String>? ids,  TiktokPixelEvent? objective,  TiktokPixelEvent? draftObjective)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool enabled,  List<String>? ids,  TiktokPixelEvent? objective,  TiktokPixelEvent? draftObjective,  List<PixelStatusRule> statusRules)  $default,) {final _that = this;
 switch (_that) {
 case _TiktokPixelData():
-return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective);case _:
+return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective,_that.statusRules);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1653,10 +1667,10 @@ return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool enabled,  List<String>? ids,  TiktokPixelEvent? objective,  TiktokPixelEvent? draftObjective)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool enabled,  List<String>? ids,  TiktokPixelEvent? objective,  TiktokPixelEvent? draftObjective,  List<PixelStatusRule> statusRules)?  $default,) {final _that = this;
 switch (_that) {
 case _TiktokPixelData() when $default != null:
-return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective);case _:
+return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective,_that.statusRules);case _:
   return null;
 
 }
@@ -1668,7 +1682,7 @@ return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective);ca
 @JsonSerializable()
 
 class _TiktokPixelData extends TiktokPixelData {
-   _TiktokPixelData({this.enabled = true, final  List<String>? ids, this.objective, this.draftObjective}): _ids = ids,super._();
+   _TiktokPixelData({this.enabled = true, final  List<String>? ids, this.objective, this.draftObjective, final  List<PixelStatusRule> statusRules = const []}): _ids = ids,_statusRules = statusRules,super._();
   factory _TiktokPixelData.fromJson(Map<String, dynamic> json) => _$TiktokPixelDataFromJson(json);
 
 @override@JsonKey() final  bool enabled;
@@ -1683,6 +1697,15 @@ class _TiktokPixelData extends TiktokPixelData {
 
 @override final  TiktokPixelEvent? objective;
 @override final  TiktokPixelEvent? draftObjective;
+/// Product-level status rules; empty → inherit store rules on `order:updated`.
+ final  List<PixelStatusRule> _statusRules;
+/// Product-level status rules; empty → inherit store rules on `order:updated`.
+@override@JsonKey() List<PixelStatusRule> get statusRules {
+  if (_statusRules is EqualUnmodifiableListView) return _statusRules;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_statusRules);
+}
+
 
 /// Create a copy of TiktokPixelData
 /// with the given fields replaced by the non-null parameter values.
@@ -1697,16 +1720,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TiktokPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other._ids, _ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TiktokPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other._ids, _ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&const DeepCollectionEquality().equals(other._statusRules, _statusRules));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(_ids),objective,draftObjective);
+int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(_ids),objective,draftObjective,const DeepCollectionEquality().hash(_statusRules));
 
 @override
 String toString() {
-  return 'TiktokPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective)';
+  return 'TiktokPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective, statusRules: $statusRules)';
 }
 
 
@@ -1717,7 +1740,7 @@ abstract mixin class _$TiktokPixelDataCopyWith<$Res> implements $TiktokPixelData
   factory _$TiktokPixelDataCopyWith(_TiktokPixelData value, $Res Function(_TiktokPixelData) _then) = __$TiktokPixelDataCopyWithImpl;
 @override @useResult
 $Res call({
- bool enabled, List<String>? ids, TiktokPixelEvent? objective, TiktokPixelEvent? draftObjective
+ bool enabled, List<String>? ids, TiktokPixelEvent? objective, TiktokPixelEvent? draftObjective, List<PixelStatusRule> statusRules
 });
 
 
@@ -1734,13 +1757,14 @@ class __$TiktokPixelDataCopyWithImpl<$Res>
 
 /// Create a copy of TiktokPixelData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? enabled = null,Object? ids = freezed,Object? objective = freezed,Object? draftObjective = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? enabled = null,Object? ids = freezed,Object? objective = freezed,Object? draftObjective = freezed,Object? statusRules = null,}) {
   return _then(_TiktokPixelData(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,ids: freezed == ids ? _self._ids : ids // ignore: cast_nullable_to_non_nullable
 as List<String>?,objective: freezed == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
 as TiktokPixelEvent?,draftObjective: freezed == draftObjective ? _self.draftObjective : draftObjective // ignore: cast_nullable_to_non_nullable
-as TiktokPixelEvent?,
+as TiktokPixelEvent?,statusRules: null == statusRules ? _self._statusRules : statusRules // ignore: cast_nullable_to_non_nullable
+as List<PixelStatusRule>,
   ));
 }
 

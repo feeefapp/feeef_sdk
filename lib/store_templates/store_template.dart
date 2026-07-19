@@ -121,16 +121,17 @@ class StoreTemplate extends StoreTemplateEntity implements Model {
       imageUrl: (json['imageUrl'] ?? json['image_url']) as String?,
       screenshots: _stringList(json['screenshots']),
       demoUrl: (json['demoUrl'] ?? json['demo_url']) as String?,
-      price: (json['price'] as num?) ?? 0,
-      discount: json['discount'] as num?,
+      price: _asNum(json['price']) ?? 0,
+      discount: _asNum(json['discount']),
       license: json['license'] as String?,
       schema: _stringKeyedMap(json['schema']),
       data: _stringKeyedMap(json['data']),
       policy: TemplateComponentPolicy.fromWire(json['policy'] as String?),
       parentId: (json['parentId'] ?? json['parent_id']) as String?,
-      version: (json['version'] as num?)?.toInt() ?? 1,
+      version: _asInt(json['version']) ?? 1,
       owned: json['owned'] as bool?,
-      effectivePrice: json['effectivePrice'] as num? ?? json['effective_price'] as num?,
+      effectivePrice:
+          _asNum(json['effectivePrice']) ?? _asNum(json['effective_price']),
       updateAvailable:
           json['updateAvailable'] as bool? ?? json['update_available'] as bool?,
       installedReleaseId: (json['installedReleaseId'] ??
@@ -144,9 +145,8 @@ class StoreTemplate extends StoreTemplateEntity implements Model {
                   Map<String, dynamic>.from(json['latest_release'] as Map),
                 )
               : null,
-      ratingAvg: json['ratingAvg'] as num? ?? json['rating_avg'] as num?,
-      ratingCount:
-          ((json['ratingCount'] ?? json['rating_count']) as num?)?.toInt(),
+      ratingAvg: _asNum(json['ratingAvg']) ?? _asNum(json['rating_avg']),
+      ratingCount: _asInt(json['ratingCount'] ?? json['rating_count']),
       featured: json['featured'] as bool?,
       salesClosed:
           json['salesClosed'] as bool? ?? json['sales_closed'] as bool?,
@@ -320,6 +320,21 @@ Map<String, dynamic> _stringKeyedMap(dynamic value) {
   return Map<String, dynamic>.from(value);
 }
 
+/// Coerces API numbers that may arrive as [String] (e.g. Postgres `decimal`
+/// / `numeric` serialized by Lucid) into [num].
+num? _asNum(dynamic value) {
+  if (value == null) return null;
+  if (value is num) return value;
+  if (value is String) {
+    final trimmed = value.trim();
+    if (trimmed.isEmpty) return null;
+    return num.tryParse(trimmed);
+  }
+  return null;
+}
+
+int? _asInt(dynamic value) => _asNum(value)?.toInt();
+
 DateTime? _parseDate(dynamic value) {
   if (value == null) return null;
   if (value is DateTime) return value;
@@ -391,8 +406,7 @@ class StoreTemplateReleaseSummary {
           (json['storeTemplateId'] ?? json['store_template_id']) as String? ??
               '',
       version: json['version'] as String? ?? '',
-      versionCode:
-          ((json['versionCode'] ?? json['version_code']) as num?)?.toInt() ?? 0,
+      versionCode: _asInt(json['versionCode'] ?? json['version_code']) ?? 0,
       changelog: json['changelog'] as String?,
       publishedAt: _parseDate(json['publishedAt'] ?? json['published_at']),
     );
@@ -428,8 +442,8 @@ class StoreTemplateReviewListResult {
               .map((e) => Map<String, dynamic>.from(e))
               .toList(growable: false)
           : const [],
-      ratingAvg: (json['ratingAvg'] as num?) ?? 0,
-      ratingCount: (json['ratingCount'] as num?)?.toInt() ?? 0,
+      ratingAvg: _asNum(json['ratingAvg']) ?? 0,
+      ratingCount: _asInt(json['ratingCount']) ?? 0,
     );
   }
 }
@@ -448,8 +462,8 @@ class StoreTemplateReviewUpsertResult {
   factory StoreTemplateReviewUpsertResult.fromJson(Map<String, dynamic> json) {
     return StoreTemplateReviewUpsertResult(
       review: Map<String, dynamic>.from(json['review'] as Map),
-      ratingAvg: (json['ratingAvg'] as num?) ?? 0,
-      ratingCount: (json['ratingCount'] as num?)?.toInt() ?? 0,
+      ratingAvg: _asNum(json['ratingAvg']) ?? 0,
+      ratingCount: _asInt(json['ratingCount']) ?? 0,
     );
   }
 }
@@ -470,9 +484,9 @@ class StoreTemplateEarnings {
   factory StoreTemplateEarnings.fromJson(Map<String, dynamic> json) {
     final raw = json['byTemplate'] ?? json['by_template'];
     return StoreTemplateEarnings(
-      totalSales: (json['totalSales'] as num?)?.toInt() ?? 0,
-      totalAuthorAmount: (json['totalAuthorAmount'] as num?) ?? 0,
-      totalPlatformAmount: (json['totalPlatformAmount'] as num?) ?? 0,
+      totalSales: _asInt(json['totalSales']) ?? 0,
+      totalAuthorAmount: _asNum(json['totalAuthorAmount']) ?? 0,
+      totalPlatformAmount: _asNum(json['totalPlatformAmount']) ?? 0,
       byTemplate: raw is List
           ? raw
               .whereType<Map>()
@@ -508,9 +522,9 @@ class StoreTemplateEarningRow {
           (json['storeTemplateId'] ?? json['store_template_id']) as String? ??
               '',
       title: json['title'] as String? ?? '',
-      sales: (json['sales'] as num?)?.toInt() ?? 0,
-      authorAmount: (json['authorAmount'] as num?) ?? 0,
-      platformAmount: (json['platformAmount'] as num?) ?? 0,
+      sales: _asInt(json['sales']) ?? 0,
+      authorAmount: _asNum(json['authorAmount']) ?? 0,
+      platformAmount: _asNum(json['platformAmount']) ?? 0,
     );
   }
 }

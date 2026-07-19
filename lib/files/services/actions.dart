@@ -600,10 +600,12 @@ class Actions {
   /// - event: Any valid Meta Pixel event (Purchase, Lead, ViewContent, AddToCart, InitiateCheckout)
   /// - storeId: The store ID
   /// - orderIds: List of order IDs
+  /// - pixelIds: Optional subset of store Meta pixel ids; omit/empty = all configured pixels
   Future<Map<String, dynamic>> sendEventsToMetaPixel({
     required SendEventToMetaPixelActionEvents event,
     required String storeId,
     required List<String> orderIds,
+    List<String>? pixelIds,
   }) async {
     try {
       final response = await client.post(
@@ -612,6 +614,7 @@ class Actions {
           "event": event.name.pascalCase,
           "storeId": storeId,
           "orderIds": orderIds,
+          if (pixelIds != null && pixelIds.isNotEmpty) "pixelIds": pixelIds,
         },
       );
       return response.data;
@@ -656,10 +659,12 @@ class Actions {
   /// - event: Any valid TikTok Pixel event (Purchase, PlaceAnOrder, ViewContent, AddToWishlist, Search, AddPaymentInfo, AddToCart, InitiateCheckout, CompleteRegistration)
   /// - storeId: The store ID
   /// - orderIds: List of order IDs
+  /// - pixelIds: Optional subset of store TikTok pixel ids; omit/empty = all configured pixels
   Future<Map<String, dynamic>> sendEventsToTiktokPixel({
     required SendEventToTiktokPixelActionEvents event,
     required String storeId,
     required List<String> orderIds,
+    List<String>? pixelIds,
   }) async {
     try {
       final response = await client.post(
@@ -668,6 +673,7 @@ class Actions {
           "event": event.name.pascalCase,
           "storeId": storeId,
           "orderIds": orderIds,
+          if (pixelIds != null && pixelIds.isNotEmpty) "pixelIds": pixelIds,
         },
       );
       return response.data;

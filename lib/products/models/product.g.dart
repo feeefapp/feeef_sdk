@@ -43,6 +43,8 @@ _Product _$ProductFromJson(Map<String, dynamic> json) => _Product(
   offers: (json['offers'] as List<dynamic>?)
       ?.map((e) => ProductOffer.fromJson(e as Map<String, dynamic>))
       .toList(),
+  forceOffer: json['forceOffer'] as bool?,
+  defaultOfferCode: json['defaultOfferCode'] as String?,
   addons: (json['addons'] as List<dynamic>?)
       ?.map((e) => ProductAddon.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -97,6 +99,8 @@ Map<String, dynamic> _$ProductToJson(_Product instance) => <String, dynamic>{
   'likes': instance.likes,
   'variant': instance.variant,
   'offers': instance.offers,
+  'forceOffer': instance.forceOffer,
+  'defaultOfferCode': instance.defaultOfferCode,
   'addons': instance.addons,
   'dislikes': instance.dislikes,
   'status': _$ProductStatusEnumMap[instance.status]!,
@@ -323,6 +327,8 @@ _ProductCreate _$ProductCreateFromJson(Map<String, dynamic> json) =>
       offers: (json['offers'] as List<dynamic>?)
           ?.map((e) => ProductOffer.fromJson(e as Map<String, dynamic>))
           .toList(),
+      forceOffer: json['forceOffer'] as bool?,
+      defaultOfferCode: json['defaultOfferCode'] as String?,
       addons: (json['addons'] as List<dynamic>?)
           ?.map((e) => ProductAddon.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -364,6 +370,8 @@ Map<String, dynamic> _$ProductCreateToJson(_ProductCreate instance) =>
       'stock': instance.stock,
       'variant': instance.variant,
       'offers': instance.offers,
+      'forceOffer': instance.forceOffer,
+      'defaultOfferCode': instance.defaultOfferCode,
       'addons': instance.addons,
       'integrationsData': instance.integrationsData,
       'status': _$ProductStatusEnumMap[instance.status]!,
@@ -402,6 +410,8 @@ _ProductUpdate _$ProductUpdateFromJson(Map<String, dynamic> json) =>
       offers: (json['offers'] as List<dynamic>?)
           ?.map((e) => ProductOffer.fromJson(e as Map<String, dynamic>))
           .toList(),
+      forceOffer: json['forceOffer'] as bool?,
+      defaultOfferCode: json['defaultOfferCode'] as String?,
       addons: (json['addons'] as List<dynamic>?)
           ?.map((e) => ProductAddon.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -438,6 +448,8 @@ Map<String, dynamic> _$ProductUpdateToJson(_ProductUpdate instance) =>
       'stock': instance.stock,
       'variant': instance.variant,
       'offers': instance.offers,
+      'forceOffer': instance.forceOffer,
+      'defaultOfferCode': instance.defaultOfferCode,
       'addons': instance.addons,
       'integrationsData': instance.integrationsData,
       'status': _$ProductStatusEnumMap[instance.status],

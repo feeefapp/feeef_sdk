@@ -31,6 +31,14 @@ abstract class ProductEntity {
   num get dislikes;
   ProductVariant? get variant;
   List<ProductOffer>? get offers;
+
+  /// When true, customer must keep an offer selected. With a valid
+  /// [defaultOfferCode], that offer is locked. Independent of default being set.
+  bool? get forceOffer;
+
+  /// Offer code to preselect. Stale codes (not in [offers]) are treated as unset.
+  String? get defaultOfferCode;
+
   List<ProductAddon>? get addons;
   ProductStatus get status;
   ProductType get type;

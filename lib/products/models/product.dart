@@ -54,6 +54,11 @@ abstract class Product extends ProductEntity
     @Default(0) num likes,
     ProductVariant? variant,
     List<ProductOffer>? offers,
+    /// When true, customer must keep an offer selected. With a valid
+    /// [defaultOfferCode], that offer is locked.
+    bool? forceOffer,
+    /// Offer code to preselect; synced to null when missing from [offers].
+    String? defaultOfferCode,
     List<ProductAddon>? addons,
     @Default(0) num dislikes,
     @Default(ProductStatus.draft) ProductStatus status,
@@ -212,6 +217,11 @@ abstract class ProductCreate with _$ProductCreate implements ModelCreate {
     num? stock,
     ProductVariant? variant,
     List<ProductOffer>? offers,
+    /// When true, customer must keep an offer selected. With a valid
+    /// [defaultOfferCode], that offer is locked.
+    bool? forceOffer,
+    /// Offer code to preselect; synced to null when missing from [offers].
+    String? defaultOfferCode,
     List<ProductAddon>? addons,
     IntegrationsData? integrationsData,
     @Default(ProductStatus.draft) ProductStatus status,
@@ -248,6 +258,11 @@ abstract class ProductUpdate with _$ProductUpdate implements ModelUpdate {
     num? stock,
     ProductVariant? variant,
     List<ProductOffer>? offers,
+    /// When true, customer must keep an offer selected. With a valid
+    /// [defaultOfferCode], that offer is locked.
+    bool? forceOffer,
+    /// Offer code to preselect; synced to null when missing from [offers].
+    String? defaultOfferCode,
     List<ProductAddon>? addons,
     IntegrationsData? integrationsData,
     ProductStatus? status,

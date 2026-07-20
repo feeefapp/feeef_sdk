@@ -15,7 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProductAddon {
 
- String? get photoUrl; String get title; String? get subtitle; num? get stock; num? get price; num? get min; num? get max;
+ String? get photoUrl; String get title; String? get subtitle;/// Inventory bucket SKU (scoped under product root when inventory is enabled).
+ String? get sku; num? get stock; num? get price; num? get min; num? get max;
 /// Create a copy of ProductAddon
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +29,16 @@ $ProductAddonCopyWith<ProductAddon> get copyWith => _$ProductAddonCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductAddon&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.title, title) || other.title == title)&&(identical(other.subtitle, subtitle) || other.subtitle == subtitle)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.price, price) || other.price == price)&&(identical(other.min, min) || other.min == min)&&(identical(other.max, max) || other.max == max));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductAddon&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.title, title) || other.title == title)&&(identical(other.subtitle, subtitle) || other.subtitle == subtitle)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.price, price) || other.price == price)&&(identical(other.min, min) || other.min == min)&&(identical(other.max, max) || other.max == max));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,photoUrl,title,subtitle,stock,price,min,max);
+int get hashCode => Object.hash(runtimeType,photoUrl,title,subtitle,sku,stock,price,min,max);
 
 @override
 String toString() {
-  return 'ProductAddon(photoUrl: $photoUrl, title: $title, subtitle: $subtitle, stock: $stock, price: $price, min: $min, max: $max)';
+  return 'ProductAddon(photoUrl: $photoUrl, title: $title, subtitle: $subtitle, sku: $sku, stock: $stock, price: $price, min: $min, max: $max)';
 }
 
 
@@ -48,7 +49,7 @@ abstract mixin class $ProductAddonCopyWith<$Res>  {
   factory $ProductAddonCopyWith(ProductAddon value, $Res Function(ProductAddon) _then) = _$ProductAddonCopyWithImpl;
 @useResult
 $Res call({
- String? photoUrl, String title, String? subtitle, num? stock, num? price, num? min, num? max
+ String? photoUrl, String title, String? subtitle, String? sku, num? stock, num? price, num? min, num? max
 });
 
 
@@ -65,11 +66,12 @@ class _$ProductAddonCopyWithImpl<$Res>
 
 /// Create a copy of ProductAddon
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? photoUrl = freezed,Object? title = null,Object? subtitle = freezed,Object? stock = freezed,Object? price = freezed,Object? min = freezed,Object? max = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? photoUrl = freezed,Object? title = null,Object? subtitle = freezed,Object? sku = freezed,Object? stock = freezed,Object? price = freezed,Object? min = freezed,Object? max = freezed,}) {
   return _then(_self.copyWith(
 photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
 as String?,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,subtitle: freezed == subtitle ? _self.subtitle : subtitle // ignore: cast_nullable_to_non_nullable
+as String?,sku: freezed == sku ? _self.sku : sku // ignore: cast_nullable_to_non_nullable
 as String?,stock: freezed == stock ? _self.stock : stock // ignore: cast_nullable_to_non_nullable
 as num?,price: freezed == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as num?,min: freezed == min ? _self.min : min // ignore: cast_nullable_to_non_nullable
@@ -159,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? photoUrl,  String title,  String? subtitle,  num? stock,  num? price,  num? min,  num? max)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? photoUrl,  String title,  String? subtitle,  String? sku,  num? stock,  num? price,  num? min,  num? max)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProductAddon() when $default != null:
-return $default(_that.photoUrl,_that.title,_that.subtitle,_that.stock,_that.price,_that.min,_that.max);case _:
+return $default(_that.photoUrl,_that.title,_that.subtitle,_that.sku,_that.stock,_that.price,_that.min,_that.max);case _:
   return orElse();
 
 }
@@ -180,10 +182,10 @@ return $default(_that.photoUrl,_that.title,_that.subtitle,_that.stock,_that.pric
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? photoUrl,  String title,  String? subtitle,  num? stock,  num? price,  num? min,  num? max)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? photoUrl,  String title,  String? subtitle,  String? sku,  num? stock,  num? price,  num? min,  num? max)  $default,) {final _that = this;
 switch (_that) {
 case _ProductAddon():
-return $default(_that.photoUrl,_that.title,_that.subtitle,_that.stock,_that.price,_that.min,_that.max);case _:
+return $default(_that.photoUrl,_that.title,_that.subtitle,_that.sku,_that.stock,_that.price,_that.min,_that.max);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +202,10 @@ return $default(_that.photoUrl,_that.title,_that.subtitle,_that.stock,_that.pric
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? photoUrl,  String title,  String? subtitle,  num? stock,  num? price,  num? min,  num? max)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? photoUrl,  String title,  String? subtitle,  String? sku,  num? stock,  num? price,  num? min,  num? max)?  $default,) {final _that = this;
 switch (_that) {
 case _ProductAddon() when $default != null:
-return $default(_that.photoUrl,_that.title,_that.subtitle,_that.stock,_that.price,_that.min,_that.max);case _:
+return $default(_that.photoUrl,_that.title,_that.subtitle,_that.sku,_that.stock,_that.price,_that.min,_that.max);case _:
   return null;
 
 }
@@ -215,12 +217,14 @@ return $default(_that.photoUrl,_that.title,_that.subtitle,_that.stock,_that.pric
 @JsonSerializable()
 
 class _ProductAddon implements ProductAddon {
-   _ProductAddon({this.photoUrl, required this.title, this.subtitle, this.stock, this.price, this.min, this.max});
+   _ProductAddon({this.photoUrl, required this.title, this.subtitle, this.sku, this.stock, this.price, this.min, this.max});
   factory _ProductAddon.fromJson(Map<String, dynamic> json) => _$ProductAddonFromJson(json);
 
 @override final  String? photoUrl;
 @override final  String title;
 @override final  String? subtitle;
+/// Inventory bucket SKU (scoped under product root when inventory is enabled).
+@override final  String? sku;
 @override final  num? stock;
 @override final  num? price;
 @override final  num? min;
@@ -239,16 +243,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductAddon&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.title, title) || other.title == title)&&(identical(other.subtitle, subtitle) || other.subtitle == subtitle)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.price, price) || other.price == price)&&(identical(other.min, min) || other.min == min)&&(identical(other.max, max) || other.max == max));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductAddon&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.title, title) || other.title == title)&&(identical(other.subtitle, subtitle) || other.subtitle == subtitle)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.price, price) || other.price == price)&&(identical(other.min, min) || other.min == min)&&(identical(other.max, max) || other.max == max));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,photoUrl,title,subtitle,stock,price,min,max);
+int get hashCode => Object.hash(runtimeType,photoUrl,title,subtitle,sku,stock,price,min,max);
 
 @override
 String toString() {
-  return 'ProductAddon(photoUrl: $photoUrl, title: $title, subtitle: $subtitle, stock: $stock, price: $price, min: $min, max: $max)';
+  return 'ProductAddon(photoUrl: $photoUrl, title: $title, subtitle: $subtitle, sku: $sku, stock: $stock, price: $price, min: $min, max: $max)';
 }
 
 
@@ -259,7 +263,7 @@ abstract mixin class _$ProductAddonCopyWith<$Res> implements $ProductAddonCopyWi
   factory _$ProductAddonCopyWith(_ProductAddon value, $Res Function(_ProductAddon) _then) = __$ProductAddonCopyWithImpl;
 @override @useResult
 $Res call({
- String? photoUrl, String title, String? subtitle, num? stock, num? price, num? min, num? max
+ String? photoUrl, String title, String? subtitle, String? sku, num? stock, num? price, num? min, num? max
 });
 
 
@@ -276,11 +280,12 @@ class __$ProductAddonCopyWithImpl<$Res>
 
 /// Create a copy of ProductAddon
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? photoUrl = freezed,Object? title = null,Object? subtitle = freezed,Object? stock = freezed,Object? price = freezed,Object? min = freezed,Object? max = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? photoUrl = freezed,Object? title = null,Object? subtitle = freezed,Object? sku = freezed,Object? stock = freezed,Object? price = freezed,Object? min = freezed,Object? max = freezed,}) {
   return _then(_ProductAddon(
 photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
 as String?,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,subtitle: freezed == subtitle ? _self.subtitle : subtitle // ignore: cast_nullable_to_non_nullable
+as String?,sku: freezed == sku ? _self.sku : sku // ignore: cast_nullable_to_non_nullable
 as String?,stock: freezed == stock ? _self.stock : stock // ignore: cast_nullable_to_non_nullable
 as num?,price: freezed == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as num?,min: freezed == min ? _self.min : min // ignore: cast_nullable_to_non_nullable

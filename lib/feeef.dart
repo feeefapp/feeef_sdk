@@ -11,6 +11,7 @@ export 'attachments/attachment.dart';
 export 'core/errors.dart';
 export 'core/image_gen_caps.dart';
 export 'files/services/actions.dart';
+export 'files/services/generate_image_landing_page_request.dart';
 export 'core/feeef_config.dart';
 export 'core/feeef_storage.dart';
 export 'core/feeef_upload_file.dart';

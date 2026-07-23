@@ -85,13 +85,29 @@ abstract class ModelRepository<T extends Model> {
         resourceFromJson: resourceFromJson,
       );
     } on DioException catch (e) {
-      if (e.response?.data != null) {
-        return BatchResult.fromJson(
-          e.response!.data,
-          resourceFromJson: resourceFromJson,
-        );
+      final data = e.response?.data;
+      if (data != null) {
+        try {
+          return BatchResult.fromJson(
+            data,
+            resourceFromJson: resourceFromJson,
+          );
+        } catch (_) {
+          // Fall through to a structured failure so callers never see raw Dio.
+        }
       }
-      rethrow;
+      return BatchResult<R>(
+        failedRequests: {
+          '0': BatchRpcStatus(
+            code: 'ABORTED',
+            message: e.message ?? 'Batch request failed (${e.response?.statusCode})',
+            details: data,
+          ),
+        },
+        summary: const BatchSummary(total: 1, succeeded: 0, failed: 1),
+        topLevelCode: 'ABORTED',
+        topLevelMessage: e.message,
+      );
     }
   }
 

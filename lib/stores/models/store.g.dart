@@ -562,6 +562,9 @@ const _$FinancePdfPaperSizeEnumMap = {
   FinancePdfPaperSize.letter: 'letter',
   FinancePdfPaperSize.a5: 'a5',
   FinancePdfPaperSize.legal: 'legal',
+  FinancePdfPaperSize.a6: 'a6',
+  FinancePdfPaperSize.thermal80: 'thermal80',
+  FinancePdfPaperSize.label100x150: 'label100x150',
 };
 
 _FinanceIntegration _$FinanceIntegrationFromJson(Map<String, dynamic> json) =>

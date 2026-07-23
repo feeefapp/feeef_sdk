@@ -550,6 +550,14 @@ enum FinancePdfPaperSize {
   a5,
   @JsonValue('legal')
   legal,
+  @JsonValue('a6')
+  a6,
+  /// 80 mm thermal roll (receipt / compact document printers).
+  @JsonValue('thermal80')
+  thermal80,
+  /// 100 × 150 mm shipping-style label stock.
+  @JsonValue('label100x150')
+  label100x150,
 }
 
 /// Layout and content options for finance PDF documents.

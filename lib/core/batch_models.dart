@@ -63,13 +63,18 @@ class BatchResult<T> {
     dynamic data, {
     T Function(Map<String, dynamic> json)? resourceFromJson,
   }) {
-    final map = data is Map<String, dynamic> ? data : <String, dynamic>{};
+    // Dio may yield Map<dynamic, dynamic>; never drop the ABORTED payload.
+    final map = data is Map
+        ? Map<String, dynamic>.from(data)
+        : <String, dynamic>{};
     final failedRaw = map['failedRequests'] as Map? ?? {};
     final failed = failedRaw.map(
       (key, value) => MapEntry(
         key.toString(),
         BatchRpcStatus.fromJson(
-          Map<String, dynamic>.from(value as Map),
+          value is Map
+              ? Map<String, dynamic>.from(value)
+              : <String, dynamic>{'code': 'UNKNOWN', 'message': '$value'},
         ),
       ),
     );
@@ -77,18 +82,26 @@ class BatchResult<T> {
     List<T>? resources;
     if (resourceFromJson != null && map['resources'] is List) {
       resources = (map['resources'] as List)
-          .map((e) => resourceFromJson(Map<String, dynamic>.from(e as Map)))
+          .whereType<Map>()
+          .map((e) => resourceFromJson(Map<String, dynamic>.from(e)))
           .toList();
     }
+
+    final summaryRaw = map['summary'];
+    final summary = summaryRaw is Map
+        ? BatchSummary.fromJson(Map<String, dynamic>.from(summaryRaw))
+        : BatchSummary(
+            total: failed.isEmpty ? 0 : failed.length,
+            succeeded: 0,
+            failed: failed.length,
+          );
 
     return BatchResult<T>(
       resources: resources,
       failedRequests: failed,
-      summary: BatchSummary.fromJson(
-        Map<String, dynamic>.from(map['summary'] as Map? ?? {}),
-      ),
-      topLevelCode: map['code'] as String?,
-      topLevelMessage: map['message'] as String?,
+      summary: summary,
+      topLevelCode: map['code']?.toString(),
+      topLevelMessage: map['message']?.toString(),
     );
   }
 }

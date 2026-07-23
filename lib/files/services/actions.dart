@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:feeef/attachments/attachment.dart';
+import 'package:feeef/files/services/generate_image_landing_page_request.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
 import 'package:feeef/interfaces/template_component.dart' show TemplateComponentPolicy;
 import 'package:feeef/stores/models/store.dart';
@@ -1877,7 +1878,8 @@ class Actions {
     required String text,
     List<Attachment>? attachments,
     Map<String, dynamic>? templateData,
-    /// Aspect ratio for the generated image (e.g. '1:8', '9:16', '1:1'). Defaults to '1:8' on the server if omitted.
+    /// Aspect ratio for the generated image (e.g. '9:32', '1:8', '1:1').
+    /// Defaults to `'9:32'` on the server if omitted.
     String? aspectRatio,
     /// Final image model (step 2). Server allowlist; e.g. `gemini-3.1-flash-image-preview`.
     String? imageModel,
@@ -1905,24 +1907,19 @@ class Actions {
       if (text.trim().isEmpty && (attachments == null || attachments.isEmpty)) {
         throw ArgumentError('Text cannot be empty');
       }
-      final attachmentMaps = attachments != null && attachments.isNotEmpty
-          ? attachments.map((a) => a.toJson()).toList()
-          : null;
-      final requestData = <String, dynamic>{
-        'text': text.trim(),
-        if (attachmentMaps != null) 'attachments': attachmentMaps,
-        if (templateData != null) 'templateData': templateData,
-        if (aspectRatio != null && aspectRatio.trim().isNotEmpty) 'aspectRatio': aspectRatio.trim(),
-        if (imageModel != null && imageModel.trim().isNotEmpty) 'imageModel': imageModel.trim(),
-        if (textModel != null && textModel.trim().isNotEmpty) 'textModel': textModel.trim(),
-        if (mediaResolution != null && mediaResolution.trim().isNotEmpty)
-          'mediaResolution': mediaResolution.trim(),
-        if (imageSize != null && imageSize.trim().isNotEmpty) 'imageSize': imageSize.trim(),
-        if (background != null && background.trim().isNotEmpty)
-          'background': background.trim(),
-        if (loadProductImage != null) 'loadProductImage': loadProductImage,
-        if (sectionsCount != null) 'sectionsCount': sectionsCount,
-      };
+      final requestData = buildGenerateImageLandingPageRequestData(
+        text: text,
+        attachments: attachments,
+        templateData: templateData,
+        aspectRatio: aspectRatio,
+        imageModel: imageModel,
+        textModel: textModel,
+        mediaResolution: mediaResolution,
+        imageSize: imageSize,
+        background: background,
+        loadProductImage: loadProductImage,
+        sectionsCount: sectionsCount,
+      );
 
       final response = await client.post(
         '/actions/generateImageLandingPage',

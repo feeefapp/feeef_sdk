@@ -340,9 +340,22 @@ class PurchaseOrderUpdate implements ModelUpdate {
 
 enum PurchaseReceiptStatus { draft, posted, voided }
 
-PurchaseReceiptStatus _receiptStatusFrom(String? v) =>
-    PurchaseReceiptStatus.values
-        .firstWhere((e) => e.name == v, orElse: () => PurchaseReceiptStatus.draft);
+PurchaseReceiptStatus _receiptStatusFrom(String? v) {
+  final key = (v ?? '').trim().toLowerCase().replaceAll('-', '_');
+  if (key == 'void' || key == 'voided') {
+    return PurchaseReceiptStatus.voided;
+  }
+  if (key == 'posted' || key == 'post' || key == 'received') {
+    return PurchaseReceiptStatus.posted;
+  }
+  if (key == 'draft') {
+    return PurchaseReceiptStatus.draft;
+  }
+  return PurchaseReceiptStatus.values.firstWhere(
+    (e) => e.name == key,
+    orElse: () => PurchaseReceiptStatus.draft,
+  );
+}
 
 class PurchaseReceiptLine {
   final String id;
@@ -375,20 +388,25 @@ class PurchaseReceiptLine {
 
   factory PurchaseReceiptLine.fromJson(Map<String, dynamic> json) =>
       PurchaseReceiptLine(
-        id: json['id'] as String,
-        purchaseReceiptId: json['purchaseReceiptId'] as String? ?? '',
-        lineNo: _toInt(json['lineNo']),
-        sku: json['sku'] as String,
-        productId: json['productId'] as String?,
-        variantPath: json['variantPath'] as String? ?? '',
-        batch: json['batch'] as String? ?? '',
-        inventoryObjectId: json['inventoryObjectId'] as String?,
-        qtyReceived: _toInt(json['qtyReceived']),
-        unitCost: _toDouble(json['unitCost']),
-        lineTotal: _toDouble(json['lineTotal']),
-        poLineIndex: json['poLineIndex'] == null
+        id: (json['id'] ?? '').toString(),
+        purchaseReceiptId:
+            (json['purchaseReceiptId'] ?? json['purchase_receipt_id'] ?? '')
+                .toString(),
+        lineNo: _toInt(json['lineNo'] ?? json['line_no']),
+        sku: (json['sku'] ?? '').toString(),
+        productId: (json['productId'] ?? json['product_id'])?.toString(),
+        variantPath:
+            (json['variantPath'] ?? json['variant_path'] ?? '').toString(),
+        batch: (json['batch'] ?? '').toString(),
+        inventoryObjectId:
+            (json['inventoryObjectId'] ?? json['inventory_object_id'])
+                ?.toString(),
+        qtyReceived: _toInt(json['qtyReceived'] ?? json['qty_received']),
+        unitCost: _toDouble(json['unitCost'] ?? json['unit_cost']),
+        lineTotal: _toDouble(json['lineTotal'] ?? json['line_total']),
+        poLineIndex: json['poLineIndex'] == null && json['po_line_index'] == null
             ? null
-            : _toInt(json['poLineIndex']),
+            : _toInt(json['poLineIndex'] ?? json['po_line_index']),
       );
 }
 
@@ -430,13 +448,19 @@ class PurchaseReceipt implements Model {
 
   factory PurchaseReceipt.fromJson(Map<String, dynamic> json) {
     final rawLines = json['lines'];
-    final lines = rawLines is List
-        ? rawLines
-            .whereType<Map>()
-            .map((e) =>
-                PurchaseReceiptLine.fromJson(Map<String, dynamic>.from(e)))
-            .toList()
-        : <PurchaseReceiptLine>[];
+    final lines = <PurchaseReceiptLine>[];
+    if (rawLines is List) {
+      for (final raw in rawLines) {
+        if (raw is! Map) continue;
+        try {
+          lines.add(
+            PurchaseReceiptLine.fromJson(Map<String, dynamic>.from(raw)),
+          );
+        } catch (_) {
+          // Keep the receipt usable even if one line payload is malformed.
+        }
+      }
+    }
     return PurchaseReceipt(
       id: json['id']?.toString() ?? '',
       projectId: (json['projectId'] ?? json['project_id'])?.toString() ?? '',
@@ -1239,6 +1263,234 @@ class ExpenseUpdate implements ModelUpdate {
       };
 }
 
+// ─── Phase 2: other income + categories ─────────────────────────────────────────
+
+enum OtherIncomeStatus { draft, recorded, voided }
+
+OtherIncomeStatus _otherIncomeStatusFrom(String? v) => OtherIncomeStatus.values
+    .firstWhere((e) => e.name == v, orElse: () => OtherIncomeStatus.recorded);
+
+class OtherIncomeCategory implements Model {
+  @override
+  final String id;
+  final String projectId;
+  final String name;
+  final String? parentId;
+  final Map<String, dynamic> metadata;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  OtherIncomeCategory({
+    required this.id,
+    required this.projectId,
+    required this.name,
+    this.parentId,
+    this.metadata = const {},
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory OtherIncomeCategory.fromJson(Map<String, dynamic> json) =>
+      OtherIncomeCategory(
+        id: json['id'] as String,
+        projectId: json['projectId'] as String,
+        name: json['name'] as String,
+        parentId: json['parentId'] as String?,
+        metadata:
+            (json['metadata'] as Map?)?.cast<String, dynamic>() ?? const {},
+        createdAt: DateTime.parse(json['createdAt'] as String),
+        updatedAt: DateTime.parse(json['updatedAt'] as String),
+      );
+
+  Map<String, dynamic> toJson() => {'id': id, 'name': name};
+}
+
+class OtherIncomeCategoryCreate implements ModelCreate {
+  final String projectId;
+  final String name;
+  final String? parentId;
+  final Map<String, dynamic>? metadata;
+
+  const OtherIncomeCategoryCreate({
+    required this.projectId,
+    required this.name,
+    this.parentId,
+    this.metadata,
+  });
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'projectId': projectId,
+        'name': name,
+        if (parentId != null) 'parentId': parentId,
+        if (metadata != null) 'metadata': metadata,
+      };
+}
+
+class OtherIncomeCategoryUpdate implements ModelUpdate {
+  final String? name;
+  final String? parentId;
+  final Map<String, dynamic>? metadata;
+
+  const OtherIncomeCategoryUpdate({
+    this.name,
+    this.parentId,
+    this.metadata,
+    this.setToNull = const [],
+  });
+
+  @override
+  final List<String> setToNull;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'parentId': parentId,
+        'metadata': metadata,
+      };
+}
+
+/// Non-order money-in (tips, rebates, grants). Hits P&L `otherIncome`.
+class OtherIncome implements Model {
+  @override
+  final String id;
+  final String projectId;
+  final String? categoryId;
+  final String? financialAccountId;
+  final double amount;
+  final String? currency;
+  final DateTime receivedAt;
+  final String? paymentMethod;
+  final OtherIncomeStatus status;
+  final String? reference;
+  final String? note;
+  final List<dynamic> attachments;
+
+  OtherIncome({
+    required this.id,
+    required this.projectId,
+    this.categoryId,
+    this.financialAccountId,
+    required this.amount,
+    this.currency,
+    required this.receivedAt,
+    this.paymentMethod,
+    required this.status,
+    this.reference,
+    this.note,
+    this.attachments = const [],
+  });
+
+  factory OtherIncome.fromJson(Map<String, dynamic> json) => OtherIncome(
+        id: json['id'] as String,
+        projectId:
+            (json['projectId'] ?? json['project_id'])?.toString() ?? '',
+        categoryId: (json['categoryId'] ?? json['category_id'])?.toString(),
+        financialAccountId:
+            (json['financialAccountId'] ?? json['financial_account_id'])
+                ?.toString(),
+        amount: _toDouble(json['amount']),
+        currency: json['currency'] as String?,
+        receivedAt: json['receivedAt'] != null
+            ? DateTime.parse(json['receivedAt'] as String)
+            : DateTime.now(),
+        paymentMethod: json['paymentMethod'] as String?,
+        status: _otherIncomeStatusFrom(json['status'] as String?),
+        reference: json['reference'] as String?,
+        note: json['note'] as String?,
+        attachments: (json['attachments'] as List?) ?? const [],
+      );
+
+  Map<String, dynamic> toJson() => {'id': id, 'amount': amount};
+}
+
+class OtherIncomeCreate implements ModelCreate {
+  final String projectId;
+  final String? categoryId;
+  final String? financialAccountId;
+  final double amount;
+  final String? currency;
+  final DateTime receivedAt;
+  final String? paymentMethod;
+  final OtherIncomeStatus? status;
+  final String? reference;
+  final String? note;
+  final List<dynamic>? attachments;
+
+  const OtherIncomeCreate({
+    required this.projectId,
+    this.categoryId,
+    this.financialAccountId,
+    required this.amount,
+    this.currency,
+    required this.receivedAt,
+    this.paymentMethod,
+    this.status,
+    this.reference,
+    this.note,
+    this.attachments,
+  });
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'projectId': projectId,
+        if (categoryId != null) 'categoryId': categoryId,
+        if (financialAccountId != null) 'financialAccountId': financialAccountId,
+        'amount': amount,
+        if (currency != null) 'currency': currency,
+        'receivedAt': receivedAt.toIso8601String(),
+        if (paymentMethod != null) 'paymentMethod': paymentMethod,
+        if (status != null) 'status': status!.name,
+        if (reference != null) 'reference': reference,
+        if (note != null) 'note': note,
+        if (attachments != null) 'attachments': attachments,
+      };
+}
+
+class OtherIncomeUpdate implements ModelUpdate {
+  final String? categoryId;
+  final String? financialAccountId;
+  final double? amount;
+  final String? currency;
+  final DateTime? receivedAt;
+  final String? paymentMethod;
+  final OtherIncomeStatus? status;
+  final String? reference;
+  final String? note;
+  final List<dynamic>? attachments;
+
+  const OtherIncomeUpdate({
+    this.categoryId,
+    this.financialAccountId,
+    this.amount,
+    this.currency,
+    this.receivedAt,
+    this.paymentMethod,
+    this.status,
+    this.reference,
+    this.note,
+    this.attachments,
+    this.setToNull = const [],
+  });
+
+  @override
+  final List<String> setToNull;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'categoryId': categoryId,
+        'financialAccountId': financialAccountId,
+        'amount': amount,
+        'currency': currency,
+        'receivedAt': receivedAt?.toIso8601String(),
+        'paymentMethod': paymentMethod,
+        'status': status?.name,
+        'reference': reference,
+        'note': note,
+        'attachments': attachments,
+      };
+}
+
 // ─── Phase 2: reports ───────────────────────────────────────────────────────────
 
 class FinanceOverview {
@@ -1371,6 +1623,8 @@ class PnlReport {
   final double cogs;
   final double grossProfit;
   final double expenses;
+  /// Tips, rebates, grants — non-order income.
+  final double otherIncome;
   final double netProfit;
   final List<PnlDayRow>? byDay;
 
@@ -1381,6 +1635,7 @@ class PnlReport {
     required this.cogs,
     required this.grossProfit,
     required this.expenses,
+    this.otherIncome = 0,
     required this.netProfit,
     this.byDay,
   });
@@ -1392,6 +1647,7 @@ class PnlReport {
         cogs: _toDouble(json['cogs']),
         grossProfit: _toDouble(json['grossProfit']),
         expenses: _toDouble(json['expenses']),
+        otherIncome: _toDouble(json['otherIncome']),
         netProfit: _toDouble(json['netProfit']),
         byDay: (json['byDay'] as List<dynamic>?)
             ?.map((e) => PnlDayRow.fromJson(Map<String, dynamic>.from(e)))
@@ -1404,6 +1660,7 @@ class PnlDayRow {
   final double revenue;
   final double cogs;
   final double expenses;
+  final double otherIncome;
   final double grossProfit;
   final double netProfit;
 
@@ -1412,6 +1669,7 @@ class PnlDayRow {
     required this.revenue,
     required this.cogs,
     required this.expenses,
+    this.otherIncome = 0,
     required this.grossProfit,
     required this.netProfit,
   });
@@ -1421,6 +1679,7 @@ class PnlDayRow {
         revenue: _toDouble(json['revenue']),
         cogs: _toDouble(json['cogs']),
         expenses: _toDouble(json['expenses']),
+        otherIncome: _toDouble(json['otherIncome']),
         grossProfit: _toDouble(json['grossProfit']),
         netProfit: _toDouble(json['netProfit']),
       );

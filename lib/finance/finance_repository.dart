@@ -121,6 +121,8 @@ class FinanceRepository {
   late final CustomerPaymentResourceRepository customerPayments;
   late final ExpenseResourceRepository expenses;
   late final ExpenseCategoryResourceRepository expenseCategories;
+  late final OtherIncomeResourceRepository otherIncomes;
+  late final OtherIncomeCategoryResourceRepository otherIncomeCategories;
   late final ReceivableResourceRepository receivables;
   // Phase 3 GL
   late final GlAccountResourceRepository glAccounts;
@@ -136,6 +138,9 @@ class FinanceRepository {
     customerPayments = CustomerPaymentResourceRepository(client: client);
     expenses = ExpenseResourceRepository(client: client);
     expenseCategories = ExpenseCategoryResourceRepository(client: client);
+    otherIncomes = OtherIncomeResourceRepository(client: client);
+    otherIncomeCategories =
+        OtherIncomeCategoryResourceRepository(client: client);
     receivables = ReceivableResourceRepository(client: client);
     glAccounts = GlAccountResourceRepository(client: client);
     journalEntries = JournalEntryResourceRepository(client: client);
@@ -149,11 +154,18 @@ class FinanceRepository {
       purchaseReceipts.post(projectId: projectId, id: id);
 
   /// Void a posted receipt: reverse its stock-in.
+  ///
+  /// Pass [voidPayments]: true for merchant undo (clears bill payments first).
   Future<PurchaseReceipt> voidReceipt({
     required String projectId,
     required String id,
+    bool voidPayments = false,
   }) =>
-      purchaseReceipts.void$(projectId: projectId, id: id);
+      purchaseReceipts.void$(
+        projectId: projectId,
+        id: id,
+        voidPayments: voidPayments,
+      );
 
   /// Wipes all project-scoped finance data (owner-only). Requires [confirm] == `RESET`.
   Future<void> resetData({
@@ -792,15 +804,45 @@ class PurchaseReceiptResourceRepository extends ResourceRepository<
   }
 
   /// Void a posted receipt: reverse its stock-in. Named `void$` (Dart keyword).
+  ///
+  /// When [voidPayments] is true, linked supplier-bill payments are cleared in
+  /// the same server transaction (one-shot merchant "Undo stock-in").
   Future<PurchaseReceipt> void$({
     required String projectId,
     required String id,
+    bool voidPayments = false,
   }) async {
     final response = await client.post(
       '/finance/purchase-receipts/$id/void',
       queryParameters: {'projectId': projectId},
+      data: {
+        if (voidPayments) 'voidPayments': true,
+      },
     );
-    return modelFromJson(response.data);
+    final data = Map<String, dynamic>.from(response.data as Map);
+    final receipt = modelFromJson(data);
+    // Server always voids to `voided`; harden if a nested/legacy payload mis-parses.
+    if (receipt.status == PurchaseReceiptStatus.voided) return receipt;
+    final statusRaw = (data['status'] ?? '').toString().toLowerCase();
+    if (statusRaw == 'voided' || statusRaw == 'void') {
+      return PurchaseReceipt(
+        id: receipt.id.isNotEmpty ? receipt.id : id,
+        projectId: receipt.projectId.isNotEmpty ? receipt.projectId : projectId,
+        supplierId: receipt.supplierId,
+        purchaseOrderId: receipt.purchaseOrderId,
+        warehouseId: receipt.warehouseId,
+        status: PurchaseReceiptStatus.voided,
+        reference: receipt.reference,
+        receivedAt: receipt.receivedAt,
+        postedAt: receipt.postedAt,
+        voidedAt: receipt.voidedAt ?? DateTime.now(),
+        notes: receipt.notes,
+        totalCost: receipt.totalCost,
+        attachments: receipt.attachments,
+        lines: receipt.lines,
+      );
+    }
+    return receipt;
   }
 
   /// Batch post draft receipts (`POST /finance/purchase-receipts:batchPost`).
@@ -1484,6 +1526,155 @@ class ExpenseCategoryResourceRepository extends ResourceRepository<
     }
     final response = await client.get(
       '/finance/expense-categories',
+      queryParameters: _financeListQuery(
+        params: params,
+        page: page,
+        offset: offset,
+        limit: limit,
+      ),
+      cancelToken: modelListCancelToken,
+    );
+    return parseFinanceListResponse(response.data, modelFromJson);
+  }
+}
+
+// ─── Phase 2: other incomes ─────────────────────────────────────────────────────
+
+class OtherIncomeResourceRepository
+    extends ResourceRepository<OtherIncome, OtherIncomeCreate, OtherIncomeUpdate>
+    with ModelDeleteManyMixin<OtherIncome> {
+  OtherIncomeResourceRepository({required Dio client})
+      : super(client: client, table: 'finance/other-incomes');
+
+  @override
+  OtherIncome modelFromJson(dynamic json) =>
+      OtherIncome.fromJson(json as Map<String, dynamic>);
+
+  @override
+  Map<String, dynamic> modelToJson(OtherIncome model) => model.toJson();
+
+  @override
+  OtherIncomeCreate createFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return OtherIncomeCreate(
+      projectId: m['projectId'] as String? ?? '',
+      categoryId: m['categoryId'] as String?,
+      financialAccountId: m['financialAccountId'] as String?,
+      amount: (m['amount'] as num?)?.toDouble() ?? 0,
+      currency: m['currency'] as String?,
+      receivedAt: m['receivedAt'] != null
+          ? DateTime.parse(m['receivedAt'] as String)
+          : DateTime.now(),
+      paymentMethod: m['paymentMethod'] as String?,
+      reference: m['reference'] as String?,
+      note: m['note'] as String?,
+    );
+  }
+
+  @override
+  Map<String, dynamic> createToJson(OtherIncomeCreate model) => model.toJson();
+
+  @override
+  OtherIncomeUpdate updateFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return OtherIncomeUpdate(
+      categoryId: m['categoryId'] as String?,
+      financialAccountId: m['financialAccountId'] as String?,
+      amount: (m['amount'] as num?)?.toDouble(),
+      currency: m['currency'] as String?,
+      paymentMethod: m['paymentMethod'] as String?,
+      reference: m['reference'] as String?,
+      note: m['note'] as String?,
+      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+          const [],
+    );
+  }
+
+  @override
+  Map<String, dynamic> updateToJson(OtherIncomeUpdate model) => model.toJson();
+
+  @override
+  Future<ListResponse<OtherIncome>> list({
+    int? page,
+    int? offset,
+    int? limit,
+    Map<String, dynamic>? params,
+  }) async {
+    if (!_hasFinanceProjectId(params)) {
+      return ListResponse(data: const []);
+    }
+    final response = await client.get(
+      '/finance/other-incomes',
+      queryParameters: _financeListQuery(
+        params: params,
+        page: page,
+        offset: offset,
+        limit: limit,
+      ),
+      cancelToken: modelListCancelToken,
+    );
+    return parseFinanceListResponse(response.data, modelFromJson);
+  }
+}
+
+// ─── Phase 2: other income categories ───────────────────────────────────────────
+
+class OtherIncomeCategoryResourceRepository extends ResourceRepository<
+    OtherIncomeCategory, OtherIncomeCategoryCreate, OtherIncomeCategoryUpdate>
+    with ModelDeleteManyMixin<OtherIncomeCategory> {
+  OtherIncomeCategoryResourceRepository({required Dio client})
+      : super(client: client, table: 'finance/other-income-categories');
+
+  @override
+  OtherIncomeCategory modelFromJson(dynamic json) =>
+      OtherIncomeCategory.fromJson(json as Map<String, dynamic>);
+
+  @override
+  Map<String, dynamic> modelToJson(OtherIncomeCategory model) => model.toJson();
+
+  @override
+  OtherIncomeCategoryCreate createFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return OtherIncomeCategoryCreate(
+      projectId: m['projectId'] as String? ?? '',
+      name: m['name'] as String? ?? '',
+      parentId: m['parentId'] as String?,
+      metadata: (m['metadata'] as Map?)?.cast<String, dynamic>(),
+    );
+  }
+
+  @override
+  Map<String, dynamic> createToJson(OtherIncomeCategoryCreate model) =>
+      model.toJson();
+
+  @override
+  OtherIncomeCategoryUpdate updateFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return OtherIncomeCategoryUpdate(
+      name: m['name'] as String?,
+      parentId: m['parentId'] as String?,
+      metadata: (m['metadata'] as Map?)?.cast<String, dynamic>(),
+      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+          const [],
+    );
+  }
+
+  @override
+  Map<String, dynamic> updateToJson(OtherIncomeCategoryUpdate model) =>
+      model.toJson();
+
+  @override
+  Future<ListResponse<OtherIncomeCategory>> list({
+    int? page,
+    int? offset,
+    int? limit,
+    Map<String, dynamic>? params,
+  }) async {
+    if (!_hasFinanceProjectId(params)) {
+      return ListResponse(data: const []);
+    }
+    final response = await client.get(
+      '/finance/other-income-categories',
       queryParameters: _financeListQuery(
         params: params,
         page: page,

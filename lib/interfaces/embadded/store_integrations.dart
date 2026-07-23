@@ -310,6 +310,27 @@ abstract class EcotrackDeliveryIntegration with _$EcotrackDeliveryIntegration {
     return true;
   }
 
+  /// Prefer Feeef-branded A6 labels over the official Ecotrack étiquette PDF.
+  ///
+  /// Defaults to `false` (carrier PDF). Set [metadata]`['useFeeefLabel']` to `true`
+  /// to print Feeef labels from `GET/POST .../ecotrack/.../label(s)`.
+  bool get useFeeefLabel {
+    final v = metadata['useFeeefLabel'];
+    return v == true;
+  }
+
+  /// Feeef label language override: `ar` | `en` | `fr`.
+  ///
+  /// `null` / missing means use the store [StoreConfigs.defaultLanguage]
+  /// (falling back to `fr` on the backend when unsupported).
+  String? get labelLocale {
+    final v = metadata['labelLocale'];
+    if (v is! String) return null;
+    final code = v.trim().toLowerCase();
+    if (code == 'ar' || code == 'en' || code == 'fr') return code;
+    return null;
+  }
+
   /// Latest Ecotrack COD payout (`transaction_archived_at`) processed by cash-in sync.
   String? get lastCashinSyncAt {
     final v = metadata['lastCashinSyncAt'];

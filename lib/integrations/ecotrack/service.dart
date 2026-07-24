@@ -101,28 +101,11 @@ class EcotrackDeliveryService
 
     final tracking = _trackingFromPayload(response.data);
     if (tracking != null) {
-      try {
-        final scoring = await getScoring(
-          trackings: [tracking],
-          storeId: storeId ?? order.storeId,
-        );
-        final phone = order.customerPhone?.trim();
-        final entry = (phone != null && scoring.containsKey(phone))
-            ? scoring[phone]
-            : (scoring.isNotEmpty ? scoring.values.first : null);
-        if (entry != null) {
-          order = order.copyWith(
-            metadata: {
-              ...order.metadata,
-              'ecotrackScoringLevel': entry.level,
-              'riskOfReturnScoreInEcotrack': entry.deliveryConfidenceScore,
-              'totalPreviousOrdersInEcotrack': 1,
-            },
-          );
-        }
-      } catch (e) {
-        print(e);
-      }
+      order = await enrichOrderWithTrackingScore(
+        order: order,
+        tracking: tracking,
+        storeId: storeId ?? order.storeId,
+      );
     }
 
     await _attachIfTrackingPresent(order: order, payload: response.data);
@@ -160,31 +143,13 @@ class EcotrackDeliveryService
     );
 
     // fetch scoring by tracking (public API does not accept phones)
-    try {
-      final trackingForScore = _trackingFromPayload(response.data);
-      if (trackingForScore != null) {
-        final scoring = await getScoring(
-          trackings: [trackingForScore],
-          storeId: storeId ?? order.storeId,
-        );
-        final phone = order.customerPhone?.trim();
-        final entry = (phone != null && scoring.containsKey(phone))
-            ? scoring[phone]
-            : (scoring.isNotEmpty ? scoring.values.first : null);
-        if (entry != null) {
-          order = order.copyWith(
-            metadata: {
-              ...order.metadata,
-              'ecotrackScoringLevel': entry.level,
-              'riskOfReturnScoreInEcotrack': entry.deliveryConfidenceScore,
-              // Level-only API — keep banner visible with a sentinel count.
-              'totalPreviousOrdersInEcotrack': 1,
-            },
-          );
-        }
-      }
-    } catch (e) {
-      print(e);
+    final trackingForScore = _trackingFromPayload(response.data);
+    if (trackingForScore != null) {
+      order = await enrichOrderWithTrackingScore(
+        order: order,
+        tracking: trackingForScore,
+        storeId: storeId ?? order.storeId,
+      );
     }
 
     final tracking = _trackingFromPayload(response.data);
@@ -493,6 +458,195 @@ class EcotrackDeliveryService
     }
   }
 
+  /// Merges Ecotrack scoring fields into [order] metadata (for risk banners).
+  ///
+  /// Public API returns `{ Phone, Level }` keyed by phone. Matching is exact
+  /// first, then last-9 digits (DZ local vs 213…), then sole-entry fallback.
+  Order withScoringMetadata(
+    Order order,
+    Map<String, EcotrackPhoneScore> scoring,
+  ) {
+    final entry = scoreForOrder(order, scoring);
+    if (entry == null) return order;
+    return order.copyWith(
+      metadata: {
+        ...order.metadata,
+        'ecotrackScoringLevel': entry.level,
+        'riskOfReturnScoreInEcotrack': entry.deliveryConfidenceScore,
+        // Level-only API — keep banner visible with a sentinel count.
+        'totalPreviousOrdersInEcotrack': 1,
+      },
+    );
+  }
+
+  /// Resolves the Ecotrack phone score for [order] from a phone→score map.
+  EcotrackPhoneScore? scoreForOrder(
+    Order order,
+    Map<String, EcotrackPhoneScore> scoring,
+  ) {
+    if (scoring.isEmpty) return null;
+    final phone = order.customerPhone?.trim();
+    if (phone != null && phone.isNotEmpty) {
+      final direct = scoring[phone];
+      if (direct != null) return direct;
+      final want = _phoneMatchKey(phone);
+      if (want != null) {
+        for (final e in scoring.entries) {
+          if (_phoneMatchKey(e.key) == want) return e.value;
+        }
+      }
+    }
+    // Single-row responses often use a slightly different phone format than Feeef.
+    if (scoring.length == 1) return scoring.values.first;
+    return null;
+  }
+
+  /// Last 9 digits for Algeria-style phone comparison (`05…` vs `2135…`).
+  static String? _phoneMatchKey(String phone) {
+    final digits = phone.replaceAll(RegExp(r'\D'), '');
+    if (digits.isEmpty) return null;
+    return digits.length > 9 ? digits.substring(digits.length - 9) : digits;
+  }
+
+  /// Fetches scoring for [tracking] and merges into [order] metadata.
+  ///
+  /// Failures are swallowed so send/attach still succeed without a score.
+  Future<Order> enrichOrderWithTrackingScore({
+    required Order order,
+    required String tracking,
+    required String storeId,
+  }) async {
+    try {
+      final scoring = await getScoring(trackings: [tracking], storeId: storeId);
+      return withScoringMetadata(order, scoring);
+    } catch (e) {
+      // Scoring is best-effort — never block send/attach.
+      print(e);
+      return order;
+    }
+  }
+
+  /// Whether [order] already has Ecotrack scoring metadata for tile banners.
+  static bool hasScoringMetadata(Order order) {
+    if (order.metadata['ecotrackScoringLevel'] != null) return true;
+    return order.metadata['riskOfReturnScoreInEcotrack'] != null &&
+        order.metadata['totalPreviousOrdersInEcotrack'] != null;
+  }
+
+  /// Fetches Ecotrack scores for orders that already have trackings and
+  /// persists scoring fields onto each order’s metadata.
+  ///
+  /// Use for old orders missing a banner, or to force-reload scores.
+  /// Scoring API failures are expected and **never** throw — see [EcotrackScoringRefreshResult].
+  ///
+  /// When [onlyMissing] is true, orders that already have scoring metadata are skipped.
+  Future<EcotrackScoringRefreshResult> refreshAndPersistScoring({
+    required List<Order> orders,
+    required String storeId,
+    bool onlyMissing = false,
+  }) async {
+    final candidates = <Order>[];
+    var skippedNoTracking = 0;
+    var skippedHasScore = 0;
+
+    for (final order in orders) {
+      final tracking = order.ecotrackTrackingId?.trim();
+      if (tracking == null || tracking.isEmpty) {
+        skippedNoTracking++;
+        continue;
+      }
+      if (onlyMissing && hasScoringMetadata(order)) {
+        skippedHasScore++;
+        continue;
+      }
+      candidates.add(order);
+    }
+
+    if (candidates.isEmpty) {
+      return EcotrackScoringRefreshResult(
+        requested: 0,
+        updated: 0,
+        unchanged: 0,
+        skippedNoTracking: skippedNoTracking,
+        skippedHasScore: skippedHasScore,
+        scoringUnavailable: 0,
+        orders: const [],
+      );
+    }
+
+    // Public API caps at 100 trackings per request.
+    final scoringByPhone = <String, EcotrackPhoneScore>{};
+    var scoringUnavailable = 0;
+    try {
+      for (var i = 0; i < candidates.length; i += 100) {
+        final chunk = candidates.skip(i).take(100).toList();
+        final trackings = chunk
+            .map((o) => o.ecotrackTrackingId!.trim())
+            .where((t) => t.isNotEmpty)
+            .toList();
+        final part = await getScoring(trackings: trackings, storeId: storeId);
+        scoringByPhone.addAll(part);
+      }
+    } catch (e) {
+      // Expected: Ecotrack scoring can fail; leave orders unchanged.
+      print('Ecotrack refreshAndPersistScoring getScoring failed: $e');
+      return EcotrackScoringRefreshResult(
+        requested: candidates.length,
+        updated: 0,
+        unchanged: 0,
+        skippedNoTracking: skippedNoTracking,
+        skippedHasScore: skippedHasScore,
+        scoringUnavailable: candidates.length,
+        orders: const [],
+      );
+    }
+
+    final updatedOrders = <Order>[];
+    var updated = 0;
+    var unchanged = 0;
+
+    for (final order in candidates) {
+      final scored = withScoringMetadata(order, scoringByPhone);
+      if (!hasScoringMetadata(scored) ||
+          scored.metadata['ecotrackScoringLevel'] ==
+              order.metadata['ecotrackScoringLevel']) {
+        // No usable score, or same level already stored.
+        if (!hasScoringMetadata(scored)) {
+          scoringUnavailable++;
+        } else {
+          unchanged++;
+          updatedOrders.add(scored);
+        }
+        continue;
+      }
+
+      try {
+        await Feeef.instance.orders.update(
+          id: order.id,
+          data: OrderUpdate(
+            storeId: order.storeId,
+            metadata: scored.metadata,
+          ),
+        );
+        updated++;
+        updatedOrders.add(scored);
+      } catch (e) {
+        print('Ecotrack persist scoring failed for ${order.id}: $e');
+        scoringUnavailable++;
+      }
+    }
+
+    return EcotrackScoringRefreshResult(
+      requested: candidates.length,
+      updated: updated,
+      unchanged: unchanged,
+      skippedNoTracking: skippedNoTracking,
+      skippedHasScore: skippedHasScore,
+      scoringUnavailable: scoringUnavailable,
+      orders: updatedOrders,
+    );
+  }
+
   /// [sendMany] send multiple orders to Ecotrack in bulk
   ///
   /// This method sends multiple orders in a single API call to the backend,
@@ -631,6 +785,39 @@ class EcotrackDeliveryService
 
       // Attach successful orders only when carrier returned a tracking id.
       // Never write `delivery.payload.tracking: null` — that orphans the order.
+      // Batch-fetch Ecotrack scoring so order tiles show risk banners after send.
+      final scoredByRef = <String, Order>{};
+      final trackingsForScore = <String>[];
+      for (final orderData in created) {
+        final reference = orderData['reference'] as String?;
+        final tracking = _trackingFromPayload(orderData);
+        if (reference == null || tracking == null) continue;
+        final order = ordersToSend.firstWhere(
+          (o) => o.id == reference,
+          orElse: () => ordersToSend.first,
+        );
+        trackingsForScore.add(tracking);
+        scoredByRef[reference] = order;
+      }
+
+      Map<String, EcotrackPhoneScore> scoringByPhone = {};
+      if (trackingsForScore.isNotEmpty) {
+        try {
+          // Best-effort only — never fail the bulk send if scoring is down.
+          scoringByPhone = await getScoring(
+            trackings: trackingsForScore,
+            storeId: targetStoreId,
+          );
+        } catch (e) {
+          print('Ecotrack bulk scoring failed (non-fatal): $e');
+        }
+      }
+
+      // Public scoring API keys by phone — map each order via its phone (or sole entry).
+      for (final entry in scoredByRef.entries) {
+        scoredByRef[entry.key] = withScoringMetadata(entry.value, scoringByPhone);
+      }
+
       for (final orderData in created) {
         try {
           final reference = orderData['reference'] as String?;
@@ -642,10 +829,11 @@ class EcotrackDeliveryService
             continue;
           }
 
-          final order = ordersToSend.firstWhere(
-            (o) => o.id == reference,
-            orElse: () => ordersToSend.first, // Fallback (shouldn't happen)
-          );
+          final order = scoredByRef[reference] ??
+              ordersToSend.firstWhere(
+                (o) => o.id == reference,
+                orElse: () => ordersToSend.first,
+              );
 
           await attach(order: order, payload: orderData);
         } catch (e) {
@@ -677,6 +865,42 @@ class EcotrackDeliveryService
 }
 
 typedef EcotrackOrderCreateResponse = ({String tracking});
+
+/// Summary of [EcotrackDeliveryService.refreshAndPersistScoring].
+///
+/// Scoring failures are expected — check counts instead of catching errors.
+class EcotrackScoringRefreshResult {
+  const EcotrackScoringRefreshResult({
+    required this.requested,
+    required this.updated,
+    required this.unchanged,
+    required this.skippedNoTracking,
+    required this.skippedHasScore,
+    required this.scoringUnavailable,
+    required this.orders,
+  });
+
+  /// Orders that were eligible for a scoring lookup.
+  final int requested;
+
+  /// Orders whose metadata was written with a new score.
+  final int updated;
+
+  /// Orders that already had the same score (force refresh, no write needed).
+  final int unchanged;
+
+  /// Orders without an Ecotrack tracking id.
+  final int skippedNoTracking;
+
+  /// Orders skipped because [onlyMissing] and they already had a score.
+  final int skippedHasScore;
+
+  /// Lookups that returned no usable score, or persist failed.
+  final int scoringUnavailable;
+
+  /// Orders that have scoring metadata after the run (updated + unchanged).
+  final List<Order> orders;
+}
 
 /// One phone scoring row from Ecotrack public API (`Level`).
 class EcotrackPhoneScore {

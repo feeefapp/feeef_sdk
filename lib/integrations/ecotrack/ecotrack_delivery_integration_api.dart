@@ -423,6 +423,87 @@ class EcotrackDeliveryIntegrationApi {
       rethrow;
     }
   }
+
+  /// Lists Ecotrack warehouse stock products for SKU → `produit` mapping UIs.
+  ///
+  /// GET `/stores/:storeId/integrations/ecotrack/stock/products`
+  Future<List<EcotrackStockProductSummary>> listStockProducts() async {
+    try {
+      final response = await client.get(
+        '/stores/$storeId/integrations/ecotrack/stock/products',
+      );
+      final raw = response.data;
+      final list = raw is Map ? raw['produits'] : null;
+      if (list is! List) return const [];
+      return list
+          .whereType<Map>()
+          .map(
+            (e) => EcotrackStockProductSummary.fromJson(
+              Map<String, dynamic>.from(e),
+            ),
+          )
+          .where((p) => p.reference.isNotEmpty)
+          .toList();
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 422) {
+        throw FeeefValidationException.fromJson(e.response?.data);
+      }
+      rethrow;
+    }
+  }
+}
+
+/// Compact Ecotrack warehouse product row for merchant mapping pickers.
+class EcotrackStockProductSummary {
+  const EcotrackStockProductSummary({
+    required this.id,
+    required this.reference,
+    required this.title,
+    this.barcode,
+    this.price,
+    this.isActive,
+    this.stockDisponible,
+    this.coverImage,
+  });
+
+  final int id;
+
+  /// Exact value sent as Ecotrack create-order `produit` when `stock: 1`.
+  final String reference;
+  final String title;
+  final String? barcode;
+  final num? price;
+  final int? isActive;
+  final int? stockDisponible;
+  final String? coverImage;
+
+  bool get active => isActive == null || isActive == 1;
+
+  factory EcotrackStockProductSummary.fromJson(Map<String, dynamic> json) {
+    int? asInt(dynamic v) {
+      if (v is int) return v;
+      if (v is num) return v.toInt();
+      if (v is String) return int.tryParse(v.trim());
+      return null;
+    }
+
+    final reference = (json['reference'] as String?)?.trim() ?? '';
+    return EcotrackStockProductSummary(
+      id: asInt(json['id']) ?? 0,
+      reference: reference,
+      title: (json['title'] as String?)?.trim().isNotEmpty == true
+          ? (json['title'] as String).trim()
+          : reference,
+      barcode: (json['barcode'] as String?)?.trim(),
+      price: json['price'] is num
+          ? json['price'] as num
+          : num.tryParse('${json['price'] ?? ''}'),
+      isActive: asInt(json['isActive'] ?? json['is_active']),
+      stockDisponible: asInt(json['stockDisponible'] ?? json['stock_disponible']),
+      coverImage: (json['coverImage'] as String?) ??
+          (json['cover_image'] as String?),
+    );
+  }
 }
 
 /// Result of an Ecotrack sync operation.

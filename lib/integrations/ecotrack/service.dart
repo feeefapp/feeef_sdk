@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import 'package:feeef/core/algeria_cites_stub.dart';
 import 'package:feeef/core/string_extensions.dart';
+import 'package:feeef/core/validation/validation_exception.dart';
 import 'package:feeef/feeef_client.dart';
 import 'package:feeef/integrations/integrations.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
@@ -98,7 +99,7 @@ class EcotrackDeliveryService
       data: orderData,
     );
 
-    await attach(order: order, payload: response.data);
+    await _attachIfTrackingPresent(order: order, payload: response.data);
   }
 
   /// [send] send order to ecotrack
@@ -154,24 +155,168 @@ class EcotrackDeliveryService
       print(e);
     }
 
-    await attach(order: order, payload: response.data);
-    return (tracking: response.data['tracking'] as String);
+    final tracking = _trackingFromPayload(response.data);
+    if (tracking == null) {
+      _throwEcotrackCarrierFailure(response.data);
+    }
+    await _attachIfTrackingPresent(order: order, payload: response.data);
+    return (tracking: tracking);
   }
 
   @override
-  /// [detach] detach order from delivery service
+  /// [detach] detach order from delivery service.
+  ///
+  /// - No / invalid tracking → clear Feeef `metadata.delivery` only (orphan link).
+  /// - With tracking → best-effort DELETE on Ecotrack, then always clear local metadata
+  ///   so cancel-link cannot get stuck when the carrier rejects the delete.
   Future<void> detach({required Order order}) async {
     final tracking = order.ecotrackTrackingId;
-    if (tracking == null || tracking.isEmpty) {
-      throw StateError(
-        'Order ${order.id} has no Ecotrack tracking id',
+    if (tracking != null && tracking.isNotEmpty) {
+      try {
+        await Feeef.instance.client.delete(
+          '/stores/${storeId ?? order.storeId}/integrations/ecotrack/orders/$tracking',
+        );
+      } catch (e) {
+        // Carrier may already have deleted the parcel, or tracking was never valid.
+        // Still remove Feeef delivery metadata so the merchant can re-send.
+        print('Error deleting parcel from Ecotrack: $e');
+      }
+    }
+    await super.detach(order: order);
+  }
+
+  /// Non-empty tracking from a carrier / sendMany row payload, or null.
+  static String? _trackingFromPayload(dynamic payload) {
+    if (payload is! Map) return null;
+    // Explicit carrier rejection must never be treated as a soft "missing tracking".
+    if (payload['success'] == false) return null;
+    final raw = payload['tracking'];
+    if (raw is! String) return null;
+    final trimmed = raw.trim();
+    return trimmed.isEmpty ? null : trimmed;
+  }
+
+  /// Maps Ecotrack French/Arabic carrier messages onto Feeef form fields.
+  static String? _ecotrackCarrierErrorField(String message) {
+    final m = message.toLowerCase();
+    if (m.contains('produit') ||
+        m.contains('réference') ||
+        m.contains('reference') ||
+        m.contains('référence') ||
+        m.contains("n'existe") ||
+        m.contains('desactiv') ||
+        m.contains('désactiv')) {
+      return 'produit';
+    }
+    if (m.contains('stock')) return 'stock';
+    if (m.contains('wilaya') || m.contains('commune')) return 'commune';
+    if (m.contains('telephone') || m.contains('téléphone') || m.contains('phone')) {
+      return 'telephone';
+    }
+    if (m.contains('adresse') || m.contains('address')) return 'adresse';
+    if (m.contains('montant') || m.contains('amount')) return 'montant';
+    return null;
+  }
+
+  /// Throws [FeeefValidationException] so merchant FormDialogs show AlertCard + field errors
+  /// (same contract as 422 / Maystro send failures). Never use [StateError] for carrier rejects.
+  static Never _throwEcotrackCarrierFailure(dynamic payload) {
+    final map = payload is Map
+        ? Map<String, dynamic>.from(payload)
+        : <String, dynamic>{};
+
+    final violations = <FeeefViolation>[];
+
+    final errorsRaw = map['errors'];
+    if (errorsRaw is Map) {
+      errorsRaw.forEach((field, value) {
+        final messages = value is List
+            ? value.map((e) => e.toString()).toList()
+            : [value.toString()];
+        for (final msg in messages) {
+          if (msg.trim().isEmpty) continue;
+          violations.add(
+            FeeefViolation(
+              message: msg.trim(),
+              field: field.toString(),
+              rule: 'ecotrack',
+            ),
+          );
+        }
+      });
+    } else if (errorsRaw is List) {
+      for (final item in errorsRaw) {
+        if (item is Map) {
+          final msg = (item['message'] ?? item['error'] ?? '').toString().trim();
+          if (msg.isEmpty) continue;
+          violations.add(
+            FeeefViolation(
+              message: msg,
+              field: item['field']?.toString(),
+              rule: item['rule']?.toString() ?? 'ecotrack',
+            ),
+          );
+        }
+      }
+    }
+
+    final message = (map['message'] ?? map['error'] ?? '')
+        .toString()
+        .trim();
+    if (violations.isEmpty) {
+      final resolved = message.isNotEmpty
+          ? message
+          : 'Ecotrack send failed (no tracking id)';
+      violations.add(
+        FeeefViolation(
+          message: resolved,
+          field: _ecotrackCarrierErrorField(resolved),
+          rule: 'ecotrack',
+        ),
+      );
+    } else if (message.isNotEmpty &&
+        !violations.any((v) => v.message == message)) {
+      // Keep top-level carrier message visible in FormDialog AlertCard.
+      violations.insert(
+        0,
+        FeeefViolation(
+          message: message,
+          field: _ecotrackCarrierErrorField(message),
+          rule: 'ecotrack',
+        ),
       );
     }
-    // Delete on carrier + clear Feeef metadata on server before clearing locally.
-    await Feeef.instance.client.delete(
-      '/stores/${storeId ?? order.storeId}/integrations/ecotrack/orders/$tracking',
-    );
-    await super.detach(order: order);
+
+    throw FeeefValidationException(errors: violations);
+  }
+
+  /// Attaches delivery metadata only when Ecotrack returned a real tracking id.
+  ///
+  /// Prevents `metadata.delivery.payload.tracking: null` which orphans the order.
+  Future<void> _attachIfTrackingPresent({
+    required Order order,
+    required dynamic payload,
+  }) async {
+    if (_trackingFromPayload(payload) == null) {
+      _throwEcotrackCarrierFailure(payload);
+    }
+    if (payload is Map<String, dynamic>) {
+      await attach(order: order, payload: payload);
+    } else if (payload is Map) {
+      await attach(
+        order: order,
+        payload: Map<String, dynamic>.from(payload),
+      );
+    } else {
+      throw FeeefValidationException(
+        errors: [
+          FeeefViolation(
+            message: 'Ecotrack response for order ${order.id} is not a map payload',
+            rule: 'ecotrack',
+          ),
+        ],
+      );
+    }
   }
 
   /// Bulk delete / detach by Ecotrack tracking codes.
@@ -228,8 +373,14 @@ class EcotrackDeliveryService
     required Order order,
     bool askCollection = false,
   }) async {
+    final tracking = order.ecotrackTrackingId;
+    if (tracking == null || tracking.isEmpty) {
+      throw StateError(
+        'Order ${order.id} has no Ecotrack tracking id — cannot validate',
+      );
+    }
     await Feeef.instance.client.post(
-      '/stores/${storeId ?? order.storeId}/integrations/ecotrack/orders/${order.ecotrackTrackingId}/validate',
+      '/stores/${storeId ?? order.storeId}/integrations/ecotrack/orders/$tracking/validate',
       data: {'ask_collection': askCollection},
     );
   }
@@ -237,8 +388,14 @@ class EcotrackDeliveryService
   // Télécharger l'étiquette (document PDF link)
   // Uses backend endpoint to get label URL (no token exposure)
   Future<Uri> downloadLabelUri({required Order order}) async {
+    final tracking = order.ecotrackTrackingId;
+    if (tracking == null || tracking.isEmpty) {
+      throw StateError(
+        'Order ${order.id} has no Ecotrack tracking id — cannot print label',
+      );
+    }
     final response = await Feeef.instance.client.get(
-      '/stores/${storeId ?? order.storeId}/integrations/ecotrack/orders/${order.ecotrackTrackingId}/label',
+      '/stores/${storeId ?? order.storeId}/integrations/ecotrack/orders/$tracking/label',
     );
     return Uri.parse(response.data['url']);
   }
@@ -415,21 +572,25 @@ class EcotrackDeliveryService
         ...skippedServerMaps,
       ];
 
-      // Attach successful orders to delivery service
+      // Attach successful orders only when carrier returned a tracking id.
+      // Never write `delivery.payload.tracking: null` — that orphans the order.
       for (final orderData in created) {
         try {
           final reference = orderData['reference'] as String?;
-
-          if (reference != null) {
-            // Find the corresponding order
-            final order = ordersToSend.firstWhere(
-              (o) => o.id == reference,
-              orElse: () => ordersToSend.first, // Fallback (shouldn't happen)
+          if (reference == null) continue;
+          if (_trackingFromPayload(orderData) == null) {
+            print(
+              'Skipping Ecotrack attach for $reference: missing tracking in created row',
             );
-
-            // Attach order to delivery service
-            await attach(order: order, payload: orderData);
+            continue;
           }
+
+          final order = ordersToSend.firstWhere(
+            (o) => o.id == reference,
+            orElse: () => ordersToSend.first, // Fallback (shouldn't happen)
+          );
+
+          await attach(order: order, payload: orderData);
         } catch (e) {
           // Log but don't fail the entire operation if attachment fails
           print('Error attaching order to delivery service: $e');
@@ -470,7 +631,14 @@ extension OrderEcotrack on Order {
     return metadata['delivery'];
   }
 
-  String? get ecotrackTrackingId => ecotrackData?["payload"]?["tracking"];
+  String? get ecotrackTrackingId {
+    final raw = ecotrackData?["payload"]?["tracking"];
+    if (raw is! String) return null;
+    final tracking = raw.trim();
+    // JSON null can stringify to "null" via Dart interpolation / bad persists.
+    if (tracking.isEmpty || tracking.toLowerCase() == 'null') return null;
+    return tracking;
+  }
 
   Map<String, dynamic>? get deliveryData => metadata['delivery'];
 }

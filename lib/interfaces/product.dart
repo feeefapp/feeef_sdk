@@ -63,6 +63,7 @@ abstract class IntegrationsDataEntity {
   // GoogleTagData? get googleTagsData;
   GoogleSheetsDataEntity? get googleSheetsData;
   PaymentMethodDataEntity? get paymentMethodData;
+  EcotrackDataEntity? get ecotrackData;
 }
 
 // BaseIntegrationEntity
@@ -199,6 +200,18 @@ abstract class PaymentMethodDataEntity extends BaseIntegrationEntity {
   bool get enabled;
   List<String>
   get methodIds; // Which payment method IDs to use (optional, falls back to store defaults)
+}
+
+/// Product-level Ecotrack warehouse stock mapping (merchant-only).
+abstract class EcotrackDataEntity extends BaseIntegrationEntity {
+  @override
+  bool get enabled;
+
+  /// Default Ecotrack stock product reference (`produit` when `stock: 1`).
+  String? get produit;
+
+  /// Feeef inventory SKU → Ecotrack stock `produit` reference.
+  Map<String, String> get skuProduitMap;
 }
 
 enum ProductStatus { draft, published, archived, unlisted }

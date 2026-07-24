@@ -89,6 +89,8 @@ abstract class IntegrationsData extends IntegrationsDataEntity
     GoogleSheetsData? googleSheetsData,
     PaymentMethodData? paymentMethodData,
     CustomFieldsIntegrationData? customFieldsData,
+    /// Per-product Ecotrack warehouse stock mapping (merchant-only).
+    EcotrackData? ecotrackData,
   }) = _IntegrationsData;
 
   factory IntegrationsData.fromJson(Map<String, dynamic> json) =>
@@ -189,6 +191,42 @@ abstract class PaymentMethodData extends PaymentMethodDataEntity
 
   factory PaymentMethodData.fromJson(Map<String, dynamic> json) =>
       _$PaymentMethodDataFromJson(json);
+}
+
+/// Per-product Ecotrack warehouse stock mapping.
+///
+/// When sending with `stock: 1`, Ecotrack expects `produit` to be the warehouse
+/// product **reference** (not a display title). Map Feeef inventory SKUs here.
+@freezed
+abstract class EcotrackData extends EcotrackDataEntity with _$EcotrackData {
+  EcotrackData._();
+
+  factory EcotrackData({
+    @Default(true) bool enabled,
+
+    /// Default Ecotrack stock `produit` (reference) when no SKU map entry matches.
+    String? produit,
+
+    /// Feeef inventory SKU → Ecotrack stock product `reference`.
+    @Default({}) Map<String, String> skuProduitMap,
+  }) = _EcotrackData;
+
+  factory EcotrackData.fromJson(Map<String, dynamic> json) =>
+      _$EcotrackDataFromJson(json);
+
+  /// Resolves Ecotrack `produit` for a Feeef [sku].
+  ///
+  /// Order: [skuProduitMap][sku] → [produit] → `null`.
+  String? resolveProduitForSku(String? sku) {
+    final key = sku?.trim();
+    if (key != null && key.isNotEmpty) {
+      final mapped = skuProduitMap[key]?.trim();
+      if (mapped != null && mapped.isNotEmpty) return mapped;
+    }
+    final fallback = produit?.trim();
+    if (fallback != null && fallback.isNotEmpty) return fallback;
+    return null;
+  }
 }
 
 // ProductCreate

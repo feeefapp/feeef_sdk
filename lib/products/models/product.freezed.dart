@@ -526,7 +526,8 @@ mixin _$IntegrationsData {
 
  MetaPixelData? get metaPixelData; TiktokPixelData? get tiktokPixelData;// GoogleAnalyticsData? googleAnalyticsData;
 // GoogleTagData? googleTagsData;
- GoogleSheetsData? get googleSheetsData; PaymentMethodData? get paymentMethodData; CustomFieldsIntegrationData? get customFieldsData;
+ GoogleSheetsData? get googleSheetsData; PaymentMethodData? get paymentMethodData; CustomFieldsIntegrationData? get customFieldsData;/// Per-product Ecotrack warehouse stock mapping (merchant-only).
+ EcotrackData? get ecotrackData;
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -539,16 +540,16 @@ $IntegrationsDataCopyWith<IntegrationsData> get copyWith => _$IntegrationsDataCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IntegrationsData&&(identical(other.metaPixelData, metaPixelData) || other.metaPixelData == metaPixelData)&&(identical(other.tiktokPixelData, tiktokPixelData) || other.tiktokPixelData == tiktokPixelData)&&(identical(other.googleSheetsData, googleSheetsData) || other.googleSheetsData == googleSheetsData)&&(identical(other.paymentMethodData, paymentMethodData) || other.paymentMethodData == paymentMethodData)&&(identical(other.customFieldsData, customFieldsData) || other.customFieldsData == customFieldsData));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IntegrationsData&&(identical(other.metaPixelData, metaPixelData) || other.metaPixelData == metaPixelData)&&(identical(other.tiktokPixelData, tiktokPixelData) || other.tiktokPixelData == tiktokPixelData)&&(identical(other.googleSheetsData, googleSheetsData) || other.googleSheetsData == googleSheetsData)&&(identical(other.paymentMethodData, paymentMethodData) || other.paymentMethodData == paymentMethodData)&&(identical(other.customFieldsData, customFieldsData) || other.customFieldsData == customFieldsData)&&(identical(other.ecotrackData, ecotrackData) || other.ecotrackData == ecotrackData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,metaPixelData,tiktokPixelData,googleSheetsData,paymentMethodData,customFieldsData);
+int get hashCode => Object.hash(runtimeType,metaPixelData,tiktokPixelData,googleSheetsData,paymentMethodData,customFieldsData,ecotrackData);
 
 @override
 String toString() {
-  return 'IntegrationsData(metaPixelData: $metaPixelData, tiktokPixelData: $tiktokPixelData, googleSheetsData: $googleSheetsData, paymentMethodData: $paymentMethodData, customFieldsData: $customFieldsData)';
+  return 'IntegrationsData(metaPixelData: $metaPixelData, tiktokPixelData: $tiktokPixelData, googleSheetsData: $googleSheetsData, paymentMethodData: $paymentMethodData, customFieldsData: $customFieldsData, ecotrackData: $ecotrackData)';
 }
 
 
@@ -559,11 +560,11 @@ abstract mixin class $IntegrationsDataCopyWith<$Res>  {
   factory $IntegrationsDataCopyWith(IntegrationsData value, $Res Function(IntegrationsData) _then) = _$IntegrationsDataCopyWithImpl;
 @useResult
 $Res call({
- MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData
+ MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData
 });
 
 
-$MetaPixelDataCopyWith<$Res>? get metaPixelData;$TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;$GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;$PaymentMethodDataCopyWith<$Res>? get paymentMethodData;$CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;
+$MetaPixelDataCopyWith<$Res>? get metaPixelData;$TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;$GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;$PaymentMethodDataCopyWith<$Res>? get paymentMethodData;$CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;$EcotrackDataCopyWith<$Res>? get ecotrackData;
 
 }
 /// @nodoc
@@ -576,14 +577,15 @@ class _$IntegrationsDataCopyWithImpl<$Res>
 
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,}) {
   return _then(_self.copyWith(
 metaPixelData: freezed == metaPixelData ? _self.metaPixelData : metaPixelData // ignore: cast_nullable_to_non_nullable
 as MetaPixelData?,tiktokPixelData: freezed == tiktokPixelData ? _self.tiktokPixelData : tiktokPixelData // ignore: cast_nullable_to_non_nullable
 as TiktokPixelData?,googleSheetsData: freezed == googleSheetsData ? _self.googleSheetsData : googleSheetsData // ignore: cast_nullable_to_non_nullable
 as GoogleSheetsData?,paymentMethodData: freezed == paymentMethodData ? _self.paymentMethodData : paymentMethodData // ignore: cast_nullable_to_non_nullable
 as PaymentMethodData?,customFieldsData: freezed == customFieldsData ? _self.customFieldsData : customFieldsData // ignore: cast_nullable_to_non_nullable
-as CustomFieldsIntegrationData?,
+as CustomFieldsIntegrationData?,ecotrackData: freezed == ecotrackData ? _self.ecotrackData : ecotrackData // ignore: cast_nullable_to_non_nullable
+as EcotrackData?,
   ));
 }
 /// Create a copy of IntegrationsData
@@ -645,6 +647,18 @@ $CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData {
 
   return $CustomFieldsIntegrationDataCopyWith<$Res>(_self.customFieldsData!, (value) {
     return _then(_self.copyWith(customFieldsData: value));
+  });
+}/// Create a copy of IntegrationsData
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$EcotrackDataCopyWith<$Res>? get ecotrackData {
+    if (_self.ecotrackData == null) {
+    return null;
+  }
+
+  return $EcotrackDataCopyWith<$Res>(_self.ecotrackData!, (value) {
+    return _then(_self.copyWith(ecotrackData: value));
   });
 }
 }
@@ -728,10 +742,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _IntegrationsData() when $default != null:
-return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData);case _:
+return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData);case _:
   return orElse();
 
 }
@@ -749,10 +763,10 @@ return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData)  $default,) {final _that = this;
 switch (_that) {
 case _IntegrationsData():
-return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData);case _:
+return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -769,10 +783,10 @@ return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData)?  $default,) {final _that = this;
 switch (_that) {
 case _IntegrationsData() when $default != null:
-return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData);case _:
+return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData);case _:
   return null;
 
 }
@@ -784,7 +798,7 @@ return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData
 @JsonSerializable()
 
 class _IntegrationsData extends IntegrationsData {
-   _IntegrationsData({this.metaPixelData, this.tiktokPixelData, this.googleSheetsData, this.paymentMethodData, this.customFieldsData}): super._();
+   _IntegrationsData({this.metaPixelData, this.tiktokPixelData, this.googleSheetsData, this.paymentMethodData, this.customFieldsData, this.ecotrackData}): super._();
   factory _IntegrationsData.fromJson(Map<String, dynamic> json) => _$IntegrationsDataFromJson(json);
 
 @override final  MetaPixelData? metaPixelData;
@@ -794,6 +808,8 @@ class _IntegrationsData extends IntegrationsData {
 @override final  GoogleSheetsData? googleSheetsData;
 @override final  PaymentMethodData? paymentMethodData;
 @override final  CustomFieldsIntegrationData? customFieldsData;
+/// Per-product Ecotrack warehouse stock mapping (merchant-only).
+@override final  EcotrackData? ecotrackData;
 
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
@@ -808,16 +824,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IntegrationsData&&(identical(other.metaPixelData, metaPixelData) || other.metaPixelData == metaPixelData)&&(identical(other.tiktokPixelData, tiktokPixelData) || other.tiktokPixelData == tiktokPixelData)&&(identical(other.googleSheetsData, googleSheetsData) || other.googleSheetsData == googleSheetsData)&&(identical(other.paymentMethodData, paymentMethodData) || other.paymentMethodData == paymentMethodData)&&(identical(other.customFieldsData, customFieldsData) || other.customFieldsData == customFieldsData));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IntegrationsData&&(identical(other.metaPixelData, metaPixelData) || other.metaPixelData == metaPixelData)&&(identical(other.tiktokPixelData, tiktokPixelData) || other.tiktokPixelData == tiktokPixelData)&&(identical(other.googleSheetsData, googleSheetsData) || other.googleSheetsData == googleSheetsData)&&(identical(other.paymentMethodData, paymentMethodData) || other.paymentMethodData == paymentMethodData)&&(identical(other.customFieldsData, customFieldsData) || other.customFieldsData == customFieldsData)&&(identical(other.ecotrackData, ecotrackData) || other.ecotrackData == ecotrackData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,metaPixelData,tiktokPixelData,googleSheetsData,paymentMethodData,customFieldsData);
+int get hashCode => Object.hash(runtimeType,metaPixelData,tiktokPixelData,googleSheetsData,paymentMethodData,customFieldsData,ecotrackData);
 
 @override
 String toString() {
-  return 'IntegrationsData(metaPixelData: $metaPixelData, tiktokPixelData: $tiktokPixelData, googleSheetsData: $googleSheetsData, paymentMethodData: $paymentMethodData, customFieldsData: $customFieldsData)';
+  return 'IntegrationsData(metaPixelData: $metaPixelData, tiktokPixelData: $tiktokPixelData, googleSheetsData: $googleSheetsData, paymentMethodData: $paymentMethodData, customFieldsData: $customFieldsData, ecotrackData: $ecotrackData)';
 }
 
 
@@ -828,11 +844,11 @@ abstract mixin class _$IntegrationsDataCopyWith<$Res> implements $IntegrationsDa
   factory _$IntegrationsDataCopyWith(_IntegrationsData value, $Res Function(_IntegrationsData) _then) = __$IntegrationsDataCopyWithImpl;
 @override @useResult
 $Res call({
- MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData
+ MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData
 });
 
 
-@override $MetaPixelDataCopyWith<$Res>? get metaPixelData;@override $TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;@override $GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;@override $PaymentMethodDataCopyWith<$Res>? get paymentMethodData;@override $CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;
+@override $MetaPixelDataCopyWith<$Res>? get metaPixelData;@override $TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;@override $GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;@override $PaymentMethodDataCopyWith<$Res>? get paymentMethodData;@override $CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;@override $EcotrackDataCopyWith<$Res>? get ecotrackData;
 
 }
 /// @nodoc
@@ -845,14 +861,15 @@ class __$IntegrationsDataCopyWithImpl<$Res>
 
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,}) {
   return _then(_IntegrationsData(
 metaPixelData: freezed == metaPixelData ? _self.metaPixelData : metaPixelData // ignore: cast_nullable_to_non_nullable
 as MetaPixelData?,tiktokPixelData: freezed == tiktokPixelData ? _self.tiktokPixelData : tiktokPixelData // ignore: cast_nullable_to_non_nullable
 as TiktokPixelData?,googleSheetsData: freezed == googleSheetsData ? _self.googleSheetsData : googleSheetsData // ignore: cast_nullable_to_non_nullable
 as GoogleSheetsData?,paymentMethodData: freezed == paymentMethodData ? _self.paymentMethodData : paymentMethodData // ignore: cast_nullable_to_non_nullable
 as PaymentMethodData?,customFieldsData: freezed == customFieldsData ? _self.customFieldsData : customFieldsData // ignore: cast_nullable_to_non_nullable
-as CustomFieldsIntegrationData?,
+as CustomFieldsIntegrationData?,ecotrackData: freezed == ecotrackData ? _self.ecotrackData : ecotrackData // ignore: cast_nullable_to_non_nullable
+as EcotrackData?,
   ));
 }
 
@@ -915,6 +932,18 @@ $CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData {
 
   return $CustomFieldsIntegrationDataCopyWith<$Res>(_self.customFieldsData!, (value) {
     return _then(_self.copyWith(customFieldsData: value));
+  });
+}/// Create a copy of IntegrationsData
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$EcotrackDataCopyWith<$Res>? get ecotrackData {
+    if (_self.ecotrackData == null) {
+    return null;
+  }
+
+  return $EcotrackDataCopyWith<$Res>(_self.ecotrackData!, (value) {
+    return _then(_self.copyWith(ecotrackData: value));
   });
 }
 }
@@ -2338,6 +2367,286 @@ class __$PaymentMethodDataCopyWithImpl<$Res>
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,methodIds: null == methodIds ? _self._methodIds : methodIds // ignore: cast_nullable_to_non_nullable
 as List<String>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$EcotrackData {
+
+ bool get enabled;/// Default Ecotrack stock `produit` (reference) when no SKU map entry matches.
+ String? get produit;/// Feeef inventory SKU → Ecotrack stock product `reference`.
+ Map<String, String> get skuProduitMap;
+/// Create a copy of EcotrackData
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$EcotrackDataCopyWith<EcotrackData> get copyWith => _$EcotrackDataCopyWithImpl<EcotrackData>(this as EcotrackData, _$identity);
+
+  /// Serializes this EcotrackData to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EcotrackData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.produit, produit) || other.produit == produit)&&const DeepCollectionEquality().equals(other.skuProduitMap, skuProduitMap));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,enabled,produit,const DeepCollectionEquality().hash(skuProduitMap));
+
+@override
+String toString() {
+  return 'EcotrackData(enabled: $enabled, produit: $produit, skuProduitMap: $skuProduitMap)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $EcotrackDataCopyWith<$Res>  {
+  factory $EcotrackDataCopyWith(EcotrackData value, $Res Function(EcotrackData) _then) = _$EcotrackDataCopyWithImpl;
+@useResult
+$Res call({
+ bool enabled, String? produit, Map<String, String> skuProduitMap
+});
+
+
+
+
+}
+/// @nodoc
+class _$EcotrackDataCopyWithImpl<$Res>
+    implements $EcotrackDataCopyWith<$Res> {
+  _$EcotrackDataCopyWithImpl(this._self, this._then);
+
+  final EcotrackData _self;
+  final $Res Function(EcotrackData) _then;
+
+/// Create a copy of EcotrackData
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? produit = freezed,Object? skuProduitMap = null,}) {
+  return _then(_self.copyWith(
+enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
+as bool,produit: freezed == produit ? _self.produit : produit // ignore: cast_nullable_to_non_nullable
+as String?,skuProduitMap: null == skuProduitMap ? _self.skuProduitMap : skuProduitMap // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [EcotrackData].
+extension EcotrackDataPatterns on EcotrackData {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _EcotrackData value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _EcotrackData() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _EcotrackData value)  $default,){
+final _that = this;
+switch (_that) {
+case _EcotrackData():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _EcotrackData value)?  $default,){
+final _that = this;
+switch (_that) {
+case _EcotrackData() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool enabled,  String? produit,  Map<String, String> skuProduitMap)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _EcotrackData() when $default != null:
+return $default(_that.enabled,_that.produit,_that.skuProduitMap);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool enabled,  String? produit,  Map<String, String> skuProduitMap)  $default,) {final _that = this;
+switch (_that) {
+case _EcotrackData():
+return $default(_that.enabled,_that.produit,_that.skuProduitMap);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool enabled,  String? produit,  Map<String, String> skuProduitMap)?  $default,) {final _that = this;
+switch (_that) {
+case _EcotrackData() when $default != null:
+return $default(_that.enabled,_that.produit,_that.skuProduitMap);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _EcotrackData extends EcotrackData {
+   _EcotrackData({this.enabled = true, this.produit, final  Map<String, String> skuProduitMap = const {}}): _skuProduitMap = skuProduitMap,super._();
+  factory _EcotrackData.fromJson(Map<String, dynamic> json) => _$EcotrackDataFromJson(json);
+
+@override@JsonKey() final  bool enabled;
+/// Default Ecotrack stock `produit` (reference) when no SKU map entry matches.
+@override final  String? produit;
+/// Feeef inventory SKU → Ecotrack stock product `reference`.
+ final  Map<String, String> _skuProduitMap;
+/// Feeef inventory SKU → Ecotrack stock product `reference`.
+@override@JsonKey() Map<String, String> get skuProduitMap {
+  if (_skuProduitMap is EqualUnmodifiableMapView) return _skuProduitMap;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_skuProduitMap);
+}
+
+
+/// Create a copy of EcotrackData
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$EcotrackDataCopyWith<_EcotrackData> get copyWith => __$EcotrackDataCopyWithImpl<_EcotrackData>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$EcotrackDataToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EcotrackData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.produit, produit) || other.produit == produit)&&const DeepCollectionEquality().equals(other._skuProduitMap, _skuProduitMap));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,enabled,produit,const DeepCollectionEquality().hash(_skuProduitMap));
+
+@override
+String toString() {
+  return 'EcotrackData(enabled: $enabled, produit: $produit, skuProduitMap: $skuProduitMap)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$EcotrackDataCopyWith<$Res> implements $EcotrackDataCopyWith<$Res> {
+  factory _$EcotrackDataCopyWith(_EcotrackData value, $Res Function(_EcotrackData) _then) = __$EcotrackDataCopyWithImpl;
+@override @useResult
+$Res call({
+ bool enabled, String? produit, Map<String, String> skuProduitMap
+});
+
+
+
+
+}
+/// @nodoc
+class __$EcotrackDataCopyWithImpl<$Res>
+    implements _$EcotrackDataCopyWith<$Res> {
+  __$EcotrackDataCopyWithImpl(this._self, this._then);
+
+  final _EcotrackData _self;
+  final $Res Function(_EcotrackData) _then;
+
+/// Create a copy of EcotrackData
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? enabled = null,Object? produit = freezed,Object? skuProduitMap = null,}) {
+  return _then(_EcotrackData(
+enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
+as bool,produit: freezed == produit ? _self.produit : produit // ignore: cast_nullable_to_non_nullable
+as String?,skuProduitMap: null == skuProduitMap ? _self._skuProduitMap : skuProduitMap // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,
   ));
 }
 

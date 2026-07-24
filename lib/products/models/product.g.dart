@@ -152,6 +152,9 @@ _IntegrationsData _$IntegrationsDataFromJson(Map<String, dynamic> json) =>
           : CustomFieldsIntegrationData.fromJson(
               json['customFieldsData'] as Map<String, dynamic>,
             ),
+      ecotrackData: json['ecotrackData'] == null
+          ? null
+          : EcotrackData.fromJson(json['ecotrackData'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$IntegrationsDataToJson(_IntegrationsData instance) =>
@@ -161,6 +164,7 @@ Map<String, dynamic> _$IntegrationsDataToJson(_IntegrationsData instance) =>
       'googleSheetsData': instance.googleSheetsData,
       'paymentMethodData': instance.paymentMethodData,
       'customFieldsData': instance.customFieldsData,
+      'ecotrackData': instance.ecotrackData,
     };
 
 _CustomFieldsIntegrationData _$CustomFieldsIntegrationDataFromJson(
@@ -295,6 +299,24 @@ Map<String, dynamic> _$PaymentMethodDataToJson(_PaymentMethodData instance) =>
     <String, dynamic>{
       'enabled': instance.enabled,
       'methodIds': instance.methodIds,
+    };
+
+_EcotrackData _$EcotrackDataFromJson(Map<String, dynamic> json) =>
+    _EcotrackData(
+      enabled: json['enabled'] as bool? ?? true,
+      produit: json['produit'] as String?,
+      skuProduitMap:
+          (json['skuProduitMap'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ) ??
+          const {},
+    );
+
+Map<String, dynamic> _$EcotrackDataToJson(_EcotrackData instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+      'produit': instance.produit,
+      'skuProduitMap': instance.skuProduitMap,
     };
 
 _ProductCreate _$ProductCreateFromJson(Map<String, dynamic> json) =>

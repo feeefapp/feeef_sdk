@@ -99,6 +99,32 @@ class EcotrackDeliveryService
       data: orderData,
     );
 
+    final tracking = _trackingFromPayload(response.data);
+    if (tracking != null) {
+      try {
+        final scoring = await getScoring(
+          trackings: [tracking],
+          storeId: storeId ?? order.storeId,
+        );
+        final phone = order.customerPhone?.trim();
+        final entry = (phone != null && scoring.containsKey(phone))
+            ? scoring[phone]
+            : (scoring.isNotEmpty ? scoring.values.first : null);
+        if (entry != null) {
+          order = order.copyWith(
+            metadata: {
+              ...order.metadata,
+              'ecotrackScoringLevel': entry.level,
+              'riskOfReturnScoreInEcotrack': entry.deliveryConfidenceScore,
+              'totalPreviousOrdersInEcotrack': 1,
+            },
+          );
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
+
     await _attachIfTrackingPresent(order: order, payload: response.data);
   }
 
@@ -133,24 +159,30 @@ class EcotrackDeliveryService
       data: orderData,
     );
 
-    // fetch scoring
+    // fetch scoring by tracking (public API does not accept phones)
     try {
-      var scoring = await getScoring(
-        phones: [order.customerPhone!],
-        storeId: storeId ?? order.storeId,
-      );
-      final success = scoring[order.customerPhone!]?.$1 ?? 0;
-      final failed = scoring[order.customerPhone!]?.$2 ?? 0;
-      final total = success + failed;
-      var score = total > 0 ? success / total : 0;
-      order = order.copyWith(
-        metadata: {
-          ...order.metadata,
-          if (total > 0) 'riskOfReturnScoreInEcotrack': score,
-          if (total > 0) 'totalPreviousOrdersInEcotrack': total,
-        },
-      );
-      print(score);
+      final trackingForScore = _trackingFromPayload(response.data);
+      if (trackingForScore != null) {
+        final scoring = await getScoring(
+          trackings: [trackingForScore],
+          storeId: storeId ?? order.storeId,
+        );
+        final phone = order.customerPhone?.trim();
+        final entry = (phone != null && scoring.containsKey(phone))
+            ? scoring[phone]
+            : (scoring.isNotEmpty ? scoring.values.first : null);
+        if (entry != null) {
+          order = order.copyWith(
+            metadata: {
+              ...order.metadata,
+              'ecotrackScoringLevel': entry.level,
+              'riskOfReturnScoreInEcotrack': entry.deliveryConfidenceScore,
+              // Level-only API — keep banner visible with a sentinel count.
+              'totalPreviousOrdersInEcotrack': 1,
+            },
+          );
+        }
+      }
     } catch (e) {
       print(e);
     }
@@ -400,35 +432,60 @@ class EcotrackDeliveryService
     return Uri.parse(response.data['url']);
   }
 
-  // get scoring
-  // Uses backend endpoint instead of direct API call
-  Future<Map<String, (int delivered, int failed)>> getScoring({
-    required List<String> phones,
+  /// Delivery scoring via Feeef → Ecotrack public API (`trackings`, not phones).
+  ///
+  /// Returns phone → [EcotrackPhoneScore] from `{ Phone, Level }` rows.
+  Future<Map<String, EcotrackPhoneScore>> getScoring({
+    required List<String> trackings,
     required String storeId,
   }) async {
     try {
-      // Limit to 50 phones (backend validator enforces this)
-      final phonesToCheck = phones.take(50).toList();
+      final codes = trackings
+          .map((t) => t.trim())
+          .where((t) => t.isNotEmpty)
+          .take(100)
+          .toList();
+      if (codes.isEmpty) return {};
 
       final response = await Feeef.instance.client.post(
         '/stores/$storeId/integrations/ecotrack/scoring',
-        data: {'phones': phonesToCheck},
+        data: {'trackings': codes},
       );
 
-      var map = <String, (int delivered, int failed)>{};
-      if (response.data['result'] != null &&
-          response.data['result'] is Map<String, dynamic>) {
-        for (var phone in phonesToCheck) {
-          if (response.data['result'][phone] != null) {
-            final phoneData =
-                response.data['result'][phone] as Map<String, dynamic>;
-            map[phone] = (
-              phoneData['delivered'] as int? ?? 0,
-              phoneData['failed'] as int? ?? 0,
-            );
-          }
+      final map = <String, EcotrackPhoneScore>{};
+      final data = response.data;
+      if (data is! Map) return map;
+
+      final result = data['result'];
+      if (result is Map) {
+        for (final e in result.entries) {
+          final phone = e.key.toString().trim();
+          if (phone.isEmpty) continue;
+          final row = e.value;
+          final level = row is Map
+              ? (row['level'] ?? row['Level'])?.toString().trim()
+              : null;
+          if (level == null || level.isEmpty) continue;
+          map[phone] = EcotrackPhoneScore(level: level);
         }
       }
+
+      final entries = data['entries'];
+      if (entries is List) {
+        for (final item in entries) {
+          if (item is! Map) continue;
+          final phone = (item['phone'] ?? item['Phone'])?.toString().trim();
+          final level = (item['level'] ?? item['Level'])?.toString().trim();
+          if (phone == null ||
+              phone.isEmpty ||
+              level == null ||
+              level.isEmpty) {
+            continue;
+          }
+          map.putIfAbsent(phone, () => EcotrackPhoneScore(level: level));
+        }
+      }
+
       return map;
     } catch (e) {
       print(e);
@@ -620,6 +677,37 @@ class EcotrackDeliveryService
 }
 
 typedef EcotrackOrderCreateResponse = ({String tracking});
+
+/// One phone scoring row from Ecotrack public API (`Level`).
+class EcotrackPhoneScore {
+  const EcotrackPhoneScore({required this.level});
+
+  /// Ecotrack delivery confidence band (`low`, `high`, `average`, …).
+  final String level;
+
+  /// Approximate 0–1 delivery confidence for legacy risk banners
+  /// (higher = better delivery / lower return risk).
+  double get deliveryConfidenceScore {
+    switch (level.trim().toLowerCase()) {
+      case 'excellent':
+        return 0.95;
+      case 'good':
+      case 'high':
+        return 0.85;
+      case 'average':
+      case 'medium':
+        return 0.5;
+      case 'low':
+      case 'bad':
+        return 0.2;
+      case 'very_bad':
+      case 'verybad':
+        return 0.1;
+      default:
+        return 0.5;
+    }
+  }
+}
 
 /// extentions in [Order]
 extension OrderEcotrack on Order {

@@ -469,6 +469,10 @@ class EcotrackStockProductSummary {
   final int id;
 
   /// Exact value sent as Ecotrack create-order `produit` when `stock: 1`.
+  ///
+  /// From seller `POST …/products` — often looks like `"ICH04 الساعة المثالية"`
+  /// (code + title). Must match [reference] byte-for-byte; do **not** send
+  /// [title], [id], or the Feeef product name.
   final String reference;
   final String title;
   final String? barcode;

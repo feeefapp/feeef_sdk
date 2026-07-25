@@ -58,6 +58,16 @@ extension AuthResponseExtension<T extends Model> on AuthResponse<T> {
     return store.userId == user.id;
   }
 
+  /// Whether the signed-in user is listed in [store.members] (owners may omit themselves).
+  bool isMember(Store store) {
+    return store.members.containsKey(user.id);
+  }
+
+  /// Owner or listed member — the gate for entering a store workspace at all.
+  bool canAccessStore(Store store) {
+    return isOwner(store) || isMember(store);
+  }
+
   /// Whether the signed-in user has [requiredScope] on [store] (owner always true).
   bool hasScope(Store store, String requiredScope) {
     if (isOwner(store)) return true;

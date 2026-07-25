@@ -183,15 +183,28 @@ class EcotrackDeliveryService
   }
 
   /// Non-empty tracking from a carrier / sendMany row payload, or null.
-  static String? _trackingFromPayload(dynamic payload) {
+  ///
+  /// Accepts `tracking` (public API) or `code_suivi` (seller/mobile), string or number.
+  /// Explicit `success: false` never yields a tracking (hard reject).
+  static String? trackingFromPayload(dynamic payload) {
     if (payload is! Map) return null;
     // Explicit carrier rejection must never be treated as a soft "missing tracking".
     if (payload['success'] == false) return null;
-    final raw = payload['tracking'];
-    if (raw is! String) return null;
-    final trimmed = raw.trim();
-    return trimmed.isEmpty ? null : trimmed;
+    for (final key in const ['tracking', 'code_suivi']) {
+      final raw = payload[key];
+      if (raw is String) {
+        final trimmed = raw.trim();
+        if (trimmed.isNotEmpty) return trimmed;
+      } else if (raw is num && raw.isFinite) {
+        return raw.toString();
+      }
+    }
+    return null;
   }
+
+  /// @nodoc Kept for call sites that still use the private name.
+  static String? _trackingFromPayload(dynamic payload) =>
+      trackingFromPayload(payload);
 
   /// Maps Ecotrack French/Arabic carrier messages onto Feeef form fields.
   static String? _ecotrackCarrierErrorField(String message) {
@@ -290,19 +303,29 @@ class EcotrackDeliveryService
   /// Attaches delivery metadata only when Ecotrack returned a real tracking id.
   ///
   /// Prevents `metadata.delivery.payload.tracking: null` which orphans the order.
+  /// Ensures metadata.payload always has a string `tracking` (even when the
+  /// carrier only returned `code_suivi`).
+  static Map<String, dynamic> normalizeTrackingPayload(Map payload) {
+    final map = Map<String, dynamic>.from(payload);
+    final tracking = trackingFromPayload(map);
+    if (tracking != null) {
+      map['tracking'] = tracking;
+      map['success'] = map['success'] != false;
+    }
+    return map;
+  }
+
   Future<void> _attachIfTrackingPresent({
     required Order order,
     required dynamic payload,
   }) async {
-    if (_trackingFromPayload(payload) == null) {
+    if (trackingFromPayload(payload) == null) {
       _throwEcotrackCarrierFailure(payload);
     }
-    if (payload is Map<String, dynamic>) {
-      await attach(order: order, payload: payload);
-    } else if (payload is Map) {
+    if (payload is Map) {
       await attach(
         order: order,
-        payload: Map<String, dynamic>.from(payload),
+        payload: normalizeTrackingPayload(payload),
       );
     } else {
       throw FeeefValidationException(
@@ -788,14 +811,19 @@ class EcotrackDeliveryService
       // Batch-fetch Ecotrack scoring so order tiles show risk banners after send.
       final scoredByRef = <String, Order>{};
       final trackingsForScore = <String>[];
+      final ordersById = {for (final o in ordersToSend) o.id: o};
       for (final orderData in created) {
         final reference = orderData['reference'] as String?;
-        final tracking = _trackingFromPayload(orderData);
+        final tracking = trackingFromPayload(orderData);
         if (reference == null || tracking == null) continue;
-        final order = ordersToSend.firstWhere(
-          (o) => o.id == reference,
-          orElse: () => ordersToSend.first,
-        );
+        final order = ordersById[reference];
+        if (order == null) {
+          // Never fall back to another order — wrong attach/scoring is worse than skip.
+          print(
+            'Skipping Ecotrack score map for $reference: not in send batch',
+          );
+          continue;
+        }
         trackingsForScore.add(tracking);
         scoredByRef[reference] = order;
       }
@@ -829,13 +857,18 @@ class EcotrackDeliveryService
             continue;
           }
 
-          final order = scoredByRef[reference] ??
-              ordersToSend.firstWhere(
-                (o) => o.id == reference,
-                orElse: () => ordersToSend.first,
-              );
+          final order = scoredByRef[reference] ?? ordersById[reference];
+          if (order == null) {
+            print(
+              'Skipping Ecotrack attach for $reference: not in send batch',
+            );
+            continue;
+          }
 
-          await attach(order: order, payload: orderData);
+          await attach(
+            order: order,
+            payload: normalizeTrackingPayload(orderData),
+          );
         } catch (e) {
           // Log but don't fail the entire operation if attachment fails
           print('Error attaching order to delivery service: $e');
@@ -944,12 +977,22 @@ extension OrderEcotrack on Order {
   }
 
   String? get ecotrackTrackingId {
-    final raw = ecotrackData?["payload"]?["tracking"];
-    if (raw is! String) return null;
-    final tracking = raw.trim();
-    // JSON null can stringify to "null" via Dart interpolation / bad persists.
-    if (tracking.isEmpty || tracking.toLowerCase() == 'null') return null;
-    return tracking;
+    final payload = ecotrackData?['payload'];
+    if (payload is! Map) return null;
+    // Prefer `tracking`; fall back to seller/mobile `code_suivi`.
+    for (final key in const ['tracking', 'code_suivi']) {
+      final raw = payload[key];
+      if (raw is String) {
+        final tracking = raw.trim();
+        // JSON null can stringify to "null" via Dart interpolation / bad persists.
+        if (tracking.isNotEmpty && tracking.toLowerCase() != 'null') {
+          return tracking;
+        }
+      } else if (raw is num && raw.isFinite) {
+        return raw.toString();
+      }
+    }
+    return null;
   }
 
   Map<String, dynamic>? get deliveryData => metadata['delivery'];

@@ -155,7 +155,8 @@ EcotrackOrderCreateRequest ecotrackOrderFromParcelCreateRequest(
     remarque: parcel.notes,
     produit: parcel.summary,
     stock: stock,
-    quantite: parcelLineItemsQuantitiesJoin(parcel.items),
+    // Ecotrack HAR uses compact CSV (`"1,2"`); drop spaces from the shared join helper.
+    quantite: parcelLineItemsQuantitiesJoin(parcel.items).replaceAll(', ', ','),
     boutique: boutique,
     type: type,
     stopDesk: stopDesk,

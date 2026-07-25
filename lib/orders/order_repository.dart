@@ -84,9 +84,10 @@ class OrderRepository extends ModelRepository<Order>
         if (status != null) 'status': status.map((e) => e.name).toList(),
         if (tags != null) 'tags': tags,
         if (createdBefore != null)
-          'created_before': createdBefore.toIso8601String(),
+          // Force UTC so naive local bounds can't shift the day on the server.
+          'created_before': createdBefore.toUtc().toIso8601String(),
         if (createdAfter != null)
-          'created_after': createdAfter.toIso8601String(),
+          'created_after': createdAfter.toUtc().toIso8601String(),
         if (q != null) 'q': q,
         if (confirmer != null) 'confirmer': confirmer,
         if (products != null) 'products': products,

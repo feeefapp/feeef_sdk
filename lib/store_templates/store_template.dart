@@ -291,23 +291,26 @@ class StoreTemplateUpdate implements ModelUpdate {
   final List<String> setToNull;
 
   @override
-  Map<String, dynamic> toJson() => {
-        'title': title,
-        'subtitle': subtitle,
-        'body': body,
-        'category': category,
-        'tags': tags,
-        'imageUrl': imageUrl,
-        'screenshots': screenshots,
-        'demoUrl': demoUrl,
-        'price': price,
-        'discount': discount,
-        'license': license,
-        'schema': schema,
-        'data': data,
-        'policy': policy?.wire,
-        if (salesClosed != null) 'salesClosed': salesClosed,
-      };
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{
+      if (title != null) 'title': title,
+      if (subtitle != null) 'subtitle': subtitle,
+      if (body != null) 'body': body,
+      if (category != null) 'category': category,
+      if (tags != null) 'tags': tags,
+      if (imageUrl != null) 'imageUrl': imageUrl,
+      if (screenshots != null) 'screenshots': screenshots,
+      if (demoUrl != null) 'demoUrl': demoUrl,
+      if (price != null) 'price': price,
+      if (discount != null) 'discount': discount,
+      if (license != null) 'license': license,
+      if (schema != null) 'schema': schema,
+      if (data != null) 'data': data,
+      if (policy != null) 'policy': policy!.wire,
+      if (salesClosed != null) 'salesClosed': salesClosed,
+    };
+    return map;
+  }
 }
 
 List<String> _stringList(dynamic value) {

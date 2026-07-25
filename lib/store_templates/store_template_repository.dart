@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 
 import 'package:feeef/core/list_response.dart';
 import 'package:feeef/core/resource_repository.dart';
-import 'package:feeef/interfaces/template_component.dart';
 import 'package:feeef/store_templates/store_template.dart';
 
 /// CRUD + fork + install for full-site `store_templates`.
@@ -107,16 +106,40 @@ class StoreTemplatesRepository extends ResourceRepository<
     Map<String, dynamic>? params,
   }) {
     final merged = <String, dynamic>{
-      if (params != null) ...params,
-      if (storeId != null) 'storeId': storeId,
+      ...?params,
+      'storeId': ?storeId,
       if (filterator != null && filterator.isNotEmpty) 'filterator': filterator,
       if (filterator == null && searchQuery != null && searchQuery.isNotEmpty)
         'q': searchQuery,
-      if (policy != null) 'policy': policy.wire,
-      if (orderBy != null) 'orderBy': orderBy,
-      if (orderDirection != null) 'orderDirection': orderDirection,
+      'policy': ?policy?.wire,
+      'orderBy': ?orderBy,
+      'orderDirection': ?orderDirection,
     };
     return super.list(page: page, offset: offset, limit: limit, params: merged);
+  }
+
+  /// Platform default Lithium theme (`GET /store_templates/default`).
+  ///
+  /// Returns schema + data for the configured `templateMarketplace.defaultTemplateId`.
+  Future<StoreTemplate> getDefault({CancelToken? cancelToken}) async {
+    final response = await client.get(
+      '/$table/default',
+      cancelToken: cancelToken,
+    );
+    final body = Map<String, dynamic>.from(response.data as Map);
+    return StoreTemplate.fromJson({
+      'id': body['id'],
+      'storeId': body['storeId'] ?? body['store_id'] ?? '',
+      'userId': body['userId'] ?? body['user_id'] ?? '',
+      'title': body['title'] ?? 'Default',
+      'schema': body['schema'] ?? const {},
+      'data': body['data'] ?? const {},
+      'version': body['version'] ?? 1,
+      'policy': body['policy'] ?? 'public',
+      'price': body['price'] ?? 0,
+      'createdAt': body['createdAt'] ?? body['created_at'] ?? DateTime.now().toIso8601String(),
+      'updatedAt': body['updatedAt'] ?? body['updated_at'],
+    });
   }
 
   /// Fork a template into [targetStoreId].
@@ -130,7 +153,7 @@ class StoreTemplatesRepository extends ResourceRepository<
       '/$table/$id/fork',
       data: {
         'storeId': targetStoreId,
-        if (title != null) 'title': title,
+        'title': ?title,
       },
       cancelToken: cancelToken,
     );
@@ -149,7 +172,7 @@ class StoreTemplatesRepository extends ResourceRepository<
       '/$table/$id/install',
       data: {
         'storeId': storeId,
-        if (releaseId != null) 'releaseId': releaseId,
+        'releaseId': ?releaseId,
       },
       cancelToken: cancelToken,
     );
@@ -183,7 +206,7 @@ class StoreTemplatesRepository extends ResourceRepository<
     final response = await client.get(
       '/$table/$id/releases',
       queryParameters: {
-        if (storeId != null) 'storeId': storeId,
+        'storeId': ?storeId,
       },
       cancelToken: cancelToken,
     );
@@ -212,8 +235,8 @@ class StoreTemplatesRepository extends ResourceRepository<
     final response = await client.get(
       '/$table/$id/reviews',
       queryParameters: {
-        if (page != null) 'page': page,
-        if (limit != null) 'limit': limit,
+        'page': ?page,
+        'limit': ?limit,
       },
       cancelToken: cancelToken,
     );
@@ -234,7 +257,7 @@ class StoreTemplatesRepository extends ResourceRepository<
       data: {
         'storeId': storeId,
         'rating': rating,
-        if (body != null) 'body': body,
+        'body': ?body,
       },
       cancelToken: cancelToken,
     );

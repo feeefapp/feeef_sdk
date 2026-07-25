@@ -88,6 +88,29 @@ void main() {
       expect(e.stock, 1);
     });
 
+    test('quantite joins without spaces (Ecotrack HAR compact CSV)', () {
+      final p = ParcelCreate(
+        storeId: 's',
+        externalReference: 'o',
+        contact: const ParcelContact(firstName: 'A', phones: ['0']),
+        address: const ParcelAddress(
+          street: 'x',
+          cityCode: '1',
+          stateCode: '1',
+          country: 'DZ',
+        ),
+        total: 1,
+        items: const [
+          ParcelLineItem(name: 'a', quantity: 1),
+          ParcelLineItem(name: 'b', quantity: 2),
+        ],
+        summary: 'a, b',
+        fromStock: false,
+        extensions: const {},
+      );
+      expect(ecotrackOrderFromParcelCreateRequest(p).quantite, '1,2');
+    });
+
     test('legacy extensions ecotrack can_open used when canOpen is null', () {
       final p = ParcelCreate(
         storeId: 's',

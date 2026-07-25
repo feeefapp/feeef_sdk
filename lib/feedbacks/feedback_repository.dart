@@ -66,9 +66,9 @@ class FeedbackRepository extends ModelRepository<Feedback>
         if (tags != null) 'tags': tags,
         if (q != null) 'q': q,
         if (createdAfter != null)
-          'created_after': createdAfter.toIso8601String(),
+          'created_after': createdAfter.toUtc().toIso8601String(),
         if (createdBefore != null)
-          'created_before': createdBefore.toIso8601String(),
+          'created_before': createdBefore.toUtc().toIso8601String(),
         if (updatedAfter != null)
           'updated_after': updatedAfter.toIso8601String(),
         if (updatedBefore != null)

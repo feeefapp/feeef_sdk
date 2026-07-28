@@ -167,6 +167,9 @@ class Feeef {
   static Feeef get instance => _instance;
   Feeef._() {
     client = Dio(BaseOptions(baseUrl: 'http://localhost:3333/api/v1'));
+    // Decode JSON off the UI isolate (Dio 5+). Cuts main-thread stalls on
+    // large list payloads (orders, products, stores).
+    client.transformer = BackgroundTransformer();
     client.options.headers['Accept'] = 'application/json';
     client.options.headers['X-Requested-With'] = 'XMLHttpRequest';
 

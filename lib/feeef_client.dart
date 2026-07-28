@@ -9,6 +9,7 @@ import 'package:feeef/ai/ai_repository.dart';
 import 'package:feeef/core/feeef_config.dart';
 import 'package:feeef/core/feeef_storage.dart';
 import 'package:feeef/core/feeef_upload_file.dart';
+import 'package:feeef/core/platforms.dart';
 import 'package:feeef/categories/category_repository.dart';
 import 'package:feeef/cities/city_repository.dart';
 import 'package:feeef/config_repository.dart';
@@ -167,9 +168,12 @@ class Feeef {
   static Feeef get instance => _instance;
   Feeef._() {
     client = Dio(BaseOptions(baseUrl: 'http://localhost:3333/api/v1'));
-    // Decode JSON off the UI isolate (Dio 5+). Cuts main-thread stalls on
-    // large list payloads (orders, products, stores).
-    client.transformer = BackgroundTransformer();
+    // Decode JSON off the UI isolate on VM targets (Dio 5+). Skipped on web:
+    // BackgroundTransformer spawns a real isolate and fails with
+    // IsolateSpawnException in Flutter web / dart2js.
+    if (!Platforms.isWeb) {
+      client.transformer = BackgroundTransformer();
+    }
     client.options.headers['Accept'] = 'application/json';
     client.options.headers['X-Requested-With'] = 'XMLHttpRequest';
 

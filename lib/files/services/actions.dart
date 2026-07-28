@@ -1383,6 +1383,88 @@ class Actions {
     }
   }
 
+  /// generateListFilterUsingAi
+  ///
+  /// Converts a natural-language filter request into either a simple key/value
+  /// map or an advanced filterator query. Pass a complete [schema] from the
+  /// client so the model cannot invent invalid fields or enum values.
+  ///
+  /// [attachments] optional chat-parity context (image, url, audio, store,
+  /// product) — same shape as [updateProductUsingAi].
+  Future<
+    ({
+      bool success,
+      Map<String, dynamic>? filter,
+      String message,
+      String? error,
+      String? raw,
+    })
+  >
+  generateListFilterUsingAi({
+    required String storeId,
+    required String input,
+    required Map<String, dynamic> schema,
+    String? modelId,
+    /// Optional attachments (image, url, audio, store, product) — same shape as chat / updateProductUsingAi.
+    List<Attachment>? attachments,
+  }) async {
+    try {
+      if (storeId.isEmpty) throw ArgumentError('storeId required');
+      final hasAttachments = attachments != null && attachments.isNotEmpty;
+      if (input.trim().isEmpty && !hasAttachments) {
+        throw ArgumentError('input or attachments required');
+      }
+
+      final trimmedModelId = modelId?.trim();
+      final attachmentMaps = hasAttachments
+          ? attachments.map((a) => a.toJson()).toList()
+          : null;
+      final payload = <String, dynamic>{
+        'storeId': storeId,
+        'input': input.trim().isEmpty
+            ? 'Generate a list filter from the attached context.'
+            : input.trim(),
+        'schema': schema,
+        if (trimmedModelId != null && trimmedModelId.isNotEmpty)
+          'modelId': trimmedModelId,
+        if (attachmentMaps != null) 'attachments': attachmentMaps,
+      };
+
+      final resp = await client.post(
+        '/actions/generateListFilterUsingAi',
+        data: payload,
+      );
+      final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
+      return (
+        success: _jsonBool(d['success']),
+        filter: _jsonObjectMap(d['filter']),
+        message: d['message'] as String? ?? '',
+        error: d['error'] as String?,
+        raw: d['raw'] is String ? d['raw'] as String : null,
+      );
+    } on DioException catch (e) {
+      final resMap = _jsonObjectMap(e.response?.data);
+      return (
+        success: false,
+        filter: null,
+        message: 'AI filter request failed',
+        error: resMap?['error'] as String? ??
+            resMap?['message'] as String? ??
+            e.message,
+        raw: resMap != null ? jsonEncode(resMap) : null,
+      );
+    } catch (e) {
+      developer.log('Error in generateListFilterUsingAi: $e');
+      return (
+        success: false,
+        filter: null,
+        message: 'Unexpected error',
+        error: 'An unexpected error occurred. Please try again.',
+        raw: null,
+      );
+    }
+  }
+
   /// editOrGenerateSimpleImage
   /// Generates or edits an image using AI based on a text prompt and/or existing image
   ///

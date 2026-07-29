@@ -319,6 +319,15 @@ abstract class EcotrackDeliveryIntegration with _$EcotrackDeliveryIntegration {
     return v == true;
   }
 
+  /// Print the store logo next to the Feeef wordmark on Feeef labels.
+  ///
+  /// Defaults to `false`. Requires [Store.logoUrl] / [Store.iconUrl] to show anything.
+  /// Set [metadata]`['useStoreLogoOnLabel']` to `true`.
+  bool get useStoreLogoOnLabel {
+    final v = metadata['useStoreLogoOnLabel'];
+    return v == true;
+  }
+
   /// Feeef label language override: `ar` | `en` | `fr`.
   ///
   /// `null` / missing means use the store [StoreConfigs.defaultLanguage]

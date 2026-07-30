@@ -18,6 +18,10 @@ abstract class Order extends OrderEntity
     required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
+    /// Optional schedule date. When set, the order appears on this date in lists.
+    DateTime? scheduledAt,
+    /// Server-computed COALESCE(scheduledAt, createdAt). Read-only.
+    DateTime? effectiveAt,
     @Default({}) Map<String, dynamic> metadata,
     /// Server-only fields (e.g. security treatment); not for client editing.
     Map<String, dynamic>? claims,
@@ -114,6 +118,8 @@ abstract class OrderCreate with _$OrderCreate implements ModelCreate {
     // metadata
     Map<String, dynamic>? metadata,
     List<String>? references,
+    /// Optional schedule date (ISO). Null via [setToNull] clears.
+    DateTime? scheduledAt,
   }) = _OrderCreate;
 
   factory OrderCreate.fromJson(Map<String, dynamic> json) =>
@@ -164,6 +170,8 @@ abstract class OrderUpdate with _$OrderUpdate implements ModelUpdate {
     // metadata
     Map<String, dynamic>? metadata,
     List<String>? references,
+    /// Optional schedule date. Use [setToNull] with `'scheduledAt'` to clear.
+    DateTime? scheduledAt,
     // ignore: invalid_annotation_target
     @JsonKey(includeFromJson: false) @Default([]) List<String> setToNull,
   }) = _OrderUpdate;
@@ -202,6 +210,22 @@ Map<String, dynamic>? _shippingMethodToJson(ShippingMethod? method) =>
 // extension
 extension IsInjectedOrder on Order {
   bool get isInjected => metadata["isInjected"] == true;
+}
+
+/// Display / filter date: prefers server [Order.effectiveAt], else scheduled, else created.
+extension OrderEffectiveAt on Order {
+  /// Date used for list ordering, day separators, and date-range client filters.
+  DateTime get displayAt => effectiveAt ?? scheduledAt ?? createdAt;
+
+  /// True when the order has a future schedule (still "waiting" to pop up).
+  bool get isScheduledFuture {
+    final s = scheduledAt;
+    if (s == null) return false;
+    return s.isAfter(DateTime.now());
+  }
+
+  /// True when any schedule is set (past or future).
+  bool get isScheduled => scheduledAt != null;
 }
 
 // extension history

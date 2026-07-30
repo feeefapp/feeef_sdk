@@ -10,6 +10,12 @@ _Order _$OrderFromJson(Map<String, dynamic> json) => _Order(
   id: json['id'] as String,
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: DateTime.parse(json['updatedAt'] as String),
+  scheduledAt: json['scheduledAt'] == null
+      ? null
+      : DateTime.parse(json['scheduledAt'] as String),
+  effectiveAt: json['effectiveAt'] == null
+      ? null
+      : DateTime.parse(json['effectiveAt'] as String),
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
   claims: json['claims'] as Map<String, dynamic>?,
   references:
@@ -69,6 +75,8 @@ Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
   'id': instance.id,
   'createdAt': instance.createdAt.toIso8601String(),
   'updatedAt': instance.updatedAt.toIso8601String(),
+  'scheduledAt': instance.scheduledAt?.toIso8601String(),
+  'effectiveAt': instance.effectiveAt?.toIso8601String(),
   'metadata': instance.metadata,
   'claims': instance.claims,
   'references': instance.references,
@@ -174,6 +182,9 @@ _OrderCreate _$OrderCreateFromJson(Map<String, dynamic> json) => _OrderCreate(
   references: (json['references'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
+  scheduledAt: json['scheduledAt'] == null
+      ? null
+      : DateTime.parse(json['scheduledAt'] as String),
 );
 
 Map<String, dynamic> _$OrderCreateToJson(_OrderCreate instance) =>
@@ -210,6 +221,7 @@ Map<String, dynamic> _$OrderCreateToJson(_OrderCreate instance) =>
       'customFields': instance.customFields,
       'metadata': instance.metadata,
       'references': instance.references,
+      'scheduledAt': instance.scheduledAt?.toIso8601String(),
     };
 
 _OrderUpdate _$OrderUpdateFromJson(Map<String, dynamic> json) => _OrderUpdate(
@@ -255,6 +267,9 @@ _OrderUpdate _$OrderUpdateFromJson(Map<String, dynamic> json) => _OrderUpdate(
   references: (json['references'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
+  scheduledAt: json['scheduledAt'] == null
+      ? null
+      : DateTime.parse(json['scheduledAt'] as String),
 );
 
 Map<String, dynamic> _$OrderUpdateToJson(_OrderUpdate instance) =>
@@ -291,6 +306,7 @@ Map<String, dynamic> _$OrderUpdateToJson(_OrderUpdate instance) =>
       'customFields': instance.customFields,
       'metadata': instance.metadata,
       'references': instance.references,
+      'scheduledAt': instance.scheduledAt?.toIso8601String(),
     };
 
 _OrderHistoryEvent _$OrderHistoryEventFromJson(Map<String, dynamic> json) =>

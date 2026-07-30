@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+
+- **orders**: add optional `scheduledAt` and read-only `effectiveAt` on `Order` / `OrderCreate` / `OrderUpdate`. List clients should prefer `displayAt` (`effectiveAt ?? scheduledAt ?? createdAt`) for sorting, day separators, and date-range filters so scheduled orders appear as if created on their schedule date. Clear a schedule via `OrderUpdate.setToNull: ['scheduledAt']`.
+
 ## 1.0.16
 
 - **actions**: `updateShippingPriceUsingAi` — creates or updates a shipping price configuration using natural language instructions processed by backend AI. Mirrors `updateProductUsingAi`: supports `attachments` (image, url, audio, store, product), `modelId` (catalog text model override), `useSearchGrounding`, and `forceStatus`. Returns a record `(success, mode, shippingPrice, message, error, validationErrors, raw)`. Backend endpoint: `POST /actions/updateShippingPriceUsingAi`.

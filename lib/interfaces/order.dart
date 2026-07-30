@@ -35,6 +35,10 @@ abstract class OrderEntity {
   String? get customStatus;
   DateTime get createdAt;
   DateTime get updatedAt;
+  /// Optional schedule date. When set, list sort/filters use [effectiveAt].
+  DateTime? get scheduledAt;
+  /// Server COALESCE(scheduledAt, createdAt). Falls back to [createdAt] if absent.
+  DateTime? get effectiveAt;
   StoreEntity? get store;
   ShippingMethodEntity? get shippingMethod;
 }

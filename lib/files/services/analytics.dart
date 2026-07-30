@@ -121,6 +121,105 @@ typedef StoreOrdersCountByFieldType = ({
   bool truncated,
 });
 
+/// One product row from the confirmation insights endpoint.
+class ConfirmationProductStat {
+  final String productId;
+  final String name;
+  final String? photo;
+  final int assigned;
+  final int success;
+  final int failed;
+  final int delivered;
+
+  const ConfirmationProductStat({
+    required this.productId,
+    required this.name,
+    this.photo,
+    required this.assigned,
+    required this.success,
+    this.failed = 0,
+    this.delivered = 0,
+  });
+
+  factory ConfirmationProductStat.fromJson(Map<String, dynamic> json) {
+    return ConfirmationProductStat(
+      productId: json['productId'] as String,
+      name: (json['name'] ?? '') as String,
+      photo: json['photo'] as String?,
+      assigned: (json['assigned'] ?? 0) as int,
+      success: (json['success'] ?? 0) as int,
+      failed: (json['failed'] ?? 0) as int,
+      delivered: (json['delivered'] ?? 0) as int,
+    );
+  }
+
+  /// Confirmed share of decided orders for this product (0–100).
+  double get confirmRate {
+    final decided = success + failed;
+    return decided > 0 ? (success / decided) * 100 : 0;
+  }
+}
+
+/// One local-hour activity bucket (assigned vs confirmed volume).
+class ConfirmationHourStat {
+  final int hour;
+  final int assigned;
+  final int success;
+
+  const ConfirmationHourStat({
+    required this.hour,
+    required this.assigned,
+    required this.success,
+  });
+
+  factory ConfirmationHourStat.fromJson(Map<String, dynamic> json) {
+    return ConfirmationHourStat(
+      hour: (json['hour'] ?? 0) as int,
+      assigned: (json['assigned'] ?? 0) as int,
+      success: (json['success'] ?? 0) as int,
+    );
+  }
+}
+
+/// Confirmation-desk insights: top products + hourly activity.
+///
+/// `confirmerTopProducts` maps confirmerId → their top-3 products; empty when
+/// the request was already scoped to one confirmer.
+class ConfirmationInsightsData {
+  final List<ConfirmationProductStat> topProducts;
+  final List<ConfirmationHourStat> hourly;
+  final Map<String, List<ConfirmationProductStat>> confirmerTopProducts;
+
+  const ConfirmationInsightsData({
+    required this.topProducts,
+    required this.hourly,
+    required this.confirmerTopProducts,
+  });
+
+  factory ConfirmationInsightsData.fromJson(Map<String, dynamic> json) {
+    return ConfirmationInsightsData(
+      topProducts: ((json['topProducts'] ?? []) as List)
+          .map((e) =>
+              ConfirmationProductStat.fromJson(Map<String, dynamic>.from(e)))
+          .toList(),
+      hourly: ((json['hourly'] ?? []) as List)
+          .map(
+              (e) => ConfirmationHourStat.fromJson(Map<String, dynamic>.from(e)))
+          .toList(),
+      confirmerTopProducts:
+          ((json['confirmerTopProducts'] ?? {}) as Map).map(
+        (k, v) => MapEntry(
+          k as String,
+          (v as List)
+              .map((e) => ConfirmationProductStat.fromJson(
+                  Map<String, dynamic>.from(e)))
+              .toList(),
+        ),
+      ),
+    );
+  }
+}
+
 /// Analytics service class for handling analytics API calls
 class Analytics {
   final Dio client;
@@ -279,6 +378,41 @@ class Analytics {
       );
     } catch (e) {
       print('Error fetching store orders count by field: $e');
+      rethrow;
+    }
+  }
+
+  /// Get confirmation-desk insights (top products, per-confirmer top products,
+  /// hourly activity) for orders assigned to confirmers.
+  ///
+  /// `tzOffsetMinutes` shifts the hourly histogram into the caller's local
+  /// time (defaults to the device offset).
+  Future<ConfirmationInsightsData> getConfirmationInsights({
+    required String storeId,
+    DateTime? from,
+    DateTime? to,
+    String? confirmerId,
+    int limit = 10,
+    int? tzOffsetMinutes,
+  }) async {
+    try {
+      final response = await client.post(
+        '/actions/analytics/getConfirmationInsights',
+        data: {
+          'storeId': storeId,
+          if (from != null) 'from': from.toIso8601String(),
+          if (to != null) 'to': to.toIso8601String(),
+          if (confirmerId != null) 'confirmerId': confirmerId,
+          'limit': limit,
+          'tzOffsetMinutes':
+              tzOffsetMinutes ?? DateTime.now().timeZoneOffset.inMinutes,
+        },
+      );
+      return ConfirmationInsightsData.fromJson(
+        Map<String, dynamic>.from(response.data),
+      );
+    } catch (e) {
+      print('Error fetching confirmation insights: $e');
       rethrow;
     }
   }

@@ -310,7 +310,7 @@ abstract class EcotrackDeliveryIntegration with _$EcotrackDeliveryIntegration {
     return true;
   }
 
-  /// Prefer Feeef-branded A6 labels over the official Ecotrack étiquette PDF.
+  /// Prefer Feeef-branded labels over the official Ecotrack étiquette PDF.
   ///
   /// Defaults to `false` (carrier PDF). Set [metadata]`['useFeeefLabel']` to `true`
   /// to print Feeef labels from `GET/POST .../ecotrack/.../label(s)`.
@@ -326,6 +326,20 @@ abstract class EcotrackDeliveryIntegration with _$EcotrackDeliveryIntegration {
   bool get useStoreLogoOnLabel {
     final v = metadata['useStoreLogoOnLabel'];
     return v == true;
+  }
+
+  /// Feeef label page size: `a6` (default) or `100x100` (square thermal).
+  ///
+  /// Set [metadata]`['labelSize']` to `100x100` for 100×100 mm stickers.
+  /// Unknown / missing values fall back to `a6`.
+  String get labelSize {
+    final v = metadata['labelSize'];
+    if (v is! String) return 'a6';
+    final code = v.trim().toLowerCase();
+    if (code == '100x100' || code == 'mm100x100' || code == 'square100' || code == 'square') {
+      return '100x100';
+    }
+    return 'a6';
   }
 
   /// Feeef label language override: `ar` | `en` | `fr`.
@@ -476,6 +490,50 @@ abstract class ZrexpressDeliveryIntegration
 
   factory ZrexpressDeliveryIntegration.fromJson(Map<String, dynamic> json) =>
       _$ZrexpressDeliveryIntegrationFromJson(json);
+
+  /// Prefer Feeef-branded labels over the official ZR Express bordereau PDF.
+  ///
+  /// Defaults to `false` (carrier PDF). Set [metadata]`['useFeeefLabel']` to `true`
+  /// to print Feeef labels from `GET/POST .../zrexpress/.../label(s)`.
+  bool get useFeeefLabel {
+    final v = metadata['useFeeefLabel'];
+    return v == true;
+  }
+
+  /// Print the store logo next to the Feeef wordmark on Feeef labels.
+  ///
+  /// Defaults to `false`. Requires [Store.logoUrl] / [Store.iconUrl] to show anything.
+  /// Set [metadata]`['useStoreLogoOnLabel']` to `true`.
+  bool get useStoreLogoOnLabel {
+    final v = metadata['useStoreLogoOnLabel'];
+    return v == true;
+  }
+
+  /// Feeef label page size: `a6` (default, matches ZR bordereau) or `100x100`.
+  ///
+  /// Set [metadata]`['labelSize']` to `100x100` for 100×100 mm stickers.
+  /// Unknown / missing values fall back to `a6`.
+  String get labelSize {
+    final v = metadata['labelSize'];
+    if (v is! String) return 'a6';
+    final code = v.trim().toLowerCase();
+    if (code == '100x100' || code == 'mm100x100' || code == 'square100' || code == 'square') {
+      return '100x100';
+    }
+    return 'a6';
+  }
+
+  /// Feeef label language override: `ar` | `en` | `fr`.
+  ///
+  /// `null` / missing means use the store [StoreConfigs.defaultLanguage]
+  /// (falling back to `fr` on the backend when unsupported).
+  String? get labelLocale {
+    final v = metadata['labelLocale'];
+    if (v is! String) return null;
+    final code = v.trim().toLowerCase();
+    if (code == 'ar' || code == 'en' || code == 'fr') return code;
+    return null;
+  }
 }
 
 /// MDM Express delivery integration (OpenAPI v2 at api.mdm.express).

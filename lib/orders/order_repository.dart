@@ -197,6 +197,77 @@ class OrderRepository extends ModelRepository<Order>
     }
   }
 
+  /// Claims the next order needing confirmation from any of [storeIds].
+  ///
+  /// The server picks a single order, assigns it to the caller, and guarantees
+  /// no two confirmers receive the same one. [ConfirmationClaim.order] is null
+  /// when nothing is due — a normal, non-error state for the confirmation
+  /// screen.
+  ///
+  /// Store ids the caller is not authorized to claim from are dropped rather
+  /// than rejected; compare against [ConfirmationClaim.searchedStoreIds] to
+  /// detect that.
+  Future<ConfirmationClaim> claimNext({required List<String> storeIds}) async {
+    assert(storeIds.isNotEmpty, 'at least one storeId must be provided');
+    try {
+      final response = await client.post(
+        '/orders/confirmation/next',
+        data: {'storeIds': storeIds},
+      );
+      final data = Map<String, dynamic>.from(response.data as Map);
+      final orderJson = data['order'];
+      return ConfirmationClaim(
+        order: orderJson == null ? null : modelFromJson(orderJson),
+        searchedStoreIds: List<String>.from(data['searchedStoreIds'] ?? const []),
+        backlog: Map<String, int>.from(
+          (data['backlog'] as Map? ?? const {}).map(
+            (key, value) => MapEntry(key as String, (value as num).toInt()),
+          ),
+        ),
+      );
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 422) {
+        var errors = FeeefValidationException.fromJson(e.response?.data);
+        throw errors;
+      }
+      rethrow;
+    }
+  }
+
+  /// Returns a claimed order to the confirmation pool so someone else can take
+  /// it. Call this when the confirmer skips an order or leaves the screen.
+  ///
+  /// Pass [skip] to soft-snooze using the store's `skipDeferMinutes`. Optionally
+  /// override with [deferMinutes]. Omit both when merely leaving the screen.
+  ///
+  /// Orders the store's dispatcher assigned automatically are kept; the returned
+  /// value reports whether the release actually happened.
+  Future<bool> releaseConfirmation({
+    required String orderId,
+    required String storeId,
+    bool skip = false,
+    int? deferMinutes,
+  }) async {
+    try {
+      final response = await client.post(
+        '/orders/confirmation/release',
+        data: {
+          'orderId': orderId,
+          'storeId': storeId,
+          if (skip) 'skip': true,
+          if (deferMinutes != null) 'deferMinutes': deferMinutes,
+        },
+      );
+      return (response.data as Map)['released'] == true;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 422) {
+        var errors = FeeefValidationException.fromJson(e.response?.data);
+        throw errors;
+      }
+      rethrow;
+    }
+  }
+
   /// Dispatches selected orders to confirmers using the given strategy.
   Future<Map<String, dynamic>> dispatch({
     required List<String> orderIds,
@@ -249,6 +320,35 @@ class OrderRepository extends ModelRepository<Order>
       rethrow;
     }
   }
+}
+
+/// Result of a confirmation queue claim.
+class ConfirmationClaim {
+  /// The claimed order, or null when no selected store had work due.
+  final Order? order;
+
+  /// Stores the server actually searched, after dropping unauthorized ids and
+  /// stores that have the confirmation queue disabled.
+  final List<String> searchedStoreIds;
+
+  /// Due backlog per searched store, for UI badges.
+  ///
+  /// Approximate by design: the server memoizes these counts for a few seconds
+  /// so a claim never pays for an exact count.
+  final Map<String, int> backlog;
+
+  const ConfirmationClaim({
+    required this.order,
+    required this.searchedStoreIds,
+    required this.backlog,
+  });
+
+  /// Whether the queue had nothing to serve.
+  bool get isEmpty => order == null;
+
+  /// Total due orders across every searched store.
+  int get totalBacklog =>
+      backlog.values.fold<int>(0, (sum, count) => sum + count);
 }
 
 /// Represents the calculated pricing for an order.

@@ -2306,7 +2306,7 @@ as Map<String, StoreIntegrationSubscription>,
 /// @nodoc
 mixin _$StoreConfigs {
 
- List<StoreCurrencyConfig> get currencies; String? get selectedCurrency; List<StoreLanguageConfig> get languages; String? get defaultLanguage; List<StoreCountryConfig> get countries; String? get selectedCountry; List<CustomStatusMapping> get customStatusMappings; bool get customStatusEnabled; InventoryIntegration? get inventory_integration; FinanceIntegration? get finance_integration;
+ List<StoreCurrencyConfig> get currencies; String? get selectedCurrency; List<StoreLanguageConfig> get languages; String? get defaultLanguage; List<StoreCountryConfig> get countries; String? get selectedCountry; List<CustomStatusMapping> get customStatusMappings; bool get customStatusEnabled; ConfirmationQueueConfig? get confirmationQueue; InventoryIntegration? get inventory_integration; FinanceIntegration? get finance_integration;
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2319,16 +2319,16 @@ $StoreConfigsCopyWith<StoreConfigs> get copyWith => _$StoreConfigsCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other.customStatusMappings, customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration)&&(identical(other.finance_integration, finance_integration) || other.finance_integration == finance_integration));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other.customStatusMappings, customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.confirmationQueue, confirmationQueue) || other.confirmationQueue == confirmationQueue)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration)&&(identical(other.finance_integration, finance_integration) || other.finance_integration == finance_integration));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(currencies),selectedCurrency,const DeepCollectionEquality().hash(languages),defaultLanguage,const DeepCollectionEquality().hash(countries),selectedCountry,const DeepCollectionEquality().hash(customStatusMappings),customStatusEnabled,inventory_integration,finance_integration);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(currencies),selectedCurrency,const DeepCollectionEquality().hash(languages),defaultLanguage,const DeepCollectionEquality().hash(countries),selectedCountry,const DeepCollectionEquality().hash(customStatusMappings),customStatusEnabled,confirmationQueue,inventory_integration,finance_integration);
 
 @override
 String toString() {
-  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, inventory_integration: $inventory_integration, finance_integration: $finance_integration)';
+  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, confirmationQueue: $confirmationQueue, inventory_integration: $inventory_integration, finance_integration: $finance_integration)';
 }
 
 
@@ -2339,11 +2339,11 @@ abstract mixin class $StoreConfigsCopyWith<$Res>  {
   factory $StoreConfigsCopyWith(StoreConfigs value, $Res Function(StoreConfigs) _then) = _$StoreConfigsCopyWithImpl;
 @useResult
 $Res call({
- List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration
+ List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, ConfirmationQueueConfig? confirmationQueue, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration
 });
 
 
-$InventoryIntegrationCopyWith<$Res>? get inventory_integration;$FinanceIntegrationCopyWith<$Res>? get finance_integration;
+$ConfirmationQueueConfigCopyWith<$Res>? get confirmationQueue;$InventoryIntegrationCopyWith<$Res>? get inventory_integration;$FinanceIntegrationCopyWith<$Res>? get finance_integration;
 
 }
 /// @nodoc
@@ -2356,7 +2356,7 @@ class _$StoreConfigsCopyWithImpl<$Res>
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? inventory_integration = freezed,Object? finance_integration = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? confirmationQueue = freezed,Object? inventory_integration = freezed,Object? finance_integration = freezed,}) {
   return _then(_self.copyWith(
 currencies: null == currencies ? _self.currencies : currencies // ignore: cast_nullable_to_non_nullable
 as List<StoreCurrencyConfig>,selectedCurrency: freezed == selectedCurrency ? _self.selectedCurrency : selectedCurrency // ignore: cast_nullable_to_non_nullable
@@ -2366,12 +2366,25 @@ as String?,countries: null == countries ? _self.countries : countries // ignore:
 as List<StoreCountryConfig>,selectedCountry: freezed == selectedCountry ? _self.selectedCountry : selectedCountry // ignore: cast_nullable_to_non_nullable
 as String?,customStatusMappings: null == customStatusMappings ? _self.customStatusMappings : customStatusMappings // ignore: cast_nullable_to_non_nullable
 as List<CustomStatusMapping>,customStatusEnabled: null == customStatusEnabled ? _self.customStatusEnabled : customStatusEnabled // ignore: cast_nullable_to_non_nullable
-as bool,inventory_integration: freezed == inventory_integration ? _self.inventory_integration : inventory_integration // ignore: cast_nullable_to_non_nullable
+as bool,confirmationQueue: freezed == confirmationQueue ? _self.confirmationQueue : confirmationQueue // ignore: cast_nullable_to_non_nullable
+as ConfirmationQueueConfig?,inventory_integration: freezed == inventory_integration ? _self.inventory_integration : inventory_integration // ignore: cast_nullable_to_non_nullable
 as InventoryIntegration?,finance_integration: freezed == finance_integration ? _self.finance_integration : finance_integration // ignore: cast_nullable_to_non_nullable
 as FinanceIntegration?,
   ));
 }
 /// Create a copy of StoreConfigs
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ConfirmationQueueConfigCopyWith<$Res>? get confirmationQueue {
+    if (_self.confirmationQueue == null) {
+    return null;
+  }
+
+  return $ConfirmationQueueConfigCopyWith<$Res>(_self.confirmationQueue!, (value) {
+    return _then(_self.copyWith(confirmationQueue: value));
+  });
+}/// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -2477,10 +2490,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreConfigs() when $default != null:
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration,_that.finance_integration);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.confirmationQueue,_that.inventory_integration,_that.finance_integration);case _:
   return orElse();
 
 }
@@ -2498,10 +2511,10 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)  $default,) {final _that = this;
 switch (_that) {
 case _StoreConfigs():
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration,_that.finance_integration);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.confirmationQueue,_that.inventory_integration,_that.finance_integration);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2518,10 +2531,10 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreConfigs() when $default != null:
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.inventory_integration,_that.finance_integration);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.confirmationQueue,_that.inventory_integration,_that.finance_integration);case _:
   return null;
 
 }
@@ -2533,7 +2546,7 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 @JsonSerializable()
 
 class _StoreConfigs implements StoreConfigs {
-  const _StoreConfigs({required final  List<StoreCurrencyConfig> currencies, this.selectedCurrency, final  List<StoreLanguageConfig> languages = const [], this.defaultLanguage, final  List<StoreCountryConfig> countries = const [], this.selectedCountry, final  List<CustomStatusMapping> customStatusMappings = const [], this.customStatusEnabled = false, this.inventory_integration, this.finance_integration}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
+  const _StoreConfigs({required final  List<StoreCurrencyConfig> currencies, this.selectedCurrency, final  List<StoreLanguageConfig> languages = const [], this.defaultLanguage, final  List<StoreCountryConfig> countries = const [], this.selectedCountry, final  List<CustomStatusMapping> customStatusMappings = const [], this.customStatusEnabled = false, this.confirmationQueue, this.inventory_integration, this.finance_integration}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
   factory _StoreConfigs.fromJson(Map<String, dynamic> json) => _$StoreConfigsFromJson(json);
 
  final  List<StoreCurrencyConfig> _currencies;
@@ -2568,6 +2581,7 @@ class _StoreConfigs implements StoreConfigs {
 }
 
 @override@JsonKey() final  bool customStatusEnabled;
+@override final  ConfirmationQueueConfig? confirmationQueue;
 @override final  InventoryIntegration? inventory_integration;
 @override final  FinanceIntegration? finance_integration;
 
@@ -2584,16 +2598,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreConfigs&&const DeepCollectionEquality().equals(other._currencies, _currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other._languages, _languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other._countries, _countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other._customStatusMappings, _customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration)&&(identical(other.finance_integration, finance_integration) || other.finance_integration == finance_integration));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreConfigs&&const DeepCollectionEquality().equals(other._currencies, _currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other._languages, _languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other._countries, _countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other._customStatusMappings, _customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.confirmationQueue, confirmationQueue) || other.confirmationQueue == confirmationQueue)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration)&&(identical(other.finance_integration, finance_integration) || other.finance_integration == finance_integration));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_currencies),selectedCurrency,const DeepCollectionEquality().hash(_languages),defaultLanguage,const DeepCollectionEquality().hash(_countries),selectedCountry,const DeepCollectionEquality().hash(_customStatusMappings),customStatusEnabled,inventory_integration,finance_integration);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_currencies),selectedCurrency,const DeepCollectionEquality().hash(_languages),defaultLanguage,const DeepCollectionEquality().hash(_countries),selectedCountry,const DeepCollectionEquality().hash(_customStatusMappings),customStatusEnabled,confirmationQueue,inventory_integration,finance_integration);
 
 @override
 String toString() {
-  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, inventory_integration: $inventory_integration, finance_integration: $finance_integration)';
+  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, confirmationQueue: $confirmationQueue, inventory_integration: $inventory_integration, finance_integration: $finance_integration)';
 }
 
 
@@ -2604,11 +2618,11 @@ abstract mixin class _$StoreConfigsCopyWith<$Res> implements $StoreConfigsCopyWi
   factory _$StoreConfigsCopyWith(_StoreConfigs value, $Res Function(_StoreConfigs) _then) = __$StoreConfigsCopyWithImpl;
 @override @useResult
 $Res call({
- List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration
+ List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, ConfirmationQueueConfig? confirmationQueue, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration
 });
 
 
-@override $InventoryIntegrationCopyWith<$Res>? get inventory_integration;@override $FinanceIntegrationCopyWith<$Res>? get finance_integration;
+@override $ConfirmationQueueConfigCopyWith<$Res>? get confirmationQueue;@override $InventoryIntegrationCopyWith<$Res>? get inventory_integration;@override $FinanceIntegrationCopyWith<$Res>? get finance_integration;
 
 }
 /// @nodoc
@@ -2621,7 +2635,7 @@ class __$StoreConfigsCopyWithImpl<$Res>
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? inventory_integration = freezed,Object? finance_integration = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? confirmationQueue = freezed,Object? inventory_integration = freezed,Object? finance_integration = freezed,}) {
   return _then(_StoreConfigs(
 currencies: null == currencies ? _self._currencies : currencies // ignore: cast_nullable_to_non_nullable
 as List<StoreCurrencyConfig>,selectedCurrency: freezed == selectedCurrency ? _self.selectedCurrency : selectedCurrency // ignore: cast_nullable_to_non_nullable
@@ -2631,13 +2645,26 @@ as String?,countries: null == countries ? _self._countries : countries // ignore
 as List<StoreCountryConfig>,selectedCountry: freezed == selectedCountry ? _self.selectedCountry : selectedCountry // ignore: cast_nullable_to_non_nullable
 as String?,customStatusMappings: null == customStatusMappings ? _self._customStatusMappings : customStatusMappings // ignore: cast_nullable_to_non_nullable
 as List<CustomStatusMapping>,customStatusEnabled: null == customStatusEnabled ? _self.customStatusEnabled : customStatusEnabled // ignore: cast_nullable_to_non_nullable
-as bool,inventory_integration: freezed == inventory_integration ? _self.inventory_integration : inventory_integration // ignore: cast_nullable_to_non_nullable
+as bool,confirmationQueue: freezed == confirmationQueue ? _self.confirmationQueue : confirmationQueue // ignore: cast_nullable_to_non_nullable
+as ConfirmationQueueConfig?,inventory_integration: freezed == inventory_integration ? _self.inventory_integration : inventory_integration // ignore: cast_nullable_to_non_nullable
 as InventoryIntegration?,finance_integration: freezed == finance_integration ? _self.finance_integration : finance_integration // ignore: cast_nullable_to_non_nullable
 as FinanceIntegration?,
   ));
 }
 
 /// Create a copy of StoreConfigs
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ConfirmationQueueConfigCopyWith<$Res>? get confirmationQueue {
+    if (_self.confirmationQueue == null) {
+    return null;
+  }
+
+  return $ConfirmationQueueConfigCopyWith<$Res>(_self.confirmationQueue!, (value) {
+    return _then(_self.copyWith(confirmationQueue: value));
+  });
+}/// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -3843,6 +3870,292 @@ $FinancePdfSettingsCopyWith<$Res> get pdf {
 
 
 /// @nodoc
+mixin _$ConfirmationQueueConfig {
+
+/// Whether this store participates in the confirmation queue.
+ bool get enabled;/// How long a draft order must age before it becomes eligible for
+/// confirmation, giving the customer time to finish submitting.
+ int get draftDelayMinutes;/// After a confirmer skips, how long before the order is due again
+/// (`scheduled_at` soft-snooze).
+ int get skipDeferMinutes;/// How long after [Order.updatedAt] a recent history order stays
+/// correctable in the confirmation feed.
+ int get historyActionMinutes;
+/// Create a copy of ConfirmationQueueConfig
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ConfirmationQueueConfigCopyWith<ConfirmationQueueConfig> get copyWith => _$ConfirmationQueueConfigCopyWithImpl<ConfirmationQueueConfig>(this as ConfirmationQueueConfig, _$identity);
+
+  /// Serializes this ConfirmationQueueConfig to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConfirmationQueueConfig&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.draftDelayMinutes, draftDelayMinutes) || other.draftDelayMinutes == draftDelayMinutes)&&(identical(other.skipDeferMinutes, skipDeferMinutes) || other.skipDeferMinutes == skipDeferMinutes)&&(identical(other.historyActionMinutes, historyActionMinutes) || other.historyActionMinutes == historyActionMinutes));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,enabled,draftDelayMinutes,skipDeferMinutes,historyActionMinutes);
+
+@override
+String toString() {
+  return 'ConfirmationQueueConfig(enabled: $enabled, draftDelayMinutes: $draftDelayMinutes, skipDeferMinutes: $skipDeferMinutes, historyActionMinutes: $historyActionMinutes)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ConfirmationQueueConfigCopyWith<$Res>  {
+  factory $ConfirmationQueueConfigCopyWith(ConfirmationQueueConfig value, $Res Function(ConfirmationQueueConfig) _then) = _$ConfirmationQueueConfigCopyWithImpl;
+@useResult
+$Res call({
+ bool enabled, int draftDelayMinutes, int skipDeferMinutes, int historyActionMinutes
+});
+
+
+
+
+}
+/// @nodoc
+class _$ConfirmationQueueConfigCopyWithImpl<$Res>
+    implements $ConfirmationQueueConfigCopyWith<$Res> {
+  _$ConfirmationQueueConfigCopyWithImpl(this._self, this._then);
+
+  final ConfirmationQueueConfig _self;
+  final $Res Function(ConfirmationQueueConfig) _then;
+
+/// Create a copy of ConfirmationQueueConfig
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? draftDelayMinutes = null,Object? skipDeferMinutes = null,Object? historyActionMinutes = null,}) {
+  return _then(_self.copyWith(
+enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
+as bool,draftDelayMinutes: null == draftDelayMinutes ? _self.draftDelayMinutes : draftDelayMinutes // ignore: cast_nullable_to_non_nullable
+as int,skipDeferMinutes: null == skipDeferMinutes ? _self.skipDeferMinutes : skipDeferMinutes // ignore: cast_nullable_to_non_nullable
+as int,historyActionMinutes: null == historyActionMinutes ? _self.historyActionMinutes : historyActionMinutes // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ConfirmationQueueConfig].
+extension ConfirmationQueueConfigPatterns on ConfirmationQueueConfig {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ConfirmationQueueConfig value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ConfirmationQueueConfig() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ConfirmationQueueConfig value)  $default,){
+final _that = this;
+switch (_that) {
+case _ConfirmationQueueConfig():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ConfirmationQueueConfig value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ConfirmationQueueConfig() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool enabled,  int draftDelayMinutes,  int skipDeferMinutes,  int historyActionMinutes)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ConfirmationQueueConfig() when $default != null:
+return $default(_that.enabled,_that.draftDelayMinutes,_that.skipDeferMinutes,_that.historyActionMinutes);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool enabled,  int draftDelayMinutes,  int skipDeferMinutes,  int historyActionMinutes)  $default,) {final _that = this;
+switch (_that) {
+case _ConfirmationQueueConfig():
+return $default(_that.enabled,_that.draftDelayMinutes,_that.skipDeferMinutes,_that.historyActionMinutes);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool enabled,  int draftDelayMinutes,  int skipDeferMinutes,  int historyActionMinutes)?  $default,) {final _that = this;
+switch (_that) {
+case _ConfirmationQueueConfig() when $default != null:
+return $default(_that.enabled,_that.draftDelayMinutes,_that.skipDeferMinutes,_that.historyActionMinutes);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ConfirmationQueueConfig implements ConfirmationQueueConfig {
+  const _ConfirmationQueueConfig({this.enabled = true, this.draftDelayMinutes = 15, this.skipDeferMinutes = 15, this.historyActionMinutes = 5});
+  factory _ConfirmationQueueConfig.fromJson(Map<String, dynamic> json) => _$ConfirmationQueueConfigFromJson(json);
+
+/// Whether this store participates in the confirmation queue.
+@override@JsonKey() final  bool enabled;
+/// How long a draft order must age before it becomes eligible for
+/// confirmation, giving the customer time to finish submitting.
+@override@JsonKey() final  int draftDelayMinutes;
+/// After a confirmer skips, how long before the order is due again
+/// (`scheduled_at` soft-snooze).
+@override@JsonKey() final  int skipDeferMinutes;
+/// How long after [Order.updatedAt] a recent history order stays
+/// correctable in the confirmation feed.
+@override@JsonKey() final  int historyActionMinutes;
+
+/// Create a copy of ConfirmationQueueConfig
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ConfirmationQueueConfigCopyWith<_ConfirmationQueueConfig> get copyWith => __$ConfirmationQueueConfigCopyWithImpl<_ConfirmationQueueConfig>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ConfirmationQueueConfigToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConfirmationQueueConfig&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.draftDelayMinutes, draftDelayMinutes) || other.draftDelayMinutes == draftDelayMinutes)&&(identical(other.skipDeferMinutes, skipDeferMinutes) || other.skipDeferMinutes == skipDeferMinutes)&&(identical(other.historyActionMinutes, historyActionMinutes) || other.historyActionMinutes == historyActionMinutes));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,enabled,draftDelayMinutes,skipDeferMinutes,historyActionMinutes);
+
+@override
+String toString() {
+  return 'ConfirmationQueueConfig(enabled: $enabled, draftDelayMinutes: $draftDelayMinutes, skipDeferMinutes: $skipDeferMinutes, historyActionMinutes: $historyActionMinutes)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ConfirmationQueueConfigCopyWith<$Res> implements $ConfirmationQueueConfigCopyWith<$Res> {
+  factory _$ConfirmationQueueConfigCopyWith(_ConfirmationQueueConfig value, $Res Function(_ConfirmationQueueConfig) _then) = __$ConfirmationQueueConfigCopyWithImpl;
+@override @useResult
+$Res call({
+ bool enabled, int draftDelayMinutes, int skipDeferMinutes, int historyActionMinutes
+});
+
+
+
+
+}
+/// @nodoc
+class __$ConfirmationQueueConfigCopyWithImpl<$Res>
+    implements _$ConfirmationQueueConfigCopyWith<$Res> {
+  __$ConfirmationQueueConfigCopyWithImpl(this._self, this._then);
+
+  final _ConfirmationQueueConfig _self;
+  final $Res Function(_ConfirmationQueueConfig) _then;
+
+/// Create a copy of ConfirmationQueueConfig
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? enabled = null,Object? draftDelayMinutes = null,Object? skipDeferMinutes = null,Object? historyActionMinutes = null,}) {
+  return _then(_ConfirmationQueueConfig(
+enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
+as bool,draftDelayMinutes: null == draftDelayMinutes ? _self.draftDelayMinutes : draftDelayMinutes // ignore: cast_nullable_to_non_nullable
+as int,skipDeferMinutes: null == skipDeferMinutes ? _self.skipDeferMinutes : skipDeferMinutes // ignore: cast_nullable_to_non_nullable
+as int,historyActionMinutes: null == historyActionMinutes ? _self.historyActionMinutes : historyActionMinutes // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$CustomStatusMapping {
 
 /// The custom status name (e.g., "not_respond", "phone_closed_1")
@@ -3853,7 +4166,19 @@ mixin _$CustomStatusMapping {
  OrderStatus? get status;/// Delivery status to map to (null means no change)
  DeliveryStatus? get deliveryStatus;/// Payment status to map to (null means no change)
  PaymentStatus? get paymentStatus;/// Other mappings to suggest as the next step (`code` when set, otherwise `name`).
- List<String> get next;
+ List<String> get next;/// Minutes to postpone the order when this status is set.
+///
+/// The order's `scheduledAt` becomes `now + snoozeMinutes`, so it
+/// leaves the confirmation queue and re-enters it once the delay elapses.
+/// For example `not_respond_1` uses `180` to call the customer back in 3h.
+ int? get snoozeMinutes;/// Plain-text reason presets offered to the confirmer when this status is set.
+ List<String> get reasons;/// Whether the confirmer may type a reason that is not in [reasons].
+ bool get allowOtherReason;/// Whether a reason is mandatory.
+///
+/// Prefer [reasonRequired], which also accounts for the implicit rule that
+/// any mapping resolving to [OrderStatus.cancelled] always needs a reason.
+ bool get requiresReason;/// Whether orders carrying this status may be served by the confirmation queue.
+ bool get queueEligible;
 /// Create a copy of CustomStatusMapping
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -3866,16 +4191,16 @@ $CustomStatusMappingCopyWith<CustomStatusMapping> get copyWith => _$CustomStatus
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomStatusMapping&&(identical(other.name, name) || other.name == name)&&(identical(other.code, code) || other.code == code)&&(identical(other.color, color) || other.color == color)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.status, status) || other.status == status)&&(identical(other.deliveryStatus, deliveryStatus) || other.deliveryStatus == deliveryStatus)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&const DeepCollectionEquality().equals(other.next, next));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomStatusMapping&&(identical(other.name, name) || other.name == name)&&(identical(other.code, code) || other.code == code)&&(identical(other.color, color) || other.color == color)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.status, status) || other.status == status)&&(identical(other.deliveryStatus, deliveryStatus) || other.deliveryStatus == deliveryStatus)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&const DeepCollectionEquality().equals(other.next, next)&&(identical(other.snoozeMinutes, snoozeMinutes) || other.snoozeMinutes == snoozeMinutes)&&const DeepCollectionEquality().equals(other.reasons, reasons)&&(identical(other.allowOtherReason, allowOtherReason) || other.allowOtherReason == allowOtherReason)&&(identical(other.requiresReason, requiresReason) || other.requiresReason == requiresReason)&&(identical(other.queueEligible, queueEligible) || other.queueEligible == queueEligible));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,code,color,enabled,status,deliveryStatus,paymentStatus,const DeepCollectionEquality().hash(next));
+int get hashCode => Object.hash(runtimeType,name,code,color,enabled,status,deliveryStatus,paymentStatus,const DeepCollectionEquality().hash(next),snoozeMinutes,const DeepCollectionEquality().hash(reasons),allowOtherReason,requiresReason,queueEligible);
 
 @override
 String toString() {
-  return 'CustomStatusMapping(name: $name, code: $code, color: $color, enabled: $enabled, status: $status, deliveryStatus: $deliveryStatus, paymentStatus: $paymentStatus, next: $next)';
+  return 'CustomStatusMapping(name: $name, code: $code, color: $color, enabled: $enabled, status: $status, deliveryStatus: $deliveryStatus, paymentStatus: $paymentStatus, next: $next, snoozeMinutes: $snoozeMinutes, reasons: $reasons, allowOtherReason: $allowOtherReason, requiresReason: $requiresReason, queueEligible: $queueEligible)';
 }
 
 
@@ -3886,7 +4211,7 @@ abstract mixin class $CustomStatusMappingCopyWith<$Res>  {
   factory $CustomStatusMappingCopyWith(CustomStatusMapping value, $Res Function(CustomStatusMapping) _then) = _$CustomStatusMappingCopyWithImpl;
 @useResult
 $Res call({
- String name, String? code, int? color, bool enabled, OrderStatus? status, DeliveryStatus? deliveryStatus, PaymentStatus? paymentStatus, List<String> next
+ String name, String? code, int? color, bool enabled, OrderStatus? status, DeliveryStatus? deliveryStatus, PaymentStatus? paymentStatus, List<String> next, int? snoozeMinutes, List<String> reasons, bool allowOtherReason, bool requiresReason, bool queueEligible
 });
 
 
@@ -3903,7 +4228,7 @@ class _$CustomStatusMappingCopyWithImpl<$Res>
 
 /// Create a copy of CustomStatusMapping
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? code = freezed,Object? color = freezed,Object? enabled = null,Object? status = freezed,Object? deliveryStatus = freezed,Object? paymentStatus = freezed,Object? next = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? code = freezed,Object? color = freezed,Object? enabled = null,Object? status = freezed,Object? deliveryStatus = freezed,Object? paymentStatus = freezed,Object? next = null,Object? snoozeMinutes = freezed,Object? reasons = null,Object? allowOtherReason = null,Object? requiresReason = null,Object? queueEligible = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
@@ -3913,7 +4238,12 @@ as bool,status: freezed == status ? _self.status : status // ignore: cast_nullab
 as OrderStatus?,deliveryStatus: freezed == deliveryStatus ? _self.deliveryStatus : deliveryStatus // ignore: cast_nullable_to_non_nullable
 as DeliveryStatus?,paymentStatus: freezed == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
 as PaymentStatus?,next: null == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as List<String>,snoozeMinutes: freezed == snoozeMinutes ? _self.snoozeMinutes : snoozeMinutes // ignore: cast_nullable_to_non_nullable
+as int?,reasons: null == reasons ? _self.reasons : reasons // ignore: cast_nullable_to_non_nullable
+as List<String>,allowOtherReason: null == allowOtherReason ? _self.allowOtherReason : allowOtherReason // ignore: cast_nullable_to_non_nullable
+as bool,requiresReason: null == requiresReason ? _self.requiresReason : requiresReason // ignore: cast_nullable_to_non_nullable
+as bool,queueEligible: null == queueEligible ? _self.queueEligible : queueEligible // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -3998,10 +4328,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String? code,  int? color,  bool enabled,  OrderStatus? status,  DeliveryStatus? deliveryStatus,  PaymentStatus? paymentStatus,  List<String> next)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String? code,  int? color,  bool enabled,  OrderStatus? status,  DeliveryStatus? deliveryStatus,  PaymentStatus? paymentStatus,  List<String> next,  int? snoozeMinutes,  List<String> reasons,  bool allowOtherReason,  bool requiresReason,  bool queueEligible)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CustomStatusMapping() when $default != null:
-return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_that.deliveryStatus,_that.paymentStatus,_that.next);case _:
+return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_that.deliveryStatus,_that.paymentStatus,_that.next,_that.snoozeMinutes,_that.reasons,_that.allowOtherReason,_that.requiresReason,_that.queueEligible);case _:
   return orElse();
 
 }
@@ -4019,10 +4349,10 @@ return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String? code,  int? color,  bool enabled,  OrderStatus? status,  DeliveryStatus? deliveryStatus,  PaymentStatus? paymentStatus,  List<String> next)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String? code,  int? color,  bool enabled,  OrderStatus? status,  DeliveryStatus? deliveryStatus,  PaymentStatus? paymentStatus,  List<String> next,  int? snoozeMinutes,  List<String> reasons,  bool allowOtherReason,  bool requiresReason,  bool queueEligible)  $default,) {final _that = this;
 switch (_that) {
 case _CustomStatusMapping():
-return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_that.deliveryStatus,_that.paymentStatus,_that.next);case _:
+return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_that.deliveryStatus,_that.paymentStatus,_that.next,_that.snoozeMinutes,_that.reasons,_that.allowOtherReason,_that.requiresReason,_that.queueEligible);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -4039,10 +4369,10 @@ return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String? code,  int? color,  bool enabled,  OrderStatus? status,  DeliveryStatus? deliveryStatus,  PaymentStatus? paymentStatus,  List<String> next)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String? code,  int? color,  bool enabled,  OrderStatus? status,  DeliveryStatus? deliveryStatus,  PaymentStatus? paymentStatus,  List<String> next,  int? snoozeMinutes,  List<String> reasons,  bool allowOtherReason,  bool requiresReason,  bool queueEligible)?  $default,) {final _that = this;
 switch (_that) {
 case _CustomStatusMapping() when $default != null:
-return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_that.deliveryStatus,_that.paymentStatus,_that.next);case _:
+return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_that.deliveryStatus,_that.paymentStatus,_that.next,_that.snoozeMinutes,_that.reasons,_that.allowOtherReason,_that.requiresReason,_that.queueEligible);case _:
   return null;
 
 }
@@ -4054,7 +4384,7 @@ return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_th
 @JsonSerializable()
 
 class _CustomStatusMapping implements CustomStatusMapping {
-  const _CustomStatusMapping({required this.name, this.code, this.color, this.enabled = true, this.status, this.deliveryStatus, this.paymentStatus, final  List<String> next = const []}): _next = next;
+  const _CustomStatusMapping({required this.name, this.code, this.color, this.enabled = true, this.status, this.deliveryStatus, this.paymentStatus, final  List<String> next = const [], this.snoozeMinutes, final  List<String> reasons = const [], this.allowOtherReason = true, this.requiresReason = false, this.queueEligible = true}): _next = next,_reasons = reasons;
   factory _CustomStatusMapping.fromJson(Map<String, dynamic> json) => _$CustomStatusMappingFromJson(json);
 
 /// The custom status name (e.g., "not_respond", "phone_closed_1")
@@ -4080,6 +4410,30 @@ class _CustomStatusMapping implements CustomStatusMapping {
   return EqualUnmodifiableListView(_next);
 }
 
+/// Minutes to postpone the order when this status is set.
+///
+/// The order's `scheduledAt` becomes `now + snoozeMinutes`, so it
+/// leaves the confirmation queue and re-enters it once the delay elapses.
+/// For example `not_respond_1` uses `180` to call the customer back in 3h.
+@override final  int? snoozeMinutes;
+/// Plain-text reason presets offered to the confirmer when this status is set.
+ final  List<String> _reasons;
+/// Plain-text reason presets offered to the confirmer when this status is set.
+@override@JsonKey() List<String> get reasons {
+  if (_reasons is EqualUnmodifiableListView) return _reasons;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_reasons);
+}
+
+/// Whether the confirmer may type a reason that is not in [reasons].
+@override@JsonKey() final  bool allowOtherReason;
+/// Whether a reason is mandatory.
+///
+/// Prefer [reasonRequired], which also accounts for the implicit rule that
+/// any mapping resolving to [OrderStatus.cancelled] always needs a reason.
+@override@JsonKey() final  bool requiresReason;
+/// Whether orders carrying this status may be served by the confirmation queue.
+@override@JsonKey() final  bool queueEligible;
 
 /// Create a copy of CustomStatusMapping
 /// with the given fields replaced by the non-null parameter values.
@@ -4094,16 +4448,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomStatusMapping&&(identical(other.name, name) || other.name == name)&&(identical(other.code, code) || other.code == code)&&(identical(other.color, color) || other.color == color)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.status, status) || other.status == status)&&(identical(other.deliveryStatus, deliveryStatus) || other.deliveryStatus == deliveryStatus)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&const DeepCollectionEquality().equals(other._next, _next));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomStatusMapping&&(identical(other.name, name) || other.name == name)&&(identical(other.code, code) || other.code == code)&&(identical(other.color, color) || other.color == color)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.status, status) || other.status == status)&&(identical(other.deliveryStatus, deliveryStatus) || other.deliveryStatus == deliveryStatus)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&const DeepCollectionEquality().equals(other._next, _next)&&(identical(other.snoozeMinutes, snoozeMinutes) || other.snoozeMinutes == snoozeMinutes)&&const DeepCollectionEquality().equals(other._reasons, _reasons)&&(identical(other.allowOtherReason, allowOtherReason) || other.allowOtherReason == allowOtherReason)&&(identical(other.requiresReason, requiresReason) || other.requiresReason == requiresReason)&&(identical(other.queueEligible, queueEligible) || other.queueEligible == queueEligible));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,code,color,enabled,status,deliveryStatus,paymentStatus,const DeepCollectionEquality().hash(_next));
+int get hashCode => Object.hash(runtimeType,name,code,color,enabled,status,deliveryStatus,paymentStatus,const DeepCollectionEquality().hash(_next),snoozeMinutes,const DeepCollectionEquality().hash(_reasons),allowOtherReason,requiresReason,queueEligible);
 
 @override
 String toString() {
-  return 'CustomStatusMapping(name: $name, code: $code, color: $color, enabled: $enabled, status: $status, deliveryStatus: $deliveryStatus, paymentStatus: $paymentStatus, next: $next)';
+  return 'CustomStatusMapping(name: $name, code: $code, color: $color, enabled: $enabled, status: $status, deliveryStatus: $deliveryStatus, paymentStatus: $paymentStatus, next: $next, snoozeMinutes: $snoozeMinutes, reasons: $reasons, allowOtherReason: $allowOtherReason, requiresReason: $requiresReason, queueEligible: $queueEligible)';
 }
 
 
@@ -4114,7 +4468,7 @@ abstract mixin class _$CustomStatusMappingCopyWith<$Res> implements $CustomStatu
   factory _$CustomStatusMappingCopyWith(_CustomStatusMapping value, $Res Function(_CustomStatusMapping) _then) = __$CustomStatusMappingCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String? code, int? color, bool enabled, OrderStatus? status, DeliveryStatus? deliveryStatus, PaymentStatus? paymentStatus, List<String> next
+ String name, String? code, int? color, bool enabled, OrderStatus? status, DeliveryStatus? deliveryStatus, PaymentStatus? paymentStatus, List<String> next, int? snoozeMinutes, List<String> reasons, bool allowOtherReason, bool requiresReason, bool queueEligible
 });
 
 
@@ -4131,7 +4485,7 @@ class __$CustomStatusMappingCopyWithImpl<$Res>
 
 /// Create a copy of CustomStatusMapping
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? code = freezed,Object? color = freezed,Object? enabled = null,Object? status = freezed,Object? deliveryStatus = freezed,Object? paymentStatus = freezed,Object? next = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? code = freezed,Object? color = freezed,Object? enabled = null,Object? status = freezed,Object? deliveryStatus = freezed,Object? paymentStatus = freezed,Object? next = null,Object? snoozeMinutes = freezed,Object? reasons = null,Object? allowOtherReason = null,Object? requiresReason = null,Object? queueEligible = null,}) {
   return _then(_CustomStatusMapping(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
@@ -4141,7 +4495,12 @@ as bool,status: freezed == status ? _self.status : status // ignore: cast_nullab
 as OrderStatus?,deliveryStatus: freezed == deliveryStatus ? _self.deliveryStatus : deliveryStatus // ignore: cast_nullable_to_non_nullable
 as DeliveryStatus?,paymentStatus: freezed == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
 as PaymentStatus?,next: null == next ? _self._next : next // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as List<String>,snoozeMinutes: freezed == snoozeMinutes ? _self.snoozeMinutes : snoozeMinutes // ignore: cast_nullable_to_non_nullable
+as int?,reasons: null == reasons ? _self._reasons : reasons // ignore: cast_nullable_to_non_nullable
+as List<String>,allowOtherReason: null == allowOtherReason ? _self.allowOtherReason : allowOtherReason // ignore: cast_nullable_to_non_nullable
+as bool,requiresReason: null == requiresReason ? _self.requiresReason : requiresReason // ignore: cast_nullable_to_non_nullable
+as bool,queueEligible: null == queueEligible ? _self.queueEligible : queueEligible // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

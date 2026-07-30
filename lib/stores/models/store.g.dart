@@ -390,6 +390,11 @@ _StoreConfigs _$StoreConfigsFromJson(
           .toList() ??
       const [],
   customStatusEnabled: json['customStatusEnabled'] as bool? ?? false,
+  confirmationQueue: json['confirmationQueue'] == null
+      ? null
+      : ConfirmationQueueConfig.fromJson(
+          json['confirmationQueue'] as Map<String, dynamic>,
+        ),
   inventory_integration: json['inventory_integration'] == null
       ? null
       : InventoryIntegration.fromJson(
@@ -412,6 +417,7 @@ Map<String, dynamic> _$StoreConfigsToJson(_StoreConfigs instance) =>
       'selectedCountry': instance.selectedCountry,
       'customStatusMappings': instance.customStatusMappings,
       'customStatusEnabled': instance.customStatusEnabled,
+      'confirmationQueue': instance.confirmationQueue,
       'inventory_integration': instance.inventory_integration,
       'finance_integration': instance.finance_integration,
     };
@@ -589,6 +595,24 @@ Map<String, dynamic> _$FinanceIntegrationToJson(_FinanceIntegration instance) =>
       'activated_at': instance.activated_at,
     };
 
+_ConfirmationQueueConfig _$ConfirmationQueueConfigFromJson(
+  Map<String, dynamic> json,
+) => _ConfirmationQueueConfig(
+  enabled: json['enabled'] as bool? ?? true,
+  draftDelayMinutes: (json['draftDelayMinutes'] as num?)?.toInt() ?? 15,
+  skipDeferMinutes: (json['skipDeferMinutes'] as num?)?.toInt() ?? 15,
+  historyActionMinutes: (json['historyActionMinutes'] as num?)?.toInt() ?? 5,
+);
+
+Map<String, dynamic> _$ConfirmationQueueConfigToJson(
+  _ConfirmationQueueConfig instance,
+) => <String, dynamic>{
+  'enabled': instance.enabled,
+  'draftDelayMinutes': instance.draftDelayMinutes,
+  'skipDeferMinutes': instance.skipDeferMinutes,
+  'historyActionMinutes': instance.historyActionMinutes,
+};
+
 _CustomStatusMapping _$CustomStatusMappingFromJson(Map<String, dynamic> json) =>
     _CustomStatusMapping(
       name: json['name'] as String,
@@ -607,6 +631,15 @@ _CustomStatusMapping _$CustomStatusMappingFromJson(Map<String, dynamic> json) =>
       next:
           (json['next'] as List<dynamic>?)?.map((e) => e as String).toList() ??
           const [],
+      snoozeMinutes: (json['snoozeMinutes'] as num?)?.toInt(),
+      reasons:
+          (json['reasons'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      allowOtherReason: json['allowOtherReason'] as bool? ?? true,
+      requiresReason: json['requiresReason'] as bool? ?? false,
+      queueEligible: json['queueEligible'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$CustomStatusMappingToJson(
@@ -620,6 +653,11 @@ Map<String, dynamic> _$CustomStatusMappingToJson(
   'deliveryStatus': _$DeliveryStatusEnumMap[instance.deliveryStatus],
   'paymentStatus': _$PaymentStatusEnumMap[instance.paymentStatus],
   'next': instance.next,
+  'snoozeMinutes': instance.snoozeMinutes,
+  'reasons': instance.reasons,
+  'allowOtherReason': instance.allowOtherReason,
+  'requiresReason': instance.requiresReason,
+  'queueEligible': instance.queueEligible,
 };
 
 const _$DeliveryStatusEnumMap = {

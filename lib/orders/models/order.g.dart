@@ -64,6 +64,7 @@ _Order _$OrderFromJson(Map<String, dynamic> json) => _Order(
       $enumDecodeNullable(_$DeliveryStatusEnumMap, json['deliveryStatus']) ??
       DeliveryStatus.pending,
   customStatus: json['customStatus'] as String?,
+  cancelReason: json['cancelReason'] as String?,
   customFields: json['customFields'] as Map<String, dynamic>? ?? const {},
   store: _storeFromJson(json['store'] as Map<String, dynamic>?),
   shippingMethod: _shippingMethodFromJson(
@@ -111,6 +112,7 @@ Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
   'paymentStatus': _$PaymentStatusEnumMap[instance.paymentStatus]!,
   'deliveryStatus': _$DeliveryStatusEnumMap[instance.deliveryStatus]!,
   'customStatus': instance.customStatus,
+  'cancelReason': instance.cancelReason,
   'customFields': instance.customFields,
   'store': _storeToJson(instance.store),
   'shippingMethod': _shippingMethodToJson(instance.shippingMethod),
@@ -262,6 +264,7 @@ _OrderUpdate _$OrderUpdateFromJson(Map<String, dynamic> json) => _OrderUpdate(
     json['deliveryStatus'],
   ),
   customStatus: json['customStatus'] as String?,
+  cancelReason: json['cancelReason'] as String?,
   customFields: json['customFields'] as Map<String, dynamic>?,
   metadata: json['metadata'] as Map<String, dynamic>?,
   references: (json['references'] as List<dynamic>?)
@@ -303,6 +306,7 @@ Map<String, dynamic> _$OrderUpdateToJson(_OrderUpdate instance) =>
       'paymentStatus': _$PaymentStatusEnumMap[instance.paymentStatus],
       'deliveryStatus': _$DeliveryStatusEnumMap[instance.deliveryStatus],
       'customStatus': instance.customStatus,
+      'cancelReason': instance.cancelReason,
       'customFields': instance.customFields,
       'metadata': instance.metadata,
       'references': instance.references,

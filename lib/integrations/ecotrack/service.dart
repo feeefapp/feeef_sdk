@@ -343,6 +343,8 @@ class EcotrackDeliveryService
   ///
   /// POST `/stores/:storeId/integrations/ecotrack/orders/deleteMany` with
   /// `{ trackings: string[] }`. Response: `{ results: [...], summary: { total, succeeded, failed } }`.
+  ///
+  /// Backend fans out carrier deletes in parallel — prefer this over N× [detach] HTTP round-trips.
   Future<Map<String, dynamic>> deleteManyOrders(List<String> trackings) async {
     final trimmed = trackings.map((t) => t.trim()).where((t) => t.isNotEmpty).toList();
     if (trimmed.isEmpty) {
@@ -362,6 +364,73 @@ class EcotrackDeliveryService
       data: {'trackings': trimmed},
     );
     return Map<String, dynamic>.from(response.data as Map);
+  }
+
+  /// Bulk cancel-link: one parallel Ecotrack deleteMany, then clear Feeef metadata per order.
+  ///
+  /// - Orders with tracking → included in `deleteMany` (carrier + server metadata clear).
+  /// - All orders → local [DeliveryService.detach] history + UI sync (bounded parallel PATCHes).
+  /// - Carrier failures are best-effort: local metadata is still cleared (same as single [detach]).
+  ///
+  /// Returns `{succeeded: int, failed: int, carrierSummary: Map?}`.
+  Future<Map<String, dynamic>> detachMany({required List<Order> orders}) async {
+    if (orders.isEmpty) {
+      return {'succeeded': 0, 'failed': 0, 'carrierSummary': null};
+    }
+
+    final trackings = <String>[];
+    final seen = <String>{};
+    for (final order in orders) {
+      final t = order.ecotrackTrackingId?.trim();
+      if (t != null && t.isNotEmpty && seen.add(t)) {
+        trackings.add(t);
+      }
+    }
+
+    Map<String, dynamic>? carrierSummary;
+    if (trackings.isNotEmpty) {
+      try {
+        final payload = await deleteManyOrders(trackings);
+        carrierSummary = payload['summary'] is Map
+            ? Map<String, dynamic>.from(payload['summary'] as Map)
+            : null;
+      } catch (e) {
+        // Match single [detach]: carrier errors must not block Feeef unlink.
+        print('Error bulk-deleting parcels from Ecotrack: $e');
+      }
+    }
+
+    // Parallel local metadata clears (history + list UI). Bound concurrency.
+    const concurrency = 8;
+    var succeeded = 0;
+    var failed = 0;
+    var next = 0;
+    Future<void> worker() async {
+      while (true) {
+        final i = next++;
+        if (i >= orders.length) break;
+        try {
+          // Skip carrier DELETE — already handled by deleteMany (or no tracking).
+          await super.detach(order: orders[i]);
+          succeeded++;
+        } catch (_) {
+          failed++;
+        }
+      }
+    }
+
+    await Future.wait(
+      List.generate(
+        orders.length < concurrency ? orders.length : concurrency,
+        (_) => worker(),
+      ),
+    );
+
+    return {
+      'succeeded': succeeded,
+      'failed': failed,
+      'carrierSummary': carrierSummary,
+    };
   }
 
   // Expedier la commande

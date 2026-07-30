@@ -64,6 +64,9 @@ abstract class Order extends OrderEntity
     @Default(PaymentStatus.unpaid) PaymentStatus paymentStatus,
     @Default(DeliveryStatus.pending) DeliveryStatus deliveryStatus,
     String? customStatus,
+
+    /// Why the order was lost, recorded when it moves to a cancelling status.
+    String? cancelReason,
     @Default({}) Map<String, dynamic>? customFields,
     @JsonKey(fromJson: _storeFromJson, toJson: _storeToJson) Store? store,
     @JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson)
@@ -166,6 +169,11 @@ abstract class OrderUpdate with _$OrderUpdate implements ModelUpdate {
     PaymentStatus? paymentStatus,
     DeliveryStatus? deliveryStatus,
     String? customStatus,
+
+    /// Why the order was lost. Required by the server when the resulting status
+    /// is [OrderStatus.cancelled]; a 422 with field `cancelReason` is returned
+    /// when it is missing.
+    String? cancelReason,
     Map<String, dynamic>? customFields,
     // metadata
     Map<String, dynamic>? metadata,

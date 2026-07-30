@@ -493,6 +493,7 @@ abstract class StoreConfigs with _$StoreConfigs {
     String? selectedCountry,
     @Default([]) List<CustomStatusMapping> customStatusMappings,
     @Default(false) bool customStatusEnabled,
+    ConfirmationQueueConfig? confirmationQueue,
     InventoryIntegration? inventory_integration,
     FinanceIntegration? finance_integration,
   }) = _StoreConfigs;
@@ -596,6 +597,34 @@ abstract class FinanceIntegration with _$FinanceIntegration {
 }
 
 ///
+/// ConfirmationQueueConfig
+///
+/// Store-level settings for the confirmation queue, which serves confirmers one
+/// eligible order at a time.
+@freezed
+abstract class ConfirmationQueueConfig with _$ConfirmationQueueConfig {
+  const factory ConfirmationQueueConfig({
+    /// Whether this store participates in the confirmation queue.
+    @Default(true) bool enabled,
+
+    /// How long a draft order must age before it becomes eligible for
+    /// confirmation, giving the customer time to finish submitting.
+    @Default(15) int draftDelayMinutes,
+
+    /// After a confirmer skips, how long before the order is due again
+    /// (`scheduled_at` soft-snooze).
+    @Default(15) int skipDeferMinutes,
+
+    /// How long after [Order.updatedAt] a recent history order stays
+    /// correctable in the confirmation feed.
+    @Default(5) int historyActionMinutes,
+  }) = _ConfirmationQueueConfig;
+
+  factory ConfirmationQueueConfig.fromJson(Map<String, dynamic> json) =>
+      _$ConfirmationQueueConfigFromJson(json);
+}
+
+///
 /// CustomStatusMapping
 ///
 @freezed
@@ -624,10 +653,50 @@ abstract class CustomStatusMapping with _$CustomStatusMapping {
 
     /// Other mappings to suggest as the next step (`code` when set, otherwise `name`).
     @Default([]) List<String> next,
+
+    /// Minutes to postpone the order when this status is set.
+    ///
+    /// The order's `scheduledAt` becomes `now + snoozeMinutes`, so it
+    /// leaves the confirmation queue and re-enters it once the delay elapses.
+    /// For example `not_respond_1` uses `180` to call the customer back in 3h.
+    int? snoozeMinutes,
+
+    /// Plain-text reason presets offered to the confirmer when this status is set.
+    @Default([]) List<String> reasons,
+
+    /// Whether the confirmer may type a reason that is not in [reasons].
+    @Default(true) bool allowOtherReason,
+
+    /// Whether a reason is mandatory.
+    ///
+    /// Prefer [reasonRequired], which also accounts for the implicit rule that
+    /// any mapping resolving to [OrderStatus.cancelled] always needs a reason.
+    @Default(false) bool requiresReason,
+
+    /// Whether orders carrying this status may be served by the confirmation queue.
+    @Default(true) bool queueEligible,
   }) = _CustomStatusMapping;
 
   factory CustomStatusMapping.fromJson(Map<String, dynamic> json) =>
       _$CustomStatusMappingFromJson(json);
+}
+
+/// Reason-requirement and identity helpers for [CustomStatusMapping].
+extension CustomStatusMappingX on CustomStatusMapping {
+  /// The stable identifier used by [CustomStatusMapping.next] and by an
+  /// order's `customStatus`: the `code` when set, otherwise the `name`.
+  String get key => (code == null || code!.isEmpty) ? name : code!;
+
+  /// Whether the confirmer must supply a reason before this status can be set.
+  ///
+  /// Cancellation always requires a reason regardless of
+  /// [CustomStatusMapping.requiresReason], because a lost order without a
+  /// recorded cause is not actionable for the merchant.
+  bool get reasonRequired =>
+      requiresReason || status == OrderStatus.cancelled;
+
+  /// Whether setting this status should postpone the order.
+  bool get snoozes => (snoozeMinutes ?? 0) > 0;
 }
 
 ///

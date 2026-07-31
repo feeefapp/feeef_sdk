@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+import 'package:feeef/core/batch_models.dart';
 import 'package:feeef/core/list_response.dart';
 import 'package:feeef/core/model_repository.dart';
 import 'package:feeef/core/validation/validation_exception.dart';
@@ -36,6 +37,52 @@ class OrderRepository extends ModelRepository<Order>
 
   @override
   Map<String, dynamic> updateToJson(OrderUpdate model) => model.toJson();
+
+  /// AIP-style batch update (`POST /orders:batchUpdate`).
+  ///
+  /// Applies the same [updateMask] + [fields] patch to every id in [names].
+  /// Partial success is allowed — always inspect [BatchResult.failedRequests].
+  ///
+  /// Supported mask fields: `status`, `customStatus`, `cancelReason`,
+  /// `deliveryStatus`, `paymentStatus`, `internalNote`.
+  @override
+  Future<BatchResult<Order>> updateMany({
+    required BatchUpdateManyRequest request,
+  }) {
+    // Orders use storeId as the parent scope (inventory uses projectId).
+    final body = <String, dynamic>{
+      'storeId': request.projectId,
+      'names': request.names,
+      'updateMask': request.updateMask,
+      ...request.fields,
+      'returnPartialSuccess': request.returnPartialSuccess,
+      if (request.requestId != null) 'requestId': request.requestId,
+    };
+    return postBatchAction<Order>(
+      action: 'batchUpdate',
+      body: body,
+      resourceFromJson: modelFromJson,
+    );
+  }
+
+  /// Convenience wrapper: batch-update orders in [storeId] with a shared patch.
+  Future<BatchResult<Order>> updateManyInStore({
+    required String storeId,
+    required List<String> orderIds,
+    required List<String> updateMask,
+    Map<String, dynamic> fields = const {},
+    bool returnPartialSuccess = true,
+  }) {
+    return updateMany(
+      request: BatchUpdateManyRequest(
+        projectId: storeId,
+        names: orderIds,
+        updateMask: updateMask,
+        fields: fields,
+        returnPartialSuccess: returnPartialSuccess,
+      ),
+    );
+  }
 
   @override
   Future<ListResponse<Order>> list({

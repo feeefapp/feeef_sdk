@@ -196,7 +196,8 @@ class StoreRepository extends ModelRepository<Store>
         data: {
           if (name != null) 'name': name,
           if (role != null) 'role': role.name,
-          if (metadata != {}) 'metadata': metadata,
+          // Use isNotEmpty — `metadata != {}` is unreliable across Map instances.
+          if (metadata != null && metadata.isNotEmpty) 'metadata': metadata,
           if (scopes != null) 'scopes': scopes,
         },
       );

@@ -68,6 +68,7 @@ export 'store_templates/store_template.dart';
 export 'store_templates/store_template_repository.dart';
 export 'promos/promo_repository.dart';
 export 'interfaces/embadded/member_scope.dart';
+export 'interfaces/embadded/confermer_workspace.dart';
 export 'stores/store_repository.dart';
 export 'stores/store_invites_repository.dart';
 export 'users/user_repository.dart';

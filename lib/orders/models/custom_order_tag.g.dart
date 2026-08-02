@@ -26,7 +26,11 @@ _CustomOrderTagHistory _$CustomOrderTagHistoryFromJson(
   Map<String, dynamic> json,
 ) => _CustomOrderTagHistory(
   userId: json['userId'] as String?,
-  tag: CustomOrderTag.fromJson(json['tag'] as Map<String, dynamic>),
+  tag: CustomOrderTag.fromJson(
+    json['tag'] is CustomOrderTag
+        ? (json['tag'] as CustomOrderTag).toJson()
+        : Map<String, dynamic>.from(json['tag'] as Map),
+  ),
   note: json['note'] as String?,
   createdAt: DateTime.parse(json['createdAt'] as String),
 );
@@ -35,7 +39,7 @@ Map<String, dynamic> _$CustomOrderTagHistoryToJson(
   _CustomOrderTagHistory instance,
 ) => <String, dynamic>{
   'userId': instance.userId,
-  'tag': instance.tag,
+  'tag': instance.tag.toJson(),
   'note': instance.note,
   'createdAt': instance.createdAt.toIso8601String(),
 };

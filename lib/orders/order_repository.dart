@@ -254,12 +254,18 @@ class OrderRepository extends ModelRepository<Order>
   /// Store ids the caller is not authorized to claim from are dropped rather
   /// than rejected; compare against [ConfirmationClaim.searchedStoreIds] to
   /// detect that.
-  Future<ConfirmationClaim> claimNext({required List<String> storeIds}) async {
+  Future<ConfirmationClaim> claimNext({
+    required List<String> storeIds,
+    List<String> excludeOrderIds = const [],
+  }) async {
     assert(storeIds.isNotEmpty, 'at least one storeId must be provided');
     try {
       final response = await client.post(
         '/orders/confirmation/next',
-        data: {'storeIds': storeIds},
+        data: {
+          'storeIds': storeIds,
+          if (excludeOrderIds.isNotEmpty) 'excludeOrderIds': excludeOrderIds,
+        },
       );
       final data = Map<String, dynamic>.from(response.data as Map);
       final orderJson = data['order'];

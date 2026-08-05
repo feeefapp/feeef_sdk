@@ -490,8 +490,8 @@ return $default(_that.userId,_that.tag,_that.note,_that.createdAt);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
 
+@JsonSerializable(explicitToJson: true)
 class _CustomOrderTagHistory implements CustomOrderTagHistory {
    _CustomOrderTagHistory({this.userId, required this.tag, this.note, required this.createdAt});
   factory _CustomOrderTagHistory.fromJson(Map<String, dynamic> json) => _$CustomOrderTagHistoryFromJson(json);

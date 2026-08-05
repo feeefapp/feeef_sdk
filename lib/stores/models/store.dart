@@ -34,6 +34,46 @@ StoreTemplate? _storeTemplateFromJson(Object? o) {
 
 Object? _storeTemplateToJson(StoreTemplate? v) => v?.toJson();
 
+/// Shared deep equality for small nested collections (categories, contacts, …).
+const _storeDeepEq = DeepCollectionEquality();
+
+/// Metadata key holding the full Lithium template document (pages / JSX code).
+///
+/// Often multi‑MB. Freezed's default [DeepCollectionEquality] on [Store.metadata]
+/// walks every leaf on every `==` / `hashCode` — catastrophic for Bloc
+/// `buildWhen`, `context.select`, and state hashing. Compare this key by
+/// [identical] only (never deep-equal / deep-hash the tree).
+const kStoreMetadataTemplateDataKey = 'templateData';
+
+/// Cheap [Store.metadata] equality: deep-compare small keys; [templateData] by
+/// identity only.
+bool storeMetadataEquals(Map<String, dynamic> a, Map<String, dynamic> b) {
+  if (identical(a, b)) return true;
+  if (a.length != b.length) return false;
+  for (final entry in a.entries) {
+    if (!b.containsKey(entry.key)) return false;
+    final other = b[entry.key];
+    if (entry.key == kStoreMetadataTemplateDataKey) {
+      if (!identical(entry.value, other)) return false;
+      continue;
+    }
+    if (!_storeDeepEq.equals(entry.value, other)) return false;
+  }
+  return true;
+}
+
+/// Hash for [Store.metadata] that never deep-hashes [templateData].
+int storeMetadataHash(Map<String, dynamic> metadata) {
+  var hash = metadata.length;
+  for (final entry in metadata.entries) {
+    final valueHash = entry.key == kStoreMetadataTemplateDataKey
+        ? identityHashCode(entry.value)
+        : _storeDeepEq.hash(entry.value);
+    hash = Object.hash(hash, entry.key, valueHash);
+  }
+  return hash;
+}
+
 /// Normalizes API aliases before passing to generated `_$StoreFromJson`.
 Map<String, dynamic> _normalizedStoreJson(Map<String, dynamic> json) {
   final m = Map<String, dynamic>.from(json);
@@ -115,7 +155,10 @@ Map<String, dynamic>? _storeIntegrationsToJson(StoreIntegrations? object) {
 
 // // StoreConfigs
 // configs?: StoreConfigs
-@freezed
+/// [equal]/false] / [toStringOverride]:false — default Freezed deep-equality and
+/// `toString` walk [metadata] (incl. huge [templateData]). We implement cheap
+/// versions below; see [storeMetadataEquals].
+@Freezed(equal: false, toStringOverride: false)
 abstract class Store extends StoreEntity
     with _$Store
     implements Model, ModelMetadata {
@@ -170,6 +213,101 @@ abstract class Store extends StoreEntity
 
   factory Store.fromJson(Map<String, dynamic> json) =>
       _$StoreFromJson(_normalizedStoreJson(json));
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is Store &&
+            other.runtimeType == runtimeType &&
+            other.id == id &&
+            other.createdAt == createdAt &&
+            other.updatedAt == updatedAt &&
+            other.slug == slug &&
+            other.banner == banner &&
+            other.action == action &&
+            other.domain == domain &&
+            other.decoration == decoration &&
+            other.name == name &&
+            other.iconUrl == iconUrl &&
+            other.logoUrl == logoUrl &&
+            other.ondarkLogoUrl == ondarkLogoUrl &&
+            other.userId == userId &&
+            _storeDeepEq.equals(other.categories, categories) &&
+            _storeDeepEq.equals(other.categoriesRelation, categoriesRelation) &&
+            other.title == title &&
+            other.description == description &&
+            _storeDeepEq.equals(other.addresses, addresses) &&
+            other.address == address &&
+            storeMetadataEquals(other.metadata, metadata) &&
+            _storeDeepEq.equals(other.contacts, contacts) &&
+            other.integrations == integrations &&
+            _storeDeepEq.equals(
+                other.defaultShippingRates, defaultShippingRates) &&
+            other.verifiedAt == verifiedAt &&
+            other.blockedAt == blockedAt &&
+            other.subscription == subscription &&
+            other.due == due &&
+            other.configs == configs &&
+            other.shippingPriceId == shippingPriceId &&
+            other.templateId == templateId &&
+            other.projectId == projectId &&
+            _storeDeepEq.equals(other.metaPixelIds, metaPixelIds) &&
+            _storeDeepEq.equals(other.members, members) &&
+            other.lor == lor &&
+            other.template == template);
+  }
+
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        createdAt,
+        updatedAt,
+        slug,
+        banner,
+        action,
+        domain,
+        decoration,
+        name,
+        iconUrl,
+        logoUrl,
+        ondarkLogoUrl,
+        userId,
+        _storeDeepEq.hash(categories),
+        _storeDeepEq.hash(categoriesRelation),
+        title,
+        description,
+        _storeDeepEq.hash(addresses),
+        address,
+        storeMetadataHash(metadata),
+        _storeDeepEq.hash(contacts),
+        integrations,
+        _storeDeepEq.hash(defaultShippingRates),
+        verifiedAt,
+        blockedAt,
+        subscription,
+        due,
+        configs,
+        shippingPriceId,
+        templateId,
+        projectId,
+        _storeDeepEq.hash(metaPixelIds),
+        _storeDeepEq.hash(members),
+        lor,
+        template,
+      ]);
+
+  /// Omits [metadata] / [template] payloads — dumping them freezes the UI.
+  @override
+  String toString() {
+    final templateData = metadata[kStoreMetadataTemplateDataKey];
+    final templateHint = templateData == null
+        ? 'null'
+        : 'present(identity=${identityHashCode(templateData)})';
+    return 'Store(id: $id, slug: $slug, name: $name, updatedAt: $updatedAt, '
+        'templateId: $templateId, metadataKeys: ${metadata.keys.toList()}, '
+        'templateData: $templateHint)';
+  }
 }
 
 // StoreCreate

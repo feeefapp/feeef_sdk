@@ -142,6 +142,64 @@ class StoreTemplatesRepository extends ResourceRepository<
     });
   }
 
+  /// Id-only lookup for the platform default (no `data`/`schema` payload).
+  Future<String?> getDefaultId({CancelToken? cancelToken}) async {
+    final response = await client.get(
+      '/$table/default',
+      queryParameters: const {'meta': '1'},
+      cancelToken: cancelToken,
+    );
+    final body = response.data;
+    if (body is! Map) return null;
+    final id = body['id']?.toString().trim();
+    return (id == null || id.isEmpty) ? null : id;
+  }
+
+  /// Ownership / version metadata without downloading `data`/`schema`.
+  Future<StoreTemplate> findMeta({
+    required String id,
+    CancelToken? cancelToken,
+  }) async {
+    final response = await client.get(
+      '/$table/$id',
+      queryParameters: const {'meta': '1'},
+      cancelToken: cancelToken,
+    );
+    final body = Map<String, dynamic>.from(response.data as Map);
+    return StoreTemplate.fromJson({
+      ...body,
+      'schema': body['schema'] ?? const {},
+      'data': body['data'] ?? const {},
+      'title': body['title'] ?? '',
+      'createdAt':
+          body['createdAt'] ?? body['created_at'] ?? DateTime.now().toIso8601String(),
+    });
+  }
+
+  /// PUT `data`/`schema` and ignore a slim response body.
+  ///
+  /// Avoids [update]'s `modelFromJson` of a multi‑MB echo and skips deep clones.
+  Future<void> updateDocument({
+    required String id,
+    required Map<String, dynamic> data,
+    Map<String, dynamic>? schema,
+    CancelToken? cancelToken,
+  }) async {
+    await client.put(
+      '/$table/$id',
+      data: {
+        'data': data,
+        if (schema != null) 'schema': schema,
+      },
+      queryParameters: const {'meta': '1'},
+      cancelToken: cancelToken,
+    );
+    addToUpdateStream(
+      id,
+      StoreTemplateUpdate(data: data, schema: schema),
+    );
+  }
+
   /// Fork a template into [targetStoreId].
   Future<StoreTemplate> fork({
     required String id,

@@ -52,6 +52,8 @@ class StoreRepository extends ModelRepository<Store>
 
   /// Lists stores accessible to the current user. Optional [userId] filter, [page]/[offset]/[limit] for paging.
   /// Returns [ListResponse] of [Store]. Use when building store pickers or dashboards.
+  ///
+  /// Sends `user` (not `user_id`) so backend [StoreFilter.user] includes owned + member stores.
   @override
   Future<ListResponse<Store>> list({
     String? userId,
@@ -65,7 +67,7 @@ class StoreRepository extends ModelRepository<Store>
       offset: offset,
       limit: limit,
       params: {
-        if (userId != null) 'user_id': userId,
+        if (userId != null) 'user': userId,
         ...?params,
       },
     );

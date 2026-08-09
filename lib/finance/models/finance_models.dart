@@ -5,7 +5,7 @@
 
 import 'dart:convert';
 
-import 'package:feeef/interfaces/helpers.dart';
+import '../../interfaces/helpers.dart';
 
 double _toDouble(dynamic v) =>
     v == null ? 0 : (v is num ? v.toDouble() : double.tryParse(v.toString()) ?? 0);
@@ -2081,5 +2081,218 @@ class AccountingPeriod implements Model {
         endDate: DateTime.parse(json['endDate'] as String),
         status: _periodStatusFrom(json['status'] as String?),
       );
+}
+
+// ─── Finance transfers (lite spine) ─────────────────────────────────────────
+
+/// Money-movement kinds on [FinanceTransfer].
+enum FinanceTransferType {
+  capital,
+  expense,
+  otherIn,
+  otherOut,
+  saleCollect,
+  courierRemittance,
+  billPayment,
+  personPayment,
+  withdraw,
+  transfer,
+}
+
+FinanceTransferType financeTransferTypeFrom(String? raw) {
+  switch (raw) {
+    case 'capital':
+      return FinanceTransferType.capital;
+    case 'expense':
+      return FinanceTransferType.expense;
+    case 'other_in':
+      return FinanceTransferType.otherIn;
+    case 'other_out':
+      return FinanceTransferType.otherOut;
+    case 'sale_collect':
+      return FinanceTransferType.saleCollect;
+    case 'courier_remittance':
+      return FinanceTransferType.courierRemittance;
+    case 'bill_payment':
+      return FinanceTransferType.billPayment;
+    case 'person_payment':
+      return FinanceTransferType.personPayment;
+    case 'withdraw':
+      return FinanceTransferType.withdraw;
+    case 'transfer':
+      return FinanceTransferType.transfer;
+    default:
+      return FinanceTransferType.otherIn;
+  }
+}
+
+String financeTransferTypeToApi(FinanceTransferType t) {
+  switch (t) {
+    case FinanceTransferType.capital:
+      return 'capital';
+    case FinanceTransferType.expense:
+      return 'expense';
+    case FinanceTransferType.otherIn:
+      return 'other_in';
+    case FinanceTransferType.otherOut:
+      return 'other_out';
+    case FinanceTransferType.saleCollect:
+      return 'sale_collect';
+    case FinanceTransferType.courierRemittance:
+      return 'courier_remittance';
+    case FinanceTransferType.billPayment:
+      return 'bill_payment';
+    case FinanceTransferType.personPayment:
+      return 'person_payment';
+    case FinanceTransferType.withdraw:
+      return 'withdraw';
+    case FinanceTransferType.transfer:
+      return 'transfer';
+  }
+}
+
+/// Universal cash movement (accounts timeline).
+class FinanceTransfer implements Model {
+  @override
+  final String id;
+  final String projectId;
+  final double amount;
+  final DateTime occurredAt;
+  final FinanceTransferType type;
+  final String? fromAccountId;
+  final String? toAccountId;
+  final String? categoryId;
+  final String? transferGroupId;
+  final String? partyType;
+  final String? partyId;
+  final String? referenceType;
+  final String? referenceId;
+  final String? note;
+  final String? attachmentUrl;
+  final String? createdByUserId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? voidedAt;
+
+  FinanceTransfer({
+    required this.id,
+    required this.projectId,
+    required this.amount,
+    required this.occurredAt,
+    required this.type,
+    this.fromAccountId,
+    this.toAccountId,
+    this.categoryId,
+    this.transferGroupId,
+    this.partyType,
+    this.partyId,
+    this.referenceType,
+    this.referenceId,
+    this.note,
+    this.attachmentUrl,
+    this.createdByUserId,
+    required this.createdAt,
+    required this.updatedAt,
+    this.voidedAt,
+  });
+
+  bool get isVoided => voidedAt != null;
+
+  factory FinanceTransfer.fromJson(Map<String, dynamic> json) => FinanceTransfer(
+        id: json['id']?.toString() ?? '',
+        projectId: (json['projectId'] ?? json['project_id'])?.toString() ?? '',
+        amount: _toDouble(json['amount']),
+        occurredAt: _parseFinanceDate(json['occurredAt'] ?? json['occurred_at']),
+        type: financeTransferTypeFrom(
+            (json['type'] ?? '').toString()),
+        fromAccountId:
+            (json['fromAccountId'] ?? json['from_account_id'])?.toString(),
+        toAccountId: (json['toAccountId'] ?? json['to_account_id'])?.toString(),
+        categoryId: (json['categoryId'] ?? json['category_id'])?.toString(),
+        transferGroupId:
+            (json['transferGroupId'] ?? json['transfer_group_id'])?.toString(),
+        partyType: (json['partyType'] ?? json['party_type'])?.toString(),
+        partyId: (json['partyId'] ?? json['party_id'])?.toString(),
+        referenceType:
+            (json['referenceType'] ?? json['reference_type'])?.toString(),
+        referenceId: (json['referenceId'] ?? json['reference_id'])?.toString(),
+        note: json['note']?.toString(),
+        attachmentUrl:
+            (json['attachmentUrl'] ?? json['attachment_url'])?.toString(),
+        createdByUserId:
+            (json['createdByUserId'] ?? json['created_by_user_id'])?.toString(),
+        createdAt: _parseFinanceDate(json['createdAt'] ?? json['created_at']),
+        updatedAt: _parseFinanceDate(json['updatedAt'] ?? json['updated_at']),
+        voidedAt: json['voidedAt'] != null || json['voided_at'] != null
+            ? _parseFinanceDate(json['voidedAt'] ?? json['voided_at'])
+            : null,
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'projectId': projectId,
+        'amount': amount,
+        'type': financeTransferTypeToApi(type),
+      };
+}
+
+class FinanceTransferCreate implements ModelCreate {
+  final String projectId;
+  final double amount;
+  final DateTime? occurredAt;
+  final FinanceTransferType type;
+  final String? fromAccountId;
+  final String? toAccountId;
+  final String? categoryId;
+  final String? partyType;
+  final String? partyId;
+  final String? referenceType;
+  final String? referenceId;
+  final String? note;
+  final String? attachmentUrl;
+
+  const FinanceTransferCreate({
+    required this.projectId,
+    required this.amount,
+    required this.type,
+    this.occurredAt,
+    this.fromAccountId,
+    this.toAccountId,
+    this.categoryId,
+    this.partyType,
+    this.partyId,
+    this.referenceType,
+    this.referenceId,
+    this.note,
+    this.attachmentUrl,
+  });
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'projectId': projectId,
+        'amount': amount,
+        'type': financeTransferTypeToApi(type),
+        if (occurredAt != null) 'occurredAt': occurredAt!.toUtc().toIso8601String(),
+        if (fromAccountId != null) 'fromAccountId': fromAccountId,
+        if (toAccountId != null) 'toAccountId': toAccountId,
+        if (categoryId != null) 'categoryId': categoryId,
+        if (partyType != null) 'partyType': partyType,
+        if (partyId != null) 'partyId': partyId,
+        if (referenceType != null) 'referenceType': referenceType,
+        if (referenceId != null) 'referenceId': referenceId,
+        if (note != null) 'note': note,
+        if (attachmentUrl != null) 'attachmentUrl': attachmentUrl,
+      };
+}
+
+/// No-op update — transfers are voided, not edited.
+class FinanceTransferNoopUpdate implements ModelUpdate {
+  const FinanceTransferNoopUpdate();
+
+  @override
+  final List<String> setToNull = const [];
+
+  @override
+  Map<String, dynamic> toJson() => const {};
 }
 

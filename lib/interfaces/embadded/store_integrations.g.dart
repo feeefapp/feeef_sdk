@@ -86,6 +86,9 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
       : MaystroDeliveryIntegration.fromJson(
           json['maystroDelivery'] as Map<String, dynamic>,
         ),
+  codpilot: json['codpilot'] == null
+      ? null
+      : CodpilotIntegration.fromJson(json['codpilot'] as Map<String, dynamic>),
   googleSheet: json['googleSheet'] == null
       ? null
       : GoogleSheetsIntegration.fromJson(
@@ -148,6 +151,7 @@ Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
       'zrexpress': instance.zrexpress,
       'mdmExpress': instance.mdmExpress,
       'maystroDelivery': instance.maystroDelivery,
+      'codpilot': instance.codpilot,
       'googleSheet': instance.googleSheet,
       'webhooks': instance.webhooks,
       'security': instance.security,
@@ -643,6 +647,31 @@ Map<String, dynamic> _$MaystroDeliveryIntegrationToJson(
   'webhookSecret': instance.webhookSecret,
   'active': instance.active,
   'autoSend': instance.autoSend,
+  'metadata': instance.metadata,
+};
+
+_CodpilotIntegration _$CodpilotIntegrationFromJson(Map<String, dynamic> json) =>
+    _CodpilotIntegration(
+      subdomain: json['subdomain'] as String,
+      apiId: json['apiId'] as String,
+      apiToken: json['apiToken'] as String,
+      active: json['active'] as bool? ?? true,
+      statusRules:
+          (json['statusRules'] as List<dynamic>?)
+              ?.map((e) => PixelStatusRule.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+    );
+
+Map<String, dynamic> _$CodpilotIntegrationToJson(
+  _CodpilotIntegration instance,
+) => <String, dynamic>{
+  'subdomain': instance.subdomain,
+  'apiId': instance.apiId,
+  'apiToken': instance.apiToken,
+  'active': instance.active,
+  'statusRules': instance.statusRules,
   'metadata': instance.metadata,
 };
 

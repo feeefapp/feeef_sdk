@@ -127,6 +127,7 @@ class FinanceRepository {
   // Phase 3 GL
   late final GlAccountResourceRepository glAccounts;
   late final JournalEntryResourceRepository journalEntries;
+  late final FinanceTransferResourceRepository transfers;
 
   FinanceRepository({required this.client}) {
     suppliers = SupplierResourceRepository(client: client);
@@ -144,6 +145,7 @@ class FinanceRepository {
     receivables = ReceivableResourceRepository(client: client);
     glAccounts = GlAccountResourceRepository(client: client);
     journalEntries = JournalEntryResourceRepository(client: client);
+    transfers = FinanceTransferResourceRepository(client: client);
   }
 
   /// Post a receipt: stock goods into inventory at batch cost (idempotent).
@@ -1848,6 +1850,104 @@ class JournalEntryResourceRepository extends ResourceRepository<JournalEntry,
         'projectId': projectId,
         if (entryDate != null) 'entryDate': entryDate,
       },
+    );
+    return modelFromJson(response.data);
+  }
+}
+
+/// Finance-lite transfers — money timeline (capital, transfer, withdraw, …).
+class FinanceTransferResourceRepository extends ResourceRepository<
+    FinanceTransfer, FinanceTransferCreate, FinanceTransferNoopUpdate> {
+  FinanceTransferResourceRepository({required Dio client})
+      : super(client: client, table: 'finance/transfers');
+
+  @override
+  FinanceTransfer modelFromJson(dynamic json) =>
+      FinanceTransfer.fromJson(json as Map<String, dynamic>);
+
+  @override
+  Map<String, dynamic> modelToJson(FinanceTransfer model) => model.toJson();
+
+  @override
+  FinanceTransferCreate createFromJson(dynamic json) {
+    final m = Map<String, dynamic>.from(json as Map);
+    return FinanceTransferCreate(
+      projectId: m['projectId'] as String? ?? '',
+      amount: (m['amount'] as num?)?.toDouble() ?? 0,
+      type: financeTransferTypeFrom(m['type'] as String?),
+      occurredAt: m['occurredAt'] != null
+          ? DateTime.tryParse(m['occurredAt'].toString())
+          : null,
+      fromAccountId: m['fromAccountId'] as String?,
+      toAccountId: m['toAccountId'] as String?,
+      categoryId: m['categoryId'] as String?,
+      partyType: m['partyType'] as String?,
+      partyId: m['partyId'] as String?,
+      referenceType: m['referenceType'] as String?,
+      referenceId: m['referenceId'] as String?,
+      note: m['note'] as String?,
+      attachmentUrl: m['attachmentUrl'] as String?,
+    );
+  }
+
+  @override
+  Map<String, dynamic> createToJson(FinanceTransferCreate model) =>
+      model.toJson();
+
+  @override
+  FinanceTransferNoopUpdate updateFromJson(dynamic json) =>
+      const FinanceTransferNoopUpdate();
+
+  @override
+  Map<String, dynamic> updateToJson(FinanceTransferNoopUpdate model) =>
+      model.toJson();
+
+  @override
+  Future<ListResponse<FinanceTransfer>> list({
+    int? page,
+    int? offset,
+    int? limit,
+    Map<String, dynamic>? params,
+  }) async {
+    if (!_hasFinanceProjectId(params)) {
+      return ListResponse(data: const []);
+    }
+    final response = await client.get(
+      '/finance/transfers',
+      queryParameters: _financeListQuery(
+        params: params,
+        page: page,
+        offset: offset,
+        limit: limit,
+      ),
+      cancelToken: modelListCancelToken,
+    );
+    return parseFinanceListResponse(response.data, modelFromJson);
+  }
+
+  @override
+  Future<FinanceTransfer> create({
+    required FinanceTransferCreate data,
+    Map<String, dynamic>? params,
+  }) async {
+    final response = await client.post(
+      '/finance/transfers',
+      data: {...data.toJson(), if (params != null) ...params},
+      cancelToken: modelCreateCancelToken,
+    );
+    final model = modelFromJson(response.data);
+    addToCreateStream(model);
+    return model;
+  }
+
+  /// Soft-void a transfer (excluded from balances).
+  Future<FinanceTransfer> void$({
+    required String projectId,
+    required String id,
+  }) async {
+    final response = await client.post(
+      '/finance/transfers/$id/void',
+      data: {'projectId': projectId},
     );
     return modelFromJson(response.data);
   }

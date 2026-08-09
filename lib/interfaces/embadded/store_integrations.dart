@@ -37,6 +37,8 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     ZrexpressDeliveryIntegration? zrexpress,
     MdmExpressDeliveryIntegration? mdmExpress,
     MaystroDeliveryIntegration? maystroDelivery,
+    /// Codpilot mini-ERP (order confirmation / COD ops) — not a carrier.
+    CodpilotIntegration? codpilot,
     // Google Sheets Integration
     GoogleSheetsIntegration? googleSheet,
     // Webhooks Integration
@@ -577,6 +579,41 @@ abstract class MaystroDeliveryIntegration with _$MaystroDeliveryIntegration {
 
   factory MaystroDeliveryIntegration.fromJson(Map<String, dynamic> json) =>
       _$MaystroDeliveryIntegrationFromJson(json);
+}
+
+/// Codpilot mini-ERP integration (order confirmation / COD ops).
+///
+/// Not a delivery carrier. Auth: business [subdomain] + [apiId] + Bearer [apiToken].
+/// Auto-sync uses [statusRules] (same dimensions as Meta Pixel). Default rule is
+/// `orderStatus` → `pending` (seeded on connect). Sync state lives on
+/// `order.metadata.codpilot`, never under `metadata.delivery`.
+@freezed
+abstract class CodpilotIntegration with _$CodpilotIntegration {
+  const CodpilotIntegration._();
+  const factory CodpilotIntegration({
+    /// Business subdomain (`mystore` → mystore.codpilot.net).
+    required String subdomain,
+    required String apiId,
+    required String apiToken,
+    @Default(true) bool active,
+
+    /// When a status dimension transitions into [PixelStatusRule.equals], auto-sync.
+    /// Empty list disables auto-sync. Default on connect: pending order status.
+    @Default([]) List<PixelStatusRule> statusRules,
+    @Default({}) Map<String, dynamic> metadata,
+  }) = _CodpilotIntegration;
+
+  factory CodpilotIntegration.fromJson(Map<String, dynamic> json) =>
+      _$CodpilotIntegrationFromJson(json);
+
+  /// Default auto-sync rule: any order that becomes (or is created as) pending.
+  static List<PixelStatusRule> get defaultStatusRules => const [
+        PixelStatusRule(
+          id: 'default-pending',
+          dimension: PixelStatusDimension.orderStatus,
+          equals: 'pending',
+        ),
+      ];
 }
 
 // ===================== SECURITY INTEGRATION =====================

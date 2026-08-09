@@ -103,6 +103,7 @@ const _storeIntegrationKeys = [
   'zimou',
   'zrexpress',
   'maystroDelivery',
+  'codpilot',
   'googleSheet',
   'webhooks',
   'security',

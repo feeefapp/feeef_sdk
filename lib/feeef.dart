@@ -40,6 +40,7 @@ export 'integrations/ecotrack/ecotrack_delivery_integration_api.dart';
 export 'integrations/google_sheets_integration_api.dart';
 export 'integrations/connectors_integration_api.dart';
 export 'integrations/noest/noest_delivery_integration_api.dart';
+export 'integrations/codpilot/codpilot_delivery_integration_api.dart';
 export 'integrations/procolis/procolis_delivery_integration_api.dart';
 export 'integrations/yalidine/yalidine_delivery_integration_api.dart';
 export 'integrations/integration_subscription_api.dart';

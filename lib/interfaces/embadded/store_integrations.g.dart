@@ -81,6 +81,11 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
       : MdmExpressDeliveryIntegration.fromJson(
           json['mdmExpress'] as Map<String, dynamic>,
         ),
+  feeefDelivery: json['feeefDelivery'] == null
+      ? null
+      : FeeefDeliveryIntegration.fromJson(
+          json['feeefDelivery'] as Map<String, dynamic>,
+        ),
   maystroDelivery: json['maystroDelivery'] == null
       ? null
       : MaystroDeliveryIntegration.fromJson(
@@ -150,6 +155,7 @@ Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
       'zimou': instance.zimou,
       'zrexpress': instance.zrexpress,
       'mdmExpress': instance.mdmExpress,
+      'feeefDelivery': instance.feeefDelivery,
       'maystroDelivery': instance.maystroDelivery,
       'codpilot': instance.codpilot,
       'googleSheet': instance.googleSheet,
@@ -626,6 +632,54 @@ Map<String, dynamic> _$MdmExpressDeliveryIntegrationToJson(
   'silentMode': instance.silentMode,
   'autoSend': instance.autoSend,
   'metadata': instance.metadata,
+};
+
+_FeeefDeliveryIntegration _$FeeefDeliveryIntegrationFromJson(
+  Map<String, dynamic> json,
+) => _FeeefDeliveryIntegration(
+  id: json['id'] as String,
+  active: json['active'] as bool? ?? true,
+  autoSend: json['autoSend'] as bool? ?? false,
+  nearSenderUserId: (json['nearSenderUserId'] as num).toInt(),
+  nearSenderUsername: json['nearSenderUsername'] as String?,
+  nearSenderEmail: json['nearSenderEmail'] as String?,
+  nearAccountType: $enumDecodeNullable(
+    _$FeeefDeliveryNearAccountTypeEnumMap,
+    json['nearAccountType'],
+  ),
+  pickupLocationType: (json['pickupLocationType'] as num?)?.toInt(),
+  pickupAddress: json['pickupAddress'] as String?,
+  senderCenterId: (json['senderCenterId'] as num?)?.toInt(),
+  defaultBuralistId: (json['defaultBuralistId'] as num?)?.toInt(),
+  useFeeefLabel: json['useFeeefLabel'] as bool? ?? true,
+  webhookSecret: json['webhookSecret'] as String?,
+  metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+);
+
+Map<String, dynamic> _$FeeefDeliveryIntegrationToJson(
+  _FeeefDeliveryIntegration instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'active': instance.active,
+  'autoSend': instance.autoSend,
+  'nearSenderUserId': instance.nearSenderUserId,
+  'nearSenderUsername': instance.nearSenderUsername,
+  'nearSenderEmail': instance.nearSenderEmail,
+  'nearAccountType':
+      _$FeeefDeliveryNearAccountTypeEnumMap[instance.nearAccountType],
+  'pickupLocationType': instance.pickupLocationType,
+  'pickupAddress': instance.pickupAddress,
+  'senderCenterId': instance.senderCenterId,
+  'defaultBuralistId': instance.defaultBuralistId,
+  'useFeeefLabel': instance.useFeeefLabel,
+  'webhookSecret': instance.webhookSecret,
+  'metadata': instance.metadata,
+};
+
+const _$FeeefDeliveryNearAccountTypeEnumMap = {
+  FeeefDeliveryNearAccountType.platform: 'platform',
+  FeeefDeliveryNearAccountType.api: 'api',
+  FeeefDeliveryNearAccountType.both: 'both',
 };
 
 _MaystroDeliveryIntegration _$MaystroDeliveryIntegrationFromJson(

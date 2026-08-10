@@ -18,7 +18,8 @@ mixin _$StoreIntegrations {
  Map<String, dynamic>? get metadata;// Analytics Integrations
  MetaPixelIntegration? get metaPixel; TiktokPixelIntegration? get tiktokPixel; GoogleAnalyticsIntegration? get googleAnalytics; GoogleTagsIntegration? get googleTags;/// Microsoft Clarity (trackingCode public in storefront; apiKey never in public JSON).
  ClarityIntegration? get clarity; AiIntegration? get ai;// Delivery Integrations
- YalidineDeliveryIntegration? get yalidine; EcotrackDeliveryIntegration? get ecotrack; EcomanagerDeliveryIntegration? get ecomanager; ProcolisDeliveryIntegration? get procolis; NoestDeliveryIntegration? get noest; OrderdzDeliveryIntegration? get orderdz; ZimouExpressDeliveryIntegration? get zimou; ZrexpressDeliveryIntegration? get zrexpress; MdmExpressDeliveryIntegration? get mdmExpress; MaystroDeliveryIntegration? get maystroDelivery;/// Codpilot mini-ERP (order confirmation / COD ops) — not a carrier.
+ YalidineDeliveryIntegration? get yalidine; EcotrackDeliveryIntegration? get ecotrack; EcomanagerDeliveryIntegration? get ecomanager; ProcolisDeliveryIntegration? get procolis; NoestDeliveryIntegration? get noest; OrderdzDeliveryIntegration? get orderdz; ZimouExpressDeliveryIntegration? get zimou; ZrexpressDeliveryIntegration? get zrexpress; MdmExpressDeliveryIntegration? get mdmExpress;/// Feeef Delivery (Near Delivery white-label) — merchants never hold Near API keys.
+ FeeefDeliveryIntegration? get feeefDelivery; MaystroDeliveryIntegration? get maystroDelivery;/// Codpilot mini-ERP (order confirmation / COD ops) — not a carrier.
  CodpilotIntegration? get codpilot;// Google Sheets Integration
  GoogleSheetsIntegration? get googleSheet;// Webhooks Integration
  WebhooksIntegration? get webhooks;// Security Integration
@@ -42,16 +43,16 @@ $StoreIntegrationsCopyWith<StoreIntegrations> get copyWith => _$StoreIntegration
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.codpilot, codpilot) || other.codpilot == codpilot)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&(identical(other.connectors, connectors) || other.connectors == connectors)&&const DeepCollectionEquality().equals(other.sms, sms)&&const DeepCollectionEquality().equals(other.telegram, telegram));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.feeefDelivery, feeefDelivery) || other.feeefDelivery == feeefDelivery)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.codpilot, codpilot) || other.codpilot == codpilot)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&(identical(other.connectors, connectors) || other.connectors == connectors)&&const DeepCollectionEquality().equals(other.sms, sms)&&const DeepCollectionEquality().equals(other.telegram, telegram));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(metadata),metaPixel,tiktokPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,maystroDelivery,codpilot,googleSheet,webhooks,security,customFields,payment,dispatcher,inventory,finance,connectors,const DeepCollectionEquality().hash(sms),const DeepCollectionEquality().hash(telegram)]);
+int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(metadata),metaPixel,tiktokPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,feeefDelivery,maystroDelivery,codpilot,googleSheet,webhooks,security,customFields,payment,dispatcher,inventory,finance,connectors,const DeepCollectionEquality().hash(sms),const DeepCollectionEquality().hash(telegram)]);
 
 @override
 String toString() {
-  return 'StoreIntegrations(metadata: $metadata, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, maystroDelivery: $maystroDelivery, codpilot: $codpilot, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, connectors: $connectors, sms: $sms, telegram: $telegram)';
+  return 'StoreIntegrations(metadata: $metadata, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, feeefDelivery: $feeefDelivery, maystroDelivery: $maystroDelivery, codpilot: $codpilot, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, connectors: $connectors, sms: $sms, telegram: $telegram)';
 }
 
 
@@ -62,11 +63,11 @@ abstract mixin class $StoreIntegrationsCopyWith<$Res>  {
   factory $StoreIntegrationsCopyWith(StoreIntegrations value, $Res Function(StoreIntegrations) _then) = _$StoreIntegrationsCopyWithImpl;
 @useResult
 $Res call({
- Map<String, dynamic>? metadata, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, MaystroDeliveryIntegration? maystroDelivery, CodpilotIntegration? codpilot, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, ConnectorsIntegration? connectors, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
+ Map<String, dynamic>? metadata, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, FeeefDeliveryIntegration? feeefDelivery, MaystroDeliveryIntegration? maystroDelivery, CodpilotIntegration? codpilot, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, ConnectorsIntegration? connectors, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
 });
 
 
-$MetaPixelIntegrationCopyWith<$Res>? get metaPixel;$TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;$GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;$GoogleTagsIntegrationCopyWith<$Res>? get googleTags;$ClarityIntegrationCopyWith<$Res>? get clarity;$AiIntegrationCopyWith<$Res>? get ai;$YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;$EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;$EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;$ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;$NoestDeliveryIntegrationCopyWith<$Res>? get noest;$OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;$ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;$ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;$MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;$MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;$CodpilotIntegrationCopyWith<$Res>? get codpilot;$GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;$WebhooksIntegrationCopyWith<$Res>? get webhooks;$SecurityIntegrationCopyWith<$Res>? get security;$CustomFieldsIntegrationCopyWith<$Res>? get customFields;$PaymentIntegrationCopyWith<$Res>? get payment;$DispatcherIntegrationCopyWith<$Res>? get dispatcher;$StoreInventoryIntegrationCopyWith<$Res>? get inventory;$StoreFinanceIntegrationCopyWith<$Res>? get finance;$ConnectorsIntegrationCopyWith<$Res>? get connectors;
+$MetaPixelIntegrationCopyWith<$Res>? get metaPixel;$TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;$GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;$GoogleTagsIntegrationCopyWith<$Res>? get googleTags;$ClarityIntegrationCopyWith<$Res>? get clarity;$AiIntegrationCopyWith<$Res>? get ai;$YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;$EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;$EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;$ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;$NoestDeliveryIntegrationCopyWith<$Res>? get noest;$OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;$ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;$ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;$MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;$FeeefDeliveryIntegrationCopyWith<$Res>? get feeefDelivery;$MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;$CodpilotIntegrationCopyWith<$Res>? get codpilot;$GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;$WebhooksIntegrationCopyWith<$Res>? get webhooks;$SecurityIntegrationCopyWith<$Res>? get security;$CustomFieldsIntegrationCopyWith<$Res>? get customFields;$PaymentIntegrationCopyWith<$Res>? get payment;$DispatcherIntegrationCopyWith<$Res>? get dispatcher;$StoreInventoryIntegrationCopyWith<$Res>? get inventory;$StoreFinanceIntegrationCopyWith<$Res>? get finance;$ConnectorsIntegrationCopyWith<$Res>? get connectors;
 
 }
 /// @nodoc
@@ -79,7 +80,7 @@ class _$StoreIntegrationsCopyWithImpl<$Res>
 
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? metadata = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? maystroDelivery = freezed,Object? codpilot = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? connectors = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? metadata = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? feeefDelivery = freezed,Object? maystroDelivery = freezed,Object? codpilot = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? connectors = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
   return _then(_self.copyWith(
 metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,metaPixel: freezed == metaPixel ? _self.metaPixel : metaPixel // ignore: cast_nullable_to_non_nullable
@@ -97,7 +98,8 @@ as NoestDeliveryIntegration?,orderdz: freezed == orderdz ? _self.orderdz : order
 as OrderdzDeliveryIntegration?,zimou: freezed == zimou ? _self.zimou : zimou // ignore: cast_nullable_to_non_nullable
 as ZimouExpressDeliveryIntegration?,zrexpress: freezed == zrexpress ? _self.zrexpress : zrexpress // ignore: cast_nullable_to_non_nullable
 as ZrexpressDeliveryIntegration?,mdmExpress: freezed == mdmExpress ? _self.mdmExpress : mdmExpress // ignore: cast_nullable_to_non_nullable
-as MdmExpressDeliveryIntegration?,maystroDelivery: freezed == maystroDelivery ? _self.maystroDelivery : maystroDelivery // ignore: cast_nullable_to_non_nullable
+as MdmExpressDeliveryIntegration?,feeefDelivery: freezed == feeefDelivery ? _self.feeefDelivery : feeefDelivery // ignore: cast_nullable_to_non_nullable
+as FeeefDeliveryIntegration?,maystroDelivery: freezed == maystroDelivery ? _self.maystroDelivery : maystroDelivery // ignore: cast_nullable_to_non_nullable
 as MaystroDeliveryIntegration?,codpilot: freezed == codpilot ? _self.codpilot : codpilot // ignore: cast_nullable_to_non_nullable
 as CodpilotIntegration?,googleSheet: freezed == googleSheet ? _self.googleSheet : googleSheet // ignore: cast_nullable_to_non_nullable
 as GoogleSheetsIntegration?,webhooks: freezed == webhooks ? _self.webhooks : webhooks // ignore: cast_nullable_to_non_nullable
@@ -292,6 +294,18 @@ $MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress {
 
   return $MdmExpressDeliveryIntegrationCopyWith<$Res>(_self.mdmExpress!, (value) {
     return _then(_self.copyWith(mdmExpress: value));
+  });
+}/// Create a copy of StoreIntegrations
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FeeefDeliveryIntegrationCopyWith<$Res>? get feeefDelivery {
+    if (_self.feeefDelivery == null) {
+    return null;
+  }
+
+  return $FeeefDeliveryIntegrationCopyWith<$Res>(_self.feeefDelivery!, (value) {
+    return _then(_self.copyWith(feeefDelivery: value));
   });
 }/// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
@@ -507,10 +521,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreIntegrations() when $default != null:
-return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.connectors,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.connectors,_that.sms,_that.telegram);case _:
   return orElse();
 
 }
@@ -528,10 +542,10 @@ return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAna
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)  $default,) {final _that = this;
 switch (_that) {
 case _StoreIntegrations():
-return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.connectors,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.connectors,_that.sms,_that.telegram);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -548,10 +562,10 @@ return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAna
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Map<String, dynamic>? metadata,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreIntegrations() when $default != null:
-return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.connectors,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.connectors,_that.sms,_that.telegram);case _:
   return null;
 
 }
@@ -563,7 +577,7 @@ return $default(_that.metadata,_that.metaPixel,_that.tiktokPixel,_that.googleAna
 @JsonSerializable()
 
 class _StoreIntegrations extends StoreIntegrations {
-  const _StoreIntegrations({final  Map<String, dynamic>? metadata = const {}, this.metaPixel, this.tiktokPixel, this.googleAnalytics, this.googleTags, this.clarity, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.mdmExpress, this.maystroDelivery, this.codpilot, this.googleSheet, this.webhooks, this.security, this.customFields, this.payment, this.dispatcher, this.inventory, this.finance, this.connectors, final  Map<String, dynamic>? sms = const {}, final  Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
+  const _StoreIntegrations({final  Map<String, dynamic>? metadata = const {}, this.metaPixel, this.tiktokPixel, this.googleAnalytics, this.googleTags, this.clarity, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.mdmExpress, this.feeefDelivery, this.maystroDelivery, this.codpilot, this.googleSheet, this.webhooks, this.security, this.customFields, this.payment, this.dispatcher, this.inventory, this.finance, this.connectors, final  Map<String, dynamic>? sms = const {}, final  Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
   factory _StoreIntegrations.fromJson(Map<String, dynamic> json) => _$StoreIntegrationsFromJson(json);
 
  final  Map<String, dynamic>? _metadata;
@@ -593,6 +607,8 @@ class _StoreIntegrations extends StoreIntegrations {
 @override final  ZimouExpressDeliveryIntegration? zimou;
 @override final  ZrexpressDeliveryIntegration? zrexpress;
 @override final  MdmExpressDeliveryIntegration? mdmExpress;
+/// Feeef Delivery (Near Delivery white-label) — merchants never hold Near API keys.
+@override final  FeeefDeliveryIntegration? feeefDelivery;
 @override final  MaystroDeliveryIntegration? maystroDelivery;
 /// Codpilot mini-ERP (order confirmation / COD ops) — not a carrier.
 @override final  CodpilotIntegration? codpilot;
@@ -648,16 +664,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrations&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.codpilot, codpilot) || other.codpilot == codpilot)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&(identical(other.connectors, connectors) || other.connectors == connectors)&&const DeepCollectionEquality().equals(other._sms, _sms)&&const DeepCollectionEquality().equals(other._telegram, _telegram));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrations&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.feeefDelivery, feeefDelivery) || other.feeefDelivery == feeefDelivery)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.codpilot, codpilot) || other.codpilot == codpilot)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&(identical(other.connectors, connectors) || other.connectors == connectors)&&const DeepCollectionEquality().equals(other._sms, _sms)&&const DeepCollectionEquality().equals(other._telegram, _telegram));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_metadata),metaPixel,tiktokPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,maystroDelivery,codpilot,googleSheet,webhooks,security,customFields,payment,dispatcher,inventory,finance,connectors,const DeepCollectionEquality().hash(_sms),const DeepCollectionEquality().hash(_telegram)]);
+int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_metadata),metaPixel,tiktokPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,feeefDelivery,maystroDelivery,codpilot,googleSheet,webhooks,security,customFields,payment,dispatcher,inventory,finance,connectors,const DeepCollectionEquality().hash(_sms),const DeepCollectionEquality().hash(_telegram)]);
 
 @override
 String toString() {
-  return 'StoreIntegrations(metadata: $metadata, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, maystroDelivery: $maystroDelivery, codpilot: $codpilot, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, connectors: $connectors, sms: $sms, telegram: $telegram)';
+  return 'StoreIntegrations(metadata: $metadata, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, feeefDelivery: $feeefDelivery, maystroDelivery: $maystroDelivery, codpilot: $codpilot, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, connectors: $connectors, sms: $sms, telegram: $telegram)';
 }
 
 
@@ -668,11 +684,11 @@ abstract mixin class _$StoreIntegrationsCopyWith<$Res> implements $StoreIntegrat
   factory _$StoreIntegrationsCopyWith(_StoreIntegrations value, $Res Function(_StoreIntegrations) _then) = __$StoreIntegrationsCopyWithImpl;
 @override @useResult
 $Res call({
- Map<String, dynamic>? metadata, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, MaystroDeliveryIntegration? maystroDelivery, CodpilotIntegration? codpilot, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, ConnectorsIntegration? connectors, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
+ Map<String, dynamic>? metadata, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, FeeefDeliveryIntegration? feeefDelivery, MaystroDeliveryIntegration? maystroDelivery, CodpilotIntegration? codpilot, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, ConnectorsIntegration? connectors, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
 });
 
 
-@override $MetaPixelIntegrationCopyWith<$Res>? get metaPixel;@override $TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;@override $GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;@override $GoogleTagsIntegrationCopyWith<$Res>? get googleTags;@override $ClarityIntegrationCopyWith<$Res>? get clarity;@override $AiIntegrationCopyWith<$Res>? get ai;@override $YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;@override $EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;@override $EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;@override $ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;@override $NoestDeliveryIntegrationCopyWith<$Res>? get noest;@override $OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;@override $ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;@override $ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;@override $MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;@override $MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;@override $CodpilotIntegrationCopyWith<$Res>? get codpilot;@override $GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;@override $WebhooksIntegrationCopyWith<$Res>? get webhooks;@override $SecurityIntegrationCopyWith<$Res>? get security;@override $CustomFieldsIntegrationCopyWith<$Res>? get customFields;@override $PaymentIntegrationCopyWith<$Res>? get payment;@override $DispatcherIntegrationCopyWith<$Res>? get dispatcher;@override $StoreInventoryIntegrationCopyWith<$Res>? get inventory;@override $StoreFinanceIntegrationCopyWith<$Res>? get finance;@override $ConnectorsIntegrationCopyWith<$Res>? get connectors;
+@override $MetaPixelIntegrationCopyWith<$Res>? get metaPixel;@override $TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;@override $GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;@override $GoogleTagsIntegrationCopyWith<$Res>? get googleTags;@override $ClarityIntegrationCopyWith<$Res>? get clarity;@override $AiIntegrationCopyWith<$Res>? get ai;@override $YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;@override $EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;@override $EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;@override $ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;@override $NoestDeliveryIntegrationCopyWith<$Res>? get noest;@override $OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;@override $ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;@override $ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;@override $MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;@override $FeeefDeliveryIntegrationCopyWith<$Res>? get feeefDelivery;@override $MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;@override $CodpilotIntegrationCopyWith<$Res>? get codpilot;@override $GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;@override $WebhooksIntegrationCopyWith<$Res>? get webhooks;@override $SecurityIntegrationCopyWith<$Res>? get security;@override $CustomFieldsIntegrationCopyWith<$Res>? get customFields;@override $PaymentIntegrationCopyWith<$Res>? get payment;@override $DispatcherIntegrationCopyWith<$Res>? get dispatcher;@override $StoreInventoryIntegrationCopyWith<$Res>? get inventory;@override $StoreFinanceIntegrationCopyWith<$Res>? get finance;@override $ConnectorsIntegrationCopyWith<$Res>? get connectors;
 
 }
 /// @nodoc
@@ -685,7 +701,7 @@ class __$StoreIntegrationsCopyWithImpl<$Res>
 
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? metadata = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? maystroDelivery = freezed,Object? codpilot = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? connectors = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? metadata = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? feeefDelivery = freezed,Object? maystroDelivery = freezed,Object? codpilot = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? connectors = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
   return _then(_StoreIntegrations(
 metadata: freezed == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,metaPixel: freezed == metaPixel ? _self.metaPixel : metaPixel // ignore: cast_nullable_to_non_nullable
@@ -703,7 +719,8 @@ as NoestDeliveryIntegration?,orderdz: freezed == orderdz ? _self.orderdz : order
 as OrderdzDeliveryIntegration?,zimou: freezed == zimou ? _self.zimou : zimou // ignore: cast_nullable_to_non_nullable
 as ZimouExpressDeliveryIntegration?,zrexpress: freezed == zrexpress ? _self.zrexpress : zrexpress // ignore: cast_nullable_to_non_nullable
 as ZrexpressDeliveryIntegration?,mdmExpress: freezed == mdmExpress ? _self.mdmExpress : mdmExpress // ignore: cast_nullable_to_non_nullable
-as MdmExpressDeliveryIntegration?,maystroDelivery: freezed == maystroDelivery ? _self.maystroDelivery : maystroDelivery // ignore: cast_nullable_to_non_nullable
+as MdmExpressDeliveryIntegration?,feeefDelivery: freezed == feeefDelivery ? _self.feeefDelivery : feeefDelivery // ignore: cast_nullable_to_non_nullable
+as FeeefDeliveryIntegration?,maystroDelivery: freezed == maystroDelivery ? _self.maystroDelivery : maystroDelivery // ignore: cast_nullable_to_non_nullable
 as MaystroDeliveryIntegration?,codpilot: freezed == codpilot ? _self.codpilot : codpilot // ignore: cast_nullable_to_non_nullable
 as CodpilotIntegration?,googleSheet: freezed == googleSheet ? _self.googleSheet : googleSheet // ignore: cast_nullable_to_non_nullable
 as GoogleSheetsIntegration?,webhooks: freezed == webhooks ? _self.webhooks : webhooks // ignore: cast_nullable_to_non_nullable
@@ -899,6 +916,18 @@ $MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress {
 
   return $MdmExpressDeliveryIntegrationCopyWith<$Res>(_self.mdmExpress!, (value) {
     return _then(_self.copyWith(mdmExpress: value));
+  });
+}/// Create a copy of StoreIntegrations
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FeeefDeliveryIntegrationCopyWith<$Res>? get feeefDelivery {
+    if (_self.feeefDelivery == null) {
+    return null;
+  }
+
+  return $FeeefDeliveryIntegrationCopyWith<$Res>(_self.feeefDelivery!, (value) {
+    return _then(_self.copyWith(feeefDelivery: value));
   });
 }/// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
@@ -6463,6 +6492,322 @@ as String?,active: null == active ? _self.active : active // ignore: cast_nullab
 as bool,silentMode: null == silentMode ? _self.silentMode : silentMode // ignore: cast_nullable_to_non_nullable
 as bool,autoSend: null == autoSend ? _self.autoSend : autoSend // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$FeeefDeliveryIntegration {
+
+ String get id; bool get active; bool get autoSend;/// Near sender user id returned by provision — required for parcel ops.
+ int get nearSenderUserId; String? get nearSenderUsername; String? get nearSenderEmail; FeeefDeliveryNearAccountType? get nearAccountType;/// `0` = address pickup, `1` = center pickup (Near `pickup_location_type`).
+ int? get pickupLocationType; String? get pickupAddress; int? get senderCenterId;/// Optional default buralist when auto-resolve fails.
+ int? get defaultBuralistId;/// Prefer Feeef-branded PDF labels (default true).
+ bool get useFeeefLabel; String? get webhookSecret; Map<String, dynamic> get metadata;
+/// Create a copy of FeeefDeliveryIntegration
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FeeefDeliveryIntegrationCopyWith<FeeefDeliveryIntegration> get copyWith => _$FeeefDeliveryIntegrationCopyWithImpl<FeeefDeliveryIntegration>(this as FeeefDeliveryIntegration, _$identity);
+
+  /// Serializes this FeeefDeliveryIntegration to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeeefDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&(identical(other.nearSenderUserId, nearSenderUserId) || other.nearSenderUserId == nearSenderUserId)&&(identical(other.nearSenderUsername, nearSenderUsername) || other.nearSenderUsername == nearSenderUsername)&&(identical(other.nearSenderEmail, nearSenderEmail) || other.nearSenderEmail == nearSenderEmail)&&(identical(other.nearAccountType, nearAccountType) || other.nearAccountType == nearAccountType)&&(identical(other.pickupLocationType, pickupLocationType) || other.pickupLocationType == pickupLocationType)&&(identical(other.pickupAddress, pickupAddress) || other.pickupAddress == pickupAddress)&&(identical(other.senderCenterId, senderCenterId) || other.senderCenterId == senderCenterId)&&(identical(other.defaultBuralistId, defaultBuralistId) || other.defaultBuralistId == defaultBuralistId)&&(identical(other.useFeeefLabel, useFeeefLabel) || other.useFeeefLabel == useFeeefLabel)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,active,autoSend,nearSenderUserId,nearSenderUsername,nearSenderEmail,nearAccountType,pickupLocationType,pickupAddress,senderCenterId,defaultBuralistId,useFeeefLabel,webhookSecret,const DeepCollectionEquality().hash(metadata));
+
+@override
+String toString() {
+  return 'FeeefDeliveryIntegration(id: $id, active: $active, autoSend: $autoSend, nearSenderUserId: $nearSenderUserId, nearSenderUsername: $nearSenderUsername, nearSenderEmail: $nearSenderEmail, nearAccountType: $nearAccountType, pickupLocationType: $pickupLocationType, pickupAddress: $pickupAddress, senderCenterId: $senderCenterId, defaultBuralistId: $defaultBuralistId, useFeeefLabel: $useFeeefLabel, webhookSecret: $webhookSecret, metadata: $metadata)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $FeeefDeliveryIntegrationCopyWith<$Res>  {
+  factory $FeeefDeliveryIntegrationCopyWith(FeeefDeliveryIntegration value, $Res Function(FeeefDeliveryIntegration) _then) = _$FeeefDeliveryIntegrationCopyWithImpl;
+@useResult
+$Res call({
+ String id, bool active, bool autoSend, int nearSenderUserId, String? nearSenderUsername, String? nearSenderEmail, FeeefDeliveryNearAccountType? nearAccountType, int? pickupLocationType, String? pickupAddress, int? senderCenterId, int? defaultBuralistId, bool useFeeefLabel, String? webhookSecret, Map<String, dynamic> metadata
+});
+
+
+
+
+}
+/// @nodoc
+class _$FeeefDeliveryIntegrationCopyWithImpl<$Res>
+    implements $FeeefDeliveryIntegrationCopyWith<$Res> {
+  _$FeeefDeliveryIntegrationCopyWithImpl(this._self, this._then);
+
+  final FeeefDeliveryIntegration _self;
+  final $Res Function(FeeefDeliveryIntegration) _then;
+
+/// Create a copy of FeeefDeliveryIntegration
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? active = null,Object? autoSend = null,Object? nearSenderUserId = null,Object? nearSenderUsername = freezed,Object? nearSenderEmail = freezed,Object? nearAccountType = freezed,Object? pickupLocationType = freezed,Object? pickupAddress = freezed,Object? senderCenterId = freezed,Object? defaultBuralistId = freezed,Object? useFeeefLabel = null,Object? webhookSecret = freezed,Object? metadata = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,autoSend: null == autoSend ? _self.autoSend : autoSend // ignore: cast_nullable_to_non_nullable
+as bool,nearSenderUserId: null == nearSenderUserId ? _self.nearSenderUserId : nearSenderUserId // ignore: cast_nullable_to_non_nullable
+as int,nearSenderUsername: freezed == nearSenderUsername ? _self.nearSenderUsername : nearSenderUsername // ignore: cast_nullable_to_non_nullable
+as String?,nearSenderEmail: freezed == nearSenderEmail ? _self.nearSenderEmail : nearSenderEmail // ignore: cast_nullable_to_non_nullable
+as String?,nearAccountType: freezed == nearAccountType ? _self.nearAccountType : nearAccountType // ignore: cast_nullable_to_non_nullable
+as FeeefDeliveryNearAccountType?,pickupLocationType: freezed == pickupLocationType ? _self.pickupLocationType : pickupLocationType // ignore: cast_nullable_to_non_nullable
+as int?,pickupAddress: freezed == pickupAddress ? _self.pickupAddress : pickupAddress // ignore: cast_nullable_to_non_nullable
+as String?,senderCenterId: freezed == senderCenterId ? _self.senderCenterId : senderCenterId // ignore: cast_nullable_to_non_nullable
+as int?,defaultBuralistId: freezed == defaultBuralistId ? _self.defaultBuralistId : defaultBuralistId // ignore: cast_nullable_to_non_nullable
+as int?,useFeeefLabel: null == useFeeefLabel ? _self.useFeeefLabel : useFeeefLabel // ignore: cast_nullable_to_non_nullable
+as bool,webhookSecret: freezed == webhookSecret ? _self.webhookSecret : webhookSecret // ignore: cast_nullable_to_non_nullable
+as String?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [FeeefDeliveryIntegration].
+extension FeeefDeliveryIntegrationPatterns on FeeefDeliveryIntegration {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _FeeefDeliveryIntegration value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _FeeefDeliveryIntegration() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _FeeefDeliveryIntegration value)  $default,){
+final _that = this;
+switch (_that) {
+case _FeeefDeliveryIntegration():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _FeeefDeliveryIntegration value)?  $default,){
+final _that = this;
+switch (_that) {
+case _FeeefDeliveryIntegration() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  bool active,  bool autoSend,  int nearSenderUserId,  String? nearSenderUsername,  String? nearSenderEmail,  FeeefDeliveryNearAccountType? nearAccountType,  int? pickupLocationType,  String? pickupAddress,  int? senderCenterId,  int? defaultBuralistId,  bool useFeeefLabel,  String? webhookSecret,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _FeeefDeliveryIntegration() when $default != null:
+return $default(_that.id,_that.active,_that.autoSend,_that.nearSenderUserId,_that.nearSenderUsername,_that.nearSenderEmail,_that.nearAccountType,_that.pickupLocationType,_that.pickupAddress,_that.senderCenterId,_that.defaultBuralistId,_that.useFeeefLabel,_that.webhookSecret,_that.metadata);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  bool active,  bool autoSend,  int nearSenderUserId,  String? nearSenderUsername,  String? nearSenderEmail,  FeeefDeliveryNearAccountType? nearAccountType,  int? pickupLocationType,  String? pickupAddress,  int? senderCenterId,  int? defaultBuralistId,  bool useFeeefLabel,  String? webhookSecret,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+switch (_that) {
+case _FeeefDeliveryIntegration():
+return $default(_that.id,_that.active,_that.autoSend,_that.nearSenderUserId,_that.nearSenderUsername,_that.nearSenderEmail,_that.nearAccountType,_that.pickupLocationType,_that.pickupAddress,_that.senderCenterId,_that.defaultBuralistId,_that.useFeeefLabel,_that.webhookSecret,_that.metadata);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  bool active,  bool autoSend,  int nearSenderUserId,  String? nearSenderUsername,  String? nearSenderEmail,  FeeefDeliveryNearAccountType? nearAccountType,  int? pickupLocationType,  String? pickupAddress,  int? senderCenterId,  int? defaultBuralistId,  bool useFeeefLabel,  String? webhookSecret,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+switch (_that) {
+case _FeeefDeliveryIntegration() when $default != null:
+return $default(_that.id,_that.active,_that.autoSend,_that.nearSenderUserId,_that.nearSenderUsername,_that.nearSenderEmail,_that.nearAccountType,_that.pickupLocationType,_that.pickupAddress,_that.senderCenterId,_that.defaultBuralistId,_that.useFeeefLabel,_that.webhookSecret,_that.metadata);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _FeeefDeliveryIntegration extends FeeefDeliveryIntegration {
+  const _FeeefDeliveryIntegration({required this.id, this.active = true, this.autoSend = false, required this.nearSenderUserId, this.nearSenderUsername, this.nearSenderEmail, this.nearAccountType, this.pickupLocationType, this.pickupAddress, this.senderCenterId, this.defaultBuralistId, this.useFeeefLabel = true, this.webhookSecret, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  factory _FeeefDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$FeeefDeliveryIntegrationFromJson(json);
+
+@override final  String id;
+@override@JsonKey() final  bool active;
+@override@JsonKey() final  bool autoSend;
+/// Near sender user id returned by provision — required for parcel ops.
+@override final  int nearSenderUserId;
+@override final  String? nearSenderUsername;
+@override final  String? nearSenderEmail;
+@override final  FeeefDeliveryNearAccountType? nearAccountType;
+/// `0` = address pickup, `1` = center pickup (Near `pickup_location_type`).
+@override final  int? pickupLocationType;
+@override final  String? pickupAddress;
+@override final  int? senderCenterId;
+/// Optional default buralist when auto-resolve fails.
+@override final  int? defaultBuralistId;
+/// Prefer Feeef-branded PDF labels (default true).
+@override@JsonKey() final  bool useFeeefLabel;
+@override final  String? webhookSecret;
+ final  Map<String, dynamic> _metadata;
+@override@JsonKey() Map<String, dynamic> get metadata {
+  if (_metadata is EqualUnmodifiableMapView) return _metadata;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_metadata);
+}
+
+
+/// Create a copy of FeeefDeliveryIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FeeefDeliveryIntegrationCopyWith<_FeeefDeliveryIntegration> get copyWith => __$FeeefDeliveryIntegrationCopyWithImpl<_FeeefDeliveryIntegration>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$FeeefDeliveryIntegrationToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeeefDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&(identical(other.nearSenderUserId, nearSenderUserId) || other.nearSenderUserId == nearSenderUserId)&&(identical(other.nearSenderUsername, nearSenderUsername) || other.nearSenderUsername == nearSenderUsername)&&(identical(other.nearSenderEmail, nearSenderEmail) || other.nearSenderEmail == nearSenderEmail)&&(identical(other.nearAccountType, nearAccountType) || other.nearAccountType == nearAccountType)&&(identical(other.pickupLocationType, pickupLocationType) || other.pickupLocationType == pickupLocationType)&&(identical(other.pickupAddress, pickupAddress) || other.pickupAddress == pickupAddress)&&(identical(other.senderCenterId, senderCenterId) || other.senderCenterId == senderCenterId)&&(identical(other.defaultBuralistId, defaultBuralistId) || other.defaultBuralistId == defaultBuralistId)&&(identical(other.useFeeefLabel, useFeeefLabel) || other.useFeeefLabel == useFeeefLabel)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,active,autoSend,nearSenderUserId,nearSenderUsername,nearSenderEmail,nearAccountType,pickupLocationType,pickupAddress,senderCenterId,defaultBuralistId,useFeeefLabel,webhookSecret,const DeepCollectionEquality().hash(_metadata));
+
+@override
+String toString() {
+  return 'FeeefDeliveryIntegration(id: $id, active: $active, autoSend: $autoSend, nearSenderUserId: $nearSenderUserId, nearSenderUsername: $nearSenderUsername, nearSenderEmail: $nearSenderEmail, nearAccountType: $nearAccountType, pickupLocationType: $pickupLocationType, pickupAddress: $pickupAddress, senderCenterId: $senderCenterId, defaultBuralistId: $defaultBuralistId, useFeeefLabel: $useFeeefLabel, webhookSecret: $webhookSecret, metadata: $metadata)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$FeeefDeliveryIntegrationCopyWith<$Res> implements $FeeefDeliveryIntegrationCopyWith<$Res> {
+  factory _$FeeefDeliveryIntegrationCopyWith(_FeeefDeliveryIntegration value, $Res Function(_FeeefDeliveryIntegration) _then) = __$FeeefDeliveryIntegrationCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, bool active, bool autoSend, int nearSenderUserId, String? nearSenderUsername, String? nearSenderEmail, FeeefDeliveryNearAccountType? nearAccountType, int? pickupLocationType, String? pickupAddress, int? senderCenterId, int? defaultBuralistId, bool useFeeefLabel, String? webhookSecret, Map<String, dynamic> metadata
+});
+
+
+
+
+}
+/// @nodoc
+class __$FeeefDeliveryIntegrationCopyWithImpl<$Res>
+    implements _$FeeefDeliveryIntegrationCopyWith<$Res> {
+  __$FeeefDeliveryIntegrationCopyWithImpl(this._self, this._then);
+
+  final _FeeefDeliveryIntegration _self;
+  final $Res Function(_FeeefDeliveryIntegration) _then;
+
+/// Create a copy of FeeefDeliveryIntegration
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? active = null,Object? autoSend = null,Object? nearSenderUserId = null,Object? nearSenderUsername = freezed,Object? nearSenderEmail = freezed,Object? nearAccountType = freezed,Object? pickupLocationType = freezed,Object? pickupAddress = freezed,Object? senderCenterId = freezed,Object? defaultBuralistId = freezed,Object? useFeeefLabel = null,Object? webhookSecret = freezed,Object? metadata = null,}) {
+  return _then(_FeeefDeliveryIntegration(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,autoSend: null == autoSend ? _self.autoSend : autoSend // ignore: cast_nullable_to_non_nullable
+as bool,nearSenderUserId: null == nearSenderUserId ? _self.nearSenderUserId : nearSenderUserId // ignore: cast_nullable_to_non_nullable
+as int,nearSenderUsername: freezed == nearSenderUsername ? _self.nearSenderUsername : nearSenderUsername // ignore: cast_nullable_to_non_nullable
+as String?,nearSenderEmail: freezed == nearSenderEmail ? _self.nearSenderEmail : nearSenderEmail // ignore: cast_nullable_to_non_nullable
+as String?,nearAccountType: freezed == nearAccountType ? _self.nearAccountType : nearAccountType // ignore: cast_nullable_to_non_nullable
+as FeeefDeliveryNearAccountType?,pickupLocationType: freezed == pickupLocationType ? _self.pickupLocationType : pickupLocationType // ignore: cast_nullable_to_non_nullable
+as int?,pickupAddress: freezed == pickupAddress ? _self.pickupAddress : pickupAddress // ignore: cast_nullable_to_non_nullable
+as String?,senderCenterId: freezed == senderCenterId ? _self.senderCenterId : senderCenterId // ignore: cast_nullable_to_non_nullable
+as int?,defaultBuralistId: freezed == defaultBuralistId ? _self.defaultBuralistId : defaultBuralistId // ignore: cast_nullable_to_non_nullable
+as int?,useFeeefLabel: null == useFeeefLabel ? _self.useFeeefLabel : useFeeefLabel // ignore: cast_nullable_to_non_nullable
+as bool,webhookSecret: freezed == webhookSecret ? _self.webhookSecret : webhookSecret // ignore: cast_nullable_to_non_nullable
+as String?,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));
 }

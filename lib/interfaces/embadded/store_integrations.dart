@@ -36,6 +36,8 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     ZimouExpressDeliveryIntegration? zimou,
     ZrexpressDeliveryIntegration? zrexpress,
     MdmExpressDeliveryIntegration? mdmExpress,
+    /// Feeef Delivery (Near Delivery white-label) — merchants never hold Near API keys.
+    FeeefDeliveryIntegration? feeefDelivery,
     MaystroDeliveryIntegration? maystroDelivery,
     /// Codpilot mini-ERP (order confirmation / COD ops) — not a carrier.
     CodpilotIntegration? codpilot,
@@ -561,6 +563,52 @@ abstract class MdmExpressDeliveryIntegration with _$MdmExpressDeliveryIntegratio
 
   factory MdmExpressDeliveryIntegration.fromJson(Map<String, dynamic> json) =>
       _$MdmExpressDeliveryIntegrationFromJson(json);
+}
+
+/// Near account type used when provisioning Feeef Delivery (`/senders/signup`).
+@JsonEnum(alwaysCreate: true)
+enum FeeefDeliveryNearAccountType {
+  @JsonValue('platform')
+  platform,
+  @JsonValue('api')
+  api,
+  @JsonValue('both')
+  both,
+}
+
+/// Feeef Delivery store integration (Near Delivery under the hood, Feeef-branded).
+///
+/// Merchants enable via `POST .../integrations/feeefDelivery/enable` — they never
+/// enter Near API keys. [nearSenderUserId] is required when [active].
+@freezed
+abstract class FeeefDeliveryIntegration with _$FeeefDeliveryIntegration {
+  const FeeefDeliveryIntegration._();
+  const factory FeeefDeliveryIntegration({
+    required String id,
+    @Default(true) bool active,
+    @Default(false) bool autoSend,
+    /// Near sender user id returned by provision — required for parcel ops.
+    required int nearSenderUserId,
+    String? nearSenderUsername,
+    String? nearSenderEmail,
+    FeeefDeliveryNearAccountType? nearAccountType,
+    /// `0` = address pickup, `1` = center pickup (Near `pickup_location_type`).
+    int? pickupLocationType,
+    String? pickupAddress,
+    int? senderCenterId,
+    /// Optional default buralist when auto-resolve fails.
+    int? defaultBuralistId,
+    /// Prefer Feeef-branded PDF labels (default true).
+    @Default(true) bool useFeeefLabel,
+    String? webhookSecret,
+    @Default({}) Map<String, dynamic> metadata,
+  }) = _FeeefDeliveryIntegration;
+
+  factory FeeefDeliveryIntegration.fromJson(Map<String, dynamic> json) =>
+      _$FeeefDeliveryIntegrationFromJson(json);
+
+  /// True when the integration is active and has a valid Near sender id.
+  bool get isReady => active && nearSenderUserId > 0;
 }
 
 /// Maystro Delivery integration configuration.

@@ -748,7 +748,11 @@ abstract class SecurityOptions with _$SecurityOptions {
       _$SecurityOptionsFromJson(json);
 }
 
-/// Security integration configuration with options (private - merchant app).
+/// Checkout fraud / abuse protection for public order create (not account 2FA).
+///
+/// Merchants configure per-rule treatments (`block` / `warning` / `fake`) and
+/// cooldowns. Enforcement lives in backend `evaluateCheckoutSecurity` on
+/// `POST .../orders/send`; storefront may also apply `frontend` / `doubleSend`.
 @freezed
 abstract class SecurityIntegration with _$SecurityIntegration {
   const SecurityIntegration._();

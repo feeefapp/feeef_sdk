@@ -674,6 +674,8 @@ abstract class InventoryIntegration with _$InventoryIntegration {
     @Default(MissingInventoryBucketPolicy.ignore)
     MissingInventoryBucketPolicy missing_bucket_policy,
     @Default(true) bool allow_backorder,
+    /// When true (and inventory module is active), storefront marks OOS variants.
+    @Default(false) bool show_unavailable_on_frontend,
   }) = _InventoryIntegration;
 
   factory InventoryIntegration.fromJson(Map<String, dynamic> json) =>

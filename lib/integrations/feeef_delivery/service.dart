@@ -4,9 +4,12 @@ import 'package:dio/dio.dart';
 import 'package:feeef/feeef_client.dart';
 import 'package:feeef/integrations/delivery/bulk_send_result.dart';
 import 'package:feeef/integrations/delivery/parcel.dart';
+import 'package:feeef/integrations/feeef_delivery/models.dart';
 import 'package:feeef/integrations/integrations.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
 import 'package:feeef/orders/models/order.dart';
+
+export 'package:feeef/integrations/feeef_delivery/models.dart';
 
 /// Response from `POST .../integrations/feeefDelivery/send`.
 class FeeefDeliverySendResponse {
@@ -126,12 +129,96 @@ class FeeefDeliveryService extends DeliveryService<FeeefDeliveryIntegration> {
     return FeeefDeliveryIntegration.fromJson(Map<String, dynamic>.from(raw));
   }
 
+  /// List Near centers for [storeId] (integrator geo — works before/after enable).
+  static Future<List<FeeefDeliveryCenter>> fetchCenters(
+    String storeId, {
+    String? wilayaCode,
+  }) async {
+    final response = await Feeef.instance.client.get(
+      '/stores/$storeId/integrations/feeefDelivery/geo/centers',
+    );
+    var list = feeefDeliveryGeoRows(response.data)
+        .map(FeeefDeliveryCenter.fromJson)
+        .where((c) => c.id > 0)
+        .toList();
+    final filter = wilayaCode?.replaceAll(RegExp(r'\D'), '');
+    if (filter != null && filter.isNotEmpty) {
+      final padded = filter.length == 1 ? '0$filter' : filter.padLeft(2, '0');
+      final norm = padded.length > 2 ? padded.substring(padded.length - 2) : padded;
+      list = list.where((c) {
+        final w = c.wilayaCode?.replaceAll(RegExp(r'\D'), '') ?? '';
+        if (w.isEmpty) return true;
+        final wp = w.length == 1 ? '0$w' : (w.length > 2 ? w.substring(w.length - 2) : w.padLeft(2, '0'));
+        return wp == norm || w == filter;
+      }).toList();
+    }
+    return List.unmodifiable(list);
+  }
+
+  /// List Near buralists for [storeId] (often empty on staging).
+  static Future<List<FeeefDeliveryBuralist>> fetchBuralists(String storeId) async {
+    final response = await Feeef.instance.client.get(
+      '/stores/$storeId/integrations/feeefDelivery/geo/buralists',
+    );
+    return feeefDeliveryGeoRows(response.data)
+        .map(FeeefDeliveryBuralist.fromJson)
+        .where((b) => b.id > 0)
+        .toList(growable: false);
+  }
+
   /// Health check against Near geo (`GET .../ping`).
   Future<Map<String, dynamic>> ping() async {
     final response = await Feeef.instance.client.get('$_base/ping');
     return response.data is Map
         ? Map<String, dynamic>.from(response.data as Map)
         : <String, dynamic>{'ok': false};
+  }
+
+  /// Near wilayas (`GET .../geo/wilayas`).
+  Future<List<FeeefDeliveryWilaya>> listWilayas() async {
+    final rows = await _geoRows('wilayas');
+    return rows
+        .map(FeeefDeliveryWilaya.fromJson)
+        .where((w) => w.code.isNotEmpty)
+        .toList(growable: false);
+  }
+
+  /// Near sender centers (`GET .../geo/centers`).
+  ///
+  /// Optional [wilayaCode] filters client-side (Near list is usually small).
+  Future<List<FeeefDeliveryCenter>> listCenters({String? wilayaCode}) async {
+    final rows = await _geoRows('centers');
+    var list = rows
+        .map(FeeefDeliveryCenter.fromJson)
+        .where((c) => c.id > 0)
+        .toList();
+    final filter = wilayaCode?.replaceAll(RegExp(r'\D'), '');
+    if (filter != null && filter.isNotEmpty) {
+      final padded = filter.padLeft(2, '0').substring(filter.length > 2 ? filter.length - 2 : 0);
+      list = list
+          .where((c) {
+            final w = c.wilayaCode?.replaceAll(RegExp(r'\D'), '') ?? '';
+            if (w.isEmpty) return true;
+            final wp = w.padLeft(2, '0');
+            return wp == padded || w == filter;
+          })
+          .toList();
+    }
+    return List.unmodifiable(list);
+  }
+
+  /// Near buralists (`GET .../geo/buralists`). Often empty on staging.
+  Future<List<FeeefDeliveryBuralist>> listBuralists() async {
+    final rows = await _geoRows('buralists');
+    return rows
+        .map(FeeefDeliveryBuralist.fromJson)
+        .where((b) => b.id > 0)
+        .toList(growable: false);
+  }
+
+  Future<List<Map<String, dynamic>>> _geoRows(String kind) async {
+    final response = await Feeef.instance.client.get('$_base/geo/$kind');
+    return feeefDeliveryGeoRows(response.data);
   }
 
   /// Delivery fees matrix (`GET .../fees`).

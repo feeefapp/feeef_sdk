@@ -491,6 +491,8 @@ _InventoryIntegration _$InventoryIntegrationFromJson(
       ) ??
       MissingInventoryBucketPolicy.ignore,
   allow_backorder: json['allow_backorder'] as bool? ?? true,
+  show_unavailable_on_frontend:
+      json['show_unavailable_on_frontend'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$InventoryIntegrationToJson(
@@ -511,6 +513,7 @@ Map<String, dynamic> _$InventoryIntegrationToJson(
   'missing_bucket_policy':
       _$MissingInventoryBucketPolicyEnumMap[instance.missing_bucket_policy]!,
   'allow_backorder': instance.allow_backorder,
+  'show_unavailable_on_frontend': instance.show_unavailable_on_frontend,
 };
 
 const _$OrderStatusEnumMap = {

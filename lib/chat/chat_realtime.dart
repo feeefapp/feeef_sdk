@@ -5,6 +5,31 @@ import 'package:feeef/chat/chat_repository.dart';
 
 /// Helpers for bridging Transmit events and poll snapshots into UI state.
 class ChatRealtimeBridge {
+  /// Orders transcript parts by `position`, keeping insertion order on ties.
+  ///
+  /// `List.sort` is not stable, and every part in a generation snapshot can
+  /// legitimately carry the same position (older backends omit the field
+  /// entirely, so it decodes as 0). An unstable sort then reshuffled text,
+  /// reasoning and tool calls on every poll once a generation grew past the
+  /// threshold where Dart switches away from insertion sort. Insertion order
+  /// already matches the server's `order by position asc`, so preserving it is
+  /// both correct and the right fallback.
+  static List<Map<String, dynamic>> sortPartsByPosition(
+    List<Map<String, dynamic>> parts,
+  ) {
+    final indexed = <MapEntry<int, Map<String, dynamic>>>[
+      for (var i = 0; i < parts.length; i++) MapEntry(i, parts[i]),
+    ];
+    indexed.sort((a, b) {
+      final byPosition = ((a.value['position'] as int?) ?? 0).compareTo(
+        (b.value['position'] as int?) ?? 0,
+      );
+      if (byPosition != 0) return byPosition;
+      return a.key.compareTo(b.key);
+    });
+    return [for (final entry in indexed) entry.value];
+  }
+
   /// Merges a polled [ChatGenerationSnapshot] into ordered transcript parts.
   static List<Map<String, dynamic>> mergeSnapshotTranscriptParts(
     List<Map<String, dynamic>> current,
@@ -25,9 +50,7 @@ class ChatRealtimeBridge {
       };
     }
 
-    final merged = byId.values.toList()
-      ..sort((a, b) => ((a['position'] as int?) ?? 0).compareTo((b['position'] as int?) ?? 0));
-    return merged;
+    return sortPartsByPosition(byId.values.toList());
   }
 
   /// Legacy: merges text deltas into a partId → text map.
@@ -68,18 +91,16 @@ class ChatRealtimeBridge {
   static List<Map<String, dynamic>> transcriptPartsFromSnapshot(
     ChatGenerationSnapshot snapshot,
   ) {
-    return snapshot.parts
-        .map(
-          (p) => {
-            'id': p.id,
-            'type': p.type,
-            'state': p.state,
-            'content': Map<String, dynamic>.from(p.content),
-            'position': p.position,
-          },
-        )
-        .toList()
-      ..sort((a, b) => ((a['position'] as int?) ?? 0).compareTo((b['position'] as int?) ?? 0));
+    return sortPartsByPosition([
+      for (final p in snapshot.parts)
+        {
+          'id': p.id,
+          'type': p.type,
+          'state': p.state,
+          'content': Map<String, dynamic>.from(p.content),
+          'position': p.position,
+        },
+    ]);
   }
 
   /// Ensures a transcript row exists before the first [ChatGenerationEvent.isPartDelta].
@@ -175,8 +196,7 @@ class ChatRealtimeBridge {
       });
     }
 
-    next.sort((a, b) => ((a['position'] as int?) ?? 0).compareTo((b['position'] as int?) ?? 0));
-    return next;
+    return sortPartsByPosition(next);
   }
 
   /// Legacy alias — applies PART_PATCH for ui_block parts.
@@ -186,20 +206,34 @@ class ChatRealtimeBridge {
   ) => applyPartPatch(current, event);
 
   /// Poll loop with exponential backoff when [poll] throws or returns a terminal failure.
+  ///
+  /// [onFailure] receives the running count of *consecutive* failures (1, 2, 3…)
+  /// and [onSuccess] fires when a poll gets through again. Without these the
+  /// loop retried a dropped connection forever in total silence, leaving the UI
+  /// pinned on "working…" with nothing to tell the user or act on.
   static Future<void> pollWithRetry({
     required Future<bool> Function() poll,
     required bool Function() shouldContinue,
+    void Function(int consecutiveFailures, Object error)? onFailure,
+    void Function()? onSuccess,
     Duration initialInterval = const Duration(seconds: 2),
     Duration maxInterval = const Duration(seconds: 10),
     double backoffMultiplier = 1.5,
   }) async {
     var interval = initialInterval;
+    var consecutiveFailures = 0;
     while (shouldContinue()) {
       try {
         final done = await poll();
         interval = initialInterval;
+        if (consecutiveFailures > 0) {
+          consecutiveFailures = 0;
+          onSuccess?.call();
+        }
         if (done) return;
-      } catch (_) {
+      } catch (e) {
+        consecutiveFailures += 1;
+        onFailure?.call(consecutiveFailures, e);
         final nextMs = (interval.inMilliseconds * backoffMultiplier).round();
         interval = Duration(
           milliseconds: nextMs.clamp(

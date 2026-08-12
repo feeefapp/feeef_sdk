@@ -18,6 +18,10 @@ abstract class StoreIntegrations with _$StoreIntegrations {
   const StoreIntegrations._();
   const factory StoreIntegrations({
     @Default({}) Map<String, dynamic>? metadata,
+
+    /// Global Meta integration — credentials shared by every Meta feature.
+    /// Ads live here today; pixels may move over from [metaPixel] later.
+    MetaIntegration? meta,
     // Analytics Integrations
     MetaPixelIntegration? metaPixel,
     TiktokPixelIntegration? tiktokPixel,
@@ -124,6 +128,81 @@ abstract class FacebookMarketingOAuth with _$FacebookMarketingOAuth {
 
   factory FacebookMarketingOAuth.fromJson(Map<String, dynamic> json) =>
       _$FacebookMarketingOAuthFromJson(json);
+}
+
+/// An ad account the merchant chose to manage from Feeef.
+@freezed
+abstract class MetaAdAccountRef with _$MetaAdAccountRef {
+  const MetaAdAccountRef._();
+  const factory MetaAdAccountRef({
+    /// Graph node id, `act_123`.
+    required String id,
+
+    /// Bare numeric id, `123`.
+    @Default('') String accountId,
+    String? name,
+    String? currency,
+    String? timezoneName,
+    int? accountStatus,
+  }) = _MetaAdAccountRef;
+
+  factory MetaAdAccountRef.fromJson(Map<String, dynamic> json) =>
+      _$MetaAdAccountRefFromJson(json);
+}
+
+/// Everything ads-related on the Meta integration.
+@freezed
+abstract class MetaAdsConfig with _$MetaAdsConfig {
+  const MetaAdsConfig._();
+  const factory MetaAdsConfig({
+    @Default(true) bool active,
+    @Default([]) List<MetaAdAccountRef> adAccounts,
+    String? defaultAdAccountId,
+
+    /// Default insights window for the dashboard, e.g. `last_7d`.
+    @Default('last_7d') String defaultDatePreset,
+
+    /// Extra hosts that count as this store's storefront when matching ad links.
+    @Default([]) List<String> extraStoreHosts,
+    @Default({}) Map<String, dynamic> metadata,
+  }) = _MetaAdsConfig;
+
+  factory MetaAdsConfig.fromJson(Map<String, dynamic> json) =>
+      _$MetaAdsConfigFromJson(json);
+}
+
+/// Meta account the stored credentials belong to.
+@freezed
+abstract class MetaAccountRef with _$MetaAccountRef {
+  const MetaAccountRef._();
+  const factory MetaAccountRef({required String id, String? name}) =
+      _MetaAccountRef;
+
+  factory MetaAccountRef.fromJson(Map<String, dynamic> json) =>
+      _$MetaAccountRefFromJson(json);
+}
+
+/// Global Meta integration (`store.integrations.meta`).
+///
+/// Credentials live at the top level and are shared by every Meta feature.
+/// The access token itself is **never** exposed to clients — it is encrypted
+/// server-side and written only by the OAuth callback, so there is no `oauth2`
+/// field here. Read connection state from
+/// `ff.metaAds.status(storeId)` instead.
+@freezed
+abstract class MetaIntegration with _$MetaIntegration {
+  const MetaIntegration._();
+  const factory MetaIntegration({
+    @Default(false) bool active,
+
+    /// Present once connected; name may be absent.
+    MetaAccountRef? account,
+    MetaAdsConfig? ads,
+    @Default({}) Map<String, dynamic> metadata,
+  }) = _MetaIntegration;
+
+  factory MetaIntegration.fromJson(Map<String, dynamic> json) =>
+      _$MetaIntegrationFromJson(json);
 }
 
 /// Facebook Meta Pixel integration configuration.

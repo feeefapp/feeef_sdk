@@ -10,6 +10,9 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
   Map<String, dynamic> json,
 ) => _StoreIntegrations(
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+  meta: json['meta'] == null
+      ? null
+      : MetaIntegration.fromJson(json['meta'] as Map<String, dynamic>),
   metaPixel: json['metaPixel'] == null
       ? null
       : MetaPixelIntegration.fromJson(
@@ -140,6 +143,7 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
 Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
     <String, dynamic>{
       'metadata': instance.metadata,
+      'meta': instance.meta,
       'metaPixel': instance.metaPixel,
       'tiktokPixel': instance.tiktokPixel,
       'googleAnalytics': instance.googleAnalytics,
@@ -249,6 +253,80 @@ Map<String, dynamic> _$FacebookMarketingOAuthToJson(
   'expiresAt': instance.expiresAt,
   'scopes': instance.scopes,
 };
+
+_MetaAdAccountRef _$MetaAdAccountRefFromJson(Map<String, dynamic> json) =>
+    _MetaAdAccountRef(
+      id: json['id'] as String,
+      accountId: json['accountId'] as String? ?? '',
+      name: json['name'] as String?,
+      currency: json['currency'] as String?,
+      timezoneName: json['timezoneName'] as String?,
+      accountStatus: (json['accountStatus'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$MetaAdAccountRefToJson(_MetaAdAccountRef instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'accountId': instance.accountId,
+      'name': instance.name,
+      'currency': instance.currency,
+      'timezoneName': instance.timezoneName,
+      'accountStatus': instance.accountStatus,
+    };
+
+_MetaAdsConfig _$MetaAdsConfigFromJson(Map<String, dynamic> json) =>
+    _MetaAdsConfig(
+      active: json['active'] as bool? ?? true,
+      adAccounts:
+          (json['adAccounts'] as List<dynamic>?)
+              ?.map((e) => MetaAdAccountRef.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      defaultAdAccountId: json['defaultAdAccountId'] as String?,
+      defaultDatePreset: json['defaultDatePreset'] as String? ?? 'last_7d',
+      extraStoreHosts:
+          (json['extraStoreHosts'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+    );
+
+Map<String, dynamic> _$MetaAdsConfigToJson(_MetaAdsConfig instance) =>
+    <String, dynamic>{
+      'active': instance.active,
+      'adAccounts': instance.adAccounts,
+      'defaultAdAccountId': instance.defaultAdAccountId,
+      'defaultDatePreset': instance.defaultDatePreset,
+      'extraStoreHosts': instance.extraStoreHosts,
+      'metadata': instance.metadata,
+    };
+
+_MetaAccountRef _$MetaAccountRefFromJson(Map<String, dynamic> json) =>
+    _MetaAccountRef(id: json['id'] as String, name: json['name'] as String?);
+
+Map<String, dynamic> _$MetaAccountRefToJson(_MetaAccountRef instance) =>
+    <String, dynamic>{'id': instance.id, 'name': instance.name};
+
+_MetaIntegration _$MetaIntegrationFromJson(Map<String, dynamic> json) =>
+    _MetaIntegration(
+      active: json['active'] as bool? ?? false,
+      account: json['account'] == null
+          ? null
+          : MetaAccountRef.fromJson(json['account'] as Map<String, dynamic>),
+      ads: json['ads'] == null
+          ? null
+          : MetaAdsConfig.fromJson(json['ads'] as Map<String, dynamic>),
+      metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+    );
+
+Map<String, dynamic> _$MetaIntegrationToJson(_MetaIntegration instance) =>
+    <String, dynamic>{
+      'active': instance.active,
+      'account': instance.account,
+      'ads': instance.ads,
+      'metadata': instance.metadata,
+    };
 
 _MetaPixelIntegration _$MetaPixelIntegrationFromJson(
   Map<String, dynamic> json,

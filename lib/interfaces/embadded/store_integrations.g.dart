@@ -1085,6 +1085,8 @@ _GoogleSheetsIntegration _$GoogleSheetsIntegrationFromJson(
           .toList() ??
       defaultOrderColumns,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+  draftSheetEnabled: json['draftSheetEnabled'] as bool? ?? false,
+  draftSheetName: json['draftSheetName'] as String?,
 );
 
 Map<String, dynamic> _$GoogleSheetsIntegrationToJson(
@@ -1096,6 +1098,8 @@ Map<String, dynamic> _$GoogleSheetsIntegrationToJson(
   'oauth2': instance.oauth2,
   'columns': instance.columns,
   'metadata': instance.metadata,
+  'draftSheetEnabled': instance.draftSheetEnabled,
+  'draftSheetName': instance.draftSheetName,
 };
 
 _WebhookConfig _$WebhookConfigFromJson(Map<String, dynamic> json) =>
@@ -1134,6 +1138,9 @@ const _$WebhookEventEnumMap = {
   WebhookEvent.orderCreated: 'orderCreated',
   WebhookEvent.orderUpdated: 'orderUpdated',
   WebhookEvent.orderDeleted: 'orderDeleted',
+  WebhookEvent.productCreated: 'productCreated',
+  WebhookEvent.productUpdated: 'productUpdated',
+  WebhookEvent.productDeleted: 'productDeleted',
 };
 
 _WebhooksIntegration _$WebhooksIntegrationFromJson(Map<String, dynamic> json) =>

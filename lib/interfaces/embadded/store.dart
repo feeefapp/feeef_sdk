@@ -183,7 +183,8 @@ abstract class StoreMember with _$StoreMember {
     DateTime? acceptedAt,
     DateTime? expiredAt,
     required DateTime createdAt,
-    @Default(false) bool active,
+    /// Missing on legacy members — the API treats that as active, so must we.
+    @Default(true) bool active,
     @Default({}) Map<String, dynamic> metadata,
     /// Fine-grained permissions; empty = legacy full access for editors.
     @Default([]) List<String> scopes,

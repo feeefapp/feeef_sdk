@@ -2022,7 +2022,8 @@ as Map<String, dynamic>,
 /// @nodoc
 mixin _$StoreMember {
 
- String get userId; String get name; StoreMemberRole get role; DateTime? get acceptedAt; DateTime? get expiredAt; DateTime get createdAt; bool get active; Map<String, dynamic> get metadata;/// Fine-grained permissions; empty = legacy full access for editors.
+ String get userId; String get name; StoreMemberRole get role; DateTime? get acceptedAt; DateTime? get expiredAt; DateTime get createdAt;/// Missing on legacy members — the API treats that as active, so must we.
+ bool get active; Map<String, dynamic> get metadata;/// Fine-grained permissions; empty = legacy full access for editors.
  List<String> get scopes;
 /// Create a copy of StoreMember
 /// with the given fields replaced by the non-null parameter values.
@@ -2225,7 +2226,7 @@ return $default(_that.userId,_that.name,_that.role,_that.acceptedAt,_that.expire
 @JsonSerializable()
 
 class _StoreMember implements StoreMember {
-   _StoreMember({required this.userId, required this.name, required this.role, this.acceptedAt, this.expiredAt, required this.createdAt, this.active = false, final  Map<String, dynamic> metadata = const {}, final  List<String> scopes = const []}): _metadata = metadata,_scopes = scopes;
+   _StoreMember({required this.userId, required this.name, required this.role, this.acceptedAt, this.expiredAt, required this.createdAt, this.active = true, final  Map<String, dynamic> metadata = const {}, final  List<String> scopes = const []}): _metadata = metadata,_scopes = scopes;
   factory _StoreMember.fromJson(Map<String, dynamic> json) => _$StoreMemberFromJson(json);
 
 @override final  String userId;
@@ -2234,6 +2235,7 @@ class _StoreMember implements StoreMember {
 @override final  DateTime? acceptedAt;
 @override final  DateTime? expiredAt;
 @override final  DateTime createdAt;
+/// Missing on legacy members — the API treats that as active, so must we.
 @override@JsonKey() final  bool active;
  final  Map<String, dynamic> _metadata;
 @override@JsonKey() Map<String, dynamic> get metadata {

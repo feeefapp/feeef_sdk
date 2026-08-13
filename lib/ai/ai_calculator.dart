@@ -1,21 +1,58 @@
-/// Pure utility class for estimating AI generation costs client-side.
+/// Client-side AI cost estimator — deterministic mirror of the backend engine
+/// in `backend/app/services/ai_calculator.ts`.
 ///
-/// Mirrors the backend `AiCalculator` in `backend/app/services/ai_calculator.ts`.
-/// `aiModels.billing` shape: [AIModelsBilling] in `app_config.dart` — keep in sync with
-/// backend `ai_models_billing.ts`, feeefjs `ai-calculator.ts`, admins `useOptions.ts`.
-/// All methods are deterministic and require no network calls.
-/// The backend quote is authoritative; this calculator is a deterministic
-/// mirror for UX (showing estimated cost before the user clicks generate).
+/// The backend quote is always authoritative (it performs the wallet debit);
+/// this class exists so the merchant UI can show "you will pay X DZD" before
+/// generating, with the SAME formulas and the SAME config inputs. All methods
+/// are pure: no network calls, no side effects.
+///
+/// ## Money model (identical to backend)
+///
+/// ```
+/// provider cost (USD)                 what the AI provider charges
+///   × exchangeRate                    → provider cost (DZD)
+///   × retailMarkup.multiplier         → retail user cost (DZD)
+///   + flat retail add-ons (DZD)       reference images, resolution tiers,
+///                                     feature add-ons, attachment surcharge…
+///   = userCostDzd
+/// ```
+///
+/// Invariants:
+///  1. [AiCostEstimate.providerCostUsd] / `providerCostDzd` are ALWAYS the
+///     pre-markup provider cost; `0` when unknown (retail floors) — never
+///     back-computed from the retail price.
+///  2. [AiCostEstimate.userCostDzd] is the final retail amount (3 decimals).
+///
+/// ## Pricing precedence (identical to backend)
+///
+///  - **Text**  : exact-id row token pricing (context tiers; catalog rows are
+///    merged into `models` by the app with per-1M pricing) → named default row
+///    (`gemini-flash-lite-latest`) → free. Never `models[0]`.
+///  - **Image** : catalog per-image USD on the row ([AiModelConfig.imageOutputPerSizeUsd]
+///    → [AiModelConfig.imageOutputUsd]) → legacy `unit:'image'` row →
+///    `defaultImageCost` floor. Legacy `localCost` (DZD) stays an explicit
+///    retail override.
+///  - **Voice** : exact row → named TTS default → any voice-capable row;
+///    `localCost` → flat `audio`/`voice` USD (also `image` unit for
+///    voice-capable rows) → `tokens` per-1M; non-localCost paths floored by
+///    `voiceGeneration.minimumChargeUsd`.
+///
+/// `aiModels.billing` shape: [AIModelsBilling] in `app_config.dart` — keep in
+/// sync with backend `ai_models_billing.ts`, feeef.js `ai_calculator.ts`,
+/// admins `useOptions.ts`.
 library;
 
 import 'dart:math' as math;
 
 import 'package:feeef/core/app_config.dart' show AIModelsBilling;
-import 'package:feeef/core/image_gen_caps.dart'
-    show modelIdSupportsImageOutputTiers;
 
 /// Fallback DZD per USD when `aiModels.exchangeRate` is absent (mirror backend).
 const double fallbackAiExchangeRate = 260;
+
+/// Named platform default for unknown text models — never `models[0]`.
+const String _defaultTextPricingModelId = 'gemini-flash-lite-latest';
+const String _defaultImageModelId = 'gemini-3.1-flash-image-preview';
+const String _defaultTtsModelId = 'gemini-2.5-pro-preview-tts';
 
 /// Resolved TTS token heuristics after merge.
 class ResolvedTtsTokenEstimate {
@@ -154,25 +191,25 @@ ResolvedAiModelsBilling mergeAiModelsBilling(AIModelsBilling? partial) {
 
 /// Result of a cost estimation.
 class AiCostEstimate {
-  /// What the AI provider charges us (USD).
+  /// Pre-markup provider cost in USD (`0` when unknown, e.g. retail floors).
   final double providerCostUsd;
 
-  /// What the AI provider charges us (DZD).
+  /// Pre-markup provider cost in DZD.
   final double providerCostDzd;
 
-  /// What the user pays (DZD) — includes profit margin.
+  /// What the user pays (DZD) — includes profit margin and flat add-ons.
   final double userCostDzd;
 
   /// Exchange rate used (DZD per USD).
   final double exchangeRate;
 
-  /// Multiplier applied (e.g. 2.5 = 150% profit).
+  /// Retail markup multiplier in effect (e.g. 2.5 = 150% margin).
   final double multiplier;
 
-  /// Whether a model-specific `localCost` override was used.
+  /// Whether a model-specific `localCost` retail override was used.
   final bool usedLocalCost;
 
-  /// Itemised breakdown for transparency.
+  /// Itemised breakdown for transparency (keys mirror the backend engine).
   final Map<String, double> breakdown;
 
   const AiCostEstimate({
@@ -194,9 +231,16 @@ class AiCostEstimate {
 
 /// Simplified model pricing info passed from the app config.
 class AiModelPricing {
+  /// USD per 1M tokens (`unit: 'tokens'`).
   final double? inputPerMToken;
+
+  /// For `unit: 'tokens'`: USD per 1M completion tokens.
+  /// For `unit: 'image' | 'audio' | 'voice'`: USD per single generation.
   final double? outputPerMToken;
+
   final String unit;
+
+  /// Optional context tier, e.g. `<=200K` / `>200K` (tokens unit only).
   final String? contextThreshold;
 
   const AiModelPricing({
@@ -211,11 +255,14 @@ class AiModelPricing {
 class AiModelConfig {
   final String id;
   final List<AiModelPricing> pricing;
+
+  /// Explicit admin retail price (DZD) for one generation — overrides the
+  /// computed retail output (provider cost stays truthful).
   final double? localCost;
 
   /// Flat provider USD per generated image from the multi-provider model
-  /// catalog (`pricing.image_output`). Used by image rows that do not exist in
-  /// legacy `aiModels.models`.
+  /// catalog (`pricing.image_output`). Preferred over legacy `unit:'image'`
+  /// rows, matching the backend catalog-first precedence.
   final double? imageOutputUsd;
 
   /// Provider USD per generated image by output tier from the model catalog
@@ -223,7 +270,8 @@ class AiModelConfig {
   /// mirror backend billing for 1K/2K/4K image choices.
   final Map<String, double> imageOutputPerSizeUsd;
 
-  /// From `aiModels.models[].capabilities` (e.g. `voice`, `audio`) — used for TTS pricing fallbacks.
+  /// From `aiModels.models[].capabilities` (e.g. `voice`, `audio`) — used for
+  /// TTS pricing fallbacks.
   final List<String> capabilities;
 
   const AiModelConfig({
@@ -240,9 +288,16 @@ class AiModelConfig {
 /// backend's `aiModels` config (available via the app config endpoint).
 class AiCalculatorConfig {
   final double exchangeRate;
+
+  /// Floor retail-provider DZD for one image when no source prices the model.
   final double defaultImageCostDzd;
+
+  /// Flat retail DZD per reference image.
   final double referenceImageCostDzd;
+
+  /// Flat retail DZD per resolution tier (`MEDIA_RESOLUTION_LOW|MEDIUM|HIGH`).
   final Map<String, double> resolutionCosts;
+
   final List<AiModelConfig> models;
   final ResolvedAiModelsBilling billing;
 
@@ -337,9 +392,12 @@ Map<String, double> _doubleMapFromJson(dynamic raw) {
   return out;
 }
 
+/// Round money to [precision] decimals (mirror backend `roundMoney`,
+/// including the epsilon nudge so both sides round float dust identically).
 double _roundMoney(double amount, [int precision = 3]) {
+  const epsilon = 2.220446049250313e-16;
   final factor = math.pow(10, precision);
-  return (amount * factor).roundToDouble() / factor;
+  return ((amount + epsilon) * factor).roundToDouble() / factor;
 }
 
 /// Pure utility class for estimating AI generation costs.
@@ -396,6 +454,8 @@ class AiCalculator {
     return (promptTokens: promptTokens, outputTokens: outputTokens);
   }
 
+  // -- lookup ---------------------------------------------------------------
+
   /// Strip the optional Gemini catalog namespace (`models/foo`) so legacy
   /// `aiModels.models` rows and catalog ids resolve consistently.
   static String _stripCatalogNamespace(String id) {
@@ -404,18 +464,16 @@ class AiCalculator {
     return slash >= 0 ? trimmed.substring(slash + 1) : trimmed;
   }
 
-  AiModelConfig? _findModel(String modelId, String fallbackId) {
-    final modelBare = _stripCatalogNamespace(modelId);
-    final byId = config.models
-        .where((m) => m.id == modelId || m.id == modelBare)
-        .firstOrNull;
-    if (byId != null) return byId;
-    final fallbackBare = _stripCatalogNamespace(fallbackId);
-    final fallback = config.models
-        .where((m) => m.id == fallbackId || m.id == fallbackBare)
-        .firstOrNull;
-    if (fallback != null) return fallback;
-    return config.models.isNotEmpty ? config.models.first : null;
+  /// Exact-id row (namespace tolerant). Deliberately NO `models.first`
+  /// fallback: that leaked the first (often image) row's pricing into every
+  /// unknown model. Generic fallbacks are per-capability decisions below.
+  AiModelConfig? _findModel(String modelId) {
+    final id = modelId.trim();
+    final bare = _stripCatalogNamespace(id);
+    for (final m in config.models) {
+      if (m.id == id || m.id == bare) return m;
+    }
+    return null;
   }
 
   bool _modelHasVoiceCapability(AiModelConfig? m) {
@@ -423,13 +481,53 @@ class AiCalculator {
     return m.capabilities.any((c) => c == 'voice' || c == 'audio');
   }
 
-  /// Catalog provider USD per image, optionally selected by output tier.
-  /// Legacy `pricing[unit:image]` is handled by [estimateImageGeneration] and
-  /// intentionally wins over this catalog fallback, matching the backend.
-  double? _pickCatalogImageProviderUsd(
-    AiModelConfig? model,
-    String? imageSize,
+  // -- text pricing -----------------------------------------------------------
+
+  /// Context-tier row from a `tokens` pricing list (mirror backend
+  /// `pickLegacyTokenRow`). Rows may declare `contextThreshold` like
+  /// `<=200K` / `>200K`.
+  ({double input, double output})? _pickTokenRow(
+    AiModelConfig model,
+    int totalTokens,
   ) {
+    final rows = model.pricing.where((p) => p.unit == 'tokens').toList();
+    if (rows.isEmpty) return null;
+    final isLargeContext = totalTokens > 200000;
+    final preferred = rows.firstWhere((p) {
+      final th = p.contextThreshold ?? '';
+      return isLargeContext ? th.contains('>') : th.contains('<=');
+    }, orElse: () => rows.first);
+    final input = preferred.inputPerMToken ?? 0.0;
+    final output = preferred.outputPerMToken ?? 0.0;
+    if (input <= 0 && output <= 0) return null;
+    return (input: input, output: output);
+  }
+
+  /// USD-per-1M pricing: exact-id row (catalog rows are merged into `models`
+  /// with per-1M pricing by the app) → named default row → `null` (free).
+  /// Mirrors backend `resolveTextTokenPricing`.
+  ({double input, double output})? _resolveTextTokenPricing(
+    String modelId,
+    int totalTokens,
+  ) {
+    final exact = _findModel(modelId);
+    if (exact != null) {
+      final row = _pickTokenRow(exact, totalTokens);
+      if (row != null) return row;
+    }
+    final fallback = _findModel(_defaultTextPricingModelId);
+    if (fallback != null) {
+      final row = _pickTokenRow(fallback, totalTokens);
+      if (row != null) return row;
+    }
+    return null;
+  }
+
+  // -- image pricing ------------------------------------------------------------
+
+  /// Catalog per-image USD carried on the row, preferring the per-tier map
+  /// (requested tier → 1K → 2K → 4K → first positive), then the flat value.
+  double? _pickCatalogImageUsd(AiModelConfig? model, String? imageSize) {
     if (model == null) return null;
     final perTier = model.imageOutputPerSizeUsd;
     if (perTier.isNotEmpty) {
@@ -451,91 +549,16 @@ class AiCalculator {
     return flat != null && flat > 0 ? flat : null;
   }
 
-  /// TTS row resolution: never falls back to [config.models.first] (often an image model).
-  AiModelConfig? _findVoiceModel(String modelId, String fallbackId) {
-    final byId = config.models.where((m) => m.id == modelId).firstOrNull;
-    if (byId != null) return byId;
-    final fallback = config.models.where((m) => m.id == fallbackId).firstOrNull;
-    if (fallback != null) return fallback;
-    for (final m in config.models) {
-      if (_modelHasVoiceCapability(m)) return m;
-    }
-    return null;
+  /// Legacy `unit:'image'` row output (USD per image).
+  double? _pickLegacyImageUsd(AiModelConfig? model) {
+    final row = model?.pricing.where((p) => p.unit == 'image').firstOrNull;
+    final usd = row?.outputPerMToken;
+    return usd != null && usd > 0 ? usd : null;
   }
 
-  /// Provider USD per TTS output; skips zero. Units `audio`/`voice`; for voice models also `image`.
-  double? _pickTtsProviderOutputUsd(AiModelConfig? model) {
-    if (model == null || model.pricing.isEmpty) return null;
-    final voiceLike = _modelHasVoiceCapability(model);
-    for (final unit in ['audio', 'voice']) {
-      final p = model.pricing.where((x) => x.unit == unit).firstOrNull;
-      final o = p?.outputPerMToken;
-      if (o != null && o > 0) return o;
-    }
-    if (voiceLike) {
-      final img = model.pricing.where((x) => x.unit == 'image').firstOrNull;
-      final o = img?.outputPerMToken;
-      if (o != null && o > 0) return o;
-    }
-    return null;
-  }
+  // -- shared retail add-ons ------------------------------------------------------
 
-  ({double input, double output})? _pickVoiceTokenPricing(
-    AiModelConfig model,
-    int totalTokens,
-  ) {
-    final rows = model.pricing.where((p) => p.unit == 'tokens').toList();
-    if (rows.isEmpty) return null;
-    final isLargeContext = totalTokens > 200000;
-    final preferred =
-        rows.where((p) {
-          final th = p.contextThreshold ?? '';
-          if (th.isEmpty) return false;
-          return isLargeContext ? th.contains('>') : th.contains('<=');
-        }).firstOrNull ??
-        rows.first;
-    final inp = preferred.inputPerMToken ?? 0.0;
-    final out = preferred.outputPerMToken ?? 0.0;
-    if (inp <= 0 && out <= 0) return null;
-    return (input: inp, output: out);
-  }
-
-  (double baseDzd, bool usedLocal) _voiceoverBaseUserCostDzd({
-    required String modelId,
-    required int promptTokens,
-    required int outputTokens,
-  }) {
-    final b = config.billing;
-    final floorDzd = _roundMoney(b.voiceMinimumChargeUsd * config.exchangeRate);
-    final model = _findVoiceModel(modelId, 'gemini-2.5-pro-preview-tts');
-    if (model == null) {
-      return (floorDzd, false);
-    }
-    final local = model.localCost;
-    if (local != null) {
-      return (_roundMoney(local), true);
-    }
-    final flatUsd = _pickTtsProviderOutputUsd(model);
-    if (flatUsd != null) {
-      return (
-        _roundMoney(flatUsd * config.exchangeRate * b.retailMultiplier),
-        false,
-      );
-    }
-    final rates = _pickVoiceTokenPricing(model, promptTokens + outputTokens);
-    if (rates != null) {
-      final providerUsd =
-          (promptTokens / 1e6) * rates.input +
-          (outputTokens / 1e6) * rates.output;
-      return (
-        _roundMoney(providerUsd * config.exchangeRate * b.retailMultiplier),
-        false,
-      );
-    }
-    return (floorDzd, false);
-  }
-
-  /// Attachment surcharge in DZD (same USD→DZD×multiplier rule as image generation).
+  /// Attachment surcharge in DZD (same USD→DZD×multiplier rule as backend).
   double _attachmentExtraUserDzd({
     required int attachmentCount,
     required String attachmentResolution,
@@ -555,11 +578,142 @@ class AiCalculator {
     );
   }
 
+  /// Flat DZD resolution extras — ONE rule, mirror of backend
+  /// `computeResolutionExtrasDzd`:
+  ///  - output extra only when an output size tier is requested
+  ///    (1K→LOW, 2K→MEDIUM, 4K→HIGH); callers pass [imageSize] only for
+  ///    models that support output tiers,
+  ///  - input extra only when an explicit input resolution is requested
+  ///    (`max(0, cost[resolution] − cost[LOW])`).
+  ({double outputExtraDzd, double inputExtraDzd, double totalDzd})
+  _resolutionExtrasDzd({String? imageSize, String? resolution}) {
+    var outputExtraDzd = 0.0;
+    if (imageSize != null && imageSize.isNotEmpty) {
+      final key = switch (imageSize) {
+        '4K' => 'MEDIA_RESOLUTION_HIGH',
+        '2K' => 'MEDIA_RESOLUTION_MEDIUM',
+        _ => 'MEDIA_RESOLUTION_LOW',
+      };
+      outputExtraDzd = _roundMoney(config.resolutionCosts[key] ?? 0.0);
+    }
+
+    var inputExtraDzd = 0.0;
+    if (resolution != null && resolution.isNotEmpty) {
+      final low = config.resolutionCosts['MEDIA_RESOLUTION_LOW'] ?? 0.0;
+      final tier = config.resolutionCosts[resolution] ?? 0.0;
+      inputExtraDzd = _roundMoney(math.max(0.0, tier - low));
+    }
+
+    return (
+      outputExtraDzd: outputExtraDzd,
+      inputExtraDzd: inputExtraDzd,
+      totalDzd: _roundMoney(outputExtraDzd + inputExtraDzd),
+    );
+  }
+
+  // -- voice pricing --------------------------------------------------------------
+
+  /// Voice row: exact id → named TTS default → any voice-capable row.
+  /// Never an arbitrary `models.first` (an image model in the default seed).
+  AiModelConfig? _findVoiceModel(String modelId) {
+    final exact = _findModel(modelId);
+    if (exact != null) return exact;
+    final namedDefault = _findModel(_defaultTtsModelId);
+    if (namedDefault != null) return namedDefault;
+    for (final m in config.models) {
+      if (_modelHasVoiceCapability(m)) return m;
+    }
+    return null;
+  }
+
+  /// Flat provider USD per TTS generation; skips zero values. Units
+  /// `audio`/`voice`; for voice-capable rows also `image` (the legacy admin
+  /// editor only exposed the image unit, so voice rows were priced through it).
+  double? _pickTtsFlatUsd(AiModelConfig model) {
+    for (final unit in ['audio', 'voice']) {
+      final p = model.pricing.where((x) => x.unit == unit).firstOrNull;
+      final o = p?.outputPerMToken;
+      if (o != null && o > 0) return o;
+    }
+    if (_modelHasVoiceCapability(model)) {
+      final img = model.pricing.where((x) => x.unit == 'image').firstOrNull;
+      final o = img?.outputPerMToken;
+      if (o != null && o > 0) return o;
+    }
+    return null;
+  }
+
+  /// Base TTS pricing (mirror backend `computeBaseVoiceoverBilling`):
+  /// `localCost` → flat USD → tokens per-1M → floor. Non-localCost paths are
+  /// floored by `voiceGeneration.minimumChargeUsd` × rate. Provider cost is
+  /// honest (0 when only a retail figure is known).
+  ({double baseDzd, double providerCostUsd, bool usedLocalCost})
+  _voiceoverBase({
+    required String modelId,
+    required int promptTokens,
+    required int outputTokens,
+  }) {
+    final b = config.billing;
+    final floorDzd = _roundMoney(b.voiceMinimumChargeUsd * config.exchangeRate);
+    final model = _findVoiceModel(modelId);
+    if (model == null) {
+      return (baseDzd: floorDzd, providerCostUsd: 0.0, usedLocalCost: false);
+    }
+
+    final local = model.localCost;
+    if (local != null) {
+      // Retail override: the true provider cost is not derivable from it.
+      return (
+        baseDzd: _roundMoney(local),
+        providerCostUsd: 0.0,
+        usedLocalCost: true,
+      );
+    }
+
+    final flatUsd = _pickTtsFlatUsd(model);
+    if (flatUsd != null) {
+      return (
+        baseDzd: math.max(
+          floorDzd,
+          _roundMoney(flatUsd * config.exchangeRate * b.retailMultiplier),
+        ),
+        providerCostUsd: flatUsd,
+        usedLocalCost: false,
+      );
+    }
+
+    final rates = _pickTokenRow(model, promptTokens + outputTokens);
+    if (rates != null) {
+      final providerUsd =
+          (promptTokens / 1e6) * rates.input +
+          (outputTokens / 1e6) * rates.output;
+      return (
+        baseDzd: math.max(
+          floorDzd,
+          _roundMoney(providerUsd * config.exchangeRate * b.retailMultiplier),
+        ),
+        providerCostUsd: providerUsd,
+        usedLocalCost: false,
+      );
+    }
+
+    return (baseDzd: floorDzd, providerCostUsd: 0.0, usedLocalCost: false);
+  }
+
+  // -- estimators -------------------------------------------------------------
+
   /// Estimate the cost of an image generation action.
   ///
-  /// Covers: image gen, logo gen, editOrGenerateSimpleImage.
+  /// Covers: image gen, logo gen, editOrGenerateSimpleImage, landing-page
+  /// image step. Base precedence: catalog per-image USD on the row →
+  /// legacy `unit:'image'` row → `defaultImageCost` floor; legacy `localCost`
+  /// overrides the retail output (provider cost stays truthful).
+  ///
+  /// Pass [imageSize] only for models that support output tiers (the merchant
+  /// helper gates it) so the output-size extra matches the backend, which
+  /// resolves the effective tier via `pickImageSize`.
   AiCostEstimate estimateImageGeneration({
-    String modelId = 'gemini-3.1-flash-image-preview',
+    String modelId = _defaultImageModelId,
     int attachmentCount = 0,
     String attachmentResolution = 'medium',
     String? resolution,
@@ -568,96 +722,66 @@ class AiCalculator {
     int referenceImageCount = 0,
     double featureAddonsDzd = 0,
   }) {
-    final model = _findModel(modelId, 'gemini-3.1-flash-image-preview');
     final exchangeRate = config.exchangeRate;
-    final defaultImageCostDzd = config.defaultImageCostDzd;
+    final mult = config.billing.retailMultiplier;
+    final model = _findModel(modelId);
+
+    // Provider USD per image: catalog → legacy row → defaultImageCost floor.
+    final catalogUsd = _pickCatalogImageUsd(model, imageSize);
+    final legacyUsd = catalogUsd == null ? _pickLegacyImageUsd(model) : null;
+    final providerCostUsdPerImage =
+        catalogUsd ?? legacyUsd ?? config.defaultImageCostDzd / exchangeRate;
+    final providerCostDzdPerImage = providerCostUsdPerImage * exchangeRate;
 
     final localCost = model?.localCost;
-    final imagePricing = model?.pricing
-        .where((p) => p.unit == 'image')
-        .firstOrNull;
-
-    final catalogProviderUsd = _pickCatalogImageProviderUsd(model, imageSize);
-    final providerCostUsd = imagePricing?.outputPerMToken != null
-        ? imagePricing!.outputPerMToken!
-        : catalogProviderUsd ?? defaultImageCostDzd / exchangeRate;
-    final providerCostDzd =
-        (imagePricing?.outputPerMToken != null || catalogProviderUsd != null)
-        ? providerCostUsd * exchangeRate
-        : defaultImageCostDzd;
-
-    final computedUserCostDzd =
-        providerCostDzd * config.billing.retailMultiplier;
     final usedLocalCost = localCost != null;
-    final basePerIteration = usedLocalCost
-        ? localCost
-        : _roundMoney(computedUserCostDzd);
+    final basePerIteration = localCost != null
+        ? _roundMoney(localCost)
+        : _roundMoney(providerCostDzdPerImage * mult);
 
-    final baseCostDzd = _roundMoney(basePerIteration * iterations);
+    final iter = math.max(1, iterations);
+    final baseCostDzd = _roundMoney(basePerIteration * iter);
 
-    // Reference image extra cost
     final refExtraDzd = _roundMoney(
-      referenceImageCount * config.referenceImageCostDzd,
+      math.max(0, referenceImageCount) * config.referenceImageCostDzd,
     );
 
     final attachExtraDzd = _attachmentExtraUserDzd(
-      attachmentCount: attachmentCount,
+      attachmentCount: math.max(0, attachmentCount),
       attachmentResolution: attachmentResolution,
     );
 
-    // Resolution extra: (1) Flash/Pro — output size 1K/2K/4K → resolutionCosts (outputResKey).
-    // (2) Any model — input [resolution] tier surcharge above MEDIA_RESOLUTION_LOW
-    // (same keys as output; applies even with zero reference images so the control
-    // matches wallet + UX). Stacks with (1) when both output size and input tier apply.
-    final supportsImageSize = modelIdSupportsImageOutputTiers(modelId);
-    String outputResKey = 'MEDIA_RESOLUTION_HIGH';
-    if (supportsImageSize && imageSize != null) {
-      outputResKey = switch (imageSize) {
-        '4K' => 'MEDIA_RESOLUTION_HIGH',
-        '2K' => 'MEDIA_RESOLUTION_MEDIUM',
-        _ => 'MEDIA_RESOLUTION_LOW',
-      };
-    } else if (resolution != null) {
-      outputResKey = resolution;
-    }
-    final outputResExtraDzd = supportsImageSize
-        ? _roundMoney(config.resolutionCosts[outputResKey] ?? 0)
-        : 0.0;
-
-    double referenceResolutionExtraDzd = 0.0;
-    if (resolution != null) {
-      final lowCost = config.resolutionCosts['MEDIA_RESOLUTION_LOW'] ?? 0;
-      final tierCost = config.resolutionCosts[resolution] ?? 0;
-      final delta = tierCost - lowCost;
-      referenceResolutionExtraDzd = delta > 0 ? _roundMoney(delta) : 0.0;
-    }
-
-    final resExtraDzd = _roundMoney(
-      outputResExtraDzd + referenceResolutionExtraDzd,
+    final resExtras = _resolutionExtrasDzd(
+      imageSize: imageSize,
+      resolution: resolution,
     );
 
-    final addonsDzd = _roundMoney(featureAddonsDzd);
+    final addonsDzd = _roundMoney(math.max(0.0, featureAddonsDzd));
 
     final userCostDzd = _roundMoney(
-      baseCostDzd + refExtraDzd + attachExtraDzd + resExtraDzd + addonsDzd,
+      baseCostDzd +
+          refExtraDzd +
+          attachExtraDzd +
+          resExtras.totalDzd +
+          addonsDzd,
     );
 
     return AiCostEstimate(
-      providerCostUsd: providerCostUsd * iterations,
-      providerCostDzd: providerCostDzd * iterations,
+      providerCostUsd: providerCostUsdPerImage * iter,
+      providerCostDzd: providerCostDzdPerImage * iter,
       userCostDzd: userCostDzd,
       exchangeRate: exchangeRate,
-      multiplier: config.billing.retailMultiplier,
+      multiplier: mult,
       usedLocalCost: usedLocalCost,
       breakdown: {
         'baseCostDzd': baseCostDzd,
         'referenceImageExtraDzd': refExtraDzd,
         'attachmentExtraDzd': attachExtraDzd,
-        'outputResolutionExtraDzd': outputResExtraDzd,
-        'referenceResolutionExtraDzd': referenceResolutionExtraDzd,
-        'resolutionExtraDzd': resExtraDzd,
+        'outputResolutionExtraDzd': resExtras.outputExtraDzd,
+        'inputResolutionExtraDzd': resExtras.inputExtraDzd,
+        'resolutionExtraDzd': resExtras.totalDzd,
         'featureAddonsDzd': addonsDzd,
-        'iterations': iterations.toDouble(),
+        'iterations': iter.toDouble(),
         'referenceImageCount': referenceImageCount.toDouble(),
         'attachmentCount': attachmentCount.toDouble(),
       },
@@ -667,31 +791,37 @@ class AiCalculator {
   /// Estimate the cost of a text generation action.
   ///
   /// Covers: updateProductUsingAi, generateSimpleCode,
-  ///         generateCustomComponentCode.
-  /// Uses estimated tokens (exact cost billed post-generation).
+  /// generateCustomComponentCode. Uses estimated tokens (the backend bills
+  /// exact usage post-generation). Free when the model is unpriced everywhere
+  /// or `promptTokens < freeTierMaxPromptTokens` (prompt tokens — not total,
+  /// mirroring the backend's documented free-tier semantics).
   AiCostEstimate estimateTextGeneration({
-    String modelId = 'gemini-3-flash-preview',
+    String modelId = _defaultTextPricingModelId,
     int? estimatedPromptTokens,
     int? estimatedOutputTokens,
   }) {
     final bg = config.billing;
-    final promptTokens = estimatedPromptTokens ?? bg.textDefaultPromptTokens;
-    final outputTokens = estimatedOutputTokens ?? bg.textDefaultOutputTokens;
-    final totalTokens = promptTokens + outputTokens;
-
+    final promptTokens = math.max(
+      0,
+      estimatedPromptTokens ?? bg.textDefaultPromptTokens,
+    );
+    final outputTokens = math.max(
+      0,
+      estimatedOutputTokens ?? bg.textDefaultOutputTokens,
+    );
     final exchangeRate = config.exchangeRate;
-    final model = _findModel(modelId, 'gemini-3-flash-preview');
-    final tokenPricing = model?.pricing
-        .where((p) => p.unit == 'tokens')
-        .firstOrNull;
 
-    if (tokenPricing == null || totalTokens < bg.textFreeTierMaxTokens) {
+    final pricing = _resolveTextTokenPricing(
+      modelId,
+      promptTokens + outputTokens,
+    );
+    if (pricing == null || promptTokens < bg.textFreeTierMaxTokens) {
       return AiCostEstimate(
         providerCostUsd: 0,
         providerCostDzd: 0,
         userCostDzd: 0,
         exchangeRate: exchangeRate,
-        multiplier: config.billing.retailMultiplier,
+        multiplier: bg.retailMultiplier,
         usedLocalCost: false,
         breakdown: {
           'estimatedPromptTokens': promptTokens.toDouble(),
@@ -701,11 +831,9 @@ class AiCalculator {
       );
     }
 
-    final inputPrice = tokenPricing.inputPerMToken ?? 0;
-    final outputPrice = tokenPricing.outputPerMToken ?? 0;
     final providerCostUsd =
-        (promptTokens / 1000000) * inputPrice +
-        (outputTokens / 1000000) * outputPrice;
+        (promptTokens / 1000000) * pricing.input +
+        (outputTokens / 1000000) * pricing.output;
     final providerCostDzd = providerCostUsd * exchangeRate;
     final userCostDzd = _roundMoney(providerCostDzd * bg.retailMultiplier);
 
@@ -714,7 +842,7 @@ class AiCalculator {
       providerCostDzd: providerCostDzd,
       userCostDzd: userCostDzd,
       exchangeRate: exchangeRate,
-      multiplier: config.billing.retailMultiplier,
+      multiplier: bg.retailMultiplier,
       usedLocalCost: false,
       breakdown: {
         'estimatedPromptTokens': promptTokens.toDouble(),
@@ -724,14 +852,13 @@ class AiCalculator {
     );
   }
 
-  /// Voiceover: model-based TTS base + optional script-enhancement add-on + attachment surcharge
-  /// (same attachment USD rule as [estimateImageGeneration]).
-  ///
-  /// Token-based TTS (`unit: tokens` in aiModels) uses
-  /// [defaultVoiceTtsTokenEstimates] from [scriptCharLength] / [attachmentCount],
-  /// or explicit [estimatedPromptTokens] / [estimatedOutputTokens].
+  /// Voiceover: model-based TTS base + attachment surcharge + optional
+  /// script-enhancement add-on. The backend settles from ACTUAL usage
+  /// (`computeVoiceoverSettlement`); this preview uses the same retail policy
+  /// with heuristic tokens from [scriptCharLength] / [attachmentCount] (or
+  /// explicit [estimatedPromptTokens] / [estimatedOutputTokens]).
   AiCostEstimate estimateVoiceover({
-    String modelId = 'gemini-2.5-pro-preview-tts',
+    String modelId = _defaultTtsModelId,
     int attachmentCount = 0,
     String attachmentResolution = 'medium',
     bool enhanceScript = true,
@@ -741,52 +868,61 @@ class AiCalculator {
   }) {
     final exchangeRate = config.exchangeRate;
     final b = config.billing;
-    final ttsCap = b.tts.maxTotalTokens;
+    final count = math.max(0, attachmentCount);
     final tokenEst =
         estimatedPromptTokens != null && estimatedOutputTokens != null
         ? (
-            promptTokens: estimatedPromptTokens.clamp(0, ttsCap),
-            outputTokens: estimatedOutputTokens.clamp(0, ttsCap),
+            promptTokens: math.max(0, estimatedPromptTokens),
+            outputTokens: math.max(0, estimatedOutputTokens),
           )
-        : _ttsTokenEstimatesFromBilling(b, scriptCharLength, attachmentCount);
-    final (baseDzd, usedLocal) = _voiceoverBaseUserCostDzd(
+        : _ttsTokenEstimatesFromBilling(
+            b,
+            math.max(0, scriptCharLength),
+            count,
+          );
+
+    final base = _voiceoverBase(
       modelId: modelId,
       promptTokens: tokenEst.promptTokens,
       outputTokens: tokenEst.outputTokens,
     );
     final attachExtra = _attachmentExtraUserDzd(
-      attachmentCount: attachmentCount,
+      attachmentCount: count,
       attachmentResolution: attachmentResolution,
     );
     final enhanceExtra = enhanceScript
         ? _roundMoney(b.voiceScriptEnhancementAddonUsd * exchangeRate)
         : 0.0;
-    final userCostDzd = _roundMoney(baseDzd + attachExtra + enhanceExtra);
+    final userCostDzd = _roundMoney(base.baseDzd + attachExtra + enhanceExtra);
+
     return AiCostEstimate(
-      providerCostUsd: userCostDzd / exchangeRate,
-      providerCostDzd: userCostDzd,
+      providerCostUsd: base.providerCostUsd,
+      providerCostDzd: base.providerCostUsd * exchangeRate,
       userCostDzd: userCostDzd,
       exchangeRate: exchangeRate,
-      multiplier: 1,
-      usedLocalCost: usedLocal,
+      multiplier: b.retailMultiplier,
+      usedLocalCost: base.usedLocalCost,
       breakdown: {
-        'fixedCostDzd': baseDzd,
+        'ttsBaseDzd': base.baseDzd,
         'attachmentExtraDzd': attachExtra,
         'enhanceAddonDzd': enhanceExtra,
-        'attachmentCount': attachmentCount.toDouble(),
+        'attachmentCount': count.toDouble(),
         'estimatedPromptTokens': tokenEst.promptTokens.toDouble(),
         'estimatedOutputTokens': tokenEst.outputTokens.toDouble(),
       },
     );
   }
 
-  /// Estimates landing-page **image** cost — same formula as [estimateImageGeneration].
+  /// Estimates landing-page **image** cost — same formula as
+  /// [estimateImageGeneration] (image-studio parity).
   ///
-  /// When [imageModelId] is empty, returns the platform fixed [landingPageFixedChargeUsd]
-  /// (placeholder until an image model is chosen in the UI).
+  /// When [imageModelId] is empty, returns the platform fixed
+  /// `landingPageFixedChargeUsd` (placeholder until an image model is chosen
+  /// in the UI; provider cost unknown → 0). A ≤ 0 image quote also falls back
+  /// to the fixed charge (zero-guard), keeping the truthful provider cost.
   ///
-  /// [textModelId] is ignored for pricing; landing-page billing matches image studio
-  /// (offline and server `quoteImageLandingPage`).
+  /// [textModelId] is ignored for pricing; landing-page billing matches image
+  /// studio (offline and server `quoteImageLandingPage`).
   AiCostEstimate estimateImageLandingPage({
     String? imageModelId,
     String? textModelId,
@@ -797,20 +933,22 @@ class AiCalculator {
     int referenceImageCount = 0,
     double featureAddonsDzd = 0,
   }) {
+    final exchangeRate = config.exchangeRate;
+    final b = config.billing;
     final mid = imageModelId?.trim();
+
     if (mid == null || mid.isEmpty) {
-      final exchangeRate = config.exchangeRate;
-      final costDzd = _roundMoney(
-        config.billing.landingPageFixedChargeUsd * exchangeRate,
+      final fixedDzd = _roundMoney(
+        b.landingPageFixedChargeUsd * exchangeRate,
       );
       return AiCostEstimate(
-        providerCostUsd: costDzd / exchangeRate,
-        providerCostDzd: costDzd,
-        userCostDzd: costDzd,
+        providerCostUsd: 0,
+        providerCostDzd: 0,
+        userCostDzd: fixedDzd,
         exchangeRate: exchangeRate,
-        multiplier: 1,
+        multiplier: b.retailMultiplier,
         usedLocalCost: false,
-        breakdown: {'fixedCostDzd': costDzd},
+        breakdown: {'fixedCostDzd': fixedDzd},
       );
     }
 
@@ -823,21 +961,18 @@ class AiCalculator {
       referenceImageCount: referenceImageCount,
       featureAddonsDzd: featureAddonsDzd,
     );
-    var total = img.userCostDzd;
-    if (total <= 0) {
-      total = _roundMoney(
-        config.billing.landingPageFixedChargeUsd * config.exchangeRate,
-      );
-    }
-    final exchangeRate = config.exchangeRate;
+    if (img.userCostDzd > 0) return img;
+
+    // Zero-guard: misconfigured pricing must never show a free landing page.
+    final fixedDzd = _roundMoney(b.landingPageFixedChargeUsd * exchangeRate);
     return AiCostEstimate(
-      providerCostUsd: total / exchangeRate,
-      providerCostDzd: total,
-      userCostDzd: total,
+      providerCostUsd: img.providerCostUsd,
+      providerCostDzd: img.providerCostDzd,
+      userCostDzd: fixedDzd,
       exchangeRate: exchangeRate,
-      multiplier: config.billing.retailMultiplier,
+      multiplier: img.multiplier,
       usedLocalCost: img.usedLocalCost,
-      breakdown: {'imageUserCostDzd': img.userCostDzd},
+      breakdown: {...img.breakdown, 'fixedCostDzd': fixedDzd},
     );
   }
 }

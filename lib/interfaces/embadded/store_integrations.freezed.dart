@@ -12295,7 +12295,14 @@ as dynamic,
 /// @nodoc
 mixin _$GoogleSheetsIntegration {
 
- String? get id; String? get name; bool get active; Map<String, dynamic>? get oauth2; List<GoogleSheetsColumn>? get columns; Map<String, dynamic> get metadata;
+ String? get id; String? get name; bool get active; Map<String, dynamic>? get oauth2; List<GoogleSheetsColumn>? get columns; Map<String, dynamic> get metadata;/// When true, draft (abandoned-cart) orders are written to a dedicated
+/// tab ([draftSheetName]) instead of the main tab ([name]). Once the
+/// order leaves the draft status (e.g. becomes pending), its row is
+/// removed from the draft tab and inserted into the main tab.
+/// Disabled by default.
+ bool get draftSheetEnabled;/// Tab title used for draft orders when [draftSheetEnabled] is true.
+/// Falls back to [defaultDraftSheetName] when null/empty.
+ String? get draftSheetName;
 /// Create a copy of GoogleSheetsIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -12308,16 +12315,16 @@ $GoogleSheetsIntegrationCopyWith<GoogleSheetsIntegration> get copyWith => _$Goog
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleSheetsIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.oauth2, oauth2)&&const DeepCollectionEquality().equals(other.columns, columns)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleSheetsIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.oauth2, oauth2)&&const DeepCollectionEquality().equals(other.columns, columns)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.draftSheetEnabled, draftSheetEnabled) || other.draftSheetEnabled == draftSheetEnabled)&&(identical(other.draftSheetName, draftSheetName) || other.draftSheetName == draftSheetName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,active,const DeepCollectionEquality().hash(oauth2),const DeepCollectionEquality().hash(columns),const DeepCollectionEquality().hash(metadata));
+int get hashCode => Object.hash(runtimeType,id,name,active,const DeepCollectionEquality().hash(oauth2),const DeepCollectionEquality().hash(columns),const DeepCollectionEquality().hash(metadata),draftSheetEnabled,draftSheetName);
 
 @override
 String toString() {
-  return 'GoogleSheetsIntegration(id: $id, name: $name, active: $active, oauth2: $oauth2, columns: $columns, metadata: $metadata)';
+  return 'GoogleSheetsIntegration(id: $id, name: $name, active: $active, oauth2: $oauth2, columns: $columns, metadata: $metadata, draftSheetEnabled: $draftSheetEnabled, draftSheetName: $draftSheetName)';
 }
 
 
@@ -12328,7 +12335,7 @@ abstract mixin class $GoogleSheetsIntegrationCopyWith<$Res>  {
   factory $GoogleSheetsIntegrationCopyWith(GoogleSheetsIntegration value, $Res Function(GoogleSheetsIntegration) _then) = _$GoogleSheetsIntegrationCopyWithImpl;
 @useResult
 $Res call({
- String? id, String? name, bool active, Map<String, dynamic>? oauth2, List<GoogleSheetsColumn>? columns, Map<String, dynamic> metadata
+ String? id, String? name, bool active, Map<String, dynamic>? oauth2, List<GoogleSheetsColumn>? columns, Map<String, dynamic> metadata, bool draftSheetEnabled, String? draftSheetName
 });
 
 
@@ -12345,7 +12352,7 @@ class _$GoogleSheetsIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of GoogleSheetsIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = freezed,Object? active = null,Object? oauth2 = freezed,Object? columns = freezed,Object? metadata = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = freezed,Object? active = null,Object? oauth2 = freezed,Object? columns = freezed,Object? metadata = null,Object? draftSheetEnabled = null,Object? draftSheetName = freezed,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -12353,7 +12360,9 @@ as String?,active: null == active ? _self.active : active // ignore: cast_nullab
 as bool,oauth2: freezed == oauth2 ? _self.oauth2 : oauth2 // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,columns: freezed == columns ? _self.columns : columns // ignore: cast_nullable_to_non_nullable
 as List<GoogleSheetsColumn>?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>,
+as Map<String, dynamic>,draftSheetEnabled: null == draftSheetEnabled ? _self.draftSheetEnabled : draftSheetEnabled // ignore: cast_nullable_to_non_nullable
+as bool,draftSheetName: freezed == draftSheetName ? _self.draftSheetName : draftSheetName // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -12438,10 +12447,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? name,  bool active,  Map<String, dynamic>? oauth2,  List<GoogleSheetsColumn>? columns,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? name,  bool active,  Map<String, dynamic>? oauth2,  List<GoogleSheetsColumn>? columns,  Map<String, dynamic> metadata,  bool draftSheetEnabled,  String? draftSheetName)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GoogleSheetsIntegration() when $default != null:
-return $default(_that.id,_that.name,_that.active,_that.oauth2,_that.columns,_that.metadata);case _:
+return $default(_that.id,_that.name,_that.active,_that.oauth2,_that.columns,_that.metadata,_that.draftSheetEnabled,_that.draftSheetName);case _:
   return orElse();
 
 }
@@ -12459,10 +12468,10 @@ return $default(_that.id,_that.name,_that.active,_that.oauth2,_that.columns,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? name,  bool active,  Map<String, dynamic>? oauth2,  List<GoogleSheetsColumn>? columns,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? name,  bool active,  Map<String, dynamic>? oauth2,  List<GoogleSheetsColumn>? columns,  Map<String, dynamic> metadata,  bool draftSheetEnabled,  String? draftSheetName)  $default,) {final _that = this;
 switch (_that) {
 case _GoogleSheetsIntegration():
-return $default(_that.id,_that.name,_that.active,_that.oauth2,_that.columns,_that.metadata);case _:
+return $default(_that.id,_that.name,_that.active,_that.oauth2,_that.columns,_that.metadata,_that.draftSheetEnabled,_that.draftSheetName);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -12479,10 +12488,10 @@ return $default(_that.id,_that.name,_that.active,_that.oauth2,_that.columns,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? name,  bool active,  Map<String, dynamic>? oauth2,  List<GoogleSheetsColumn>? columns,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? name,  bool active,  Map<String, dynamic>? oauth2,  List<GoogleSheetsColumn>? columns,  Map<String, dynamic> metadata,  bool draftSheetEnabled,  String? draftSheetName)?  $default,) {final _that = this;
 switch (_that) {
 case _GoogleSheetsIntegration() when $default != null:
-return $default(_that.id,_that.name,_that.active,_that.oauth2,_that.columns,_that.metadata);case _:
+return $default(_that.id,_that.name,_that.active,_that.oauth2,_that.columns,_that.metadata,_that.draftSheetEnabled,_that.draftSheetName);case _:
   return null;
 
 }
@@ -12494,7 +12503,7 @@ return $default(_that.id,_that.name,_that.active,_that.oauth2,_that.columns,_tha
 @JsonSerializable()
 
 class _GoogleSheetsIntegration implements GoogleSheetsIntegration {
-  const _GoogleSheetsIntegration({this.id, this.name, this.active = true, final  Map<String, dynamic>? oauth2, final  List<GoogleSheetsColumn>? columns = defaultOrderColumns, final  Map<String, dynamic> metadata = const {}}): _oauth2 = oauth2,_columns = columns,_metadata = metadata;
+  const _GoogleSheetsIntegration({this.id, this.name, this.active = true, final  Map<String, dynamic>? oauth2, final  List<GoogleSheetsColumn>? columns = defaultOrderColumns, final  Map<String, dynamic> metadata = const {}, this.draftSheetEnabled = false, this.draftSheetName}): _oauth2 = oauth2,_columns = columns,_metadata = metadata;
   factory _GoogleSheetsIntegration.fromJson(Map<String, dynamic> json) => _$GoogleSheetsIntegrationFromJson(json);
 
 @override final  String? id;
@@ -12525,6 +12534,15 @@ class _GoogleSheetsIntegration implements GoogleSheetsIntegration {
   return EqualUnmodifiableMapView(_metadata);
 }
 
+/// When true, draft (abandoned-cart) orders are written to a dedicated
+/// tab ([draftSheetName]) instead of the main tab ([name]). Once the
+/// order leaves the draft status (e.g. becomes pending), its row is
+/// removed from the draft tab and inserted into the main tab.
+/// Disabled by default.
+@override@JsonKey() final  bool draftSheetEnabled;
+/// Tab title used for draft orders when [draftSheetEnabled] is true.
+/// Falls back to [defaultDraftSheetName] when null/empty.
+@override final  String? draftSheetName;
 
 /// Create a copy of GoogleSheetsIntegration
 /// with the given fields replaced by the non-null parameter values.
@@ -12539,16 +12557,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleSheetsIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._oauth2, _oauth2)&&const DeepCollectionEquality().equals(other._columns, _columns)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleSheetsIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._oauth2, _oauth2)&&const DeepCollectionEquality().equals(other._columns, _columns)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.draftSheetEnabled, draftSheetEnabled) || other.draftSheetEnabled == draftSheetEnabled)&&(identical(other.draftSheetName, draftSheetName) || other.draftSheetName == draftSheetName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,active,const DeepCollectionEquality().hash(_oauth2),const DeepCollectionEquality().hash(_columns),const DeepCollectionEquality().hash(_metadata));
+int get hashCode => Object.hash(runtimeType,id,name,active,const DeepCollectionEquality().hash(_oauth2),const DeepCollectionEquality().hash(_columns),const DeepCollectionEquality().hash(_metadata),draftSheetEnabled,draftSheetName);
 
 @override
 String toString() {
-  return 'GoogleSheetsIntegration(id: $id, name: $name, active: $active, oauth2: $oauth2, columns: $columns, metadata: $metadata)';
+  return 'GoogleSheetsIntegration(id: $id, name: $name, active: $active, oauth2: $oauth2, columns: $columns, metadata: $metadata, draftSheetEnabled: $draftSheetEnabled, draftSheetName: $draftSheetName)';
 }
 
 
@@ -12559,7 +12577,7 @@ abstract mixin class _$GoogleSheetsIntegrationCopyWith<$Res> implements $GoogleS
   factory _$GoogleSheetsIntegrationCopyWith(_GoogleSheetsIntegration value, $Res Function(_GoogleSheetsIntegration) _then) = __$GoogleSheetsIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String? name, bool active, Map<String, dynamic>? oauth2, List<GoogleSheetsColumn>? columns, Map<String, dynamic> metadata
+ String? id, String? name, bool active, Map<String, dynamic>? oauth2, List<GoogleSheetsColumn>? columns, Map<String, dynamic> metadata, bool draftSheetEnabled, String? draftSheetName
 });
 
 
@@ -12576,7 +12594,7 @@ class __$GoogleSheetsIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of GoogleSheetsIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = freezed,Object? active = null,Object? oauth2 = freezed,Object? columns = freezed,Object? metadata = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = freezed,Object? active = null,Object? oauth2 = freezed,Object? columns = freezed,Object? metadata = null,Object? draftSheetEnabled = null,Object? draftSheetName = freezed,}) {
   return _then(_GoogleSheetsIntegration(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -12584,7 +12602,9 @@ as String?,active: null == active ? _self.active : active // ignore: cast_nullab
 as bool,oauth2: freezed == oauth2 ? _self._oauth2 : oauth2 // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,columns: freezed == columns ? _self._columns : columns // ignore: cast_nullable_to_non_nullable
 as List<GoogleSheetsColumn>?,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>,
+as Map<String, dynamic>,draftSheetEnabled: null == draftSheetEnabled ? _self.draftSheetEnabled : draftSheetEnabled // ignore: cast_nullable_to_non_nullable
+as bool,draftSheetName: freezed == draftSheetName ? _self.draftSheetName : draftSheetName // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

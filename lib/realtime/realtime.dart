@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:transmit_client/transmit.dart';
 
 class Realtime {
@@ -20,7 +22,7 @@ class Realtime {
     final subscription = transmit.subscription(channel);
     subscriptions[channel] = subscription;
     await subscription.create();
-    print('Subscription created: $channel');
+    developer.log('Subscription created: $channel', name: 'feeef.realtime');
     return subscription;
   }
 
@@ -32,18 +34,18 @@ class Realtime {
     subscriptions.remove(channel);
     // Also remove from transmit's internal map to prevent re-registration on reconnect
     transmit.removeSubscription(channel);
-    print('Subscription deleted: $channel');
+    developer.log('Subscription deleted: $channel', name: 'feeef.realtime');
   }
 
   Future<void> init() async {
     transmit.on('connected', () {
-      print('Connected to realtime');
+      developer.log('Connected to realtime', name: 'feeef.realtime');
     });
     transmit.on('disconnected', () {
-      print('Disconnected from realtime');
+      developer.log('Disconnected from realtime', name: 'feeef.realtime');
     });
     transmit.on('reconnecting', () {
-      print('Reconnecting to realtime');
+      developer.log('Reconnecting to realtime', name: 'feeef.realtime');
     });
   }
 }

@@ -985,6 +985,10 @@ const List<GoogleSheetsColumn> defaultOrderColumns = [
   GoogleSheetsColumn(field: 'link', name: 'رابط', enabled: true),
 ];
 
+/// Default tab title for draft (abandoned-cart) orders.
+/// Must match the backend fallback (`DEFAULT_DRAFT_SHEET_NAME`).
+const String defaultDraftSheetName = 'الطلبات المتروكة';
+
 /// Google Sheets integration configuration for order export.
 @freezed
 abstract class GoogleSheetsIntegration with _$GoogleSheetsIntegration {
@@ -995,6 +999,17 @@ abstract class GoogleSheetsIntegration with _$GoogleSheetsIntegration {
     Map<String, dynamic>? oauth2,
     @Default(defaultOrderColumns) List<GoogleSheetsColumn>? columns,
     @Default({}) Map<String, dynamic> metadata,
+
+    /// When true, draft (abandoned-cart) orders are written to a dedicated
+    /// tab ([draftSheetName]) instead of the main tab ([name]). Once the
+    /// order leaves the draft status (e.g. becomes pending), its row is
+    /// removed from the draft tab and inserted into the main tab.
+    /// Disabled by default.
+    @Default(false) bool draftSheetEnabled,
+
+    /// Tab title used for draft orders when [draftSheetEnabled] is true.
+    /// Falls back to [defaultDraftSheetName] when null/empty.
+    String? draftSheetName,
   }) = _GoogleSheetsIntegration;
 
   factory GoogleSheetsIntegration.fromJson(Map<String, dynamic> json) =>
@@ -1003,8 +1018,15 @@ abstract class GoogleSheetsIntegration with _$GoogleSheetsIntegration {
 
 // ===================== WEBHOOKS INTEGRATION =====================
 
-/// Webhook event types for order lifecycle
-enum WebhookEvent { orderCreated, orderUpdated, orderDeleted }
+/// Webhook event types for order and product lifecycle
+enum WebhookEvent {
+  orderCreated,
+  orderUpdated,
+  orderDeleted,
+  productCreated,
+  productUpdated,
+  productDeleted,
+}
 
 /// Individual webhook configuration
 @freezed

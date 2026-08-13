@@ -198,7 +198,7 @@ _StoreMember _$StoreMemberFromJson(Map<String, dynamic> json) => _StoreMember(
       ? null
       : DateTime.parse(json['expiredAt'] as String),
   createdAt: DateTime.parse(json['createdAt'] as String),
-  active: json['active'] as bool? ?? false,
+  active: json['active'] as bool? ?? true,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
   scopes:
       (json['scopes'] as List<dynamic>?)?.map((e) => e as String).toList() ??

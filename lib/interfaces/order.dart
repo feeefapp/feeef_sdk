@@ -48,6 +48,8 @@ enum OrderStatus {
   pending,
   review,
   accepted,
+  /// Confirmed, but still needs merchant action before [processing] / [completed].
+  followup,
   processing,
   completed,
   cancelled;

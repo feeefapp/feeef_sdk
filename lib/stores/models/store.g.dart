@@ -521,6 +521,7 @@ const _$OrderStatusEnumMap = {
   OrderStatus.pending: 'pending',
   OrderStatus.review: 'review',
   OrderStatus.accepted: 'accepted',
+  OrderStatus.followup: 'followup',
   OrderStatus.processing: 'processing',
   OrderStatus.completed: 'completed',
   OrderStatus.cancelled: 'cancelled',

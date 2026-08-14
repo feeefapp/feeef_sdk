@@ -20,6 +20,9 @@ abstract class StoreOrdersSummary with _$StoreOrdersSummary {
     required int review,
     required int processing,
     required int accepted,
+    /// Confirmed orders that still need merchant action. Defaults to 0 for
+    /// older API payloads that omit the key.
+    @Default(0) int followup,
     required int completed,
     required int cancelled,
   }) = _StoreOrdersSummary;

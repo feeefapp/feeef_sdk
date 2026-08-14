@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0
+
+- **orders**: add `OrderStatus.followup` — confirmed order that may still need merchant action, between `accepted` and `processing` / `completed`. `StoreOrdersSummary.followup` counts it (defaults to `0` when the API omits the key).
+
 ## 1.2.0
 
 - **orders**: add optional `scheduledAt` and read-only `effectiveAt` on `Order` / `OrderCreate` / `OrderUpdate`. List clients should prefer `displayAt` (`effectiveAt ?? scheduledAt ?? createdAt`) for sorting, day separators, and date-range filters so scheduled orders appear as if created on their schedule date. Clear a schedule via `OrderUpdate.setToNull: ['scheduledAt']`.

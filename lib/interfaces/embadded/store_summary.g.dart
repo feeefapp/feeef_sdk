@@ -24,6 +24,7 @@ _StoreOrdersSummary _$StoreOrdersSummaryFromJson(Map<String, dynamic> json) =>
       review: (json['review'] as num).toInt(),
       processing: (json['processing'] as num).toInt(),
       accepted: (json['accepted'] as num).toInt(),
+      followup: (json['followup'] as num?)?.toInt() ?? 0,
       completed: (json['completed'] as num).toInt(),
       cancelled: (json['cancelled'] as num).toInt(),
     );
@@ -36,6 +37,7 @@ Map<String, dynamic> _$StoreOrdersSummaryToJson(_StoreOrdersSummary instance) =>
       'review': instance.review,
       'processing': instance.processing,
       'accepted': instance.accepted,
+      'followup': instance.followup,
       'completed': instance.completed,
       'cancelled': instance.cancelled,
     };

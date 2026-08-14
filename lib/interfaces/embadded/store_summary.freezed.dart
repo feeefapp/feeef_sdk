@@ -296,7 +296,9 @@ $StoreOrdersSummaryCopyWith<$Res> get orders {
 /// @nodoc
 mixin _$StoreOrdersSummary {
 
- int get total; int get draft; int get pending; int get review; int get processing; int get accepted; int get completed; int get cancelled;
+ int get total; int get draft; int get pending; int get review; int get processing; int get accepted;/// Confirmed orders that still need merchant action. Defaults to 0 for
+/// older API payloads that omit the key.
+ int get followup; int get completed; int get cancelled;
 /// Create a copy of StoreOrdersSummary
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -309,16 +311,16 @@ $StoreOrdersSummaryCopyWith<StoreOrdersSummary> get copyWith => _$StoreOrdersSum
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreOrdersSummary&&(identical(other.total, total) || other.total == total)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.pending, pending) || other.pending == pending)&&(identical(other.review, review) || other.review == review)&&(identical(other.processing, processing) || other.processing == processing)&&(identical(other.accepted, accepted) || other.accepted == accepted)&&(identical(other.completed, completed) || other.completed == completed)&&(identical(other.cancelled, cancelled) || other.cancelled == cancelled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreOrdersSummary&&(identical(other.total, total) || other.total == total)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.pending, pending) || other.pending == pending)&&(identical(other.review, review) || other.review == review)&&(identical(other.processing, processing) || other.processing == processing)&&(identical(other.accepted, accepted) || other.accepted == accepted)&&(identical(other.followup, followup) || other.followup == followup)&&(identical(other.completed, completed) || other.completed == completed)&&(identical(other.cancelled, cancelled) || other.cancelled == cancelled));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,total,draft,pending,review,processing,accepted,completed,cancelled);
+int get hashCode => Object.hash(runtimeType,total,draft,pending,review,processing,accepted,followup,completed,cancelled);
 
 @override
 String toString() {
-  return 'StoreOrdersSummary(total: $total, draft: $draft, pending: $pending, review: $review, processing: $processing, accepted: $accepted, completed: $completed, cancelled: $cancelled)';
+  return 'StoreOrdersSummary(total: $total, draft: $draft, pending: $pending, review: $review, processing: $processing, accepted: $accepted, followup: $followup, completed: $completed, cancelled: $cancelled)';
 }
 
 
@@ -329,7 +331,7 @@ abstract mixin class $StoreOrdersSummaryCopyWith<$Res>  {
   factory $StoreOrdersSummaryCopyWith(StoreOrdersSummary value, $Res Function(StoreOrdersSummary) _then) = _$StoreOrdersSummaryCopyWithImpl;
 @useResult
 $Res call({
- int total, int draft, int pending, int review, int processing, int accepted, int completed, int cancelled
+ int total, int draft, int pending, int review, int processing, int accepted, int followup, int completed, int cancelled
 });
 
 
@@ -346,7 +348,7 @@ class _$StoreOrdersSummaryCopyWithImpl<$Res>
 
 /// Create a copy of StoreOrdersSummary
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? total = null,Object? draft = null,Object? pending = null,Object? review = null,Object? processing = null,Object? accepted = null,Object? completed = null,Object? cancelled = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? total = null,Object? draft = null,Object? pending = null,Object? review = null,Object? processing = null,Object? accepted = null,Object? followup = null,Object? completed = null,Object? cancelled = null,}) {
   return _then(_self.copyWith(
 total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
 as int,draft: null == draft ? _self.draft : draft // ignore: cast_nullable_to_non_nullable
@@ -354,6 +356,7 @@ as int,pending: null == pending ? _self.pending : pending // ignore: cast_nullab
 as int,review: null == review ? _self.review : review // ignore: cast_nullable_to_non_nullable
 as int,processing: null == processing ? _self.processing : processing // ignore: cast_nullable_to_non_nullable
 as int,accepted: null == accepted ? _self.accepted : accepted // ignore: cast_nullable_to_non_nullable
+as int,followup: null == followup ? _self.followup : followup // ignore: cast_nullable_to_non_nullable
 as int,completed: null == completed ? _self.completed : completed // ignore: cast_nullable_to_non_nullable
 as int,cancelled: null == cancelled ? _self.cancelled : cancelled // ignore: cast_nullable_to_non_nullable
 as int,
@@ -441,10 +444,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int total,  int draft,  int pending,  int review,  int processing,  int accepted,  int completed,  int cancelled)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int total,  int draft,  int pending,  int review,  int processing,  int accepted,  int followup,  int completed,  int cancelled)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreOrdersSummary() when $default != null:
-return $default(_that.total,_that.draft,_that.pending,_that.review,_that.processing,_that.accepted,_that.completed,_that.cancelled);case _:
+return $default(_that.total,_that.draft,_that.pending,_that.review,_that.processing,_that.accepted,_that.followup,_that.completed,_that.cancelled);case _:
   return orElse();
 
 }
@@ -462,10 +465,10 @@ return $default(_that.total,_that.draft,_that.pending,_that.review,_that.process
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int total,  int draft,  int pending,  int review,  int processing,  int accepted,  int completed,  int cancelled)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int total,  int draft,  int pending,  int review,  int processing,  int accepted,  int followup,  int completed,  int cancelled)  $default,) {final _that = this;
 switch (_that) {
 case _StoreOrdersSummary():
-return $default(_that.total,_that.draft,_that.pending,_that.review,_that.processing,_that.accepted,_that.completed,_that.cancelled);case _:
+return $default(_that.total,_that.draft,_that.pending,_that.review,_that.processing,_that.accepted,_that.followup,_that.completed,_that.cancelled);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -482,10 +485,10 @@ return $default(_that.total,_that.draft,_that.pending,_that.review,_that.process
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int total,  int draft,  int pending,  int review,  int processing,  int accepted,  int completed,  int cancelled)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int total,  int draft,  int pending,  int review,  int processing,  int accepted,  int followup,  int completed,  int cancelled)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreOrdersSummary() when $default != null:
-return $default(_that.total,_that.draft,_that.pending,_that.review,_that.processing,_that.accepted,_that.completed,_that.cancelled);case _:
+return $default(_that.total,_that.draft,_that.pending,_that.review,_that.processing,_that.accepted,_that.followup,_that.completed,_that.cancelled);case _:
   return null;
 
 }
@@ -497,7 +500,7 @@ return $default(_that.total,_that.draft,_that.pending,_that.review,_that.process
 @JsonSerializable()
 
 class _StoreOrdersSummary implements StoreOrdersSummary {
-   _StoreOrdersSummary({required this.total, required this.draft, required this.pending, required this.review, required this.processing, required this.accepted, required this.completed, required this.cancelled});
+   _StoreOrdersSummary({required this.total, required this.draft, required this.pending, required this.review, required this.processing, required this.accepted, this.followup = 0, required this.completed, required this.cancelled});
   factory _StoreOrdersSummary.fromJson(Map<String, dynamic> json) => _$StoreOrdersSummaryFromJson(json);
 
 @override final  int total;
@@ -506,6 +509,9 @@ class _StoreOrdersSummary implements StoreOrdersSummary {
 @override final  int review;
 @override final  int processing;
 @override final  int accepted;
+/// Confirmed orders that still need merchant action. Defaults to 0 for
+/// older API payloads that omit the key.
+@override@JsonKey() final  int followup;
 @override final  int completed;
 @override final  int cancelled;
 
@@ -522,16 +528,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreOrdersSummary&&(identical(other.total, total) || other.total == total)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.pending, pending) || other.pending == pending)&&(identical(other.review, review) || other.review == review)&&(identical(other.processing, processing) || other.processing == processing)&&(identical(other.accepted, accepted) || other.accepted == accepted)&&(identical(other.completed, completed) || other.completed == completed)&&(identical(other.cancelled, cancelled) || other.cancelled == cancelled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreOrdersSummary&&(identical(other.total, total) || other.total == total)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.pending, pending) || other.pending == pending)&&(identical(other.review, review) || other.review == review)&&(identical(other.processing, processing) || other.processing == processing)&&(identical(other.accepted, accepted) || other.accepted == accepted)&&(identical(other.followup, followup) || other.followup == followup)&&(identical(other.completed, completed) || other.completed == completed)&&(identical(other.cancelled, cancelled) || other.cancelled == cancelled));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,total,draft,pending,review,processing,accepted,completed,cancelled);
+int get hashCode => Object.hash(runtimeType,total,draft,pending,review,processing,accepted,followup,completed,cancelled);
 
 @override
 String toString() {
-  return 'StoreOrdersSummary(total: $total, draft: $draft, pending: $pending, review: $review, processing: $processing, accepted: $accepted, completed: $completed, cancelled: $cancelled)';
+  return 'StoreOrdersSummary(total: $total, draft: $draft, pending: $pending, review: $review, processing: $processing, accepted: $accepted, followup: $followup, completed: $completed, cancelled: $cancelled)';
 }
 
 
@@ -542,7 +548,7 @@ abstract mixin class _$StoreOrdersSummaryCopyWith<$Res> implements $StoreOrdersS
   factory _$StoreOrdersSummaryCopyWith(_StoreOrdersSummary value, $Res Function(_StoreOrdersSummary) _then) = __$StoreOrdersSummaryCopyWithImpl;
 @override @useResult
 $Res call({
- int total, int draft, int pending, int review, int processing, int accepted, int completed, int cancelled
+ int total, int draft, int pending, int review, int processing, int accepted, int followup, int completed, int cancelled
 });
 
 
@@ -559,7 +565,7 @@ class __$StoreOrdersSummaryCopyWithImpl<$Res>
 
 /// Create a copy of StoreOrdersSummary
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? total = null,Object? draft = null,Object? pending = null,Object? review = null,Object? processing = null,Object? accepted = null,Object? completed = null,Object? cancelled = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? total = null,Object? draft = null,Object? pending = null,Object? review = null,Object? processing = null,Object? accepted = null,Object? followup = null,Object? completed = null,Object? cancelled = null,}) {
   return _then(_StoreOrdersSummary(
 total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
 as int,draft: null == draft ? _self.draft : draft // ignore: cast_nullable_to_non_nullable
@@ -567,6 +573,7 @@ as int,pending: null == pending ? _self.pending : pending // ignore: cast_nullab
 as int,review: null == review ? _self.review : review // ignore: cast_nullable_to_non_nullable
 as int,processing: null == processing ? _self.processing : processing // ignore: cast_nullable_to_non_nullable
 as int,accepted: null == accepted ? _self.accepted : accepted // ignore: cast_nullable_to_non_nullable
+as int,followup: null == followup ? _self.followup : followup // ignore: cast_nullable_to_non_nullable
 as int,completed: null == completed ? _self.completed : completed // ignore: cast_nullable_to_non_nullable
 as int,cancelled: null == cancelled ? _self.cancelled : cancelled // ignore: cast_nullable_to_non_nullable
 as int,

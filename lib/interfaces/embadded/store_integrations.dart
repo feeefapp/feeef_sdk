@@ -1046,7 +1046,7 @@ abstract class WebhookConfig with _$WebhookConfig {
       _$WebhookConfigFromJson(json);
 }
 
-/// Webhooks integration configuration for real-time order notifications
+/// Webhooks integration configuration for real-time order and product notifications
 @freezed
 abstract class WebhooksIntegration with _$WebhooksIntegration {
   const factory WebhooksIntegration({

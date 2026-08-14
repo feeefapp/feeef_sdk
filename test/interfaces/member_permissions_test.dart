@@ -212,5 +212,18 @@ void main() {
         isFalse,
       );
     });
+
+    test('editor with empty scopes can use AI filters', () {
+      final store = _store(members: {
+        'member-1': _member(StoreMemberRole.editor, const []),
+      });
+      final editor = _auth('member-1');
+      expect(editor.canUseAiFilter(store), isTrue);
+    });
+
+    test('stranger cannot use AI filters', () {
+      final store = _store();
+      expect(_auth('someone-else').canUseAiFilter(store), isFalse);
+    });
   });
 }

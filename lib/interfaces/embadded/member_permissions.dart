@@ -146,4 +146,19 @@ extension StorePermissionAccess<T extends Model> on AuthResponse<T> {
     final member = store.members[user.id];
     return permissions.any((p) => memberAllowsPermission(member, p));
   }
+
+  /// List/date AI filters — billed to the caller. Any catalog/order read
+  /// (or store chrome) is enough; mirrors API `AI_FILTER_PERMISSIONS`.
+  bool canUseAiFilter(Store store) {
+    return canAnyOnStore(store, const [
+      StorePermission.ordersRead,
+      StorePermission.productsRead,
+      StorePermission.shippingPricesRead,
+      StorePermission.inventoryRead,
+      StorePermission.financeRead,
+      StorePermission.productLandingPagesRead,
+      StorePermission.categoriesRead,
+      StorePermission.storeRead,
+    ]);
+  }
 }

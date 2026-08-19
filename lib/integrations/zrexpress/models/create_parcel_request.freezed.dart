@@ -498,7 +498,7 @@ return $default(_that.totalRequested,_that.successCount,_that.failureCount,_that
 @JsonSerializable()
 
 class _ZrexpressBulkResponse extends ZrexpressBulkResponse {
-  const _ZrexpressBulkResponse({required this.totalRequested, required this.successCount, required this.failureCount, final  List<ZrexpressBulkSuccess> successes = const [], final  List<ZrexpressBulkFailure> failures = const []}): _successes = successes,_failures = failures,super._();
+  const _ZrexpressBulkResponse({required this.totalRequested, required this.successCount, required this.failureCount, List<ZrexpressBulkSuccess> successes = const [], List<ZrexpressBulkFailure> failures = const []}): _successes = successes,_failures = failures,super._();
   factory _ZrexpressBulkResponse.fromJson(Map<String, dynamic> json) => _$ZrexpressBulkResponseFromJson(json);
 
 /// Total number of parcels requested
@@ -1075,7 +1075,7 @@ return $default(_that.index,_that.externalId,_that.error,_that.details);case _:
 @JsonSerializable()
 
 class _ZrexpressBulkFailure extends ZrexpressBulkFailure {
-  const _ZrexpressBulkFailure({this.index, this.externalId, this.error, final  Map<String, dynamic>? details}): _details = details,super._();
+  const _ZrexpressBulkFailure({this.index, this.externalId, this.error, Map<String, dynamic>? details}): _details = details,super._();
   factory _ZrexpressBulkFailure.fromJson(Map<String, dynamic> json) => _$ZrexpressBulkFailureFromJson(json);
 
 /// Index of the parcel in the request array
@@ -1360,7 +1360,7 @@ return $default(_that.fileUrl,_that.failedTrackingNumbers);case _:
 @JsonSerializable()
 
 class _ZrexpressLabelsResponse extends ZrexpressLabelsResponse {
-  const _ZrexpressLabelsResponse({required this.fileUrl, final  List<String> failedTrackingNumbers = const []}): _failedTrackingNumbers = failedTrackingNumbers,super._();
+  const _ZrexpressLabelsResponse({required this.fileUrl, List<String> failedTrackingNumbers = const []}): _failedTrackingNumbers = failedTrackingNumbers,super._();
   factory _ZrexpressLabelsResponse.fromJson(Map<String, dynamic> json) => _$ZrexpressLabelsResponseFromJson(json);
 
 /// URL to download the merged PDF
@@ -1907,7 +1907,7 @@ return $default(_that.parcelLabelFiles,_that.failedTrackingNumbers);case _:
 @JsonSerializable()
 
 class _ZrexpressIndividualLabelsResponse extends ZrexpressIndividualLabelsResponse {
-  const _ZrexpressIndividualLabelsResponse({final  List<ZrexpressIndividualLabel> parcelLabelFiles = const [], final  List<String> failedTrackingNumbers = const []}): _parcelLabelFiles = parcelLabelFiles,_failedTrackingNumbers = failedTrackingNumbers,super._();
+  const _ZrexpressIndividualLabelsResponse({List<ZrexpressIndividualLabel> parcelLabelFiles = const [], List<String> failedTrackingNumbers = const []}): _parcelLabelFiles = parcelLabelFiles,_failedTrackingNumbers = failedTrackingNumbers,super._();
   factory _ZrexpressIndividualLabelsResponse.fromJson(Map<String, dynamic> json) => _$ZrexpressIndividualLabelsResponseFromJson(json);
 
 /// List of individual label files

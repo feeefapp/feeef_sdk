@@ -215,7 +215,7 @@ return $default(_that.canSeeAllOrders,_that.canAssignOrder,_that.canReAssignOrde
 @JsonSerializable()
 
 class _ConfermerPermissions implements ConfermerPermissions {
-  const _ConfermerPermissions({this.canSeeAllOrders = false, this.canAssignOrder = false, this.canReAssignOrder = false, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _ConfermerPermissions({this.canSeeAllOrders = false, this.canAssignOrder = false, this.canReAssignOrder = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _ConfermerPermissions.fromJson(Map<String, dynamic> json) => _$ConfermerPermissionsFromJson(json);
 
 /// See all orders (unassigned + others'), not just unassigned + own.

@@ -299,7 +299,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decora
 @JsonSerializable()
 
 class _Product extends Product {
-   _Product({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.decoration, required this.name, this.photoUrl, required final  List<String> media, required this.storeId, this.shippingMethodId, this.shippingPriceId, this.categoryId, this.category, this.categoryRelation, this.title, this.description, this.body, this.sku, this.barcode, required this.price, this.cost, this.discount, this.stock, this.sold = 0, this.views = 0, this.likes = 0, this.variant, final  List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode, final  List<ProductAddon>? addons, this.dislikes = 0, this.status = ProductStatus.draft, this.type = ProductType.physical, this.integrationsData, this.verifiedAt, this.blockedAt, final  Map<String, dynamic> metadata = const {}, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) this.lor}): _media = media,_offers = offers,_addons = addons,_metadata = metadata,super._();
+   _Product({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.decoration, required this.name, this.photoUrl, required List<String> media, required this.storeId, this.shippingMethodId, this.shippingPriceId, this.categoryId, this.category, this.categoryRelation, this.title, this.description, this.body, this.sku, this.barcode, required this.price, this.cost, this.discount, this.stock, this.sold = 0, this.views = 0, this.likes = 0, this.variant, List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode, List<ProductAddon>? addons, this.dislikes = 0, this.status = ProductStatus.draft, this.type = ProductType.physical, this.integrationsData, this.verifiedAt, this.blockedAt, Map<String, dynamic> metadata = const {}, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) this.lor}): _media = media,_offers = offers,_addons = addons,_metadata = metadata,super._();
   factory _Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 
 @override final  String id;
@@ -1150,7 +1150,7 @@ return $default(_that.fields,_that.useProductFields);case _:
 @JsonSerializable()
 
 class _CustomFieldsIntegrationData implements CustomFieldsIntegrationData {
-  const _CustomFieldsIntegrationData({final  List<CustomField> fields = const [], this.useProductFields = false}): _fields = fields;
+  const _CustomFieldsIntegrationData({List<CustomField> fields = const [], this.useProductFields = false}): _fields = fields;
   factory _CustomFieldsIntegrationData.fromJson(Map<String, dynamic> json) => _$CustomFieldsIntegrationDataFromJson(json);
 
 /// List of custom field definitions specific to this product.
@@ -1431,7 +1431,7 @@ return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective,_th
 @JsonSerializable()
 
 class _MetaPixelData extends MetaPixelData {
-   _MetaPixelData({this.enabled = true, final  List<String>? ids, this.objective, this.draftObjective, final  List<PixelStatusRule> statusRules = const []}): _ids = ids,_statusRules = statusRules,super._();
+   _MetaPixelData({this.enabled = true, List<String>? ids, this.objective, this.draftObjective, List<PixelStatusRule> statusRules = const []}): _ids = ids,_statusRules = statusRules,super._();
   factory _MetaPixelData.fromJson(Map<String, dynamic> json) => _$MetaPixelDataFromJson(json);
 
 @override@JsonKey() final  bool enabled;
@@ -1723,7 +1723,7 @@ return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective,_th
 @JsonSerializable()
 
 class _TiktokPixelData extends TiktokPixelData {
-   _TiktokPixelData({this.enabled = true, final  List<String>? ids, this.objective, this.draftObjective, final  List<PixelStatusRule> statusRules = const []}): _ids = ids,_statusRules = statusRules,super._();
+   _TiktokPixelData({this.enabled = true, List<String>? ids, this.objective, this.draftObjective, List<PixelStatusRule> statusRules = const []}): _ids = ids,_statusRules = statusRules,super._();
   factory _TiktokPixelData.fromJson(Map<String, dynamic> json) => _$TiktokPixelDataFromJson(json);
 
 @override@JsonKey() final  bool enabled;
@@ -2016,7 +2016,7 @@ return $default(_that.enabled,_that.sheetId,_that.sheetName,_that.spreadsheetId,
 @JsonSerializable()
 
 class _GoogleSheetsData extends GoogleSheetsData {
-   _GoogleSheetsData({this.enabled = true, this.sheetId, this.sheetName, this.spreadsheetId, this.nextRow, final  List<GoogleSheetsColumn>? columns}): _columns = columns,super._();
+   _GoogleSheetsData({this.enabled = true, this.sheetId, this.sheetName, this.spreadsheetId, this.nextRow, List<GoogleSheetsColumn>? columns}): _columns = columns,super._();
   factory _GoogleSheetsData.fromJson(Map<String, dynamic> json) => _$GoogleSheetsDataFromJson(json);
 
 @override@JsonKey() final  bool enabled;
@@ -2300,7 +2300,7 @@ return $default(_that.enabled,_that.methodIds);case _:
 @JsonSerializable()
 
 class _PaymentMethodData extends PaymentMethodData {
-   _PaymentMethodData({this.enabled = false, final  List<String> methodIds = const []}): _methodIds = methodIds,super._();
+   _PaymentMethodData({this.enabled = false, List<String> methodIds = const []}): _methodIds = methodIds,super._();
   factory _PaymentMethodData.fromJson(Map<String, dynamic> json) => _$PaymentMethodDataFromJson(json);
 
 @override@JsonKey() final  bool enabled;
@@ -2575,7 +2575,7 @@ return $default(_that.enabled,_that.produit,_that.skuProduitMap);case _:
 @JsonSerializable()
 
 class _EcotrackData extends EcotrackData {
-   _EcotrackData({this.enabled = true, this.produit, final  Map<String, String> skuProduitMap = const {}}): _skuProduitMap = skuProduitMap,super._();
+   _EcotrackData({this.enabled = true, this.produit, Map<String, String> skuProduitMap = const {}}): _skuProduitMap = skuProduitMap,super._();
   factory _EcotrackData.fromJson(Map<String, dynamic> json) => _$EcotrackDataFromJson(json);
 
 @override@JsonKey() final  bool enabled;
@@ -2918,7 +2918,7 @@ return $default(_that.id,_that.name,_that.slug,_that.decoration,_that.photoUrl,_
 @JsonSerializable()
 
 class _ProductCreate implements ProductCreate {
-  const _ProductCreate({this.id, required this.name, required this.slug, this.decoration, this.photoUrl, required final  List<String> media, required this.storeId, this.shippingMethodId, this.shippingPriceId, this.categoryId, this.category, this.title, this.description, this.body, this.sku, this.barcode, required this.price, this.cost, this.discount, this.stock, this.variant, final  List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode, final  List<ProductAddon>? addons, this.integrationsData, this.status = ProductStatus.draft, this.type = ProductType.physical, final  Map<String, dynamic> metadata = const {}}): _media = media,_offers = offers,_addons = addons,_metadata = metadata;
+  const _ProductCreate({this.id, required this.name, required this.slug, this.decoration, this.photoUrl, required List<String> media, required this.storeId, this.shippingMethodId, this.shippingPriceId, this.categoryId, this.category, this.title, this.description, this.body, this.sku, this.barcode, required this.price, this.cost, this.discount, this.stock, this.variant, List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode, List<ProductAddon>? addons, this.integrationsData, this.status = ProductStatus.draft, this.type = ProductType.physical, Map<String, dynamic> metadata = const {}}): _media = media,_offers = offers,_addons = addons,_metadata = metadata;
   factory _ProductCreate.fromJson(Map<String, dynamic> json) => _$ProductCreateFromJson(json);
 
 @override final  String? id;
@@ -3371,7 +3371,7 @@ return $default(_that.name,_that.slug,_that.decoration,_that.photoUrl,_that.medi
 @JsonSerializable()
 
 class _ProductUpdate implements ProductUpdate {
-  const _ProductUpdate({this.name, this.slug, this.decoration, this.photoUrl, final  List<String>? media, this.storeId, this.shippingMethodId, this.shippingPriceId, this.categoryId, this.category, this.title, this.description, this.body, this.sku, this.barcode, this.price, this.cost, this.discount, this.stock, this.variant, final  List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode, final  List<ProductAddon>? addons, this.integrationsData, this.status, this.type, final  Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false) final  List<String> setToNull = const []}): _media = media,_offers = offers,_addons = addons,_metadata = metadata,_setToNull = setToNull;
+  const _ProductUpdate({this.name, this.slug, this.decoration, this.photoUrl, List<String>? media, this.storeId, this.shippingMethodId, this.shippingPriceId, this.categoryId, this.category, this.title, this.description, this.body, this.sku, this.barcode, this.price, this.cost, this.discount, this.stock, this.variant, List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode, List<ProductAddon>? addons, this.integrationsData, this.status, this.type, Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _media = media,_offers = offers,_addons = addons,_metadata = metadata,_setToNull = setToNull;
   factory _ProductUpdate.fromJson(Map<String, dynamic> json) => _$ProductUpdateFromJson(json);
 
 @override final  String? name;

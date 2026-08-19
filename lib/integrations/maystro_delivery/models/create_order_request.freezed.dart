@@ -1053,7 +1053,7 @@ return $default(_that.externalId,_that.customer,_that.deliveryAddress,_that.orde
 @JsonSerializable()
 
 class _MaystroCreateOrderRequest extends MaystroCreateOrderRequest {
-  const _MaystroCreateOrderRequest({this.externalId, required this.customer, required this.deliveryAddress, required final  List<MaystroOrderedProduct> orderedProducts, required this.amount, this.description, this.stateCode, this.cityCode}): _orderedProducts = orderedProducts,super._();
+  const _MaystroCreateOrderRequest({this.externalId, required this.customer, required this.deliveryAddress, required List<MaystroOrderedProduct> orderedProducts, required this.amount, this.description, this.stateCode, this.cityCode}): _orderedProducts = orderedProducts,super._();
   factory _MaystroCreateOrderRequest.fromJson(Map<String, dynamic> json) => _$MaystroCreateOrderRequestFromJson(json);
 
 @override final  String? externalId;
@@ -1893,7 +1893,7 @@ return $default(_that.parcelLabelFiles,_that.failedTrackingNumbers);case _:
 @JsonSerializable()
 
 class _MaystroIndividualLabelsResponse extends MaystroIndividualLabelsResponse {
-  const _MaystroIndividualLabelsResponse({final  List<MaystroIndividualLabel> parcelLabelFiles = const [], final  List<String> failedTrackingNumbers = const []}): _parcelLabelFiles = parcelLabelFiles,_failedTrackingNumbers = failedTrackingNumbers,super._();
+  const _MaystroIndividualLabelsResponse({List<MaystroIndividualLabel> parcelLabelFiles = const [], List<String> failedTrackingNumbers = const []}): _parcelLabelFiles = parcelLabelFiles,_failedTrackingNumbers = failedTrackingNumbers,super._();
   factory _MaystroIndividualLabelsResponse.fromJson(Map<String, dynamic> json) => _$MaystroIndividualLabelsResponseFromJson(json);
 
  final  List<MaystroIndividualLabel> _parcelLabelFiles;

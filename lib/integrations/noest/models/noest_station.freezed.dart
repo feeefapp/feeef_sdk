@@ -220,7 +220,7 @@ return $default(_that.code,_that.name,_that.address,_that.map,_that.phones,_that
 @JsonSerializable()
 
 class _NoestStation implements NoestStation {
-   _NoestStation({required this.code, required this.name, required this.address, this.map, required final  List<String> phones, required this.email}): _phones = phones;
+   _NoestStation({required this.code, required this.name, required this.address, this.map, required List<String> phones, required this.email}): _phones = phones;
   factory _NoestStation.fromJson(Map<String, dynamic> json) => _$NoestStationFromJson(json);
 
 /// Station code (e.g. "1A")

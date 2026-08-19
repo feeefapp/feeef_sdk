@@ -224,7 +224,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.metadata,_that.na
 @JsonSerializable()
 
 class _ShippingMethod extends ShippingMethod {
-   _ShippingMethod({required this.id, required this.createdAt, required this.updatedAt, final  Map<String, dynamic> metadata = const {}, required this.name, this.description, this.logoUrl, this.ondarkLogoUrl, this.price = 0, this.forks = 0, this.sourceId, required this.storeId, final  List<List<num?>?> rates = const [], required this.status, required this.policy, this.verifiedAt}): _metadata = metadata,_rates = rates,super._();
+   _ShippingMethod({required this.id, required this.createdAt, required this.updatedAt, Map<String, dynamic> metadata = const {}, required this.name, this.description, this.logoUrl, this.ondarkLogoUrl, this.price = 0, this.forks = 0, this.sourceId, required this.storeId, List<List<num?>?> rates = const [], required this.status, required this.policy, this.verifiedAt}): _metadata = metadata,_rates = rates,super._();
   factory _ShippingMethod.fromJson(Map<String, dynamic> json) => _$ShippingMethodFromJson(json);
 
 @override final  String id;
@@ -542,7 +542,7 @@ return $default(_that.id,_that.metadata,_that.name,_that.description,_that.logoU
 @JsonSerializable()
 
 class _ShippingMethodCreate implements ShippingMethodCreate {
-  const _ShippingMethodCreate({this.id, final  Map<String, dynamic> metadata = const {}, required this.name, this.description, this.logoUrl, this.ondarkLogoUrl, this.price = 0, this.forks = 0, this.sourceId, required this.storeId, final  List<List<num?>?> rates = const [], required this.status, required this.policy, this.verifiedAt}): _metadata = metadata,_rates = rates;
+  const _ShippingMethodCreate({this.id, Map<String, dynamic> metadata = const {}, required this.name, this.description, this.logoUrl, this.ondarkLogoUrl, this.price = 0, this.forks = 0, this.sourceId, required this.storeId, List<List<num?>?> rates = const [], required this.status, required this.policy, this.verifiedAt}): _metadata = metadata,_rates = rates;
   factory _ShippingMethodCreate.fromJson(Map<String, dynamic> json) => _$ShippingMethodCreateFromJson(json);
 
 @override final  String? id;
@@ -854,7 +854,7 @@ return $default(_that.metadata,_that.name,_that.description,_that.logoUrl,_that.
 @JsonSerializable()
 
 class _ShippingMethodUpdate implements ShippingMethodUpdate {
-  const _ShippingMethodUpdate({final  Map<String, dynamic>? metadata, this.name, this.description, this.logoUrl, this.ondarkLogoUrl, this.price, this.storeId, final  List<List<num?>?>? rates, this.status, this.policy, @JsonKey(includeFromJson: false) final  List<String> setToNull = const []}): _metadata = metadata,_rates = rates,_setToNull = setToNull;
+  const _ShippingMethodUpdate({Map<String, dynamic>? metadata, this.name, this.description, this.logoUrl, this.ondarkLogoUrl, this.price, this.storeId, List<List<num?>?>? rates, this.status, this.policy, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _metadata = metadata,_rates = rates,_setToNull = setToNull;
   factory _ShippingMethodUpdate.fromJson(Map<String, dynamic> json) => _$ShippingMethodUpdateFromJson(json);
 
  final  Map<String, dynamic>? _metadata;

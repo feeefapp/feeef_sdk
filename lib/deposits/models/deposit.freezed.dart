@@ -221,7 +221,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.externalId,_that.
 @JsonSerializable()
 
 class _Deposit extends Deposit {
-   _Deposit({required this.id, required this.createdAt, required this.updatedAt, this.externalId, required this.userId, required this.amount, required this.currency, this.paymentMethod, this.attachment, this.status = DepositStatus.pending, this.note, final  Map<String, dynamic> metadata = const {}, final  List<DepositHistory> history = const []}): _metadata = metadata,_history = history,super._();
+   _Deposit({required this.id, required this.createdAt, required this.updatedAt, this.externalId, required this.userId, required this.amount, required this.currency, this.paymentMethod, this.attachment, this.status = DepositStatus.pending, this.note, Map<String, dynamic> metadata = const {}, List<DepositHistory> history = const []}): _metadata = metadata,_history = history,super._();
   factory _Deposit.fromJson(Map<String, dynamic> json) => _$DepositFromJson(json);
 
 @override final  String id;
@@ -529,7 +529,7 @@ return $default(_that.id,_that.externalId,_that.userId,_that.amount,_that.curren
 @JsonSerializable()
 
 class _DepositCreate implements DepositCreate {
-  const _DepositCreate({this.id, this.externalId, required this.userId, required this.amount, required this.currency, this.paymentMethod, this.attachment, this.status = DepositStatus.pending, this.note, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _DepositCreate({this.id, this.externalId, required this.userId, required this.amount, required this.currency, this.paymentMethod, this.attachment, this.status = DepositStatus.pending, this.note, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _DepositCreate.fromJson(Map<String, dynamic> json) => _$DepositCreateFromJson(json);
 
 @override final  String? id;
@@ -826,7 +826,7 @@ return $default(_that.externalId,_that.userId,_that.amount,_that.currency,_that.
 @JsonSerializable()
 
 class _DepositUpdate implements DepositUpdate {
-  const _DepositUpdate({this.externalId, this.userId, this.amount, this.currency, this.paymentMethod, this.attachment, this.status, this.note, final  Map<String, dynamic>? metadata, final  List<DepositHistory>? history, @JsonKey(includeFromJson: false) final  List<String> setToNull = const []}): _metadata = metadata,_history = history,_setToNull = setToNull;
+  const _DepositUpdate({this.externalId, this.userId, this.amount, this.currency, this.paymentMethod, this.attachment, this.status, this.note, Map<String, dynamic>? metadata, List<DepositHistory>? history, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _metadata = metadata,_history = history,_setToNull = setToNull;
   factory _DepositUpdate.fromJson(Map<String, dynamic> json) => _$DepositUpdateFromJson(json);
 
 @override final  String? externalId;

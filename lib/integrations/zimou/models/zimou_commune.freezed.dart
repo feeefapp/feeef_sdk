@@ -212,7 +212,7 @@ return $default(_that.id,_that.name,_that.wilayaId,_that.metadata);case _:
 @JsonSerializable()
 
 class _ZimouCommune implements ZimouCommune {
-  const _ZimouCommune({required this.id, required this.name, required this.wilayaId, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _ZimouCommune({required this.id, required this.name, required this.wilayaId, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _ZimouCommune.fromJson(Map<String, dynamic> json) => _$ZimouCommuneFromJson(json);
 
 @override final  int id;

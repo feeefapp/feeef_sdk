@@ -220,7 +220,7 @@ return $default(_that.success,_that.deposit,_that.satim);case _:
 @JsonSerializable()
 
 class _SatimCreateOrderResponse implements SatimCreateOrderResponse {
-  const _SatimCreateOrderResponse({required this.success, required final  Map<String, dynamic> deposit, required this.satim}): _deposit = deposit;
+  const _SatimCreateOrderResponse({required this.success, required Map<String, dynamic> deposit, required this.satim}): _deposit = deposit;
   factory _SatimCreateOrderResponse.fromJson(Map<String, dynamic> json) => _$SatimCreateOrderResponseFromJson(json);
 
 @override final  bool success;

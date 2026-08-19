@@ -221,7 +221,7 @@ return $default(_that.id,_that.name,_that.logoUrl,_that.clientId,_that.redirectU
 @JsonSerializable()
 
 class _App implements App {
-  const _App({required this.id, required this.name, this.logoUrl, required this.clientId, final  List<String> redirectUris = const [], final  List<String> scopes = const [], this.active = true, this.lastUsedAt, required this.createdAt, this.updatedAt, this.clientSecret}): _redirectUris = redirectUris,_scopes = scopes;
+  const _App({required this.id, required this.name, this.logoUrl, required this.clientId, List<String> redirectUris = const [], List<String> scopes = const [], this.active = true, this.lastUsedAt, required this.createdAt, this.updatedAt, this.clientSecret}): _redirectUris = redirectUris,_scopes = scopes;
   factory _App.fromJson(Map<String, dynamic> json) => _$AppFromJson(json);
 
 @override final  String id;
@@ -522,7 +522,7 @@ return $default(_that.name,_that.logoUrl,_that.redirectUris,_that.scopes);case _
 @JsonSerializable()
 
 class _AppCreate implements AppCreate {
-  const _AppCreate({required this.name, this.logoUrl, required final  List<String> redirectUris, required final  List<String> scopes}): _redirectUris = redirectUris,_scopes = scopes;
+  const _AppCreate({required this.name, this.logoUrl, required List<String> redirectUris, required List<String> scopes}): _redirectUris = redirectUris,_scopes = scopes;
   factory _AppCreate.fromJson(Map<String, dynamic> json) => _$AppCreateFromJson(json);
 
 @override final  String name;
@@ -810,7 +810,7 @@ return $default(_that.name,_that.logoUrl,_that.redirectUris,_that.scopes,_that.a
 @JsonSerializable()
 
 class _AppUpdate implements AppUpdate {
-  const _AppUpdate({this.name, this.logoUrl, final  List<String>? redirectUris, final  List<String>? scopes, this.active, @JsonKey(includeFromJson: false) final  List<String> setToNull = const []}): _redirectUris = redirectUris,_scopes = scopes,_setToNull = setToNull;
+  const _AppUpdate({this.name, this.logoUrl, List<String>? redirectUris, List<String>? scopes, this.active, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _redirectUris = redirectUris,_scopes = scopes,_setToNull = setToNull;
   factory _AppUpdate.fromJson(Map<String, dynamic> json) => _$AppUpdateFromJson(json);
 
 @override final  String? name;

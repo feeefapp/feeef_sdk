@@ -592,7 +592,7 @@ return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_tha
 @JsonSerializable()
 
 class _StoreIntegrations extends StoreIntegrations {
-  const _StoreIntegrations({final  Map<String, dynamic>? metadata = const {}, this.meta, this.metaPixel, this.tiktokPixel, this.googleAnalytics, this.googleTags, this.clarity, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.mdmExpress, this.feeefDelivery, this.maystroDelivery, this.codpilot, this.googleSheet, this.webhooks, this.security, this.customFields, this.payment, this.dispatcher, this.inventory, this.finance, this.connectors, final  Map<String, dynamic>? sms = const {}, final  Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
+  const _StoreIntegrations({Map<String, dynamic>? metadata = const {}, this.meta, this.metaPixel, this.tiktokPixel, this.googleAnalytics, this.googleTags, this.clarity, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.mdmExpress, this.feeefDelivery, this.maystroDelivery, this.codpilot, this.googleSheet, this.webhooks, this.security, this.customFields, this.payment, this.dispatcher, this.inventory, this.finance, this.connectors, Map<String, dynamic>? sms = const {}, Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
   factory _StoreIntegrations.fromJson(Map<String, dynamic> json) => _$StoreIntegrationsFromJson(json);
 
  final  Map<String, dynamic>? _metadata;
@@ -1580,7 +1580,7 @@ return $default(_that.accessToken,_that.tokenType,_that.expiresIn,_that.expiresA
 @JsonSerializable()
 
 class _FacebookMarketingOAuth extends FacebookMarketingOAuth {
-  const _FacebookMarketingOAuth({required this.accessToken, this.tokenType = 'bearer', this.expiresIn, this.expiresAt, final  List<String> scopes = const []}): _scopes = scopes,super._();
+  const _FacebookMarketingOAuth({required this.accessToken, this.tokenType = 'bearer', this.expiresIn, this.expiresAt, List<String> scopes = const []}): _scopes = scopes,super._();
   factory _FacebookMarketingOAuth.fromJson(Map<String, dynamic> json) => _$FacebookMarketingOAuthFromJson(json);
 
 @override final  String accessToken;
@@ -2146,7 +2146,7 @@ return $default(_that.active,_that.adAccounts,_that.defaultAdAccountId,_that.def
 @JsonSerializable()
 
 class _MetaAdsConfig extends MetaAdsConfig {
-  const _MetaAdsConfig({this.active = true, final  List<MetaAdAccountRef> adAccounts = const [], this.defaultAdAccountId, this.defaultDatePreset = 'last_7d', final  List<String> extraStoreHosts = const [], final  Map<String, dynamic> metadata = const {}}): _adAccounts = adAccounts,_extraStoreHosts = extraStoreHosts,_metadata = metadata,super._();
+  const _MetaAdsConfig({this.active = true, List<MetaAdAccountRef> adAccounts = const [], this.defaultAdAccountId, this.defaultDatePreset = 'last_7d', List<String> extraStoreHosts = const [], Map<String, dynamic> metadata = const {}}): _adAccounts = adAccounts,_extraStoreHosts = extraStoreHosts,_metadata = metadata,super._();
   factory _MetaAdsConfig.fromJson(Map<String, dynamic> json) => _$MetaAdsConfigFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -2734,7 +2734,7 @@ return $default(_that.active,_that.account,_that.ads,_that.metadata);case _:
 @JsonSerializable()
 
 class _MetaIntegration extends MetaIntegration {
-  const _MetaIntegration({this.active = false, this.account, this.ads, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _MetaIntegration({this.active = false, this.account, this.ads, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _MetaIntegration.fromJson(Map<String, dynamic> json) => _$MetaIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -3057,7 +3057,7 @@ return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that
 @JsonSerializable()
 
 class _MetaPixelIntegration extends MetaPixelIntegration {
-  const _MetaPixelIntegration({this.id = 'default', final  List<MetaPixel> pixels = const [], this.objective = MetaPixelEvent.purchase, this.draftObjective = MetaPixelEvent.lead, this.active = true, final  Map<String, dynamic> metadata = const {}, this.oauth2, this.mode, final  List<PixelStatusRule> statusRules = const []}): _pixels = pixels,_metadata = metadata,_statusRules = statusRules,super._();
+  const _MetaPixelIntegration({this.id = 'default', List<MetaPixel> pixels = const [], this.objective = MetaPixelEvent.purchase, this.draftObjective = MetaPixelEvent.lead, this.active = true, Map<String, dynamic> metadata = const {}, this.oauth2, this.mode, List<PixelStatusRule> statusRules = const []}): _pixels = pixels,_metadata = metadata,_statusRules = statusRules,super._();
   factory _MetaPixelIntegration.fromJson(Map<String, dynamic> json) => _$MetaPixelIntegrationFromJson(json);
 
 @override@JsonKey() final  String id;
@@ -3648,7 +3648,7 @@ return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that
 @JsonSerializable()
 
 class _TiktokPixelIntegration extends TiktokPixelIntegration {
-  const _TiktokPixelIntegration({this.id = 'default', final  List<TiktokPixel> pixels = const [], this.objective = TiktokPixelEvent.purchase, this.draftObjective = TiktokPixelEvent.purchase, this.active = true, final  Map<String, dynamic> metadata = const {}, this.mode, final  List<PixelStatusRule> statusRules = const []}): _pixels = pixels,_metadata = metadata,_statusRules = statusRules,super._();
+  const _TiktokPixelIntegration({this.id = 'default', List<TiktokPixel> pixels = const [], this.objective = TiktokPixelEvent.purchase, this.draftObjective = TiktokPixelEvent.purchase, this.active = true, Map<String, dynamic> metadata = const {}, this.mode, List<PixelStatusRule> statusRules = const []}): _pixels = pixels,_metadata = metadata,_statusRules = statusRules,super._();
   factory _TiktokPixelIntegration.fromJson(Map<String, dynamic> json) => _$TiktokPixelIntegrationFromJson(json);
 
 @override@JsonKey() final  String id;
@@ -4217,7 +4217,7 @@ return $default(_that.id,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _GoogleAnalyticsIntegration extends GoogleAnalyticsIntegration {
-  const _GoogleAnalyticsIntegration({this.id = "EMPTY", this.active = false, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _GoogleAnalyticsIntegration({this.id = "EMPTY", this.active = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _GoogleAnalyticsIntegration.fromJson(Map<String, dynamic> json) => _$GoogleAnalyticsIntegrationFromJson(json);
 
 @override@JsonKey() final  String id;
@@ -4492,7 +4492,7 @@ return $default(_that.key,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _GoogleTagsIntegration extends GoogleTagsIntegration {
-  const _GoogleTagsIntegration({required this.key, this.active = true, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _GoogleTagsIntegration({required this.key, this.active = true, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _GoogleTagsIntegration.fromJson(Map<String, dynamic> json) => _$GoogleTagsIntegrationFromJson(json);
 
 @override final  String key;
@@ -4768,7 +4768,7 @@ return $default(_that.active,_that.trackingCode,_that.apiKey,_that.metadata);cas
 @JsonSerializable()
 
 class _ClarityIntegration extends ClarityIntegration {
-  const _ClarityIntegration({this.active = true, required this.trackingCode, this.apiKey, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _ClarityIntegration({this.active = true, required this.trackingCode, this.apiKey, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _ClarityIntegration.fromJson(Map<String, dynamic> json) => _$ClarityIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -5048,7 +5048,7 @@ return $default(_that.active,_that.apiKey,_that.planningModel,_that.textModel,_t
 @JsonSerializable()
 
 class _AiIntegration extends AiIntegration {
-  const _AiIntegration({this.active = true, this.apiKey, this.planningModel = 'gemini-3.1-pro-preview', this.textModel = 'gemini-flash-lite-latest', this.imageModel = 'gemini-3.1-flash-image-preview', final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _AiIntegration({this.active = true, this.apiKey, this.planningModel = 'gemini-3.1-pro-preview', this.textModel = 'gemini-flash-lite-latest', this.imageModel = 'gemini-3.1-flash-image-preview', Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _AiIntegration.fromJson(Map<String, dynamic> json) => _$AiIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -5334,7 +5334,7 @@ return $default(_that.id,_that.token,_that.agent,_that.active,_that.autoSend,_th
 @JsonSerializable()
 
 class _YalidineDeliveryIntegration extends YalidineDeliveryIntegration {
-  const _YalidineDeliveryIntegration({required this.id, required this.token, this.agent = YalidineAgent.yalidine, this.active = true, this.autoSend = false, this.forceFreeShipping = false, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _YalidineDeliveryIntegration({required this.id, required this.token, this.agent = YalidineAgent.yalidine, this.active = true, this.autoSend = false, this.forceFreeShipping = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _YalidineDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$YalidineDeliveryIntegrationFromJson(json);
 
 @override final  String id;
@@ -5622,7 +5622,7 @@ return $default(_that.baseUrl,_that.token,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _EcotrackDeliveryIntegration extends EcotrackDeliveryIntegration {
-  const _EcotrackDeliveryIntegration({required this.baseUrl, required this.token, this.active = true, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _EcotrackDeliveryIntegration({required this.baseUrl, required this.token, this.active = true, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _EcotrackDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$EcotrackDeliveryIntegrationFromJson(json);
 
 @override final  String baseUrl;
@@ -5907,7 +5907,7 @@ return $default(_that.baseUrl,_that.token,_that.active,_that.autoSend,_that.meta
 @JsonSerializable()
 
 class _EcomanagerDeliveryIntegration extends EcomanagerDeliveryIntegration {
-  const _EcomanagerDeliveryIntegration({required this.baseUrl, required this.token, this.active = true, this.autoSend = true, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _EcomanagerDeliveryIntegration({required this.baseUrl, required this.token, this.active = true, this.autoSend = true, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _EcomanagerDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$EcomanagerDeliveryIntegrationFromJson(json);
 
 @override final  String baseUrl;
@@ -6187,7 +6187,7 @@ return $default(_that.key,_that.token,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _ProcolisDeliveryIntegration extends ProcolisDeliveryIntegration {
-  const _ProcolisDeliveryIntegration({required this.key, required this.token, this.active = true, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _ProcolisDeliveryIntegration({required this.key, required this.token, this.active = true, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _ProcolisDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$ProcolisDeliveryIntegrationFromJson(json);
 
 @override final  String key;
@@ -6465,7 +6465,7 @@ return $default(_that.guid,_that.token,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _NoestDeliveryIntegration extends NoestDeliveryIntegration {
-  const _NoestDeliveryIntegration({required this.guid, required this.token, this.active = true, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _NoestDeliveryIntegration({required this.guid, required this.token, this.active = true, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _NoestDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$NoestDeliveryIntegrationFromJson(json);
 
 @override final  String guid;
@@ -6744,7 +6744,7 @@ return $default(_that.url,_that.token,_that.active,_that.autoSend,_that.metadata
 @JsonSerializable()
 
 class _OrderdzDeliveryIntegration extends OrderdzDeliveryIntegration {
-  const _OrderdzDeliveryIntegration({this.url, required this.token, this.active = true, this.autoSend = false, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _OrderdzDeliveryIntegration({this.url, required this.token, this.active = true, this.autoSend = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _OrderdzDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$OrderdzDeliveryIntegrationFromJson(json);
 
 @override final  String? url;
@@ -7026,7 +7026,7 @@ return $default(_that.id,_that.apiKey,_that.active,_that.silentMode,_that.autoSe
 @JsonSerializable()
 
 class _ZimouExpressDeliveryIntegration extends ZimouExpressDeliveryIntegration {
-  const _ZimouExpressDeliveryIntegration({required this.id, required this.apiKey, this.active = true, this.silentMode = false, this.autoSend = false, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _ZimouExpressDeliveryIntegration({required this.id, required this.apiKey, this.active = true, this.silentMode = false, this.autoSend = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _ZimouExpressDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$ZimouExpressDeliveryIntegrationFromJson(json);
 
 @override final  String id;
@@ -7315,7 +7315,7 @@ return $default(_that.id,_that.apiKey,_that.tenantId,_that.webhookSecret,_that.a
 @JsonSerializable()
 
 class _ZrexpressDeliveryIntegration extends ZrexpressDeliveryIntegration {
-  const _ZrexpressDeliveryIntegration({required this.id, required this.apiKey, required this.tenantId, this.webhookSecret, this.active = true, this.silentMode = false, this.autoSend = false, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _ZrexpressDeliveryIntegration({required this.id, required this.apiKey, required this.tenantId, this.webhookSecret, this.active = true, this.silentMode = false, this.autoSend = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _ZrexpressDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$ZrexpressDeliveryIntegrationFromJson(json);
 
 @override final  String id;
@@ -7614,7 +7614,7 @@ return $default(_that.id,_that.apiKey,_that.bearerToken,_that.mdmStoreId,_that.m
 @JsonSerializable()
 
 class _MdmExpressDeliveryIntegration extends MdmExpressDeliveryIntegration {
-  const _MdmExpressDeliveryIntegration({required this.id, this.apiKey, this.bearerToken, required this.mdmStoreId, this.mdmSellerId, this.webhookSecret, this.active = true, this.silentMode = false, this.autoSend = false, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _MdmExpressDeliveryIntegration({required this.id, this.apiKey, this.bearerToken, required this.mdmStoreId, this.mdmSellerId, this.webhookSecret, this.active = true, this.silentMode = false, this.autoSend = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _MdmExpressDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$MdmExpressDeliveryIntegrationFromJson(json);
 
 @override final  String id;
@@ -7922,7 +7922,7 @@ return $default(_that.id,_that.active,_that.autoSend,_that.nearSenderUserId,_tha
 @JsonSerializable()
 
 class _FeeefDeliveryIntegration extends FeeefDeliveryIntegration {
-  const _FeeefDeliveryIntegration({required this.id, this.active = true, this.autoSend = false, required this.nearSenderUserId, this.nearSenderUsername, this.nearSenderEmail, this.nearAccountType, this.pickupLocationType, this.pickupAddress, this.senderCenterId, this.defaultBuralistId, this.useFeeefLabel = true, this.webhookSecret, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _FeeefDeliveryIntegration({required this.id, this.active = true, this.autoSend = false, required this.nearSenderUserId, this.nearSenderUsername, this.nearSenderEmail, this.nearAccountType, this.pickupLocationType, this.pickupAddress, this.senderCenterId, this.defaultBuralistId, this.useFeeefLabel = true, this.webhookSecret, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _FeeefDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$FeeefDeliveryIntegrationFromJson(json);
 
 @override final  String id;
@@ -8226,7 +8226,7 @@ return $default(_that.token,_that.baseUrl,_that.webhookSecret,_that.active,_that
 @JsonSerializable()
 
 class _MaystroDeliveryIntegration extends MaystroDeliveryIntegration {
-  const _MaystroDeliveryIntegration({required this.token, this.baseUrl, this.webhookSecret, this.active = true, this.autoSend = false, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _MaystroDeliveryIntegration({required this.token, this.baseUrl, this.webhookSecret, this.active = true, this.autoSend = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _MaystroDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$MaystroDeliveryIntegrationFromJson(json);
 
 @override final  String token;
@@ -8513,7 +8513,7 @@ return $default(_that.subdomain,_that.apiId,_that.apiToken,_that.active,_that.st
 @JsonSerializable()
 
 class _CodpilotIntegration extends CodpilotIntegration {
-  const _CodpilotIntegration({required this.subdomain, required this.apiId, required this.apiToken, this.active = true, final  List<PixelStatusRule> statusRules = const [], final  Map<String, dynamic> metadata = const {}}): _statusRules = statusRules,_metadata = metadata,super._();
+  const _CodpilotIntegration({required this.subdomain, required this.apiId, required this.apiToken, this.active = true, List<PixelStatusRule> statusRules = const [], Map<String, dynamic> metadata = const {}}): _statusRules = statusRules,_metadata = metadata,super._();
   factory _CodpilotIntegration.fromJson(Map<String, dynamic> json) => _$CodpilotIntegrationFromJson(json);
 
 /// Business subdomain (`mystore` → mystore.codpilot.net).
@@ -9347,7 +9347,7 @@ return $default(_that.active,_that.treatment,_that.allowed,_that.blocked);case _
 @JsonSerializable()
 
 class _SecurityCountriesOption implements SecurityCountriesOption {
-  const _SecurityCountriesOption({this.active = false, this.treatment = SecurityTreatment.block, final  List<String>? allowed, final  List<String> blocked = const []}): _allowed = allowed,_blocked = blocked;
+  const _SecurityCountriesOption({this.active = false, this.treatment = SecurityTreatment.block, List<String>? allowed, List<String> blocked = const []}): _allowed = allowed,_blocked = blocked;
   factory _SecurityCountriesOption.fromJson(Map<String, dynamic> json) => _$SecurityCountriesOptionFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -9636,7 +9636,7 @@ return $default(_that.active,_that.treatment,_that.allowed,_that.blocked);case _
 @JsonSerializable()
 
 class _SecuritySourcesOption implements SecuritySourcesOption {
-  const _SecuritySourcesOption({this.active = false, this.treatment = SecurityTreatment.block, final  List<String>? allowed, final  List<String> blocked = const []}): _allowed = allowed,_blocked = blocked;
+  const _SecuritySourcesOption({this.active = false, this.treatment = SecurityTreatment.block, List<String>? allowed, List<String> blocked = const []}): _allowed = allowed,_blocked = blocked;
   factory _SecuritySourcesOption.fromJson(Map<String, dynamic> json) => _$SecuritySourcesOptionFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -10438,7 +10438,7 @@ return $default(_that.active,_that.options,_that.metadata);case _:
 @JsonSerializable()
 
 class _SecurityIntegration extends SecurityIntegration {
-  const _SecurityIntegration({this.active = false, this.options, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _SecurityIntegration({this.active = false, this.options, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _SecurityIntegration.fromJson(Map<String, dynamic> json) => _$SecurityIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -10724,7 +10724,7 @@ return $default(_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _StoreInventoryIntegration extends StoreInventoryIntegration {
-  const _StoreInventoryIntegration({this.active = false, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _StoreInventoryIntegration({this.active = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _StoreInventoryIntegration.fromJson(Map<String, dynamic> json) => _$StoreInventoryIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -10996,7 +10996,7 @@ return $default(_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _StoreFinanceIntegration extends StoreFinanceIntegration {
-  const _StoreFinanceIntegration({this.active = false, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _StoreFinanceIntegration({this.active = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _StoreFinanceIntegration.fromJson(Map<String, dynamic> json) => _$StoreFinanceIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -12503,7 +12503,7 @@ return $default(_that.id,_that.name,_that.active,_that.oauth2,_that.columns,_tha
 @JsonSerializable()
 
 class _GoogleSheetsIntegration implements GoogleSheetsIntegration {
-  const _GoogleSheetsIntegration({this.id, this.name, this.active = true, final  Map<String, dynamic>? oauth2, final  List<GoogleSheetsColumn>? columns = defaultOrderColumns, final  Map<String, dynamic> metadata = const {}, this.draftSheetEnabled = false, this.draftSheetName}): _oauth2 = oauth2,_columns = columns,_metadata = metadata;
+  const _GoogleSheetsIntegration({this.id, this.name, this.active = true, Map<String, dynamic>? oauth2, List<GoogleSheetsColumn>? columns = defaultOrderColumns, Map<String, dynamic> metadata = const {}, this.draftSheetEnabled = false, this.draftSheetName}): _oauth2 = oauth2,_columns = columns,_metadata = metadata;
   factory _GoogleSheetsIntegration.fromJson(Map<String, dynamic> json) => _$GoogleSheetsIntegrationFromJson(json);
 
 @override final  String? id;
@@ -12816,7 +12816,7 @@ return $default(_that.id,_that.name,_that.url,_that.events,_that.secret,_that.ac
 @JsonSerializable()
 
 class _WebhookConfig implements WebhookConfig {
-  const _WebhookConfig({required this.id, required this.name, required this.url, final  List<WebhookEvent> events = const [], this.secret, this.active = true, final  Map<String, String> headers = const {}, final  Map<String, dynamic> metadata = const {}}): _events = events,_headers = headers,_metadata = metadata;
+  const _WebhookConfig({required this.id, required this.name, required this.url, List<WebhookEvent> events = const [], this.secret, this.active = true, Map<String, String> headers = const {}, Map<String, dynamic> metadata = const {}}): _events = events,_headers = headers,_metadata = metadata;
   factory _WebhookConfig.fromJson(Map<String, dynamic> json) => _$WebhookConfigFromJson(json);
 
 @override final  String id;
@@ -13113,7 +13113,7 @@ return $default(_that.webhooks,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _WebhooksIntegration implements WebhooksIntegration {
-  const _WebhooksIntegration({final  List<WebhookConfig> webhooks = const [], this.active = true, final  Map<String, dynamic> metadata = const {}}): _webhooks = webhooks,_metadata = metadata;
+  const _WebhooksIntegration({List<WebhookConfig> webhooks = const [], this.active = true, Map<String, dynamic> metadata = const {}}): _webhooks = webhooks,_metadata = metadata;
   factory _WebhooksIntegration.fromJson(Map<String, dynamic> json) => _$WebhooksIntegrationFromJson(json);
 
  final  List<WebhookConfig> _webhooks;
@@ -13419,7 +13419,7 @@ return $default(_that.id,_that.label,_that.type,_that.required,_that.multiple,_t
 @JsonSerializable()
 
 class _CustomField extends CustomField {
-  const _CustomField({required this.id, required this.label, required this.type, this.required = false, this.multiple = false, this.minCount, this.maxCount, this.placeholder, this.helpText, this.regexPattern, this.defaultValue, this.order = 0, this.active = true, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _CustomField({required this.id, required this.label, required this.type, this.required = false, this.multiple = false, this.minCount, this.maxCount, this.placeholder, this.helpText, this.regexPattern, this.defaultValue, this.order = 0, this.active = true, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _CustomField.fromJson(Map<String, dynamic> json) => _$CustomFieldFromJson(json);
 
 /// Unique identifier for the field
@@ -13734,7 +13734,7 @@ return $default(_that.fields,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _CustomFieldsIntegration extends CustomFieldsIntegration {
-  const _CustomFieldsIntegration({final  List<CustomField> fields = const [], this.active = true, final  Map<String, dynamic> metadata = const {}}): _fields = fields,_metadata = metadata,super._();
+  const _CustomFieldsIntegration({List<CustomField> fields = const [], this.active = true, Map<String, dynamic> metadata = const {}}): _fields = fields,_metadata = metadata,super._();
   factory _CustomFieldsIntegration.fromJson(Map<String, dynamic> json) => _$CustomFieldsIntegrationFromJson(json);
 
 /// List of custom field definitions
@@ -14030,7 +14030,7 @@ return $default(_that.id,_that.name,_that.active,_that.apiKey,_that.clientId,_th
 @JsonSerializable()
 
 class _PaymentMethodConfig extends PaymentMethodConfig {
-  const _PaymentMethodConfig({required this.id, required this.name, this.active = true, this.apiKey, this.clientId, this.clientSecret, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _PaymentMethodConfig({required this.id, required this.name, this.active = true, this.apiKey, this.clientId, this.clientSecret, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _PaymentMethodConfig.fromJson(Map<String, dynamic> json) => _$PaymentMethodConfigFromJson(json);
 
 @override final  String id;
@@ -14322,7 +14322,7 @@ return $default(_that.active,_that.methods,_that.defaultMethod,_that.metadata);c
 @JsonSerializable()
 
 class _PaymentIntegration extends PaymentIntegration {
-  const _PaymentIntegration({this.active = true, final  List<PaymentMethodConfig> methods = const [], this.defaultMethod, final  Map<String, dynamic> metadata = const {}}): _methods = methods,_metadata = metadata,super._();
+  const _PaymentIntegration({this.active = true, List<PaymentMethodConfig> methods = const [], this.defaultMethod, Map<String, dynamic> metadata = const {}}): _methods = methods,_metadata = metadata,super._();
   factory _PaymentIntegration.fromJson(Map<String, dynamic> json) => _$PaymentIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -14619,7 +14619,7 @@ return $default(_that.active,_that.strategy,_that.metadata);case _:
 @JsonSerializable()
 
 class _DispatcherIntegration extends DispatcherIntegration {
-  const _DispatcherIntegration({this.active = true, this.strategy, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _DispatcherIntegration({this.active = true, this.strategy, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _DispatcherIntegration.fromJson(Map<String, dynamic> json) => _$DispatcherIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -14911,7 +14911,7 @@ return $default(_that.authType,_that.accessToken,_that.refreshToken,_that.scopes
 @JsonSerializable()
 
 class _ConnectorAuth implements ConnectorAuth {
-  const _ConnectorAuth({this.authType = 'public', this.accessToken, this.refreshToken, final  List<String> scopes = const [], this.expiresAt, this.apiKey, this.baseUrl, final  Map<String, dynamic> metadata = const {}}): _scopes = scopes,_metadata = metadata;
+  const _ConnectorAuth({this.authType = 'public', this.accessToken, this.refreshToken, List<String> scopes = const [], this.expiresAt, this.apiKey, this.baseUrl, Map<String, dynamic> metadata = const {}}): _scopes = scopes,_metadata = metadata;
   factory _ConnectorAuth.fromJson(Map<String, dynamic> json) => _$ConnectorAuthFromJson(json);
 
 @override@JsonKey() final  String authType;
@@ -15222,7 +15222,7 @@ return $default(_that.id,_that.type,_that.active,_that.name,_that.status,_that.e
 @JsonSerializable()
 
 class _ConnectorConfig implements ConnectorConfig {
-  const _ConnectorConfig({required this.id, required this.type, this.active = true, this.name, this.status = 'connected', this.externalId, final  Map<String, dynamic> fieldMapping = const {}, final  Map<String, dynamic> syncState = const {}, this.auth, this.createdAt, final  Map<String, dynamic> metadata = const {}}): _fieldMapping = fieldMapping,_syncState = syncState,_metadata = metadata;
+  const _ConnectorConfig({required this.id, required this.type, this.active = true, this.name, this.status = 'connected', this.externalId, Map<String, dynamic> fieldMapping = const {}, Map<String, dynamic> syncState = const {}, this.auth, this.createdAt, Map<String, dynamic> metadata = const {}}): _fieldMapping = fieldMapping,_syncState = syncState,_metadata = metadata;
   factory _ConnectorConfig.fromJson(Map<String, dynamic> json) => _$ConnectorConfigFromJson(json);
 
 @override final  String id;
@@ -15537,7 +15537,7 @@ return $default(_that.active,_that.connectors,_that.metadata);case _:
 @JsonSerializable()
 
 class _ConnectorsIntegration implements ConnectorsIntegration {
-  const _ConnectorsIntegration({this.active = true, final  List<ConnectorConfig> connectors = const [], final  Map<String, dynamic> metadata = const {}}): _connectors = connectors,_metadata = metadata;
+  const _ConnectorsIntegration({this.active = true, List<ConnectorConfig> connectors = const [], Map<String, dynamic> metadata = const {}}): _connectors = connectors,_metadata = metadata;
   factory _ConnectorsIntegration.fromJson(Map<String, dynamic> json) => _$ConnectorsIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;

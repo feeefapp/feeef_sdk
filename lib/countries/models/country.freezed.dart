@@ -220,7 +220,7 @@ return $default(_that.code,_that.name,_that.phone,_that.metadata,_that.locales,_
 @JsonSerializable()
 
 class _Country extends Country {
-   _Country({required this.code, required this.name, required this.phone, final  Map<String, dynamic> metadata = const {}, final  Map<String, String>? locales, required this.createdAt}): _metadata = metadata,_locales = locales,super._();
+   _Country({required this.code, required this.name, required this.phone, Map<String, dynamic> metadata = const {}, Map<String, String>? locales, required this.createdAt}): _metadata = metadata,_locales = locales,super._();
   factory _Country.fromJson(Map<String, dynamic> json) => _$CountryFromJson(json);
 
 /// ISO 3166-1 alpha-2 country code (e.g., US, DZ, SA)
@@ -522,7 +522,7 @@ return $default(_that.code,_that.name,_that.phone,_that.metadata);case _:
 @JsonSerializable()
 
 class _CountryCreate implements CountryCreate {
-  const _CountryCreate({required this.code, required this.name, required this.phone, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _CountryCreate({required this.code, required this.name, required this.phone, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _CountryCreate.fromJson(Map<String, dynamic> json) => _$CountryCreateFromJson(json);
 
 /// ISO 3166-1 alpha-2 country code (e.g., US, DZ, SA)
@@ -808,7 +808,7 @@ return $default(_that.name,_that.phone,_that.metadata,_that.setToNull);case _:
 @JsonSerializable()
 
 class _CountryUpdate implements CountryUpdate {
-  const _CountryUpdate({this.name, this.phone, final  Map<String, dynamic>? metadata, final  List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
+  const _CountryUpdate({this.name, this.phone, Map<String, dynamic>? metadata, List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
   factory _CountryUpdate.fromJson(Map<String, dynamic> json) => _$CountryUpdateFromJson(json);
 
 /// Country name (e.g., United States, Algeria, Saudi Arabia)

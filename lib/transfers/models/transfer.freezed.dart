@@ -217,7 +217,7 @@ return $default(_that.id,_that.createdAt,_that.debitAccountId,_that.creditAccoun
 @JsonSerializable()
 
 class _Transfer extends Transfer {
-   _Transfer({required this.id, required this.createdAt, required this.debitAccountId, required this.creditAccountId, required this.amount, required this.type, this.referenceId, this.description, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+   _Transfer({required this.id, required this.createdAt, required this.debitAccountId, required this.creditAccountId, required this.amount, required this.type, this.referenceId, this.description, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _Transfer.fromJson(Map<String, dynamic> json) => _$TransferFromJson(json);
 
 @override final  String id;

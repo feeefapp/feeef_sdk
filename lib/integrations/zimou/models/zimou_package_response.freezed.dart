@@ -214,7 +214,7 @@ return $default(_that.id,_that.trackingCode,_that.orderId,_that.printUrl,_that.s
 @JsonSerializable()
 
 class _ZimouPackageResponse implements ZimouPackageResponse {
-  const _ZimouPackageResponse({required this.id, required this.trackingCode, required this.orderId, this.printUrl, this.statusName, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _ZimouPackageResponse({required this.id, required this.trackingCode, required this.orderId, this.printUrl, this.statusName, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _ZimouPackageResponse.fromJson(Map<String, dynamic> json) => _$ZimouPackageResponseFromJson(json);
 
 @override final  int id;
@@ -496,7 +496,7 @@ return $default(_that.packagesAdded,_that.packagesDispatched,_that.netPaid,_that
 @JsonSerializable()
 
 class _ZimouStatisticsResponse implements ZimouStatisticsResponse {
-  const _ZimouStatisticsResponse({required this.packagesAdded, required this.packagesDispatched, required this.netPaid, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _ZimouStatisticsResponse({required this.packagesAdded, required this.packagesDispatched, required this.netPaid, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _ZimouStatisticsResponse.fromJson(Map<String, dynamic> json) => _$ZimouStatisticsResponseFromJson(json);
 
 @override final  int packagesAdded;

@@ -214,7 +214,7 @@ return $default(_that.type,_that.name,_that.token,_that.abilities,_that.lastUsed
 @JsonSerializable()
 
 class _AuthToken implements AuthToken {
-   _AuthToken({required this.type, required this.name, this.token, required final  List<String> abilities, required this.lastUsedAt, required this.expiresAt}): _abilities = abilities;
+   _AuthToken({required this.type, required this.name, this.token, required List<String> abilities, required this.lastUsedAt, required this.expiresAt}): _abilities = abilities;
   factory _AuthToken.fromJson(Map<String, dynamic> json) => _$AuthTokenFromJson(json);
 
 @override final  String type;
@@ -514,7 +514,7 @@ return $default(_that.identifier,_that.tokenableId,_that.value,_that.name,_that.
 @JsonSerializable()
 
 class _AccessToken implements AccessToken {
-   _AccessToken({required this.identifier, required this.tokenableId, this.value, this.name, required this.type, required final  List<String> abilities, required this.hash, required this.createdAt, required this.updatedAt, this.expiresAt, this.lastUsedAt}): _abilities = abilities;
+   _AccessToken({required this.identifier, required this.tokenableId, this.value, this.name, required this.type, required List<String> abilities, required this.hash, required this.createdAt, required this.updatedAt, this.expiresAt, this.lastUsedAt}): _abilities = abilities;
   factory _AccessToken.fromJson(Map<String, dynamic> json) => _$AccessTokenFromJson(json);
 
 // identifier: string | number | BigInt;

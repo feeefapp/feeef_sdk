@@ -222,7 +222,7 @@ return $default(_that.id,_that.userId,_that.title,_that.details,_that.tags,_that
 @JsonSerializable()
 
 class _Feedback extends Feedback {
-   _Feedback({required this.id, required this.userId, required this.title, this.details, final  List<String> tags = const [], final  List<String> attachments = const [], this.status = FeedbackStatus.pending, this.priority = FeedbackPriority.medium, final  Map<String, dynamic> metadata = const {}, this.appVersion, final  List<FeedbackHistoryEvent> history = const [], required this.createdAt, required this.updatedAt, this.resolvedAt}): _tags = tags,_attachments = attachments,_metadata = metadata,_history = history,super._();
+   _Feedback({required this.id, required this.userId, required this.title, this.details, List<String> tags = const [], List<String> attachments = const [], this.status = FeedbackStatus.pending, this.priority = FeedbackPriority.medium, Map<String, dynamic> metadata = const {}, this.appVersion, List<FeedbackHistoryEvent> history = const [], required this.createdAt, required this.updatedAt, this.resolvedAt}): _tags = tags,_attachments = attachments,_metadata = metadata,_history = history,super._();
   factory _Feedback.fromJson(Map<String, dynamic> json) => _$FeedbackFromJson(json);
 
 @override final  String id;
@@ -542,7 +542,7 @@ return $default(_that.id,_that.title,_that.details,_that.tags,_that.attachments,
 @JsonSerializable()
 
 class _FeedbackCreate implements FeedbackCreate {
-  const _FeedbackCreate({this.id, required this.title, this.details, final  List<String> tags = const [], final  List<String> attachments = const [], this.priority = FeedbackPriority.medium, final  Map<String, dynamic> metadata = const {}, this.appVersion}): _tags = tags,_attachments = attachments,_metadata = metadata;
+  const _FeedbackCreate({this.id, required this.title, this.details, List<String> tags = const [], List<String> attachments = const [], this.priority = FeedbackPriority.medium, Map<String, dynamic> metadata = const {}, this.appVersion}): _tags = tags,_attachments = attachments,_metadata = metadata;
   factory _FeedbackCreate.fromJson(Map<String, dynamic> json) => _$FeedbackCreateFromJson(json);
 
 @override final  String? id;
@@ -846,7 +846,7 @@ return $default(_that.title,_that.details,_that.tags,_that.attachments,_that.pri
 @JsonSerializable()
 
 class _FeedbackUpdate implements FeedbackUpdate {
-  const _FeedbackUpdate({this.title, this.details, final  List<String>? tags, final  List<String>? attachments, this.priority, final  Map<String, dynamic>? metadata, this.appVersion, this.comment, @JsonKey(includeFromJson: false) final  List<String> setToNull = const []}): _tags = tags,_attachments = attachments,_metadata = metadata,_setToNull = setToNull;
+  const _FeedbackUpdate({this.title, this.details, List<String>? tags, List<String>? attachments, this.priority, Map<String, dynamic>? metadata, this.appVersion, this.comment, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _tags = tags,_attachments = attachments,_metadata = metadata,_setToNull = setToNull;
   factory _FeedbackUpdate.fromJson(Map<String, dynamic> json) => _$FeedbackUpdateFromJson(json);
 
 @override final  String? title;

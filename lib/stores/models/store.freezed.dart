@@ -330,7 +330,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner
 @JsonSerializable()
 
 class _Store extends Store {
-   _Store({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.banner, this.action, this.domain, this.decoration, required this.name, this.iconUrl, this.logoUrl, @Deprecated("use logoUrl") this.ondarkLogoUrl, required this.userId, final  List<EmbaddedCategory> categories = const [], final  List<Category>? categoriesRelation, this.title, this.description, final  List<EmbaddedAddress> addresses = const [], this.address, final  Map<String, dynamic> metadata = const {}, final  List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(), final  List<List<num?>?> defaultShippingRates = const [], this.verifiedAt, this.blockedAt, @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId, this.projectId, final  List<String>? metaPixelIds, final  Map<String, StoreMember> members = const {}, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) this.lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) this.template}): _categories = categories,_categoriesRelation = categoriesRelation,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_metaPixelIds = metaPixelIds,_members = members,super._();
+   _Store({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.banner, this.action, this.domain, this.decoration, required this.name, this.iconUrl, this.logoUrl, @Deprecated("use logoUrl") this.ondarkLogoUrl, required this.userId, List<EmbaddedCategory> categories = const [], List<Category>? categoriesRelation, this.title, this.description, List<EmbaddedAddress> addresses = const [], this.address, Map<String, dynamic> metadata = const {}, List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(), List<List<num?>?> defaultShippingRates = const [], this.verifiedAt, this.blockedAt, @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId, this.projectId, List<String>? metaPixelIds, Map<String, StoreMember> members = const {}, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) this.lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) this.template}): _categories = categories,_categoriesRelation = categoriesRelation,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_metaPixelIds = metaPixelIds,_members = members,super._();
   factory _Store.fromJson(Map<String, dynamic> json) => _$StoreFromJson(json);
 
 @override final  String id;
@@ -904,7 +904,7 @@ return $default(_that.id,_that.name,_that.slug,_that.banner,_that.action,_that.d
 @JsonSerializable()
 
 class _StoreCreate implements StoreCreate {
-  const _StoreCreate({this.id, required this.name, required this.slug, this.banner, this.action, this.domain, this.decoration, this.logoUrl, this.ondarkLogoUrl, final  List<EmbaddedCategory> categories = const [], this.title, this.description, final  List<EmbaddedAddress> addresses = const [], this.address, final  Map<String, dynamic> metadata = const {}, final  List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(), final  List<List<num?>?> defaultShippingRates = const [], this.shippingPriceId, this.projectId, @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) this.subscription, this.due}): _categories = categories,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates;
+  const _StoreCreate({this.id, required this.name, required this.slug, this.banner, this.action, this.domain, this.decoration, this.logoUrl, this.ondarkLogoUrl, List<EmbaddedCategory> categories = const [], this.title, this.description, List<EmbaddedAddress> addresses = const [], this.address, Map<String, dynamic> metadata = const {}, List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(), List<List<num?>?> defaultShippingRates = const [], this.shippingPriceId, this.projectId, @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) this.subscription, this.due}): _categories = categories,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates;
   factory _StoreCreate.fromJson(Map<String, dynamic> json) => _$StoreCreateFromJson(json);
 
 @override final  String? id;
@@ -1444,7 +1444,7 @@ return $default(_that.name,_that.slug,_that.banner,_that.action,_that.domain,_th
 @JsonSerializable()
 
 class _StoreUpdate implements StoreUpdate {
-  const _StoreUpdate({this.name, this.slug, this.banner, this.action, this.domain, this.decoration, this.logoUrl, this.iconUrl, this.ondarkLogoUrl, final  List<EmbaddedCategory>? categories, this.title, this.description, final  List<EmbaddedAddress>? addresses, this.address, final  Map<String, dynamic>? metadata, final  List<EmbaddedContact>? contacts, @JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson) this.integrations, final  List<List<num?>?>? defaultShippingRates, @JsonKey(includeFromJson: false) final  List<String> setToNull = const [], @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId, this.projectId}): _categories = categories,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_setToNull = setToNull;
+  const _StoreUpdate({this.name, this.slug, this.banner, this.action, this.domain, this.decoration, this.logoUrl, this.iconUrl, this.ondarkLogoUrl, List<EmbaddedCategory>? categories, this.title, this.description, List<EmbaddedAddress>? addresses, this.address, Map<String, dynamic>? metadata, List<EmbaddedContact>? contacts, @JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson) this.integrations, List<List<num?>?>? defaultShippingRates, @JsonKey(includeFromJson: false) List<String> setToNull = const [], @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId, this.projectId}): _categories = categories,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_setToNull = setToNull;
   factory _StoreUpdate.fromJson(Map<String, dynamic> json) => _$StoreUpdateFromJson(json);
 
 @override final  String? name;
@@ -2189,7 +2189,7 @@ return $default(_that.type,_that.status,_that.quota,_that.consumed,_that.started
 @JsonSerializable()
 
 class _StoreSubscription implements StoreSubscription {
-  const _StoreSubscription({required this.type, required this.status, this.quota = 0, this.consumed = 0, required this.startedAt, this.expiresAt, final  Map<String, dynamic> metadata = const {}, @JsonKey(fromJson: _storeSubscriptionIntegrationsFromJson, toJson: _storeSubscriptionIntegrationsToJson) final  Map<String, StoreIntegrationSubscription> integrations = const {}}): _metadata = metadata,_integrations = integrations;
+  const _StoreSubscription({required this.type, required this.status, this.quota = 0, this.consumed = 0, required this.startedAt, this.expiresAt, Map<String, dynamic> metadata = const {}, @JsonKey(fromJson: _storeSubscriptionIntegrationsFromJson, toJson: _storeSubscriptionIntegrationsToJson) Map<String, StoreIntegrationSubscription> integrations = const {}}): _metadata = metadata,_integrations = integrations;
   factory _StoreSubscription.fromJson(Map<String, dynamic> json) => _$StoreSubscriptionFromJson(json);
 
 @override final  StoreSubscriptionType type;
@@ -2524,7 +2524,7 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 @JsonSerializable()
 
 class _StoreConfigs implements StoreConfigs {
-  const _StoreConfigs({required final  List<StoreCurrencyConfig> currencies, this.selectedCurrency, final  List<StoreLanguageConfig> languages = const [], this.defaultLanguage, final  List<StoreCountryConfig> countries = const [], this.selectedCountry, final  List<CustomStatusMapping> customStatusMappings = const [], this.customStatusEnabled = false, this.confirmationQueue, this.inventory_integration, this.finance_integration}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
+  const _StoreConfigs({required List<StoreCurrencyConfig> currencies, this.selectedCurrency, List<StoreLanguageConfig> languages = const [], this.defaultLanguage, List<StoreCountryConfig> countries = const [], this.selectedCountry, List<CustomStatusMapping> customStatusMappings = const [], this.customStatusEnabled = false, this.confirmationQueue, this.inventory_integration, this.finance_integration}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
   factory _StoreConfigs.fromJson(Map<String, dynamic> json) => _$StoreConfigsFromJson(json);
 
  final  List<StoreCurrencyConfig> _currencies;
@@ -3145,7 +3145,7 @@ return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.reser
 @JsonSerializable()
 
 class _InventoryIntegration implements InventoryIntegration {
-  const _InventoryIntegration({final  List<OrderStatus> reserve_on = const [], final  List<OrderStatus> unreserve_on = const [], final  List<OrderStatus> consume_on = const [], final  List<InventoryLifecycleRule> reserve_rules = const [], final  List<InventoryLifecycleRule> unreserve_rules = const [], final  List<InventoryLifecycleRule> consume_rules = const [], this.missing_bucket_policy = MissingInventoryBucketPolicy.ignore, this.allow_backorder = true, this.show_unavailable_on_frontend = false}): _reserve_on = reserve_on,_unreserve_on = unreserve_on,_consume_on = consume_on,_reserve_rules = reserve_rules,_unreserve_rules = unreserve_rules,_consume_rules = consume_rules;
+  const _InventoryIntegration({List<OrderStatus> reserve_on = const [], List<OrderStatus> unreserve_on = const [], List<OrderStatus> consume_on = const [], List<InventoryLifecycleRule> reserve_rules = const [], List<InventoryLifecycleRule> unreserve_rules = const [], List<InventoryLifecycleRule> consume_rules = const [], this.missing_bucket_policy = MissingInventoryBucketPolicy.ignore, this.allow_backorder = true, this.show_unavailable_on_frontend = false}): _reserve_on = reserve_on,_unreserve_on = unreserve_on,_consume_on = consume_on,_reserve_rules = reserve_rules,_unreserve_rules = unreserve_rules,_consume_rules = consume_rules;
   factory _InventoryIntegration.fromJson(Map<String, dynamic> json) => _$InventoryIntegrationFromJson(json);
 
  final  List<OrderStatus> _reserve_on;
@@ -3766,7 +3766,7 @@ return $default(_that.recognize_on,_that.pdf,_that.activated_at);case _:
 @JsonSerializable()
 
 class _FinanceIntegration implements FinanceIntegration {
-  const _FinanceIntegration({final  List<OrderStatus> recognize_on = const [], this.pdf = const FinancePdfSettings(), this.activated_at}): _recognize_on = recognize_on;
+  const _FinanceIntegration({List<OrderStatus> recognize_on = const [], this.pdf = const FinancePdfSettings(), this.activated_at}): _recognize_on = recognize_on;
   factory _FinanceIntegration.fromJson(Map<String, dynamic> json) => _$FinanceIntegrationFromJson(json);
 
  final  List<OrderStatus> _recognize_on;
@@ -4367,7 +4367,7 @@ return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_th
 @JsonSerializable()
 
 class _CustomStatusMapping implements CustomStatusMapping {
-  const _CustomStatusMapping({required this.name, this.code, this.color, this.enabled = true, this.status, this.deliveryStatus, this.paymentStatus, final  List<String> next = const [], this.snoozeMinutes, final  List<String> reasons = const [], this.allowOtherReason = true, this.requiresReason = false, this.queueEligible = true}): _next = next,_reasons = reasons;
+  const _CustomStatusMapping({required this.name, this.code, this.color, this.enabled = true, this.status, this.deliveryStatus, this.paymentStatus, List<String> next = const [], this.snoozeMinutes, List<String> reasons = const [], this.allowOtherReason = true, this.requiresReason = false, this.queueEligible = true}): _next = next,_reasons = reasons;
   factory _CustomStatusMapping.fromJson(Map<String, dynamic> json) => _$CustomStatusMappingFromJson(json);
 
 /// The custom status name (e.g., "not_respond", "phone_closed_1")

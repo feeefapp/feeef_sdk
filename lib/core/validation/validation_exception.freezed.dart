@@ -209,7 +209,7 @@ return $default(_that.errors);case _:
 @JsonSerializable()
 
 class _FeeefValidationException implements FeeefValidationException {
-   _FeeefValidationException({required final  List<FeeefViolation> errors}): _errors = errors;
+   _FeeefValidationException({required List<FeeefViolation> errors}): _errors = errors;
   factory _FeeefValidationException.fromJson(Map<String, dynamic> json) => _$FeeefValidationExceptionFromJson(json);
 
  final  List<FeeefViolation> _errors;

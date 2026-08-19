@@ -218,7 +218,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.metadata,_that.na
 @JsonSerializable()
 
 class _ShippingPrice extends ShippingPrice {
-   _ShippingPrice({required this.id, required this.createdAt, required this.updatedAt, final  Map<String, dynamic> metadata = const {}, required this.name, this.logoUrl, required this.storeId, @JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) required final  Map<String, Map<String, ShippingStateRates>> prices, this.status = ShippingPriceStatus.draft}): _metadata = metadata,_prices = prices,super._();
+   _ShippingPrice({required this.id, required this.createdAt, required this.updatedAt, Map<String, dynamic> metadata = const {}, required this.name, this.logoUrl, required this.storeId, @JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) required Map<String, Map<String, ShippingStateRates>> prices, this.status = ShippingPriceStatus.draft}): _metadata = metadata,_prices = prices,super._();
   factory _ShippingPrice.fromJson(Map<String, dynamic> json) => _$ShippingPriceFromJson(json);
 
 @override final  String id;
@@ -518,7 +518,7 @@ return $default(_that.id,_that.metadata,_that.name,_that.logoUrl,_that.storeId,_
 @JsonSerializable()
 
 class _ShippingPriceCreate implements ShippingPriceCreate {
-  const _ShippingPriceCreate({this.id, final  Map<String, dynamic> metadata = const {}, required this.name, this.logoUrl, required this.storeId, @JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) final  Map<String, Map<String, ShippingStateRates>> prices = const {}, this.status = ShippingPriceStatus.draft}): _metadata = metadata,_prices = prices;
+  const _ShippingPriceCreate({this.id, Map<String, dynamic> metadata = const {}, required this.name, this.logoUrl, required this.storeId, @JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) Map<String, Map<String, ShippingStateRates>> prices = const {}, this.status = ShippingPriceStatus.draft}): _metadata = metadata,_prices = prices;
   factory _ShippingPriceCreate.fromJson(Map<String, dynamic> json) => _$ShippingPriceCreateFromJson(json);
 
 @override final  String? id;
@@ -815,7 +815,7 @@ return $default(_that.metadata,_that.name,_that.logoUrl,_that.storeId,_that.pric
 @JsonSerializable()
 
 class _ShippingPriceUpdate implements ShippingPriceUpdate {
-  const _ShippingPriceUpdate({final  Map<String, dynamic>? metadata, this.name, this.logoUrl, this.storeId, @JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) final  Map<String, Map<String, ShippingStateRates>>? prices, this.status, @JsonKey(includeFromJson: false) final  List<String> setToNull = const []}): _metadata = metadata,_prices = prices,_setToNull = setToNull;
+  const _ShippingPriceUpdate({Map<String, dynamic>? metadata, this.name, this.logoUrl, this.storeId, @JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) Map<String, Map<String, ShippingStateRates>>? prices, this.status, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _metadata = metadata,_prices = prices,_setToNull = setToNull;
   factory _ShippingPriceUpdate.fromJson(Map<String, dynamic> json) => _$ShippingPriceUpdateFromJson(json);
 
  final  Map<String, dynamic>? _metadata;

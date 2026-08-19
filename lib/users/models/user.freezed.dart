@@ -233,7 +233,7 @@ return $default(_that.id,_that.name,_that.email,_that.phone,_that.photoUrl,_that
 @JsonSerializable()
 
 class _User extends User {
-   _User({required this.id, required this.name, required this.email, required this.phone, required this.photoUrl, required this.emailVerifiedAt, required this.phoneVerifiedAt, required this.verifiedAt, required this.blockedAt, required this.partnerApprovedAt, required this.createdAt, required this.updatedAt, this.wallet = const EmbaddedWallet(), final  Map<String, dynamic> metadata = const {}, final  Map<String, dynamic> social = const {}, final  Map<String, dynamic> claims = const {}}): _metadata = metadata,_social = social,_claims = claims,super._();
+   _User({required this.id, required this.name, required this.email, required this.phone, required this.photoUrl, required this.emailVerifiedAt, required this.phoneVerifiedAt, required this.verifiedAt, required this.blockedAt, required this.partnerApprovedAt, required this.createdAt, required this.updatedAt, this.wallet = const EmbaddedWallet(), Map<String, dynamic> metadata = const {}, Map<String, dynamic> social = const {}, Map<String, dynamic> claims = const {}}): _metadata = metadata,_social = social,_claims = claims,super._();
   factory _User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
 @override final  String id;
@@ -564,7 +564,7 @@ return $default(_that.name,_that.email,_that.phone,_that.photoUrl,_that.metadata
 @JsonSerializable()
 
 class _UserUpdate implements UserUpdate {
-  const _UserUpdate({this.name, this.email, this.phone, this.photoUrl, final  Map<String, dynamic> metadata = const {}, this.emailVerifiedAt, this.phoneVerifiedAt, this.verifiedAt, @JsonKey(includeFromJson: false) final  List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
+  const _UserUpdate({this.name, this.email, this.phone, this.photoUrl, Map<String, dynamic> metadata = const {}, this.emailVerifiedAt, this.phoneVerifiedAt, this.verifiedAt, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
   factory _UserUpdate.fromJson(Map<String, dynamic> json) => _$UserUpdateFromJson(json);
 
 @override final  String? name;
@@ -872,7 +872,7 @@ return $default(_that.name,_that.email,_that.phone,_that.photoUrl,_that.metadata
 @JsonSerializable()
 
 class _UserUpdateMe implements UserUpdateMe {
-  const _UserUpdateMe({this.name, this.email, this.phone, this.photoUrl, final  Map<String, dynamic> metadata = const {}, this.emailVerifiedAt, this.phoneVerifiedAt, this.verifiedAt, this.oldPassword, this.newPassword, @JsonKey(includeFromJson: false) final  List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
+  const _UserUpdateMe({this.name, this.email, this.phone, this.photoUrl, Map<String, dynamic> metadata = const {}, this.emailVerifiedAt, this.phoneVerifiedAt, this.verifiedAt, this.oldPassword, this.newPassword, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
   factory _UserUpdateMe.fromJson(Map<String, dynamic> json) => _$UserUpdateMeFromJson(json);
 
 @override final  String? name;

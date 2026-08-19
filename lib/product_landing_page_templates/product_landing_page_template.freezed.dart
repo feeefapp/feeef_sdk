@@ -216,7 +216,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.descri
 @JsonSerializable()
 
 class _ProductLandingPageTemplate extends ProductLandingPageTemplate {
-   _ProductLandingPageTemplate({required this.id, required this.createdAt, required this.updatedAt, required this.name, required this.description, required this.imageUrl, final  Map<String, dynamic>? schema, required final  Map<String, dynamic> defaults}): _schema = schema,_defaults = defaults,super._();
+   _ProductLandingPageTemplate({required this.id, required this.createdAt, required this.updatedAt, required this.name, required this.description, required this.imageUrl, Map<String, dynamic>? schema, required Map<String, dynamic> defaults}): _schema = schema,_defaults = defaults,super._();
   factory _ProductLandingPageTemplate.fromJson(Map<String, dynamic> json) => _$ProductLandingPageTemplateFromJson(json);
 
 @override final  String id;
@@ -511,7 +511,7 @@ return $default(_that.name,_that.description,_that.imageUrl,_that.schema,_that.d
 @JsonSerializable()
 
 class _ProductLandingPageTemplateCreate implements ProductLandingPageTemplateCreate {
-  const _ProductLandingPageTemplateCreate({required this.name, required this.description, required this.imageUrl, required final  Map<String, dynamic> schema, required final  Map<String, dynamic> defaults}): _schema = schema,_defaults = defaults;
+  const _ProductLandingPageTemplateCreate({required this.name, required this.description, required this.imageUrl, required Map<String, dynamic> schema, required Map<String, dynamic> defaults}): _schema = schema,_defaults = defaults;
   factory _ProductLandingPageTemplateCreate.fromJson(Map<String, dynamic> json) => _$ProductLandingPageTemplateCreateFromJson(json);
 
 @override final  String name;
@@ -799,7 +799,7 @@ return $default(_that.name,_that.description,_that.imageUrl,_that.schema,_that.d
 @JsonSerializable()
 
 class _ProductLandingPageTemplateUpdate implements ProductLandingPageTemplateUpdate {
-  const _ProductLandingPageTemplateUpdate({this.name, this.description, this.imageUrl, final  Map<String, dynamic>? schema, final  Map<String, dynamic>? defaults, @JsonKey(includeFromJson: false) final  List<String> setToNull = const []}): _schema = schema,_defaults = defaults,_setToNull = setToNull;
+  const _ProductLandingPageTemplateUpdate({this.name, this.description, this.imageUrl, Map<String, dynamic>? schema, Map<String, dynamic>? defaults, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _schema = schema,_defaults = defaults,_setToNull = setToNull;
   factory _ProductLandingPageTemplateUpdate.fromJson(Map<String, dynamic> json) => _$ProductLandingPageTemplateUpdateFromJson(json);
 
 @override final  String? name;

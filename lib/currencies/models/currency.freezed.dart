@@ -222,7 +222,7 @@ return $default(_that.code,_that.name,_that.symbol,_that.decimals,_that.rate,_th
 @JsonSerializable()
 
 class _Currency extends Currency {
-   _Currency({required this.code, required this.name, this.symbol, required this.decimals, required this.rate, final  Map<String, dynamic> metadata = const {}, required this.createdAt}): _metadata = metadata,super._();
+   _Currency({required this.code, required this.name, this.symbol, required this.decimals, required this.rate, Map<String, dynamic> metadata = const {}, required this.createdAt}): _metadata = metadata,super._();
   factory _Currency.fromJson(Map<String, dynamic> json) => _$CurrencyFromJson(json);
 
 /// ISO 4217 currency code (e.g., USD, EUR, DZD)
@@ -522,7 +522,7 @@ return $default(_that.code,_that.name,_that.symbol,_that.decimals,_that.rate,_th
 @JsonSerializable()
 
 class _CurrencyCreate implements CurrencyCreate {
-  const _CurrencyCreate({required this.code, required this.name, this.symbol, required this.decimals, required this.rate, final  Map<String, dynamic>? metadata = const {}}): _metadata = metadata;
+  const _CurrencyCreate({required this.code, required this.name, this.symbol, required this.decimals, required this.rate, Map<String, dynamic>? metadata = const {}}): _metadata = metadata;
   factory _CurrencyCreate.fromJson(Map<String, dynamic> json) => _$CurrencyCreateFromJson(json);
 
 /// ISO 4217 currency code (e.g., USD, EUR, DZD)
@@ -820,7 +820,7 @@ return $default(_that.name,_that.symbol,_that.decimals,_that.rate,_that.metadata
 @JsonSerializable()
 
 class _CurrencyUpdate implements CurrencyUpdate {
-  const _CurrencyUpdate({this.name, this.symbol, this.decimals, this.rate, final  Map<String, dynamic>? metadata, final  List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
+  const _CurrencyUpdate({this.name, this.symbol, this.decimals, this.rate, Map<String, dynamic>? metadata, List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
   factory _CurrencyUpdate.fromJson(Map<String, dynamic> json) => _$CurrencyUpdateFromJson(json);
 
 /// Currency name (e.g., US Dollar, Euro, Algerian Dinar)

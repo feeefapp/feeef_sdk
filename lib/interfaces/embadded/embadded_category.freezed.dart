@@ -214,7 +214,7 @@ return $default(_that.name,_that.description,_that.photoUrl,_that.ondarkPhotoUrl
 @JsonSerializable()
 
 class _EmbaddedCategory implements EmbaddedCategory {
-   _EmbaddedCategory({required this.name, this.description, this.photoUrl, this.ondarkPhotoUrl, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+   _EmbaddedCategory({required this.name, this.description, this.photoUrl, this.ondarkPhotoUrl, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _EmbaddedCategory.fromJson(Map<String, dynamic> json) => _$EmbaddedCategoryFromJson(json);
 
 @override final  String name;

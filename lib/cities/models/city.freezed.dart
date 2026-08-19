@@ -220,7 +220,7 @@ return $default(_that.countryCode,_that.stateCode,_that.name,_that.metadata,_tha
 @JsonSerializable()
 
 class _City extends City {
-   _City({required this.countryCode, required this.stateCode, required this.name, final  Map<String, dynamic> metadata = const {}, final  Map<String, String>? locales, required this.createdAt}): _metadata = metadata,_locales = locales,super._();
+   _City({required this.countryCode, required this.stateCode, required this.name, Map<String, dynamic> metadata = const {}, Map<String, String>? locales, required this.createdAt}): _metadata = metadata,_locales = locales,super._();
   factory _City.fromJson(Map<String, dynamic> json) => _$CityFromJson(json);
 
 /// Country code (part of composite primary key)
@@ -522,7 +522,7 @@ return $default(_that.countryCode,_that.stateCode,_that.name,_that.metadata);cas
 @JsonSerializable()
 
 class _CityCreate implements CityCreate {
-  const _CityCreate({required this.countryCode, required this.stateCode, required this.name, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _CityCreate({required this.countryCode, required this.stateCode, required this.name, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _CityCreate.fromJson(Map<String, dynamic> json) => _$CityCreateFromJson(json);
 
 /// Country code (required to identify the parent country)
@@ -806,7 +806,7 @@ return $default(_that.name,_that.metadata,_that.setToNull);case _:
 @JsonSerializable()
 
 class _CityUpdate implements CityUpdate {
-  const _CityUpdate({this.name, final  Map<String, dynamic>? metadata, final  List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
+  const _CityUpdate({this.name, Map<String, dynamic>? metadata, List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
   factory _CityUpdate.fromJson(Map<String, dynamic> json) => _$CityUpdateFromJson(json);
 
 /// City name

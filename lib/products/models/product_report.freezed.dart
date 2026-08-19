@@ -593,7 +593,7 @@ return $default(_that.sales,_that.revenue,_that.profit,_that.views,_that.states)
 @JsonSerializable()
 
 class _DayMetrics implements DayMetrics {
-  const _DayMetrics({required final  Map<String, int> sales, required final  Map<String, int> revenue, required final  Map<String, int> profit, required final  Map<String, int> views, required final  Map<String, Map<String, int>> states}): _sales = sales,_revenue = revenue,_profit = profit,_views = views,_states = states;
+  const _DayMetrics({required Map<String, int> sales, required Map<String, int> revenue, required Map<String, int> profit, required Map<String, int> views, required Map<String, Map<String, int>> states}): _sales = sales,_revenue = revenue,_profit = profit,_views = views,_states = states;
   factory _DayMetrics.fromJson(Map<String, dynamic> json) => _$DayMetricsFromJson(json);
 
 /// Sales data for each hour (00:00 to 23:00).
@@ -913,7 +913,7 @@ return $default(_that.sales,_that.revenue,_that.profit,_that.views,_that.states)
 @JsonSerializable()
 
 class _WeekMetrics implements WeekMetrics {
-  const _WeekMetrics({required final  Map<String, int> sales, required final  Map<String, int> revenue, required final  Map<String, int> profit, required final  Map<String, int> views, required final  Map<String, Map<String, int>> states}): _sales = sales,_revenue = revenue,_profit = profit,_views = views,_states = states;
+  const _WeekMetrics({required Map<String, int> sales, required Map<String, int> revenue, required Map<String, int> profit, required Map<String, int> views, required Map<String, Map<String, int>> states}): _sales = sales,_revenue = revenue,_profit = profit,_views = views,_states = states;
   factory _WeekMetrics.fromJson(Map<String, dynamic> json) => _$WeekMetricsFromJson(json);
 
 /// Sales data for each day of the week (YYYY-MM-DD format).
@@ -1233,7 +1233,7 @@ return $default(_that.sales,_that.revenue,_that.profit,_that.views,_that.states)
 @JsonSerializable()
 
 class _MonthMetrics implements MonthMetrics {
-  const _MonthMetrics({required final  Map<String, int> sales, required final  Map<String, int> revenue, required final  Map<String, int> profit, required final  Map<String, int> views, required final  Map<String, Map<String, int>> states}): _sales = sales,_revenue = revenue,_profit = profit,_views = views,_states = states;
+  const _MonthMetrics({required Map<String, int> sales, required Map<String, int> revenue, required Map<String, int> profit, required Map<String, int> views, required Map<String, Map<String, int>> states}): _sales = sales,_revenue = revenue,_profit = profit,_views = views,_states = states;
   factory _MonthMetrics.fromJson(Map<String, dynamic> json) => _$MonthMetricsFromJson(json);
 
 /// Sales data for each day of the month (YYYY-MM-DD format).
@@ -2206,7 +2206,7 @@ return $default(_that.today,_that.yesterday,_that.week,_that.month);case _:
 @JsonSerializable()
 
 class _StateFrameTotals implements StateFrameTotals {
-  const _StateFrameTotals({required final  Map<String, int> today, required final  Map<String, int> yesterday, required final  Map<String, int> week, required final  Map<String, int> month}): _today = today,_yesterday = yesterday,_week = week,_month = month;
+  const _StateFrameTotals({required Map<String, int> today, required Map<String, int> yesterday, required Map<String, int> week, required Map<String, int> month}): _today = today,_yesterday = yesterday,_week = week,_month = month;
   factory _StateFrameTotals.fromJson(Map<String, dynamic> json) => _$StateFrameTotalsFromJson(json);
 
 /// State distribution for today.

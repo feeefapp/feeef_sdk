@@ -212,7 +212,7 @@ return $default(_that.name,_that.view,_that.required,_that.options);case _:
 @JsonSerializable()
 
 class _ProductVariant implements ProductVariant {
-   _ProductVariant({this.name = "option", this.view = ProductVariantView.chips, this.required = false, final  List<ProductVariantOption> options = const []}): _options = options;
+   _ProductVariant({this.name = "option", this.view = ProductVariantView.chips, this.required = false, List<ProductVariantOption> options = const []}): _options = options;
   factory _ProductVariant.fromJson(Map<String, dynamic> json) => _$ProductVariantFromJson(json);
 
 @override@JsonKey() final  String name;

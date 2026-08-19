@@ -211,7 +211,7 @@ return $default(_that.name,_that.verifiedAt,_that.metadata);case _:
 @JsonSerializable()
 
 class _StoreDomain implements StoreDomain {
-   _StoreDomain({required this.name, this.verifiedAt, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+   _StoreDomain({required this.name, this.verifiedAt, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _StoreDomain.fromJson(Map<String, dynamic> json) => _$StoreDomainFromJson(json);
 
 @override final  String name;
@@ -487,7 +487,7 @@ return $default(_that.title,_that.url,_that.enabled,_that.metadata);case _:
 @JsonSerializable()
 
 class _StoreBanner implements StoreBanner {
-   _StoreBanner({required this.title, this.url, this.enabled = false, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+   _StoreBanner({required this.title, this.url, this.enabled = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _StoreBanner.fromJson(Map<String, dynamic> json) => _$StoreBannerFromJson(json);
 
 @override final  String title;
@@ -780,7 +780,7 @@ return $default(_that.primary,_that.onPrimary,_that.primaryDark,_that.onPrimaryD
 @JsonSerializable()
 
 class _StoreDecoration implements StoreDecoration {
-   _StoreDecoration({@ColorSerializer() this.primary = 0xFF4CAF50, @ColorSerializer() this.onPrimary = 0xFFFFFFFF, @ColorSerializer() this.primaryDark = 0xFF69F0AE, @ColorSerializer() this.onPrimaryDark = 0xFF000000, @ColorSerializer() this.secondary = 0xFFFF9800, @ColorSerializer() this.onSecondary = 0xFFFFFFFF, @ColorSerializer() this.secondaryDark = 0xFFFFAB40, @ColorSerializer() this.onSecondaryDark = 0xFF000000, this.useLogoDarkFilter = true, this.showStoreLogoInHeader, this.logoFullHeight, this.showStoreNameInHeader, final  Map<String, dynamic> metadata = const {}, final  Map<String, dynamic>? theme}): _metadata = metadata,_theme = theme;
+   _StoreDecoration({@ColorSerializer() this.primary = 0xFF4CAF50, @ColorSerializer() this.onPrimary = 0xFFFFFFFF, @ColorSerializer() this.primaryDark = 0xFF69F0AE, @ColorSerializer() this.onPrimaryDark = 0xFF000000, @ColorSerializer() this.secondary = 0xFFFF9800, @ColorSerializer() this.onSecondary = 0xFFFFFFFF, @ColorSerializer() this.secondaryDark = 0xFFFFAB40, @ColorSerializer() this.onSecondaryDark = 0xFF000000, this.useLogoDarkFilter = true, this.showStoreLogoInHeader, this.logoFullHeight, this.showStoreNameInHeader, Map<String, dynamic> metadata = const {}, Map<String, dynamic>? theme}): _metadata = metadata,_theme = theme;
   factory _StoreDecoration.fromJson(Map<String, dynamic> json) => _$StoreDecorationFromJson(json);
 
 // primary
@@ -1376,7 +1376,7 @@ return $default(_that.city,_that.state,_that.country,_that.street,_that.zip,_tha
 @JsonSerializable()
 
 class _EmbaddedAddress implements EmbaddedAddress {
-   _EmbaddedAddress({this.city, this.state, this.country, this.street, this.zip, this.location, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+   _EmbaddedAddress({this.city, this.state, this.country, this.street, this.zip, this.location, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _EmbaddedAddress.fromJson(Map<String, dynamic> json) => _$EmbaddedAddressFromJson(json);
 
 @override final  String? city;
@@ -1941,7 +1941,7 @@ return $default(_that.name,_that.type,_that.value,_that.metadata);case _:
 @JsonSerializable()
 
 class _EmbaddedContact implements EmbaddedContact {
-   _EmbaddedContact({this.name, required this.type, required this.value, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+   _EmbaddedContact({this.name, required this.type, required this.value, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _EmbaddedContact.fromJson(Map<String, dynamic> json) => _$EmbaddedContactFromJson(json);
 
 @override final  String? name;
@@ -2226,7 +2226,7 @@ return $default(_that.userId,_that.name,_that.role,_that.acceptedAt,_that.expire
 @JsonSerializable()
 
 class _StoreMember implements StoreMember {
-   _StoreMember({required this.userId, required this.name, required this.role, this.acceptedAt, this.expiredAt, required this.createdAt, this.active = true, final  Map<String, dynamic> metadata = const {}, final  List<String> scopes = const []}): _metadata = metadata,_scopes = scopes;
+   _StoreMember({required this.userId, required this.name, required this.role, this.acceptedAt, this.expiredAt, required this.createdAt, this.active = true, Map<String, dynamic> metadata = const {}, List<String> scopes = const []}): _metadata = metadata,_scopes = scopes;
   factory _StoreMember.fromJson(Map<String, dynamic> json) => _$StoreMemberFromJson(json);
 
 @override final  String userId;
@@ -2819,7 +2819,7 @@ return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_t
 @JsonSerializable()
 
 class _StoreInvite implements StoreInvite {
-   _StoreInvite({required this.id, required this.storeId, required this.email, required this.role, required this.invitedBy, required this.status, this.acceptedAt, required this.expiresAt, final  Map<String, dynamic> metadata = const {}, required this.createdAt, required this.updatedAt, this.store, this.token, final  List<String>? scopes}): _metadata = metadata,_scopes = scopes;
+   _StoreInvite({required this.id, required this.storeId, required this.email, required this.role, required this.invitedBy, required this.status, this.acceptedAt, required this.expiresAt, Map<String, dynamic> metadata = const {}, required this.createdAt, required this.updatedAt, this.store, this.token, List<String>? scopes}): _metadata = metadata,_scopes = scopes;
   factory _StoreInvite.fromJson(Map<String, dynamic> json) => _$StoreInviteFromJson(json);
 
 @override final  String id;

@@ -220,7 +220,7 @@ return $default(_that.productId,_that.productName,_that.productPhotoUrl,_that.va
 @JsonSerializable()
 
 class _OrderItem implements OrderItem {
-   _OrderItem({required this.productId, required this.productName, this.productPhotoUrl, this.variantPath, this.offerCode, this.offerName, this.sku, this.quantity = 0, this.price = 0, this.discount = 0, final  Map<String, num>? addons}): _addons = addons;
+   _OrderItem({required this.productId, required this.productName, this.productPhotoUrl, this.variantPath, this.offerCode, this.offerName, this.sku, this.quantity = 0, this.price = 0, this.discount = 0, Map<String, num>? addons}): _addons = addons;
   factory _OrderItem.fromJson(Map<String, dynamic> json) => _$OrderItemFromJson(json);
 
 @override final  String productId;

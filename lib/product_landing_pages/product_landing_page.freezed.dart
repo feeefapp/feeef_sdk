@@ -259,7 +259,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.descri
 @JsonSerializable()
 
 class _ProductLandingPage extends ProductLandingPage {
-   _ProductLandingPage({required this.id, required this.createdAt, required this.updatedAt, required this.name, this.description, this.templateId, final  Map<String, dynamic>? schema, required final  Map<String, dynamic> defaults, required this.productId, required this.storeId, @JsonKey(fromJson: _landingPageTemplateFromJson, toJson: _landingPageTemplateToJson) this.template, @JsonKey(fromJson: _landingProductFromJson, toJson: _landingProductToJson) this.product, @JsonKey(fromJson: _landingStoreFromJson, toJson: _landingStoreToJson) this.store, @JsonKey(fromJson: _landingLorFromJson, toJson: _landingLorToJson) this.lor}): _schema = schema,_defaults = defaults,super._();
+   _ProductLandingPage({required this.id, required this.createdAt, required this.updatedAt, required this.name, this.description, this.templateId, Map<String, dynamic>? schema, required Map<String, dynamic> defaults, required this.productId, required this.storeId, @JsonKey(fromJson: _landingPageTemplateFromJson, toJson: _landingPageTemplateToJson) this.template, @JsonKey(fromJson: _landingProductFromJson, toJson: _landingProductToJson) this.product, @JsonKey(fromJson: _landingStoreFromJson, toJson: _landingStoreToJson) this.store, @JsonKey(fromJson: _landingLorFromJson, toJson: _landingLorToJson) this.lor}): _schema = schema,_defaults = defaults,super._();
   factory _ProductLandingPage.fromJson(Map<String, dynamic> json) => _$ProductLandingPageFromJson(json);
 
 @override final  String id;
@@ -605,7 +605,7 @@ return $default(_that.name,_that.description,_that.templateId,_that.schema,_that
 @JsonSerializable()
 
 class _ProductLandingPageCreate implements ProductLandingPageCreate {
-  const _ProductLandingPageCreate({required this.name, this.description, this.templateId, final  Map<String, dynamic>? schema, required final  Map<String, dynamic> defaults, this.productId, required this.storeId}): _schema = schema,_defaults = defaults;
+  const _ProductLandingPageCreate({required this.name, this.description, this.templateId, Map<String, dynamic>? schema, required Map<String, dynamic> defaults, this.productId, required this.storeId}): _schema = schema,_defaults = defaults;
   factory _ProductLandingPageCreate.fromJson(Map<String, dynamic> json) => _$ProductLandingPageCreateFromJson(json);
 
 @override final  String name;
@@ -901,7 +901,7 @@ return $default(_that.name,_that.description,_that.templateId,_that.schema,_that
 @JsonSerializable()
 
 class _ProductLandingPageUpdate implements ProductLandingPageUpdate {
-  const _ProductLandingPageUpdate({this.name, this.description, this.templateId, final  Map<String, dynamic>? schema, final  Map<String, dynamic>? defaults, @JsonKey(includeFromJson: false) final  List<String> setToNull = const [], this.productId, this.storeId}): _schema = schema,_defaults = defaults,_setToNull = setToNull;
+  const _ProductLandingPageUpdate({this.name, this.description, this.templateId, Map<String, dynamic>? schema, Map<String, dynamic>? defaults, @JsonKey(includeFromJson: false) List<String> setToNull = const [], this.productId, this.storeId}): _schema = schema,_defaults = defaults,_setToNull = setToNull;
   factory _ProductLandingPageUpdate.fromJson(Map<String, dynamic> json) => _$ProductLandingPageUpdateFromJson(json);
 
 @override final  String? name;

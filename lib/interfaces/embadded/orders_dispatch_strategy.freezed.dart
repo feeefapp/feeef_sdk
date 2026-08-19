@@ -241,7 +241,7 @@ return priority(_that.confirmerIds);case _:
 @JsonSerializable()
 
 class OrdersDispatchStrategyFirstUpdate implements OrdersDispatchStrategy {
-  const OrdersDispatchStrategyFirstUpdate({final  String? $type}): $type = $type ?? 'firstUpdate';
+  const OrdersDispatchStrategyFirstUpdate({String? $type}): $type = $type ?? 'firstUpdate';
   factory OrdersDispatchStrategyFirstUpdate.fromJson(Map<String, dynamic> json) => _$OrdersDispatchStrategyFirstUpdateFromJson(json);
 
 
@@ -280,7 +280,7 @@ String toString() {
 @JsonSerializable()
 
 class OrdersDispatchStrategyRandom implements OrdersDispatchStrategy {
-  const OrdersDispatchStrategyRandom({final  String? $type}): $type = $type ?? 'random';
+  const OrdersDispatchStrategyRandom({String? $type}): $type = $type ?? 'random';
   factory OrdersDispatchStrategyRandom.fromJson(Map<String, dynamic> json) => _$OrdersDispatchStrategyRandomFromJson(json);
 
 
@@ -319,7 +319,7 @@ String toString() {
 @JsonSerializable()
 
 class OrdersDispatchStrategyWeightedRandom implements OrdersDispatchStrategy {
-  const OrdersDispatchStrategyWeightedRandom({final  Map<String, int> weights = const {}, final  String? $type}): _weights = weights,$type = $type ?? 'weightedRandom';
+  const OrdersDispatchStrategyWeightedRandom({Map<String, int> weights = const {}, String? $type}): _weights = weights,$type = $type ?? 'weightedRandom';
   factory OrdersDispatchStrategyWeightedRandom.fromJson(Map<String, dynamic> json) => _$OrdersDispatchStrategyWeightedRandomFromJson(json);
 
  final  Map<String, int> _weights;
@@ -398,7 +398,7 @@ as Map<String, int>,
 @JsonSerializable()
 
 class OrdersDispatchStrategyRoundRobin implements OrdersDispatchStrategy {
-  const OrdersDispatchStrategyRoundRobin({this.lastAssignedConfirmerId, this.sortBy = 'name', final  String? $type}): $type = $type ?? 'roundRobin';
+  const OrdersDispatchStrategyRoundRobin({this.lastAssignedConfirmerId, this.sortBy = 'name', String? $type}): $type = $type ?? 'roundRobin';
   factory OrdersDispatchStrategyRoundRobin.fromJson(Map<String, dynamic> json) => _$OrdersDispatchStrategyRoundRobinFromJson(json);
 
  final  String? lastAssignedConfirmerId;
@@ -473,7 +473,7 @@ as String,
 @JsonSerializable()
 
 class OrdersDispatchStrategyManualOnly implements OrdersDispatchStrategy {
-  const OrdersDispatchStrategyManualOnly({final  String? $type}): $type = $type ?? 'manualOnly';
+  const OrdersDispatchStrategyManualOnly({String? $type}): $type = $type ?? 'manualOnly';
   factory OrdersDispatchStrategyManualOnly.fromJson(Map<String, dynamic> json) => _$OrdersDispatchStrategyManualOnlyFromJson(json);
 
 
@@ -512,7 +512,7 @@ String toString() {
 @JsonSerializable()
 
 class OrdersDispatchStrategyPriority implements OrdersDispatchStrategy {
-  const OrdersDispatchStrategyPriority({required final  List<String> confirmerIds, final  String? $type}): _confirmerIds = confirmerIds,$type = $type ?? 'priority';
+  const OrdersDispatchStrategyPriority({required List<String> confirmerIds, String? $type}): _confirmerIds = confirmerIds,$type = $type ?? 'priority';
   factory OrdersDispatchStrategyPriority.fromJson(Map<String, dynamic> json) => _$OrdersDispatchStrategyPriorityFromJson(json);
 
  final  List<String> _confirmerIds;

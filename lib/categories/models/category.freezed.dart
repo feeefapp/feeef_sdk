@@ -231,7 +231,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.storeId,_that.par
 @JsonSerializable()
 
 class _Category extends Category {
-   _Category({required this.id, required this.createdAt, required this.updatedAt, required this.storeId, this.parentId, required this.name, this.description, this.photoUrl, final  Map<String, dynamic> metadata = const {}, this.parent, final  List<Category>? children}): _metadata = metadata,_children = children,super._();
+   _Category({required this.id, required this.createdAt, required this.updatedAt, required this.storeId, this.parentId, required this.name, this.description, this.photoUrl, Map<String, dynamic> metadata = const {}, this.parent, List<Category>? children}): _metadata = metadata,_children = children,super._();
   factory _Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
 @override final  String id;
@@ -545,7 +545,7 @@ return $default(_that.storeId,_that.parentId,_that.name,_that.description,_that.
 @JsonSerializable()
 
 class _CategoryCreate implements CategoryCreate {
-  const _CategoryCreate({required this.storeId, this.parentId, required this.name, this.description, this.photoUrl, final  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _CategoryCreate({required this.storeId, this.parentId, required this.name, this.description, this.photoUrl, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _CategoryCreate.fromJson(Map<String, dynamic> json) => _$CategoryCreateFromJson(json);
 
 @override final  String storeId;
@@ -829,7 +829,7 @@ return $default(_that.parentId,_that.name,_that.description,_that.photoUrl,_that
 @JsonSerializable()
 
 class _CategoryUpdate implements CategoryUpdate {
-  const _CategoryUpdate({this.parentId, this.name, this.description, this.photoUrl, final  Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false) final  List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
+  const _CategoryUpdate({this.parentId, this.name, this.description, this.photoUrl, Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
   factory _CategoryUpdate.fromJson(Map<String, dynamic> json) => _$CategoryUpdateFromJson(json);
 
 @override final  String? parentId;

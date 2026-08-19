@@ -541,7 +541,7 @@ return $default(_that.exists,_that.path,_that.contentType,_that.size,_that.etag,
 @JsonSerializable()
 
 class _FileMetadata implements FileMetadata {
-  const _FileMetadata({required this.exists, required this.path, required this.contentType, required this.size, this.etag, required this.lastModified, final  Map<String, dynamic>? extra}): _extra = extra;
+  const _FileMetadata({required this.exists, required this.path, required this.contentType, required this.size, this.etag, required this.lastModified, Map<String, dynamic>? extra}): _extra = extra;
   factory _FileMetadata.fromJson(Map<String, dynamic> json) => _$FileMetadataFromJson(json);
 
 /// Whether the file exists
@@ -833,7 +833,7 @@ return $default(_that.objects,_that.paginationToken);case _:
 @JsonSerializable()
 
 class _FileListResponse implements FileListResponse {
-  const _FileListResponse({required final  List<FileObject> objects, this.paginationToken}): _objects = objects;
+  const _FileListResponse({required List<FileObject> objects, this.paginationToken}): _objects = objects;
   factory _FileListResponse.fromJson(Map<String, dynamic> json) => _$FileListResponseFromJson(json);
 
  final  List<FileObject> _objects;

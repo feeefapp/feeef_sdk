@@ -1349,7 +1349,7 @@ return $default(_that.externalId,_that.customer,_that.deliveryAddress,_that.orde
 @JsonSerializable()
 
 class _ParcelSendRequest extends ParcelSendRequest {
-  const _ParcelSendRequest({this.externalId, required this.customer, required this.deliveryAddress, required final  List<ParcelSendOrderedProduct> orderedProducts, required this.amount, required this.deliveryType, this.hubId, this.description, this.stateCode, this.cityCode}): _orderedProducts = orderedProducts,super._();
+  const _ParcelSendRequest({this.externalId, required this.customer, required this.deliveryAddress, required List<ParcelSendOrderedProduct> orderedProducts, required this.amount, required this.deliveryType, this.hubId, this.description, this.stateCode, this.cityCode}): _orderedProducts = orderedProducts,super._();
   factory _ParcelSendRequest.fromJson(Map<String, dynamic> json) => _$ParcelSendRequestFromJson(json);
 
 @override final  String? externalId;

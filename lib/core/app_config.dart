@@ -424,6 +424,39 @@ class PlanDiscount {
   };
 }
 
+class PlanLimits {
+  final int? maxProducts;
+  final int? orderQuotaPerMonth;
+  final int? includedMembers;
+  final int extraMemberPriceMonthly;
+
+  const PlanLimits({
+    this.maxProducts,
+    this.orderQuotaPerMonth,
+    this.includedMembers,
+    this.extraMemberPriceMonthly = 0,
+  });
+
+  factory PlanLimits.fromJson(Map<String, dynamic>? json) {
+    if (json == null) {
+      return const PlanLimits();
+    }
+    return PlanLimits(
+      maxProducts: json['maxProducts'] as int?,
+      orderQuotaPerMonth: json['orderQuotaPerMonth'] as int?,
+      includedMembers: json['includedMembers'] as int?,
+      extraMemberPriceMonthly: json['extraMemberPriceMonthly'] as int? ?? 0,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    if (maxProducts != null) 'maxProducts': maxProducts,
+    if (orderQuotaPerMonth != null) 'orderQuotaPerMonth': orderQuotaPerMonth,
+    if (includedMembers != null) 'includedMembers': includedMembers,
+    'extraMemberPriceMonthly': extraMemberPriceMonthly,
+  };
+}
+
 class Plan {
   final String id;
   final String name;
@@ -433,6 +466,9 @@ class Plan {
   final PlanDiscount? discount;
   /// When true, only breakpoint months (1 + discount keyframe months) are allowed.
   final bool? strict;
+  final PlanLimits? limits;
+  final int? activationMinTopUp;
+  final int? trialDays;
 
   Plan({
     required this.id,
@@ -442,6 +478,9 @@ class Plan {
     required this.features,
     this.discount,
     this.strict,
+    this.limits,
+    this.activationMinTopUp,
+    this.trialDays,
   });
 
   factory Plan.fromJson(Map<String, dynamic> json) {
@@ -455,6 +494,9 @@ class Plan {
         json['discount'] as Map<String, dynamic>?,
       ),
       strict: json['strict'] as bool?,
+      limits: PlanLimits.fromJson(json['limits'] as Map<String, dynamic>?),
+      activationMinTopUp: json['activationMinTopUp'] as int?,
+      trialDays: json['trialDays'] as int?,
     );
   }
 
@@ -466,6 +508,9 @@ class Plan {
     'features': features,
     if (discount != null) 'discount': discount!.toJson(),
     if (strict != null) 'strict': strict,
+    if (limits != null) 'limits': limits!.toJson(),
+    if (activationMinTopUp != null) 'activationMinTopUp': activationMinTopUp,
+    if (trialDays != null) 'trialDays': trialDays,
   };
 
   /// Allowed months for this plan. When [strict] is true, only 1 and keyframe months.

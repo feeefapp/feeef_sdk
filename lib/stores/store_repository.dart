@@ -347,6 +347,19 @@ class StoreRepository extends ModelRepository<Store>
     return Map<String, dynamic>.from(res.data as Map);
   }
 
+  /// Activates the store after trial (requires min wallet top-up on server).
+  Future<Map<String, dynamic>> activateStore({required String storeId}) async {
+    try {
+      final response = await client.post('/$table/$storeId/subscription/activate');
+      return response.data as Map<String, dynamic>;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 422) {
+        throw FeeefValidationException.fromJson(e.response?.data);
+      }
+      rethrow;
+    }
+  }
+
   Future<Map<String, dynamic>> payDue({
     required String storeId,
     required double amount,

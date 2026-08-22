@@ -39,6 +39,18 @@ class DepositRepository extends ModelRepository<Deposit>
     return response.data as Map<String, dynamic>;
   }
 
+  /// Create a SlickPay invoice for wallet deposit (server-side, no client API key).
+  Future<Map<String, dynamic>> slickpayCreateInvoice({
+    required double amount,
+    String currency = 'DZD',
+  }) async {
+    final response = await client.post(
+      '/$table/slickpay/create-invoice',
+      data: {'amount': amount, 'currency': currency},
+    );
+    return Map<String, dynamic>.from(response.data as Map);
+  }
+
   @override
   Deposit modelFromJson(json) => Deposit.fromJson(json);
 

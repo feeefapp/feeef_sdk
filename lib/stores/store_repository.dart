@@ -308,6 +308,35 @@ class StoreRepository extends ModelRepository<Store>
     }
   }
 
+  /// Pay subscription via wallet or direct gateway (SlickPay, Chargily).
+  Future<Map<String, dynamic>> subscriptionCheckout({
+    required String storeId,
+    required StoreSubscriptionType plan,
+    required int months,
+    required String paymentMethod,
+    required String payWith,
+    String? code,
+  }) async {
+    try {
+      final response = await client.post(
+        '/$table/$storeId/subscription/checkout',
+        data: {
+          'plan': plan.name,
+          'months': months,
+          'paymentMethod': paymentMethod,
+          'payWith': payWith,
+          if (code != null && code.isNotEmpty) 'code': code,
+        },
+      );
+      return Map<String, dynamic>.from(response.data as Map);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 422) {
+        throw FeeefValidationException.fromJson(e.response?.data);
+      }
+      rethrow;
+    }
+  }
+
   Future<void> charge({required String id, required int points}) async {
     try {
       await client.post(

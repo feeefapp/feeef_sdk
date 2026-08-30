@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'currency.dart';
@@ -9,6 +9,7 @@ part of 'currency.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -73,7 +74,7 @@ class _$CurrencyCopyWithImpl<$Res>
 /// Create a copy of Currency
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? name = null,Object? symbol = freezed,Object? decimals = null,Object? rate = null,Object? metadata = null,Object? createdAt = null,}) {
-  return _then(_self.copyWith(
+  return _then(Currency(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,symbol: freezed == symbol ? _self.symbol : symbol // ignore: cast_nullable_to_non_nullable
@@ -222,7 +223,7 @@ return $default(_that.code,_that.name,_that.symbol,_that.decimals,_that.rate,_th
 @JsonSerializable()
 
 class _Currency extends Currency {
-   _Currency({required this.code, required this.name, this.symbol, required this.decimals, required this.rate, Map<String, dynamic> metadata = const {}, required this.createdAt}): _metadata = metadata,super._();
+   _Currency({required this.code, required this.name, this.symbol, required this.decimals, required this.rate,  Map<String, dynamic> metadata = const {}, required this.createdAt}): _metadata = metadata,super._();
   factory _Currency.fromJson(Map<String, dynamic> json) => _$CurrencyFromJson(json);
 
 /// ISO 4217 currency code (e.g., USD, EUR, DZD)
@@ -374,7 +375,7 @@ class _$CurrencyCreateCopyWithImpl<$Res>
 /// Create a copy of CurrencyCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? name = null,Object? symbol = freezed,Object? decimals = null,Object? rate = null,Object? metadata = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(CurrencyCreate(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,symbol: freezed == symbol ? _self.symbol : symbol // ignore: cast_nullable_to_non_nullable
@@ -522,7 +523,7 @@ return $default(_that.code,_that.name,_that.symbol,_that.decimals,_that.rate,_th
 @JsonSerializable()
 
 class _CurrencyCreate implements CurrencyCreate {
-  const _CurrencyCreate({required this.code, required this.name, this.symbol, required this.decimals, required this.rate, Map<String, dynamic>? metadata = const {}}): _metadata = metadata;
+  const _CurrencyCreate({required this.code, required this.name, this.symbol, required this.decimals, required this.rate,  Map<String, dynamic>? metadata = const {}}): _metadata = metadata;
   factory _CurrencyCreate.fromJson(Map<String, dynamic> json) => _$CurrencyCreateFromJson(json);
 
 /// ISO 4217 currency code (e.g., USD, EUR, DZD)
@@ -672,7 +673,7 @@ class _$CurrencyUpdateCopyWithImpl<$Res>
 /// Create a copy of CurrencyUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? symbol = freezed,Object? decimals = freezed,Object? rate = freezed,Object? metadata = freezed,Object? setToNull = null,}) {
-  return _then(_self.copyWith(
+  return _then(CurrencyUpdate(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,symbol: freezed == symbol ? _self.symbol : symbol // ignore: cast_nullable_to_non_nullable
 as String?,decimals: freezed == decimals ? _self.decimals : decimals // ignore: cast_nullable_to_non_nullable
@@ -820,7 +821,7 @@ return $default(_that.name,_that.symbol,_that.decimals,_that.rate,_that.metadata
 @JsonSerializable()
 
 class _CurrencyUpdate implements CurrencyUpdate {
-  const _CurrencyUpdate({this.name, this.symbol, this.decimals, this.rate, Map<String, dynamic>? metadata, List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
+  const _CurrencyUpdate({this.name, this.symbol, this.decimals, this.rate,  Map<String, dynamic>? metadata,  List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
   factory _CurrencyUpdate.fromJson(Map<String, dynamic> json) => _$CurrencyUpdateFromJson(json);
 
 /// Currency name (e.g., US Dollar, Euro, Algerian Dinar)

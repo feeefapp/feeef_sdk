@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'shipping_method.dart';
@@ -9,6 +9,7 @@ part of 'shipping_method.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$ShippingMethodCopyWithImpl<$Res>
 /// Create a copy of ShippingMethod
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? metadata = null,Object? name = null,Object? description = freezed,Object? logoUrl = freezed,Object? ondarkLogoUrl = freezed,Object? price = null,Object? forks = null,Object? sourceId = freezed,Object? storeId = null,Object? rates = null,Object? status = null,Object? policy = null,Object? verifiedAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ShippingMethod(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -224,7 +225,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.metadata,_that.na
 @JsonSerializable()
 
 class _ShippingMethod extends ShippingMethod {
-   _ShippingMethod({required this.id, required this.createdAt, required this.updatedAt, Map<String, dynamic> metadata = const {}, required this.name, this.description, this.logoUrl, this.ondarkLogoUrl, this.price = 0, this.forks = 0, this.sourceId, required this.storeId, List<List<num?>?> rates = const [], required this.status, required this.policy, this.verifiedAt}): _metadata = metadata,_rates = rates,super._();
+   _ShippingMethod({required this.id, required this.createdAt, required this.updatedAt,  Map<String, dynamic> metadata = const {}, required this.name, this.description, this.logoUrl, this.ondarkLogoUrl, this.price = 0, this.forks = 0, this.sourceId, required this.storeId,  List<List<num?>?> rates = const [], required this.status, required this.policy, this.verifiedAt}): _metadata = metadata,_rates = rates,super._();
   factory _ShippingMethod.fromJson(Map<String, dynamic> json) => _$ShippingMethodFromJson(json);
 
 @override final  String id;
@@ -386,7 +387,7 @@ class _$ShippingMethodCreateCopyWithImpl<$Res>
 /// Create a copy of ShippingMethodCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? metadata = null,Object? name = null,Object? description = freezed,Object? logoUrl = freezed,Object? ondarkLogoUrl = freezed,Object? price = null,Object? forks = null,Object? sourceId = freezed,Object? storeId = null,Object? rates = null,Object? status = null,Object? policy = null,Object? verifiedAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ShippingMethodCreate(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -542,7 +543,7 @@ return $default(_that.id,_that.metadata,_that.name,_that.description,_that.logoU
 @JsonSerializable()
 
 class _ShippingMethodCreate implements ShippingMethodCreate {
-  const _ShippingMethodCreate({this.id, Map<String, dynamic> metadata = const {}, required this.name, this.description, this.logoUrl, this.ondarkLogoUrl, this.price = 0, this.forks = 0, this.sourceId, required this.storeId, List<List<num?>?> rates = const [], required this.status, required this.policy, this.verifiedAt}): _metadata = metadata,_rates = rates;
+  const _ShippingMethodCreate({this.id,  Map<String, dynamic> metadata = const {}, required this.name, this.description, this.logoUrl, this.ondarkLogoUrl, this.price = 0, this.forks = 0, this.sourceId, required this.storeId,  List<List<num?>?> rates = const [], required this.status, required this.policy, this.verifiedAt}): _metadata = metadata,_rates = rates;
   factory _ShippingMethodCreate.fromJson(Map<String, dynamic> json) => _$ShippingMethodCreateFromJson(json);
 
 @override final  String? id;
@@ -649,8 +650,7 @@ as DateTime?,
 /// @nodoc
 mixin _$ShippingMethodUpdate {
 
- Map<String, dynamic>? get metadata; String? get name; String? get description; String? get logoUrl; String? get ondarkLogoUrl; num? get price;// String? sourceId,
- String? get storeId; List<List<num?>?>? get rates; ShippingMethodStatus? get status; ShippingMethodPolicy? get policy;@JsonKey(includeFromJson: false) List<String> get setToNull;
+ Map<String, dynamic>? get metadata; String? get name; String? get description; String? get logoUrl; String? get ondarkLogoUrl; num? get price; String? get storeId; List<List<num?>?>? get rates; ShippingMethodStatus? get status; ShippingMethodPolicy? get policy;@JsonKey(includeFromJson: false) List<String> get setToNull;
 /// Create a copy of ShippingMethodUpdate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -701,7 +701,7 @@ class _$ShippingMethodUpdateCopyWithImpl<$Res>
 /// Create a copy of ShippingMethodUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? metadata = freezed,Object? name = freezed,Object? description = freezed,Object? logoUrl = freezed,Object? ondarkLogoUrl = freezed,Object? price = freezed,Object? storeId = freezed,Object? rates = freezed,Object? status = freezed,Object? policy = freezed,Object? setToNull = null,}) {
-  return _then(_self.copyWith(
+  return _then(ShippingMethodUpdate(
 metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
@@ -854,7 +854,7 @@ return $default(_that.metadata,_that.name,_that.description,_that.logoUrl,_that.
 @JsonSerializable()
 
 class _ShippingMethodUpdate implements ShippingMethodUpdate {
-  const _ShippingMethodUpdate({Map<String, dynamic>? metadata, this.name, this.description, this.logoUrl, this.ondarkLogoUrl, this.price, this.storeId, List<List<num?>?>? rates, this.status, this.policy, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _metadata = metadata,_rates = rates,_setToNull = setToNull;
+  const _ShippingMethodUpdate({ Map<String, dynamic>? metadata, this.name, this.description, this.logoUrl, this.ondarkLogoUrl, this.price, this.storeId,  List<List<num?>?>? rates, this.status, this.policy, @JsonKey(includeFromJson: false)  List<String> setToNull = const []}): _metadata = metadata,_rates = rates,_setToNull = setToNull;
   factory _ShippingMethodUpdate.fromJson(Map<String, dynamic> json) => _$ShippingMethodUpdateFromJson(json);
 
  final  Map<String, dynamic>? _metadata;
@@ -871,7 +871,6 @@ class _ShippingMethodUpdate implements ShippingMethodUpdate {
 @override final  String? logoUrl;
 @override final  String? ondarkLogoUrl;
 @override final  num? price;
-// String? sourceId,
 @override final  String? storeId;
  final  List<List<num?>?>? _rates;
 @override List<List<num?>?>? get rates {

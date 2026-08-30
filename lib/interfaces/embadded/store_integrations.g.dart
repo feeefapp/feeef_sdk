@@ -475,7 +475,7 @@ Map<String, dynamic> _$GoogleTagsIntegrationToJson(
 _ClarityIntegration _$ClarityIntegrationFromJson(Map<String, dynamic> json) =>
     _ClarityIntegration(
       active: json['active'] as bool? ?? true,
-      trackingCode: json['trackingCode'] as String,
+      trackingCode: json['trackingCode'] as String? ?? '',
       apiKey: json['apiKey'] as String?,
       metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
     );

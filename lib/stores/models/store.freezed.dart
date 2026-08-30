@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'store.dart';
@@ -9,16 +9,14 @@ part of 'store.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$Store {
 
- String get id; DateTime get createdAt; DateTime get updatedAt; String get slug; StoreBanner? get banner; StoreAction? get action; StoreDomain? get domain; StoreDecoration? get decoration; String get name; String? get iconUrl; String? get logoUrl;@Deprecated("use logoUrl") String? get ondarkLogoUrl; String get userId; List<EmbaddedCategory> get categories; List<Category>? get categoriesRelation; String? get title; String? get description; List<EmbaddedAddress> get addresses; EmbaddedAddress? get address; Map<String, dynamic> get metadata; List<EmbaddedContact> get contacts;@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations get integrations; List<List<num?>?> get defaultShippingRates; DateTime? get verifiedAt; DateTime? get blockedAt;// subscription
-@JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) StoreSubscription? get subscription; num? get due;// StoreConfigs
- StoreConfigs? get configs; String? get shippingPriceId; String? get templateId; String? get projectId;// metaPixelIds
- List<String>? get metaPixelIds; Map<String, StoreMember> get members;/// Present when list/show is called with `with[]=lor` and the user may view analytics.
+ String get id; DateTime get createdAt; DateTime get updatedAt; String get slug; StoreBanner? get banner; StoreAction? get action; StoreDomain? get domain; StoreDecoration? get decoration; String get name; String? get iconUrl; String? get logoUrl;@Deprecated("use logoUrl") String? get ondarkLogoUrl; String get userId; List<EmbaddedCategory> get categories; List<Category>? get categoriesRelation; String? get title; String? get description; List<EmbaddedAddress> get addresses; EmbaddedAddress? get address; Map<String, dynamic> get metadata; List<EmbaddedContact> get contacts;@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations get integrations; List<List<num?>?> get defaultShippingRates; DateTime? get verifiedAt; DateTime? get blockedAt;@JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) StoreSubscription? get subscription; num? get due; StoreConfigs? get configs; String? get shippingPriceId; String? get templateId; String? get projectId; List<String>? get metaPixelIds; Map<String, StoreMember> get members;/// Present when list/show is called with `with[]=lor` and the user may view analytics.
 @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) LiteOrdersReport? get lor;/// Present when `with[]=template` — active [StoreTemplate] row (usually the store fork).
 @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) StoreTemplate? get template;
 /// Create a copy of Store
@@ -60,7 +58,7 @@ class _$StoreCopyWithImpl<$Res>
 /// Create a copy of Store
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? slug = null,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? name = null,Object? iconUrl = freezed,Object? logoUrl = freezed,Object? ondarkLogoUrl = freezed,Object? userId = null,Object? categories = null,Object? categoriesRelation = freezed,Object? title = freezed,Object? description = freezed,Object? addresses = null,Object? address = freezed,Object? metadata = null,Object? contacts = null,Object? integrations = null,Object? defaultShippingRates = null,Object? verifiedAt = freezed,Object? blockedAt = freezed,Object? subscription = freezed,Object? due = freezed,Object? configs = freezed,Object? shippingPriceId = freezed,Object? templateId = freezed,Object? projectId = freezed,Object? metaPixelIds = freezed,Object? members = null,Object? lor = freezed,Object? template = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Store(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -330,7 +328,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.banner
 @JsonSerializable()
 
 class _Store extends Store {
-   _Store({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.banner, this.action, this.domain, this.decoration, required this.name, this.iconUrl, this.logoUrl, @Deprecated("use logoUrl") this.ondarkLogoUrl, required this.userId, List<EmbaddedCategory> categories = const [], List<Category>? categoriesRelation, this.title, this.description, List<EmbaddedAddress> addresses = const [], this.address, Map<String, dynamic> metadata = const {}, List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(), List<List<num?>?> defaultShippingRates = const [], this.verifiedAt, this.blockedAt, @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId, this.projectId, List<String>? metaPixelIds, Map<String, StoreMember> members = const {}, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) this.lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) this.template}): _categories = categories,_categoriesRelation = categoriesRelation,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_metaPixelIds = metaPixelIds,_members = members,super._();
+   _Store({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.banner, this.action, this.domain, this.decoration, required this.name, this.iconUrl, this.logoUrl, @Deprecated("use logoUrl") this.ondarkLogoUrl, required this.userId,  List<EmbaddedCategory> categories = const [],  List<Category>? categoriesRelation, this.title, this.description,  List<EmbaddedAddress> addresses = const [], this.address,  Map<String, dynamic> metadata = const {},  List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(),  List<List<num?>?> defaultShippingRates = const [], this.verifiedAt, this.blockedAt, @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId, this.projectId,  List<String>? metaPixelIds,  Map<String, StoreMember> members = const {}, @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) this.lor, @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) this.template}): _categories = categories,_categoriesRelation = categoriesRelation,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_metaPixelIds = metaPixelIds,_members = members,super._();
   factory _Store.fromJson(Map<String, dynamic> json) => _$StoreFromJson(json);
 
 @override final  String id;
@@ -396,17 +394,13 @@ class _Store extends Store {
 
 @override final  DateTime? verifiedAt;
 @override final  DateTime? blockedAt;
-// subscription
 @override@JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) final  StoreSubscription? subscription;
 @override final  num? due;
-// StoreConfigs
 @override final  StoreConfigs? configs;
 @override final  String? shippingPriceId;
 @override final  String? templateId;
 @override final  String? projectId;
-// metaPixelIds
  final  List<String>? _metaPixelIds;
-// metaPixelIds
 @override List<String>? get metaPixelIds {
   final value = _metaPixelIds;
   if (value == null) return null;
@@ -607,8 +601,7 @@ $StoreConfigsCopyWith<$Res>? get configs {
 /// @nodoc
 mixin _$StoreCreate {
 
- String? get id; String get name; String get slug; StoreBanner? get banner; StoreAction? get action; StoreDomain? get domain; StoreDecoration? get decoration; String? get logoUrl; String? get ondarkLogoUrl; List<EmbaddedCategory> get categories; String? get title; String? get description; List<EmbaddedAddress> get addresses; EmbaddedAddress? get address; Map<String, dynamic> get metadata; List<EmbaddedContact> get contacts;@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations get integrations; List<List<num?>?> get defaultShippingRates; String? get shippingPriceId; String? get projectId;// subscription
-@JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) StoreSubscription? get subscription; num? get due;
+ String? get id; String get name; String get slug; StoreBanner? get banner; StoreAction? get action; StoreDomain? get domain; StoreDecoration? get decoration; String? get logoUrl; String? get ondarkLogoUrl; List<EmbaddedCategory> get categories; String? get title; String? get description; List<EmbaddedAddress> get addresses; EmbaddedAddress? get address; Map<String, dynamic> get metadata; List<EmbaddedContact> get contacts;@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations get integrations; List<List<num?>?> get defaultShippingRates; String? get shippingPriceId; String? get projectId;@JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) StoreSubscription? get subscription; num? get due;
 /// Create a copy of StoreCreate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -659,7 +652,7 @@ class _$StoreCreateCopyWithImpl<$Res>
 /// Create a copy of StoreCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? slug = null,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? logoUrl = freezed,Object? ondarkLogoUrl = freezed,Object? categories = null,Object? title = freezed,Object? description = freezed,Object? addresses = null,Object? address = freezed,Object? metadata = null,Object? contacts = null,Object? integrations = null,Object? defaultShippingRates = null,Object? shippingPriceId = freezed,Object? projectId = freezed,Object? subscription = freezed,Object? due = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(StoreCreate(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
@@ -904,7 +897,7 @@ return $default(_that.id,_that.name,_that.slug,_that.banner,_that.action,_that.d
 @JsonSerializable()
 
 class _StoreCreate implements StoreCreate {
-  const _StoreCreate({this.id, required this.name, required this.slug, this.banner, this.action, this.domain, this.decoration, this.logoUrl, this.ondarkLogoUrl, List<EmbaddedCategory> categories = const [], this.title, this.description, List<EmbaddedAddress> addresses = const [], this.address, Map<String, dynamic> metadata = const {}, List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(), List<List<num?>?> defaultShippingRates = const [], this.shippingPriceId, this.projectId, @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) this.subscription, this.due}): _categories = categories,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates;
+  const _StoreCreate({this.id, required this.name, required this.slug, this.banner, this.action, this.domain, this.decoration, this.logoUrl, this.ondarkLogoUrl,  List<EmbaddedCategory> categories = const [], this.title, this.description,  List<EmbaddedAddress> addresses = const [], this.address,  Map<String, dynamic> metadata = const {},  List<EmbaddedContact> contacts = const [], @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) this.integrations = const StoreIntegrations(),  List<List<num?>?> defaultShippingRates = const [], this.shippingPriceId, this.projectId, @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) this.subscription, this.due}): _categories = categories,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates;
   factory _StoreCreate.fromJson(Map<String, dynamic> json) => _$StoreCreateFromJson(json);
 
 @override final  String? id;
@@ -957,7 +950,6 @@ class _StoreCreate implements StoreCreate {
 
 @override final  String? shippingPriceId;
 @override final  String? projectId;
-// subscription
 @override@JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) final  StoreSubscription? subscription;
 @override final  num? due;
 
@@ -1127,10 +1119,7 @@ $StoreSubscriptionCopyWith<$Res>? get subscription {
 /// @nodoc
 mixin _$StoreUpdate {
 
- String? get name; String? get slug; StoreBanner? get banner; StoreAction? get action; StoreDomain? get domain; StoreDecoration? get decoration; String? get logoUrl; String? get iconUrl; String? get ondarkLogoUrl; List<EmbaddedCategory>? get categories; String? get title; String? get description; List<EmbaddedAddress>? get addresses; EmbaddedAddress? get address; Map<String, dynamic>? get metadata; List<EmbaddedContact>? get contacts;@JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson) StoreIntegrations? get integrations; List<List<num?>?>? get defaultShippingRates;// ignore: invalid_annotation_target
-@JsonKey(includeFromJson: false) List<String> get setToNull;// subscription
-@JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) StoreSubscription? get subscription; num? get due;// StoreConfigs
- StoreConfigs? get configs; String? get shippingPriceId; String? get templateId; String? get projectId;
+ String? get name; String? get slug; StoreBanner? get banner; StoreAction? get action; StoreDomain? get domain; StoreDecoration? get decoration; String? get logoUrl; String? get iconUrl; String? get ondarkLogoUrl; List<EmbaddedCategory>? get categories; String? get title; String? get description; List<EmbaddedAddress>? get addresses; EmbaddedAddress? get address; Map<String, dynamic>? get metadata; List<EmbaddedContact>? get contacts;@JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson) StoreIntegrations? get integrations; List<List<num?>?>? get defaultShippingRates;@JsonKey(includeFromJson: false) List<String> get setToNull;@JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) StoreSubscription? get subscription; num? get due; StoreConfigs? get configs; String? get shippingPriceId; String? get templateId; String? get projectId;
 /// Create a copy of StoreUpdate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1181,7 +1170,7 @@ class _$StoreUpdateCopyWithImpl<$Res>
 /// Create a copy of StoreUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? slug = freezed,Object? banner = freezed,Object? action = freezed,Object? domain = freezed,Object? decoration = freezed,Object? logoUrl = freezed,Object? iconUrl = freezed,Object? ondarkLogoUrl = freezed,Object? categories = freezed,Object? title = freezed,Object? description = freezed,Object? addresses = freezed,Object? address = freezed,Object? metadata = freezed,Object? contacts = freezed,Object? integrations = freezed,Object? defaultShippingRates = freezed,Object? setToNull = null,Object? subscription = freezed,Object? due = freezed,Object? configs = freezed,Object? shippingPriceId = freezed,Object? templateId = freezed,Object? projectId = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(StoreUpdate(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,slug: freezed == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String?,banner: freezed == banner ? _self.banner : banner // ignore: cast_nullable_to_non_nullable
@@ -1444,7 +1433,7 @@ return $default(_that.name,_that.slug,_that.banner,_that.action,_that.domain,_th
 @JsonSerializable()
 
 class _StoreUpdate implements StoreUpdate {
-  const _StoreUpdate({this.name, this.slug, this.banner, this.action, this.domain, this.decoration, this.logoUrl, this.iconUrl, this.ondarkLogoUrl, List<EmbaddedCategory>? categories, this.title, this.description, List<EmbaddedAddress>? addresses, this.address, Map<String, dynamic>? metadata, List<EmbaddedContact>? contacts, @JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson) this.integrations, List<List<num?>?>? defaultShippingRates, @JsonKey(includeFromJson: false) List<String> setToNull = const [], @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId, this.projectId}): _categories = categories,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_setToNull = setToNull;
+  const _StoreUpdate({this.name, this.slug, this.banner, this.action, this.domain, this.decoration, this.logoUrl, this.iconUrl, this.ondarkLogoUrl,  List<EmbaddedCategory>? categories, this.title, this.description,  List<EmbaddedAddress>? addresses, this.address,  Map<String, dynamic>? metadata,  List<EmbaddedContact>? contacts, @JsonKey(fromJson: _storeIntegrationsFromJsonNullable, toJson: _storeIntegrationsToJson) this.integrations,  List<List<num?>?>? defaultShippingRates, @JsonKey(includeFromJson: false)  List<String> setToNull = const [], @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) this.subscription, this.due, this.configs, this.shippingPriceId, this.templateId, this.projectId}): _categories = categories,_addresses = addresses,_metadata = metadata,_contacts = contacts,_defaultShippingRates = defaultShippingRates,_setToNull = setToNull;
   factory _StoreUpdate.fromJson(Map<String, dynamic> json) => _$StoreUpdateFromJson(json);
 
 @override final  String? name;
@@ -1505,19 +1494,15 @@ class _StoreUpdate implements StoreUpdate {
   return EqualUnmodifiableListView(value);
 }
 
-// ignore: invalid_annotation_target
  final  List<String> _setToNull;
-// ignore: invalid_annotation_target
 @override@JsonKey(includeFromJson: false) List<String> get setToNull {
   if (_setToNull is EqualUnmodifiableListView) return _setToNull;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_setToNull);
 }
 
-// subscription
 @override@JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) final  StoreSubscription? subscription;
 @override final  num? due;
-// StoreConfigs
 @override final  StoreConfigs? configs;
 @override final  String? shippingPriceId;
 @override final  String? templateId;
@@ -1758,7 +1743,7 @@ class _$StoreIntegrationSubscriptionCopyWithImpl<$Res>
 /// Create a copy of StoreIntegrationSubscription
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? startAt = null,Object? expiresAt = freezed,Object? status = null,Object? price = null,Object? autoRenew = null,Object? failedAttempts = null,Object? nextRetryAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(StoreIntegrationSubscription(
 startAt: null == startAt ? _self.startAt : startAt // ignore: cast_nullable_to_non_nullable
 as DateTime,expiresAt: freezed == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
@@ -2039,7 +2024,7 @@ class _$StoreSubscriptionCopyWithImpl<$Res>
 /// Create a copy of StoreSubscription
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? status = null,Object? quota = null,Object? consumed = null,Object? startedAt = null,Object? expiresAt = freezed,Object? metadata = null,Object? integrations = null,}) {
-  return _then(_self.copyWith(
+  return _then(StoreSubscription(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as StoreSubscriptionType,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as StoreSubscriptionStatus,quota: null == quota ? _self.quota : quota // ignore: cast_nullable_to_non_nullable
@@ -2189,7 +2174,7 @@ return $default(_that.type,_that.status,_that.quota,_that.consumed,_that.started
 @JsonSerializable()
 
 class _StoreSubscription implements StoreSubscription {
-  const _StoreSubscription({required this.type, required this.status, this.quota = 0, this.consumed = 0, required this.startedAt, this.expiresAt, Map<String, dynamic> metadata = const {}, @JsonKey(fromJson: _storeSubscriptionIntegrationsFromJson, toJson: _storeSubscriptionIntegrationsToJson) Map<String, StoreIntegrationSubscription> integrations = const {}}): _metadata = metadata,_integrations = integrations;
+  const _StoreSubscription({required this.type, required this.status, this.quota = 0, this.consumed = 0, required this.startedAt, this.expiresAt,  Map<String, dynamic> metadata = const {}, @JsonKey(fromJson: _storeSubscriptionIntegrationsFromJson, toJson: _storeSubscriptionIntegrationsToJson)  Map<String, StoreIntegrationSubscription> integrations = const {}}): _metadata = metadata,_integrations = integrations;
   factory _StoreSubscription.fromJson(Map<String, dynamic> json) => _$StoreSubscriptionFromJson(json);
 
 @override final  StoreSubscriptionType type;
@@ -2335,7 +2320,7 @@ class _$StoreConfigsCopyWithImpl<$Res>
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? customStatusMappings = null,Object? customStatusEnabled = null,Object? confirmationQueue = freezed,Object? inventory_integration = freezed,Object? finance_integration = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(StoreConfigs(
 currencies: null == currencies ? _self.currencies : currencies // ignore: cast_nullable_to_non_nullable
 as List<StoreCurrencyConfig>,selectedCurrency: freezed == selectedCurrency ? _self.selectedCurrency : selectedCurrency // ignore: cast_nullable_to_non_nullable
 as String?,languages: null == languages ? _self.languages : languages // ignore: cast_nullable_to_non_nullable
@@ -2524,7 +2509,7 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 @JsonSerializable()
 
 class _StoreConfigs implements StoreConfigs {
-  const _StoreConfigs({required List<StoreCurrencyConfig> currencies, this.selectedCurrency, List<StoreLanguageConfig> languages = const [], this.defaultLanguage, List<StoreCountryConfig> countries = const [], this.selectedCountry, List<CustomStatusMapping> customStatusMappings = const [], this.customStatusEnabled = false, this.confirmationQueue, this.inventory_integration, this.finance_integration}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
+  const _StoreConfigs({required  List<StoreCurrencyConfig> currencies, this.selectedCurrency,  List<StoreLanguageConfig> languages = const [], this.defaultLanguage,  List<StoreCountryConfig> countries = const [], this.selectedCountry,  List<CustomStatusMapping> customStatusMappings = const [], this.customStatusEnabled = false, this.confirmationQueue, this.inventory_integration, this.finance_integration}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
   factory _StoreConfigs.fromJson(Map<String, dynamic> json) => _$StoreConfigsFromJson(json);
 
  final  List<StoreCurrencyConfig> _currencies;
@@ -2724,7 +2709,7 @@ class _$InventoryLifecycleRuleCopyWithImpl<$Res>
 /// Create a copy of InventoryLifecycleRule
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? dimension = null,Object? equals = null,}) {
-  return _then(_self.copyWith(
+  return _then(InventoryLifecycleRule(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,dimension: null == dimension ? _self.dimension : dimension // ignore: cast_nullable_to_non_nullable
 as PixelStatusDimension,equals: null == equals ? _self.equals : equals // ignore: cast_nullable_to_non_nullable
@@ -2994,7 +2979,7 @@ class _$InventoryIntegrationCopyWithImpl<$Res>
 /// Create a copy of InventoryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? reserve_on = null,Object? unreserve_on = null,Object? consume_on = null,Object? reserve_rules = null,Object? unreserve_rules = null,Object? consume_rules = null,Object? missing_bucket_policy = null,Object? allow_backorder = null,Object? show_unavailable_on_frontend = null,}) {
-  return _then(_self.copyWith(
+  return _then(InventoryIntegration(
 reserve_on: null == reserve_on ? _self.reserve_on : reserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,unreserve_on: null == unreserve_on ? _self.unreserve_on : unreserve_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,consume_on: null == consume_on ? _self.consume_on : consume_on // ignore: cast_nullable_to_non_nullable
@@ -3145,7 +3130,7 @@ return $default(_that.reserve_on,_that.unreserve_on,_that.consume_on,_that.reser
 @JsonSerializable()
 
 class _InventoryIntegration implements InventoryIntegration {
-  const _InventoryIntegration({List<OrderStatus> reserve_on = const [], List<OrderStatus> unreserve_on = const [], List<OrderStatus> consume_on = const [], List<InventoryLifecycleRule> reserve_rules = const [], List<InventoryLifecycleRule> unreserve_rules = const [], List<InventoryLifecycleRule> consume_rules = const [], this.missing_bucket_policy = MissingInventoryBucketPolicy.ignore, this.allow_backorder = true, this.show_unavailable_on_frontend = false}): _reserve_on = reserve_on,_unreserve_on = unreserve_on,_consume_on = consume_on,_reserve_rules = reserve_rules,_unreserve_rules = unreserve_rules,_consume_rules = consume_rules;
+  const _InventoryIntegration({ List<OrderStatus> reserve_on = const [],  List<OrderStatus> unreserve_on = const [],  List<OrderStatus> consume_on = const [],  List<InventoryLifecycleRule> reserve_rules = const [],  List<InventoryLifecycleRule> unreserve_rules = const [],  List<InventoryLifecycleRule> consume_rules = const [], this.missing_bucket_policy = MissingInventoryBucketPolicy.ignore, this.allow_backorder = true, this.show_unavailable_on_frontend = false}): _reserve_on = reserve_on,_unreserve_on = unreserve_on,_consume_on = consume_on,_reserve_rules = reserve_rules,_unreserve_rules = unreserve_rules,_consume_rules = consume_rules;
   factory _InventoryIntegration.fromJson(Map<String, dynamic> json) => _$InventoryIntegrationFromJson(json);
 
  final  List<OrderStatus> _reserve_on;
@@ -3318,7 +3303,7 @@ class _$FinancePdfSettingsCopyWithImpl<$Res>
 /// Create a copy of FinancePdfSettings
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? paperSize = null,Object? showQrCode = null,Object? showLogo = null,Object? showStoreContact = null,Object? showSupplierDetails = null,Object? showDocumentId = null,Object? showFooter = null,Object? showStatusBadge = null,Object? showSignatureLines = null,Object? showPaymentHistory = null,Object? footerNote = null,}) {
-  return _then(_self.copyWith(
+  return _then(FinancePdfSettings(
 paperSize: null == paperSize ? _self.paperSize : paperSize // ignore: cast_nullable_to_non_nullable
 as FinancePdfPaperSize,showQrCode: null == showQrCode ? _self.showQrCode : showQrCode // ignore: cast_nullable_to_non_nullable
 as bool,showLogo: null == showLogo ? _self.showLogo : showLogo // ignore: cast_nullable_to_non_nullable
@@ -3612,7 +3597,7 @@ class _$FinanceIntegrationCopyWithImpl<$Res>
 /// Create a copy of FinanceIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? recognize_on = null,Object? pdf = null,Object? activated_at = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(FinanceIntegration(
 recognize_on: null == recognize_on ? _self.recognize_on : recognize_on // ignore: cast_nullable_to_non_nullable
 as List<OrderStatus>,pdf: null == pdf ? _self.pdf : pdf // ignore: cast_nullable_to_non_nullable
 as FinancePdfSettings,activated_at: freezed == activated_at ? _self.activated_at : activated_at // ignore: cast_nullable_to_non_nullable
@@ -3766,7 +3751,7 @@ return $default(_that.recognize_on,_that.pdf,_that.activated_at);case _:
 @JsonSerializable()
 
 class _FinanceIntegration implements FinanceIntegration {
-  const _FinanceIntegration({List<OrderStatus> recognize_on = const [], this.pdf = const FinancePdfSettings(), this.activated_at}): _recognize_on = recognize_on;
+  const _FinanceIntegration({ List<OrderStatus> recognize_on = const [], this.pdf = const FinancePdfSettings(), this.activated_at}): _recognize_on = recognize_on;
   factory _FinanceIntegration.fromJson(Map<String, dynamic> json) => _$FinanceIntegrationFromJson(json);
 
  final  List<OrderStatus> _recognize_on;
@@ -3913,7 +3898,7 @@ class _$ConfirmationQueueConfigCopyWithImpl<$Res>
 /// Create a copy of ConfirmationQueueConfig
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? draftDelayMinutes = null,Object? skipDeferMinutes = null,Object? historyActionMinutes = null,}) {
-  return _then(_self.copyWith(
+  return _then(ConfirmationQueueConfig(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,draftDelayMinutes: null == draftDelayMinutes ? _self.draftDelayMinutes : draftDelayMinutes // ignore: cast_nullable_to_non_nullable
 as int,skipDeferMinutes: null == skipDeferMinutes ? _self.skipDeferMinutes : skipDeferMinutes // ignore: cast_nullable_to_non_nullable
@@ -4212,7 +4197,7 @@ class _$CustomStatusMappingCopyWithImpl<$Res>
 /// Create a copy of CustomStatusMapping
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? code = freezed,Object? color = freezed,Object? enabled = null,Object? status = freezed,Object? deliveryStatus = freezed,Object? paymentStatus = freezed,Object? next = null,Object? snoozeMinutes = freezed,Object? reasons = null,Object? allowOtherReason = null,Object? requiresReason = null,Object? queueEligible = null,}) {
-  return _then(_self.copyWith(
+  return _then(CustomStatusMapping(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
@@ -4367,7 +4352,7 @@ return $default(_that.name,_that.code,_that.color,_that.enabled,_that.status,_th
 @JsonSerializable()
 
 class _CustomStatusMapping implements CustomStatusMapping {
-  const _CustomStatusMapping({required this.name, this.code, this.color, this.enabled = true, this.status, this.deliveryStatus, this.paymentStatus, List<String> next = const [], this.snoozeMinutes, List<String> reasons = const [], this.allowOtherReason = true, this.requiresReason = false, this.queueEligible = true}): _next = next,_reasons = reasons;
+  const _CustomStatusMapping({required this.name, this.code, this.color, this.enabled = true, this.status, this.deliveryStatus, this.paymentStatus,  List<String> next = const [], this.snoozeMinutes,  List<String> reasons = const [], this.allowOtherReason = true, this.requiresReason = false, this.queueEligible = true}): _next = next,_reasons = reasons;
   factory _CustomStatusMapping.fromJson(Map<String, dynamic> json) => _$CustomStatusMappingFromJson(json);
 
 /// The custom status name (e.g., "not_respond", "phone_closed_1")
@@ -4545,7 +4530,7 @@ class _$StoreCurrencyConfigCopyWithImpl<$Res>
 /// Create a copy of StoreCurrencyConfig
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? symbol = null,Object? precision = null,Object? rate = null,}) {
-  return _then(_self.copyWith(
+  return _then(StoreCurrencyConfig(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,symbol: null == symbol ? _self.symbol : symbol // ignore: cast_nullable_to_non_nullable
 as String,precision: null == precision ? _self.precision : precision // ignore: cast_nullable_to_non_nullable
@@ -4817,7 +4802,7 @@ class _$StoreLanguageConfigCopyWithImpl<$Res>
 /// Create a copy of StoreLanguageConfig
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? name = null,Object? nativeName = null,Object? rtl = null,}) {
-  return _then(_self.copyWith(
+  return _then(StoreLanguageConfig(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,nativeName: null == nativeName ? _self.nativeName : nativeName // ignore: cast_nullable_to_non_nullable
@@ -5089,7 +5074,7 @@ class _$StoreCountryConfigCopyWithImpl<$Res>
 /// Create a copy of StoreCountryConfig
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? name = null,Object? nativeName = null,}) {
-  return _then(_self.copyWith(
+  return _then(StoreCountryConfig(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,nativeName: null == nativeName ? _self.nativeName : nativeName // ignore: cast_nullable_to_non_nullable

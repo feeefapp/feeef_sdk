@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'order_item.dart';
@@ -9,14 +9,14 @@ part of 'order_item.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$OrderItem {
 
- String get productId; String get productName; String? get productPhotoUrl; String? get variantPath; String? get offerCode; String? get offerName; String? get sku; num get quantity; num get price; num get discount;// addons?: Record<string, number>
- Map<String, num>? get addons;
+ String get productId; String get productName; String? get productPhotoUrl; String? get variantPath; String? get offerCode; String? get offerName; String? get sku; num get quantity; num get price; num get discount; Map<String, num>? get addons;
 /// Create a copy of OrderItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -67,7 +67,7 @@ class _$OrderItemCopyWithImpl<$Res>
 /// Create a copy of OrderItem
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? productId = null,Object? productName = null,Object? productPhotoUrl = freezed,Object? variantPath = freezed,Object? offerCode = freezed,Object? offerName = freezed,Object? sku = freezed,Object? quantity = null,Object? price = null,Object? discount = null,Object? addons = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(OrderItem(
 productId: null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
 as String,productName: null == productName ? _self.productName : productName // ignore: cast_nullable_to_non_nullable
 as String,productPhotoUrl: freezed == productPhotoUrl ? _self.productPhotoUrl : productPhotoUrl // ignore: cast_nullable_to_non_nullable
@@ -220,7 +220,7 @@ return $default(_that.productId,_that.productName,_that.productPhotoUrl,_that.va
 @JsonSerializable()
 
 class _OrderItem implements OrderItem {
-   _OrderItem({required this.productId, required this.productName, this.productPhotoUrl, this.variantPath, this.offerCode, this.offerName, this.sku, this.quantity = 0, this.price = 0, this.discount = 0, Map<String, num>? addons}): _addons = addons;
+   _OrderItem({required this.productId, required this.productName, this.productPhotoUrl, this.variantPath, this.offerCode, this.offerName, this.sku, this.quantity = 0, this.price = 0, this.discount = 0,  Map<String, num>? addons}): _addons = addons;
   factory _OrderItem.fromJson(Map<String, dynamic> json) => _$OrderItemFromJson(json);
 
 @override final  String productId;
@@ -233,9 +233,7 @@ class _OrderItem implements OrderItem {
 @override@JsonKey() final  num quantity;
 @override@JsonKey() final  num price;
 @override@JsonKey() final  num discount;
-// addons?: Record<string, number>
  final  Map<String, num>? _addons;
-// addons?: Record<string, number>
 @override Map<String, num>? get addons {
   final value = _addons;
   if (value == null) return null;

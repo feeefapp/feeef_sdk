@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'create_parcel_request.dart';
@@ -9,6 +9,7 @@ part of 'create_parcel_request.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -70,7 +71,7 @@ class _$ZrexpressParcelCreateResponseCopyWithImpl<$Res>
 /// Create a copy of ZrexpressParcelCreateResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? parcelId = null,Object? trackingNumber = freezed,Object? externalId = freezed,Object? success = null,}) {
-  return _then(_self.copyWith(
+  return _then(ZrexpressParcelCreateResponse(
 parcelId: null == parcelId ? _self.parcelId : parcelId // ignore: cast_nullable_to_non_nullable
 as String,trackingNumber: freezed == trackingNumber ? _self.trackingNumber : trackingNumber // ignore: cast_nullable_to_non_nullable
 as String?,externalId: freezed == externalId ? _self.externalId : externalId // ignore: cast_nullable_to_non_nullable
@@ -351,7 +352,7 @@ class _$ZrexpressBulkResponseCopyWithImpl<$Res>
 /// Create a copy of ZrexpressBulkResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? totalRequested = null,Object? successCount = null,Object? failureCount = null,Object? successes = null,Object? failures = null,}) {
-  return _then(_self.copyWith(
+  return _then(ZrexpressBulkResponse(
 totalRequested: null == totalRequested ? _self.totalRequested : totalRequested // ignore: cast_nullable_to_non_nullable
 as int,successCount: null == successCount ? _self.successCount : successCount // ignore: cast_nullable_to_non_nullable
 as int,failureCount: null == failureCount ? _self.failureCount : failureCount // ignore: cast_nullable_to_non_nullable
@@ -498,7 +499,7 @@ return $default(_that.totalRequested,_that.successCount,_that.failureCount,_that
 @JsonSerializable()
 
 class _ZrexpressBulkResponse extends ZrexpressBulkResponse {
-  const _ZrexpressBulkResponse({required this.totalRequested, required this.successCount, required this.failureCount, List<ZrexpressBulkSuccess> successes = const [], List<ZrexpressBulkFailure> failures = const []}): _successes = successes,_failures = failures,super._();
+  const _ZrexpressBulkResponse({required this.totalRequested, required this.successCount, required this.failureCount,  List<ZrexpressBulkSuccess> successes = const [],  List<ZrexpressBulkFailure> failures = const []}): _successes = successes,_failures = failures,super._();
   factory _ZrexpressBulkResponse.fromJson(Map<String, dynamic> json) => _$ZrexpressBulkResponseFromJson(json);
 
 /// Total number of parcels requested
@@ -649,7 +650,7 @@ class _$ZrexpressBulkSuccessCopyWithImpl<$Res>
 /// Create a copy of ZrexpressBulkSuccess
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? index = freezed,Object? parcelId = null,Object? trackingNumber = null,Object? externalId = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ZrexpressBulkSuccess(
 index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int?,parcelId: null == parcelId ? _self.parcelId : parcelId // ignore: cast_nullable_to_non_nullable
 as String,trackingNumber: null == trackingNumber ? _self.trackingNumber : trackingNumber // ignore: cast_nullable_to_non_nullable
@@ -929,7 +930,7 @@ class _$ZrexpressBulkFailureCopyWithImpl<$Res>
 /// Create a copy of ZrexpressBulkFailure
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? index = freezed,Object? externalId = freezed,Object? error = freezed,Object? details = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ZrexpressBulkFailure(
 index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int?,externalId: freezed == externalId ? _self.externalId : externalId // ignore: cast_nullable_to_non_nullable
 as String?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
@@ -1075,7 +1076,7 @@ return $default(_that.index,_that.externalId,_that.error,_that.details);case _:
 @JsonSerializable()
 
 class _ZrexpressBulkFailure extends ZrexpressBulkFailure {
-  const _ZrexpressBulkFailure({this.index, this.externalId, this.error, Map<String, dynamic>? details}): _details = details,super._();
+  const _ZrexpressBulkFailure({this.index, this.externalId, this.error,  Map<String, dynamic>? details}): _details = details,super._();
   factory _ZrexpressBulkFailure.fromJson(Map<String, dynamic> json) => _$ZrexpressBulkFailureFromJson(json);
 
 /// Index of the parcel in the request array
@@ -1216,7 +1217,7 @@ class _$ZrexpressLabelsResponseCopyWithImpl<$Res>
 /// Create a copy of ZrexpressLabelsResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? fileUrl = null,Object? failedTrackingNumbers = null,}) {
-  return _then(_self.copyWith(
+  return _then(ZrexpressLabelsResponse(
 fileUrl: null == fileUrl ? _self.fileUrl : fileUrl // ignore: cast_nullable_to_non_nullable
 as String,failedTrackingNumbers: null == failedTrackingNumbers ? _self.failedTrackingNumbers : failedTrackingNumbers // ignore: cast_nullable_to_non_nullable
 as List<String>,
@@ -1360,7 +1361,7 @@ return $default(_that.fileUrl,_that.failedTrackingNumbers);case _:
 @JsonSerializable()
 
 class _ZrexpressLabelsResponse extends ZrexpressLabelsResponse {
-  const _ZrexpressLabelsResponse({required this.fileUrl, List<String> failedTrackingNumbers = const []}): _failedTrackingNumbers = failedTrackingNumbers,super._();
+  const _ZrexpressLabelsResponse({required this.fileUrl,  List<String> failedTrackingNumbers = const []}): _failedTrackingNumbers = failedTrackingNumbers,super._();
   factory _ZrexpressLabelsResponse.fromJson(Map<String, dynamic> json) => _$ZrexpressLabelsResponseFromJson(json);
 
 /// URL to download the merged PDF
@@ -1493,7 +1494,7 @@ class _$ZrexpressIndividualLabelCopyWithImpl<$Res>
 /// Create a copy of ZrexpressIndividualLabel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? trackingNumber = null,Object? fileUrl = null,}) {
-  return _then(_self.copyWith(
+  return _then(ZrexpressIndividualLabel(
 trackingNumber: null == trackingNumber ? _self.trackingNumber : trackingNumber // ignore: cast_nullable_to_non_nullable
 as String,fileUrl: null == fileUrl ? _self.fileUrl : fileUrl // ignore: cast_nullable_to_non_nullable
 as String,
@@ -1763,7 +1764,7 @@ class _$ZrexpressIndividualLabelsResponseCopyWithImpl<$Res>
 /// Create a copy of ZrexpressIndividualLabelsResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? parcelLabelFiles = null,Object? failedTrackingNumbers = null,}) {
-  return _then(_self.copyWith(
+  return _then(ZrexpressIndividualLabelsResponse(
 parcelLabelFiles: null == parcelLabelFiles ? _self.parcelLabelFiles : parcelLabelFiles // ignore: cast_nullable_to_non_nullable
 as List<ZrexpressIndividualLabel>,failedTrackingNumbers: null == failedTrackingNumbers ? _self.failedTrackingNumbers : failedTrackingNumbers // ignore: cast_nullable_to_non_nullable
 as List<String>,
@@ -1907,7 +1908,7 @@ return $default(_that.parcelLabelFiles,_that.failedTrackingNumbers);case _:
 @JsonSerializable()
 
 class _ZrexpressIndividualLabelsResponse extends ZrexpressIndividualLabelsResponse {
-  const _ZrexpressIndividualLabelsResponse({List<ZrexpressIndividualLabel> parcelLabelFiles = const [], List<String> failedTrackingNumbers = const []}): _parcelLabelFiles = parcelLabelFiles,_failedTrackingNumbers = failedTrackingNumbers,super._();
+  const _ZrexpressIndividualLabelsResponse({ List<ZrexpressIndividualLabel> parcelLabelFiles = const [],  List<String> failedTrackingNumbers = const []}): _parcelLabelFiles = parcelLabelFiles,_failedTrackingNumbers = failedTrackingNumbers,super._();
   factory _ZrexpressIndividualLabelsResponse.fromJson(Map<String, dynamic> json) => _$ZrexpressIndividualLabelsResponseFromJson(json);
 
 /// List of individual label files

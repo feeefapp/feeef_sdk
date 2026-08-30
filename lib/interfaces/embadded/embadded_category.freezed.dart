@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'embadded_category.dart';
@@ -9,14 +9,14 @@ part of 'embadded_category.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$EmbaddedCategory {
 
- String get name; String? get description; String? get photoUrl; String? get ondarkPhotoUrl;// metadata
- Map<String, dynamic> get metadata;
+ String get name; String? get description; String? get photoUrl; String? get ondarkPhotoUrl; Map<String, dynamic> get metadata;
 /// Create a copy of EmbaddedCategory
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -67,7 +67,7 @@ class _$EmbaddedCategoryCopyWithImpl<$Res>
 /// Create a copy of EmbaddedCategory
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? description = freezed,Object? photoUrl = freezed,Object? ondarkPhotoUrl = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(EmbaddedCategory(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
@@ -214,16 +214,14 @@ return $default(_that.name,_that.description,_that.photoUrl,_that.ondarkPhotoUrl
 @JsonSerializable()
 
 class _EmbaddedCategory implements EmbaddedCategory {
-   _EmbaddedCategory({required this.name, this.description, this.photoUrl, this.ondarkPhotoUrl, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+   _EmbaddedCategory({required this.name, this.description, this.photoUrl, this.ondarkPhotoUrl,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _EmbaddedCategory.fromJson(Map<String, dynamic> json) => _$EmbaddedCategoryFromJson(json);
 
 @override final  String name;
 @override final  String? description;
 @override final  String? photoUrl;
 @override final  String? ondarkPhotoUrl;
-// metadata
  final  Map<String, dynamic> _metadata;
-// metadata
 @override@JsonKey() Map<String, dynamic> get metadata {
   if (_metadata is EqualUnmodifiableMapView) return _metadata;
   // ignore: implicit_dynamic_type

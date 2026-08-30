@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'app.dart';
@@ -9,6 +9,7 @@ part of 'app.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -68,7 +69,7 @@ class _$AppCopyWithImpl<$Res>
 /// Create a copy of App
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? logoUrl = freezed,Object? clientId = null,Object? redirectUris = null,Object? scopes = null,Object? active = null,Object? lastUsedAt = freezed,Object? createdAt = null,Object? updatedAt = freezed,Object? clientSecret = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(App(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,logoUrl: freezed == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
@@ -221,7 +222,7 @@ return $default(_that.id,_that.name,_that.logoUrl,_that.clientId,_that.redirectU
 @JsonSerializable()
 
 class _App implements App {
-  const _App({required this.id, required this.name, this.logoUrl, required this.clientId, List<String> redirectUris = const [], List<String> scopes = const [], this.active = true, this.lastUsedAt, required this.createdAt, this.updatedAt, this.clientSecret}): _redirectUris = redirectUris,_scopes = scopes;
+  const _App({required this.id, required this.name, this.logoUrl, required this.clientId,  List<String> redirectUris = const [],  List<String> scopes = const [], this.active = true, this.lastUsedAt, required this.createdAt, this.updatedAt, this.clientSecret}): _redirectUris = redirectUris,_scopes = scopes;
   factory _App.fromJson(Map<String, dynamic> json) => _$AppFromJson(json);
 
 @override final  String id;
@@ -376,7 +377,7 @@ class _$AppCreateCopyWithImpl<$Res>
 /// Create a copy of AppCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? logoUrl = freezed,Object? redirectUris = null,Object? scopes = null,}) {
-  return _then(_self.copyWith(
+  return _then(AppCreate(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,logoUrl: freezed == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
 as String?,redirectUris: null == redirectUris ? _self.redirectUris : redirectUris // ignore: cast_nullable_to_non_nullable
@@ -522,7 +523,7 @@ return $default(_that.name,_that.logoUrl,_that.redirectUris,_that.scopes);case _
 @JsonSerializable()
 
 class _AppCreate implements AppCreate {
-  const _AppCreate({required this.name, this.logoUrl, required List<String> redirectUris, required List<String> scopes}): _redirectUris = redirectUris,_scopes = scopes;
+  const _AppCreate({required this.name, this.logoUrl, required  List<String> redirectUris, required  List<String> scopes}): _redirectUris = redirectUris,_scopes = scopes;
   factory _AppCreate.fromJson(Map<String, dynamic> json) => _$AppCreateFromJson(json);
 
 @override final  String name;
@@ -662,7 +663,7 @@ class _$AppUpdateCopyWithImpl<$Res>
 /// Create a copy of AppUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? logoUrl = freezed,Object? redirectUris = freezed,Object? scopes = freezed,Object? active = freezed,Object? setToNull = null,}) {
-  return _then(_self.copyWith(
+  return _then(AppUpdate(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,logoUrl: freezed == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
 as String?,redirectUris: freezed == redirectUris ? _self.redirectUris : redirectUris // ignore: cast_nullable_to_non_nullable
@@ -810,7 +811,7 @@ return $default(_that.name,_that.logoUrl,_that.redirectUris,_that.scopes,_that.a
 @JsonSerializable()
 
 class _AppUpdate implements AppUpdate {
-  const _AppUpdate({this.name, this.logoUrl, List<String>? redirectUris, List<String>? scopes, this.active, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _redirectUris = redirectUris,_scopes = scopes,_setToNull = setToNull;
+  const _AppUpdate({this.name, this.logoUrl,  List<String>? redirectUris,  List<String>? scopes, this.active, @JsonKey(includeFromJson: false)  List<String> setToNull = const []}): _redirectUris = redirectUris,_scopes = scopes,_setToNull = setToNull;
   factory _AppUpdate.fromJson(Map<String, dynamic> json) => _$AppUpdateFromJson(json);
 
 @override final  String? name;

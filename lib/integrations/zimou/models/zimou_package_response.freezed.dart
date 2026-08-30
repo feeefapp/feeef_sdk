@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'zimou_package_response.dart';
@@ -9,6 +9,7 @@ part of 'zimou_package_response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$ZimouPackageResponseCopyWithImpl<$Res>
 /// Create a copy of ZimouPackageResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? trackingCode = null,Object? orderId = freezed,Object? printUrl = freezed,Object? statusName = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(ZimouPackageResponse(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,trackingCode: null == trackingCode ? _self.trackingCode : trackingCode // ignore: cast_nullable_to_non_nullable
 as String,orderId: freezed == orderId ? _self.orderId : orderId // ignore: cast_nullable_to_non_nullable
@@ -214,7 +215,7 @@ return $default(_that.id,_that.trackingCode,_that.orderId,_that.printUrl,_that.s
 @JsonSerializable()
 
 class _ZimouPackageResponse implements ZimouPackageResponse {
-  const _ZimouPackageResponse({required this.id, required this.trackingCode, required this.orderId, this.printUrl, this.statusName, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _ZimouPackageResponse({required this.id, required this.trackingCode, required this.orderId, this.printUrl, this.statusName,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _ZimouPackageResponse.fromJson(Map<String, dynamic> json) => _$ZimouPackageResponseFromJson(json);
 
 @override final  int id;
@@ -350,7 +351,7 @@ class _$ZimouStatisticsResponseCopyWithImpl<$Res>
 /// Create a copy of ZimouStatisticsResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? packagesAdded = null,Object? packagesDispatched = null,Object? netPaid = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(ZimouStatisticsResponse(
 packagesAdded: null == packagesAdded ? _self.packagesAdded : packagesAdded // ignore: cast_nullable_to_non_nullable
 as int,packagesDispatched: null == packagesDispatched ? _self.packagesDispatched : packagesDispatched // ignore: cast_nullable_to_non_nullable
 as int,netPaid: null == netPaid ? _self.netPaid : netPaid // ignore: cast_nullable_to_non_nullable
@@ -496,7 +497,7 @@ return $default(_that.packagesAdded,_that.packagesDispatched,_that.netPaid,_that
 @JsonSerializable()
 
 class _ZimouStatisticsResponse implements ZimouStatisticsResponse {
-  const _ZimouStatisticsResponse({required this.packagesAdded, required this.packagesDispatched, required this.netPaid, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _ZimouStatisticsResponse({required this.packagesAdded, required this.packagesDispatched, required this.netPaid,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _ZimouStatisticsResponse.fromJson(Map<String, dynamic> json) => _$ZimouStatisticsResponseFromJson(json);
 
 @override final  int packagesAdded;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'orders_dispatch_strategy.dart';
@@ -9,6 +9,7 @@ part of 'orders_dispatch_strategy.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 OrdersDispatchStrategy _$OrdersDispatchStrategyFromJson(
@@ -241,7 +242,7 @@ return priority(_that.confirmerIds);case _:
 @JsonSerializable()
 
 class OrdersDispatchStrategyFirstUpdate implements OrdersDispatchStrategy {
-  const OrdersDispatchStrategyFirstUpdate({String? $type}): $type = $type ?? 'firstUpdate';
+  const OrdersDispatchStrategyFirstUpdate({ String? $type}): $type = $type ?? 'firstUpdate';
   factory OrdersDispatchStrategyFirstUpdate.fromJson(Map<String, dynamic> json) => _$OrdersDispatchStrategyFirstUpdateFromJson(json);
 
 
@@ -280,7 +281,7 @@ String toString() {
 @JsonSerializable()
 
 class OrdersDispatchStrategyRandom implements OrdersDispatchStrategy {
-  const OrdersDispatchStrategyRandom({String? $type}): $type = $type ?? 'random';
+  const OrdersDispatchStrategyRandom({ String? $type}): $type = $type ?? 'random';
   factory OrdersDispatchStrategyRandom.fromJson(Map<String, dynamic> json) => _$OrdersDispatchStrategyRandomFromJson(json);
 
 
@@ -319,7 +320,7 @@ String toString() {
 @JsonSerializable()
 
 class OrdersDispatchStrategyWeightedRandom implements OrdersDispatchStrategy {
-  const OrdersDispatchStrategyWeightedRandom({Map<String, int> weights = const {}, String? $type}): _weights = weights,$type = $type ?? 'weightedRandom';
+  const OrdersDispatchStrategyWeightedRandom({ Map<String, int> weights = const {},  String? $type}): _weights = weights,$type = $type ?? 'weightedRandom';
   factory OrdersDispatchStrategyWeightedRandom.fromJson(Map<String, dynamic> json) => _$OrdersDispatchStrategyWeightedRandomFromJson(json);
 
  final  Map<String, int> _weights;
@@ -398,7 +399,7 @@ as Map<String, int>,
 @JsonSerializable()
 
 class OrdersDispatchStrategyRoundRobin implements OrdersDispatchStrategy {
-  const OrdersDispatchStrategyRoundRobin({this.lastAssignedConfirmerId, this.sortBy = 'name', String? $type}): $type = $type ?? 'roundRobin';
+  const OrdersDispatchStrategyRoundRobin({this.lastAssignedConfirmerId, this.sortBy = 'name',  String? $type}): $type = $type ?? 'roundRobin';
   factory OrdersDispatchStrategyRoundRobin.fromJson(Map<String, dynamic> json) => _$OrdersDispatchStrategyRoundRobinFromJson(json);
 
  final  String? lastAssignedConfirmerId;
@@ -473,7 +474,7 @@ as String,
 @JsonSerializable()
 
 class OrdersDispatchStrategyManualOnly implements OrdersDispatchStrategy {
-  const OrdersDispatchStrategyManualOnly({String? $type}): $type = $type ?? 'manualOnly';
+  const OrdersDispatchStrategyManualOnly({ String? $type}): $type = $type ?? 'manualOnly';
   factory OrdersDispatchStrategyManualOnly.fromJson(Map<String, dynamic> json) => _$OrdersDispatchStrategyManualOnlyFromJson(json);
 
 
@@ -512,7 +513,7 @@ String toString() {
 @JsonSerializable()
 
 class OrdersDispatchStrategyPriority implements OrdersDispatchStrategy {
-  const OrdersDispatchStrategyPriority({required List<String> confirmerIds, String? $type}): _confirmerIds = confirmerIds,$type = $type ?? 'priority';
+  const OrdersDispatchStrategyPriority({required  List<String> confirmerIds,  String? $type}): _confirmerIds = confirmerIds,$type = $type ?? 'priority';
   factory OrdersDispatchStrategyPriority.fromJson(Map<String, dynamic> json) => _$OrdersDispatchStrategyPriorityFromJson(json);
 
  final  List<String> _confirmerIds;

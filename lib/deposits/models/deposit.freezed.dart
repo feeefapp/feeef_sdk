@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'deposit.dart';
@@ -9,6 +9,7 @@ part of 'deposit.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$DepositCopyWithImpl<$Res>
 /// Create a copy of Deposit
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? externalId = freezed,Object? userId = null,Object? amount = null,Object? currency = null,Object? paymentMethod = freezed,Object? attachment = freezed,Object? status = null,Object? note = freezed,Object? metadata = null,Object? history = null,}) {
-  return _then(_self.copyWith(
+  return _then(Deposit(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -221,7 +222,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.externalId,_that.
 @JsonSerializable()
 
 class _Deposit extends Deposit {
-   _Deposit({required this.id, required this.createdAt, required this.updatedAt, this.externalId, required this.userId, required this.amount, required this.currency, this.paymentMethod, this.attachment, this.status = DepositStatus.pending, this.note, Map<String, dynamic> metadata = const {}, List<DepositHistory> history = const []}): _metadata = metadata,_history = history,super._();
+   _Deposit({required this.id, required this.createdAt, required this.updatedAt, this.externalId, required this.userId, required this.amount, required this.currency, this.paymentMethod, this.attachment, this.status = DepositStatus.pending, this.note,  Map<String, dynamic> metadata = const {},  List<DepositHistory> history = const []}): _metadata = metadata,_history = history,super._();
   factory _Deposit.fromJson(Map<String, dynamic> json) => _$DepositFromJson(json);
 
 @override final  String id;
@@ -377,7 +378,7 @@ class _$DepositCreateCopyWithImpl<$Res>
 /// Create a copy of DepositCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? externalId = freezed,Object? userId = null,Object? amount = null,Object? currency = null,Object? paymentMethod = freezed,Object? attachment = freezed,Object? status = null,Object? note = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(DepositCreate(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,externalId: freezed == externalId ? _self.externalId : externalId // ignore: cast_nullable_to_non_nullable
 as String?,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
@@ -529,7 +530,7 @@ return $default(_that.id,_that.externalId,_that.userId,_that.amount,_that.curren
 @JsonSerializable()
 
 class _DepositCreate implements DepositCreate {
-  const _DepositCreate({this.id, this.externalId, required this.userId, required this.amount, required this.currency, this.paymentMethod, this.attachment, this.status = DepositStatus.pending, this.note, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _DepositCreate({this.id, this.externalId, required this.userId, required this.amount, required this.currency, this.paymentMethod, this.attachment, this.status = DepositStatus.pending, this.note,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _DepositCreate.fromJson(Map<String, dynamic> json) => _$DepositCreateFromJson(json);
 
 @override final  String? id;
@@ -673,7 +674,7 @@ class _$DepositUpdateCopyWithImpl<$Res>
 /// Create a copy of DepositUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? externalId = freezed,Object? userId = freezed,Object? amount = freezed,Object? currency = freezed,Object? paymentMethod = freezed,Object? attachment = freezed,Object? status = freezed,Object? note = freezed,Object? metadata = freezed,Object? history = freezed,Object? setToNull = null,}) {
-  return _then(_self.copyWith(
+  return _then(DepositUpdate(
 externalId: freezed == externalId ? _self.externalId : externalId // ignore: cast_nullable_to_non_nullable
 as String?,userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String?,amount: freezed == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
@@ -826,7 +827,7 @@ return $default(_that.externalId,_that.userId,_that.amount,_that.currency,_that.
 @JsonSerializable()
 
 class _DepositUpdate implements DepositUpdate {
-  const _DepositUpdate({this.externalId, this.userId, this.amount, this.currency, this.paymentMethod, this.attachment, this.status, this.note, Map<String, dynamic>? metadata, List<DepositHistory>? history, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _metadata = metadata,_history = history,_setToNull = setToNull;
+  const _DepositUpdate({this.externalId, this.userId, this.amount, this.currency, this.paymentMethod, this.attachment, this.status, this.note,  Map<String, dynamic>? metadata,  List<DepositHistory>? history, @JsonKey(includeFromJson: false)  List<String> setToNull = const []}): _metadata = metadata,_history = history,_setToNull = setToNull;
   factory _DepositUpdate.fromJson(Map<String, dynamic> json) => _$DepositUpdateFromJson(json);
 
 @override final  String? externalId;
@@ -988,7 +989,7 @@ class _$DepositHistoryCopyWithImpl<$Res>
 /// Create a copy of DepositHistory
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? timestamp = null,Object? note = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(DepositHistory(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as String,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
 as DateTime,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable

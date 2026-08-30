@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'store.dart';
@@ -9,6 +9,7 @@ part of 'store.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$StoreDomainCopyWithImpl<$Res>
 /// Create a copy of StoreDomain
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? verifiedAt = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(StoreDomain(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,verifiedAt: freezed == verifiedAt ? _self.verifiedAt : verifiedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
@@ -211,7 +212,7 @@ return $default(_that.name,_that.verifiedAt,_that.metadata);case _:
 @JsonSerializable()
 
 class _StoreDomain implements StoreDomain {
-   _StoreDomain({required this.name, this.verifiedAt, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+   _StoreDomain({required this.name, this.verifiedAt,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _StoreDomain.fromJson(Map<String, dynamic> json) => _$StoreDomainFromJson(json);
 
 @override final  String name;
@@ -341,7 +342,7 @@ class _$StoreBannerCopyWithImpl<$Res>
 /// Create a copy of StoreBanner
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? url = freezed,Object? enabled = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(StoreBanner(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
@@ -487,7 +488,7 @@ return $default(_that.title,_that.url,_that.enabled,_that.metadata);case _:
 @JsonSerializable()
 
 class _StoreBanner implements StoreBanner {
-   _StoreBanner({required this.title, this.url, this.enabled = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+   _StoreBanner({required this.title, this.url, this.enabled = false,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _StoreBanner.fromJson(Map<String, dynamic> json) => _$StoreBannerFromJson(json);
 
 @override final  String title;
@@ -568,11 +569,7 @@ as Map<String, dynamic>,
 /// @nodoc
 mixin _$StoreDecoration {
 
-// primary
-@ColorSerializer() int get primary;@ColorSerializer() int get onPrimary;// on dark mode
-@ColorSerializer() int get primaryDark;@ColorSerializer() int get onPrimaryDark;// secondary
-@ColorSerializer() int get secondary;@ColorSerializer() int get onSecondary;// on dark mode
-@ColorSerializer() int get secondaryDark;@ColorSerializer() int get onSecondaryDark; bool get useLogoDarkFilter; bool? get showStoreLogoInHeader; bool? get logoFullHeight; bool? get showStoreNameInHeader; Map<String, dynamic> get metadata;/// Theme selection and visual editor data storage pointer
+@ColorSerializer() int get primary;@ColorSerializer() int get onPrimary;@ColorSerializer() int get primaryDark;@ColorSerializer() int get onPrimaryDark;@ColorSerializer() int get secondary;@ColorSerializer() int get onSecondary;@ColorSerializer() int get secondaryDark;@ColorSerializer() int get onSecondaryDark; bool get useLogoDarkFilter; bool? get showStoreLogoInHeader; bool? get logoFullHeight; bool? get showStoreNameInHeader; Map<String, dynamic> get metadata;/// Theme selection and visual editor data storage pointer
  Map<String, dynamic>? get theme;
 /// Create a copy of StoreDecoration
 /// with the given fields replaced by the non-null parameter values.
@@ -624,7 +621,7 @@ class _$StoreDecorationCopyWithImpl<$Res>
 /// Create a copy of StoreDecoration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? primary = null,Object? onPrimary = null,Object? primaryDark = null,Object? onPrimaryDark = null,Object? secondary = null,Object? onSecondary = null,Object? secondaryDark = null,Object? onSecondaryDark = null,Object? useLogoDarkFilter = null,Object? showStoreLogoInHeader = freezed,Object? logoFullHeight = freezed,Object? showStoreNameInHeader = freezed,Object? metadata = null,Object? theme = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(StoreDecoration(
 primary: null == primary ? _self.primary : primary // ignore: cast_nullable_to_non_nullable
 as int,onPrimary: null == onPrimary ? _self.onPrimary : onPrimary // ignore: cast_nullable_to_non_nullable
 as int,primaryDark: null == primaryDark ? _self.primaryDark : primaryDark // ignore: cast_nullable_to_non_nullable
@@ -780,19 +777,15 @@ return $default(_that.primary,_that.onPrimary,_that.primaryDark,_that.onPrimaryD
 @JsonSerializable()
 
 class _StoreDecoration implements StoreDecoration {
-   _StoreDecoration({@ColorSerializer() this.primary = 0xFF4CAF50, @ColorSerializer() this.onPrimary = 0xFFFFFFFF, @ColorSerializer() this.primaryDark = 0xFF69F0AE, @ColorSerializer() this.onPrimaryDark = 0xFF000000, @ColorSerializer() this.secondary = 0xFFFF9800, @ColorSerializer() this.onSecondary = 0xFFFFFFFF, @ColorSerializer() this.secondaryDark = 0xFFFFAB40, @ColorSerializer() this.onSecondaryDark = 0xFF000000, this.useLogoDarkFilter = true, this.showStoreLogoInHeader, this.logoFullHeight, this.showStoreNameInHeader, Map<String, dynamic> metadata = const {}, Map<String, dynamic>? theme}): _metadata = metadata,_theme = theme;
+   _StoreDecoration({@ColorSerializer() this.primary = 0xFF4CAF50, @ColorSerializer() this.onPrimary = 0xFFFFFFFF, @ColorSerializer() this.primaryDark = 0xFF69F0AE, @ColorSerializer() this.onPrimaryDark = 0xFF000000, @ColorSerializer() this.secondary = 0xFFFF9800, @ColorSerializer() this.onSecondary = 0xFFFFFFFF, @ColorSerializer() this.secondaryDark = 0xFFFFAB40, @ColorSerializer() this.onSecondaryDark = 0xFF000000, this.useLogoDarkFilter = true, this.showStoreLogoInHeader, this.logoFullHeight, this.showStoreNameInHeader,  Map<String, dynamic> metadata = const {},  Map<String, dynamic>? theme}): _metadata = metadata,_theme = theme;
   factory _StoreDecoration.fromJson(Map<String, dynamic> json) => _$StoreDecorationFromJson(json);
 
-// primary
 @override@JsonKey()@ColorSerializer() final  int primary;
 @override@JsonKey()@ColorSerializer() final  int onPrimary;
-// on dark mode
 @override@JsonKey()@ColorSerializer() final  int primaryDark;
 @override@JsonKey()@ColorSerializer() final  int onPrimaryDark;
-// secondary
 @override@JsonKey()@ColorSerializer() final  int secondary;
 @override@JsonKey()@ColorSerializer() final  int onSecondary;
-// on dark mode
 @override@JsonKey()@ColorSerializer() final  int secondaryDark;
 @override@JsonKey()@ColorSerializer() final  int onSecondaryDark;
 @override@JsonKey() final  bool useLogoDarkFilter;
@@ -946,7 +939,7 @@ class _$StoreActionCopyWithImpl<$Res>
 /// Create a copy of StoreAction
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? label = null,Object? url = null,Object? type = null,}) {
-  return _then(_self.copyWith(
+  return _then(StoreAction(
 label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
@@ -1215,7 +1208,7 @@ class _$EmbaddedAddressCopyWithImpl<$Res>
 /// Create a copy of EmbaddedAddress
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? city = freezed,Object? state = freezed,Object? country = freezed,Object? street = freezed,Object? zip = freezed,Object? location = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(EmbaddedAddress(
 city: freezed == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
 as String?,state: freezed == state ? _self.state : state // ignore: cast_nullable_to_non_nullable
 as String?,country: freezed == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
@@ -1376,7 +1369,7 @@ return $default(_that.city,_that.state,_that.country,_that.street,_that.zip,_tha
 @JsonSerializable()
 
 class _EmbaddedAddress implements EmbaddedAddress {
-   _EmbaddedAddress({this.city, this.state, this.country, this.street, this.zip, this.location, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+   _EmbaddedAddress({this.city, this.state, this.country, this.street, this.zip, this.location,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _EmbaddedAddress.fromJson(Map<String, dynamic> json) => _$EmbaddedAddressFromJson(json);
 
 @override final  String? city;
@@ -1526,7 +1519,7 @@ class _$EmbaddedLocationCopyWithImpl<$Res>
 /// Create a copy of EmbaddedLocation
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? geohash = freezed,Object? lat = null,Object? long = null,}) {
-  return _then(_self.copyWith(
+  return _then(EmbaddedLocation(
 geohash: freezed == geohash ? _self.geohash : geohash // ignore: cast_nullable_to_non_nullable
 as String?,lat: null == lat ? _self.lat : lat // ignore: cast_nullable_to_non_nullable
 as double,long: null == long ? _self.long : long // ignore: cast_nullable_to_non_nullable
@@ -1795,7 +1788,7 @@ class _$EmbaddedContactCopyWithImpl<$Res>
 /// Create a copy of EmbaddedContact
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? type = null,Object? value = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(EmbaddedContact(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as EmbaddedContactType,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
@@ -1941,7 +1934,7 @@ return $default(_that.name,_that.type,_that.value,_that.metadata);case _:
 @JsonSerializable()
 
 class _EmbaddedContact implements EmbaddedContact {
-   _EmbaddedContact({this.name, required this.type, required this.value, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+   _EmbaddedContact({this.name, required this.type, required this.value,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _EmbaddedContact.fromJson(Map<String, dynamic> json) => _$EmbaddedContactFromJson(json);
 
 @override final  String? name;
@@ -2075,7 +2068,7 @@ class _$StoreMemberCopyWithImpl<$Res>
 /// Create a copy of StoreMember
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? userId = null,Object? name = null,Object? role = null,Object? acceptedAt = freezed,Object? expiredAt = freezed,Object? createdAt = null,Object? active = null,Object? metadata = null,Object? scopes = null,}) {
-  return _then(_self.copyWith(
+  return _then(StoreMember(
 userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
@@ -2226,7 +2219,7 @@ return $default(_that.userId,_that.name,_that.role,_that.acceptedAt,_that.expire
 @JsonSerializable()
 
 class _StoreMember implements StoreMember {
-   _StoreMember({required this.userId, required this.name, required this.role, this.acceptedAt, this.expiredAt, required this.createdAt, this.active = true, Map<String, dynamic> metadata = const {}, List<String> scopes = const []}): _metadata = metadata,_scopes = scopes;
+   _StoreMember({required this.userId, required this.name, required this.role, this.acceptedAt, this.expiredAt, required this.createdAt, this.active = true,  Map<String, dynamic> metadata = const {},  List<String> scopes = const []}): _metadata = metadata,_scopes = scopes;
   factory _StoreMember.fromJson(Map<String, dynamic> json) => _$StoreMemberFromJson(json);
 
 @override final  String userId;
@@ -2377,7 +2370,7 @@ class _$StoreInviteStoreCopyWithImpl<$Res>
 /// Create a copy of StoreInviteStore
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? iconUrl = freezed,Object? logoUrl = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(StoreInviteStore(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,iconUrl: freezed == iconUrl ? _self.iconUrl : iconUrl // ignore: cast_nullable_to_non_nullable
@@ -2651,7 +2644,7 @@ class _$StoreInviteCopyWithImpl<$Res>
 /// Create a copy of StoreInvite
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? storeId = null,Object? email = null,Object? role = null,Object? invitedBy = null,Object? status = null,Object? acceptedAt = freezed,Object? expiresAt = null,Object? metadata = null,Object? createdAt = null,Object? updatedAt = null,Object? store = freezed,Object? token = freezed,Object? scopes = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(StoreInvite(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
@@ -2819,7 +2812,7 @@ return $default(_that.id,_that.storeId,_that.email,_that.role,_that.invitedBy,_t
 @JsonSerializable()
 
 class _StoreInvite implements StoreInvite {
-   _StoreInvite({required this.id, required this.storeId, required this.email, required this.role, required this.invitedBy, required this.status, this.acceptedAt, required this.expiresAt, Map<String, dynamic> metadata = const {}, required this.createdAt, required this.updatedAt, this.store, this.token, List<String>? scopes}): _metadata = metadata,_scopes = scopes;
+   _StoreInvite({required this.id, required this.storeId, required this.email, required this.role, required this.invitedBy, required this.status, this.acceptedAt, required this.expiresAt,  Map<String, dynamic> metadata = const {}, required this.createdAt, required this.updatedAt, this.store, this.token,  List<String>? scopes}): _metadata = metadata,_scopes = scopes;
   factory _StoreInvite.fromJson(Map<String, dynamic> json) => _$StoreInviteFromJson(json);
 
 @override final  String id;

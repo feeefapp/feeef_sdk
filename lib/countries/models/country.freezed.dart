@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'country.dart';
@@ -9,6 +9,7 @@ part of 'country.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -72,7 +73,7 @@ class _$CountryCopyWithImpl<$Res>
 /// Create a copy of Country
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? name = null,Object? phone = null,Object? metadata = null,Object? locales = freezed,Object? createdAt = null,}) {
-  return _then(_self.copyWith(
+  return _then(Country(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
@@ -220,7 +221,7 @@ return $default(_that.code,_that.name,_that.phone,_that.metadata,_that.locales,_
 @JsonSerializable()
 
 class _Country extends Country {
-   _Country({required this.code, required this.name, required this.phone, Map<String, dynamic> metadata = const {}, Map<String, String>? locales, required this.createdAt}): _metadata = metadata,_locales = locales,super._();
+   _Country({required this.code, required this.name, required this.phone,  Map<String, dynamic> metadata = const {},  Map<String, String>? locales, required this.createdAt}): _metadata = metadata,_locales = locales,super._();
   factory _Country.fromJson(Map<String, dynamic> json) => _$CountryFromJson(json);
 
 /// ISO 3166-1 alpha-2 country code (e.g., US, DZ, SA)
@@ -376,7 +377,7 @@ class _$CountryCreateCopyWithImpl<$Res>
 /// Create a copy of CountryCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? name = null,Object? phone = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(CountryCreate(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
@@ -522,7 +523,7 @@ return $default(_that.code,_that.name,_that.phone,_that.metadata);case _:
 @JsonSerializable()
 
 class _CountryCreate implements CountryCreate {
-  const _CountryCreate({required this.code, required this.name, required this.phone, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _CountryCreate({required this.code, required this.name, required this.phone,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _CountryCreate.fromJson(Map<String, dynamic> json) => _$CountryCreateFromJson(json);
 
 /// ISO 3166-1 alpha-2 country code (e.g., US, DZ, SA)
@@ -662,7 +663,7 @@ class _$CountryUpdateCopyWithImpl<$Res>
 /// Create a copy of CountryUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? phone = freezed,Object? metadata = freezed,Object? setToNull = null,}) {
-  return _then(_self.copyWith(
+  return _then(CountryUpdate(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as String?,metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
@@ -808,7 +809,7 @@ return $default(_that.name,_that.phone,_that.metadata,_that.setToNull);case _:
 @JsonSerializable()
 
 class _CountryUpdate implements CountryUpdate {
-  const _CountryUpdate({this.name, this.phone, Map<String, dynamic>? metadata, List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
+  const _CountryUpdate({this.name, this.phone,  Map<String, dynamic>? metadata,  List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
   factory _CountryUpdate.fromJson(Map<String, dynamic> json) => _$CountryUpdateFromJson(json);
 
 /// Country name (e.g., United States, Algeria, Saudi Arabia)

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'product_landing_page.dart';
@@ -9,6 +9,7 @@ part of 'product_landing_page.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -67,7 +68,7 @@ class _$ProductLandingPageCopyWithImpl<$Res>
 /// Create a copy of ProductLandingPage
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? name = null,Object? description = freezed,Object? templateId = freezed,Object? schema = freezed,Object? defaults = null,Object? productId = null,Object? storeId = null,Object? template = freezed,Object? product = freezed,Object? store = freezed,Object? lor = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ProductLandingPage(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -259,7 +260,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.descri
 @JsonSerializable()
 
 class _ProductLandingPage extends ProductLandingPage {
-   _ProductLandingPage({required this.id, required this.createdAt, required this.updatedAt, required this.name, this.description, this.templateId, Map<String, dynamic>? schema, required Map<String, dynamic> defaults, required this.productId, required this.storeId, @JsonKey(fromJson: _landingPageTemplateFromJson, toJson: _landingPageTemplateToJson) this.template, @JsonKey(fromJson: _landingProductFromJson, toJson: _landingProductToJson) this.product, @JsonKey(fromJson: _landingStoreFromJson, toJson: _landingStoreToJson) this.store, @JsonKey(fromJson: _landingLorFromJson, toJson: _landingLorToJson) this.lor}): _schema = schema,_defaults = defaults,super._();
+   _ProductLandingPage({required this.id, required this.createdAt, required this.updatedAt, required this.name, this.description, this.templateId,  Map<String, dynamic>? schema, required  Map<String, dynamic> defaults, required this.productId, required this.storeId, @JsonKey(fromJson: _landingPageTemplateFromJson, toJson: _landingPageTemplateToJson) this.template, @JsonKey(fromJson: _landingProductFromJson, toJson: _landingProductToJson) this.product, @JsonKey(fromJson: _landingStoreFromJson, toJson: _landingStoreToJson) this.store, @JsonKey(fromJson: _landingLorFromJson, toJson: _landingLorToJson) this.lor}): _schema = schema,_defaults = defaults,super._();
   factory _ProductLandingPage.fromJson(Map<String, dynamic> json) => _$ProductLandingPageFromJson(json);
 
 @override final  String id;
@@ -456,7 +457,7 @@ class _$ProductLandingPageCreateCopyWithImpl<$Res>
 /// Create a copy of ProductLandingPageCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? description = freezed,Object? templateId = freezed,Object? schema = freezed,Object? defaults = null,Object? productId = freezed,Object? storeId = null,}) {
-  return _then(_self.copyWith(
+  return _then(ProductLandingPageCreate(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,templateId: freezed == templateId ? _self.templateId : templateId // ignore: cast_nullable_to_non_nullable
@@ -605,7 +606,7 @@ return $default(_that.name,_that.description,_that.templateId,_that.schema,_that
 @JsonSerializable()
 
 class _ProductLandingPageCreate implements ProductLandingPageCreate {
-  const _ProductLandingPageCreate({required this.name, this.description, this.templateId, Map<String, dynamic>? schema, required Map<String, dynamic> defaults, this.productId, required this.storeId}): _schema = schema,_defaults = defaults;
+  const _ProductLandingPageCreate({required this.name, this.description, this.templateId,  Map<String, dynamic>? schema, required  Map<String, dynamic> defaults, this.productId, required this.storeId}): _schema = schema,_defaults = defaults;
   factory _ProductLandingPageCreate.fromJson(Map<String, dynamic> json) => _$ProductLandingPageCreateFromJson(json);
 
 @override final  String name;
@@ -751,7 +752,7 @@ class _$ProductLandingPageUpdateCopyWithImpl<$Res>
 /// Create a copy of ProductLandingPageUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? description = freezed,Object? templateId = freezed,Object? schema = freezed,Object? defaults = freezed,Object? setToNull = null,Object? productId = freezed,Object? storeId = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ProductLandingPageUpdate(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,templateId: freezed == templateId ? _self.templateId : templateId // ignore: cast_nullable_to_non_nullable
@@ -901,7 +902,7 @@ return $default(_that.name,_that.description,_that.templateId,_that.schema,_that
 @JsonSerializable()
 
 class _ProductLandingPageUpdate implements ProductLandingPageUpdate {
-  const _ProductLandingPageUpdate({this.name, this.description, this.templateId, Map<String, dynamic>? schema, Map<String, dynamic>? defaults, @JsonKey(includeFromJson: false) List<String> setToNull = const [], this.productId, this.storeId}): _schema = schema,_defaults = defaults,_setToNull = setToNull;
+  const _ProductLandingPageUpdate({this.name, this.description, this.templateId,  Map<String, dynamic>? schema,  Map<String, dynamic>? defaults, @JsonKey(includeFromJson: false)  List<String> setToNull = const [], this.productId, this.storeId}): _schema = schema,_defaults = defaults,_setToNull = setToNull;
   factory _ProductLandingPageUpdate.fromJson(Map<String, dynamic> json) => _$ProductLandingPageUpdateFromJson(json);
 
 @override final  String? name;

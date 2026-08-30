@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'shipping_price.dart';
@@ -9,14 +9,14 @@ part of 'shipping_price.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$ShippingPrice {
 
- String get id; DateTime get createdAt; DateTime get updatedAt; Map<String, dynamic> get metadata; String get name; String? get logoUrl; String get storeId;// ignore: invalid_annotation_target
-@JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) Map<String, Map<String, ShippingStateRates>> get prices; ShippingPriceStatus get status;
+ String get id; DateTime get createdAt; DateTime get updatedAt; Map<String, dynamic> get metadata; String get name; String? get logoUrl; String get storeId;@JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) Map<String, Map<String, ShippingStateRates>> get prices; ShippingPriceStatus get status;
 /// Create a copy of ShippingPrice
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -67,7 +67,7 @@ class _$ShippingPriceCopyWithImpl<$Res>
 /// Create a copy of ShippingPrice
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? metadata = null,Object? name = null,Object? logoUrl = freezed,Object? storeId = null,Object? prices = null,Object? status = null,}) {
-  return _then(_self.copyWith(
+  return _then(ShippingPrice(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -218,7 +218,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.metadata,_that.na
 @JsonSerializable()
 
 class _ShippingPrice extends ShippingPrice {
-   _ShippingPrice({required this.id, required this.createdAt, required this.updatedAt, Map<String, dynamic> metadata = const {}, required this.name, this.logoUrl, required this.storeId, @JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) required Map<String, Map<String, ShippingStateRates>> prices, this.status = ShippingPriceStatus.draft}): _metadata = metadata,_prices = prices,super._();
+   _ShippingPrice({required this.id, required this.createdAt, required this.updatedAt,  Map<String, dynamic> metadata = const {}, required this.name, this.logoUrl, required this.storeId, @JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) required  Map<String, Map<String, ShippingStateRates>> prices, this.status = ShippingPriceStatus.draft}): _metadata = metadata,_prices = prices,super._();
   factory _ShippingPrice.fromJson(Map<String, dynamic> json) => _$ShippingPriceFromJson(json);
 
 @override final  String id;
@@ -234,9 +234,7 @@ class _ShippingPrice extends ShippingPrice {
 @override final  String name;
 @override final  String? logoUrl;
 @override final  String storeId;
-// ignore: invalid_annotation_target
  final  Map<String, Map<String, ShippingStateRates>> _prices;
-// ignore: invalid_annotation_target
 @override@JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) Map<String, Map<String, ShippingStateRates>> get prices {
   if (_prices is EqualUnmodifiableMapView) return _prices;
   // ignore: implicit_dynamic_type
@@ -317,8 +315,7 @@ as ShippingPriceStatus,
 /// @nodoc
 mixin _$ShippingPriceCreate {
 
- String? get id; Map<String, dynamic> get metadata; String get name; String? get logoUrl; String get storeId;// ignore: invalid_annotation_target
-@JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) Map<String, Map<String, ShippingStateRates>> get prices; ShippingPriceStatus get status;
+ String? get id; Map<String, dynamic> get metadata; String get name; String? get logoUrl; String get storeId;@JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) Map<String, Map<String, ShippingStateRates>> get prices; ShippingPriceStatus get status;
 /// Create a copy of ShippingPriceCreate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -369,7 +366,7 @@ class _$ShippingPriceCreateCopyWithImpl<$Res>
 /// Create a copy of ShippingPriceCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? metadata = null,Object? name = null,Object? logoUrl = freezed,Object? storeId = null,Object? prices = null,Object? status = null,}) {
-  return _then(_self.copyWith(
+  return _then(ShippingPriceCreate(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -518,7 +515,7 @@ return $default(_that.id,_that.metadata,_that.name,_that.logoUrl,_that.storeId,_
 @JsonSerializable()
 
 class _ShippingPriceCreate implements ShippingPriceCreate {
-  const _ShippingPriceCreate({this.id, Map<String, dynamic> metadata = const {}, required this.name, this.logoUrl, required this.storeId, @JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) Map<String, Map<String, ShippingStateRates>> prices = const {}, this.status = ShippingPriceStatus.draft}): _metadata = metadata,_prices = prices;
+  const _ShippingPriceCreate({this.id,  Map<String, dynamic> metadata = const {}, required this.name, this.logoUrl, required this.storeId, @JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson)  Map<String, Map<String, ShippingStateRates>> prices = const {}, this.status = ShippingPriceStatus.draft}): _metadata = metadata,_prices = prices;
   factory _ShippingPriceCreate.fromJson(Map<String, dynamic> json) => _$ShippingPriceCreateFromJson(json);
 
 @override final  String? id;
@@ -532,9 +529,7 @@ class _ShippingPriceCreate implements ShippingPriceCreate {
 @override final  String name;
 @override final  String? logoUrl;
 @override final  String storeId;
-// ignore: invalid_annotation_target
  final  Map<String, Map<String, ShippingStateRates>> _prices;
-// ignore: invalid_annotation_target
 @override@JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) Map<String, Map<String, ShippingStateRates>> get prices {
   if (_prices is EqualUnmodifiableMapView) return _prices;
   // ignore: implicit_dynamic_type
@@ -613,9 +608,7 @@ as ShippingPriceStatus,
 /// @nodoc
 mixin _$ShippingPriceUpdate {
 
- Map<String, dynamic>? get metadata; String? get name; String? get logoUrl; String? get storeId;// ignore: invalid_annotation_target
-@JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) Map<String, Map<String, ShippingStateRates>>? get prices; ShippingPriceStatus? get status;// ignore: invalid_annotation_target
-@JsonKey(includeFromJson: false) List<String> get setToNull;
+ Map<String, dynamic>? get metadata; String? get name; String? get logoUrl; String? get storeId;@JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) Map<String, Map<String, ShippingStateRates>>? get prices; ShippingPriceStatus? get status;@JsonKey(includeFromJson: false) List<String> get setToNull;
 /// Create a copy of ShippingPriceUpdate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -666,7 +659,7 @@ class _$ShippingPriceUpdateCopyWithImpl<$Res>
 /// Create a copy of ShippingPriceUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? metadata = freezed,Object? name = freezed,Object? logoUrl = freezed,Object? storeId = freezed,Object? prices = freezed,Object? status = freezed,Object? setToNull = null,}) {
-  return _then(_self.copyWith(
+  return _then(ShippingPriceUpdate(
 metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,logoUrl: freezed == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
@@ -815,7 +808,7 @@ return $default(_that.metadata,_that.name,_that.logoUrl,_that.storeId,_that.pric
 @JsonSerializable()
 
 class _ShippingPriceUpdate implements ShippingPriceUpdate {
-  const _ShippingPriceUpdate({Map<String, dynamic>? metadata, this.name, this.logoUrl, this.storeId, @JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) Map<String, Map<String, ShippingStateRates>>? prices, this.status, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _metadata = metadata,_prices = prices,_setToNull = setToNull;
+  const _ShippingPriceUpdate({ Map<String, dynamic>? metadata, this.name, this.logoUrl, this.storeId, @JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson)  Map<String, Map<String, ShippingStateRates>>? prices, this.status, @JsonKey(includeFromJson: false)  List<String> setToNull = const []}): _metadata = metadata,_prices = prices,_setToNull = setToNull;
   factory _ShippingPriceUpdate.fromJson(Map<String, dynamic> json) => _$ShippingPriceUpdateFromJson(json);
 
  final  Map<String, dynamic>? _metadata;
@@ -830,9 +823,7 @@ class _ShippingPriceUpdate implements ShippingPriceUpdate {
 @override final  String? name;
 @override final  String? logoUrl;
 @override final  String? storeId;
-// ignore: invalid_annotation_target
  final  Map<String, Map<String, ShippingStateRates>>? _prices;
-// ignore: invalid_annotation_target
 @override@JsonKey(fromJson: _pricesFromJson, toJson: _pricesToJson) Map<String, Map<String, ShippingStateRates>>? get prices {
   final value = _prices;
   if (value == null) return null;
@@ -842,9 +833,7 @@ class _ShippingPriceUpdate implements ShippingPriceUpdate {
 }
 
 @override final  ShippingPriceStatus? status;
-// ignore: invalid_annotation_target
  final  List<String> _setToNull;
-// ignore: invalid_annotation_target
 @override@JsonKey(includeFromJson: false) List<String> get setToNull {
   if (_setToNull is EqualUnmodifiableListView) return _setToNull;
   // ignore: implicit_dynamic_type

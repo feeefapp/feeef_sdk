@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'user.dart';
@@ -9,6 +9,7 @@ part of 'user.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$UserCopyWithImpl<$Res>
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = freezed,Object? email = null,Object? phone = freezed,Object? photoUrl = freezed,Object? emailVerifiedAt = freezed,Object? phoneVerifiedAt = freezed,Object? verifiedAt = freezed,Object? blockedAt = freezed,Object? partnerApprovedAt = freezed,Object? createdAt = null,Object? updatedAt = null,Object? wallet = null,Object? metadata = null,Object? social = null,Object? claims = null,}) {
-  return _then(_self.copyWith(
+  return _then(User(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
@@ -233,7 +234,7 @@ return $default(_that.id,_that.name,_that.email,_that.phone,_that.photoUrl,_that
 @JsonSerializable()
 
 class _User extends User {
-   _User({required this.id, required this.name, required this.email, required this.phone, required this.photoUrl, required this.emailVerifiedAt, required this.phoneVerifiedAt, required this.verifiedAt, required this.blockedAt, required this.partnerApprovedAt, required this.createdAt, required this.updatedAt, this.wallet = const EmbaddedWallet(), Map<String, dynamic> metadata = const {}, Map<String, dynamic> social = const {}, Map<String, dynamic> claims = const {}}): _metadata = metadata,_social = social,_claims = claims,super._();
+   _User({required this.id, required this.name, required this.email, required this.phone, required this.photoUrl, required this.emailVerifiedAt, required this.phoneVerifiedAt, required this.verifiedAt, required this.blockedAt, required this.partnerApprovedAt, required this.createdAt, required this.updatedAt, this.wallet = const EmbaddedWallet(),  Map<String, dynamic> metadata = const {},  Map<String, dynamic> social = const {},  Map<String, dynamic> claims = const {}}): _metadata = metadata,_social = social,_claims = claims,super._();
   factory _User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
 @override final  String id;
@@ -359,10 +360,7 @@ $EmbaddedWalletCopyWith<$Res> get wallet {
 /// @nodoc
 mixin _$UserUpdate {
 
- String? get name; String? get email; String? get phone; String? get photoUrl; Map<String, dynamic> get metadata;// verification
- DateTime? get emailVerifiedAt; DateTime? get phoneVerifiedAt; DateTime? get verifiedAt;// password
-// String? password,
-@JsonKey(includeFromJson: false) List<String> get setToNull;
+ String? get name; String? get email; String? get phone; String? get photoUrl; Map<String, dynamic> get metadata; DateTime? get emailVerifiedAt; DateTime? get phoneVerifiedAt; DateTime? get verifiedAt;@JsonKey(includeFromJson: false) List<String> get setToNull;
 /// Create a copy of UserUpdate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -413,7 +411,7 @@ class _$UserUpdateCopyWithImpl<$Res>
 /// Create a copy of UserUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? email = freezed,Object? phone = freezed,Object? photoUrl = freezed,Object? metadata = null,Object? emailVerifiedAt = freezed,Object? phoneVerifiedAt = freezed,Object? verifiedAt = freezed,Object? setToNull = null,}) {
-  return _then(_self.copyWith(
+  return _then(UserUpdate(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
@@ -564,7 +562,7 @@ return $default(_that.name,_that.email,_that.phone,_that.photoUrl,_that.metadata
 @JsonSerializable()
 
 class _UserUpdate implements UserUpdate {
-  const _UserUpdate({this.name, this.email, this.phone, this.photoUrl, Map<String, dynamic> metadata = const {}, this.emailVerifiedAt, this.phoneVerifiedAt, this.verifiedAt, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
+  const _UserUpdate({this.name, this.email, this.phone, this.photoUrl,  Map<String, dynamic> metadata = const {}, this.emailVerifiedAt, this.phoneVerifiedAt, this.verifiedAt, @JsonKey(includeFromJson: false)  List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
   factory _UserUpdate.fromJson(Map<String, dynamic> json) => _$UserUpdateFromJson(json);
 
 @override final  String? name;
@@ -578,15 +576,10 @@ class _UserUpdate implements UserUpdate {
   return EqualUnmodifiableMapView(_metadata);
 }
 
-// verification
 @override final  DateTime? emailVerifiedAt;
 @override final  DateTime? phoneVerifiedAt;
 @override final  DateTime? verifiedAt;
-// password
-// String? password,
  final  List<String> _setToNull;
-// password
-// String? password,
 @override@JsonKey(includeFromJson: false) List<String> get setToNull {
   if (_setToNull is EqualUnmodifiableListView) return _setToNull;
   // ignore: implicit_dynamic_type
@@ -666,9 +659,7 @@ as List<String>,
 /// @nodoc
 mixin _$UserUpdateMe {
 
- String? get name; String? get email; String? get phone; String? get photoUrl; Map<String, dynamic> get metadata;// verification
- DateTime? get emailVerifiedAt; DateTime? get phoneVerifiedAt; DateTime? get verifiedAt;// password
- String? get oldPassword; String? get newPassword;@JsonKey(includeFromJson: false) List<String> get setToNull;
+ String? get name; String? get email; String? get phone; String? get photoUrl; Map<String, dynamic> get metadata; DateTime? get emailVerifiedAt; DateTime? get phoneVerifiedAt; DateTime? get verifiedAt; String? get oldPassword; String? get newPassword;@JsonKey(includeFromJson: false) List<String> get setToNull;
 /// Create a copy of UserUpdateMe
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -719,7 +710,7 @@ class _$UserUpdateMeCopyWithImpl<$Res>
 /// Create a copy of UserUpdateMe
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? email = freezed,Object? phone = freezed,Object? photoUrl = freezed,Object? metadata = null,Object? emailVerifiedAt = freezed,Object? phoneVerifiedAt = freezed,Object? verifiedAt = freezed,Object? oldPassword = freezed,Object? newPassword = freezed,Object? setToNull = null,}) {
-  return _then(_self.copyWith(
+  return _then(UserUpdateMe(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
@@ -872,7 +863,7 @@ return $default(_that.name,_that.email,_that.phone,_that.photoUrl,_that.metadata
 @JsonSerializable()
 
 class _UserUpdateMe implements UserUpdateMe {
-  const _UserUpdateMe({this.name, this.email, this.phone, this.photoUrl, Map<String, dynamic> metadata = const {}, this.emailVerifiedAt, this.phoneVerifiedAt, this.verifiedAt, this.oldPassword, this.newPassword, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
+  const _UserUpdateMe({this.name, this.email, this.phone, this.photoUrl,  Map<String, dynamic> metadata = const {}, this.emailVerifiedAt, this.phoneVerifiedAt, this.verifiedAt, this.oldPassword, this.newPassword, @JsonKey(includeFromJson: false)  List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
   factory _UserUpdateMe.fromJson(Map<String, dynamic> json) => _$UserUpdateMeFromJson(json);
 
 @override final  String? name;
@@ -886,11 +877,9 @@ class _UserUpdateMe implements UserUpdateMe {
   return EqualUnmodifiableMapView(_metadata);
 }
 
-// verification
 @override final  DateTime? emailVerifiedAt;
 @override final  DateTime? phoneVerifiedAt;
 @override final  DateTime? verifiedAt;
-// password
 @override final  String? oldPassword;
 @override final  String? newPassword;
  final  List<String> _setToNull;
@@ -1026,7 +1015,7 @@ class _$EmbaddedWalletCopyWithImpl<$Res>
 /// Create a copy of EmbaddedWallet
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? currency = null,Object? balance = null,}) {
-  return _then(_self.copyWith(
+  return _then(EmbaddedWallet(
 currency: null == currency ? _self.currency : currency // ignore: cast_nullable_to_non_nullable
 as String,balance: null == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
 as double,

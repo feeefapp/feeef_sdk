@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'store_integrations.dart';
@@ -9,6 +9,7 @@ part of 'store_integrations.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -17,22 +18,13 @@ mixin _$StoreIntegrations {
 
  Map<String, dynamic>? get metadata;/// Global Meta integration — credentials shared by every Meta feature.
 /// Ads live here today; pixels may move over from [metaPixel] later.
- MetaIntegration? get meta;// Analytics Integrations
- MetaPixelIntegration? get metaPixel; TiktokPixelIntegration? get tiktokPixel; GoogleAnalyticsIntegration? get googleAnalytics; GoogleTagsIntegration? get googleTags;/// Microsoft Clarity (trackingCode public in storefront; apiKey never in public JSON).
- ClarityIntegration? get clarity; AiIntegration? get ai;// Delivery Integrations
- YalidineDeliveryIntegration? get yalidine; EcotrackDeliveryIntegration? get ecotrack; EcomanagerDeliveryIntegration? get ecomanager; ProcolisDeliveryIntegration? get procolis; NoestDeliveryIntegration? get noest; OrderdzDeliveryIntegration? get orderdz; ZimouExpressDeliveryIntegration? get zimou; ZrexpressDeliveryIntegration? get zrexpress; MdmExpressDeliveryIntegration? get mdmExpress;/// Feeef Delivery (Near Delivery white-label) — merchants never hold Near API keys.
+ MetaIntegration? get meta; MetaPixelIntegration? get metaPixel; TiktokPixelIntegration? get tiktokPixel; GoogleAnalyticsIntegration? get googleAnalytics; GoogleTagsIntegration? get googleTags;/// Microsoft Clarity (trackingCode public in storefront; apiKey never in public JSON).
+ ClarityIntegration? get clarity; AiIntegration? get ai; YalidineDeliveryIntegration? get yalidine; EcotrackDeliveryIntegration? get ecotrack; EcomanagerDeliveryIntegration? get ecomanager; ProcolisDeliveryIntegration? get procolis; NoestDeliveryIntegration? get noest; OrderdzDeliveryIntegration? get orderdz; ZimouExpressDeliveryIntegration? get zimou; ZrexpressDeliveryIntegration? get zrexpress; MdmExpressDeliveryIntegration? get mdmExpress;/// Feeef Delivery (Near Delivery white-label) — merchants never hold Near API keys.
  FeeefDeliveryIntegration? get feeefDelivery; MaystroDeliveryIntegration? get maystroDelivery;/// Codpilot mini-ERP (order confirmation / COD ops) — not a carrier.
- CodpilotIntegration? get codpilot;// Google Sheets Integration
- GoogleSheetsIntegration? get googleSheet;// Webhooks Integration
- WebhooksIntegration? get webhooks;// Security Integration
- SecurityIntegration? get security;// Custom Fields Integration
- CustomFieldsIntegration? get customFields;// Payment Integration
- PaymentIntegration? get payment;// Dispatcher Integration (order assignment to confirmers)
- DispatcherIntegration? get dispatcher;/// Inventory module (warehouses, stock, order reserve/consume).
+ CodpilotIntegration? get codpilot; GoogleSheetsIntegration? get googleSheet; WebhooksIntegration? get webhooks; SecurityIntegration? get security; CustomFieldsIntegration? get customFields; PaymentIntegration? get payment; DispatcherIntegration? get dispatcher;/// Inventory module (warehouses, stock, order reserve/consume).
  StoreInventoryIntegration? get inventory;/// Finance module (procurement, accounting).
  StoreFinanceIntegration? get finance;/// Inbound platform connectors (Shopify, YouCan, Google Sheets, …).
- ConnectorsIntegration? get connectors;// Communication Integrations
- Map<String, dynamic>? get sms; Map<String, dynamic>? get telegram;
+ ConnectorsIntegration? get connectors; Map<String, dynamic>? get sms; Map<String, dynamic>? get telegram;
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -83,7 +75,7 @@ class _$StoreIntegrationsCopyWithImpl<$Res>
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? metadata = freezed,Object? meta = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? feeefDelivery = freezed,Object? maystroDelivery = freezed,Object? codpilot = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? connectors = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(StoreIntegrations(
 metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
 as MetaIntegration?,metaPixel: freezed == metaPixel ? _self.metaPixel : metaPixel // ignore: cast_nullable_to_non_nullable
@@ -592,7 +584,7 @@ return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_tha
 @JsonSerializable()
 
 class _StoreIntegrations extends StoreIntegrations {
-  const _StoreIntegrations({Map<String, dynamic>? metadata = const {}, this.meta, this.metaPixel, this.tiktokPixel, this.googleAnalytics, this.googleTags, this.clarity, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.mdmExpress, this.feeefDelivery, this.maystroDelivery, this.codpilot, this.googleSheet, this.webhooks, this.security, this.customFields, this.payment, this.dispatcher, this.inventory, this.finance, this.connectors, Map<String, dynamic>? sms = const {}, Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
+  const _StoreIntegrations({ Map<String, dynamic>? metadata = const {}, this.meta, this.metaPixel, this.tiktokPixel, this.googleAnalytics, this.googleTags, this.clarity, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.mdmExpress, this.feeefDelivery, this.maystroDelivery, this.codpilot, this.googleSheet, this.webhooks, this.security, this.customFields, this.payment, this.dispatcher, this.inventory, this.finance, this.connectors,  Map<String, dynamic>? sms = const {},  Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
   factory _StoreIntegrations.fromJson(Map<String, dynamic> json) => _$StoreIntegrationsFromJson(json);
 
  final  Map<String, dynamic>? _metadata;
@@ -607,7 +599,6 @@ class _StoreIntegrations extends StoreIntegrations {
 /// Global Meta integration — credentials shared by every Meta feature.
 /// Ads live here today; pixels may move over from [metaPixel] later.
 @override final  MetaIntegration? meta;
-// Analytics Integrations
 @override final  MetaPixelIntegration? metaPixel;
 @override final  TiktokPixelIntegration? tiktokPixel;
 @override final  GoogleAnalyticsIntegration? googleAnalytics;
@@ -615,7 +606,6 @@ class _StoreIntegrations extends StoreIntegrations {
 /// Microsoft Clarity (trackingCode public in storefront; apiKey never in public JSON).
 @override final  ClarityIntegration? clarity;
 @override final  AiIntegration? ai;
-// Delivery Integrations
 @override final  YalidineDeliveryIntegration? yalidine;
 @override final  EcotrackDeliveryIntegration? ecotrack;
 @override final  EcomanagerDeliveryIntegration? ecomanager;
@@ -630,17 +620,11 @@ class _StoreIntegrations extends StoreIntegrations {
 @override final  MaystroDeliveryIntegration? maystroDelivery;
 /// Codpilot mini-ERP (order confirmation / COD ops) — not a carrier.
 @override final  CodpilotIntegration? codpilot;
-// Google Sheets Integration
 @override final  GoogleSheetsIntegration? googleSheet;
-// Webhooks Integration
 @override final  WebhooksIntegration? webhooks;
-// Security Integration
 @override final  SecurityIntegration? security;
-// Custom Fields Integration
 @override final  CustomFieldsIntegration? customFields;
-// Payment Integration
 @override final  PaymentIntegration? payment;
-// Dispatcher Integration (order assignment to confirmers)
 @override final  DispatcherIntegration? dispatcher;
 /// Inventory module (warehouses, stock, order reserve/consume).
 @override final  StoreInventoryIntegration? inventory;
@@ -648,9 +632,7 @@ class _StoreIntegrations extends StoreIntegrations {
 @override final  StoreFinanceIntegration? finance;
 /// Inbound platform connectors (Shopify, YouCan, Google Sheets, …).
 @override final  ConnectorsIntegration? connectors;
-// Communication Integrations
  final  Map<String, dynamic>? _sms;
-// Communication Integrations
 @override@JsonKey() Map<String, dynamic>? get sms {
   final value = _sms;
   if (value == null) return null;
@@ -1151,7 +1133,7 @@ class _$PixelStatusRuleCopyWithImpl<$Res>
 /// Create a copy of PixelStatusRule
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? dimension = null,Object? equals = null,Object? metaEvent = freezed,Object? tiktokEvent = freezed,Object? metaCustomEvent = freezed,Object? tiktokCustomEvent = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(PixelStatusRule(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,dimension: null == dimension ? _self.dimension : dimension // ignore: cast_nullable_to_non_nullable
 as PixelStatusDimension,equals: null == equals ? _self.equals : equals // ignore: cast_nullable_to_non_nullable
@@ -1433,7 +1415,7 @@ class _$FacebookMarketingOAuthCopyWithImpl<$Res>
 /// Create a copy of FacebookMarketingOAuth
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? accessToken = null,Object? tokenType = null,Object? expiresIn = freezed,Object? expiresAt = freezed,Object? scopes = null,}) {
-  return _then(_self.copyWith(
+  return _then(FacebookMarketingOAuth(
 accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String,tokenType: null == tokenType ? _self.tokenType : tokenType // ignore: cast_nullable_to_non_nullable
 as String,expiresIn: freezed == expiresIn ? _self.expiresIn : expiresIn // ignore: cast_nullable_to_non_nullable
@@ -1580,7 +1562,7 @@ return $default(_that.accessToken,_that.tokenType,_that.expiresIn,_that.expiresA
 @JsonSerializable()
 
 class _FacebookMarketingOAuth extends FacebookMarketingOAuth {
-  const _FacebookMarketingOAuth({required this.accessToken, this.tokenType = 'bearer', this.expiresIn, this.expiresAt, List<String> scopes = const []}): _scopes = scopes,super._();
+  const _FacebookMarketingOAuth({required this.accessToken, this.tokenType = 'bearer', this.expiresIn, this.expiresAt,  List<String> scopes = const []}): _scopes = scopes,super._();
   factory _FacebookMarketingOAuth.fromJson(Map<String, dynamic> json) => _$FacebookMarketingOAuthFromJson(json);
 
 @override final  String accessToken;
@@ -1716,7 +1698,7 @@ class _$MetaAdAccountRefCopyWithImpl<$Res>
 /// Create a copy of MetaAdAccountRef
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? accountId = null,Object? name = freezed,Object? currency = freezed,Object? timezoneName = freezed,Object? accountStatus = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(MetaAdAccountRef(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,accountId: null == accountId ? _self.accountId : accountId // ignore: cast_nullable_to_non_nullable
 as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -1998,7 +1980,7 @@ class _$MetaAdsConfigCopyWithImpl<$Res>
 /// Create a copy of MetaAdsConfig
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? adAccounts = null,Object? defaultAdAccountId = freezed,Object? defaultDatePreset = null,Object? extraStoreHosts = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(MetaAdsConfig(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,adAccounts: null == adAccounts ? _self.adAccounts : adAccounts // ignore: cast_nullable_to_non_nullable
 as List<MetaAdAccountRef>,defaultAdAccountId: freezed == defaultAdAccountId ? _self.defaultAdAccountId : defaultAdAccountId // ignore: cast_nullable_to_non_nullable
@@ -2146,7 +2128,7 @@ return $default(_that.active,_that.adAccounts,_that.defaultAdAccountId,_that.def
 @JsonSerializable()
 
 class _MetaAdsConfig extends MetaAdsConfig {
-  const _MetaAdsConfig({this.active = true, List<MetaAdAccountRef> adAccounts = const [], this.defaultAdAccountId, this.defaultDatePreset = 'last_7d', List<String> extraStoreHosts = const [], Map<String, dynamic> metadata = const {}}): _adAccounts = adAccounts,_extraStoreHosts = extraStoreHosts,_metadata = metadata,super._();
+  const _MetaAdsConfig({this.active = true,  List<MetaAdAccountRef> adAccounts = const [], this.defaultAdAccountId, this.defaultDatePreset = 'last_7d',  List<String> extraStoreHosts = const [],  Map<String, dynamic> metadata = const {}}): _adAccounts = adAccounts,_extraStoreHosts = extraStoreHosts,_metadata = metadata,super._();
   factory _MetaAdsConfig.fromJson(Map<String, dynamic> json) => _$MetaAdsConfigFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -2297,7 +2279,7 @@ class _$MetaAccountRefCopyWithImpl<$Res>
 /// Create a copy of MetaAccountRef
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(MetaAccountRef(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -2564,7 +2546,7 @@ class _$MetaIntegrationCopyWithImpl<$Res>
 /// Create a copy of MetaIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? account = freezed,Object? ads = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(MetaIntegration(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,account: freezed == account ? _self.account : account // ignore: cast_nullable_to_non_nullable
 as MetaAccountRef?,ads: freezed == ads ? _self.ads : ads // ignore: cast_nullable_to_non_nullable
@@ -2734,7 +2716,7 @@ return $default(_that.active,_that.account,_that.ads,_that.metadata);case _:
 @JsonSerializable()
 
 class _MetaIntegration extends MetaIntegration {
-  const _MetaIntegration({this.active = false, this.account, this.ads, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _MetaIntegration({this.active = false, this.account, this.ads,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _MetaIntegration.fromJson(Map<String, dynamic> json) => _$MetaIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -2894,7 +2876,7 @@ class _$MetaPixelIntegrationCopyWithImpl<$Res>
 /// Create a copy of MetaPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? objective = null,Object? draftObjective = null,Object? active = null,Object? metadata = null,Object? oauth2 = freezed,Object? mode = freezed,Object? statusRules = null,}) {
-  return _then(_self.copyWith(
+  return _then(MetaPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self.pixels : pixels // ignore: cast_nullable_to_non_nullable
 as List<MetaPixel>,objective: null == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
@@ -3057,7 +3039,7 @@ return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that
 @JsonSerializable()
 
 class _MetaPixelIntegration extends MetaPixelIntegration {
-  const _MetaPixelIntegration({this.id = 'default', List<MetaPixel> pixels = const [], this.objective = MetaPixelEvent.purchase, this.draftObjective = MetaPixelEvent.lead, this.active = true, Map<String, dynamic> metadata = const {}, this.oauth2, this.mode, List<PixelStatusRule> statusRules = const []}): _pixels = pixels,_metadata = metadata,_statusRules = statusRules,super._();
+  const _MetaPixelIntegration({this.id = 'default',  List<MetaPixel> pixels = const [], this.objective = MetaPixelEvent.purchase, this.draftObjective = MetaPixelEvent.lead, this.active = true,  Map<String, dynamic> metadata = const {}, this.oauth2, this.mode,  List<PixelStatusRule> statusRules = const []}): _pixels = pixels,_metadata = metadata,_statusRules = statusRules,super._();
   factory _MetaPixelIntegration.fromJson(Map<String, dynamic> json) => _$MetaPixelIntegrationFromJson(json);
 
 @override@JsonKey() final  String id;
@@ -3227,7 +3209,7 @@ class _$MetaPixelCopyWithImpl<$Res>
 /// Create a copy of MetaPixel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? id = null,Object? key = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(MetaPixel(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,key: freezed == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
@@ -3498,7 +3480,7 @@ class _$TiktokPixelIntegrationCopyWithImpl<$Res>
 /// Create a copy of TiktokPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? objective = null,Object? draftObjective = null,Object? active = null,Object? metadata = null,Object? mode = freezed,Object? statusRules = null,}) {
-  return _then(_self.copyWith(
+  return _then(TiktokPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self.pixels : pixels // ignore: cast_nullable_to_non_nullable
 as List<TiktokPixel>,objective: null == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
@@ -3648,7 +3630,7 @@ return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that
 @JsonSerializable()
 
 class _TiktokPixelIntegration extends TiktokPixelIntegration {
-  const _TiktokPixelIntegration({this.id = 'default', List<TiktokPixel> pixels = const [], this.objective = TiktokPixelEvent.purchase, this.draftObjective = TiktokPixelEvent.purchase, this.active = true, Map<String, dynamic> metadata = const {}, this.mode, List<PixelStatusRule> statusRules = const []}): _pixels = pixels,_metadata = metadata,_statusRules = statusRules,super._();
+  const _TiktokPixelIntegration({this.id = 'default',  List<TiktokPixel> pixels = const [], this.objective = TiktokPixelEvent.purchase, this.draftObjective = TiktokPixelEvent.purchase, this.active = true,  Map<String, dynamic> metadata = const {}, this.mode,  List<PixelStatusRule> statusRules = const []}): _pixels = pixels,_metadata = metadata,_statusRules = statusRules,super._();
   factory _TiktokPixelIntegration.fromJson(Map<String, dynamic> json) => _$TiktokPixelIntegrationFromJson(json);
 
 @override@JsonKey() final  String id;
@@ -3803,7 +3785,7 @@ class _$TiktokPixelCopyWithImpl<$Res>
 /// Create a copy of TiktokPixel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? id = null,Object? accessToken = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(TiktokPixel(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
@@ -4072,7 +4054,7 @@ class _$GoogleAnalyticsIntegrationCopyWithImpl<$Res>
 /// Create a copy of GoogleAnalyticsIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? active = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(GoogleAnalyticsIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
@@ -4217,7 +4199,7 @@ return $default(_that.id,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _GoogleAnalyticsIntegration extends GoogleAnalyticsIntegration {
-  const _GoogleAnalyticsIntegration({this.id = "EMPTY", this.active = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _GoogleAnalyticsIntegration({this.id = "EMPTY", this.active = false,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _GoogleAnalyticsIntegration.fromJson(Map<String, dynamic> json) => _$GoogleAnalyticsIntegrationFromJson(json);
 
 @override@JsonKey() final  String id;
@@ -4347,7 +4329,7 @@ class _$GoogleTagsIntegrationCopyWithImpl<$Res>
 /// Create a copy of GoogleTagsIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? key = null,Object? active = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(GoogleTagsIntegration(
 key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
@@ -4492,7 +4474,7 @@ return $default(_that.key,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _GoogleTagsIntegration extends GoogleTagsIntegration {
-  const _GoogleTagsIntegration({required this.key, this.active = true, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _GoogleTagsIntegration({required this.key, this.active = true,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _GoogleTagsIntegration.fromJson(Map<String, dynamic> json) => _$GoogleTagsIntegrationFromJson(json);
 
 @override final  String key;
@@ -4571,7 +4553,8 @@ as Map<String, dynamic>,
 /// @nodoc
 mixin _$ClarityIntegration {
 
- bool get active; String get trackingCode; String? get apiKey; Map<String, dynamic> get metadata;
+ bool get active;/// Clarity project id. Never null after parse — use empty when unset.
+ String get trackingCode; String? get apiKey; Map<String, dynamic> get metadata;
 /// Create a copy of ClarityIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -4622,7 +4605,7 @@ class _$ClarityIntegrationCopyWithImpl<$Res>
 /// Create a copy of ClarityIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? trackingCode = null,Object? apiKey = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(ClarityIntegration(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,trackingCode: null == trackingCode ? _self.trackingCode : trackingCode // ignore: cast_nullable_to_non_nullable
 as String,apiKey: freezed == apiKey ? _self.apiKey : apiKey // ignore: cast_nullable_to_non_nullable
@@ -4768,11 +4751,12 @@ return $default(_that.active,_that.trackingCode,_that.apiKey,_that.metadata);cas
 @JsonSerializable()
 
 class _ClarityIntegration extends ClarityIntegration {
-  const _ClarityIntegration({this.active = true, required this.trackingCode, this.apiKey, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _ClarityIntegration({this.active = true, this.trackingCode = '', this.apiKey,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _ClarityIntegration.fromJson(Map<String, dynamic> json) => _$ClarityIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
-@override final  String trackingCode;
+/// Clarity project id. Never null after parse — use empty when unset.
+@override@JsonKey() final  String trackingCode;
 @override final  String? apiKey;
  final  Map<String, dynamic> _metadata;
 @override@JsonKey() Map<String, dynamic> get metadata {
@@ -4900,7 +4884,7 @@ class _$AiIntegrationCopyWithImpl<$Res>
 /// Create a copy of AiIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? apiKey = freezed,Object? planningModel = null,Object? textModel = null,Object? imageModel = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(AiIntegration(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,apiKey: freezed == apiKey ? _self.apiKey : apiKey // ignore: cast_nullable_to_non_nullable
 as String?,planningModel: null == planningModel ? _self.planningModel : planningModel // ignore: cast_nullable_to_non_nullable
@@ -5048,7 +5032,7 @@ return $default(_that.active,_that.apiKey,_that.planningModel,_that.textModel,_t
 @JsonSerializable()
 
 class _AiIntegration extends AiIntegration {
-  const _AiIntegration({this.active = true, this.apiKey, this.planningModel = 'gemini-3.1-pro-preview', this.textModel = 'gemini-flash-lite-latest', this.imageModel = 'gemini-3.1-flash-image-preview', Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _AiIntegration({this.active = true, this.apiKey, this.planningModel = 'gemini-3.1-pro-preview', this.textModel = 'gemini-flash-lite-latest', this.imageModel = 'gemini-3.1-flash-image-preview',  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _AiIntegration.fromJson(Map<String, dynamic> json) => _$AiIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -5185,7 +5169,7 @@ class _$YalidineDeliveryIntegrationCopyWithImpl<$Res>
 /// Create a copy of YalidineDeliveryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? token = null,Object? agent = null,Object? active = null,Object? autoSend = null,Object? forceFreeShipping = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(YalidineDeliveryIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,agent: null == agent ? _self.agent : agent // ignore: cast_nullable_to_non_nullable
@@ -5334,7 +5318,7 @@ return $default(_that.id,_that.token,_that.agent,_that.active,_that.autoSend,_th
 @JsonSerializable()
 
 class _YalidineDeliveryIntegration extends YalidineDeliveryIntegration {
-  const _YalidineDeliveryIntegration({required this.id, required this.token, this.agent = YalidineAgent.yalidine, this.active = true, this.autoSend = false, this.forceFreeShipping = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _YalidineDeliveryIntegration({required this.id, required this.token, this.agent = YalidineAgent.yalidine, this.active = true, this.autoSend = false, this.forceFreeShipping = false,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _YalidineDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$YalidineDeliveryIntegrationFromJson(json);
 
 @override final  String id;
@@ -5476,7 +5460,7 @@ class _$EcotrackDeliveryIntegrationCopyWithImpl<$Res>
 /// Create a copy of EcotrackDeliveryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? baseUrl = null,Object? token = null,Object? active = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(EcotrackDeliveryIntegration(
 baseUrl: null == baseUrl ? _self.baseUrl : baseUrl // ignore: cast_nullable_to_non_nullable
 as String,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
@@ -5622,7 +5606,7 @@ return $default(_that.baseUrl,_that.token,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _EcotrackDeliveryIntegration extends EcotrackDeliveryIntegration {
-  const _EcotrackDeliveryIntegration({required this.baseUrl, required this.token, this.active = true, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _EcotrackDeliveryIntegration({required this.baseUrl, required this.token, this.active = true,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _EcotrackDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$EcotrackDeliveryIntegrationFromJson(json);
 
 @override final  String baseUrl;
@@ -5760,7 +5744,7 @@ class _$EcomanagerDeliveryIntegrationCopyWithImpl<$Res>
 /// Create a copy of EcomanagerDeliveryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? baseUrl = null,Object? token = null,Object? active = null,Object? autoSend = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(EcomanagerDeliveryIntegration(
 baseUrl: null == baseUrl ? _self.baseUrl : baseUrl // ignore: cast_nullable_to_non_nullable
 as String,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
@@ -5907,7 +5891,7 @@ return $default(_that.baseUrl,_that.token,_that.active,_that.autoSend,_that.meta
 @JsonSerializable()
 
 class _EcomanagerDeliveryIntegration extends EcomanagerDeliveryIntegration {
-  const _EcomanagerDeliveryIntegration({required this.baseUrl, required this.token, this.active = true, this.autoSend = true, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _EcomanagerDeliveryIntegration({required this.baseUrl, required this.token, this.active = true, this.autoSend = true,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _EcomanagerDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$EcomanagerDeliveryIntegrationFromJson(json);
 
 @override final  String baseUrl;
@@ -6041,7 +6025,7 @@ class _$ProcolisDeliveryIntegrationCopyWithImpl<$Res>
 /// Create a copy of ProcolisDeliveryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? key = null,Object? token = null,Object? active = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(ProcolisDeliveryIntegration(
 key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
 as String,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
@@ -6187,7 +6171,7 @@ return $default(_that.key,_that.token,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _ProcolisDeliveryIntegration extends ProcolisDeliveryIntegration {
-  const _ProcolisDeliveryIntegration({required this.key, required this.token, this.active = true, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _ProcolisDeliveryIntegration({required this.key, required this.token, this.active = true,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _ProcolisDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$ProcolisDeliveryIntegrationFromJson(json);
 
 @override final  String key;
@@ -6319,7 +6303,7 @@ class _$NoestDeliveryIntegrationCopyWithImpl<$Res>
 /// Create a copy of NoestDeliveryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? guid = null,Object? token = null,Object? active = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(NoestDeliveryIntegration(
 guid: null == guid ? _self.guid : guid // ignore: cast_nullable_to_non_nullable
 as String,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
@@ -6465,7 +6449,7 @@ return $default(_that.guid,_that.token,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _NoestDeliveryIntegration extends NoestDeliveryIntegration {
-  const _NoestDeliveryIntegration({required this.guid, required this.token, this.active = true, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _NoestDeliveryIntegration({required this.guid, required this.token, this.active = true,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _NoestDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$NoestDeliveryIntegrationFromJson(json);
 
 @override final  String guid;
@@ -6597,7 +6581,7 @@ class _$OrderdzDeliveryIntegrationCopyWithImpl<$Res>
 /// Create a copy of OrderdzDeliveryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? url = freezed,Object? token = null,Object? active = null,Object? autoSend = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(OrderdzDeliveryIntegration(
 url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
@@ -6744,7 +6728,7 @@ return $default(_that.url,_that.token,_that.active,_that.autoSend,_that.metadata
 @JsonSerializable()
 
 class _OrderdzDeliveryIntegration extends OrderdzDeliveryIntegration {
-  const _OrderdzDeliveryIntegration({this.url, required this.token, this.active = true, this.autoSend = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _OrderdzDeliveryIntegration({this.url, required this.token, this.active = true, this.autoSend = false,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _OrderdzDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$OrderdzDeliveryIntegrationFromJson(json);
 
 @override final  String? url;
@@ -6878,7 +6862,7 @@ class _$ZimouExpressDeliveryIntegrationCopyWithImpl<$Res>
 /// Create a copy of ZimouExpressDeliveryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? apiKey = null,Object? active = null,Object? silentMode = null,Object? autoSend = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(ZimouExpressDeliveryIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,apiKey: null == apiKey ? _self.apiKey : apiKey // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
@@ -7026,7 +7010,7 @@ return $default(_that.id,_that.apiKey,_that.active,_that.silentMode,_that.autoSe
 @JsonSerializable()
 
 class _ZimouExpressDeliveryIntegration extends ZimouExpressDeliveryIntegration {
-  const _ZimouExpressDeliveryIntegration({required this.id, required this.apiKey, this.active = true, this.silentMode = false, this.autoSend = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _ZimouExpressDeliveryIntegration({required this.id, required this.apiKey, this.active = true, this.silentMode = false, this.autoSend = false,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _ZimouExpressDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$ZimouExpressDeliveryIntegrationFromJson(json);
 
 @override final  String id;
@@ -7165,7 +7149,7 @@ class _$ZrexpressDeliveryIntegrationCopyWithImpl<$Res>
 /// Create a copy of ZrexpressDeliveryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? apiKey = null,Object? tenantId = null,Object? webhookSecret = freezed,Object? active = null,Object? silentMode = null,Object? autoSend = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(ZrexpressDeliveryIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,apiKey: null == apiKey ? _self.apiKey : apiKey // ignore: cast_nullable_to_non_nullable
 as String,tenantId: null == tenantId ? _self.tenantId : tenantId // ignore: cast_nullable_to_non_nullable
@@ -7315,7 +7299,7 @@ return $default(_that.id,_that.apiKey,_that.tenantId,_that.webhookSecret,_that.a
 @JsonSerializable()
 
 class _ZrexpressDeliveryIntegration extends ZrexpressDeliveryIntegration {
-  const _ZrexpressDeliveryIntegration({required this.id, required this.apiKey, required this.tenantId, this.webhookSecret, this.active = true, this.silentMode = false, this.autoSend = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _ZrexpressDeliveryIntegration({required this.id, required this.apiKey, required this.tenantId, this.webhookSecret, this.active = true, this.silentMode = false, this.autoSend = false,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _ZrexpressDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$ZrexpressDeliveryIntegrationFromJson(json);
 
 @override final  String id;
@@ -7462,7 +7446,7 @@ class _$MdmExpressDeliveryIntegrationCopyWithImpl<$Res>
 /// Create a copy of MdmExpressDeliveryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? apiKey = freezed,Object? bearerToken = freezed,Object? mdmStoreId = null,Object? mdmSellerId = freezed,Object? webhookSecret = freezed,Object? active = null,Object? silentMode = null,Object? autoSend = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(MdmExpressDeliveryIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,apiKey: freezed == apiKey ? _self.apiKey : apiKey // ignore: cast_nullable_to_non_nullable
 as String?,bearerToken: freezed == bearerToken ? _self.bearerToken : bearerToken // ignore: cast_nullable_to_non_nullable
@@ -7614,7 +7598,7 @@ return $default(_that.id,_that.apiKey,_that.bearerToken,_that.mdmStoreId,_that.m
 @JsonSerializable()
 
 class _MdmExpressDeliveryIntegration extends MdmExpressDeliveryIntegration {
-  const _MdmExpressDeliveryIntegration({required this.id, this.apiKey, this.bearerToken, required this.mdmStoreId, this.mdmSellerId, this.webhookSecret, this.active = true, this.silentMode = false, this.autoSend = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _MdmExpressDeliveryIntegration({required this.id, this.apiKey, this.bearerToken, required this.mdmStoreId, this.mdmSellerId, this.webhookSecret, this.active = true, this.silentMode = false, this.autoSend = false,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _MdmExpressDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$MdmExpressDeliveryIntegrationFromJson(json);
 
 @override final  String id;
@@ -7766,7 +7750,7 @@ class _$FeeefDeliveryIntegrationCopyWithImpl<$Res>
 /// Create a copy of FeeefDeliveryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? active = null,Object? autoSend = null,Object? nearSenderUserId = null,Object? nearSenderUsername = freezed,Object? nearSenderEmail = freezed,Object? nearAccountType = freezed,Object? pickupLocationType = freezed,Object? pickupAddress = freezed,Object? senderCenterId = freezed,Object? defaultBuralistId = freezed,Object? useFeeefLabel = null,Object? webhookSecret = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(FeeefDeliveryIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,autoSend: null == autoSend ? _self.autoSend : autoSend // ignore: cast_nullable_to_non_nullable
@@ -7922,7 +7906,7 @@ return $default(_that.id,_that.active,_that.autoSend,_that.nearSenderUserId,_tha
 @JsonSerializable()
 
 class _FeeefDeliveryIntegration extends FeeefDeliveryIntegration {
-  const _FeeefDeliveryIntegration({required this.id, this.active = true, this.autoSend = false, required this.nearSenderUserId, this.nearSenderUsername, this.nearSenderEmail, this.nearAccountType, this.pickupLocationType, this.pickupAddress, this.senderCenterId, this.defaultBuralistId, this.useFeeefLabel = true, this.webhookSecret, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _FeeefDeliveryIntegration({required this.id, this.active = true, this.autoSend = false, required this.nearSenderUserId, this.nearSenderUsername, this.nearSenderEmail, this.nearAccountType, this.pickupLocationType, this.pickupAddress, this.senderCenterId, this.defaultBuralistId, this.useFeeefLabel = true, this.webhookSecret,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _FeeefDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$FeeefDeliveryIntegrationFromJson(json);
 
 @override final  String id;
@@ -8078,7 +8062,7 @@ class _$MaystroDeliveryIntegrationCopyWithImpl<$Res>
 /// Create a copy of MaystroDeliveryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? token = null,Object? baseUrl = freezed,Object? webhookSecret = freezed,Object? active = null,Object? autoSend = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(MaystroDeliveryIntegration(
 token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,baseUrl: freezed == baseUrl ? _self.baseUrl : baseUrl // ignore: cast_nullable_to_non_nullable
 as String?,webhookSecret: freezed == webhookSecret ? _self.webhookSecret : webhookSecret // ignore: cast_nullable_to_non_nullable
@@ -8226,7 +8210,7 @@ return $default(_that.token,_that.baseUrl,_that.webhookSecret,_that.active,_that
 @JsonSerializable()
 
 class _MaystroDeliveryIntegration extends MaystroDeliveryIntegration {
-  const _MaystroDeliveryIntegration({required this.token, this.baseUrl, this.webhookSecret, this.active = true, this.autoSend = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _MaystroDeliveryIntegration({required this.token, this.baseUrl, this.webhookSecret, this.active = true, this.autoSend = false,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _MaystroDeliveryIntegration.fromJson(Map<String, dynamic> json) => _$MaystroDeliveryIntegrationFromJson(json);
 
 @override final  String token;
@@ -8365,7 +8349,7 @@ class _$CodpilotIntegrationCopyWithImpl<$Res>
 /// Create a copy of CodpilotIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? subdomain = null,Object? apiId = null,Object? apiToken = null,Object? active = null,Object? statusRules = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(CodpilotIntegration(
 subdomain: null == subdomain ? _self.subdomain : subdomain // ignore: cast_nullable_to_non_nullable
 as String,apiId: null == apiId ? _self.apiId : apiId // ignore: cast_nullable_to_non_nullable
 as String,apiToken: null == apiToken ? _self.apiToken : apiToken // ignore: cast_nullable_to_non_nullable
@@ -8513,7 +8497,7 @@ return $default(_that.subdomain,_that.apiId,_that.apiToken,_that.active,_that.st
 @JsonSerializable()
 
 class _CodpilotIntegration extends CodpilotIntegration {
-  const _CodpilotIntegration({required this.subdomain, required this.apiId, required this.apiToken, this.active = true, List<PixelStatusRule> statusRules = const [], Map<String, dynamic> metadata = const {}}): _statusRules = statusRules,_metadata = metadata,super._();
+  const _CodpilotIntegration({required this.subdomain, required this.apiId, required this.apiToken, this.active = true,  List<PixelStatusRule> statusRules = const [],  Map<String, dynamic> metadata = const {}}): _statusRules = statusRules,_metadata = metadata,super._();
   factory _CodpilotIntegration.fromJson(Map<String, dynamic> json) => _$CodpilotIntegrationFromJson(json);
 
 /// Business subdomain (`mystore` → mystore.codpilot.net).
@@ -8660,7 +8644,7 @@ class _$SecurityOptionCopyWithImpl<$Res>
 /// Create a copy of SecurityOption
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? ttl = freezed,Object? treatment = null,}) {
-  return _then(_self.copyWith(
+  return _then(SecurityOption(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,ttl: freezed == ttl ? _self.ttl : ttl // ignore: cast_nullable_to_non_nullable
 as int?,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
@@ -8878,8 +8862,7 @@ as SecurityTreatment,
 /// @nodoc
 mixin _$SecurityMinTimeOption {
 
- bool get active; int get duration;// seconds
- SecurityTreatment get treatment;
+ bool get active; int get duration; SecurityTreatment get treatment;
 /// Create a copy of SecurityMinTimeOption
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -8930,7 +8913,7 @@ class _$SecurityMinTimeOptionCopyWithImpl<$Res>
 /// Create a copy of SecurityMinTimeOption
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? duration = null,Object? treatment = null,}) {
-  return _then(_self.copyWith(
+  return _then(SecurityMinTimeOption(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
 as int,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
@@ -9080,7 +9063,6 @@ class _SecurityMinTimeOption implements SecurityMinTimeOption {
 
 @override@JsonKey() final  bool active;
 @override@JsonKey() final  int duration;
-// seconds
 @override@JsonKey() final  SecurityTreatment treatment;
 
 /// Create a copy of SecurityMinTimeOption
@@ -9149,8 +9131,7 @@ as SecurityTreatment,
 /// @nodoc
 mixin _$SecurityCountriesOption {
 
- bool get active; SecurityTreatment get treatment; List<String>? get allowed;// ISO codes; null/empty = allow all
- List<String> get blocked;
+ bool get active; SecurityTreatment get treatment; List<String>? get allowed; List<String> get blocked;
 /// Create a copy of SecurityCountriesOption
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -9201,7 +9182,7 @@ class _$SecurityCountriesOptionCopyWithImpl<$Res>
 /// Create a copy of SecurityCountriesOption
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? treatment = null,Object? allowed = freezed,Object? blocked = null,}) {
-  return _then(_self.copyWith(
+  return _then(SecurityCountriesOption(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
 as SecurityTreatment,allowed: freezed == allowed ? _self.allowed : allowed // ignore: cast_nullable_to_non_nullable
@@ -9347,7 +9328,7 @@ return $default(_that.active,_that.treatment,_that.allowed,_that.blocked);case _
 @JsonSerializable()
 
 class _SecurityCountriesOption implements SecurityCountriesOption {
-  const _SecurityCountriesOption({this.active = false, this.treatment = SecurityTreatment.block, List<String>? allowed, List<String> blocked = const []}): _allowed = allowed,_blocked = blocked;
+  const _SecurityCountriesOption({this.active = false, this.treatment = SecurityTreatment.block,  List<String>? allowed,  List<String> blocked = const []}): _allowed = allowed,_blocked = blocked;
   factory _SecurityCountriesOption.fromJson(Map<String, dynamic> json) => _$SecurityCountriesOptionFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -9361,9 +9342,7 @@ class _SecurityCountriesOption implements SecurityCountriesOption {
   return EqualUnmodifiableListView(value);
 }
 
-// ISO codes; null/empty = allow all
  final  List<String> _blocked;
-// ISO codes; null/empty = allow all
 @override@JsonKey() List<String> get blocked {
   if (_blocked is EqualUnmodifiableListView) return _blocked;
   // ignore: implicit_dynamic_type
@@ -9438,8 +9417,7 @@ as List<String>,
 /// @nodoc
 mixin _$SecuritySourcesOption {
 
- bool get active; SecurityTreatment get treatment; List<String>? get allowed;// e.g., ["ads", "organic"]; null = all
- List<String> get blocked;
+ bool get active; SecurityTreatment get treatment; List<String>? get allowed; List<String> get blocked;
 /// Create a copy of SecuritySourcesOption
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -9490,7 +9468,7 @@ class _$SecuritySourcesOptionCopyWithImpl<$Res>
 /// Create a copy of SecuritySourcesOption
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? treatment = null,Object? allowed = freezed,Object? blocked = null,}) {
-  return _then(_self.copyWith(
+  return _then(SecuritySourcesOption(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
 as SecurityTreatment,allowed: freezed == allowed ? _self.allowed : allowed // ignore: cast_nullable_to_non_nullable
@@ -9636,7 +9614,7 @@ return $default(_that.active,_that.treatment,_that.allowed,_that.blocked);case _
 @JsonSerializable()
 
 class _SecuritySourcesOption implements SecuritySourcesOption {
-  const _SecuritySourcesOption({this.active = false, this.treatment = SecurityTreatment.block, List<String>? allowed, List<String> blocked = const []}): _allowed = allowed,_blocked = blocked;
+  const _SecuritySourcesOption({this.active = false, this.treatment = SecurityTreatment.block,  List<String>? allowed,  List<String> blocked = const []}): _allowed = allowed,_blocked = blocked;
   factory _SecuritySourcesOption.fromJson(Map<String, dynamic> json) => _$SecuritySourcesOptionFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -9650,9 +9628,7 @@ class _SecuritySourcesOption implements SecuritySourcesOption {
   return EqualUnmodifiableListView(value);
 }
 
-// e.g., ["ads", "organic"]; null = all
  final  List<String> _blocked;
-// e.g., ["ads", "organic"]; null = all
 @override@JsonKey() List<String> get blocked {
   if (_blocked is EqualUnmodifiableListView) return _blocked;
   // ignore: implicit_dynamic_type
@@ -9778,7 +9754,7 @@ class _$SecurityOptionsCopyWithImpl<$Res>
 /// Create a copy of SecurityOptions
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? fingerprint = freezed,Object? ip = freezed,Object? phone = freezed,Object? ads = freezed,Object? frontend = freezed,Object? doubleSend = freezed,Object? minTimeInPage = freezed,Object? countries = freezed,Object? sources = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(SecurityOptions(
 fingerprint: freezed == fingerprint ? _self.fingerprint : fingerprint // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,ip: freezed == ip ? _self.ip : ip // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
@@ -10281,7 +10257,7 @@ class _$SecurityIntegrationCopyWithImpl<$Res>
 /// Create a copy of SecurityIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? options = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(SecurityIntegration(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,options: freezed == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
 as SecurityOptions?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
@@ -10438,7 +10414,7 @@ return $default(_that.active,_that.options,_that.metadata);case _:
 @JsonSerializable()
 
 class _SecurityIntegration extends SecurityIntegration {
-  const _SecurityIntegration({this.active = false, this.options, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _SecurityIntegration({this.active = false, this.options,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _SecurityIntegration.fromJson(Map<String, dynamic> json) => _$SecurityIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -10580,7 +10556,7 @@ class _$StoreInventoryIntegrationCopyWithImpl<$Res>
 /// Create a copy of StoreInventoryIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(StoreInventoryIntegration(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
@@ -10724,7 +10700,7 @@ return $default(_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _StoreInventoryIntegration extends StoreInventoryIntegration {
-  const _StoreInventoryIntegration({this.active = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _StoreInventoryIntegration({this.active = false,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _StoreInventoryIntegration.fromJson(Map<String, dynamic> json) => _$StoreInventoryIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -10852,7 +10828,7 @@ class _$StoreFinanceIntegrationCopyWithImpl<$Res>
 /// Create a copy of StoreFinanceIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(StoreFinanceIntegration(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
@@ -10996,7 +10972,7 @@ return $default(_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _StoreFinanceIntegration extends StoreFinanceIntegration {
-  const _StoreFinanceIntegration({this.active = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _StoreFinanceIntegration({this.active = false,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _StoreFinanceIntegration.fromJson(Map<String, dynamic> json) => _$StoreFinanceIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -11124,7 +11100,7 @@ class _$PublicSecurityOptionCopyWithImpl<$Res>
 /// Create a copy of PublicSecurityOption
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? ttl = null,Object? treatment = null,}) {
-  return _then(_self.copyWith(
+  return _then(PublicSecurityOption(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,ttl: null == ttl ? _self.ttl : ttl // ignore: cast_nullable_to_non_nullable
 as int,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
@@ -11393,7 +11369,7 @@ class _$PublicSecurityOptionsCopyWithImpl<$Res>
 /// Create a copy of PublicSecurityOptions
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? frontend = freezed,Object? doubleSend = freezed,Object? minTimeInPage = freezed,Object? countries = freezed,Object? sources = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(PublicSecurityOptions(
 frontend: freezed == frontend ? _self.frontend : frontend // ignore: cast_nullable_to_non_nullable
 as PublicSecurityOption?,doubleSend: freezed == doubleSend ? _self.doubleSend : doubleSend // ignore: cast_nullable_to_non_nullable
 as PublicSecurityOption?,minTimeInPage: freezed == minTimeInPage ? _self.minTimeInPage : minTimeInPage // ignore: cast_nullable_to_non_nullable
@@ -11788,7 +11764,7 @@ class _$PublicSecurityIntegrationCopyWithImpl<$Res>
 /// Create a copy of PublicSecurityIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? options = null,}) {
-  return _then(_self.copyWith(
+  return _then(PublicSecurityIntegration(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,options: null == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
 as PublicSecurityOptions,
@@ -12021,8 +11997,7 @@ $PublicSecurityOptionsCopyWith<$Res> get options {
 /// @nodoc
 mixin _$GoogleSheetsColumn {
 
- String? get field;// OrderEntity field name
- String get name; bool get enabled; dynamic get defaultValue;
+ String? get field; String get name; bool get enabled; dynamic get defaultValue;
 /// Create a copy of GoogleSheetsColumn
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -12073,7 +12048,7 @@ class _$GoogleSheetsColumnCopyWithImpl<$Res>
 /// Create a copy of GoogleSheetsColumn
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? field = freezed,Object? name = null,Object? enabled = null,Object? defaultValue = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(GoogleSheetsColumn(
 field: freezed == field ? _self.field : field // ignore: cast_nullable_to_non_nullable
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
@@ -12223,7 +12198,6 @@ class _GoogleSheetsColumn implements GoogleSheetsColumn {
   factory _GoogleSheetsColumn.fromJson(Map<String, dynamic> json) => _$GoogleSheetsColumnFromJson(json);
 
 @override final  String? field;
-// OrderEntity field name
 @override final  String name;
 @override final  bool enabled;
 @override final  dynamic defaultValue;
@@ -12353,7 +12327,7 @@ class _$GoogleSheetsIntegrationCopyWithImpl<$Res>
 /// Create a copy of GoogleSheetsIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = freezed,Object? active = null,Object? oauth2 = freezed,Object? columns = freezed,Object? metadata = null,Object? draftSheetEnabled = null,Object? draftSheetName = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(GoogleSheetsIntegration(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
@@ -12503,7 +12477,7 @@ return $default(_that.id,_that.name,_that.active,_that.oauth2,_that.columns,_tha
 @JsonSerializable()
 
 class _GoogleSheetsIntegration implements GoogleSheetsIntegration {
-  const _GoogleSheetsIntegration({this.id, this.name, this.active = true, Map<String, dynamic>? oauth2, List<GoogleSheetsColumn>? columns = defaultOrderColumns, Map<String, dynamic> metadata = const {}, this.draftSheetEnabled = false, this.draftSheetName}): _oauth2 = oauth2,_columns = columns,_metadata = metadata;
+  const _GoogleSheetsIntegration({this.id, this.name, this.active = true,  Map<String, dynamic>? oauth2,  List<GoogleSheetsColumn>? columns = defaultOrderColumns,  Map<String, dynamic> metadata = const {}, this.draftSheetEnabled = false, this.draftSheetName}): _oauth2 = oauth2,_columns = columns,_metadata = metadata;
   factory _GoogleSheetsIntegration.fromJson(Map<String, dynamic> json) => _$GoogleSheetsIntegrationFromJson(json);
 
 @override final  String? id;
@@ -12666,7 +12640,7 @@ class _$WebhookConfigCopyWithImpl<$Res>
 /// Create a copy of WebhookConfig
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? url = null,Object? events = null,Object? secret = freezed,Object? active = null,Object? headers = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(WebhookConfig(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
@@ -12816,7 +12790,7 @@ return $default(_that.id,_that.name,_that.url,_that.events,_that.secret,_that.ac
 @JsonSerializable()
 
 class _WebhookConfig implements WebhookConfig {
-  const _WebhookConfig({required this.id, required this.name, required this.url, List<WebhookEvent> events = const [], this.secret, this.active = true, Map<String, String> headers = const {}, Map<String, dynamic> metadata = const {}}): _events = events,_headers = headers,_metadata = metadata;
+  const _WebhookConfig({required this.id, required this.name, required this.url,  List<WebhookEvent> events = const [], this.secret, this.active = true,  Map<String, String> headers = const {},  Map<String, dynamic> metadata = const {}}): _events = events,_headers = headers,_metadata = metadata;
   factory _WebhookConfig.fromJson(Map<String, dynamic> json) => _$WebhookConfigFromJson(json);
 
 @override final  String id;
@@ -12968,7 +12942,7 @@ class _$WebhooksIntegrationCopyWithImpl<$Res>
 /// Create a copy of WebhooksIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? webhooks = null,Object? active = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(WebhooksIntegration(
 webhooks: null == webhooks ? _self.webhooks : webhooks // ignore: cast_nullable_to_non_nullable
 as List<WebhookConfig>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
@@ -13113,7 +13087,7 @@ return $default(_that.webhooks,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _WebhooksIntegration implements WebhooksIntegration {
-  const _WebhooksIntegration({List<WebhookConfig> webhooks = const [], this.active = true, Map<String, dynamic> metadata = const {}}): _webhooks = webhooks,_metadata = metadata;
+  const _WebhooksIntegration({ List<WebhookConfig> webhooks = const [], this.active = true,  Map<String, dynamic> metadata = const {}}): _webhooks = webhooks,_metadata = metadata;
   factory _WebhooksIntegration.fromJson(Map<String, dynamic> json) => _$WebhooksIntegrationFromJson(json);
 
  final  List<WebhookConfig> _webhooks;
@@ -13263,7 +13237,7 @@ class _$CustomFieldCopyWithImpl<$Res>
 /// Create a copy of CustomField
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? label = null,Object? type = null,Object? required = null,Object? multiple = null,Object? minCount = freezed,Object? maxCount = freezed,Object? placeholder = freezed,Object? helpText = freezed,Object? regexPattern = freezed,Object? defaultValue = freezed,Object? order = null,Object? active = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(CustomField(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
@@ -13419,7 +13393,7 @@ return $default(_that.id,_that.label,_that.type,_that.required,_that.multiple,_t
 @JsonSerializable()
 
 class _CustomField extends CustomField {
-  const _CustomField({required this.id, required this.label, required this.type, this.required = false, this.multiple = false, this.minCount, this.maxCount, this.placeholder, this.helpText, this.regexPattern, this.defaultValue, this.order = 0, this.active = true, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _CustomField({required this.id, required this.label, required this.type, this.required = false, this.multiple = false, this.minCount, this.maxCount, this.placeholder, this.helpText, this.regexPattern, this.defaultValue, this.order = 0, this.active = true,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _CustomField.fromJson(Map<String, dynamic> json) => _$CustomFieldFromJson(json);
 
 /// Unique identifier for the field
@@ -13589,7 +13563,7 @@ class _$CustomFieldsIntegrationCopyWithImpl<$Res>
 /// Create a copy of CustomFieldsIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? fields = null,Object? active = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(CustomFieldsIntegration(
 fields: null == fields ? _self.fields : fields // ignore: cast_nullable_to_non_nullable
 as List<CustomField>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
@@ -13734,7 +13708,7 @@ return $default(_that.fields,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _CustomFieldsIntegration extends CustomFieldsIntegration {
-  const _CustomFieldsIntegration({List<CustomField> fields = const [], this.active = true, Map<String, dynamic> metadata = const {}}): _fields = fields,_metadata = metadata,super._();
+  const _CustomFieldsIntegration({ List<CustomField> fields = const [], this.active = true,  Map<String, dynamic> metadata = const {}}): _fields = fields,_metadata = metadata,super._();
   factory _CustomFieldsIntegration.fromJson(Map<String, dynamic> json) => _$CustomFieldsIntegrationFromJson(json);
 
 /// List of custom field definitions
@@ -13824,13 +13798,7 @@ as Map<String, dynamic>,
 /// @nodoc
 mixin _$PaymentMethodConfig {
 
- String get id;// Slug identifier (e.g., 'chargily', 'paypal')
- String get name;// Display name (e.g., 'Chargily Pay', 'PayPal')
- bool get active;// Method-specific configuration
- String? get apiKey;// For Chargily
- String? get clientId;// For PayPal, Stripe, etc.
- String? get clientSecret;// For PayPal, Stripe, etc.
- Map<String, dynamic> get metadata;
+ String get id; String get name; bool get active; String? get apiKey; String? get clientId; String? get clientSecret; Map<String, dynamic> get metadata;
 /// Create a copy of PaymentMethodConfig
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -13881,7 +13849,7 @@ class _$PaymentMethodConfigCopyWithImpl<$Res>
 /// Create a copy of PaymentMethodConfig
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? active = null,Object? apiKey = freezed,Object? clientId = freezed,Object? clientSecret = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(PaymentMethodConfig(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
@@ -14030,23 +13998,16 @@ return $default(_that.id,_that.name,_that.active,_that.apiKey,_that.clientId,_th
 @JsonSerializable()
 
 class _PaymentMethodConfig extends PaymentMethodConfig {
-  const _PaymentMethodConfig({required this.id, required this.name, this.active = true, this.apiKey, this.clientId, this.clientSecret, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _PaymentMethodConfig({required this.id, required this.name, this.active = true, this.apiKey, this.clientId, this.clientSecret,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _PaymentMethodConfig.fromJson(Map<String, dynamic> json) => _$PaymentMethodConfigFromJson(json);
 
 @override final  String id;
-// Slug identifier (e.g., 'chargily', 'paypal')
 @override final  String name;
-// Display name (e.g., 'Chargily Pay', 'PayPal')
 @override@JsonKey() final  bool active;
-// Method-specific configuration
 @override final  String? apiKey;
-// For Chargily
 @override final  String? clientId;
-// For PayPal, Stripe, etc.
 @override final  String? clientSecret;
-// For PayPal, Stripe, etc.
  final  Map<String, dynamic> _metadata;
-// For PayPal, Stripe, etc.
 @override@JsonKey() Map<String, dynamic> get metadata {
   if (_metadata is EqualUnmodifiableMapView) return _metadata;
   // ignore: implicit_dynamic_type
@@ -14124,8 +14085,7 @@ as Map<String, dynamic>,
 /// @nodoc
 mixin _$PaymentIntegration {
 
- bool get active; List<PaymentMethodConfig> get methods; String? get defaultMethod;// Method ID to use by default
- Map<String, dynamic> get metadata;
+ bool get active; List<PaymentMethodConfig> get methods; String? get defaultMethod; Map<String, dynamic> get metadata;
 /// Create a copy of PaymentIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -14176,7 +14136,7 @@ class _$PaymentIntegrationCopyWithImpl<$Res>
 /// Create a copy of PaymentIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? methods = null,Object? defaultMethod = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(PaymentIntegration(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,methods: null == methods ? _self.methods : methods // ignore: cast_nullable_to_non_nullable
 as List<PaymentMethodConfig>,defaultMethod: freezed == defaultMethod ? _self.defaultMethod : defaultMethod // ignore: cast_nullable_to_non_nullable
@@ -14322,7 +14282,7 @@ return $default(_that.active,_that.methods,_that.defaultMethod,_that.metadata);c
 @JsonSerializable()
 
 class _PaymentIntegration extends PaymentIntegration {
-  const _PaymentIntegration({this.active = true, List<PaymentMethodConfig> methods = const [], this.defaultMethod, Map<String, dynamic> metadata = const {}}): _methods = methods,_metadata = metadata,super._();
+  const _PaymentIntegration({this.active = true,  List<PaymentMethodConfig> methods = const [], this.defaultMethod,  Map<String, dynamic> metadata = const {}}): _methods = methods,_metadata = metadata,super._();
   factory _PaymentIntegration.fromJson(Map<String, dynamic> json) => _$PaymentIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -14334,9 +14294,7 @@ class _PaymentIntegration extends PaymentIntegration {
 }
 
 @override final  String? defaultMethod;
-// Method ID to use by default
  final  Map<String, dynamic> _metadata;
-// Method ID to use by default
 @override@JsonKey() Map<String, dynamic> get metadata {
   if (_metadata is EqualUnmodifiableMapView) return _metadata;
   // ignore: implicit_dynamic_type
@@ -14462,7 +14420,7 @@ class _$DispatcherIntegrationCopyWithImpl<$Res>
 /// Create a copy of DispatcherIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? strategy = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(DispatcherIntegration(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,strategy: freezed == strategy ? _self.strategy : strategy // ignore: cast_nullable_to_non_nullable
 as OrdersDispatchStrategy?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
@@ -14619,7 +14577,7 @@ return $default(_that.active,_that.strategy,_that.metadata);case _:
 @JsonSerializable()
 
 class _DispatcherIntegration extends DispatcherIntegration {
-  const _DispatcherIntegration({this.active = true, this.strategy, Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _DispatcherIntegration({this.active = true, this.strategy,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _DispatcherIntegration.fromJson(Map<String, dynamic> json) => _$DispatcherIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -14761,7 +14719,7 @@ class _$ConnectorAuthCopyWithImpl<$Res>
 /// Create a copy of ConnectorAuth
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? authType = null,Object? accessToken = freezed,Object? refreshToken = freezed,Object? scopes = null,Object? expiresAt = freezed,Object? apiKey = freezed,Object? baseUrl = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(ConnectorAuth(
 authType: null == authType ? _self.authType : authType // ignore: cast_nullable_to_non_nullable
 as String,accessToken: freezed == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String?,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
@@ -14911,7 +14869,7 @@ return $default(_that.authType,_that.accessToken,_that.refreshToken,_that.scopes
 @JsonSerializable()
 
 class _ConnectorAuth implements ConnectorAuth {
-  const _ConnectorAuth({this.authType = 'public', this.accessToken, this.refreshToken, List<String> scopes = const [], this.expiresAt, this.apiKey, this.baseUrl, Map<String, dynamic> metadata = const {}}): _scopes = scopes,_metadata = metadata;
+  const _ConnectorAuth({this.authType = 'public', this.accessToken, this.refreshToken,  List<String> scopes = const [], this.expiresAt, this.apiKey, this.baseUrl,  Map<String, dynamic> metadata = const {}}): _scopes = scopes,_metadata = metadata;
   factory _ConnectorAuth.fromJson(Map<String, dynamic> json) => _$ConnectorAuthFromJson(json);
 
 @override@JsonKey() final  String authType;
@@ -15057,7 +15015,7 @@ class _$ConnectorConfigCopyWithImpl<$Res>
 /// Create a copy of ConnectorConfig
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? type = null,Object? active = null,Object? name = freezed,Object? status = null,Object? externalId = freezed,Object? fieldMapping = null,Object? syncState = null,Object? auth = freezed,Object? createdAt = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(ConnectorConfig(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
@@ -15222,7 +15180,7 @@ return $default(_that.id,_that.type,_that.active,_that.name,_that.status,_that.e
 @JsonSerializable()
 
 class _ConnectorConfig implements ConnectorConfig {
-  const _ConnectorConfig({required this.id, required this.type, this.active = true, this.name, this.status = 'connected', this.externalId, Map<String, dynamic> fieldMapping = const {}, Map<String, dynamic> syncState = const {}, this.auth, this.createdAt, Map<String, dynamic> metadata = const {}}): _fieldMapping = fieldMapping,_syncState = syncState,_metadata = metadata;
+  const _ConnectorConfig({required this.id, required this.type, this.active = true, this.name, this.status = 'connected', this.externalId,  Map<String, dynamic> fieldMapping = const {},  Map<String, dynamic> syncState = const {}, this.auth, this.createdAt,  Map<String, dynamic> metadata = const {}}): _fieldMapping = fieldMapping,_syncState = syncState,_metadata = metadata;
   factory _ConnectorConfig.fromJson(Map<String, dynamic> json) => _$ConnectorConfigFromJson(json);
 
 @override final  String id;
@@ -15392,7 +15350,7 @@ class _$ConnectorsIntegrationCopyWithImpl<$Res>
 /// Create a copy of ConnectorsIntegration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? connectors = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(ConnectorsIntegration(
 active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,connectors: null == connectors ? _self.connectors : connectors // ignore: cast_nullable_to_non_nullable
 as List<ConnectorConfig>,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
@@ -15537,7 +15495,7 @@ return $default(_that.active,_that.connectors,_that.metadata);case _:
 @JsonSerializable()
 
 class _ConnectorsIntegration implements ConnectorsIntegration {
-  const _ConnectorsIntegration({this.active = true, List<ConnectorConfig> connectors = const [], Map<String, dynamic> metadata = const {}}): _connectors = connectors,_metadata = metadata;
+  const _ConnectorsIntegration({this.active = true,  List<ConnectorConfig> connectors = const [],  Map<String, dynamic> metadata = const {}}): _connectors = connectors,_metadata = metadata;
   factory _ConnectorsIntegration.fromJson(Map<String, dynamic> json) => _$ConnectorsIntegrationFromJson(json);
 
 @override@JsonKey() final  bool active;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'validation_exception.dart';
@@ -9,6 +9,7 @@ part of 'validation_exception.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$FeeefValidationExceptionCopyWithImpl<$Res>
 /// Create a copy of FeeefValidationException
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? errors = null,}) {
-  return _then(_self.copyWith(
+  return _then(FeeefValidationException(
 errors: null == errors ? _self.errors : errors // ignore: cast_nullable_to_non_nullable
 as List<FeeefViolation>,
   ));
@@ -209,7 +210,7 @@ return $default(_that.errors);case _:
 @JsonSerializable()
 
 class _FeeefValidationException implements FeeefValidationException {
-   _FeeefValidationException({required List<FeeefViolation> errors}): _errors = errors;
+   _FeeefValidationException({required  List<FeeefViolation> errors}): _errors = errors;
   factory _FeeefValidationException.fromJson(Map<String, dynamic> json) => _$FeeefValidationExceptionFromJson(json);
 
  final  List<FeeefViolation> _errors;
@@ -335,7 +336,7 @@ class _$FeeefViolationCopyWithImpl<$Res>
 /// Create a copy of FeeefViolation
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? message = null,Object? rule = freezed,Object? field = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(FeeefViolation(
 message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,rule: freezed == rule ? _self.rule : rule // ignore: cast_nullable_to_non_nullable
 as String?,field: freezed == field ? _self.field : field // ignore: cast_nullable_to_non_nullable

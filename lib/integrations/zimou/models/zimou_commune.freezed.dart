@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'zimou_commune.dart';
@@ -9,6 +9,7 @@ part of 'zimou_commune.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$ZimouCommuneCopyWithImpl<$Res>
 /// Create a copy of ZimouCommune
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? wilayaId = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(ZimouCommune(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,wilayaId: null == wilayaId ? _self.wilayaId : wilayaId // ignore: cast_nullable_to_non_nullable
@@ -212,7 +213,7 @@ return $default(_that.id,_that.name,_that.wilayaId,_that.metadata);case _:
 @JsonSerializable()
 
 class _ZimouCommune implements ZimouCommune {
-  const _ZimouCommune({required this.id, required this.name, required this.wilayaId, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _ZimouCommune({required this.id, required this.name, required this.wilayaId,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _ZimouCommune.fromJson(Map<String, dynamic> json) => _$ZimouCommuneFromJson(json);
 
 @override final  int id;

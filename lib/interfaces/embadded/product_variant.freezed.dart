@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'product_variant.dart';
@@ -9,6 +9,7 @@ part of 'product_variant.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$ProductVariantCopyWithImpl<$Res>
 /// Create a copy of ProductVariant
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? view = null,Object? required = null,Object? options = null,}) {
-  return _then(_self.copyWith(
+  return _then(ProductVariant(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,view: null == view ? _self.view : view // ignore: cast_nullable_to_non_nullable
 as ProductVariantView,required: null == required ? _self.required : required // ignore: cast_nullable_to_non_nullable
@@ -212,7 +213,7 @@ return $default(_that.name,_that.view,_that.required,_that.options);case _:
 @JsonSerializable()
 
 class _ProductVariant implements ProductVariant {
-   _ProductVariant({this.name = "option", this.view = ProductVariantView.chips, this.required = false, List<ProductVariantOption> options = const []}): _options = options;
+   _ProductVariant({this.name = "option", this.view = ProductVariantView.chips, this.required = false,  List<ProductVariantOption> options = const []}): _options = options;
   factory _ProductVariant.fromJson(Map<String, dynamic> json) => _$ProductVariantFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -293,8 +294,7 @@ as List<ProductVariantOption>,
 /// @nodoc
 mixin _$ProductVariantOption {
 
- String get name; bool get hidden; VariantOptionType get type; dynamic get value; ProductVariant? get child;//
- String? get sku; num? get price; num? get discount; num? get stock; num? get sold; bool get mustSelectChild;
+ String get name; bool get hidden; VariantOptionType get type; dynamic get value; ProductVariant? get child; String? get sku; num? get price; num? get discount; num? get stock; num? get sold; bool get mustSelectChild;
 /// Create a copy of ProductVariantOption
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -345,7 +345,7 @@ class _$ProductVariantOptionCopyWithImpl<$Res>
 /// Create a copy of ProductVariantOption
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? hidden = null,Object? type = null,Object? value = freezed,Object? child = freezed,Object? sku = freezed,Object? price = freezed,Object? discount = freezed,Object? stock = freezed,Object? sold = freezed,Object? mustSelectChild = null,}) {
-  return _then(_self.copyWith(
+  return _then(ProductVariantOption(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,hidden: null == hidden ? _self.hidden : hidden // ignore: cast_nullable_to_non_nullable
 as bool,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
@@ -518,7 +518,6 @@ class _ProductVariantOption implements ProductVariantOption {
 @override@JsonKey() final  VariantOptionType type;
 @override final  dynamic value;
 @override final  ProductVariant? child;
-//
 @override final  String? sku;
 @override final  num? price;
 @override final  num? discount;

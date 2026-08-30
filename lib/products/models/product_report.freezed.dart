@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'product_report.dart';
@@ -9,6 +9,7 @@ part of 'product_report.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -71,7 +72,7 @@ class _$ProductReportCopyWithImpl<$Res>
 /// Create a copy of ProductReport
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? today = null,Object? yesterday = null,Object? week = null,Object? month = null,Object? totals = null,}) {
-  return _then(_self.copyWith(
+  return _then(ProductReport(
 today: null == today ? _self.today : today // ignore: cast_nullable_to_non_nullable
 as DayMetrics,yesterday: null == yesterday ? _self.yesterday : yesterday // ignore: cast_nullable_to_non_nullable
 as DayMetrics,week: null == week ? _self.week : week // ignore: cast_nullable_to_non_nullable
@@ -446,7 +447,7 @@ class _$DayMetricsCopyWithImpl<$Res>
 /// Create a copy of DayMetrics
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? sales = null,Object? revenue = null,Object? profit = null,Object? views = null,Object? states = null,}) {
-  return _then(_self.copyWith(
+  return _then(DayMetrics(
 sales: null == sales ? _self.sales : sales // ignore: cast_nullable_to_non_nullable
 as Map<String, int>,revenue: null == revenue ? _self.revenue : revenue // ignore: cast_nullable_to_non_nullable
 as Map<String, int>,profit: null == profit ? _self.profit : profit // ignore: cast_nullable_to_non_nullable
@@ -593,7 +594,7 @@ return $default(_that.sales,_that.revenue,_that.profit,_that.views,_that.states)
 @JsonSerializable()
 
 class _DayMetrics implements DayMetrics {
-  const _DayMetrics({required Map<String, int> sales, required Map<String, int> revenue, required Map<String, int> profit, required Map<String, int> views, required Map<String, Map<String, int>> states}): _sales = sales,_revenue = revenue,_profit = profit,_views = views,_states = states;
+  const _DayMetrics({required  Map<String, int> sales, required  Map<String, int> revenue, required  Map<String, int> profit, required  Map<String, int> views, required  Map<String, Map<String, int>> states}): _sales = sales,_revenue = revenue,_profit = profit,_views = views,_states = states;
   factory _DayMetrics.fromJson(Map<String, dynamic> json) => _$DayMetricsFromJson(json);
 
 /// Sales data for each hour (00:00 to 23:00).
@@ -766,7 +767,7 @@ class _$WeekMetricsCopyWithImpl<$Res>
 /// Create a copy of WeekMetrics
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? sales = null,Object? revenue = null,Object? profit = null,Object? views = null,Object? states = null,}) {
-  return _then(_self.copyWith(
+  return _then(WeekMetrics(
 sales: null == sales ? _self.sales : sales // ignore: cast_nullable_to_non_nullable
 as Map<String, int>,revenue: null == revenue ? _self.revenue : revenue // ignore: cast_nullable_to_non_nullable
 as Map<String, int>,profit: null == profit ? _self.profit : profit // ignore: cast_nullable_to_non_nullable
@@ -913,7 +914,7 @@ return $default(_that.sales,_that.revenue,_that.profit,_that.views,_that.states)
 @JsonSerializable()
 
 class _WeekMetrics implements WeekMetrics {
-  const _WeekMetrics({required Map<String, int> sales, required Map<String, int> revenue, required Map<String, int> profit, required Map<String, int> views, required Map<String, Map<String, int>> states}): _sales = sales,_revenue = revenue,_profit = profit,_views = views,_states = states;
+  const _WeekMetrics({required  Map<String, int> sales, required  Map<String, int> revenue, required  Map<String, int> profit, required  Map<String, int> views, required  Map<String, Map<String, int>> states}): _sales = sales,_revenue = revenue,_profit = profit,_views = views,_states = states;
   factory _WeekMetrics.fromJson(Map<String, dynamic> json) => _$WeekMetricsFromJson(json);
 
 /// Sales data for each day of the week (YYYY-MM-DD format).
@@ -1086,7 +1087,7 @@ class _$MonthMetricsCopyWithImpl<$Res>
 /// Create a copy of MonthMetrics
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? sales = null,Object? revenue = null,Object? profit = null,Object? views = null,Object? states = null,}) {
-  return _then(_self.copyWith(
+  return _then(MonthMetrics(
 sales: null == sales ? _self.sales : sales // ignore: cast_nullable_to_non_nullable
 as Map<String, int>,revenue: null == revenue ? _self.revenue : revenue // ignore: cast_nullable_to_non_nullable
 as Map<String, int>,profit: null == profit ? _self.profit : profit // ignore: cast_nullable_to_non_nullable
@@ -1233,7 +1234,7 @@ return $default(_that.sales,_that.revenue,_that.profit,_that.views,_that.states)
 @JsonSerializable()
 
 class _MonthMetrics implements MonthMetrics {
-  const _MonthMetrics({required Map<String, int> sales, required Map<String, int> revenue, required Map<String, int> profit, required Map<String, int> views, required Map<String, Map<String, int>> states}): _sales = sales,_revenue = revenue,_profit = profit,_views = views,_states = states;
+  const _MonthMetrics({required  Map<String, int> sales, required  Map<String, int> revenue, required  Map<String, int> profit, required  Map<String, int> views, required  Map<String, Map<String, int>> states}): _sales = sales,_revenue = revenue,_profit = profit,_views = views,_states = states;
   factory _MonthMetrics.fromJson(Map<String, dynamic> json) => _$MonthMetricsFromJson(json);
 
 /// Sales data for each day of the month (YYYY-MM-DD format).
@@ -1406,7 +1407,7 @@ class _$TotalsCopyWithImpl<$Res>
 /// Create a copy of Totals
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? views = null,Object? sales = null,Object? revenue = null,Object? profit = null,Object? states = null,}) {
-  return _then(_self.copyWith(
+  return _then(Totals(
 views: null == views ? _self.views : views // ignore: cast_nullable_to_non_nullable
 as TimeFrameTotals,sales: null == sales ? _self.sales : sales // ignore: cast_nullable_to_non_nullable
 as TimeFrameTotals,revenue: null == revenue ? _self.revenue : revenue // ignore: cast_nullable_to_non_nullable
@@ -1780,7 +1781,7 @@ class _$TimeFrameTotalsCopyWithImpl<$Res>
 /// Create a copy of TimeFrameTotals
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? today = null,Object? yesterday = null,Object? week = null,Object? month = null,}) {
-  return _then(_self.copyWith(
+  return _then(TimeFrameTotals(
 today: null == today ? _self.today : today // ignore: cast_nullable_to_non_nullable
 as int,yesterday: null == yesterday ? _self.yesterday : yesterday // ignore: cast_nullable_to_non_nullable
 as int,week: null == week ? _self.week : week // ignore: cast_nullable_to_non_nullable
@@ -2060,7 +2061,7 @@ class _$StateFrameTotalsCopyWithImpl<$Res>
 /// Create a copy of StateFrameTotals
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? today = null,Object? yesterday = null,Object? week = null,Object? month = null,}) {
-  return _then(_self.copyWith(
+  return _then(StateFrameTotals(
 today: null == today ? _self.today : today // ignore: cast_nullable_to_non_nullable
 as Map<String, int>,yesterday: null == yesterday ? _self.yesterday : yesterday // ignore: cast_nullable_to_non_nullable
 as Map<String, int>,week: null == week ? _self.week : week // ignore: cast_nullable_to_non_nullable
@@ -2206,7 +2207,7 @@ return $default(_that.today,_that.yesterday,_that.week,_that.month);case _:
 @JsonSerializable()
 
 class _StateFrameTotals implements StateFrameTotals {
-  const _StateFrameTotals({required Map<String, int> today, required Map<String, int> yesterday, required Map<String, int> week, required Map<String, int> month}): _today = today,_yesterday = yesterday,_week = week,_month = month;
+  const _StateFrameTotals({required  Map<String, int> today, required  Map<String, int> yesterday, required  Map<String, int> week, required  Map<String, int> month}): _today = today,_yesterday = yesterday,_week = week,_month = month;
   factory _StateFrameTotals.fromJson(Map<String, dynamic> json) => _$StateFrameTotalsFromJson(json);
 
 /// State distribution for today.

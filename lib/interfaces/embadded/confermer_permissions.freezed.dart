@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'confermer_permissions.dart';
@@ -9,6 +9,7 @@ part of 'confermer_permissions.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -69,7 +70,7 @@ class _$ConfermerPermissionsCopyWithImpl<$Res>
 /// Create a copy of ConfermerPermissions
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? canSeeAllOrders = null,Object? canAssignOrder = null,Object? canReAssignOrder = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(ConfermerPermissions(
 canSeeAllOrders: null == canSeeAllOrders ? _self.canSeeAllOrders : canSeeAllOrders // ignore: cast_nullable_to_non_nullable
 as bool,canAssignOrder: null == canAssignOrder ? _self.canAssignOrder : canAssignOrder // ignore: cast_nullable_to_non_nullable
 as bool,canReAssignOrder: null == canReAssignOrder ? _self.canReAssignOrder : canReAssignOrder // ignore: cast_nullable_to_non_nullable
@@ -215,7 +216,7 @@ return $default(_that.canSeeAllOrders,_that.canAssignOrder,_that.canReAssignOrde
 @JsonSerializable()
 
 class _ConfermerPermissions implements ConfermerPermissions {
-  const _ConfermerPermissions({this.canSeeAllOrders = false, this.canAssignOrder = false, this.canReAssignOrder = false, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _ConfermerPermissions({this.canSeeAllOrders = false, this.canAssignOrder = false, this.canReAssignOrder = false,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _ConfermerPermissions.fromJson(Map<String, dynamic> json) => _$ConfermerPermissionsFromJson(json);
 
 /// See all orders (unassigned + others'), not just unassigned + own.

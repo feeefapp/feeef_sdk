@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'file.dart';
@@ -9,6 +9,7 @@ part of 'file.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -73,7 +74,7 @@ class _$FileObjectCopyWithImpl<$Res>
 /// Create a copy of FileObject
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? path = null,Object? type = null,Object? size = freezed,Object? lastModified = freezed,Object? metadata = freezed,Object? isBeingDeleted = null,}) {
-  return _then(_self.copyWith(
+  return _then(FileObject(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
@@ -392,7 +393,7 @@ class _$FileMetadataCopyWithImpl<$Res>
 /// Create a copy of FileMetadata
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? exists = null,Object? path = null,Object? contentType = null,Object? size = null,Object? etag = freezed,Object? lastModified = null,Object? extra = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(FileMetadata(
 exists: null == exists ? _self.exists : exists // ignore: cast_nullable_to_non_nullable
 as bool,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
 as String,contentType: null == contentType ? _self.contentType : contentType // ignore: cast_nullable_to_non_nullable
@@ -541,7 +542,7 @@ return $default(_that.exists,_that.path,_that.contentType,_that.size,_that.etag,
 @JsonSerializable()
 
 class _FileMetadata implements FileMetadata {
-  const _FileMetadata({required this.exists, required this.path, required this.contentType, required this.size, this.etag, required this.lastModified, Map<String, dynamic>? extra}): _extra = extra;
+  const _FileMetadata({required this.exists, required this.path, required this.contentType, required this.size, this.etag, required this.lastModified,  Map<String, dynamic>? extra}): _extra = extra;
   factory _FileMetadata.fromJson(Map<String, dynamic> json) => _$FileMetadataFromJson(json);
 
 /// Whether the file exists
@@ -689,7 +690,7 @@ class _$FileListResponseCopyWithImpl<$Res>
 /// Create a copy of FileListResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? objects = null,Object? paginationToken = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(FileListResponse(
 objects: null == objects ? _self.objects : objects // ignore: cast_nullable_to_non_nullable
 as List<FileObject>,paginationToken: freezed == paginationToken ? _self.paginationToken : paginationToken // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -833,7 +834,7 @@ return $default(_that.objects,_that.paginationToken);case _:
 @JsonSerializable()
 
 class _FileListResponse implements FileListResponse {
-  const _FileListResponse({required List<FileObject> objects, this.paginationToken}): _objects = objects;
+  const _FileListResponse({required  List<FileObject> objects, this.paginationToken}): _objects = objects;
   factory _FileListResponse.fromJson(Map<String, dynamic> json) => _$FileListResponseFromJson(json);
 
  final  List<FileObject> _objects;

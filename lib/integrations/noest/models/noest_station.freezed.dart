@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'noest_station.dart';
@@ -9,6 +9,7 @@ part of 'noest_station.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -72,7 +73,7 @@ class _$NoestStationCopyWithImpl<$Res>
 /// Create a copy of NoestStation
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? name = null,Object? address = null,Object? map = freezed,Object? phones = null,Object? email = null,}) {
-  return _then(_self.copyWith(
+  return _then(NoestStation(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
@@ -220,7 +221,7 @@ return $default(_that.code,_that.name,_that.address,_that.map,_that.phones,_that
 @JsonSerializable()
 
 class _NoestStation implements NoestStation {
-   _NoestStation({required this.code, required this.name, required this.address, this.map, required List<String> phones, required this.email}): _phones = phones;
+   _NoestStation({required this.code, required this.name, required this.address, this.map, required  List<String> phones, required this.email}): _phones = phones;
   factory _NoestStation.fromJson(Map<String, dynamic> json) => _$NoestStationFromJson(json);
 
 /// Station code (e.g. "1A")

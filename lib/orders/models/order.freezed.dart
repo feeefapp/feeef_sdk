@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'order.dart';
@@ -9,6 +9,7 @@ part of 'order.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -18,9 +19,7 @@ mixin _$Order {
  String get id; DateTime get createdAt; DateTime get updatedAt;/// Optional schedule date. When set, the order appears on this date in lists.
  DateTime? get scheduledAt;/// Server-computed COALESCE(scheduledAt, createdAt). Read-only.
  DateTime? get effectiveAt; Map<String, dynamic> get metadata;/// Server-only fields (e.g. security treatment); not for client editing.
- Map<String, dynamic>? get claims; List<String> get references; String? get customerName; String? get customerPhone; String? get customerEmail; String? get customerNote; String? get customerIp;// internal
- String? get internalNote;// end internal
- String? get shippingAddress; String? get shippingCity; String? get shippingState; String? get shippingCountry; String? get shippingMethodId; String? get shippingNote; String? get trackingCode; String? get paymentMethodId;@JsonKey(fromJson: shippingTypeFromJson, toJson: shippingTypeToJson) ShippingType get shippingType; List<String> get tags; List<OrderItem> get items; num get subtotal; num? get shippingPrice; num get total; num get calculatedTotal; num? get manualTotal; num get discount; String? get coupon; String get storeId; String? get source; String? get confirmerId; OrderStatus get status; PaymentStatus get paymentStatus; DeliveryStatus get deliveryStatus; String? get customStatus;/// Why the order was lost, recorded when it moves to a cancelling status.
+ Map<String, dynamic>? get claims; List<String> get references; String? get customerName; String? get customerPhone; String? get customerEmail; String? get customerNote; String? get customerIp; String? get internalNote; String? get shippingAddress; String? get shippingCity; String? get shippingState; String? get shippingCountry; String? get shippingMethodId; String? get shippingNote; String? get trackingCode; String? get paymentMethodId;@JsonKey(fromJson: shippingTypeFromJson, toJson: shippingTypeToJson) ShippingType get shippingType; List<String> get tags; List<OrderItem> get items; num get subtotal; num? get shippingPrice; num get total; num get calculatedTotal; num? get manualTotal; num get discount; String? get coupon; String get storeId; String? get source; String? get confirmerId; OrderStatus get status; PaymentStatus get paymentStatus; DeliveryStatus get deliveryStatus; String? get customStatus;/// Why the order was lost, recorded when it moves to a cancelling status.
  String? get cancelReason; Map<String, dynamic>? get customFields;@JsonKey(fromJson: _storeFromJson, toJson: _storeToJson) Store? get store;@JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson) ShippingMethod? get shippingMethod;
 /// Create a copy of Order
 /// with the given fields replaced by the non-null parameter values.
@@ -72,7 +71,7 @@ class _$OrderCopyWithImpl<$Res>
 /// Create a copy of Order
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? scheduledAt = freezed,Object? effectiveAt = freezed,Object? metadata = null,Object? claims = freezed,Object? references = null,Object? customerName = freezed,Object? customerPhone = freezed,Object? customerEmail = freezed,Object? customerNote = freezed,Object? customerIp = freezed,Object? internalNote = freezed,Object? shippingAddress = freezed,Object? shippingCity = freezed,Object? shippingState = freezed,Object? shippingCountry = freezed,Object? shippingMethodId = freezed,Object? shippingNote = freezed,Object? trackingCode = freezed,Object? paymentMethodId = freezed,Object? shippingType = null,Object? tags = null,Object? items = null,Object? subtotal = null,Object? shippingPrice = freezed,Object? total = null,Object? calculatedTotal = null,Object? manualTotal = freezed,Object? discount = null,Object? coupon = freezed,Object? storeId = null,Object? source = freezed,Object? confirmerId = freezed,Object? status = null,Object? paymentStatus = null,Object? deliveryStatus = null,Object? customStatus = freezed,Object? cancelReason = freezed,Object? customFields = freezed,Object? store = freezed,Object? shippingMethod = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Order(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -281,7 +280,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.scheduledAt,_that
 @JsonSerializable()
 
 class _Order extends Order {
-   _Order({required this.id, required this.createdAt, required this.updatedAt, this.scheduledAt, this.effectiveAt, Map<String, dynamic> metadata = const {}, Map<String, dynamic>? claims, List<String> references = const [], this.customerName, this.customerPhone, this.customerEmail, this.customerNote, this.customerIp, this.internalNote, this.shippingAddress, this.shippingCity, this.shippingState, this.shippingCountry, this.shippingMethodId, this.shippingNote, this.trackingCode, this.paymentMethodId, @JsonKey(fromJson: shippingTypeFromJson, toJson: shippingTypeToJson) this.shippingType = ShippingType.home, List<String> tags = const [], required List<OrderItem> items, required this.subtotal, this.shippingPrice, required this.total, required this.calculatedTotal, this.manualTotal, this.discount = 0, this.coupon, required this.storeId, this.source, this.confirmerId, required this.status, this.paymentStatus = PaymentStatus.unpaid, this.deliveryStatus = DeliveryStatus.pending, this.customStatus, this.cancelReason, Map<String, dynamic>? customFields = const {}, @JsonKey(fromJson: _storeFromJson, toJson: _storeToJson) this.store, @JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson) this.shippingMethod}): _metadata = metadata,_claims = claims,_references = references,_tags = tags,_items = items,_customFields = customFields,super._();
+   _Order({required this.id, required this.createdAt, required this.updatedAt, this.scheduledAt, this.effectiveAt,  Map<String, dynamic> metadata = const {},  Map<String, dynamic>? claims,  List<String> references = const [], this.customerName, this.customerPhone, this.customerEmail, this.customerNote, this.customerIp, this.internalNote, this.shippingAddress, this.shippingCity, this.shippingState, this.shippingCountry, this.shippingMethodId, this.shippingNote, this.trackingCode, this.paymentMethodId, @JsonKey(fromJson: shippingTypeFromJson, toJson: shippingTypeToJson) this.shippingType = ShippingType.home,  List<String> tags = const [], required  List<OrderItem> items, required this.subtotal, this.shippingPrice, required this.total, required this.calculatedTotal, this.manualTotal, this.discount = 0, this.coupon, required this.storeId, this.source, this.confirmerId, required this.status, this.paymentStatus = PaymentStatus.unpaid, this.deliveryStatus = DeliveryStatus.pending, this.customStatus, this.cancelReason,  Map<String, dynamic>? customFields = const {}, @JsonKey(fromJson: _storeFromJson, toJson: _storeToJson) this.store, @JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson) this.shippingMethod}): _metadata = metadata,_claims = claims,_references = references,_tags = tags,_items = items,_customFields = customFields,super._();
   factory _Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
 
 @override final  String id;
@@ -321,9 +320,7 @@ class _Order extends Order {
 @override final  String? customerEmail;
 @override final  String? customerNote;
 @override final  String? customerIp;
-// internal
 @override final  String? internalNote;
-// end internal
 @override final  String? shippingAddress;
 @override final  String? shippingCity;
 @override final  String? shippingState;
@@ -505,10 +502,7 @@ $ShippingMethodCopyWith<$Res>? get shippingMethod {
 /// @nodoc
 mixin _$OrderCreate {
 
- String? get id; String? get customerName; String? get shippingNote; String? get customerPhone; String? get customerEmail; String? get customerNote; String? get customerIp; String? get shippingAddress; String? get shippingCity; String? get shippingState; String? get shippingCountry;@JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) ShippingType? get shippingType; String? get shippingMethodId; String? get trackingCode; String? get paymentMethodId; List<OrderItem> get items;// internal
- String? get internalNote;// tags
- List<String>? get tags; num? get subtotal; num? get shippingPrice; num? get total; num? get manualTotal; num? get discount; String? get coupon; String get storeId; String? get source; OrderStatus? get status; PaymentStatus? get paymentStatus; DeliveryStatus? get deliveryStatus; Map<String, dynamic>? get customFields;// metadata
- Map<String, dynamic>? get metadata; List<String>? get references;/// Optional schedule date (ISO). Null via [setToNull] clears.
+ String? get id; String? get customerName; String? get shippingNote; String? get customerPhone; String? get customerEmail; String? get customerNote; String? get customerIp; String? get shippingAddress; String? get shippingCity; String? get shippingState; String? get shippingCountry;@JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) ShippingType? get shippingType; String? get shippingMethodId; String? get trackingCode; String? get paymentMethodId; List<OrderItem> get items; String? get internalNote; List<String>? get tags; num? get subtotal; num? get shippingPrice; num? get total; num? get manualTotal; num? get discount; String? get coupon; String get storeId; String? get source; OrderStatus? get status; PaymentStatus? get paymentStatus; DeliveryStatus? get deliveryStatus; Map<String, dynamic>? get customFields; Map<String, dynamic>? get metadata; List<String>? get references;/// Optional schedule date (ISO). Null via [setToNull] clears.
  DateTime? get scheduledAt;
 /// Create a copy of OrderCreate
 /// with the given fields replaced by the non-null parameter values.
@@ -560,7 +554,7 @@ class _$OrderCreateCopyWithImpl<$Res>
 /// Create a copy of OrderCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? customerName = freezed,Object? shippingNote = freezed,Object? customerPhone = freezed,Object? customerEmail = freezed,Object? customerNote = freezed,Object? customerIp = freezed,Object? shippingAddress = freezed,Object? shippingCity = freezed,Object? shippingState = freezed,Object? shippingCountry = freezed,Object? shippingType = freezed,Object? shippingMethodId = freezed,Object? trackingCode = freezed,Object? paymentMethodId = freezed,Object? items = null,Object? internalNote = freezed,Object? tags = freezed,Object? subtotal = freezed,Object? shippingPrice = freezed,Object? total = freezed,Object? manualTotal = freezed,Object? discount = freezed,Object? coupon = freezed,Object? storeId = null,Object? source = freezed,Object? status = freezed,Object? paymentStatus = freezed,Object? deliveryStatus = freezed,Object? customFields = freezed,Object? metadata = freezed,Object? references = freezed,Object? scheduledAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(OrderCreate(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,customerName: freezed == customerName ? _self.customerName : customerName // ignore: cast_nullable_to_non_nullable
 as String?,shippingNote: freezed == shippingNote ? _self.shippingNote : shippingNote // ignore: cast_nullable_to_non_nullable
@@ -735,7 +729,7 @@ return $default(_that.id,_that.customerName,_that.shippingNote,_that.customerPho
 @JsonSerializable()
 
 class _OrderCreate implements OrderCreate {
-  const _OrderCreate({this.id, this.customerName, this.shippingNote, this.customerPhone, this.customerEmail, this.customerNote, this.customerIp, this.shippingAddress, this.shippingCity, this.shippingState, this.shippingCountry, @JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) this.shippingType, this.shippingMethodId, this.trackingCode, this.paymentMethodId, required List<OrderItem> items, this.internalNote, List<String>? tags, this.subtotal, this.shippingPrice, this.total, this.manualTotal, this.discount, this.coupon, required this.storeId, this.source, this.status, this.paymentStatus, this.deliveryStatus, Map<String, dynamic>? customFields, Map<String, dynamic>? metadata, List<String>? references, this.scheduledAt}): _items = items,_tags = tags,_customFields = customFields,_metadata = metadata,_references = references;
+  const _OrderCreate({this.id, this.customerName, this.shippingNote, this.customerPhone, this.customerEmail, this.customerNote, this.customerIp, this.shippingAddress, this.shippingCity, this.shippingState, this.shippingCountry, @JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) this.shippingType, this.shippingMethodId, this.trackingCode, this.paymentMethodId, required  List<OrderItem> items, this.internalNote,  List<String>? tags, this.subtotal, this.shippingPrice, this.total, this.manualTotal, this.discount, this.coupon, required this.storeId, this.source, this.status, this.paymentStatus, this.deliveryStatus,  Map<String, dynamic>? customFields,  Map<String, dynamic>? metadata,  List<String>? references, this.scheduledAt}): _items = items,_tags = tags,_customFields = customFields,_metadata = metadata,_references = references;
   factory _OrderCreate.fromJson(Map<String, dynamic> json) => _$OrderCreateFromJson(json);
 
 @override final  String? id;
@@ -760,11 +754,8 @@ class _OrderCreate implements OrderCreate {
   return EqualUnmodifiableListView(_items);
 }
 
-// internal
 @override final  String? internalNote;
-// tags
  final  List<String>? _tags;
-// tags
 @override List<String>? get tags {
   final value = _tags;
   if (value == null) return null;
@@ -793,9 +784,7 @@ class _OrderCreate implements OrderCreate {
   return EqualUnmodifiableMapView(value);
 }
 
-// metadata
  final  Map<String, dynamic>? _metadata;
-// metadata
 @override Map<String, dynamic>? get metadata {
   final value = _metadata;
   if (value == null) return null;
@@ -912,15 +901,11 @@ as DateTime?,
 /// @nodoc
 mixin _$OrderUpdate {
 
- String? get customerName; String? get shippingNote; String? get customerPhone; String? get customerEmail; String? get customerNote; String? get customerIp; String? get shippingAddress; String? get shippingCity; String? get shippingState; String? get shippingCountry;@JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) ShippingType? get shippingType; String? get shippingMethodId; String? get trackingCode; String? get paymentMethodId; List<OrderItem>? get items; num? get subtotal; num? get shippingPrice; num? get total; num? get manualTotal; num? get discount; String? get coupon; String? get source;// internal
- String? get internalNote;// tags
- List<String>? get tags; String get storeId; OrderStatus? get status; PaymentStatus? get paymentStatus; DeliveryStatus? get deliveryStatus; String? get customStatus;/// Why the order was lost. Required by the server when the resulting status
+ String? get customerName; String? get shippingNote; String? get customerPhone; String? get customerEmail; String? get customerNote; String? get customerIp; String? get shippingAddress; String? get shippingCity; String? get shippingState; String? get shippingCountry;@JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) ShippingType? get shippingType; String? get shippingMethodId; String? get trackingCode; String? get paymentMethodId; List<OrderItem>? get items; num? get subtotal; num? get shippingPrice; num? get total; num? get manualTotal; num? get discount; String? get coupon; String? get source; String? get internalNote; List<String>? get tags; String get storeId; OrderStatus? get status; PaymentStatus? get paymentStatus; DeliveryStatus? get deliveryStatus; String? get customStatus;/// Why the order was lost. Required by the server when the resulting status
 /// is [OrderStatus.cancelled]; a 422 with field `cancelReason` is returned
 /// when it is missing.
- String? get cancelReason; Map<String, dynamic>? get customFields;// metadata
- Map<String, dynamic>? get metadata; List<String>? get references;/// Optional schedule date. Use [setToNull] with `'scheduledAt'` to clear.
- DateTime? get scheduledAt;// ignore: invalid_annotation_target
-@JsonKey(includeFromJson: false) List<String> get setToNull;
+ String? get cancelReason; Map<String, dynamic>? get customFields; Map<String, dynamic>? get metadata; List<String>? get references;/// Optional schedule date. Use [setToNull] with `'scheduledAt'` to clear.
+ DateTime? get scheduledAt;@JsonKey(includeFromJson: false) List<String> get setToNull;
 /// Create a copy of OrderUpdate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -971,7 +956,7 @@ class _$OrderUpdateCopyWithImpl<$Res>
 /// Create a copy of OrderUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? customerName = freezed,Object? shippingNote = freezed,Object? customerPhone = freezed,Object? customerEmail = freezed,Object? customerNote = freezed,Object? customerIp = freezed,Object? shippingAddress = freezed,Object? shippingCity = freezed,Object? shippingState = freezed,Object? shippingCountry = freezed,Object? shippingType = freezed,Object? shippingMethodId = freezed,Object? trackingCode = freezed,Object? paymentMethodId = freezed,Object? items = freezed,Object? subtotal = freezed,Object? shippingPrice = freezed,Object? total = freezed,Object? manualTotal = freezed,Object? discount = freezed,Object? coupon = freezed,Object? source = freezed,Object? internalNote = freezed,Object? tags = freezed,Object? storeId = null,Object? status = freezed,Object? paymentStatus = freezed,Object? deliveryStatus = freezed,Object? customStatus = freezed,Object? cancelReason = freezed,Object? customFields = freezed,Object? metadata = freezed,Object? references = freezed,Object? scheduledAt = freezed,Object? setToNull = null,}) {
-  return _then(_self.copyWith(
+  return _then(OrderUpdate(
 customerName: freezed == customerName ? _self.customerName : customerName // ignore: cast_nullable_to_non_nullable
 as String?,shippingNote: freezed == shippingNote ? _self.shippingNote : shippingNote // ignore: cast_nullable_to_non_nullable
 as String?,customerPhone: freezed == customerPhone ? _self.customerPhone : customerPhone // ignore: cast_nullable_to_non_nullable
@@ -1148,7 +1133,7 @@ return $default(_that.customerName,_that.shippingNote,_that.customerPhone,_that.
 @JsonSerializable()
 
 class _OrderUpdate implements OrderUpdate {
-  const _OrderUpdate({this.customerName, this.shippingNote, this.customerPhone, this.customerEmail, this.customerNote, this.customerIp, this.shippingAddress, this.shippingCity, this.shippingState, this.shippingCountry, @JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) this.shippingType, this.shippingMethodId, this.trackingCode, this.paymentMethodId, List<OrderItem>? items, this.subtotal, this.shippingPrice, this.total, this.manualTotal, this.discount, this.coupon, this.source, this.internalNote, List<String>? tags, required this.storeId, this.status, this.paymentStatus, this.deliveryStatus, this.customStatus, this.cancelReason, Map<String, dynamic>? customFields, Map<String, dynamic>? metadata, List<String>? references, this.scheduledAt, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _items = items,_tags = tags,_customFields = customFields,_metadata = metadata,_references = references,_setToNull = setToNull;
+  const _OrderUpdate({this.customerName, this.shippingNote, this.customerPhone, this.customerEmail, this.customerNote, this.customerIp, this.shippingAddress, this.shippingCity, this.shippingState, this.shippingCountry, @JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) this.shippingType, this.shippingMethodId, this.trackingCode, this.paymentMethodId,  List<OrderItem>? items, this.subtotal, this.shippingPrice, this.total, this.manualTotal, this.discount, this.coupon, this.source, this.internalNote,  List<String>? tags, required this.storeId, this.status, this.paymentStatus, this.deliveryStatus, this.customStatus, this.cancelReason,  Map<String, dynamic>? customFields,  Map<String, dynamic>? metadata,  List<String>? references, this.scheduledAt, @JsonKey(includeFromJson: false)  List<String> setToNull = const []}): _items = items,_tags = tags,_customFields = customFields,_metadata = metadata,_references = references,_setToNull = setToNull;
   factory _OrderUpdate.fromJson(Map<String, dynamic> json) => _$OrderUpdateFromJson(json);
 
 @override final  String? customerName;
@@ -1181,11 +1166,8 @@ class _OrderUpdate implements OrderUpdate {
 @override final  num? discount;
 @override final  String? coupon;
 @override final  String? source;
-// internal
 @override final  String? internalNote;
-// tags
  final  List<String>? _tags;
-// tags
 @override List<String>? get tags {
   final value = _tags;
   if (value == null) return null;
@@ -1212,9 +1194,7 @@ class _OrderUpdate implements OrderUpdate {
   return EqualUnmodifiableMapView(value);
 }
 
-// metadata
  final  Map<String, dynamic>? _metadata;
-// metadata
 @override Map<String, dynamic>? get metadata {
   final value = _metadata;
   if (value == null) return null;
@@ -1234,9 +1214,7 @@ class _OrderUpdate implements OrderUpdate {
 
 /// Optional schedule date. Use [setToNull] with `'scheduledAt'` to clear.
 @override final  DateTime? scheduledAt;
-// ignore: invalid_annotation_target
  final  List<String> _setToNull;
-// ignore: invalid_annotation_target
 @override@JsonKey(includeFromJson: false) List<String> get setToNull {
   if (_setToNull is EqualUnmodifiableListView) return _setToNull;
   // ignore: implicit_dynamic_type
@@ -1393,7 +1371,7 @@ class _$OrderHistoryEventCopyWithImpl<$Res>
 /// Create a copy of OrderHistoryEvent
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? createdAt = null,Object? status = null,Object? deliveryStatus = null,Object? paymentStatus = null,Object? message = null,Object? code = null,Object? userId = null,}) {
-  return _then(_self.copyWith(
+  return _then(OrderHistoryEvent(
 createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as OrderStatus,deliveryStatus: null == deliveryStatus ? _self.deliveryStatus : deliveryStatus // ignore: cast_nullable_to_non_nullable

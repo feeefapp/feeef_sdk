@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'create_package_request.dart';
@@ -9,14 +9,14 @@ part of 'create_package_request.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$ZimouPackageCreateRequest {
 
- String get type;// 'ecommerce', 'dropship', or 'warehouse'
- int? get warehouseId; String get name; String get clientLastName; String get clientFirstName; String get clientPhone; String? get clientPhone2; String get address; String get orderId; String get price; bool get freeDelivery; int? get quantityItems; String get deliveryType; String get wilaya; String get commune; int? get officeId; bool get canBeOpened; String? get observation; String? get returnedProduct; double? get weight;
+ String get type; int? get warehouseId; String get name; String get clientLastName; String get clientFirstName; String get clientPhone; String? get clientPhone2; String get address; String get orderId; String get price; bool get freeDelivery; int? get quantityItems; String get deliveryType; String get wilaya; String get commune; int? get officeId; bool get canBeOpened; String? get observation; String? get returnedProduct; double? get weight;
 /// Create a copy of ZimouPackageCreateRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -67,7 +67,7 @@ class _$ZimouPackageCreateRequestCopyWithImpl<$Res>
 /// Create a copy of ZimouPackageCreateRequest
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? warehouseId = freezed,Object? name = null,Object? clientLastName = null,Object? clientFirstName = null,Object? clientPhone = null,Object? clientPhone2 = freezed,Object? address = null,Object? orderId = null,Object? price = null,Object? freeDelivery = null,Object? quantityItems = freezed,Object? deliveryType = null,Object? wilaya = null,Object? commune = null,Object? officeId = freezed,Object? canBeOpened = null,Object? observation = freezed,Object? returnedProduct = freezed,Object? weight = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ZimouPackageCreateRequest(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as String,warehouseId: freezed == warehouseId ? _self.warehouseId : warehouseId // ignore: cast_nullable_to_non_nullable
 as int?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -233,7 +233,6 @@ class _ZimouPackageCreateRequest implements ZimouPackageCreateRequest {
   factory _ZimouPackageCreateRequest.fromJson(Map<String, dynamic> json) => _$ZimouPackageCreateRequestFromJson(json);
 
 @override final  String type;
-// 'ecommerce', 'dropship', or 'warehouse'
 @override final  int? warehouseId;
 @override final  String name;
 @override final  String clientLastName;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'parcel_send_api_models.dart';
@@ -9,6 +9,7 @@ part of 'parcel_send_api_models.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$ParcelSendCustomerCopyWithImpl<$Res>
 /// Create a copy of ParcelSendCustomer
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? customerId = freezed,Object? name = null,Object? phone = null,}) {
-  return _then(_self.copyWith(
+  return _then(ParcelSendCustomer(
 customerId: freezed == customerId ? _self.customerId : customerId // ignore: cast_nullable_to_non_nullable
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
@@ -353,7 +354,7 @@ class _$ParcelSendPhoneCopyWithImpl<$Res>
 /// Create a copy of ParcelSendPhone
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? number1 = null,Object? number2 = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ParcelSendPhone(
 number1: null == number1 ? _self.number1 : number1 // ignore: cast_nullable_to_non_nullable
 as String,number2: freezed == number2 ? _self.number2 : number2 // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -621,7 +622,7 @@ class _$ParcelSendDeliveryAddressCopyWithImpl<$Res>
 /// Create a copy of ParcelSendDeliveryAddress
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? street = null,Object? city = null,Object? district = null,Object? postalCode = null,Object? country = null,Object? cityTerritoryId = freezed,Object? districtTerritoryId = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ParcelSendDeliveryAddress(
 street: null == street ? _self.street : street // ignore: cast_nullable_to_non_nullable
 as String,city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
 as String,district: null == district ? _self.district : district // ignore: cast_nullable_to_non_nullable
@@ -904,7 +905,7 @@ class _$ParcelSendOrderedProductCopyWithImpl<$Res>
 /// Create a copy of ParcelSendOrderedProduct
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? productName = null,Object? quantity = null,Object? unitPrice = null,Object? stockType = null,Object? productSku = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ParcelSendOrderedProduct(
 productName: null == productName ? _self.productName : productName // ignore: cast_nullable_to_non_nullable
 as String,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as int,unitPrice: null == unitPrice ? _self.unitPrice : unitPrice // ignore: cast_nullable_to_non_nullable
@@ -1179,7 +1180,7 @@ class _$ParcelSendRequestCopyWithImpl<$Res>
 /// Create a copy of ParcelSendRequest
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? externalId = freezed,Object? customer = null,Object? deliveryAddress = null,Object? orderedProducts = null,Object? amount = null,Object? deliveryType = null,Object? hubId = freezed,Object? description = freezed,Object? stateCode = freezed,Object? cityCode = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ParcelSendRequest(
 externalId: freezed == externalId ? _self.externalId : externalId // ignore: cast_nullable_to_non_nullable
 as String?,customer: null == customer ? _self.customer : customer // ignore: cast_nullable_to_non_nullable
 as ParcelSendCustomer,deliveryAddress: null == deliveryAddress ? _self.deliveryAddress : deliveryAddress // ignore: cast_nullable_to_non_nullable
@@ -1349,7 +1350,7 @@ return $default(_that.externalId,_that.customer,_that.deliveryAddress,_that.orde
 @JsonSerializable()
 
 class _ParcelSendRequest extends ParcelSendRequest {
-  const _ParcelSendRequest({this.externalId, required this.customer, required this.deliveryAddress, required List<ParcelSendOrderedProduct> orderedProducts, required this.amount, required this.deliveryType, this.hubId, this.description, this.stateCode, this.cityCode}): _orderedProducts = orderedProducts,super._();
+  const _ParcelSendRequest({this.externalId, required this.customer, required this.deliveryAddress, required  List<ParcelSendOrderedProduct> orderedProducts, required this.amount, required this.deliveryType, this.hubId, this.description, this.stateCode, this.cityCode}): _orderedProducts = orderedProducts,super._();
   factory _ParcelSendRequest.fromJson(Map<String, dynamic> json) => _$ParcelSendRequestFromJson(json);
 
 @override final  String? externalId;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'token.dart';
@@ -9,6 +9,7 @@ part of 'token.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$AuthTokenCopyWithImpl<$Res>
 /// Create a copy of AuthToken
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? name = freezed,Object? token = freezed,Object? abilities = null,Object? lastUsedAt = freezed,Object? expiresAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(AuthToken(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,token: freezed == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
@@ -214,7 +215,7 @@ return $default(_that.type,_that.name,_that.token,_that.abilities,_that.lastUsed
 @JsonSerializable()
 
 class _AuthToken implements AuthToken {
-   _AuthToken({required this.type, required this.name, this.token, required List<String> abilities, required this.lastUsedAt, required this.expiresAt}): _abilities = abilities;
+   _AuthToken({required this.type, required this.name, this.token, required  List<String> abilities, required this.lastUsedAt, required this.expiresAt}): _abilities = abilities;
   factory _AuthToken.fromJson(Map<String, dynamic> json) => _$AuthTokenFromJson(json);
 
 @override final  String type;
@@ -299,18 +300,7 @@ as DateTime?,
 /// @nodoc
 mixin _$AccessToken {
 
-// identifier: string | number | BigInt;
- dynamic get identifier;// tokenableId
- dynamic get tokenableId;// value?: Secret<string>;
- dynamic get value;// name: string | null;
- String? get name;// type: string;
- String get type;// abilities: string[];
- List<String> get abilities;// hash: string;
- String get hash;// createdAt
- DateTime get createdAt;// updatedAt
- DateTime get updatedAt;// expiresAt
- DateTime? get expiresAt;// lastUsedAt
- DateTime? get lastUsedAt;
+ dynamic get identifier; dynamic get tokenableId; dynamic get value; String? get name; String get type; List<String> get abilities; String get hash; DateTime get createdAt; DateTime get updatedAt; DateTime? get expiresAt; DateTime? get lastUsedAt;
 /// Create a copy of AccessToken
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -361,7 +351,7 @@ class _$AccessTokenCopyWithImpl<$Res>
 /// Create a copy of AccessToken
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? identifier = freezed,Object? tokenableId = freezed,Object? value = freezed,Object? name = freezed,Object? type = null,Object? abilities = null,Object? hash = null,Object? createdAt = null,Object? updatedAt = null,Object? expiresAt = freezed,Object? lastUsedAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(AccessToken(
 identifier: freezed == identifier ? _self.identifier : identifier // ignore: cast_nullable_to_non_nullable
 as dynamic,tokenableId: freezed == tokenableId ? _self.tokenableId : tokenableId // ignore: cast_nullable_to_non_nullable
 as dynamic,value: freezed == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
@@ -514,37 +504,25 @@ return $default(_that.identifier,_that.tokenableId,_that.value,_that.name,_that.
 @JsonSerializable()
 
 class _AccessToken implements AccessToken {
-   _AccessToken({required this.identifier, required this.tokenableId, this.value, this.name, required this.type, required List<String> abilities, required this.hash, required this.createdAt, required this.updatedAt, this.expiresAt, this.lastUsedAt}): _abilities = abilities;
+   _AccessToken({required this.identifier, required this.tokenableId, this.value, this.name, required this.type, required  List<String> abilities, required this.hash, required this.createdAt, required this.updatedAt, this.expiresAt, this.lastUsedAt}): _abilities = abilities;
   factory _AccessToken.fromJson(Map<String, dynamic> json) => _$AccessTokenFromJson(json);
 
-// identifier: string | number | BigInt;
 @override final  dynamic identifier;
-// tokenableId
 @override final  dynamic tokenableId;
-// value?: Secret<string>;
 @override final  dynamic value;
-// name: string | null;
 @override final  String? name;
-// type: string;
 @override final  String type;
-// abilities: string[];
  final  List<String> _abilities;
-// abilities: string[];
 @override List<String> get abilities {
   if (_abilities is EqualUnmodifiableListView) return _abilities;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_abilities);
 }
 
-// hash: string;
 @override final  String hash;
-// createdAt
 @override final  DateTime createdAt;
-// updatedAt
 @override final  DateTime updatedAt;
-// expiresAt
 @override final  DateTime? expiresAt;
-// lastUsedAt
 @override final  DateTime? lastUsedAt;
 
 /// Create a copy of AccessToken

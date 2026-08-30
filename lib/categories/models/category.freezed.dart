@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'category.dart';
@@ -9,6 +9,7 @@ part of 'category.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$CategoryCopyWithImpl<$Res>
 /// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? storeId = null,Object? parentId = freezed,Object? name = null,Object? description = freezed,Object? photoUrl = freezed,Object? metadata = null,Object? parent = freezed,Object? children = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Category(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -231,7 +232,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.storeId,_that.par
 @JsonSerializable()
 
 class _Category extends Category {
-   _Category({required this.id, required this.createdAt, required this.updatedAt, required this.storeId, this.parentId, required this.name, this.description, this.photoUrl, Map<String, dynamic> metadata = const {}, this.parent, List<Category>? children}): _metadata = metadata,_children = children,super._();
+   _Category({required this.id, required this.createdAt, required this.updatedAt, required this.storeId, this.parentId, required this.name, this.description, this.photoUrl,  Map<String, dynamic> metadata = const {}, this.parent,  List<Category>? children}): _metadata = metadata,_children = children,super._();
   factory _Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
 @override final  String id;
@@ -397,7 +398,7 @@ class _$CategoryCreateCopyWithImpl<$Res>
 /// Create a copy of CategoryCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? storeId = null,Object? parentId = freezed,Object? name = null,Object? description = freezed,Object? photoUrl = freezed,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(CategoryCreate(
 storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
 as String,parentId: freezed == parentId ? _self.parentId : parentId // ignore: cast_nullable_to_non_nullable
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -545,7 +546,7 @@ return $default(_that.storeId,_that.parentId,_that.name,_that.description,_that.
 @JsonSerializable()
 
 class _CategoryCreate implements CategoryCreate {
-  const _CategoryCreate({required this.storeId, this.parentId, required this.name, this.description, this.photoUrl, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _CategoryCreate({required this.storeId, this.parentId, required this.name, this.description, this.photoUrl,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _CategoryCreate.fromJson(Map<String, dynamic> json) => _$CategoryCreateFromJson(json);
 
 @override final  String storeId;
@@ -681,7 +682,7 @@ class _$CategoryUpdateCopyWithImpl<$Res>
 /// Create a copy of CategoryUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? parentId = freezed,Object? name = freezed,Object? description = freezed,Object? photoUrl = freezed,Object? metadata = freezed,Object? setToNull = null,}) {
-  return _then(_self.copyWith(
+  return _then(CategoryUpdate(
 parentId: freezed == parentId ? _self.parentId : parentId // ignore: cast_nullable_to_non_nullable
 as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
@@ -829,7 +830,7 @@ return $default(_that.parentId,_that.name,_that.description,_that.photoUrl,_that
 @JsonSerializable()
 
 class _CategoryUpdate implements CategoryUpdate {
-  const _CategoryUpdate({this.parentId, this.name, this.description, this.photoUrl, Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
+  const _CategoryUpdate({this.parentId, this.name, this.description, this.photoUrl,  Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false)  List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
   factory _CategoryUpdate.fromJson(Map<String, dynamic> json) => _$CategoryUpdateFromJson(json);
 
 @override final  String? parentId;

@@ -311,18 +311,26 @@ abstract class GoogleTagsIntegration with _$GoogleTagsIntegration {
 }
 
 /// Microsoft Clarity session recording / heatmaps.
+///
+/// [trackingCode] defaults to `''` so legacy/partial JSON (`trackingCode: null`
+/// or omitted) never crashes Flutter `fromJson`. Empty codes are treated as
+/// not configured (storefront skips inject; server may strip the key).
 @freezed
 abstract class ClarityIntegration with _$ClarityIntegration {
   const ClarityIntegration._();
   const factory ClarityIntegration({
     @Default(true) bool active,
-    required String trackingCode,
+    /// Clarity project id. Never null after parse — use empty when unset.
+    @Default('') String trackingCode,
     String? apiKey,
     @Default({}) Map<String, dynamic> metadata,
   }) = _ClarityIntegration;
 
   factory ClarityIntegration.fromJson(Map<String, dynamic> json) =>
       _$ClarityIntegrationFromJson(json);
+
+  /// True when a non-empty project id is present (ready to inject / activate).
+  bool get hasTrackingCode => trackingCode.trim().isNotEmpty;
 }
 
 /// AI integration configuration for Google AI Studio.

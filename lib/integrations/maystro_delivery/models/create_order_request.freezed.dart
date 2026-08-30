@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'create_order_request.dart';
@@ -9,6 +9,7 @@ part of 'create_order_request.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$MaystroCustomerCopyWithImpl<$Res>
 /// Create a copy of MaystroCustomer
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? phone = null,}) {
-  return _then(_self.copyWith(
+  return _then(MaystroCustomer(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as String,
@@ -332,7 +333,7 @@ class _$MaystroDeliveryAddressCopyWithImpl<$Res>
 /// Create a copy of MaystroDeliveryAddress
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? street = null,Object? city = null,Object? district = null,Object? postalCode = null,Object? country = null,Object? communeId = freezed,Object? wilayaId = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(MaystroDeliveryAddress(
 street: null == street ? _self.street : street // ignore: cast_nullable_to_non_nullable
 as String,city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
 as String,district: null == district ? _self.district : district // ignore: cast_nullable_to_non_nullable
@@ -613,7 +614,7 @@ class _$MaystroOrderedProductCopyWithImpl<$Res>
 /// Create a copy of MaystroOrderedProduct
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? productName = null,Object? quantity = null,Object? unitPrice = null,Object? productSku = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(MaystroOrderedProduct(
 productName: null == productName ? _self.productName : productName // ignore: cast_nullable_to_non_nullable
 as String,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as int,unitPrice: null == unitPrice ? _self.unitPrice : unitPrice // ignore: cast_nullable_to_non_nullable
@@ -885,7 +886,7 @@ class _$MaystroCreateOrderRequestCopyWithImpl<$Res>
 /// Create a copy of MaystroCreateOrderRequest
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? externalId = freezed,Object? customer = null,Object? deliveryAddress = null,Object? orderedProducts = null,Object? amount = null,Object? description = freezed,Object? stateCode = freezed,Object? cityCode = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(MaystroCreateOrderRequest(
 externalId: freezed == externalId ? _self.externalId : externalId // ignore: cast_nullable_to_non_nullable
 as String?,customer: null == customer ? _self.customer : customer // ignore: cast_nullable_to_non_nullable
 as MaystroCustomer,deliveryAddress: null == deliveryAddress ? _self.deliveryAddress : deliveryAddress // ignore: cast_nullable_to_non_nullable
@@ -1053,7 +1054,7 @@ return $default(_that.externalId,_that.customer,_that.deliveryAddress,_that.orde
 @JsonSerializable()
 
 class _MaystroCreateOrderRequest extends MaystroCreateOrderRequest {
-  const _MaystroCreateOrderRequest({this.externalId, required this.customer, required this.deliveryAddress, required List<MaystroOrderedProduct> orderedProducts, required this.amount, this.description, this.stateCode, this.cityCode}): _orderedProducts = orderedProducts,super._();
+  const _MaystroCreateOrderRequest({this.externalId, required this.customer, required this.deliveryAddress, required  List<MaystroOrderedProduct> orderedProducts, required this.amount, this.description, this.stateCode, this.cityCode}): _orderedProducts = orderedProducts,super._();
   factory _MaystroCreateOrderRequest.fromJson(Map<String, dynamic> json) => _$MaystroCreateOrderRequestFromJson(json);
 
 @override final  String? externalId;
@@ -1211,7 +1212,7 @@ class _$MaystroCreateOrderResponseCopyWithImpl<$Res>
 /// Create a copy of MaystroCreateOrderResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? orderId = null,Object? trackingNumber = freezed,Object? externalId = freezed,Object? success = null,}) {
-  return _then(_self.copyWith(
+  return _then(MaystroCreateOrderResponse(
 orderId: null == orderId ? _self.orderId : orderId // ignore: cast_nullable_to_non_nullable
 as String,trackingNumber: freezed == trackingNumber ? _self.trackingNumber : trackingNumber // ignore: cast_nullable_to_non_nullable
 as String?,externalId: freezed == externalId ? _self.externalId : externalId // ignore: cast_nullable_to_non_nullable
@@ -1483,7 +1484,7 @@ class _$MaystroIndividualLabelCopyWithImpl<$Res>
 /// Create a copy of MaystroIndividualLabel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? trackingNumber = freezed,Object? fileUrl = null,}) {
-  return _then(_self.copyWith(
+  return _then(MaystroIndividualLabel(
 trackingNumber: freezed == trackingNumber ? _self.trackingNumber : trackingNumber // ignore: cast_nullable_to_non_nullable
 as String?,fileUrl: null == fileUrl ? _self.fileUrl : fileUrl // ignore: cast_nullable_to_non_nullable
 as String,
@@ -1749,7 +1750,7 @@ class _$MaystroIndividualLabelsResponseCopyWithImpl<$Res>
 /// Create a copy of MaystroIndividualLabelsResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? parcelLabelFiles = null,Object? failedTrackingNumbers = null,}) {
-  return _then(_self.copyWith(
+  return _then(MaystroIndividualLabelsResponse(
 parcelLabelFiles: null == parcelLabelFiles ? _self.parcelLabelFiles : parcelLabelFiles // ignore: cast_nullable_to_non_nullable
 as List<MaystroIndividualLabel>,failedTrackingNumbers: null == failedTrackingNumbers ? _self.failedTrackingNumbers : failedTrackingNumbers // ignore: cast_nullable_to_non_nullable
 as List<String>,
@@ -1893,7 +1894,7 @@ return $default(_that.parcelLabelFiles,_that.failedTrackingNumbers);case _:
 @JsonSerializable()
 
 class _MaystroIndividualLabelsResponse extends MaystroIndividualLabelsResponse {
-  const _MaystroIndividualLabelsResponse({List<MaystroIndividualLabel> parcelLabelFiles = const [], List<String> failedTrackingNumbers = const []}): _parcelLabelFiles = parcelLabelFiles,_failedTrackingNumbers = failedTrackingNumbers,super._();
+  const _MaystroIndividualLabelsResponse({ List<MaystroIndividualLabel> parcelLabelFiles = const [],  List<String> failedTrackingNumbers = const []}): _parcelLabelFiles = parcelLabelFiles,_failedTrackingNumbers = failedTrackingNumbers,super._();
   factory _MaystroIndividualLabelsResponse.fromJson(Map<String, dynamic> json) => _$MaystroIndividualLabelsResponseFromJson(json);
 
  final  List<MaystroIndividualLabel> _parcelLabelFiles;

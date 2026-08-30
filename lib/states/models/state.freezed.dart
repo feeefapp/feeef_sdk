@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'state.dart';
@@ -9,6 +9,7 @@ part of 'state.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -72,7 +73,7 @@ class _$StateCopyWithImpl<$Res>
 /// Create a copy of State
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? countryCode = null,Object? code = null,Object? name = null,Object? metadata = null,Object? locales = freezed,Object? createdAt = null,}) {
-  return _then(_self.copyWith(
+  return _then(State(
 countryCode: null == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable
 as String,code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -220,7 +221,7 @@ return $default(_that.countryCode,_that.code,_that.name,_that.metadata,_that.loc
 @JsonSerializable()
 
 class _State extends State {
-   _State({required this.countryCode, required this.code, required this.name, Map<String, dynamic> metadata = const {}, Map<String, String>? locales, required this.createdAt}): _metadata = metadata,_locales = locales,super._();
+   _State({required this.countryCode, required this.code, required this.name,  Map<String, dynamic> metadata = const {},  Map<String, String>? locales, required this.createdAt}): _metadata = metadata,_locales = locales,super._();
   factory _State.fromJson(Map<String, dynamic> json) => _$StateFromJson(json);
 
 /// Country code (part of composite primary key)
@@ -376,7 +377,7 @@ class _$StateCreateCopyWithImpl<$Res>
 /// Create a copy of StateCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? countryCode = null,Object? code = null,Object? name = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(StateCreate(
 countryCode: null == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable
 as String,code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -522,7 +523,7 @@ return $default(_that.countryCode,_that.code,_that.name,_that.metadata);case _:
 @JsonSerializable()
 
 class _StateCreate implements StateCreate {
-  const _StateCreate({required this.countryCode, required this.code, required this.name, Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _StateCreate({required this.countryCode, required this.code, required this.name,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _StateCreate.fromJson(Map<String, dynamic> json) => _$StateCreateFromJson(json);
 
 /// Country code (required to identify the parent country)
@@ -610,8 +611,7 @@ mixin _$StateUpdate {
 
 /// State/province name
  String? get name;/// Additional metadata as key-value pairs
- Map<String, dynamic>? get metadata;// setToNull
- List<String> get setToNull;
+ Map<String, dynamic>? get metadata; List<String> get setToNull;
 /// Create a copy of StateUpdate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -662,7 +662,7 @@ class _$StateUpdateCopyWithImpl<$Res>
 /// Create a copy of StateUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? metadata = freezed,Object? setToNull = null,}) {
-  return _then(_self.copyWith(
+  return _then(StateUpdate(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,setToNull: null == setToNull ? _self.setToNull : setToNull // ignore: cast_nullable_to_non_nullable
@@ -807,7 +807,7 @@ return $default(_that.name,_that.metadata,_that.setToNull);case _:
 @JsonSerializable()
 
 class _StateUpdate implements StateUpdate {
-  const _StateUpdate({this.name, Map<String, dynamic>? metadata, List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
+  const _StateUpdate({this.name,  Map<String, dynamic>? metadata,  List<String> setToNull = const []}): _metadata = metadata,_setToNull = setToNull;
   factory _StateUpdate.fromJson(Map<String, dynamic> json) => _$StateUpdateFromJson(json);
 
 /// State/province name
@@ -823,9 +823,7 @@ class _StateUpdate implements StateUpdate {
   return EqualUnmodifiableMapView(value);
 }
 
-// setToNull
  final  List<String> _setToNull;
-// setToNull
 @override@JsonKey() List<String> get setToNull {
   if (_setToNull is EqualUnmodifiableListView) return _setToNull;
   // ignore: implicit_dynamic_type

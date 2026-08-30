@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'product.dart';
@@ -9,13 +9,14 @@ part of 'product.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$Product {
 
- String get id; DateTime get createdAt; DateTime get updatedAt; String get slug; ProductDecoration? get decoration; String get name; String? get photoUrl; List<String> get media; String get storeId; String? get shippingMethodId; String? get shippingPriceId; String? get categoryId; EmbaddedCategory? get category; Category? get categoryRelation; String? get title; String? get description; String? get body; String? get sku; String? get barcode; num get price; num? get cost; num? get discount; num? get stock; num get sold; num get views; num get likes; ProductVariant? get variant; List<ProductOffer>? get offers;/// When true, customer must keep an offer selected. With a valid
+ String get id; DateTime get createdAt; DateTime get updatedAt; String get slug; ProductDecoration get decoration; String get name; String? get photoUrl; List<String> get media; String get storeId; String? get shippingMethodId; String? get shippingPriceId; String? get categoryId; EmbaddedCategory? get category; Category? get categoryRelation; String? get title; String? get description; String? get body; String? get sku; String? get barcode; num get price; num? get cost; num? get discount; num? get stock; num get sold; num get views; num get likes; ProductVariant? get variant; List<ProductOffer>? get offers;/// When true, customer must keep an offer selected. With a valid
 /// [defaultOfferCode], that offer is locked.
  bool? get forceOffer;/// Offer code to preselect; synced to null when missing from [offers].
  String? get defaultOfferCode; List<ProductAddon>? get addons; num get dislikes; ProductStatus get status; ProductType get type; IntegrationsData? get integrationsData; DateTime? get verifiedAt; DateTime? get blockedAt; Map<String, dynamic> get metadata;/// Present when list/show is called with `with[]=lor` and the user may view analytics.
@@ -52,7 +53,7 @@ abstract mixin class $ProductCopyWith<$Res>  {
   factory $ProductCopyWith(Product value, $Res Function(Product) _then) = _$ProductCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime createdAt, DateTime updatedAt, String slug, ProductDecoration? decoration, String name, String? photoUrl, List<String> media, String storeId, String? shippingMethodId, String? shippingPriceId, String? categoryId, EmbaddedCategory? category, Category? categoryRelation, String? title, String? description, String? body, String? sku, String? barcode, num price, num? cost, num? discount, num? stock, num sold, num views, num likes, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, num dislikes, ProductStatus status, ProductType type, IntegrationsData? integrationsData, DateTime? verifiedAt, DateTime? blockedAt, Map<String, dynamic> metadata,@JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) LiteOrdersReport? lor
+ String id, DateTime createdAt, DateTime updatedAt, String slug, ProductDecoration decoration, String name, String? photoUrl, List<String> media, String storeId, String? shippingMethodId, String? shippingPriceId, String? categoryId, EmbaddedCategory? category, Category? categoryRelation, String? title, String? description, String? body, String? sku, String? barcode, num price, num? cost, num? discount, num? stock, num sold, num views, num likes, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, num dislikes, ProductStatus status, ProductType type, IntegrationsData? integrationsData, DateTime? verifiedAt, DateTime? blockedAt, Map<String, dynamic> metadata,@JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) LiteOrdersReport? lor
 });
 
 
@@ -70,13 +71,13 @@ class _$ProductCopyWithImpl<$Res>
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? slug = null,Object? decoration = freezed,Object? name = null,Object? photoUrl = freezed,Object? media = null,Object? storeId = null,Object? shippingMethodId = freezed,Object? shippingPriceId = freezed,Object? categoryId = freezed,Object? category = freezed,Object? categoryRelation = freezed,Object? title = freezed,Object? description = freezed,Object? body = freezed,Object? sku = freezed,Object? barcode = freezed,Object? price = null,Object? cost = freezed,Object? discount = freezed,Object? stock = freezed,Object? sold = null,Object? views = null,Object? likes = null,Object? variant = freezed,Object? offers = freezed,Object? forceOffer = freezed,Object? defaultOfferCode = freezed,Object? addons = freezed,Object? dislikes = null,Object? status = null,Object? type = null,Object? integrationsData = freezed,Object? verifiedAt = freezed,Object? blockedAt = freezed,Object? metadata = null,Object? lor = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Product(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String,decoration: freezed == decoration ? _self.decoration : decoration // ignore: cast_nullable_to_non_nullable
-as ProductDecoration?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as ProductDecoration,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
 as String?,media: null == media ? _self.media : media // ignore: cast_nullable_to_non_nullable
 as List<String>,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
@@ -243,7 +244,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  ProductDecoration? decoration,  String name,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  Category? categoryRelation,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  num sold,  num views,  num likes,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  num dislikes,  ProductStatus status,  ProductType type,  IntegrationsData? integrationsData,  DateTime? verifiedAt,  DateTime? blockedAt,  Map<String, dynamic> metadata, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)  LiteOrdersReport? lor)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  ProductDecoration decoration,  String name,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  Category? categoryRelation,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  num sold,  num views,  num likes,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  num dislikes,  ProductStatus status,  ProductType type,  IntegrationsData? integrationsData,  DateTime? verifiedAt,  DateTime? blockedAt,  Map<String, dynamic> metadata, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)  LiteOrdersReport? lor)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Product() when $default != null:
 return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decoration,_that.name,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingPriceId,_that.categoryId,_that.category,_that.categoryRelation,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.views,_that.likes,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.dislikes,_that.status,_that.type,_that.integrationsData,_that.verifiedAt,_that.blockedAt,_that.metadata,_that.lor);case _:
@@ -264,7 +265,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decora
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  ProductDecoration? decoration,  String name,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  Category? categoryRelation,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  num sold,  num views,  num likes,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  num dislikes,  ProductStatus status,  ProductType type,  IntegrationsData? integrationsData,  DateTime? verifiedAt,  DateTime? blockedAt,  Map<String, dynamic> metadata, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)  LiteOrdersReport? lor)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  ProductDecoration decoration,  String name,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  Category? categoryRelation,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  num sold,  num views,  num likes,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  num dislikes,  ProductStatus status,  ProductType type,  IntegrationsData? integrationsData,  DateTime? verifiedAt,  DateTime? blockedAt,  Map<String, dynamic> metadata, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)  LiteOrdersReport? lor)  $default,) {final _that = this;
 switch (_that) {
 case _Product():
 return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decoration,_that.name,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingPriceId,_that.categoryId,_that.category,_that.categoryRelation,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.views,_that.likes,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.dislikes,_that.status,_that.type,_that.integrationsData,_that.verifiedAt,_that.blockedAt,_that.metadata,_that.lor);case _:
@@ -284,7 +285,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decora
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  ProductDecoration? decoration,  String name,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  Category? categoryRelation,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  num sold,  num views,  num likes,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  num dislikes,  ProductStatus status,  ProductType type,  IntegrationsData? integrationsData,  DateTime? verifiedAt,  DateTime? blockedAt,  Map<String, dynamic> metadata, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)  LiteOrdersReport? lor)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  ProductDecoration decoration,  String name,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  Category? categoryRelation,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  num sold,  num views,  num likes,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  num dislikes,  ProductStatus status,  ProductType type,  IntegrationsData? integrationsData,  DateTime? verifiedAt,  DateTime? blockedAt,  Map<String, dynamic> metadata, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)  LiteOrdersReport? lor)?  $default,) {final _that = this;
 switch (_that) {
 case _Product() when $default != null:
 return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decoration,_that.name,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingPriceId,_that.categoryId,_that.category,_that.categoryRelation,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.views,_that.likes,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.dislikes,_that.status,_that.type,_that.integrationsData,_that.verifiedAt,_that.blockedAt,_that.metadata,_that.lor);case _:
@@ -299,14 +300,14 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decora
 @JsonSerializable()
 
 class _Product extends Product {
-   _Product({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.decoration, required this.name, this.photoUrl, required List<String> media, required this.storeId, this.shippingMethodId, this.shippingPriceId, this.categoryId, this.category, this.categoryRelation, this.title, this.description, this.body, this.sku, this.barcode, required this.price, this.cost, this.discount, this.stock, this.sold = 0, this.views = 0, this.likes = 0, this.variant, List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode, List<ProductAddon>? addons, this.dislikes = 0, this.status = ProductStatus.draft, this.type = ProductType.physical, this.integrationsData, this.verifiedAt, this.blockedAt, Map<String, dynamic> metadata = const {}, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) this.lor}): _media = media,_offers = offers,_addons = addons,_metadata = metadata,super._();
+   _Product({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.decoration, required this.name, this.photoUrl, required  List<String> media, required this.storeId, this.shippingMethodId, this.shippingPriceId, this.categoryId, this.category, this.categoryRelation, this.title, this.description, this.body, this.sku, this.barcode, required this.price, this.cost, this.discount, this.stock, this.sold = 0, this.views = 0, this.likes = 0, this.variant,  List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode,  List<ProductAddon>? addons, this.dislikes = 0, this.status = ProductStatus.draft, this.type = ProductType.physical, this.integrationsData, this.verifiedAt, this.blockedAt,  Map<String, dynamic> metadata = const {}, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) this.lor}): _media = media,_offers = offers,_addons = addons,_metadata = metadata,super._();
   factory _Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 
 @override final  String id;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
 @override final  String slug;
-@override final  ProductDecoration? decoration;
+@override final  ProductDecoration decoration;
 @override final  String name;
 @override final  String? photoUrl;
  final  List<String> _media;
@@ -407,7 +408,7 @@ abstract mixin class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
   factory _$ProductCopyWith(_Product value, $Res Function(_Product) _then) = __$ProductCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime createdAt, DateTime updatedAt, String slug, ProductDecoration? decoration, String name, String? photoUrl, List<String> media, String storeId, String? shippingMethodId, String? shippingPriceId, String? categoryId, EmbaddedCategory? category, Category? categoryRelation, String? title, String? description, String? body, String? sku, String? barcode, num price, num? cost, num? discount, num? stock, num sold, num views, num likes, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, num dislikes, ProductStatus status, ProductType type, IntegrationsData? integrationsData, DateTime? verifiedAt, DateTime? blockedAt, Map<String, dynamic> metadata,@JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) LiteOrdersReport? lor
+ String id, DateTime createdAt, DateTime updatedAt, String slug, ProductDecoration decoration, String name, String? photoUrl, List<String> media, String storeId, String? shippingMethodId, String? shippingPriceId, String? categoryId, EmbaddedCategory? category, Category? categoryRelation, String? title, String? description, String? body, String? sku, String? barcode, num price, num? cost, num? discount, num? stock, num sold, num views, num likes, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, num dislikes, ProductStatus status, ProductType type, IntegrationsData? integrationsData, DateTime? verifiedAt, DateTime? blockedAt, Map<String, dynamic> metadata,@JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) LiteOrdersReport? lor
 });
 
 
@@ -431,7 +432,7 @@ as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: 
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String,decoration: freezed == decoration ? _self.decoration : decoration // ignore: cast_nullable_to_non_nullable
-as ProductDecoration?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as ProductDecoration,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
 as String?,media: null == media ? _self._media : media // ignore: cast_nullable_to_non_nullable
 as List<String>,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
@@ -524,9 +525,7 @@ $IntegrationsDataCopyWith<$Res>? get integrationsData {
 /// @nodoc
 mixin _$IntegrationsData {
 
- MetaPixelData? get metaPixelData; TiktokPixelData? get tiktokPixelData;// GoogleAnalyticsData? googleAnalyticsData;
-// GoogleTagData? googleTagsData;
- GoogleSheetsData? get googleSheetsData; PaymentMethodData? get paymentMethodData; CustomFieldsIntegrationData? get customFieldsData;/// Per-product Ecotrack warehouse stock mapping (merchant-only).
+ MetaPixelData? get metaPixelData; TiktokPixelData? get tiktokPixelData; GoogleSheetsData? get googleSheetsData; PaymentMethodData? get paymentMethodData; CustomFieldsIntegrationData? get customFieldsData;/// Per-product Ecotrack warehouse stock mapping (merchant-only).
  EcotrackData? get ecotrackData;
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
@@ -578,7 +577,7 @@ class _$IntegrationsDataCopyWithImpl<$Res>
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(IntegrationsData(
 metaPixelData: freezed == metaPixelData ? _self.metaPixelData : metaPixelData // ignore: cast_nullable_to_non_nullable
 as MetaPixelData?,tiktokPixelData: freezed == tiktokPixelData ? _self.tiktokPixelData : tiktokPixelData // ignore: cast_nullable_to_non_nullable
 as TiktokPixelData?,googleSheetsData: freezed == googleSheetsData ? _self.googleSheetsData : googleSheetsData // ignore: cast_nullable_to_non_nullable
@@ -803,8 +802,6 @@ class _IntegrationsData extends IntegrationsData {
 
 @override final  MetaPixelData? metaPixelData;
 @override final  TiktokPixelData? tiktokPixelData;
-// GoogleAnalyticsData? googleAnalyticsData;
-// GoogleTagData? googleTagsData;
 @override final  GoogleSheetsData? googleSheetsData;
 @override final  PaymentMethodData? paymentMethodData;
 @override final  CustomFieldsIntegrationData? customFieldsData;
@@ -1006,7 +1003,7 @@ class _$CustomFieldsIntegrationDataCopyWithImpl<$Res>
 /// Create a copy of CustomFieldsIntegrationData
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? fields = null,Object? useProductFields = null,}) {
-  return _then(_self.copyWith(
+  return _then(CustomFieldsIntegrationData(
 fields: null == fields ? _self.fields : fields // ignore: cast_nullable_to_non_nullable
 as List<CustomField>,useProductFields: null == useProductFields ? _self.useProductFields : useProductFields // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -1150,7 +1147,7 @@ return $default(_that.fields,_that.useProductFields);case _:
 @JsonSerializable()
 
 class _CustomFieldsIntegrationData implements CustomFieldsIntegrationData {
-  const _CustomFieldsIntegrationData({List<CustomField> fields = const [], this.useProductFields = false}): _fields = fields;
+  const _CustomFieldsIntegrationData({ List<CustomField> fields = const [], this.useProductFields = false}): _fields = fields;
   factory _CustomFieldsIntegrationData.fromJson(Map<String, dynamic> json) => _$CustomFieldsIntegrationDataFromJson(json);
 
 /// List of custom field definitions specific to this product.
@@ -1284,7 +1281,7 @@ class _$MetaPixelDataCopyWithImpl<$Res>
 /// Create a copy of MetaPixelData
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? ids = freezed,Object? objective = freezed,Object? draftObjective = freezed,Object? statusRules = null,}) {
-  return _then(_self.copyWith(
+  return _then(MetaPixelData(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,ids: freezed == ids ? _self.ids : ids // ignore: cast_nullable_to_non_nullable
 as List<String>?,objective: freezed == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
@@ -1431,7 +1428,7 @@ return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective,_th
 @JsonSerializable()
 
 class _MetaPixelData extends MetaPixelData {
-   _MetaPixelData({this.enabled = true, List<String>? ids, this.objective, this.draftObjective, List<PixelStatusRule> statusRules = const []}): _ids = ids,_statusRules = statusRules,super._();
+   _MetaPixelData({this.enabled = true,  List<String>? ids, this.objective, this.draftObjective,  List<PixelStatusRule> statusRules = const []}): _ids = ids,_statusRules = statusRules,super._();
   factory _MetaPixelData.fromJson(Map<String, dynamic> json) => _$MetaPixelDataFromJson(json);
 
 @override@JsonKey() final  bool enabled;
@@ -1576,7 +1573,7 @@ class _$TiktokPixelDataCopyWithImpl<$Res>
 /// Create a copy of TiktokPixelData
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? ids = freezed,Object? objective = freezed,Object? draftObjective = freezed,Object? statusRules = null,}) {
-  return _then(_self.copyWith(
+  return _then(TiktokPixelData(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,ids: freezed == ids ? _self.ids : ids // ignore: cast_nullable_to_non_nullable
 as List<String>?,objective: freezed == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
@@ -1723,7 +1720,7 @@ return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective,_th
 @JsonSerializable()
 
 class _TiktokPixelData extends TiktokPixelData {
-   _TiktokPixelData({this.enabled = true, List<String>? ids, this.objective, this.draftObjective, List<PixelStatusRule> statusRules = const []}): _ids = ids,_statusRules = statusRules,super._();
+   _TiktokPixelData({this.enabled = true,  List<String>? ids, this.objective, this.draftObjective,  List<PixelStatusRule> statusRules = const []}): _ids = ids,_statusRules = statusRules,super._();
   factory _TiktokPixelData.fromJson(Map<String, dynamic> json) => _$TiktokPixelDataFromJson(json);
 
 @override@JsonKey() final  bool enabled;
@@ -1868,7 +1865,7 @@ class _$GoogleSheetsDataCopyWithImpl<$Res>
 /// Create a copy of GoogleSheetsData
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? sheetId = freezed,Object? sheetName = freezed,Object? spreadsheetId = freezed,Object? nextRow = freezed,Object? columns = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(GoogleSheetsData(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,sheetId: freezed == sheetId ? _self.sheetId : sheetId // ignore: cast_nullable_to_non_nullable
 as String?,sheetName: freezed == sheetName ? _self.sheetName : sheetName // ignore: cast_nullable_to_non_nullable
@@ -2016,7 +2013,7 @@ return $default(_that.enabled,_that.sheetId,_that.sheetName,_that.spreadsheetId,
 @JsonSerializable()
 
 class _GoogleSheetsData extends GoogleSheetsData {
-   _GoogleSheetsData({this.enabled = true, this.sheetId, this.sheetName, this.spreadsheetId, this.nextRow, List<GoogleSheetsColumn>? columns}): _columns = columns,super._();
+   _GoogleSheetsData({this.enabled = true, this.sheetId, this.sheetName, this.spreadsheetId, this.nextRow,  List<GoogleSheetsColumn>? columns}): _columns = columns,super._();
   factory _GoogleSheetsData.fromJson(Map<String, dynamic> json) => _$GoogleSheetsDataFromJson(json);
 
 @override@JsonKey() final  bool enabled;
@@ -2156,7 +2153,7 @@ class _$PaymentMethodDataCopyWithImpl<$Res>
 /// Create a copy of PaymentMethodData
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? methodIds = null,}) {
-  return _then(_self.copyWith(
+  return _then(PaymentMethodData(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,methodIds: null == methodIds ? _self.methodIds : methodIds // ignore: cast_nullable_to_non_nullable
 as List<String>,
@@ -2300,7 +2297,7 @@ return $default(_that.enabled,_that.methodIds);case _:
 @JsonSerializable()
 
 class _PaymentMethodData extends PaymentMethodData {
-   _PaymentMethodData({this.enabled = false, List<String> methodIds = const []}): _methodIds = methodIds,super._();
+   _PaymentMethodData({this.enabled = false,  List<String> methodIds = const []}): _methodIds = methodIds,super._();
   factory _PaymentMethodData.fromJson(Map<String, dynamic> json) => _$PaymentMethodDataFromJson(json);
 
 @override@JsonKey() final  bool enabled;
@@ -2430,7 +2427,7 @@ class _$EcotrackDataCopyWithImpl<$Res>
 /// Create a copy of EcotrackData
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? produit = freezed,Object? skuProduitMap = null,}) {
-  return _then(_self.copyWith(
+  return _then(EcotrackData(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,produit: freezed == produit ? _self.produit : produit // ignore: cast_nullable_to_non_nullable
 as String?,skuProduitMap: null == skuProduitMap ? _self.skuProduitMap : skuProduitMap // ignore: cast_nullable_to_non_nullable
@@ -2575,7 +2572,7 @@ return $default(_that.enabled,_that.produit,_that.skuProduitMap);case _:
 @JsonSerializable()
 
 class _EcotrackData extends EcotrackData {
-   _EcotrackData({this.enabled = true, this.produit, Map<String, String> skuProduitMap = const {}}): _skuProduitMap = skuProduitMap,super._();
+   _EcotrackData({this.enabled = true, this.produit,  Map<String, String> skuProduitMap = const {}}): _skuProduitMap = skuProduitMap,super._();
   factory _EcotrackData.fromJson(Map<String, dynamic> json) => _$EcotrackDataFromJson(json);
 
 @override@JsonKey() final  bool enabled;
@@ -2657,7 +2654,7 @@ as Map<String, String>,
 /// @nodoc
 mixin _$ProductCreate {
 
- String? get id; String get name; String get slug; ProductDecoration? get decoration; String? get photoUrl; List<String> get media; String get storeId; String? get shippingMethodId; String? get shippingPriceId; String? get categoryId; EmbaddedCategory? get category; String? get title; String? get description; String? get body; String? get sku; String? get barcode; num get price; num? get cost; num? get discount; num? get stock; ProductVariant? get variant; List<ProductOffer>? get offers;/// When true, customer must keep an offer selected. With a valid
+ String? get id; String get name; String get slug; ProductDecoration get decoration; String? get photoUrl; List<String> get media; String get storeId; String? get shippingMethodId; String? get shippingPriceId; String? get categoryId; EmbaddedCategory? get category; String? get title; String? get description; String? get body; String? get sku; String? get barcode; num get price; num? get cost; num? get discount; num? get stock; ProductVariant? get variant; List<ProductOffer>? get offers;/// When true, customer must keep an offer selected. With a valid
 /// [defaultOfferCode], that offer is locked.
  bool? get forceOffer;/// Offer code to preselect; synced to null when missing from [offers].
  String? get defaultOfferCode; List<ProductAddon>? get addons; IntegrationsData? get integrationsData; ProductStatus get status; ProductType get type; Map<String, dynamic> get metadata;
@@ -2693,7 +2690,7 @@ abstract mixin class $ProductCreateCopyWith<$Res>  {
   factory $ProductCreateCopyWith(ProductCreate value, $Res Function(ProductCreate) _then) = _$ProductCreateCopyWithImpl;
 @useResult
 $Res call({
- String? id, String name, String slug, ProductDecoration? decoration, String? photoUrl, List<String> media, String storeId, String? shippingMethodId, String? shippingPriceId, String? categoryId, EmbaddedCategory? category, String? title, String? description, String? body, String? sku, String? barcode, num price, num? cost, num? discount, num? stock, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, IntegrationsData? integrationsData, ProductStatus status, ProductType type, Map<String, dynamic> metadata
+ String? id, String name, String slug, ProductDecoration decoration, String? photoUrl, List<String> media, String storeId, String? shippingMethodId, String? shippingPriceId, String? categoryId, EmbaddedCategory? category, String? title, String? description, String? body, String? sku, String? barcode, num price, num? cost, num? discount, num? stock, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, IntegrationsData? integrationsData, ProductStatus status, ProductType type, Map<String, dynamic> metadata
 });
 
 
@@ -2711,12 +2708,12 @@ class _$ProductCreateCopyWithImpl<$Res>
 /// Create a copy of ProductCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? slug = null,Object? decoration = freezed,Object? photoUrl = freezed,Object? media = null,Object? storeId = null,Object? shippingMethodId = freezed,Object? shippingPriceId = freezed,Object? categoryId = freezed,Object? category = freezed,Object? title = freezed,Object? description = freezed,Object? body = freezed,Object? sku = freezed,Object? barcode = freezed,Object? price = null,Object? cost = freezed,Object? discount = freezed,Object? stock = freezed,Object? variant = freezed,Object? offers = freezed,Object? forceOffer = freezed,Object? defaultOfferCode = freezed,Object? addons = freezed,Object? integrationsData = freezed,Object? status = null,Object? type = null,Object? metadata = null,}) {
-  return _then(_self.copyWith(
+  return _then(ProductCreate(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String,decoration: freezed == decoration ? _self.decoration : decoration // ignore: cast_nullable_to_non_nullable
-as ProductDecoration?,photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
+as ProductDecoration,photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
 as String?,media: null == media ? _self.media : media // ignore: cast_nullable_to_non_nullable
 as List<String>,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
 as String,shippingMethodId: freezed == shippingMethodId ? _self.shippingMethodId : shippingMethodId // ignore: cast_nullable_to_non_nullable
@@ -2862,7 +2859,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  String slug,  ProductDecoration? decoration,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  IntegrationsData? integrationsData,  ProductStatus status,  ProductType type,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  String slug,  ProductDecoration decoration,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  IntegrationsData? integrationsData,  ProductStatus status,  ProductType type,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProductCreate() when $default != null:
 return $default(_that.id,_that.name,_that.slug,_that.decoration,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingPriceId,_that.categoryId,_that.category,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.integrationsData,_that.status,_that.type,_that.metadata);case _:
@@ -2883,7 +2880,7 @@ return $default(_that.id,_that.name,_that.slug,_that.decoration,_that.photoUrl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  String slug,  ProductDecoration? decoration,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  IntegrationsData? integrationsData,  ProductStatus status,  ProductType type,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  String slug,  ProductDecoration decoration,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  IntegrationsData? integrationsData,  ProductStatus status,  ProductType type,  Map<String, dynamic> metadata)  $default,) {final _that = this;
 switch (_that) {
 case _ProductCreate():
 return $default(_that.id,_that.name,_that.slug,_that.decoration,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingPriceId,_that.categoryId,_that.category,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.integrationsData,_that.status,_that.type,_that.metadata);case _:
@@ -2903,7 +2900,7 @@ return $default(_that.id,_that.name,_that.slug,_that.decoration,_that.photoUrl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  String slug,  ProductDecoration? decoration,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  IntegrationsData? integrationsData,  ProductStatus status,  ProductType type,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  String slug,  ProductDecoration decoration,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  IntegrationsData? integrationsData,  ProductStatus status,  ProductType type,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
 switch (_that) {
 case _ProductCreate() when $default != null:
 return $default(_that.id,_that.name,_that.slug,_that.decoration,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingPriceId,_that.categoryId,_that.category,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.integrationsData,_that.status,_that.type,_that.metadata);case _:
@@ -2918,13 +2915,13 @@ return $default(_that.id,_that.name,_that.slug,_that.decoration,_that.photoUrl,_
 @JsonSerializable()
 
 class _ProductCreate implements ProductCreate {
-  const _ProductCreate({this.id, required this.name, required this.slug, this.decoration, this.photoUrl, required List<String> media, required this.storeId, this.shippingMethodId, this.shippingPriceId, this.categoryId, this.category, this.title, this.description, this.body, this.sku, this.barcode, required this.price, this.cost, this.discount, this.stock, this.variant, List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode, List<ProductAddon>? addons, this.integrationsData, this.status = ProductStatus.draft, this.type = ProductType.physical, Map<String, dynamic> metadata = const {}}): _media = media,_offers = offers,_addons = addons,_metadata = metadata;
+  const _ProductCreate({this.id, required this.name, required this.slug, this.decoration, this.photoUrl, required  List<String> media, required this.storeId, this.shippingMethodId, this.shippingPriceId, this.categoryId, this.category, this.title, this.description, this.body, this.sku, this.barcode, required this.price, this.cost, this.discount, this.stock, this.variant,  List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode,  List<ProductAddon>? addons, this.integrationsData, this.status = ProductStatus.draft, this.type = ProductType.physical,  Map<String, dynamic> metadata = const {}}): _media = media,_offers = offers,_addons = addons,_metadata = metadata;
   factory _ProductCreate.fromJson(Map<String, dynamic> json) => _$ProductCreateFromJson(json);
 
 @override final  String? id;
 @override final  String name;
 @override final  String slug;
-@override final  ProductDecoration? decoration;
+@override final  ProductDecoration decoration;
 @override final  String? photoUrl;
  final  List<String> _media;
 @override List<String> get media {
@@ -3015,7 +3012,7 @@ abstract mixin class _$ProductCreateCopyWith<$Res> implements $ProductCreateCopy
   factory _$ProductCreateCopyWith(_ProductCreate value, $Res Function(_ProductCreate) _then) = __$ProductCreateCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String name, String slug, ProductDecoration? decoration, String? photoUrl, List<String> media, String storeId, String? shippingMethodId, String? shippingPriceId, String? categoryId, EmbaddedCategory? category, String? title, String? description, String? body, String? sku, String? barcode, num price, num? cost, num? discount, num? stock, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, IntegrationsData? integrationsData, ProductStatus status, ProductType type, Map<String, dynamic> metadata
+ String? id, String name, String slug, ProductDecoration decoration, String? photoUrl, List<String> media, String storeId, String? shippingMethodId, String? shippingPriceId, String? categoryId, EmbaddedCategory? category, String? title, String? description, String? body, String? sku, String? barcode, num price, num? cost, num? discount, num? stock, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, IntegrationsData? integrationsData, ProductStatus status, ProductType type, Map<String, dynamic> metadata
 });
 
 
@@ -3038,7 +3035,7 @@ id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String,decoration: freezed == decoration ? _self.decoration : decoration // ignore: cast_nullable_to_non_nullable
-as ProductDecoration?,photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
+as ProductDecoration,photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
 as String?,media: null == media ? _self._media : media // ignore: cast_nullable_to_non_nullable
 as List<String>,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
 as String,shippingMethodId: freezed == shippingMethodId ? _self.shippingMethodId : shippingMethodId // ignore: cast_nullable_to_non_nullable
@@ -3110,7 +3107,7 @@ $IntegrationsDataCopyWith<$Res>? get integrationsData {
 /// @nodoc
 mixin _$ProductUpdate {
 
- String? get name; String? get slug; ProductDecoration? get decoration; String? get photoUrl; List<String>? get media; String? get storeId; String? get shippingMethodId; String? get shippingPriceId; String? get categoryId; EmbaddedCategory? get category; String? get title; String? get description; String? get body; String? get sku; String? get barcode; num? get price; num? get cost; num? get discount; num? get stock; ProductVariant? get variant; List<ProductOffer>? get offers;/// When true, customer must keep an offer selected. With a valid
+ String? get name; String? get slug; ProductDecoration get decoration; String? get photoUrl; List<String>? get media; String? get storeId; String? get shippingMethodId; String? get shippingPriceId; String? get categoryId; EmbaddedCategory? get category; String? get title; String? get description; String? get body; String? get sku; String? get barcode; num? get price; num? get cost; num? get discount; num? get stock; ProductVariant? get variant; List<ProductOffer>? get offers;/// When true, customer must keep an offer selected. With a valid
 /// [defaultOfferCode], that offer is locked.
  bool? get forceOffer;/// Offer code to preselect; synced to null when missing from [offers].
  String? get defaultOfferCode; List<ProductAddon>? get addons; IntegrationsData? get integrationsData; ProductStatus? get status; ProductType? get type; Map<String, dynamic>? get metadata;@JsonKey(includeFromJson: false) List<String> get setToNull;
@@ -3146,7 +3143,7 @@ abstract mixin class $ProductUpdateCopyWith<$Res>  {
   factory $ProductUpdateCopyWith(ProductUpdate value, $Res Function(ProductUpdate) _then) = _$ProductUpdateCopyWithImpl;
 @useResult
 $Res call({
- String? name, String? slug, ProductDecoration? decoration, String? photoUrl, List<String>? media, String? storeId, String? shippingMethodId, String? shippingPriceId, String? categoryId, EmbaddedCategory? category, String? title, String? description, String? body, String? sku, String? barcode, num? price, num? cost, num? discount, num? stock, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, IntegrationsData? integrationsData, ProductStatus? status, ProductType? type, Map<String, dynamic>? metadata,@JsonKey(includeFromJson: false) List<String> setToNull
+ String? name, String? slug, ProductDecoration decoration, String? photoUrl, List<String>? media, String? storeId, String? shippingMethodId, String? shippingPriceId, String? categoryId, EmbaddedCategory? category, String? title, String? description, String? body, String? sku, String? barcode, num? price, num? cost, num? discount, num? stock, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, IntegrationsData? integrationsData, ProductStatus? status, ProductType? type, Map<String, dynamic>? metadata,@JsonKey(includeFromJson: false) List<String> setToNull
 });
 
 
@@ -3164,11 +3161,11 @@ class _$ProductUpdateCopyWithImpl<$Res>
 /// Create a copy of ProductUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? slug = freezed,Object? decoration = freezed,Object? photoUrl = freezed,Object? media = freezed,Object? storeId = freezed,Object? shippingMethodId = freezed,Object? shippingPriceId = freezed,Object? categoryId = freezed,Object? category = freezed,Object? title = freezed,Object? description = freezed,Object? body = freezed,Object? sku = freezed,Object? barcode = freezed,Object? price = freezed,Object? cost = freezed,Object? discount = freezed,Object? stock = freezed,Object? variant = freezed,Object? offers = freezed,Object? forceOffer = freezed,Object? defaultOfferCode = freezed,Object? addons = freezed,Object? integrationsData = freezed,Object? status = freezed,Object? type = freezed,Object? metadata = freezed,Object? setToNull = null,}) {
-  return _then(_self.copyWith(
+  return _then(ProductUpdate(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,slug: freezed == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String?,decoration: freezed == decoration ? _self.decoration : decoration // ignore: cast_nullable_to_non_nullable
-as ProductDecoration?,photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
+as ProductDecoration,photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
 as String?,media: freezed == media ? _self.media : media // ignore: cast_nullable_to_non_nullable
 as List<String>?,storeId: freezed == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
 as String?,shippingMethodId: freezed == shippingMethodId ? _self.shippingMethodId : shippingMethodId // ignore: cast_nullable_to_non_nullable
@@ -3315,7 +3312,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? slug,  ProductDecoration? decoration,  String? photoUrl,  List<String>? media,  String? storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num? price,  num? cost,  num? discount,  num? stock,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  IntegrationsData? integrationsData,  ProductStatus? status,  ProductType? type,  Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false)  List<String> setToNull)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? slug,  ProductDecoration decoration,  String? photoUrl,  List<String>? media,  String? storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num? price,  num? cost,  num? discount,  num? stock,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  IntegrationsData? integrationsData,  ProductStatus? status,  ProductType? type,  Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false)  List<String> setToNull)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProductUpdate() when $default != null:
 return $default(_that.name,_that.slug,_that.decoration,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingPriceId,_that.categoryId,_that.category,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.integrationsData,_that.status,_that.type,_that.metadata,_that.setToNull);case _:
@@ -3336,7 +3333,7 @@ return $default(_that.name,_that.slug,_that.decoration,_that.photoUrl,_that.medi
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? slug,  ProductDecoration? decoration,  String? photoUrl,  List<String>? media,  String? storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num? price,  num? cost,  num? discount,  num? stock,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  IntegrationsData? integrationsData,  ProductStatus? status,  ProductType? type,  Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false)  List<String> setToNull)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? slug,  ProductDecoration decoration,  String? photoUrl,  List<String>? media,  String? storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num? price,  num? cost,  num? discount,  num? stock,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  IntegrationsData? integrationsData,  ProductStatus? status,  ProductType? type,  Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false)  List<String> setToNull)  $default,) {final _that = this;
 switch (_that) {
 case _ProductUpdate():
 return $default(_that.name,_that.slug,_that.decoration,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingPriceId,_that.categoryId,_that.category,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.integrationsData,_that.status,_that.type,_that.metadata,_that.setToNull);case _:
@@ -3356,7 +3353,7 @@ return $default(_that.name,_that.slug,_that.decoration,_that.photoUrl,_that.medi
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? slug,  ProductDecoration? decoration,  String? photoUrl,  List<String>? media,  String? storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num? price,  num? cost,  num? discount,  num? stock,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  IntegrationsData? integrationsData,  ProductStatus? status,  ProductType? type,  Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false)  List<String> setToNull)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? slug,  ProductDecoration decoration,  String? photoUrl,  List<String>? media,  String? storeId,  String? shippingMethodId,  String? shippingPriceId,  String? categoryId,  EmbaddedCategory? category,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num? price,  num? cost,  num? discount,  num? stock,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  IntegrationsData? integrationsData,  ProductStatus? status,  ProductType? type,  Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false)  List<String> setToNull)?  $default,) {final _that = this;
 switch (_that) {
 case _ProductUpdate() when $default != null:
 return $default(_that.name,_that.slug,_that.decoration,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingPriceId,_that.categoryId,_that.category,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.integrationsData,_that.status,_that.type,_that.metadata,_that.setToNull);case _:
@@ -3371,12 +3368,12 @@ return $default(_that.name,_that.slug,_that.decoration,_that.photoUrl,_that.medi
 @JsonSerializable()
 
 class _ProductUpdate implements ProductUpdate {
-  const _ProductUpdate({this.name, this.slug, this.decoration, this.photoUrl, List<String>? media, this.storeId, this.shippingMethodId, this.shippingPriceId, this.categoryId, this.category, this.title, this.description, this.body, this.sku, this.barcode, this.price, this.cost, this.discount, this.stock, this.variant, List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode, List<ProductAddon>? addons, this.integrationsData, this.status, this.type, Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _media = media,_offers = offers,_addons = addons,_metadata = metadata,_setToNull = setToNull;
+  const _ProductUpdate({this.name, this.slug, this.decoration, this.photoUrl,  List<String>? media, this.storeId, this.shippingMethodId, this.shippingPriceId, this.categoryId, this.category, this.title, this.description, this.body, this.sku, this.barcode, this.price, this.cost, this.discount, this.stock, this.variant,  List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode,  List<ProductAddon>? addons, this.integrationsData, this.status, this.type,  Map<String, dynamic>? metadata, @JsonKey(includeFromJson: false)  List<String> setToNull = const []}): _media = media,_offers = offers,_addons = addons,_metadata = metadata,_setToNull = setToNull;
   factory _ProductUpdate.fromJson(Map<String, dynamic> json) => _$ProductUpdateFromJson(json);
 
 @override final  String? name;
 @override final  String? slug;
-@override final  ProductDecoration? decoration;
+@override final  ProductDecoration decoration;
 @override final  String? photoUrl;
  final  List<String>? _media;
 @override List<String>? get media {
@@ -3478,7 +3475,7 @@ abstract mixin class _$ProductUpdateCopyWith<$Res> implements $ProductUpdateCopy
   factory _$ProductUpdateCopyWith(_ProductUpdate value, $Res Function(_ProductUpdate) _then) = __$ProductUpdateCopyWithImpl;
 @override @useResult
 $Res call({
- String? name, String? slug, ProductDecoration? decoration, String? photoUrl, List<String>? media, String? storeId, String? shippingMethodId, String? shippingPriceId, String? categoryId, EmbaddedCategory? category, String? title, String? description, String? body, String? sku, String? barcode, num? price, num? cost, num? discount, num? stock, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, IntegrationsData? integrationsData, ProductStatus? status, ProductType? type, Map<String, dynamic>? metadata,@JsonKey(includeFromJson: false) List<String> setToNull
+ String? name, String? slug, ProductDecoration decoration, String? photoUrl, List<String>? media, String? storeId, String? shippingMethodId, String? shippingPriceId, String? categoryId, EmbaddedCategory? category, String? title, String? description, String? body, String? sku, String? barcode, num? price, num? cost, num? discount, num? stock, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, IntegrationsData? integrationsData, ProductStatus? status, ProductType? type, Map<String, dynamic>? metadata,@JsonKey(includeFromJson: false) List<String> setToNull
 });
 
 
@@ -3500,7 +3497,7 @@ class __$ProductUpdateCopyWithImpl<$Res>
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,slug: freezed == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String?,decoration: freezed == decoration ? _self.decoration : decoration // ignore: cast_nullable_to_non_nullable
-as ProductDecoration?,photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
+as ProductDecoration,photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
 as String?,media: freezed == media ? _self._media : media // ignore: cast_nullable_to_non_nullable
 as List<String>?,storeId: freezed == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
 as String?,shippingMethodId: freezed == shippingMethodId ? _self.shippingMethodId : shippingMethodId // ignore: cast_nullable_to_non_nullable
@@ -3624,7 +3621,7 @@ class _$ProductOfferCopyWithImpl<$Res>
 /// Create a copy of ProductOffer
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? title = null,Object? subtitle = freezed,Object? price = freezed,Object? minQuantity = freezed,Object? maxQuantity = freezed,Object? freeShipping = null,}) {
-  return _then(_self.copyWith(
+  return _then(ProductOffer(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,subtitle: freezed == subtitle ? _self.subtitle : subtitle // ignore: cast_nullable_to_non_nullable

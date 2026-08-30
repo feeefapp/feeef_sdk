@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'feedback.dart';
@@ -9,6 +9,7 @@ part of 'feedback.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$FeedbackCopyWithImpl<$Res>
 /// Create a copy of Feedback
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userId = null,Object? title = null,Object? details = freezed,Object? tags = null,Object? attachments = null,Object? status = null,Object? priority = null,Object? metadata = null,Object? appVersion = freezed,Object? history = null,Object? createdAt = null,Object? updatedAt = null,Object? resolvedAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Feedback(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -222,7 +223,7 @@ return $default(_that.id,_that.userId,_that.title,_that.details,_that.tags,_that
 @JsonSerializable()
 
 class _Feedback extends Feedback {
-   _Feedback({required this.id, required this.userId, required this.title, this.details, List<String> tags = const [], List<String> attachments = const [], this.status = FeedbackStatus.pending, this.priority = FeedbackPriority.medium, Map<String, dynamic> metadata = const {}, this.appVersion, List<FeedbackHistoryEvent> history = const [], required this.createdAt, required this.updatedAt, this.resolvedAt}): _tags = tags,_attachments = attachments,_metadata = metadata,_history = history,super._();
+   _Feedback({required this.id, required this.userId, required this.title, this.details,  List<String> tags = const [],  List<String> attachments = const [], this.status = FeedbackStatus.pending, this.priority = FeedbackPriority.medium,  Map<String, dynamic> metadata = const {}, this.appVersion,  List<FeedbackHistoryEvent> history = const [], required this.createdAt, required this.updatedAt, this.resolvedAt}): _tags = tags,_attachments = attachments,_metadata = metadata,_history = history,super._();
   factory _Feedback.fromJson(Map<String, dynamic> json) => _$FeedbackFromJson(json);
 
 @override final  String id;
@@ -392,7 +393,7 @@ class _$FeedbackCreateCopyWithImpl<$Res>
 /// Create a copy of FeedbackCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? title = null,Object? details = freezed,Object? tags = null,Object? attachments = null,Object? priority = null,Object? metadata = null,Object? appVersion = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(FeedbackCreate(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,details: freezed == details ? _self.details : details // ignore: cast_nullable_to_non_nullable
@@ -542,7 +543,7 @@ return $default(_that.id,_that.title,_that.details,_that.tags,_that.attachments,
 @JsonSerializable()
 
 class _FeedbackCreate implements FeedbackCreate {
-  const _FeedbackCreate({this.id, required this.title, this.details, List<String> tags = const [], List<String> attachments = const [], this.priority = FeedbackPriority.medium, Map<String, dynamic> metadata = const {}, this.appVersion}): _tags = tags,_attachments = attachments,_metadata = metadata;
+  const _FeedbackCreate({this.id, required this.title, this.details,  List<String> tags = const [],  List<String> attachments = const [], this.priority = FeedbackPriority.medium,  Map<String, dynamic> metadata = const {}, this.appVersion}): _tags = tags,_attachments = attachments,_metadata = metadata;
   factory _FeedbackCreate.fromJson(Map<String, dynamic> json) => _$FeedbackCreateFromJson(json);
 
 @override final  String? id;
@@ -643,8 +644,7 @@ as String?,
 /// @nodoc
 mixin _$FeedbackUpdate {
 
- String? get title; String? get details; List<String>? get tags; List<String>? get attachments; FeedbackPriority? get priority; Map<String, dynamic>? get metadata; String? get appVersion; String? get comment;// For adding comments
-@JsonKey(includeFromJson: false) List<String> get setToNull;
+ String? get title; String? get details; List<String>? get tags; List<String>? get attachments; FeedbackPriority? get priority; Map<String, dynamic>? get metadata; String? get appVersion; String? get comment;@JsonKey(includeFromJson: false) List<String> get setToNull;
 /// Create a copy of FeedbackUpdate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -695,7 +695,7 @@ class _$FeedbackUpdateCopyWithImpl<$Res>
 /// Create a copy of FeedbackUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? title = freezed,Object? details = freezed,Object? tags = freezed,Object? attachments = freezed,Object? priority = freezed,Object? metadata = freezed,Object? appVersion = freezed,Object? comment = freezed,Object? setToNull = null,}) {
-  return _then(_self.copyWith(
+  return _then(FeedbackUpdate(
 title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String?,details: freezed == details ? _self.details : details // ignore: cast_nullable_to_non_nullable
 as String?,tags: freezed == tags ? _self.tags : tags // ignore: cast_nullable_to_non_nullable
@@ -846,7 +846,7 @@ return $default(_that.title,_that.details,_that.tags,_that.attachments,_that.pri
 @JsonSerializable()
 
 class _FeedbackUpdate implements FeedbackUpdate {
-  const _FeedbackUpdate({this.title, this.details, List<String>? tags, List<String>? attachments, this.priority, Map<String, dynamic>? metadata, this.appVersion, this.comment, @JsonKey(includeFromJson: false) List<String> setToNull = const []}): _tags = tags,_attachments = attachments,_metadata = metadata,_setToNull = setToNull;
+  const _FeedbackUpdate({this.title, this.details,  List<String>? tags,  List<String>? attachments, this.priority,  Map<String, dynamic>? metadata, this.appVersion, this.comment, @JsonKey(includeFromJson: false)  List<String> setToNull = const []}): _tags = tags,_attachments = attachments,_metadata = metadata,_setToNull = setToNull;
   factory _FeedbackUpdate.fromJson(Map<String, dynamic> json) => _$FeedbackUpdateFromJson(json);
 
 @override final  String? title;
@@ -881,9 +881,7 @@ class _FeedbackUpdate implements FeedbackUpdate {
 
 @override final  String? appVersion;
 @override final  String? comment;
-// For adding comments
  final  List<String> _setToNull;
-// For adding comments
 @override@JsonKey(includeFromJson: false) List<String> get setToNull {
   if (_setToNull is EqualUnmodifiableListView) return _setToNull;
   // ignore: implicit_dynamic_type

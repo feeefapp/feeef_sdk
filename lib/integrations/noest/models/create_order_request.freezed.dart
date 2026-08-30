@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'create_order_request.dart';
@@ -9,6 +9,7 @@ part of 'create_order_request.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -93,7 +94,7 @@ class _$NoestOrderCreateRequestCopyWithImpl<$Res>
 /// Create a copy of NoestOrderCreateRequest
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? reference = freezed,Object? client = null,Object? phone = null,Object? phone2 = freezed,Object? adresse = null,Object? wilayaId = null,Object? commune = null,Object? montant = null,Object? remarque = freezed,Object? produit = null,Object? typeId = null,Object? poids = null,Object? stopDesk = null,Object? stationCode = freezed,Object? stock = null,Object? quantite = freezed,Object? canOpen = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(NoestOrderCreateRequest(
 reference: freezed == reference ? _self.reference : reference // ignore: cast_nullable_to_non_nullable
 as String?,client: null == client ? _self.client : client // ignore: cast_nullable_to_non_nullable
 as String,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable

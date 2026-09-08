@@ -2154,6 +2154,8 @@ class Actions {
     String? imageModel,
     String? assetKind,
     String? inputImageUrl,
+    String? identityStudioId,
+    bool createStudio = false,
     List<Attachment>? attachments,
     List<String>? referenceImageUrls,
     Map<String, String>? referenceImageLabels,
@@ -2173,6 +2175,9 @@ class Actions {
           'assetKind': assetKind.trim(),
         if (inputImageUrl != null && inputImageUrl.trim().isNotEmpty)
           'inputImageUrl': inputImageUrl.trim(),
+        if (identityStudioId != null && identityStudioId.trim().isNotEmpty)
+          'identityStudioId': identityStudioId.trim(),
+        if (createStudio) 'createStudio': true,
         if (attachmentMaps != null) 'attachments': attachmentMaps,
         if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
           'referenceImageUrls': referenceImageUrls,

@@ -5,6 +5,7 @@ import 'package:cuid2/cuid2.dart';
 import 'package:dio/dio.dart';
 
 import 'package:feeef/ai/ai_repository.dart';
+import 'package:feeef/ai/identity_studios_repository.dart';
 import 'package:feeef/core/feeef_config.dart';
 import 'package:feeef/core/feeef_storage.dart';
 import 'package:feeef/core/feeef_upload_file.dart';
@@ -144,6 +145,7 @@ class Feeef {
   late final FileService files;
   late final Actions actions;
   late final ImageGenerationsRepository imageGenerations;
+  late final IdentityStudiosRepository identityStudios;
   late final AiRepository ai;
   late final Analytics analytics;
   late final DepositRepository deposits;
@@ -181,6 +183,7 @@ class Feeef {
 
     actions = Actions(client: client);
     imageGenerations = ImageGenerationsRepository(client: client);
+    identityStudios = IdentityStudiosRepository(client: client);
     ai = imageGenerations;
     analytics = Analytics(client: client);
     stores = StoreRepository(client: client);

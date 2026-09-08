@@ -2125,11 +2125,13 @@ class Actions {
     }
   }
 
-  /// generateLogo (LogoStudio)
-  /// Generates a PNG logo with transparent background (native alpha from the model).
+  /// Identity Studio (`generateLogo`).
   ///
-  /// Provide either [colors] (ordered ARGB ints, client-enabled palette) or legacy
-  /// [color1] + [color2]. When [colors] is non-empty it takes precedence.
+  /// [assetKind] `identity` produces an opaque brand-kit board. Other kinds are
+  /// isolated transparent PNGs. Pass [inputImageUrl] to edit/extract from a board.
+  ///
+  /// [colors] is optional (empty = model invents a palette). Legacy [color1]+[color2]
+  /// still work when [colors] is omitted.
   ///
   /// [imageModel]: optional catalog model id (server resolves like landing-page image step).
   /// [attachments]: optional image/store/product references.
@@ -2150,17 +2152,14 @@ class Actions {
     List<int>? colors,
     String? aspectRatio,
     String? imageModel,
+    String? assetKind,
+    String? inputImageUrl,
     List<Attachment>? attachments,
     List<String>? referenceImageUrls,
     Map<String, String>? referenceImageLabels,
   }) async {
     try {
       final hasPalette = colors != null && colors.isNotEmpty;
-      if (!hasPalette && (color1 == null || color2 == null)) {
-        throw ArgumentError(
-          'generateLogo requires colors or both color1 and color2',
-        );
-      }
       final attachmentMaps = attachments != null && attachments.isNotEmpty
           ? attachments.map((a) => a.toJson()).toList()
           : null;
@@ -2170,6 +2169,10 @@ class Actions {
         if (aspectRatio != null && aspectRatio.isNotEmpty) 'aspectRatio': aspectRatio,
         if (imageModel != null && imageModel.trim().isNotEmpty)
           'imageModel': imageModel.trim(),
+        if (assetKind != null && assetKind.trim().isNotEmpty)
+          'assetKind': assetKind.trim(),
+        if (inputImageUrl != null && inputImageUrl.trim().isNotEmpty)
+          'inputImageUrl': inputImageUrl.trim(),
         if (attachmentMaps != null) 'attachments': attachmentMaps,
         if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
           'referenceImageUrls': referenceImageUrls,
@@ -2178,9 +2181,9 @@ class Actions {
       };
       if (hasPalette) {
         requestData['colors'] = colors;
-      } else {
-        requestData['color1'] = color1!;
-        requestData['color2'] = color2!;
+      } else if (color1 != null && color2 != null) {
+        requestData['color1'] = color1;
+        requestData['color2'] = color2;
       }
 
       final response = await client.post(

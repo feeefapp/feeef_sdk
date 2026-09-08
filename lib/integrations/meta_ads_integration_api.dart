@@ -50,7 +50,10 @@ class MetaAdsIntegrationApi {
   Future<MetaIntegrationStatus> status(String storeId) {
     return _guard(() async {
       final res = await client.get(_base(storeId));
-      return MetaIntegrationStatus.fromJson(res.data as Map<String, dynamic>);
+      final map = res.data is Map
+          ? Map<String, dynamic>.from(res.data as Map)
+          : <String, dynamic>{};
+      return MetaIntegrationStatus.fromJson(map);
     });
   }
 
@@ -76,7 +79,17 @@ class MetaAdsIntegrationApi {
             'callbackScheme': callbackScheme,
         },
       );
-      return res.data['authUrl'] as String;
+      final data = res.data is Map
+          ? Map<String, dynamic>.from(res.data as Map)
+          : const <String, dynamic>{};
+      final url = data['authUrl']?.toString();
+      if (url == null || url.isEmpty) {
+        throw const MetaAdsException(
+          code: MetaAdsErrorCode.notConfigured,
+          message: 'Meta OAuth did not return an authorize URL.',
+        );
+      }
+      return url;
     });
   }
 

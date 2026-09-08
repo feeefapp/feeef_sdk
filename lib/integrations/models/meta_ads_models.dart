@@ -38,6 +38,14 @@ String? _toStringOrNull(dynamic value) {
   return s.isEmpty ? null : s;
 }
 
+/// Dio / JSON-decode often yields `Map<dynamic, dynamic>`. A hard
+/// `as Map<String, dynamic>` throws and used to leave the Meta page spinning.
+Map<String, dynamic>? _asStringKeyedMap(dynamic value) {
+  if (value is Map<String, dynamic>) return value;
+  if (value is Map) return Map<String, dynamic>.from(value);
+  return null;
+}
+
 List<String> _toStringList(dynamic value) {
   if (value is! List) return const [];
   return value.map((e) => e.toString()).toList();
@@ -737,7 +745,10 @@ class MetaAdsPage<T> {
   final bool hasMore;
   final MetaInsights totals;
   final MetaFeeefTotals feeefTotals;
-  final MetaAdsCapabilities capabilities;
+
+  /// Null when the response omitted capabilities — callers must not treat
+  /// that as "disconnected" or they will kick the merchant back to connect.
+  final MetaAdsCapabilities? capabilities;
 
   const MetaAdsPage({
     required this.data,
@@ -745,34 +756,53 @@ class MetaAdsPage<T> {
     this.after,
     this.totals = MetaInsights.zero,
     this.feeefTotals = MetaFeeefTotals.zero,
-    this.capabilities = MetaAdsCapabilities.disconnected,
+    this.capabilities,
   });
 
   factory MetaAdsPage.fromJson(
-    Map<String, dynamic> json,
+    Map json,
     T Function(Map<String, dynamic>) parse,
   ) {
-    final meta = json['meta'] as Map<String, dynamic>? ?? const {};
-    final paging = json['paging'] as Map<String, dynamic>? ?? const {};
+    final meta = _asStringKeyedMap(json['meta']) ?? const {};
+    final paging = _asStringKeyedMap(json['paging']) ?? const {};
+    final caps = _asStringKeyedMap(meta['capabilities']);
     return MetaAdsPage(
       data:
           (json['data'] as List?)
-              ?.whereType<Map<String, dynamic>>()
-              .map(parse)
+              ?.whereType<Map>()
+              .map((e) => parse(Map<String, dynamic>.from(e)))
               .toList() ??
           const [],
       after: _toStringOrNull(paging['after']),
       hasMore: paging['hasMore'] == true,
-      totals: MetaInsights.fromJson(meta['totals'] as Map<String, dynamic>?),
+      totals: MetaInsights.fromJson(_asStringKeyedMap(meta['totals'])),
       feeefTotals: MetaFeeefTotals.fromJson(
-        meta['feeefTotals'] as Map<String, dynamic>?,
+        _asStringKeyedMap(meta['feeefTotals']),
       ),
-      capabilities: meta['capabilities'] is Map<String, dynamic>
-          ? MetaAdsCapabilities.fromJson(
-              meta['capabilities'] as Map<String, dynamic>,
-            )
-          : MetaAdsCapabilities.disconnected,
+      capabilities: caps != null ? MetaAdsCapabilities.fromJson(caps) : null,
     );
+  }
+}
+
+/// Meta user the stored token belongs to — display only.
+class MetaConnectedAccount {
+  final String id;
+  final String? name;
+
+  const MetaConnectedAccount({required this.id, this.name});
+
+  factory MetaConnectedAccount.fromJson(Map<String, dynamic> json) {
+    return MetaConnectedAccount(
+      id: json['id']?.toString() ?? '',
+      name: _toStringOrNull(json['name']),
+    );
+  }
+
+  /// Best label for "Connected as …".
+  String get displayName {
+    final n = name?.trim();
+    if (n != null && n.isNotEmpty) return n;
+    return id;
   }
 }
 
@@ -780,6 +810,7 @@ class MetaAdsPage<T> {
 class MetaIntegrationStatus {
   final bool active;
   final MetaAdsCapabilities capabilities;
+  final MetaConnectedAccount? account;
   final List<MetaAdAccount> adAccounts;
   final String? defaultAdAccountId;
   final String defaultDatePreset;
@@ -789,6 +820,7 @@ class MetaIntegrationStatus {
   const MetaIntegrationStatus({
     required this.active,
     required this.capabilities,
+    this.account,
     this.adAccounts = const [],
     this.defaultAdAccountId,
     this.defaultDatePreset = 'last_7d',
@@ -796,17 +828,19 @@ class MetaIntegrationStatus {
     this.connectedAt,
   });
 
-  factory MetaIntegrationStatus.fromJson(Map<String, dynamic> json) {
-    final ads = json['ads'] as Map<String, dynamic>? ?? const {};
+  factory MetaIntegrationStatus.fromJson(Map json) {
+    final ads = _asStringKeyedMap(json['ads']) ?? const {};
+    final account = _asStringKeyedMap(json['account']);
     return MetaIntegrationStatus(
       active: json['active'] == true,
       capabilities: MetaAdsCapabilities.fromJson(
-        json['capabilities'] as Map<String, dynamic>? ?? const {},
+        _asStringKeyedMap(json['capabilities']) ?? const {},
       ),
+      account: account != null ? MetaConnectedAccount.fromJson(account) : null,
       adAccounts:
           (ads['adAccounts'] as List?)
-              ?.whereType<Map<String, dynamic>>()
-              .map(MetaAdAccount.fromJson)
+              ?.whereType<Map>()
+              .map((e) => MetaAdAccount.fromJson(Map<String, dynamic>.from(e)))
               .toList() ??
           const [],
       defaultAdAccountId: _toStringOrNull(ads['defaultAdAccountId']),
@@ -892,15 +926,23 @@ class MetaAdsException implements Exception {
     this.retryAfterSeconds,
   });
 
-  factory MetaAdsException.fromResponse(dynamic data, {String? fallback}) {
-    if (data is Map) {
+  factory MetaAdsException.fromResponse(Object? data, {String? fallback}) {
+    final map = _asStringKeyedMap(data);
+    if (map != null) {
+      // Adonis validation / some wrappers nest the typed error.
+      final nested = _asStringKeyedMap(map['error']) ?? map;
       return MetaAdsException(
-        code: MetaAdsErrorCode.parse(data['code']?.toString()),
+        code: MetaAdsErrorCode.parse(
+          nested['code']?.toString() ?? map['code']?.toString(),
+        ),
         message:
-            data['message']?.toString() ??
+            nested['message']?.toString() ??
+            map['message']?.toString() ??
             fallback ??
             'Meta request failed.',
-        retryAfterSeconds: _toIntOrNull(data['retryAfterSeconds']),
+        retryAfterSeconds: _toIntOrNull(
+          nested['retryAfterSeconds'] ?? map['retryAfterSeconds'],
+        ),
       );
     }
     return MetaAdsException(

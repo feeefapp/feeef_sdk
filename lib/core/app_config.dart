@@ -468,6 +468,8 @@ class Plan {
   final bool? strict;
   final PlanLimits? limits;
   final int? activationMinTopUp;
+  /// Due points credited when the free plan is purchased (store.due -= N).
+  final int? activationDueCredit;
   final int? trialDays;
 
   Plan({
@@ -480,6 +482,7 @@ class Plan {
     this.strict,
     this.limits,
     this.activationMinTopUp,
+    this.activationDueCredit,
     this.trialDays,
   });
 
@@ -496,6 +499,7 @@ class Plan {
       strict: json['strict'] as bool?,
       limits: PlanLimits.fromJson(json['limits'] as Map<String, dynamic>?),
       activationMinTopUp: json['activationMinTopUp'] as int?,
+      activationDueCredit: json['activationDueCredit'] as int?,
       trialDays: json['trialDays'] as int?,
     );
   }
@@ -510,6 +514,7 @@ class Plan {
     if (strict != null) 'strict': strict,
     if (limits != null) 'limits': limits!.toJson(),
     if (activationMinTopUp != null) 'activationMinTopUp': activationMinTopUp,
+    if (activationDueCredit != null) 'activationDueCredit': activationDueCredit,
     if (trialDays != null) 'trialDays': trialDays,
   };
 

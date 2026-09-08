@@ -885,7 +885,7 @@ class Actions {
   ///   Each item: `{ type: 'image'|'url'|'product', value: string, label?: string, prompt?: string }`.
   /// [useSearchGrounding] When provided, enables or disables Gemini Google Search grounding.
   /// [textModel] Optional text model override. Accepts either a bare catalog id
-  ///   (e.g. `gemini-flash-lite-latest`) or a composite chat model id
+  ///   (e.g. `gemini-flash-lite-latest`) or a composite provider/model id
   ///   (`provider/model`, e.g. `google/gemini-3-pro`) so the template-editor
   ///   agent can route codegen through the same model the user selected for
   ///   the conversation. Unknown / inactive ids fall back server-side.
@@ -1389,7 +1389,7 @@ class Actions {
   /// map or an advanced filterator query. Pass a complete [schema] from the
   /// client so the model cannot invent invalid fields or enum values.
   ///
-  /// [attachments] optional chat-parity context (image, url, audio, store,
+  /// [attachments] optional multi-modal context (image, url, audio, store,
   /// product) — same shape as [updateProductUsingAi].
   Future<
     ({
@@ -1405,7 +1405,7 @@ class Actions {
     required String input,
     required Map<String, dynamic> schema,
     String? modelId,
-    /// Optional attachments (image, url, audio, store, product) — same shape as chat / updateProductUsingAi.
+    /// Optional attachments (image, url, audio, store, product) — same shape as updateProductUsingAi.
     List<Attachment>? attachments,
   }) async {
     try {

@@ -2139,6 +2139,7 @@ class Actions {
     ({
       bool success,
       String? id,
+      String? identityStudioId,
       String message,
       String? error,
       Map<String, dynamic>? metadata,
@@ -2197,21 +2198,27 @@ class Actions {
       );
 
       final responseData = response.data as Map<String, dynamic>;
+      final metadata = responseData['metadata'] is Map
+          ? Map<String, dynamic>.from(responseData['metadata'] as Map)
+          : null;
+      final returnedStudioId =
+          responseData['identityStudioId']?.toString() ??
+          metadata?['identityStudioId']?.toString();
 
       return (
         success: responseData['success'] as bool? ?? false,
         id: responseData['id'] as String?,
+        identityStudioId: returnedStudioId,
         message: responseData['message'] as String? ?? 'Unknown response',
         error: responseData['error'] as String?,
-        metadata: responseData['metadata'] is Map<String, dynamic>
-            ? Map<String, dynamic>.from(responseData['metadata'])
-            : null,
+        metadata: metadata,
       );
     } on DioException catch (e) {
       developer.log('Network error during logo generation: ${e.message}');
       return (
         success: false,
         id: null as String?,
+        identityStudioId: null as String?,
         message: 'Network error occurred',
         error:
             'Failed to connect to the server. Please check your internet connection.'
@@ -2226,6 +2233,7 @@ class Actions {
       return (
         success: false,
         id: null as String?,
+        identityStudioId: null as String?,
         message: 'Failed to generate logo',
         error: errorMessage as String?,
         metadata: null as Map<String, dynamic>?,

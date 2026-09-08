@@ -6,7 +6,10 @@
 library;
 
 export 'ai/ai_calculator.dart';
+export 'ai/brand_studios_repository.dart';
 export 'ai/identity_studios_repository.dart';
+export 'ai/post_studios_repository.dart';
+export 'ai/ui_studios_repository.dart';
 export 'attachments/attachment.dart';
 export 'core/errors.dart';
 export 'core/image_gen_caps.dart';

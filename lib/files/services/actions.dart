@@ -2125,7 +2125,7 @@ class Actions {
     }
   }
 
-  /// Identity Studio (`generateLogo`).
+  /// Brandstudio asset generation (`POST /actions/generateBrandAsset`).
   ///
   /// [assetKind] `identity` produces an opaque brand-kit board. Other kinds are
   /// isolated transparent PNGs. Pass [inputImageUrl] to edit/extract from a board.
@@ -2135,17 +2135,21 @@ class Actions {
   ///
   /// [imageModel]: optional catalog model id (server resolves like landing-page image step).
   /// [attachments]: optional image/store/product references.
+  ///
+  /// Returns both [brandStudioId] and deprecated [identityStudioId] (same value)
+  /// for one release of merchant compatibility.
   Future<
     ({
       bool success,
       String? id,
+      String? brandStudioId,
       String? identityStudioId,
       String message,
       String? error,
       Map<String, dynamic>? metadata,
     })
   >
-  generateLogo({
+  generateBrandAsset({
     required String logoName,
     required String description,
     int? color1,
@@ -2155,7 +2159,7 @@ class Actions {
     String? imageModel,
     String? assetKind,
     String? inputImageUrl,
-    String? identityStudioId,
+    String? brandStudioId,
     bool createStudio = false,
     List<Attachment>? attachments,
     List<String>? referenceImageUrls,
@@ -2176,8 +2180,8 @@ class Actions {
           'assetKind': assetKind.trim(),
         if (inputImageUrl != null && inputImageUrl.trim().isNotEmpty)
           'inputImageUrl': inputImageUrl.trim(),
-        if (identityStudioId != null && identityStudioId.trim().isNotEmpty)
-          'identityStudioId': identityStudioId.trim(),
+        if (brandStudioId != null && brandStudioId.trim().isNotEmpty)
+          'brandStudioId': brandStudioId.trim(),
         if (createStudio) 'createStudio': true,
         if (attachmentMaps != null) 'attachments': attachmentMaps,
         if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
@@ -2193,7 +2197,7 @@ class Actions {
       }
 
       final response = await client.post(
-        '/actions/generateLogo',
+        '/actions/generateBrandAsset',
         data: requestData,
       );
 
@@ -2202,22 +2206,26 @@ class Actions {
           ? Map<String, dynamic>.from(responseData['metadata'] as Map)
           : null;
       final returnedStudioId =
+          responseData['brandStudioId']?.toString() ??
+          metadata?['brandStudioId']?.toString() ??
           responseData['identityStudioId']?.toString() ??
           metadata?['identityStudioId']?.toString();
 
       return (
         success: responseData['success'] as bool? ?? false,
         id: responseData['id'] as String?,
+        brandStudioId: returnedStudioId,
         identityStudioId: returnedStudioId,
         message: responseData['message'] as String? ?? 'Unknown response',
         error: responseData['error'] as String?,
         metadata: metadata,
       );
     } on DioException catch (e) {
-      developer.log('Network error during logo generation: ${e.message}');
+      developer.log('Network error during brand asset generation: ${e.message}');
       return (
         success: false,
         id: null as String?,
+        brandStudioId: null as String?,
         identityStudioId: null as String?,
         message: 'Network error occurred',
         error:
@@ -2226,15 +2234,252 @@ class Actions {
         metadata: null as Map<String, dynamic>?,
       );
     } catch (e) {
-      developer.log('Error generating logo: $e');
+      developer.log('Error generating brand asset: $e');
       final errorMessage = e is ArgumentError
           ? e.message
           : 'An unexpected error occurred. Please try again.';
       return (
         success: false,
         id: null as String?,
+        brandStudioId: null as String?,
         identityStudioId: null as String?,
-        message: 'Failed to generate logo',
+        message: 'Failed to generate brand asset',
+        error: errorMessage as String?,
+        metadata: null as Map<String, dynamic>?,
+      );
+    }
+  }
+
+  /// @deprecated Prefer [generateBrandAsset]. Maps [identityStudioId] → brandStudioId.
+  Future<
+    ({
+      bool success,
+      String? id,
+      String? brandStudioId,
+      String? identityStudioId,
+      String message,
+      String? error,
+      Map<String, dynamic>? metadata,
+    })
+  >
+  generateLogo({
+    required String logoName,
+    required String description,
+    int? color1,
+    int? color2,
+    List<int>? colors,
+    String? aspectRatio,
+    String? imageModel,
+    String? assetKind,
+    String? inputImageUrl,
+    String? identityStudioId,
+    String? brandStudioId,
+    bool createStudio = false,
+    List<Attachment>? attachments,
+    List<String>? referenceImageUrls,
+    Map<String, String>? referenceImageLabels,
+  }) {
+    return generateBrandAsset(
+      logoName: logoName,
+      description: description,
+      color1: color1,
+      color2: color2,
+      colors: colors,
+      aspectRatio: aspectRatio,
+      imageModel: imageModel,
+      assetKind: assetKind,
+      inputImageUrl: inputImageUrl,
+      brandStudioId: brandStudioId ?? identityStudioId,
+      createStudio: createStudio,
+      attachments: attachments,
+      referenceImageUrls: referenceImageUrls,
+      referenceImageLabels: referenceImageLabels,
+    );
+  }
+
+  /// Poststudio asset generation (`POST /actions/generatePostAsset`).
+  ///
+  /// [assetKind]: `feed` | `story` | `square` | `wide`.
+  /// Pass [postStudioId] or [createStudio]: true.
+  Future<
+    ({
+      bool success,
+      String? id,
+      String? postStudioId,
+      String message,
+      String? error,
+      Map<String, dynamic>? metadata,
+    })
+  >
+  generatePostAsset({
+    required String name,
+    required String brief,
+    String? assetKind,
+    String? regionStyle,
+    String? aspectRatio,
+    String? imageModel,
+    String? postStudioId,
+    bool createStudio = false,
+    String? inputImageUrl,
+    List<String>? referenceImageUrls,
+  }) async {
+    try {
+      final requestData = <String, dynamic>{
+        'name': name.trim(),
+        'brief': brief.trim(),
+        if (assetKind != null && assetKind.trim().isNotEmpty)
+          'assetKind': assetKind.trim(),
+        if (regionStyle != null && regionStyle.trim().isNotEmpty)
+          'regionStyle': regionStyle.trim(),
+        if (aspectRatio != null && aspectRatio.isNotEmpty) 'aspectRatio': aspectRatio,
+        if (imageModel != null && imageModel.trim().isNotEmpty)
+          'imageModel': imageModel.trim(),
+        if (postStudioId != null && postStudioId.trim().isNotEmpty)
+          'postStudioId': postStudioId.trim(),
+        if (createStudio) 'createStudio': true,
+        if (inputImageUrl != null && inputImageUrl.trim().isNotEmpty)
+          'inputImageUrl': inputImageUrl.trim(),
+        if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
+          'referenceImageUrls': referenceImageUrls,
+      };
+
+      final response = await client.post(
+        '/actions/generatePostAsset',
+        data: requestData,
+      );
+
+      final responseData = response.data as Map<String, dynamic>;
+      final metadata = responseData['metadata'] is Map
+          ? Map<String, dynamic>.from(responseData['metadata'] as Map)
+          : null;
+      final returnedStudioId =
+          responseData['postStudioId']?.toString() ??
+          metadata?['postStudioId']?.toString();
+
+      return (
+        success: responseData['success'] as bool? ?? false,
+        id: responseData['id'] as String?,
+        postStudioId: returnedStudioId,
+        message: responseData['message'] as String? ?? 'Unknown response',
+        error: responseData['error'] as String?,
+        metadata: metadata,
+      );
+    } on DioException catch (e) {
+      developer.log('Network error during post asset generation: ${e.message}');
+      return (
+        success: false,
+        id: null as String?,
+        postStudioId: null as String?,
+        message: 'Network error occurred',
+        error:
+            'Failed to connect to the server. Please check your internet connection.'
+                as String?,
+        metadata: null as Map<String, dynamic>?,
+      );
+    } catch (e) {
+      developer.log('Error generating post asset: $e');
+      final errorMessage = e is ArgumentError
+          ? e.message
+          : 'An unexpected error occurred. Please try again.';
+      return (
+        success: false,
+        id: null as String?,
+        postStudioId: null as String?,
+        message: 'Failed to generate post asset',
+        error: errorMessage as String?,
+        metadata: null as Map<String, dynamic>?,
+      );
+    }
+  }
+
+  /// Uistudio asset generation (`POST /actions/generateUiAsset`).
+  ///
+  /// [assetKind]: `web` | `mobile` | `dashboard` | `landing` | `settings`.
+  /// Pass [uiStudioId] or [createStudio]: true.
+  Future<
+    ({
+      bool success,
+      String? id,
+      String? uiStudioId,
+      String message,
+      String? error,
+      Map<String, dynamic>? metadata,
+    })
+  >
+  generateUiAsset({
+    required String name,
+    required String brief,
+    String? assetKind,
+    String? style,
+    String? aspectRatio,
+    String? imageModel,
+    String? uiStudioId,
+    bool createStudio = false,
+    String? inputImageUrl,
+    List<String>? referenceImageUrls,
+  }) async {
+    try {
+      final requestData = <String, dynamic>{
+        'name': name.trim(),
+        'brief': brief.trim(),
+        if (assetKind != null && assetKind.trim().isNotEmpty)
+          'assetKind': assetKind.trim(),
+        if (style != null && style.trim().isNotEmpty) 'style': style.trim(),
+        if (aspectRatio != null && aspectRatio.isNotEmpty) 'aspectRatio': aspectRatio,
+        if (imageModel != null && imageModel.trim().isNotEmpty)
+          'imageModel': imageModel.trim(),
+        if (uiStudioId != null && uiStudioId.trim().isNotEmpty)
+          'uiStudioId': uiStudioId.trim(),
+        if (createStudio) 'createStudio': true,
+        if (inputImageUrl != null && inputImageUrl.trim().isNotEmpty)
+          'inputImageUrl': inputImageUrl.trim(),
+        if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
+          'referenceImageUrls': referenceImageUrls,
+      };
+
+      final response = await client.post(
+        '/actions/generateUiAsset',
+        data: requestData,
+      );
+
+      final responseData = response.data as Map<String, dynamic>;
+      final metadata = responseData['metadata'] is Map
+          ? Map<String, dynamic>.from(responseData['metadata'] as Map)
+          : null;
+      final returnedStudioId =
+          responseData['uiStudioId']?.toString() ??
+          metadata?['uiStudioId']?.toString();
+
+      return (
+        success: responseData['success'] as bool? ?? false,
+        id: responseData['id'] as String?,
+        uiStudioId: returnedStudioId,
+        message: responseData['message'] as String? ?? 'Unknown response',
+        error: responseData['error'] as String?,
+        metadata: metadata,
+      );
+    } on DioException catch (e) {
+      developer.log('Network error during UI asset generation: ${e.message}');
+      return (
+        success: false,
+        id: null as String?,
+        uiStudioId: null as String?,
+        message: 'Network error occurred',
+        error:
+            'Failed to connect to the server. Please check your internet connection.'
+                as String?,
+        metadata: null as Map<String, dynamic>?,
+      );
+    } catch (e) {
+      developer.log('Error generating UI asset: $e');
+      final errorMessage = e is ArgumentError
+          ? e.message
+          : 'An unexpected error occurred. Please try again.';
+      return (
+        success: false,
+        id: null as String?,
+        uiStudioId: null as String?,
+        message: 'Failed to generate UI asset',
         error: errorMessage as String?,
         metadata: null as Map<String, dynamic>?,
       );

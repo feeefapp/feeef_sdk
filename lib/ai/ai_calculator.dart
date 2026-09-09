@@ -45,13 +45,14 @@ library;
 import 'dart:math' as math;
 
 import 'package:feeef/core/app_config.dart' show AIModelsBilling;
+import 'package:feeef/core/models_catalog.dart';
 
 /// Fallback DZD per USD when `aiModels.exchangeRate` is absent (mirror backend).
 const double fallbackAiExchangeRate = 260;
 
 /// Named platform default for unknown text models — never `models[0]`.
 const String _defaultTextPricingModelId = 'gemini-flash-lite-latest';
-const String _defaultImageModelId = 'gemini-3.1-flash-image-preview';
+const String _defaultImageModelId = ModelsCatalogConfig.fallbackDefaultImageModel;
 const String _defaultTtsModelId = 'gemini-2.5-pro-preview-tts';
 
 /// Resolved TTS token heuristics after merge.
@@ -270,9 +271,11 @@ class AiModelConfig {
   /// mirror backend billing for 1K/2K/4K image choices.
   final Map<String, double> imageOutputPerSizeUsd;
 
-  /// From `aiModels.models[].capabilities` (e.g. `voice`, `audio`) — used for
-  /// TTS pricing fallbacks.
+  /// TTS / speech output (e.g. Gemini Flash TTS — `output_modalities` contains `speech`).
   final List<String> capabilities;
+
+  /// Catalog `provider_slug` so Coconutstudio kind pricing can apply.
+  final String? providerSlug;
 
   const AiModelConfig({
     required this.id,
@@ -281,6 +284,7 @@ class AiModelConfig {
     this.imageOutputUsd,
     this.imageOutputPerSizeUsd = const {},
     this.capabilities = const [],
+    this.providerSlug,
   });
 }
 
@@ -300,6 +304,8 @@ class AiCalculatorConfig {
 
   final List<AiModelConfig> models;
   final ResolvedAiModelsBilling billing;
+  final List<ProviderRegistryRow> providers;
+  final String? defaultImageModel;
 
   AiCalculatorConfig({
     double? exchangeRate,
@@ -308,6 +314,8 @@ class AiCalculatorConfig {
     Map<String, double>? resolutionCosts,
     this.models = const [],
     ResolvedAiModelsBilling? billingResolved,
+    this.providers = const [],
+    this.defaultImageModel,
   }) : exchangeRate = exchangeRate ?? fallbackAiExchangeRate,
        resolutionCosts =
            resolutionCosts ??
@@ -352,10 +360,19 @@ class AiCalculatorConfig {
                 imageOutputPerSizeUsd: _doubleMapFromJson(
                   m['imageOutputPerSizeUsd'],
                 ),
+                providerSlug:
+                    (m['providerSlug'] as String?) ??
+                    (m['provider_slug'] as String?),
               ),
             )
             .toList() ??
         [];
+
+    final providers =
+        (json['providers'] as List<dynamic>?)
+            ?.map((e) => ProviderRegistryRow.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        const <ProviderRegistryRow>[];
 
     final resCosts = <String, double>{};
     final rawRes = json['resolutionCosts'] as Map<String, dynamic>?;
@@ -373,6 +390,8 @@ class AiCalculatorConfig {
           (json['referenceImageCost'] as num?)?.toDouble() ?? 5,
       resolutionCosts: resCosts.isEmpty ? null : resCosts,
       models: models,
+      providers: providers,
+      defaultImageModel: (json['defaultImageModel'] as String?)?.trim(),
       billingResolved: mergeAiModelsBilling(billingPartial),
     );
   }
@@ -527,6 +546,39 @@ class AiCalculator {
 
   /// Catalog per-image USD carried on the row, preferring the per-tier map
   /// (requested tier → 1K → 2K → 4K → first positive), then the flat value.
+  double? _pickUsdFromPricingMap(
+    Map<String, dynamic>? pricing,
+    String? imageSize,
+  ) {
+    if (pricing == null) return null;
+    final perTierRaw =
+        pricing['image_output_per_size_usd'] ??
+        pricing['imageOutputPerSizeUsd'];
+    if (perTierRaw is Map) {
+      final ordered = <String>[
+        if (imageSize != null && imageSize.isNotEmpty) imageSize,
+        '1K',
+        '2K',
+        '4K',
+      ];
+      for (final key in ordered) {
+        final n = _positiveDouble(perTierRaw[key]);
+        if (n != null) return n;
+      }
+      for (final value in perTierRaw.values) {
+        final n = _positiveDouble(value);
+        if (n != null) return n;
+      }
+    }
+    return _positiveDouble(pricing['image_output'] ?? pricing['imageOutput']);
+  }
+
+  double? _positiveDouble(dynamic raw) {
+    if (raw == null) return null;
+    final n = raw is num ? raw.toDouble() : double.tryParse(raw.toString());
+    return n != null && n > 0 ? n : null;
+  }
+
   double? _pickCatalogImageUsd(AiModelConfig? model, String? imageSize) {
     if (model == null) return null;
     final perTier = model.imageOutputPerSizeUsd;
@@ -547,6 +599,31 @@ class AiCalculator {
     }
     final flat = model.imageOutputUsd;
     return flat != null && flat > 0 ? flat : null;
+  }
+
+  ProviderRegistryRow? _findProviderForModel(AiModelConfig? model) {
+    final slug = model?.providerSlug?.trim();
+    if (slug == null || slug.isEmpty) return null;
+    for (final p in config.providers) {
+      if (p.slug == slug) return p;
+    }
+    return null;
+  }
+
+  /// Provider USD per image: provider card → Coconutstudio $0.04 → row →
+  /// legacy `unit:'image'` → defaultImageCost floor.
+  double _resolveImageProviderUsd(AiModelConfig? model, String? imageSize) {
+    final provider = _findProviderForModel(model);
+    final card = _pickUsdFromPricingMap(provider?.pricing, imageSize);
+    if (card != null) return card;
+    if (provider?.kind == 'coconutstudio') {
+      return ModelsCatalogConfig.coconutstudioFlatImageUsd;
+    }
+    final catalogUsd = _pickCatalogImageUsd(model, imageSize);
+    if (catalogUsd != null) return catalogUsd;
+    final legacyUsd = _pickLegacyImageUsd(model);
+    if (legacyUsd != null) return legacyUsd;
+    return config.defaultImageCostDzd / config.exchangeRate;
   }
 
   /// Legacy `unit:'image'` row output (USD per image).
@@ -726,11 +803,8 @@ class AiCalculator {
     final mult = config.billing.retailMultiplier;
     final model = _findModel(modelId);
 
-    // Provider USD per image: catalog → legacy row → defaultImageCost floor.
-    final catalogUsd = _pickCatalogImageUsd(model, imageSize);
-    final legacyUsd = catalogUsd == null ? _pickLegacyImageUsd(model) : null;
-    final providerCostUsdPerImage =
-        catalogUsd ?? legacyUsd ?? config.defaultImageCostDzd / exchangeRate;
+    // Provider USD per image: provider card → Coconutstudio $0.04 → row → legacy → floor.
+    final providerCostUsdPerImage = _resolveImageProviderUsd(model, imageSize);
     final providerCostDzdPerImage = providerCostUsdPerImage * exchangeRate;
 
     final localCost = model?.localCost;

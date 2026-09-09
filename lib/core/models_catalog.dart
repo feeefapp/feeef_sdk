@@ -10,25 +10,43 @@ class ProviderRegistryRow {
   final String? displayName;
   final String? name;
 
+  /// Same keys as a catalog row: `image_output`, `image_output_per_size_usd`.
+  final Map<String, dynamic>? pricing;
+
   const ProviderRegistryRow({
     required this.slug,
     required this.kind,
     required this.baseUrl,
     this.displayName,
     this.name,
+    this.pricing,
   });
 
   factory ProviderRegistryRow.fromJson(Map<String, dynamic> json) {
+    Map<String, dynamic>? pricing;
+    if (json['pricing'] is Map) {
+      pricing = Map<String, dynamic>.from(json['pricing'] as Map);
+    }
     return ProviderRegistryRow(
       slug: json['slug'] as String,
       kind: json['kind'] as String,
       baseUrl: json['baseUrl'] as String,
       displayName: json['displayName'] as String?,
       name: json['name'] as String?,
+      pricing: pricing,
     );
   }
 
   String get label => displayName ?? name ?? slug;
+
+  Map<String, dynamic> toJson() => {
+    'slug': slug,
+    'kind': kind,
+    'baseUrl': baseUrl,
+    if (displayName != null) 'displayName': displayName,
+    if (name != null) 'name': name,
+    if (pricing != null) 'pricing': pricing,
+  };
 }
 
 class ModelCatalogRow {
@@ -120,8 +138,17 @@ class ModelCatalogRow {
 class ModelsCatalogConfig {
   final List<ProviderRegistryRow> providers;
   final List<ModelCatalogRow> data;
+  final String? defaultTextModel;
+  final String? defaultImageModel;
+  final String? defaultCodingModel;
 
-  const ModelsCatalogConfig({required this.providers, required this.data});
+  const ModelsCatalogConfig({
+    required this.providers,
+    required this.data,
+    this.defaultTextModel,
+    this.defaultImageModel,
+    this.defaultCodingModel,
+  });
 
   factory ModelsCatalogConfig.fromJson(Map<String, dynamic> json) {
     final rawData = json['data'] as List<dynamic>? ?? [];
@@ -132,21 +159,14 @@ class ModelsCatalogConfig {
       data: rawData
           .map((e) => ModelCatalogRow.fromJson(e as Map<String, dynamic>))
           .toList(),
+      defaultTextModel: (json['defaultTextModel'] as String?)?.trim(),
+      defaultImageModel: (json['defaultImageModel'] as String?)?.trim(),
+      defaultCodingModel: (json['defaultCodingModel'] as String?)?.trim(),
     );
   }
 
   Map<String, dynamic> toJson() => {
-    'providers': providers
-        .map(
-          (e) => {
-            'slug': e.slug,
-            'kind': e.kind,
-            'baseUrl': e.baseUrl,
-            if (e.displayName != null) 'displayName': e.displayName,
-            if (e.name != null) 'name': e.name,
-          },
-        )
-        .toList(),
+    'providers': providers.map((e) => e.toJson()).toList(),
     'data': data
         .map(
           (m) => {
@@ -162,6 +182,12 @@ class ModelsCatalogConfig {
           },
         )
         .toList(),
+    if (defaultTextModel != null && defaultTextModel!.isNotEmpty)
+      'defaultTextModel': defaultTextModel,
+    if (defaultImageModel != null && defaultImageModel!.isNotEmpty)
+      'defaultImageModel': defaultImageModel,
+    if (defaultCodingModel != null && defaultCodingModel!.isNotEmpty)
+      'defaultCodingModel': defaultCodingModel,
   };
 
   /// Models grouped by [ProviderRegistryRow.slug] for nested menus.
@@ -252,5 +278,28 @@ class ModelsCatalogConfig {
     final modes = _outputModalities(row).toList();
     if (modes.isEmpty) return false;
     return modes.contains('speech') || modes.contains('audio');
+  }
+
+  static const fallbackDefaultTextModel = 'gemini-flash-lite-latest';
+  static const fallbackDefaultImageModel = 'gpt-image-2';
+  static const fallbackDefaultCodingModel = 'gemini-flash-lite-latest';
+
+  /// Coconutstudio flat USD per generated image (any size).
+  static const coconutstudioFlatImageUsd = 0.04;
+
+  String resolvedDefaultTextModel() =>
+      _resolvedConfigured(defaultTextModel) ?? fallbackDefaultTextModel;
+
+  String resolvedDefaultImageModel() =>
+      _resolvedConfigured(defaultImageModel) ?? fallbackDefaultImageModel;
+
+  String resolvedDefaultCodingModel() =>
+      _resolvedConfigured(defaultCodingModel) ??
+      resolvedDefaultTextModel();
+
+  String? _resolvedConfigured(String? configured) {
+    final id = configured?.trim();
+    if (id == null || id.isEmpty) return null;
+    return modelById(id)?.id ?? id;
   }
 }

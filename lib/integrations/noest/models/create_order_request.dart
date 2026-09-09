@@ -21,7 +21,7 @@ abstract class NoestOrderCreateRequest with _$NoestOrderCreateRequest {
     /// L'adresse du client (required | max:255)
     @JsonKey(name: 'adresse') required String adresse,
 
-    /// L'identifiant de la wilaya (required | integer | between:1,48)
+    /// L'identifiant de la wilaya (required | integer | between:1,58)
     @JsonKey(name: 'wilaya_id') required int wilayaId,
 
     /// La commune (required | max:255)

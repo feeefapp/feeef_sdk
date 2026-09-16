@@ -59,6 +59,8 @@ export 'helpers/order_reference_tokens.dart';
 export 'helpers/order_filter_tokens.dart';
 export 'orders/models/lite_orders_report.dart';
 export 'orders/order_repository.dart';
+export 'orders/orders_v1_api.dart';
+export 'cloud_delivery/cloud_delivery_api.dart';
 export 'product_landing_page_templates/product_landing_page_template_repository.dart';
 export 'product_landing_pages/product_landing_page_repository.dart';
 export 'products/product_repository.dart';

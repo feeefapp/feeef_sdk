@@ -30,6 +30,8 @@ import 'package:feeef/apps/app_repository.dart';
 import 'package:feeef/oauth/oauth_repository.dart';
 import 'package:feeef/image_prompt_templates/image_prompt_template_repository.dart';
 import 'package:feeef/orders/order_repository.dart';
+import 'package:feeef/orders/orders_v1_api.dart';
+import 'package:feeef/cloud_delivery/cloud_delivery_api.dart';
 import 'package:feeef/product_landing_page_templates/product_landing_page_template_repository.dart';
 import 'package:feeef/product_landing_pages/product_landing_page_repository.dart';
 import 'package:feeef/products/product_repository.dart';
@@ -141,6 +143,8 @@ class Feeef {
   late final ShippingPriceRepository shippingPrices;
   late final ShippingPriceResourceRepository shippingPricesResource;
   late final OrderRepository orders;
+  late final OrdersV1Api ordersV1;
+  late final CloudDeliveryApi cloudDelivery;
   late final FeedbackRepository feedbacks;
   late final CategoryRepository categories;
   late final Realtime realtime;
@@ -197,6 +201,8 @@ class Feeef {
     analytics = Analytics(client: client);
     stores = StoreRepository(client: client);
     orders = OrderRepository(client: client);
+    ordersV1 = OrdersV1Api(client: client);
+    cloudDelivery = CloudDeliveryApi(client: client);
     products = ProductRepository(client: client);
     productLandingPages = ProductLandingPageRepository(client: client);
     productLandingPageTemplates = ProductLandingPageTemplateRepository(

@@ -21,7 +21,7 @@ mixin _$NoestOrderCreateRequest {
 @JsonKey(name: 'client') String get client;/// Le numéro de téléphone (required | digits_between:9,10)
 @JsonKey(name: 'phone') String get phone;/// Numéro de téléphone secondaire (digits_between:9,10)
 @JsonKey(name: 'phone_2') String? get phone2;/// L'adresse du client (required | max:255)
-@JsonKey(name: 'adresse') String get adresse;/// L'identifiant de la wilaya (required | integer | between:1,48)
+@JsonKey(name: 'adresse') String get adresse;/// L'identifiant de la wilaya (required | integer | between:1,58)
 @JsonKey(name: 'wilaya_id') int get wilayaId;/// La commune (required | max:255)
 @JsonKey(name: 'commune') String get commune;/// Le montant (required | numeric)
 @JsonKey(name: 'montant') double get montant;/// La remarque (max:255)
@@ -266,7 +266,7 @@ class _NoestOrderCreateRequest implements NoestOrderCreateRequest {
 @override@JsonKey(name: 'phone_2') final  String? phone2;
 /// L'adresse du client (required | max:255)
 @override@JsonKey(name: 'adresse') final  String adresse;
-/// L'identifiant de la wilaya (required | integer | between:1,48)
+/// L'identifiant de la wilaya (required | integer | between:1,58)
 @override@JsonKey(name: 'wilaya_id') final  int wilayaId;
 /// La commune (required | max:255)
 @override@JsonKey(name: 'commune') final  String commune;

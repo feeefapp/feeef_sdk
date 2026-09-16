@@ -33,6 +33,25 @@ abstract class OrderEntity {
   PaymentStatus get paymentStatus;
   DeliveryStatus get deliveryStatus;
   String? get customStatus;
+
+  /// Opencod v1 — catalog status id (primary when FEEEF_ORDERS_V1_ENABLED).
+  String? get statusId;
+
+  /// Opencod v1 room: draft | open | pack | ship | done | fail
+  String? get room;
+
+  /// Opencod v1 kind token
+  String? get kind;
+
+  /// Opencod closeAs: none | done | fail
+  String? get closeAs;
+
+  /// Opencod cash token
+  String? get cash;
+
+  /// Opencod stock token
+  String? get stock;
+
   DateTime get createdAt;
   DateTime get updatedAt;
   /// Optional schedule date. When set, list sort/filters use [effectiveAt].

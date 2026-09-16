@@ -67,6 +67,15 @@ abstract class Order extends OrderEntity
 
     /// Why the order was lost, recorded when it moves to a cancelling status.
     String? cancelReason,
+
+    /// Opencod v1 fields (identical API names).
+    String? statusId,
+    String? room,
+    String? kind,
+    String? closeAs,
+    String? cash,
+    String? stock,
+
     @Default({}) Map<String, dynamic>? customFields,
     @JsonKey(fromJson: _storeFromJson, toJson: _storeToJson) Store? store,
     @JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson)

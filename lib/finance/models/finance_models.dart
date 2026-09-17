@@ -1493,6 +1493,49 @@ class OtherIncomeUpdate implements ModelUpdate {
 
 // ─── Phase 2: reports ───────────────────────────────────────────────────────────
 
+/// Money-tape row on the finance hub (Opencod teller station).
+class FinanceHubActivityRow {
+  final String id;
+  final String kind; // payment|payout|charge|flow_in|flow_out|transfer|in|out
+  final String type;
+  final double amount;
+  final double absoluteAmount;
+  final String title;
+  final String? subtitle;
+  final DateTime? occurredAt;
+  final String? accountId;
+  final String? accountName;
+
+  const FinanceHubActivityRow({
+    required this.id,
+    required this.kind,
+    required this.type,
+    required this.amount,
+    required this.absoluteAmount,
+    required this.title,
+    this.subtitle,
+    this.occurredAt,
+    this.accountId,
+    this.accountName,
+  });
+
+  factory FinanceHubActivityRow.fromJson(Map<String, dynamic> json) =>
+      FinanceHubActivityRow(
+        id: json['id']?.toString() ?? '',
+        kind: (json['kind'] ?? 'in').toString(),
+        type: (json['type'] ?? '').toString(),
+        amount: _toDouble(json['amount']),
+        absoluteAmount: _toDouble(json['absoluteAmount']),
+        title: json['title']?.toString() ?? '',
+        subtitle: json['subtitle']?.toString(),
+        occurredAt: json['occurredAt'] != null
+            ? _parseFinanceDate(json['occurredAt'])
+            : null,
+        accountId: json['accountId']?.toString(),
+        accountName: json['accountName']?.toString(),
+      );
+}
+
 class FinanceOverview {
   final double cash;
   final double inventoryValuation;
@@ -1506,6 +1549,12 @@ class FinanceOverview {
   final AgingResult? arAging;
   final CashPosition? cashPosition;
   final PnlReport? pnl;
+  /// UTC-week inflows (teller hub).
+  final double weekIn;
+  /// UTC-week outflows (teller hub).
+  final double weekOut;
+  /// Chronological money tape (teller hub).
+  final List<FinanceHubActivityRow> activity;
 
   const FinanceOverview({
     required this.cash,
@@ -1520,6 +1569,9 @@ class FinanceOverview {
     this.arAging,
     this.cashPosition,
     this.pnl,
+    this.weekIn = 0,
+    this.weekOut = 0,
+    this.activity = const [],
   });
 
   factory FinanceOverview.fromJson(Map<String, dynamic> json) => FinanceOverview(
@@ -1546,6 +1598,14 @@ class FinanceOverview {
         pnl: json['pnl'] != null
             ? PnlReport.fromJson(Map<String, dynamic>.from(json['pnl'] as Map))
             : null,
+        weekIn: _toDouble(json['weekIn']),
+        weekOut: _toDouble(json['weekOut']),
+        activity: (json['activity'] as List?)
+                ?.whereType<Map>()
+                .map((e) => FinanceHubActivityRow.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList() ??
+            const [],
       );
 }
 
@@ -2295,4 +2355,163 @@ class FinanceTransferNoopUpdate implements ModelUpdate {
   @override
   Map<String, dynamic> toJson() => const {};
 }
+
+// ─── Opencod cash-hub parity ───────────────────────────────────────────────────
+
+/// Courier COD lump-sum receipt (`POST /finance/payments`).
+class FinanceCourierPayment {
+  final String id;
+  final String projectId;
+  final DateTime? occurredAt;
+  final String financialAccountId;
+  final double amount;
+  final String? companyIntegrationId;
+  final String? partnerName;
+  final String? note;
+  final String? transferId;
+
+  const FinanceCourierPayment({
+    required this.id,
+    required this.projectId,
+    required this.financialAccountId,
+    required this.amount,
+    this.occurredAt,
+    this.companyIntegrationId,
+    this.partnerName,
+    this.note,
+    this.transferId,
+  });
+
+  factory FinanceCourierPayment.fromJson(Map<String, dynamic> json) =>
+      FinanceCourierPayment(
+        id: json['id']?.toString() ?? '',
+        projectId: json['projectId']?.toString() ?? '',
+        occurredAt: json['occurredAt'] != null
+            ? _parseFinanceDate(json['occurredAt'])
+            : null,
+        financialAccountId:
+            (json['financialAccountId'] ?? json['walletId'])?.toString() ?? '',
+        amount: _toDouble(json['amount']),
+        companyIntegrationId: json['companyIntegrationId']?.toString(),
+        partnerName: json['partnerName']?.toString(),
+        note: json['note']?.toString(),
+        transferId: json['transferId']?.toString(),
+      );
+}
+
+/// Team / supplier payout (`POST /finance/payouts`).
+class FinancePayout {
+  final String id;
+  final String projectId;
+  final String payoutType;
+  final String beneficiaryName;
+  final double amountDue;
+  final double amountPaid;
+  final double amountRemaining;
+  final String? financialAccountId;
+  final String? payeeUserId;
+  final String? note;
+  final DateTime? occurredAt;
+
+  const FinancePayout({
+    required this.id,
+    required this.projectId,
+    required this.payoutType,
+    required this.beneficiaryName,
+    required this.amountDue,
+    required this.amountPaid,
+    required this.amountRemaining,
+    this.financialAccountId,
+    this.payeeUserId,
+    this.note,
+    this.occurredAt,
+  });
+
+  factory FinancePayout.fromJson(Map<String, dynamic> json) => FinancePayout(
+        id: json['id']?.toString() ?? '',
+        projectId: json['projectId']?.toString() ?? '',
+        payoutType: (json['payoutType'] ?? json['type'] ?? 'misc_charges')
+            .toString(),
+        beneficiaryName: json['beneficiaryName']?.toString() ?? '',
+        amountDue: _toDouble(json['amountDue']),
+        amountPaid: _toDouble(json['amountPaid']),
+        amountRemaining: _toDouble(json['amountRemaining']),
+        financialAccountId:
+            (json['financialAccountId'] ?? json['walletId'])?.toString(),
+        payeeUserId: json['payeeUserId']?.toString(),
+        note: json['note']?.toString(),
+        occurredAt: json['occurredAt'] != null
+            ? _parseFinanceDate(json['occurredAt'])
+            : null,
+      );
+}
+
+/// Operating charge catalog row (`POST /finance/charges`).
+class FinanceCharge {
+  final String id;
+  final String projectId;
+  final String name;
+  final double amount;
+  final String chargeType;
+  final String? category;
+  final String? frequency;
+  final String? financialAccountId;
+  final bool walletLedgerApplied;
+  final String? note;
+  final DateTime? occurredAt;
+
+  const FinanceCharge({
+    required this.id,
+    required this.projectId,
+    required this.name,
+    required this.amount,
+    required this.chargeType,
+    this.category,
+    this.frequency,
+    this.financialAccountId,
+    this.walletLedgerApplied = false,
+    this.note,
+    this.occurredAt,
+  });
+
+  factory FinanceCharge.fromJson(Map<String, dynamic> json) => FinanceCharge(
+        id: json['id']?.toString() ?? '',
+        projectId: json['projectId']?.toString() ?? '',
+        name: json['name']?.toString() ?? '',
+        amount: _toDouble(json['amount']),
+        chargeType: (json['chargeType'] ?? json['type'] ?? 'normal').toString(),
+        category: json['category']?.toString(),
+        frequency: json['frequency']?.toString(),
+        financialAccountId:
+            (json['financialAccountId'] ?? json['walletId'])?.toString(),
+        walletLedgerApplied: json['walletLedgerApplied'] == true,
+        note: json['note']?.toString(),
+        occurredAt: json['occurredAt'] != null
+            ? _parseFinanceDate(json['occurredAt'])
+            : null,
+      );
+}
+
+/// Roster row from `GET /finance/payouts/payees`.
+class FinancePayee {
+  final String id;
+  final String userId;
+  final String name;
+  final String? role;
+
+  const FinancePayee({
+    required this.id,
+    required this.userId,
+    required this.name,
+    this.role,
+  });
+
+  factory FinancePayee.fromJson(Map<String, dynamic> json) => FinancePayee(
+        id: json['id']?.toString() ?? '',
+        userId: (json['userId'] ?? json['id'])?.toString() ?? '',
+        name: json['name']?.toString() ?? '',
+        role: json['role']?.toString(),
+      );
+}
+
 

@@ -62,6 +62,11 @@ abstract class OrderEntity {
   ShippingMethodEntity? get shippingMethod;
 }
 
+/// Dual-write fulfillment column until 2027-01-15.
+///
+/// Merchant pickers must use Orders v1 `statusId` / `room` / `kind`. Inventory,
+/// confirmation, pixels, and finance still read this enum from the reverse-write
+/// in `applyOrderSticker`. Do not offer [OrderStatus.values] in UI menus.
 enum OrderStatus {
   draft,
   pending,

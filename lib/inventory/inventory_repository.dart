@@ -103,6 +103,44 @@ class InventoryRepository {
       data: {'projectId': projectId, 'confirm': confirm},
     );
   }
+
+  /// Posts a multi-leg inventory operation (transfer, receive, adjust, …).
+  ///
+  /// Proxies to `POST /inventory/operations` on the Feeef backend, which forwards
+  /// to the Cloud engine when enabled.
+  Future<void> postOperation({
+    required String projectId,
+    required String type,
+    required List<Map<String, dynamic>> legs,
+    String? note,
+    String? idempotencyKey,
+    Map<String, dynamic>? reference,
+  }) async {
+    await client.post(
+      '/inventory/operations',
+      data: {
+        'projectId': projectId,
+        'type': type,
+        'legs': legs,
+        if (note != null) 'note': note,
+        if (idempotencyKey != null) 'idempotencyKey': idempotencyKey,
+        if (reference != null) 'reference': reference,
+      },
+    );
+  }
+
+  /// Inventory overview hub — stock health, low-stock digest, recent ops, POS today.
+  Future<InventorySummary> summary({required String projectId}) async {
+    final response = await client.get(
+      '/inventory/summary',
+      queryParameters: {'projectId': projectId},
+    );
+    final raw = response.data;
+    final map = raw is Map && raw['data'] is Map
+        ? Map<String, dynamic>.from(raw['data'] as Map)
+        : Map<String, dynamic>.from(raw as Map);
+    return InventorySummary.fromJson(map);
+  }
 }
 
 class InventoryObjectUpdate implements ModelUpdate {

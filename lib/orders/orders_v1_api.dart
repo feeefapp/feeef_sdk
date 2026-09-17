@@ -125,11 +125,15 @@ class OrderCountsV1 {
     required this.all,
     required this.byRoom,
     this.byStatus = const {},
+    this.room,
   });
 
   final int all;
   final Map<String, int> byRoom;
   final Map<String, int> byStatus;
+
+  /// When set, [byStatus] / [all] are scoped to this desk or closeAs view.
+  final String? room;
 
   factory OrderCountsV1.fromJson(Map<String, dynamic> json) {
     return OrderCountsV1(
@@ -142,6 +146,7 @@ class OrderCountsV1 {
             (k, v) => MapEntry(k.toString(), (v as num).toInt()),
           ) ??
           const {},
+      room: json['room'] as String?,
     );
   }
 }
@@ -224,23 +229,70 @@ class OrdersV1Api {
     await client.delete('/stores/$storeId/statuses/$statusId');
   }
 
-  Future<OrderCountsV1> counts(String storeId) async {
-    final res = await client.get('/stores/$storeId/orders/counts');
+  Future<OrderCountsV1> counts(String storeId, {String? room}) async {
+    final res = await client.get(
+      '/stores/$storeId/orders/counts',
+      queryParameters: {
+        if (room != null && room.isNotEmpty) 'room': room,
+      },
+    );
     return OrderCountsV1.fromJson(Map<String, dynamic>.from(res.data as Map));
   }
 
   /// Apply a sticker (`statusId` or `kind`) — Opencod `POST .../apply`.
+  ///
+  /// [allowCrossRoom] is required when the operator picks a sitting sticker
+  /// from another working desk (status menu submenus). CloseAs stickers
+  /// (`done` / `fail`) already bypass the same-desk guard.
   Future<Map<String, dynamic>> apply(
     String storeId,
     String orderId, {
     String? statusId,
     String? kind,
+    bool allowCrossRoom = false,
   }) async {
     final res = await client.post(
       '/stores/$storeId/orders/$orderId/apply',
       data: {
         if (statusId != null) 'statusId': statusId,
         if (kind != null) 'kind': kind,
+        if (allowCrossRoom) 'allowCrossRoom': true,
+      },
+    );
+    return Map<String, dynamic>.from(res.data['data'] as Map? ?? res.data as Map);
+  }
+
+  /// Open → pack door (Opencod SPEC-API-010).
+  Future<Map<String, dynamic>> confirm(
+    String storeId,
+    String orderId, {
+    String? type,
+    bool stockout = false,
+    String? reason,
+  }) async {
+    final res = await client.post(
+      '/stores/$storeId/orders/$orderId/confirm',
+      data: {
+        if (type != null) 'type': type,
+        if (stockout) 'stockout': true,
+        if (reason != null) 'reason': reason,
+      },
+    );
+    return Map<String, dynamic>.from(res.data['data'] as Map? ?? res.data as Map);
+  }
+
+  /// Open → fail door (Opencod SPEC-API-011).
+  Future<Map<String, dynamic>> reject(
+    String storeId,
+    String orderId, {
+    String kind = 'cancel',
+    String? reason,
+  }) async {
+    final res = await client.post(
+      '/stores/$storeId/orders/$orderId/reject',
+      data: {
+        'kind': kind,
+        if (reason != null) 'reason': reason,
       },
     );
     return Map<String, dynamic>.from(res.data['data'] as Map? ?? res.data as Map);

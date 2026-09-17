@@ -213,13 +213,287 @@ class FinanceRepository {
     required String projectId,
     String? from,
     String? to,
+    /// Tape filter: `all` | `in` | `out` | `transfer`.
+    String? kind,
   }) async {
     final response = await client.get('/finance/reports/overview', queryParameters: {
       'projectId': projectId,
       if (from != null) 'from': from,
       if (to != null) 'to': to,
+      if (kind != null && kind.isNotEmpty && kind != 'all') 'kind': kind,
     });
     return FinanceOverview.fromJson(response.data as Map<String, dynamic>);
+  }
+
+  /// Opencod Receive — courier COD lump-sum into a wallet.
+  Future<FinanceCourierPayment> createCourierPayment({
+    required String projectId,
+    required String financialAccountId,
+    required double amount,
+    String? companyIntegrationId,
+    String? partnerName,
+    String? note,
+  }) async {
+    final response = await client.post('/finance/payments', data: {
+      'projectId': projectId,
+      'financialAccountId': financialAccountId,
+      'walletId': financialAccountId,
+      'amount': amount,
+      if (companyIntegrationId != null)
+        'companyIntegrationId': companyIntegrationId,
+      if (partnerName != null) 'partnerName': partnerName,
+      if (note != null) 'note': note,
+    });
+    final map = response.data is Map
+        ? Map<String, dynamic>.from(response.data as Map)
+        : <String, dynamic>{};
+    final data = map['data'] is Map
+        ? Map<String, dynamic>.from(map['data'] as Map)
+        : map;
+    return FinanceCourierPayment.fromJson(data);
+  }
+
+  Future<ListResponse<FinanceCourierPayment>> listCourierPayments({
+    required String projectId,
+    int? page,
+    int? limit,
+    String? q,
+  }) async {
+    final response = await client.get('/finance/payments', queryParameters: {
+      'projectId': projectId,
+      if (page != null) 'page': page,
+      if (limit != null) 'limit': limit,
+      if (q != null && q.isNotEmpty) 'q': q,
+    });
+    return parseFinanceListResponse(response.data, (e) {
+      return FinanceCourierPayment.fromJson(Map<String, dynamic>.from(e as Map));
+    });
+  }
+
+  Future<void> deleteCourierPayment({
+    required String projectId,
+    required String id,
+  }) async {
+    await client.delete(
+      '/finance/payments/$id',
+      data: {'projectId': projectId},
+    );
+  }
+
+  /// Opencod Movement — unstructured cash in/out on one wallet.
+  Future<Map<String, dynamic>> walletFlow({
+    required String projectId,
+    required String financialAccountId,
+    required String kind, // in | out
+    required double amount,
+    String? note,
+  }) async {
+    final response = await client.post('/finance/wallets/flow', data: {
+      'projectId': projectId,
+      'financialAccountId': financialAccountId,
+      'walletId': financialAccountId,
+      'kind': kind,
+      'amount': amount,
+      if (note != null) 'note': note,
+    });
+    final map = response.data is Map
+        ? Map<String, dynamic>.from(response.data as Map)
+        : <String, dynamic>{};
+    return map['data'] is Map
+        ? Map<String, dynamic>.from(map['data'] as Map)
+        : map;
+  }
+
+  Future<FinancePayout> createPayout({
+    required String projectId,
+    required String payoutType,
+    required String beneficiaryName,
+    double? amountDue,
+    double? amountPaid,
+    String? financialAccountId,
+    String? payeeUserId,
+    String? note,
+  }) async {
+    final response = await client.post('/finance/payouts', data: {
+      'projectId': projectId,
+      'payoutType': payoutType,
+      'beneficiaryName': beneficiaryName,
+      if (amountDue != null) 'amountDue': amountDue,
+      if (amountPaid != null) 'amountPaid': amountPaid,
+      if (financialAccountId != null) ...{
+        'financialAccountId': financialAccountId,
+        'walletId': financialAccountId,
+      },
+      if (payeeUserId != null) 'payeeUserId': payeeUserId,
+      if (note != null) 'note': note,
+    });
+    final map = response.data is Map
+        ? Map<String, dynamic>.from(response.data as Map)
+        : <String, dynamic>{};
+    final data = map['data'] is Map
+        ? Map<String, dynamic>.from(map['data'] as Map)
+        : map;
+    return FinancePayout.fromJson(data);
+  }
+
+  Future<ListResponse<FinancePayout>> listPayouts({
+    required String projectId,
+    String? type,
+    int? page,
+    int? limit,
+  }) async {
+    final response = await client.get('/finance/payouts', queryParameters: {
+      'projectId': projectId,
+      if (type != null) 'type': type,
+      if (page != null) 'page': page,
+      if (limit != null) 'limit': limit,
+    });
+    return parseFinanceListResponse(response.data, (e) {
+      return FinancePayout.fromJson(Map<String, dynamic>.from(e as Map));
+    });
+  }
+
+  Future<List<FinancePayee>> listPayees({required String projectId}) async {
+    final response = await client.get('/finance/payouts/payees',
+        queryParameters: {'projectId': projectId});
+    final map = response.data is Map
+        ? Map<String, dynamic>.from(response.data as Map)
+        : <String, dynamic>{};
+    final rows = map['data'] is List ? map['data'] as List : const [];
+    return rows
+        .whereType<Map>()
+        .map((e) => FinancePayee.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+  }
+
+  Future<void> deletePayout({
+    required String projectId,
+    required String id,
+  }) async {
+    await client.delete('/finance/payouts/$id', data: {'projectId': projectId});
+  }
+
+  /// Remaining due for a payee (Opencod `/payouts/dues`).
+  Future<({double amountDue, double amountPaid, double remaining})> listPayoutDues({
+    required String projectId,
+    String? payeeUserId,
+    String? beneficiaryName,
+  }) async {
+    final response = await client.get('/finance/payouts/dues', queryParameters: {
+      'projectId': projectId,
+      if (payeeUserId != null) 'payeeUserId': payeeUserId,
+      if (beneficiaryName != null) 'beneficiaryName': beneficiaryName,
+    });
+    final map = response.data is Map
+        ? Map<String, dynamic>.from(response.data as Map)
+        : <String, dynamic>{};
+    final data = map['data'] is Map
+        ? Map<String, dynamic>.from(map['data'] as Map)
+        : map;
+    return (
+      amountDue: _financeAsInt(data['amountDue'])?.toDouble() ??
+          (data['amountDue'] is num ? (data['amountDue'] as num).toDouble() : 0),
+      amountPaid: data['amountPaid'] is num
+          ? (data['amountPaid'] as num).toDouble()
+          : double.tryParse('${data['amountPaid']}') ?? 0,
+      remaining: data['remaining'] is num
+          ? (data['remaining'] as num).toDouble()
+          : double.tryParse('${data['remaining']}') ?? 0,
+    );
+  }
+
+  Future<FinancePayout> settlePayout({
+    required String projectId,
+    required String id,
+    required double amountPaid,
+    required String financialAccountId,
+    String? note,
+  }) async {
+    final response = await client.post('/finance/payouts/$id/settle', data: {
+      'projectId': projectId,
+      'amountPaid': amountPaid,
+      'financialAccountId': financialAccountId,
+      'walletId': financialAccountId,
+      if (note != null) 'note': note,
+    });
+    final map = response.data is Map
+        ? Map<String, dynamic>.from(response.data as Map)
+        : <String, dynamic>{};
+    final data = map['data'] is Map
+        ? Map<String, dynamic>.from(map['data'] as Map)
+        : map;
+    return FinancePayout.fromJson(data);
+  }
+
+  Future<FinanceCharge> createCharge({
+    required String projectId,
+    required String name,
+    required double amount,
+    required String chargeType,
+    String? category,
+    String? frequency,
+    String? financialAccountId,
+    String? note,
+  }) async {
+    final response = await client.post('/finance/charges', data: {
+      'projectId': projectId,
+      'name': name,
+      'amount': amount,
+      'chargeType': chargeType,
+      if (category != null) 'category': category,
+      if (frequency != null) 'frequency': frequency,
+      if (financialAccountId != null) ...{
+        'financialAccountId': financialAccountId,
+        'walletId': financialAccountId,
+      },
+      if (note != null) 'note': note,
+    });
+    final map = response.data is Map
+        ? Map<String, dynamic>.from(response.data as Map)
+        : <String, dynamic>{};
+    final data = map['data'] is Map
+        ? Map<String, dynamic>.from(map['data'] as Map)
+        : map;
+    return FinanceCharge.fromJson(data);
+  }
+
+  Future<ListResponse<FinanceCharge>> listCharges({
+    required String projectId,
+    String? tab,
+    int? page,
+    int? limit,
+  }) async {
+    final response = await client.get('/finance/charges', queryParameters: {
+      'projectId': projectId,
+      if (tab != null) 'tab': tab,
+      if (page != null) 'page': page,
+      if (limit != null) 'limit': limit,
+    });
+    return parseFinanceListResponse(response.data, (e) {
+      return FinanceCharge.fromJson(Map<String, dynamic>.from(e as Map));
+    });
+  }
+
+  Future<void> deleteCharge({
+    required String projectId,
+    required String id,
+  }) async {
+    await client.delete('/finance/charges/$id', data: {'projectId': projectId});
+  }
+
+  /// Opencod expenses accrual badge for the recurring tab.
+  Future<double> chargeAccrual({required String projectId}) async {
+    final response = await client.get('/finance/charges/accrual',
+        queryParameters: {'projectId': projectId});
+    final map = response.data is Map
+        ? Map<String, dynamic>.from(response.data as Map)
+        : <String, dynamic>{};
+    final data = map['data'] is Map
+        ? Map<String, dynamic>.from(map['data'] as Map)
+        : map;
+    final raw = data['accruedThisMonth'] ?? map['accruedThisMonth'] ?? 0;
+    if (raw is num) return raw.toDouble();
+    return double.tryParse(raw.toString()) ?? 0;
   }
 
   Future<CashPosition> cashPosition({required String projectId}) async {

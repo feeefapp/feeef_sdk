@@ -428,6 +428,160 @@ class InventoryAliasUpdate implements ModelUpdate {
   };
 }
 
+// ─── Overview hub summary ────────────────────────────────────────────────────
+
+class InventoryStockHealth {
+  final int skuCount;
+  final int unitCount;
+  final double stockValue;
+  final int lowCount;
+  final int outCount;
+  final int warehouseCount;
+
+  const InventoryStockHealth({
+    required this.skuCount,
+    required this.unitCount,
+    required this.stockValue,
+    required this.lowCount,
+    required this.outCount,
+    required this.warehouseCount,
+  });
+
+  factory InventoryStockHealth.fromJson(Map<String, dynamic> json) =>
+      InventoryStockHealth(
+        skuCount: (json['skuCount'] as num?)?.toInt() ?? 0,
+        unitCount: (json['unitCount'] as num?)?.toInt() ?? 0,
+        stockValue: (json['stockValue'] as num?)?.toDouble() ?? 0,
+        lowCount: (json['lowCount'] as num?)?.toInt() ?? 0,
+        outCount: (json['outCount'] as num?)?.toInt() ?? 0,
+        warehouseCount: (json['warehouseCount'] as num?)?.toInt() ?? 0,
+      );
+}
+
+class InventoryLowStockRow {
+  final int id;
+  final String? productId;
+  final String? productName;
+  final String? sku;
+  final String? warehouseId;
+  final String? warehouseName;
+  final int qty;
+  final bool isOut;
+
+  const InventoryLowStockRow({
+    required this.id,
+    this.productId,
+    this.productName,
+    this.sku,
+    this.warehouseId,
+    this.warehouseName,
+    required this.qty,
+    required this.isOut,
+  });
+
+  factory InventoryLowStockRow.fromJson(Map<String, dynamic> json) =>
+      InventoryLowStockRow(
+        id: (json['id'] as num?)?.toInt() ?? 0,
+        productId: json['productId']?.toString(),
+        productName: json['productName']?.toString(),
+        sku: json['sku']?.toString(),
+        warehouseId: json['warehouseId']?.toString(),
+        warehouseName: json['warehouseName']?.toString(),
+        qty: (json['qty'] as num?)?.toInt() ?? 0,
+        isOut: json['isOut'] == true,
+      );
+}
+
+class InventoryRecentMovement {
+  final String type; // purchase | return | transfer | adjust
+  final int id;
+  final String? status;
+  final String? warehouseName;
+  final String? counterpart;
+  final double? total;
+  final int qty;
+  final DateTime? createdAt;
+
+  const InventoryRecentMovement({
+    required this.type,
+    required this.id,
+    this.status,
+    this.warehouseName,
+    this.counterpart,
+    this.total,
+    required this.qty,
+    this.createdAt,
+  });
+
+  factory InventoryRecentMovement.fromJson(Map<String, dynamic> json) =>
+      InventoryRecentMovement(
+        type: json['type']?.toString() ?? 'adjust',
+        id: (json['id'] as num?)?.toInt() ?? 0,
+        status: json['status']?.toString(),
+        warehouseName: json['warehouseName']?.toString(),
+        counterpart: json['counterpart']?.toString(),
+        total: json['total'] != null ? (json['total'] as num).toDouble() : null,
+        qty: (json['qty'] as num?)?.toInt() ?? 0,
+        createdAt: json['createdAt'] != null
+            ? DateTime.tryParse(json['createdAt'].toString())
+            : null,
+      );
+}
+
+class InventoryPosToday {
+  final int todayCount;
+  final double todayTotal;
+
+  const InventoryPosToday({
+    required this.todayCount,
+    required this.todayTotal,
+  });
+
+  factory InventoryPosToday.fromJson(Map<String, dynamic> json) =>
+      InventoryPosToday(
+        todayCount: (json['todayCount'] as num?)?.toInt() ?? 0,
+        todayTotal: (json['todayTotal'] as num?)?.toDouble() ?? 0,
+      );
+}
+
+/// Payload for `GET /inventory/summary` (Opencod-style morning hub).
+class InventorySummary {
+  final InventoryStockHealth stock;
+  final List<InventoryLowStockRow> lowStock;
+  final List<InventoryRecentMovement> recent;
+  final InventoryPosToday? pos;
+
+  const InventorySummary({
+    required this.stock,
+    this.lowStock = const [],
+    this.recent = const [],
+    this.pos,
+  });
+
+  factory InventorySummary.fromJson(Map<String, dynamic> json) =>
+      InventorySummary(
+        stock: InventoryStockHealth.fromJson(
+          Map<String, dynamic>.from((json['stock'] as Map?) ?? const {}),
+        ),
+        lowStock: (json['lowStock'] as List?)
+                ?.whereType<Map>()
+                .map((e) => InventoryLowStockRow.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList() ??
+            const [],
+        recent: (json['recent'] as List?)
+                ?.whereType<Map>()
+                .map((e) => InventoryRecentMovement.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList() ??
+            const [],
+        pos: json['pos'] is Map
+            ? InventoryPosToday.fromJson(
+                Map<String, dynamic>.from(json['pos'] as Map))
+            : null,
+      );
+}
+
 // ─── Batch (Google AIP–style) ───────────────────────────────────────────────
 //
 // Use [BatchResult], [BatchDeleteRequest], etc. from `package:feeef/core/batch_models.dart`.

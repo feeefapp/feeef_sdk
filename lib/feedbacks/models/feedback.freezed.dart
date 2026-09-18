@@ -29,16 +29,21 @@ $FeedbackCopyWith<Feedback> get copyWith => _$FeedbackCopyWithImpl<Feedback>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Feedback&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.details, details) || other.details == details)&&const DeepCollectionEquality().equals(other.tags, tags)&&const DeepCollectionEquality().equals(other.attachments, attachments)&&(identical(other.status, status) || other.status == status)&&(identical(other.priority, priority) || other.priority == priority)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.appVersion, appVersion) || other.appVersion == appVersion)&&const DeepCollectionEquality().equals(other.history, history)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.resolvedAt, resolvedAt) || other.resolvedAt == resolvedAt));
+  final _this = this as Feedback;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Feedback&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.details, _this.details) || other.details == _this.details)&&const DeepCollectionEquality().equals(other.tags, _this.tags)&&const DeepCollectionEquality().equals(other.attachments, _this.attachments)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.priority, _this.priority) || other.priority == _this.priority)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.appVersion, _this.appVersion) || other.appVersion == _this.appVersion)&&const DeepCollectionEquality().equals(other.history, _this.history)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.resolvedAt, _this.resolvedAt) || other.resolvedAt == _this.resolvedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,title,details,const DeepCollectionEquality().hash(tags),const DeepCollectionEquality().hash(attachments),status,priority,const DeepCollectionEquality().hash(metadata),appVersion,const DeepCollectionEquality().hash(history),createdAt,updatedAt,resolvedAt);
+int get hashCode {
+  final _this = this as Feedback;
+  return Object.hash(runtimeType,_this.id,_this.userId,_this.title,_this.details,const DeepCollectionEquality().hash(_this.tags),const DeepCollectionEquality().hash(_this.attachments),_this.status,_this.priority,const DeepCollectionEquality().hash(_this.metadata),_this.appVersion,const DeepCollectionEquality().hash(_this.history),_this.createdAt,_this.updatedAt,_this.resolvedAt);
+}
 
 @override
 String toString() {
-  return 'Feedback(id: $id, userId: $userId, title: $title, details: $details, tags: $tags, attachments: $attachments, status: $status, priority: $priority, metadata: $metadata, appVersion: $appVersion, history: $history, createdAt: $createdAt, updatedAt: $updatedAt, resolvedAt: $resolvedAt)';
+  final _this = this as Feedback;
+  return 'Feedback(id: ${_this.id}, userId: ${_this.userId}, title: ${_this.title}, details: ${_this.details}, tags: ${_this.tags}, attachments: ${_this.attachments}, status: ${_this.status}, priority: ${_this.priority}, metadata: ${_this.metadata}, appVersion: ${_this.appVersion}, history: ${_this.history}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, resolvedAt: ${_this.resolvedAt})';
 }
 
 
@@ -278,16 +283,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Feedback&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.details, details) || other.details == details)&&const DeepCollectionEquality().equals(other._tags, _tags)&&const DeepCollectionEquality().equals(other._attachments, _attachments)&&(identical(other.status, status) || other.status == status)&&(identical(other.priority, priority) || other.priority == priority)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.appVersion, appVersion) || other.appVersion == appVersion)&&const DeepCollectionEquality().equals(other._history, _history)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.resolvedAt, resolvedAt) || other.resolvedAt == resolvedAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Feedback&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.details, details) || other.details == details)&&const DeepCollectionEquality().equals(other.tags, _tags)&&const DeepCollectionEquality().equals(other.attachments, _attachments)&&(identical(other.status, status) || other.status == status)&&(identical(other.priority, priority) || other.priority == priority)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.appVersion, appVersion) || other.appVersion == appVersion)&&const DeepCollectionEquality().equals(other.history, _history)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.resolvedAt, resolvedAt) || other.resolvedAt == resolvedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,title,details,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_attachments),status,priority,const DeepCollectionEquality().hash(_metadata),appVersion,const DeepCollectionEquality().hash(_history),createdAt,updatedAt,resolvedAt);
+int get hashCode {
+    return Object.hash(runtimeType,id,userId,title,details,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_attachments),status,priority,const DeepCollectionEquality().hash(_metadata),appVersion,const DeepCollectionEquality().hash(_history),createdAt,updatedAt,resolvedAt);
+}
 
 @override
 String toString() {
-  return 'Feedback(id: $id, userId: $userId, title: $title, details: $details, tags: $tags, attachments: $attachments, status: $status, priority: $priority, metadata: $metadata, appVersion: $appVersion, history: $history, createdAt: $createdAt, updatedAt: $updatedAt, resolvedAt: $resolvedAt)';
+    return 'Feedback(id: $id, userId: $userId, title: $title, details: $details, tags: $tags, attachments: $attachments, status: $status, priority: $priority, metadata: $metadata, appVersion: $appVersion, history: $history, createdAt: $createdAt, updatedAt: $updatedAt, resolvedAt: $resolvedAt)';
 }
 
 
@@ -355,16 +362,21 @@ $FeedbackCreateCopyWith<FeedbackCreate> get copyWith => _$FeedbackCreateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedbackCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.details, details) || other.details == details)&&const DeepCollectionEquality().equals(other.tags, tags)&&const DeepCollectionEquality().equals(other.attachments, attachments)&&(identical(other.priority, priority) || other.priority == priority)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.appVersion, appVersion) || other.appVersion == appVersion));
+  final _this = this as FeedbackCreate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedbackCreate&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.details, _this.details) || other.details == _this.details)&&const DeepCollectionEquality().equals(other.tags, _this.tags)&&const DeepCollectionEquality().equals(other.attachments, _this.attachments)&&(identical(other.priority, _this.priority) || other.priority == _this.priority)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.appVersion, _this.appVersion) || other.appVersion == _this.appVersion));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,details,const DeepCollectionEquality().hash(tags),const DeepCollectionEquality().hash(attachments),priority,const DeepCollectionEquality().hash(metadata),appVersion);
+int get hashCode {
+  final _this = this as FeedbackCreate;
+  return Object.hash(runtimeType,_this.id,_this.title,_this.details,const DeepCollectionEquality().hash(_this.tags),const DeepCollectionEquality().hash(_this.attachments),_this.priority,const DeepCollectionEquality().hash(_this.metadata),_this.appVersion);
+}
 
 @override
 String toString() {
-  return 'FeedbackCreate(id: $id, title: $title, details: $details, tags: $tags, attachments: $attachments, priority: $priority, metadata: $metadata, appVersion: $appVersion)';
+  final _this = this as FeedbackCreate;
+  return 'FeedbackCreate(id: ${_this.id}, title: ${_this.title}, details: ${_this.details}, tags: ${_this.tags}, attachments: ${_this.attachments}, priority: ${_this.priority}, metadata: ${_this.metadata}, appVersion: ${_this.appVersion})';
 }
 
 
@@ -586,16 +598,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedbackCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.details, details) || other.details == details)&&const DeepCollectionEquality().equals(other._tags, _tags)&&const DeepCollectionEquality().equals(other._attachments, _attachments)&&(identical(other.priority, priority) || other.priority == priority)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.appVersion, appVersion) || other.appVersion == appVersion));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedbackCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.details, details) || other.details == details)&&const DeepCollectionEquality().equals(other.tags, _tags)&&const DeepCollectionEquality().equals(other.attachments, _attachments)&&(identical(other.priority, priority) || other.priority == priority)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.appVersion, appVersion) || other.appVersion == appVersion));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,details,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_attachments),priority,const DeepCollectionEquality().hash(_metadata),appVersion);
+int get hashCode {
+    return Object.hash(runtimeType,id,title,details,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_attachments),priority,const DeepCollectionEquality().hash(_metadata),appVersion);
+}
 
 @override
 String toString() {
-  return 'FeedbackCreate(id: $id, title: $title, details: $details, tags: $tags, attachments: $attachments, priority: $priority, metadata: $metadata, appVersion: $appVersion)';
+    return 'FeedbackCreate(id: $id, title: $title, details: $details, tags: $tags, attachments: $attachments, priority: $priority, metadata: $metadata, appVersion: $appVersion)';
 }
 
 
@@ -657,16 +671,21 @@ $FeedbackUpdateCopyWith<FeedbackUpdate> get copyWith => _$FeedbackUpdateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedbackUpdate&&(identical(other.title, title) || other.title == title)&&(identical(other.details, details) || other.details == details)&&const DeepCollectionEquality().equals(other.tags, tags)&&const DeepCollectionEquality().equals(other.attachments, attachments)&&(identical(other.priority, priority) || other.priority == priority)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.appVersion, appVersion) || other.appVersion == appVersion)&&(identical(other.comment, comment) || other.comment == comment)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
+  final _this = this as FeedbackUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeedbackUpdate&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.details, _this.details) || other.details == _this.details)&&const DeepCollectionEquality().equals(other.tags, _this.tags)&&const DeepCollectionEquality().equals(other.attachments, _this.attachments)&&(identical(other.priority, _this.priority) || other.priority == _this.priority)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.appVersion, _this.appVersion) || other.appVersion == _this.appVersion)&&(identical(other.comment, _this.comment) || other.comment == _this.comment)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,title,details,const DeepCollectionEquality().hash(tags),const DeepCollectionEquality().hash(attachments),priority,const DeepCollectionEquality().hash(metadata),appVersion,comment,const DeepCollectionEquality().hash(setToNull));
+int get hashCode {
+  final _this = this as FeedbackUpdate;
+  return Object.hash(runtimeType,_this.title,_this.details,const DeepCollectionEquality().hash(_this.tags),const DeepCollectionEquality().hash(_this.attachments),_this.priority,const DeepCollectionEquality().hash(_this.metadata),_this.appVersion,_this.comment,const DeepCollectionEquality().hash(_this.setToNull));
+}
 
 @override
 String toString() {
-  return 'FeedbackUpdate(title: $title, details: $details, tags: $tags, attachments: $attachments, priority: $priority, metadata: $metadata, appVersion: $appVersion, comment: $comment, setToNull: $setToNull)';
+  final _this = this as FeedbackUpdate;
+  return 'FeedbackUpdate(title: ${_this.title}, details: ${_this.details}, tags: ${_this.tags}, attachments: ${_this.attachments}, priority: ${_this.priority}, metadata: ${_this.metadata}, appVersion: ${_this.appVersion}, comment: ${_this.comment}, setToNull: ${_this.setToNull})';
 }
 
 
@@ -902,16 +921,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedbackUpdate&&(identical(other.title, title) || other.title == title)&&(identical(other.details, details) || other.details == details)&&const DeepCollectionEquality().equals(other._tags, _tags)&&const DeepCollectionEquality().equals(other._attachments, _attachments)&&(identical(other.priority, priority) || other.priority == priority)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.appVersion, appVersion) || other.appVersion == appVersion)&&(identical(other.comment, comment) || other.comment == comment)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeedbackUpdate&&(identical(other.title, title) || other.title == title)&&(identical(other.details, details) || other.details == details)&&const DeepCollectionEquality().equals(other.tags, _tags)&&const DeepCollectionEquality().equals(other.attachments, _attachments)&&(identical(other.priority, priority) || other.priority == priority)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.appVersion, appVersion) || other.appVersion == appVersion)&&(identical(other.comment, comment) || other.comment == comment)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,title,details,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_attachments),priority,const DeepCollectionEquality().hash(_metadata),appVersion,comment,const DeepCollectionEquality().hash(_setToNull));
+int get hashCode {
+    return Object.hash(runtimeType,title,details,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_attachments),priority,const DeepCollectionEquality().hash(_metadata),appVersion,comment,const DeepCollectionEquality().hash(_setToNull));
+}
 
 @override
 String toString() {
-  return 'FeedbackUpdate(title: $title, details: $details, tags: $tags, attachments: $attachments, priority: $priority, metadata: $metadata, appVersion: $appVersion, comment: $comment, setToNull: $setToNull)';
+    return 'FeedbackUpdate(title: $title, details: $details, tags: $tags, attachments: $attachments, priority: $priority, metadata: $metadata, appVersion: $appVersion, comment: $comment, setToNull: $setToNull)';
 }
 
 

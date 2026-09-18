@@ -1,0 +1,8 @@
+# Freezed 4.x + json_serializable: nested Freezed objects in Lists/Maps
+# only serialize via `.toJson()` when explicit_to_json is enabled.
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          explicit_to_json: true

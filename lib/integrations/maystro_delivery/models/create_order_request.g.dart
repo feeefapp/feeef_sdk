@@ -78,9 +78,9 @@ Map<String, dynamic> _$MaystroCreateOrderRequestToJson(
   _MaystroCreateOrderRequest instance,
 ) => <String, dynamic>{
   'externalId': instance.externalId,
-  'customer': instance.customer,
-  'deliveryAddress': instance.deliveryAddress,
-  'orderedProducts': instance.orderedProducts,
+  'customer': instance.customer.toJson(),
+  'deliveryAddress': instance.deliveryAddress.toJson(),
+  'orderedProducts': instance.orderedProducts.map((e) => e.toJson()).toList(),
   'amount': instance.amount,
   'description': instance.description,
   'stateCode': instance.stateCode,
@@ -139,6 +139,6 @@ _MaystroIndividualLabelsResponse _$MaystroIndividualLabelsResponseFromJson(
 Map<String, dynamic> _$MaystroIndividualLabelsResponseToJson(
   _MaystroIndividualLabelsResponse instance,
 ) => <String, dynamic>{
-  'parcelLabelFiles': instance.parcelLabelFiles,
+  'parcelLabelFiles': instance.parcelLabelFiles.map((e) => e.toJson()).toList(),
   'failedTrackingNumbers': instance.failedTrackingNumbers,
 };

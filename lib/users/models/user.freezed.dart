@@ -29,16 +29,21 @@ $UserCopyWith<User> get copyWith => _$UserCopyWithImpl<User>(this as User, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.emailVerifiedAt, emailVerifiedAt) || other.emailVerifiedAt == emailVerifiedAt)&&(identical(other.phoneVerifiedAt, phoneVerifiedAt) || other.phoneVerifiedAt == phoneVerifiedAt)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&(identical(other.partnerApprovedAt, partnerApprovedAt) || other.partnerApprovedAt == partnerApprovedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.wallet, wallet) || other.wallet == wallet)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.social, social)&&const DeepCollectionEquality().equals(other.claims, claims));
+  final _this = this as User;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.email, _this.email) || other.email == _this.email)&&(identical(other.phone, _this.phone) || other.phone == _this.phone)&&(identical(other.photoUrl, _this.photoUrl) || other.photoUrl == _this.photoUrl)&&(identical(other.emailVerifiedAt, _this.emailVerifiedAt) || other.emailVerifiedAt == _this.emailVerifiedAt)&&(identical(other.phoneVerifiedAt, _this.phoneVerifiedAt) || other.phoneVerifiedAt == _this.phoneVerifiedAt)&&(identical(other.verifiedAt, _this.verifiedAt) || other.verifiedAt == _this.verifiedAt)&&(identical(other.blockedAt, _this.blockedAt) || other.blockedAt == _this.blockedAt)&&(identical(other.partnerApprovedAt, _this.partnerApprovedAt) || other.partnerApprovedAt == _this.partnerApprovedAt)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.wallet, _this.wallet) || other.wallet == _this.wallet)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.social, _this.social)&&const DeepCollectionEquality().equals(other.claims, _this.claims));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,email,phone,photoUrl,emailVerifiedAt,phoneVerifiedAt,verifiedAt,blockedAt,partnerApprovedAt,createdAt,updatedAt,wallet,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(social),const DeepCollectionEquality().hash(claims));
+int get hashCode {
+  final _this = this as User;
+  return Object.hash(runtimeType,_this.id,_this.name,_this.email,_this.phone,_this.photoUrl,_this.emailVerifiedAt,_this.phoneVerifiedAt,_this.verifiedAt,_this.blockedAt,_this.partnerApprovedAt,_this.createdAt,_this.updatedAt,_this.wallet,const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.social),const DeepCollectionEquality().hash(_this.claims));
+}
 
 @override
 String toString() {
-  return 'User(id: $id, name: $name, email: $email, phone: $phone, photoUrl: $photoUrl, emailVerifiedAt: $emailVerifiedAt, phoneVerifiedAt: $phoneVerifiedAt, verifiedAt: $verifiedAt, blockedAt: $blockedAt, partnerApprovedAt: $partnerApprovedAt, createdAt: $createdAt, updatedAt: $updatedAt, wallet: $wallet, metadata: $metadata, social: $social, claims: $claims)';
+  final _this = this as User;
+  return 'User(id: ${_this.id}, name: ${_this.name}, email: ${_this.email}, phone: ${_this.phone}, photoUrl: ${_this.photoUrl}, emailVerifiedAt: ${_this.emailVerifiedAt}, phoneVerifiedAt: ${_this.phoneVerifiedAt}, verifiedAt: ${_this.verifiedAt}, blockedAt: ${_this.blockedAt}, partnerApprovedAt: ${_this.partnerApprovedAt}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, wallet: ${_this.wallet}, metadata: ${_this.metadata}, social: ${_this.social}, claims: ${_this.claims})';
 }
 
 
@@ -285,16 +290,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _User&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.emailVerifiedAt, emailVerifiedAt) || other.emailVerifiedAt == emailVerifiedAt)&&(identical(other.phoneVerifiedAt, phoneVerifiedAt) || other.phoneVerifiedAt == phoneVerifiedAt)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&(identical(other.partnerApprovedAt, partnerApprovedAt) || other.partnerApprovedAt == partnerApprovedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.wallet, wallet) || other.wallet == wallet)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._social, _social)&&const DeepCollectionEquality().equals(other._claims, _claims));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _User&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.emailVerifiedAt, emailVerifiedAt) || other.emailVerifiedAt == emailVerifiedAt)&&(identical(other.phoneVerifiedAt, phoneVerifiedAt) || other.phoneVerifiedAt == phoneVerifiedAt)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&(identical(other.partnerApprovedAt, partnerApprovedAt) || other.partnerApprovedAt == partnerApprovedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.wallet, wallet) || other.wallet == wallet)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.social, _social)&&const DeepCollectionEquality().equals(other.claims, _claims));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,email,phone,photoUrl,emailVerifiedAt,phoneVerifiedAt,verifiedAt,blockedAt,partnerApprovedAt,createdAt,updatedAt,wallet,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_social),const DeepCollectionEquality().hash(_claims));
+int get hashCode {
+    return Object.hash(runtimeType,id,name,email,phone,photoUrl,emailVerifiedAt,phoneVerifiedAt,verifiedAt,blockedAt,partnerApprovedAt,createdAt,updatedAt,wallet,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_social),const DeepCollectionEquality().hash(_claims));
+}
 
 @override
 String toString() {
-  return 'User(id: $id, name: $name, email: $email, phone: $phone, photoUrl: $photoUrl, emailVerifiedAt: $emailVerifiedAt, phoneVerifiedAt: $phoneVerifiedAt, verifiedAt: $verifiedAt, blockedAt: $blockedAt, partnerApprovedAt: $partnerApprovedAt, createdAt: $createdAt, updatedAt: $updatedAt, wallet: $wallet, metadata: $metadata, social: $social, claims: $claims)';
+    return 'User(id: $id, name: $name, email: $email, phone: $phone, photoUrl: $photoUrl, emailVerifiedAt: $emailVerifiedAt, phoneVerifiedAt: $phoneVerifiedAt, verifiedAt: $verifiedAt, blockedAt: $blockedAt, partnerApprovedAt: $partnerApprovedAt, createdAt: $createdAt, updatedAt: $updatedAt, wallet: $wallet, metadata: $metadata, social: $social, claims: $claims)';
 }
 
 
@@ -373,16 +380,21 @@ $UserUpdateCopyWith<UserUpdate> get copyWith => _$UserUpdateCopyWithImpl<UserUpd
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.emailVerifiedAt, emailVerifiedAt) || other.emailVerifiedAt == emailVerifiedAt)&&(identical(other.phoneVerifiedAt, phoneVerifiedAt) || other.phoneVerifiedAt == phoneVerifiedAt)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
+  final _this = this as UserUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserUpdate&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.email, _this.email) || other.email == _this.email)&&(identical(other.phone, _this.phone) || other.phone == _this.phone)&&(identical(other.photoUrl, _this.photoUrl) || other.photoUrl == _this.photoUrl)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.emailVerifiedAt, _this.emailVerifiedAt) || other.emailVerifiedAt == _this.emailVerifiedAt)&&(identical(other.phoneVerifiedAt, _this.phoneVerifiedAt) || other.phoneVerifiedAt == _this.phoneVerifiedAt)&&(identical(other.verifiedAt, _this.verifiedAt) || other.verifiedAt == _this.verifiedAt)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,email,phone,photoUrl,const DeepCollectionEquality().hash(metadata),emailVerifiedAt,phoneVerifiedAt,verifiedAt,const DeepCollectionEquality().hash(setToNull));
+int get hashCode {
+  final _this = this as UserUpdate;
+  return Object.hash(runtimeType,_this.name,_this.email,_this.phone,_this.photoUrl,const DeepCollectionEquality().hash(_this.metadata),_this.emailVerifiedAt,_this.phoneVerifiedAt,_this.verifiedAt,const DeepCollectionEquality().hash(_this.setToNull));
+}
 
 @override
 String toString() {
-  return 'UserUpdate(name: $name, email: $email, phone: $phone, photoUrl: $photoUrl, metadata: $metadata, emailVerifiedAt: $emailVerifiedAt, phoneVerifiedAt: $phoneVerifiedAt, verifiedAt: $verifiedAt, setToNull: $setToNull)';
+  final _this = this as UserUpdate;
+  return 'UserUpdate(name: ${_this.name}, email: ${_this.email}, phone: ${_this.phone}, photoUrl: ${_this.photoUrl}, metadata: ${_this.metadata}, emailVerifiedAt: ${_this.emailVerifiedAt}, phoneVerifiedAt: ${_this.phoneVerifiedAt}, verifiedAt: ${_this.verifiedAt}, setToNull: ${_this.setToNull})';
 }
 
 
@@ -600,16 +612,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.emailVerifiedAt, emailVerifiedAt) || other.emailVerifiedAt == emailVerifiedAt)&&(identical(other.phoneVerifiedAt, phoneVerifiedAt) || other.phoneVerifiedAt == phoneVerifiedAt)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.emailVerifiedAt, emailVerifiedAt) || other.emailVerifiedAt == emailVerifiedAt)&&(identical(other.phoneVerifiedAt, phoneVerifiedAt) || other.phoneVerifiedAt == phoneVerifiedAt)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,email,phone,photoUrl,const DeepCollectionEquality().hash(_metadata),emailVerifiedAt,phoneVerifiedAt,verifiedAt,const DeepCollectionEquality().hash(_setToNull));
+int get hashCode {
+    return Object.hash(runtimeType,name,email,phone,photoUrl,const DeepCollectionEquality().hash(_metadata),emailVerifiedAt,phoneVerifiedAt,verifiedAt,const DeepCollectionEquality().hash(_setToNull));
+}
 
 @override
 String toString() {
-  return 'UserUpdate(name: $name, email: $email, phone: $phone, photoUrl: $photoUrl, metadata: $metadata, emailVerifiedAt: $emailVerifiedAt, phoneVerifiedAt: $phoneVerifiedAt, verifiedAt: $verifiedAt, setToNull: $setToNull)';
+    return 'UserUpdate(name: $name, email: $email, phone: $phone, photoUrl: $photoUrl, metadata: $metadata, emailVerifiedAt: $emailVerifiedAt, phoneVerifiedAt: $phoneVerifiedAt, verifiedAt: $verifiedAt, setToNull: $setToNull)';
 }
 
 
@@ -672,16 +686,21 @@ $UserUpdateMeCopyWith<UserUpdateMe> get copyWith => _$UserUpdateMeCopyWithImpl<U
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserUpdateMe&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.emailVerifiedAt, emailVerifiedAt) || other.emailVerifiedAt == emailVerifiedAt)&&(identical(other.phoneVerifiedAt, phoneVerifiedAt) || other.phoneVerifiedAt == phoneVerifiedAt)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.oldPassword, oldPassword) || other.oldPassword == oldPassword)&&(identical(other.newPassword, newPassword) || other.newPassword == newPassword)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
+  final _this = this as UserUpdateMe;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserUpdateMe&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.email, _this.email) || other.email == _this.email)&&(identical(other.phone, _this.phone) || other.phone == _this.phone)&&(identical(other.photoUrl, _this.photoUrl) || other.photoUrl == _this.photoUrl)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.emailVerifiedAt, _this.emailVerifiedAt) || other.emailVerifiedAt == _this.emailVerifiedAt)&&(identical(other.phoneVerifiedAt, _this.phoneVerifiedAt) || other.phoneVerifiedAt == _this.phoneVerifiedAt)&&(identical(other.verifiedAt, _this.verifiedAt) || other.verifiedAt == _this.verifiedAt)&&(identical(other.oldPassword, _this.oldPassword) || other.oldPassword == _this.oldPassword)&&(identical(other.newPassword, _this.newPassword) || other.newPassword == _this.newPassword)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,email,phone,photoUrl,const DeepCollectionEquality().hash(metadata),emailVerifiedAt,phoneVerifiedAt,verifiedAt,oldPassword,newPassword,const DeepCollectionEquality().hash(setToNull));
+int get hashCode {
+  final _this = this as UserUpdateMe;
+  return Object.hash(runtimeType,_this.name,_this.email,_this.phone,_this.photoUrl,const DeepCollectionEquality().hash(_this.metadata),_this.emailVerifiedAt,_this.phoneVerifiedAt,_this.verifiedAt,_this.oldPassword,_this.newPassword,const DeepCollectionEquality().hash(_this.setToNull));
+}
 
 @override
 String toString() {
-  return 'UserUpdateMe(name: $name, email: $email, phone: $phone, photoUrl: $photoUrl, metadata: $metadata, emailVerifiedAt: $emailVerifiedAt, phoneVerifiedAt: $phoneVerifiedAt, verifiedAt: $verifiedAt, oldPassword: $oldPassword, newPassword: $newPassword, setToNull: $setToNull)';
+  final _this = this as UserUpdateMe;
+  return 'UserUpdateMe(name: ${_this.name}, email: ${_this.email}, phone: ${_this.phone}, photoUrl: ${_this.photoUrl}, metadata: ${_this.metadata}, emailVerifiedAt: ${_this.emailVerifiedAt}, phoneVerifiedAt: ${_this.phoneVerifiedAt}, verifiedAt: ${_this.verifiedAt}, oldPassword: ${_this.oldPassword}, newPassword: ${_this.newPassword}, setToNull: ${_this.setToNull})';
 }
 
 
@@ -903,16 +922,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserUpdateMe&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.emailVerifiedAt, emailVerifiedAt) || other.emailVerifiedAt == emailVerifiedAt)&&(identical(other.phoneVerifiedAt, phoneVerifiedAt) || other.phoneVerifiedAt == phoneVerifiedAt)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.oldPassword, oldPassword) || other.oldPassword == oldPassword)&&(identical(other.newPassword, newPassword) || other.newPassword == newPassword)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserUpdateMe&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.emailVerifiedAt, emailVerifiedAt) || other.emailVerifiedAt == emailVerifiedAt)&&(identical(other.phoneVerifiedAt, phoneVerifiedAt) || other.phoneVerifiedAt == phoneVerifiedAt)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.oldPassword, oldPassword) || other.oldPassword == oldPassword)&&(identical(other.newPassword, newPassword) || other.newPassword == newPassword)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,email,phone,photoUrl,const DeepCollectionEquality().hash(_metadata),emailVerifiedAt,phoneVerifiedAt,verifiedAt,oldPassword,newPassword,const DeepCollectionEquality().hash(_setToNull));
+int get hashCode {
+    return Object.hash(runtimeType,name,email,phone,photoUrl,const DeepCollectionEquality().hash(_metadata),emailVerifiedAt,phoneVerifiedAt,verifiedAt,oldPassword,newPassword,const DeepCollectionEquality().hash(_setToNull));
+}
 
 @override
 String toString() {
-  return 'UserUpdateMe(name: $name, email: $email, phone: $phone, photoUrl: $photoUrl, metadata: $metadata, emailVerifiedAt: $emailVerifiedAt, phoneVerifiedAt: $phoneVerifiedAt, verifiedAt: $verifiedAt, oldPassword: $oldPassword, newPassword: $newPassword, setToNull: $setToNull)';
+    return 'UserUpdateMe(name: $name, email: $email, phone: $phone, photoUrl: $photoUrl, metadata: $metadata, emailVerifiedAt: $emailVerifiedAt, phoneVerifiedAt: $phoneVerifiedAt, verifiedAt: $verifiedAt, oldPassword: $oldPassword, newPassword: $newPassword, setToNull: $setToNull)';
 }
 
 
@@ -977,16 +998,21 @@ $EmbaddedWalletCopyWith<EmbaddedWallet> get copyWith => _$EmbaddedWalletCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmbaddedWallet&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.balance, balance) || other.balance == balance));
+  final _this = this as EmbaddedWallet;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmbaddedWallet&&(identical(other.currency, _this.currency) || other.currency == _this.currency)&&(identical(other.balance, _this.balance) || other.balance == _this.balance));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,currency,balance);
+int get hashCode {
+  final _this = this as EmbaddedWallet;
+  return Object.hash(runtimeType,_this.currency,_this.balance);
+}
 
 @override
 String toString() {
-  return 'EmbaddedWallet(currency: $currency, balance: $balance)';
+  final _this = this as EmbaddedWallet;
+  return 'EmbaddedWallet(currency: ${_this.currency}, balance: ${_this.balance})';
 }
 
 
@@ -1178,16 +1204,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EmbaddedWallet&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.balance, balance) || other.balance == balance));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EmbaddedWallet&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.balance, balance) || other.balance == balance));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,currency,balance);
+int get hashCode {
+    return Object.hash(runtimeType,currency,balance);
+}
 
 @override
 String toString() {
-  return 'EmbaddedWallet(currency: $currency, balance: $balance)';
+    return 'EmbaddedWallet(currency: $currency, balance: $balance)';
 }
 
 

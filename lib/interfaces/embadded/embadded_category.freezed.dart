@@ -29,16 +29,21 @@ $EmbaddedCategoryCopyWith<EmbaddedCategory> get copyWith => _$EmbaddedCategoryCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmbaddedCategory&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.ondarkPhotoUrl, ondarkPhotoUrl) || other.ondarkPhotoUrl == ondarkPhotoUrl)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as EmbaddedCategory;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmbaddedCategory&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.photoUrl, _this.photoUrl) || other.photoUrl == _this.photoUrl)&&(identical(other.ondarkPhotoUrl, _this.ondarkPhotoUrl) || other.ondarkPhotoUrl == _this.ondarkPhotoUrl)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,description,photoUrl,ondarkPhotoUrl,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as EmbaddedCategory;
+  return Object.hash(runtimeType,_this.name,_this.description,_this.photoUrl,_this.ondarkPhotoUrl,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'EmbaddedCategory(name: $name, description: $description, photoUrl: $photoUrl, ondarkPhotoUrl: $ondarkPhotoUrl, metadata: $metadata)';
+  final _this = this as EmbaddedCategory;
+  return 'EmbaddedCategory(name: ${_this.name}, description: ${_this.description}, photoUrl: ${_this.photoUrl}, ondarkPhotoUrl: ${_this.ondarkPhotoUrl}, metadata: ${_this.metadata})';
 }
 
 
@@ -242,16 +247,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EmbaddedCategory&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.ondarkPhotoUrl, ondarkPhotoUrl) || other.ondarkPhotoUrl == ondarkPhotoUrl)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EmbaddedCategory&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.ondarkPhotoUrl, ondarkPhotoUrl) || other.ondarkPhotoUrl == ondarkPhotoUrl)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,description,photoUrl,ondarkPhotoUrl,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,name,description,photoUrl,ondarkPhotoUrl,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'EmbaddedCategory(name: $name, description: $description, photoUrl: $photoUrl, ondarkPhotoUrl: $ondarkPhotoUrl, metadata: $metadata)';
+    return 'EmbaddedCategory(name: $name, description: $description, photoUrl: $photoUrl, ondarkPhotoUrl: $ondarkPhotoUrl, metadata: $metadata)';
 }
 
 

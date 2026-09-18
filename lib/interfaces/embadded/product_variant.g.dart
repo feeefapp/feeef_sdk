@@ -27,7 +27,7 @@ Map<String, dynamic> _$ProductVariantToJson(_ProductVariant instance) =>
       'name': instance.name,
       'view': _$ProductVariantViewEnumMap[instance.view]!,
       'required': instance.required,
-      'options': instance.options,
+      'options': instance.options.map((e) => e.toJson()).toList(),
     };
 
 const _$ProductVariantViewEnumMap = {
@@ -63,7 +63,7 @@ Map<String, dynamic> _$ProductVariantOptionToJson(
   'hidden': instance.hidden,
   'type': _$VariantOptionTypeEnumMap[instance.type]!,
   'value': instance.value,
-  'child': instance.child,
+  'child': instance.child?.toJson(),
   'sku': instance.sku,
   'price': instance.price,
   'discount': instance.discount,

@@ -33,16 +33,21 @@ $ProductCopyWith<Product> get copyWith => _$ProductCopyWithImpl<Product>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Product&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.slug, slug) || other.slug == slug)&&const DeepCollectionEquality().equals(other.decoration, decoration)&&(identical(other.name, name) || other.name == name)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.media, media)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.category, category) || other.category == category)&&(identical(other.categoryRelation, categoryRelation) || other.categoryRelation == categoryRelation)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.body, body) || other.body == body)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.price, price) || other.price == price)&&(identical(other.cost, cost) || other.cost == cost)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.sold, sold) || other.sold == sold)&&(identical(other.views, views) || other.views == views)&&(identical(other.likes, likes) || other.likes == likes)&&(identical(other.variant, variant) || other.variant == variant)&&const DeepCollectionEquality().equals(other.offers, offers)&&(identical(other.forceOffer, forceOffer) || other.forceOffer == forceOffer)&&(identical(other.defaultOfferCode, defaultOfferCode) || other.defaultOfferCode == defaultOfferCode)&&const DeepCollectionEquality().equals(other.addons, addons)&&(identical(other.dislikes, dislikes) || other.dislikes == dislikes)&&(identical(other.status, status) || other.status == status)&&(identical(other.type, type) || other.type == type)&&(identical(other.integrationsData, integrationsData) || other.integrationsData == integrationsData)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.lor, lor) || other.lor == lor));
+  final _this = this as Product;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Product&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.slug, _this.slug) || other.slug == _this.slug)&&const DeepCollectionEquality().equals(other.decoration, _this.decoration)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.photoUrl, _this.photoUrl) || other.photoUrl == _this.photoUrl)&&const DeepCollectionEquality().equals(other.media, _this.media)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&(identical(other.shippingMethodId, _this.shippingMethodId) || other.shippingMethodId == _this.shippingMethodId)&&(identical(other.shippingPriceId, _this.shippingPriceId) || other.shippingPriceId == _this.shippingPriceId)&&(identical(other.categoryId, _this.categoryId) || other.categoryId == _this.categoryId)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.categoryRelation, _this.categoryRelation) || other.categoryRelation == _this.categoryRelation)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.body, _this.body) || other.body == _this.body)&&(identical(other.sku, _this.sku) || other.sku == _this.sku)&&(identical(other.barcode, _this.barcode) || other.barcode == _this.barcode)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.cost, _this.cost) || other.cost == _this.cost)&&(identical(other.discount, _this.discount) || other.discount == _this.discount)&&(identical(other.stock, _this.stock) || other.stock == _this.stock)&&(identical(other.sold, _this.sold) || other.sold == _this.sold)&&(identical(other.views, _this.views) || other.views == _this.views)&&(identical(other.likes, _this.likes) || other.likes == _this.likes)&&(identical(other.variant, _this.variant) || other.variant == _this.variant)&&const DeepCollectionEquality().equals(other.offers, _this.offers)&&(identical(other.forceOffer, _this.forceOffer) || other.forceOffer == _this.forceOffer)&&(identical(other.defaultOfferCode, _this.defaultOfferCode) || other.defaultOfferCode == _this.defaultOfferCode)&&const DeepCollectionEquality().equals(other.addons, _this.addons)&&(identical(other.dislikes, _this.dislikes) || other.dislikes == _this.dislikes)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.integrationsData, _this.integrationsData) || other.integrationsData == _this.integrationsData)&&(identical(other.verifiedAt, _this.verifiedAt) || other.verifiedAt == _this.verifiedAt)&&(identical(other.blockedAt, _this.blockedAt) || other.blockedAt == _this.blockedAt)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.lor, _this.lor) || other.lor == _this.lor));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,createdAt,updatedAt,slug,const DeepCollectionEquality().hash(decoration),name,photoUrl,const DeepCollectionEquality().hash(media),storeId,shippingMethodId,shippingPriceId,categoryId,category,categoryRelation,title,description,body,sku,barcode,price,cost,discount,stock,sold,views,likes,variant,const DeepCollectionEquality().hash(offers),forceOffer,defaultOfferCode,const DeepCollectionEquality().hash(addons),dislikes,status,type,integrationsData,verifiedAt,blockedAt,const DeepCollectionEquality().hash(metadata),lor]);
+int get hashCode {
+  final _this = this as Product;
+  return Object.hashAll([runtimeType,_this.id,_this.createdAt,_this.updatedAt,_this.slug,const DeepCollectionEquality().hash(_this.decoration),_this.name,_this.photoUrl,const DeepCollectionEquality().hash(_this.media),_this.storeId,_this.shippingMethodId,_this.shippingPriceId,_this.categoryId,_this.category,_this.categoryRelation,_this.title,_this.description,_this.body,_this.sku,_this.barcode,_this.price,_this.cost,_this.discount,_this.stock,_this.sold,_this.views,_this.likes,_this.variant,const DeepCollectionEquality().hash(_this.offers),_this.forceOffer,_this.defaultOfferCode,const DeepCollectionEquality().hash(_this.addons),_this.dislikes,_this.status,_this.type,_this.integrationsData,_this.verifiedAt,_this.blockedAt,const DeepCollectionEquality().hash(_this.metadata),_this.lor]);
+}
 
 @override
 String toString() {
-  return 'Product(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, slug: $slug, decoration: $decoration, name: $name, photoUrl: $photoUrl, media: $media, storeId: $storeId, shippingMethodId: $shippingMethodId, shippingPriceId: $shippingPriceId, categoryId: $categoryId, category: $category, categoryRelation: $categoryRelation, title: $title, description: $description, body: $body, sku: $sku, barcode: $barcode, price: $price, cost: $cost, discount: $discount, stock: $stock, sold: $sold, views: $views, likes: $likes, variant: $variant, offers: $offers, forceOffer: $forceOffer, defaultOfferCode: $defaultOfferCode, addons: $addons, dislikes: $dislikes, status: $status, type: $type, integrationsData: $integrationsData, verifiedAt: $verifiedAt, blockedAt: $blockedAt, metadata: $metadata, lor: $lor)';
+  final _this = this as Product;
+  return 'Product(id: ${_this.id}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, slug: ${_this.slug}, decoration: ${_this.decoration}, name: ${_this.name}, photoUrl: ${_this.photoUrl}, media: ${_this.media}, storeId: ${_this.storeId}, shippingMethodId: ${_this.shippingMethodId}, shippingPriceId: ${_this.shippingPriceId}, categoryId: ${_this.categoryId}, category: ${_this.category}, categoryRelation: ${_this.categoryRelation}, title: ${_this.title}, description: ${_this.description}, body: ${_this.body}, sku: ${_this.sku}, barcode: ${_this.barcode}, price: ${_this.price}, cost: ${_this.cost}, discount: ${_this.discount}, stock: ${_this.stock}, sold: ${_this.sold}, views: ${_this.views}, likes: ${_this.likes}, variant: ${_this.variant}, offers: ${_this.offers}, forceOffer: ${_this.forceOffer}, defaultOfferCode: ${_this.defaultOfferCode}, addons: ${_this.addons}, dislikes: ${_this.dislikes}, status: ${_this.status}, type: ${_this.type}, integrationsData: ${_this.integrationsData}, verifiedAt: ${_this.verifiedAt}, blockedAt: ${_this.blockedAt}, metadata: ${_this.metadata}, lor: ${_this.lor})';
 }
 
 
@@ -388,16 +393,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Product&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.slug, slug) || other.slug == slug)&&const DeepCollectionEquality().equals(other.decoration, decoration)&&(identical(other.name, name) || other.name == name)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other._media, _media)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.category, category) || other.category == category)&&(identical(other.categoryRelation, categoryRelation) || other.categoryRelation == categoryRelation)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.body, body) || other.body == body)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.price, price) || other.price == price)&&(identical(other.cost, cost) || other.cost == cost)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.sold, sold) || other.sold == sold)&&(identical(other.views, views) || other.views == views)&&(identical(other.likes, likes) || other.likes == likes)&&(identical(other.variant, variant) || other.variant == variant)&&const DeepCollectionEquality().equals(other._offers, _offers)&&(identical(other.forceOffer, forceOffer) || other.forceOffer == forceOffer)&&(identical(other.defaultOfferCode, defaultOfferCode) || other.defaultOfferCode == defaultOfferCode)&&const DeepCollectionEquality().equals(other._addons, _addons)&&(identical(other.dislikes, dislikes) || other.dislikes == dislikes)&&(identical(other.status, status) || other.status == status)&&(identical(other.type, type) || other.type == type)&&(identical(other.integrationsData, integrationsData) || other.integrationsData == integrationsData)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.lor, lor) || other.lor == lor));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Product&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.slug, slug) || other.slug == slug)&&const DeepCollectionEquality().equals(other.decoration, decoration)&&(identical(other.name, name) || other.name == name)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.media, _media)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.category, category) || other.category == category)&&(identical(other.categoryRelation, categoryRelation) || other.categoryRelation == categoryRelation)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.body, body) || other.body == body)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.price, price) || other.price == price)&&(identical(other.cost, cost) || other.cost == cost)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.sold, sold) || other.sold == sold)&&(identical(other.views, views) || other.views == views)&&(identical(other.likes, likes) || other.likes == likes)&&(identical(other.variant, variant) || other.variant == variant)&&const DeepCollectionEquality().equals(other.offers, _offers)&&(identical(other.forceOffer, forceOffer) || other.forceOffer == forceOffer)&&(identical(other.defaultOfferCode, defaultOfferCode) || other.defaultOfferCode == defaultOfferCode)&&const DeepCollectionEquality().equals(other.addons, _addons)&&(identical(other.dislikes, dislikes) || other.dislikes == dislikes)&&(identical(other.status, status) || other.status == status)&&(identical(other.type, type) || other.type == type)&&(identical(other.integrationsData, integrationsData) || other.integrationsData == integrationsData)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.lor, lor) || other.lor == lor));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,createdAt,updatedAt,slug,const DeepCollectionEquality().hash(decoration),name,photoUrl,const DeepCollectionEquality().hash(_media),storeId,shippingMethodId,shippingPriceId,categoryId,category,categoryRelation,title,description,body,sku,barcode,price,cost,discount,stock,sold,views,likes,variant,const DeepCollectionEquality().hash(_offers),forceOffer,defaultOfferCode,const DeepCollectionEquality().hash(_addons),dislikes,status,type,integrationsData,verifiedAt,blockedAt,const DeepCollectionEquality().hash(_metadata),lor]);
+int get hashCode {
+    return Object.hashAll([runtimeType,id,createdAt,updatedAt,slug,const DeepCollectionEquality().hash(decoration),name,photoUrl,const DeepCollectionEquality().hash(_media),storeId,shippingMethodId,shippingPriceId,categoryId,category,categoryRelation,title,description,body,sku,barcode,price,cost,discount,stock,sold,views,likes,variant,const DeepCollectionEquality().hash(_offers),forceOffer,defaultOfferCode,const DeepCollectionEquality().hash(_addons),dislikes,status,type,integrationsData,verifiedAt,blockedAt,const DeepCollectionEquality().hash(_metadata),lor]);
+}
 
 @override
 String toString() {
-  return 'Product(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, slug: $slug, decoration: $decoration, name: $name, photoUrl: $photoUrl, media: $media, storeId: $storeId, shippingMethodId: $shippingMethodId, shippingPriceId: $shippingPriceId, categoryId: $categoryId, category: $category, categoryRelation: $categoryRelation, title: $title, description: $description, body: $body, sku: $sku, barcode: $barcode, price: $price, cost: $cost, discount: $discount, stock: $stock, sold: $sold, views: $views, likes: $likes, variant: $variant, offers: $offers, forceOffer: $forceOffer, defaultOfferCode: $defaultOfferCode, addons: $addons, dislikes: $dislikes, status: $status, type: $type, integrationsData: $integrationsData, verifiedAt: $verifiedAt, blockedAt: $blockedAt, metadata: $metadata, lor: $lor)';
+    return 'Product(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, slug: $slug, decoration: $decoration, name: $name, photoUrl: $photoUrl, media: $media, storeId: $storeId, shippingMethodId: $shippingMethodId, shippingPriceId: $shippingPriceId, categoryId: $categoryId, category: $category, categoryRelation: $categoryRelation, title: $title, description: $description, body: $body, sku: $sku, barcode: $barcode, price: $price, cost: $cost, discount: $discount, stock: $stock, sold: $sold, views: $views, likes: $likes, variant: $variant, offers: $offers, forceOffer: $forceOffer, defaultOfferCode: $defaultOfferCode, addons: $addons, dislikes: $dislikes, status: $status, type: $type, integrationsData: $integrationsData, verifiedAt: $verifiedAt, blockedAt: $blockedAt, metadata: $metadata, lor: $lor)';
 }
 
 
@@ -539,16 +546,21 @@ $IntegrationsDataCopyWith<IntegrationsData> get copyWith => _$IntegrationsDataCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IntegrationsData&&(identical(other.metaPixelData, metaPixelData) || other.metaPixelData == metaPixelData)&&(identical(other.tiktokPixelData, tiktokPixelData) || other.tiktokPixelData == tiktokPixelData)&&(identical(other.googleSheetsData, googleSheetsData) || other.googleSheetsData == googleSheetsData)&&(identical(other.paymentMethodData, paymentMethodData) || other.paymentMethodData == paymentMethodData)&&(identical(other.customFieldsData, customFieldsData) || other.customFieldsData == customFieldsData)&&(identical(other.ecotrackData, ecotrackData) || other.ecotrackData == ecotrackData));
+  final _this = this as IntegrationsData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IntegrationsData&&(identical(other.metaPixelData, _this.metaPixelData) || other.metaPixelData == _this.metaPixelData)&&(identical(other.tiktokPixelData, _this.tiktokPixelData) || other.tiktokPixelData == _this.tiktokPixelData)&&(identical(other.googleSheetsData, _this.googleSheetsData) || other.googleSheetsData == _this.googleSheetsData)&&(identical(other.paymentMethodData, _this.paymentMethodData) || other.paymentMethodData == _this.paymentMethodData)&&(identical(other.customFieldsData, _this.customFieldsData) || other.customFieldsData == _this.customFieldsData)&&(identical(other.ecotrackData, _this.ecotrackData) || other.ecotrackData == _this.ecotrackData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,metaPixelData,tiktokPixelData,googleSheetsData,paymentMethodData,customFieldsData,ecotrackData);
+int get hashCode {
+  final _this = this as IntegrationsData;
+  return Object.hash(runtimeType,_this.metaPixelData,_this.tiktokPixelData,_this.googleSheetsData,_this.paymentMethodData,_this.customFieldsData,_this.ecotrackData);
+}
 
 @override
 String toString() {
-  return 'IntegrationsData(metaPixelData: $metaPixelData, tiktokPixelData: $tiktokPixelData, googleSheetsData: $googleSheetsData, paymentMethodData: $paymentMethodData, customFieldsData: $customFieldsData, ecotrackData: $ecotrackData)';
+  final _this = this as IntegrationsData;
+  return 'IntegrationsData(metaPixelData: ${_this.metaPixelData}, tiktokPixelData: ${_this.tiktokPixelData}, googleSheetsData: ${_this.googleSheetsData}, paymentMethodData: ${_this.paymentMethodData}, customFieldsData: ${_this.customFieldsData}, ecotrackData: ${_this.ecotrackData})';
 }
 
 
@@ -821,16 +833,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IntegrationsData&&(identical(other.metaPixelData, metaPixelData) || other.metaPixelData == metaPixelData)&&(identical(other.tiktokPixelData, tiktokPixelData) || other.tiktokPixelData == tiktokPixelData)&&(identical(other.googleSheetsData, googleSheetsData) || other.googleSheetsData == googleSheetsData)&&(identical(other.paymentMethodData, paymentMethodData) || other.paymentMethodData == paymentMethodData)&&(identical(other.customFieldsData, customFieldsData) || other.customFieldsData == customFieldsData)&&(identical(other.ecotrackData, ecotrackData) || other.ecotrackData == ecotrackData));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _IntegrationsData&&(identical(other.metaPixelData, metaPixelData) || other.metaPixelData == metaPixelData)&&(identical(other.tiktokPixelData, tiktokPixelData) || other.tiktokPixelData == tiktokPixelData)&&(identical(other.googleSheetsData, googleSheetsData) || other.googleSheetsData == googleSheetsData)&&(identical(other.paymentMethodData, paymentMethodData) || other.paymentMethodData == paymentMethodData)&&(identical(other.customFieldsData, customFieldsData) || other.customFieldsData == customFieldsData)&&(identical(other.ecotrackData, ecotrackData) || other.ecotrackData == ecotrackData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,metaPixelData,tiktokPixelData,googleSheetsData,paymentMethodData,customFieldsData,ecotrackData);
+int get hashCode {
+    return Object.hash(runtimeType,metaPixelData,tiktokPixelData,googleSheetsData,paymentMethodData,customFieldsData,ecotrackData);
+}
 
 @override
 String toString() {
-  return 'IntegrationsData(metaPixelData: $metaPixelData, tiktokPixelData: $tiktokPixelData, googleSheetsData: $googleSheetsData, paymentMethodData: $paymentMethodData, customFieldsData: $customFieldsData, ecotrackData: $ecotrackData)';
+    return 'IntegrationsData(metaPixelData: $metaPixelData, tiktokPixelData: $tiktokPixelData, googleSheetsData: $googleSheetsData, paymentMethodData: $paymentMethodData, customFieldsData: $customFieldsData, ecotrackData: $ecotrackData)';
 }
 
 
@@ -965,16 +979,21 @@ $CustomFieldsIntegrationDataCopyWith<CustomFieldsIntegrationData> get copyWith =
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomFieldsIntegrationData&&const DeepCollectionEquality().equals(other.fields, fields)&&(identical(other.useProductFields, useProductFields) || other.useProductFields == useProductFields));
+  final _this = this as CustomFieldsIntegrationData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomFieldsIntegrationData&&const DeepCollectionEquality().equals(other.fields, _this.fields)&&(identical(other.useProductFields, _this.useProductFields) || other.useProductFields == _this.useProductFields));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(fields),useProductFields);
+int get hashCode {
+  final _this = this as CustomFieldsIntegrationData;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.fields),_this.useProductFields);
+}
 
 @override
 String toString() {
-  return 'CustomFieldsIntegrationData(fields: $fields, useProductFields: $useProductFields)';
+  final _this = this as CustomFieldsIntegrationData;
+  return 'CustomFieldsIntegrationData(fields: ${_this.fields}, useProductFields: ${_this.useProductFields})';
 }
 
 
@@ -1177,16 +1196,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomFieldsIntegrationData&&const DeepCollectionEquality().equals(other._fields, _fields)&&(identical(other.useProductFields, useProductFields) || other.useProductFields == useProductFields));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomFieldsIntegrationData&&const DeepCollectionEquality().equals(other.fields, _fields)&&(identical(other.useProductFields, useProductFields) || other.useProductFields == useProductFields));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_fields),useProductFields);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_fields),useProductFields);
+}
 
 @override
 String toString() {
-  return 'CustomFieldsIntegrationData(fields: $fields, useProductFields: $useProductFields)';
+    return 'CustomFieldsIntegrationData(fields: $fields, useProductFields: $useProductFields)';
 }
 
 
@@ -1243,16 +1264,21 @@ $MetaPixelDataCopyWith<MetaPixelData> get copyWith => _$MetaPixelDataCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.ids, ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&const DeepCollectionEquality().equals(other.statusRules, statusRules));
+  final _this = this as MetaPixelData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaPixelData&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&const DeepCollectionEquality().equals(other.ids, _this.ids)&&(identical(other.objective, _this.objective) || other.objective == _this.objective)&&(identical(other.draftObjective, _this.draftObjective) || other.draftObjective == _this.draftObjective)&&const DeepCollectionEquality().equals(other.statusRules, _this.statusRules));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(ids),objective,draftObjective,const DeepCollectionEquality().hash(statusRules));
+int get hashCode {
+  final _this = this as MetaPixelData;
+  return Object.hash(runtimeType,_this.enabled,const DeepCollectionEquality().hash(_this.ids),_this.objective,_this.draftObjective,const DeepCollectionEquality().hash(_this.statusRules));
+}
 
 @override
 String toString() {
-  return 'MetaPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective, statusRules: $statusRules)';
+  final _this = this as MetaPixelData;
+  return 'MetaPixelData(enabled: ${_this.enabled}, ids: ${_this.ids}, objective: ${_this.objective}, draftObjective: ${_this.draftObjective}, statusRules: ${_this.statusRules})';
 }
 
 
@@ -1466,16 +1492,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other._ids, _ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&const DeepCollectionEquality().equals(other._statusRules, _statusRules));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.ids, _ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&const DeepCollectionEquality().equals(other.statusRules, _statusRules));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(_ids),objective,draftObjective,const DeepCollectionEquality().hash(_statusRules));
+int get hashCode {
+    return Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(_ids),objective,draftObjective,const DeepCollectionEquality().hash(_statusRules));
+}
 
 @override
 String toString() {
-  return 'MetaPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective, statusRules: $statusRules)';
+    return 'MetaPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective, statusRules: $statusRules)';
 }
 
 
@@ -1535,16 +1563,21 @@ $TiktokPixelDataCopyWith<TiktokPixelData> get copyWith => _$TiktokPixelDataCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TiktokPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.ids, ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&const DeepCollectionEquality().equals(other.statusRules, statusRules));
+  final _this = this as TiktokPixelData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TiktokPixelData&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&const DeepCollectionEquality().equals(other.ids, _this.ids)&&(identical(other.objective, _this.objective) || other.objective == _this.objective)&&(identical(other.draftObjective, _this.draftObjective) || other.draftObjective == _this.draftObjective)&&const DeepCollectionEquality().equals(other.statusRules, _this.statusRules));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(ids),objective,draftObjective,const DeepCollectionEquality().hash(statusRules));
+int get hashCode {
+  final _this = this as TiktokPixelData;
+  return Object.hash(runtimeType,_this.enabled,const DeepCollectionEquality().hash(_this.ids),_this.objective,_this.draftObjective,const DeepCollectionEquality().hash(_this.statusRules));
+}
 
 @override
 String toString() {
-  return 'TiktokPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective, statusRules: $statusRules)';
+  final _this = this as TiktokPixelData;
+  return 'TiktokPixelData(enabled: ${_this.enabled}, ids: ${_this.ids}, objective: ${_this.objective}, draftObjective: ${_this.draftObjective}, statusRules: ${_this.statusRules})';
 }
 
 
@@ -1758,16 +1791,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TiktokPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other._ids, _ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&const DeepCollectionEquality().equals(other._statusRules, _statusRules));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TiktokPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.ids, _ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&const DeepCollectionEquality().equals(other.statusRules, _statusRules));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(_ids),objective,draftObjective,const DeepCollectionEquality().hash(_statusRules));
+int get hashCode {
+    return Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(_ids),objective,draftObjective,const DeepCollectionEquality().hash(_statusRules));
+}
 
 @override
 String toString() {
-  return 'TiktokPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective, statusRules: $statusRules)';
+    return 'TiktokPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective, statusRules: $statusRules)';
 }
 
 
@@ -1827,16 +1862,21 @@ $GoogleSheetsDataCopyWith<GoogleSheetsData> get copyWith => _$GoogleSheetsDataCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleSheetsData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.sheetId, sheetId) || other.sheetId == sheetId)&&(identical(other.sheetName, sheetName) || other.sheetName == sheetName)&&(identical(other.spreadsheetId, spreadsheetId) || other.spreadsheetId == spreadsheetId)&&(identical(other.nextRow, nextRow) || other.nextRow == nextRow)&&const DeepCollectionEquality().equals(other.columns, columns));
+  final _this = this as GoogleSheetsData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleSheetsData&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&(identical(other.sheetId, _this.sheetId) || other.sheetId == _this.sheetId)&&(identical(other.sheetName, _this.sheetName) || other.sheetName == _this.sheetName)&&(identical(other.spreadsheetId, _this.spreadsheetId) || other.spreadsheetId == _this.spreadsheetId)&&(identical(other.nextRow, _this.nextRow) || other.nextRow == _this.nextRow)&&const DeepCollectionEquality().equals(other.columns, _this.columns));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,sheetId,sheetName,spreadsheetId,nextRow,const DeepCollectionEquality().hash(columns));
+int get hashCode {
+  final _this = this as GoogleSheetsData;
+  return Object.hash(runtimeType,_this.enabled,_this.sheetId,_this.sheetName,_this.spreadsheetId,_this.nextRow,const DeepCollectionEquality().hash(_this.columns));
+}
 
 @override
 String toString() {
-  return 'GoogleSheetsData(enabled: $enabled, sheetId: $sheetId, sheetName: $sheetName, spreadsheetId: $spreadsheetId, nextRow: $nextRow, columns: $columns)';
+  final _this = this as GoogleSheetsData;
+  return 'GoogleSheetsData(enabled: ${_this.enabled}, sheetId: ${_this.sheetId}, sheetName: ${_this.sheetName}, spreadsheetId: ${_this.spreadsheetId}, nextRow: ${_this.nextRow}, columns: ${_this.columns})';
 }
 
 
@@ -2046,16 +2086,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleSheetsData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.sheetId, sheetId) || other.sheetId == sheetId)&&(identical(other.sheetName, sheetName) || other.sheetName == sheetName)&&(identical(other.spreadsheetId, spreadsheetId) || other.spreadsheetId == spreadsheetId)&&(identical(other.nextRow, nextRow) || other.nextRow == nextRow)&&const DeepCollectionEquality().equals(other._columns, _columns));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleSheetsData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.sheetId, sheetId) || other.sheetId == sheetId)&&(identical(other.sheetName, sheetName) || other.sheetName == sheetName)&&(identical(other.spreadsheetId, spreadsheetId) || other.spreadsheetId == spreadsheetId)&&(identical(other.nextRow, nextRow) || other.nextRow == nextRow)&&const DeepCollectionEquality().equals(other.columns, _columns));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,sheetId,sheetName,spreadsheetId,nextRow,const DeepCollectionEquality().hash(_columns));
+int get hashCode {
+    return Object.hash(runtimeType,enabled,sheetId,sheetName,spreadsheetId,nextRow,const DeepCollectionEquality().hash(_columns));
+}
 
 @override
 String toString() {
-  return 'GoogleSheetsData(enabled: $enabled, sheetId: $sheetId, sheetName: $sheetName, spreadsheetId: $spreadsheetId, nextRow: $nextRow, columns: $columns)';
+    return 'GoogleSheetsData(enabled: $enabled, sheetId: $sheetId, sheetName: $sheetName, spreadsheetId: $spreadsheetId, nextRow: $nextRow, columns: $columns)';
 }
 
 
@@ -2115,16 +2157,21 @@ $PaymentMethodDataCopyWith<PaymentMethodData> get copyWith => _$PaymentMethodDat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentMethodData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.methodIds, methodIds));
+  final _this = this as PaymentMethodData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentMethodData&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&const DeepCollectionEquality().equals(other.methodIds, _this.methodIds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(methodIds));
+int get hashCode {
+  final _this = this as PaymentMethodData;
+  return Object.hash(runtimeType,_this.enabled,const DeepCollectionEquality().hash(_this.methodIds));
+}
 
 @override
 String toString() {
-  return 'PaymentMethodData(enabled: $enabled, methodIds: $methodIds)';
+  final _this = this as PaymentMethodData;
+  return 'PaymentMethodData(enabled: ${_this.enabled}, methodIds: ${_this.methodIds})';
 }
 
 
@@ -2322,16 +2369,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaymentMethodData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other._methodIds, _methodIds));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaymentMethodData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.methodIds, _methodIds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(_methodIds));
+int get hashCode {
+    return Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(_methodIds));
+}
 
 @override
 String toString() {
-  return 'PaymentMethodData(enabled: $enabled, methodIds: $methodIds)';
+    return 'PaymentMethodData(enabled: $enabled, methodIds: $methodIds)';
 }
 
 
@@ -2389,16 +2438,21 @@ $EcotrackDataCopyWith<EcotrackData> get copyWith => _$EcotrackDataCopyWithImpl<E
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EcotrackData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.produit, produit) || other.produit == produit)&&const DeepCollectionEquality().equals(other.skuProduitMap, skuProduitMap));
+  final _this = this as EcotrackData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EcotrackData&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&(identical(other.produit, _this.produit) || other.produit == _this.produit)&&const DeepCollectionEquality().equals(other.skuProduitMap, _this.skuProduitMap));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,produit,const DeepCollectionEquality().hash(skuProduitMap));
+int get hashCode {
+  final _this = this as EcotrackData;
+  return Object.hash(runtimeType,_this.enabled,_this.produit,const DeepCollectionEquality().hash(_this.skuProduitMap));
+}
 
 @override
 String toString() {
-  return 'EcotrackData(enabled: $enabled, produit: $produit, skuProduitMap: $skuProduitMap)';
+  final _this = this as EcotrackData;
+  return 'EcotrackData(enabled: ${_this.enabled}, produit: ${_this.produit}, skuProduitMap: ${_this.skuProduitMap})';
 }
 
 
@@ -2601,16 +2655,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EcotrackData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.produit, produit) || other.produit == produit)&&const DeepCollectionEquality().equals(other._skuProduitMap, _skuProduitMap));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EcotrackData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.produit, produit) || other.produit == produit)&&const DeepCollectionEquality().equals(other.skuProduitMap, _skuProduitMap));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,produit,const DeepCollectionEquality().hash(_skuProduitMap));
+int get hashCode {
+    return Object.hash(runtimeType,enabled,produit,const DeepCollectionEquality().hash(_skuProduitMap));
+}
 
 @override
 String toString() {
-  return 'EcotrackData(enabled: $enabled, produit: $produit, skuProduitMap: $skuProduitMap)';
+    return 'EcotrackData(enabled: $enabled, produit: $produit, skuProduitMap: $skuProduitMap)';
 }
 
 
@@ -2670,16 +2726,21 @@ $ProductCreateCopyWith<ProductCreate> get copyWith => _$ProductCreateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&const DeepCollectionEquality().equals(other.decoration, decoration)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.media, media)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.category, category) || other.category == category)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.body, body) || other.body == body)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.price, price) || other.price == price)&&(identical(other.cost, cost) || other.cost == cost)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.variant, variant) || other.variant == variant)&&const DeepCollectionEquality().equals(other.offers, offers)&&(identical(other.forceOffer, forceOffer) || other.forceOffer == forceOffer)&&(identical(other.defaultOfferCode, defaultOfferCode) || other.defaultOfferCode == defaultOfferCode)&&const DeepCollectionEquality().equals(other.addons, addons)&&(identical(other.integrationsData, integrationsData) || other.integrationsData == integrationsData)&&(identical(other.status, status) || other.status == status)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as ProductCreate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductCreate&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.slug, _this.slug) || other.slug == _this.slug)&&const DeepCollectionEquality().equals(other.decoration, _this.decoration)&&(identical(other.photoUrl, _this.photoUrl) || other.photoUrl == _this.photoUrl)&&const DeepCollectionEquality().equals(other.media, _this.media)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&(identical(other.shippingMethodId, _this.shippingMethodId) || other.shippingMethodId == _this.shippingMethodId)&&(identical(other.shippingPriceId, _this.shippingPriceId) || other.shippingPriceId == _this.shippingPriceId)&&(identical(other.categoryId, _this.categoryId) || other.categoryId == _this.categoryId)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.body, _this.body) || other.body == _this.body)&&(identical(other.sku, _this.sku) || other.sku == _this.sku)&&(identical(other.barcode, _this.barcode) || other.barcode == _this.barcode)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.cost, _this.cost) || other.cost == _this.cost)&&(identical(other.discount, _this.discount) || other.discount == _this.discount)&&(identical(other.stock, _this.stock) || other.stock == _this.stock)&&(identical(other.variant, _this.variant) || other.variant == _this.variant)&&const DeepCollectionEquality().equals(other.offers, _this.offers)&&(identical(other.forceOffer, _this.forceOffer) || other.forceOffer == _this.forceOffer)&&(identical(other.defaultOfferCode, _this.defaultOfferCode) || other.defaultOfferCode == _this.defaultOfferCode)&&const DeepCollectionEquality().equals(other.addons, _this.addons)&&(identical(other.integrationsData, _this.integrationsData) || other.integrationsData == _this.integrationsData)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.type, _this.type) || other.type == _this.type)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,slug,const DeepCollectionEquality().hash(decoration),photoUrl,const DeepCollectionEquality().hash(media),storeId,shippingMethodId,shippingPriceId,categoryId,category,title,description,body,sku,barcode,price,cost,discount,stock,variant,const DeepCollectionEquality().hash(offers),forceOffer,defaultOfferCode,const DeepCollectionEquality().hash(addons),integrationsData,status,type,const DeepCollectionEquality().hash(metadata)]);
+int get hashCode {
+  final _this = this as ProductCreate;
+  return Object.hashAll([runtimeType,_this.id,_this.name,_this.slug,const DeepCollectionEquality().hash(_this.decoration),_this.photoUrl,const DeepCollectionEquality().hash(_this.media),_this.storeId,_this.shippingMethodId,_this.shippingPriceId,_this.categoryId,_this.category,_this.title,_this.description,_this.body,_this.sku,_this.barcode,_this.price,_this.cost,_this.discount,_this.stock,_this.variant,const DeepCollectionEquality().hash(_this.offers),_this.forceOffer,_this.defaultOfferCode,const DeepCollectionEquality().hash(_this.addons),_this.integrationsData,_this.status,_this.type,const DeepCollectionEquality().hash(_this.metadata)]);
+}
 
 @override
 String toString() {
-  return 'ProductCreate(id: $id, name: $name, slug: $slug, decoration: $decoration, photoUrl: $photoUrl, media: $media, storeId: $storeId, shippingMethodId: $shippingMethodId, shippingPriceId: $shippingPriceId, categoryId: $categoryId, category: $category, title: $title, description: $description, body: $body, sku: $sku, barcode: $barcode, price: $price, cost: $cost, discount: $discount, stock: $stock, variant: $variant, offers: $offers, forceOffer: $forceOffer, defaultOfferCode: $defaultOfferCode, addons: $addons, integrationsData: $integrationsData, status: $status, type: $type, metadata: $metadata)';
+  final _this = this as ProductCreate;
+  return 'ProductCreate(id: ${_this.id}, name: ${_this.name}, slug: ${_this.slug}, decoration: ${_this.decoration}, photoUrl: ${_this.photoUrl}, media: ${_this.media}, storeId: ${_this.storeId}, shippingMethodId: ${_this.shippingMethodId}, shippingPriceId: ${_this.shippingPriceId}, categoryId: ${_this.categoryId}, category: ${_this.category}, title: ${_this.title}, description: ${_this.description}, body: ${_this.body}, sku: ${_this.sku}, barcode: ${_this.barcode}, price: ${_this.price}, cost: ${_this.cost}, discount: ${_this.discount}, stock: ${_this.stock}, variant: ${_this.variant}, offers: ${_this.offers}, forceOffer: ${_this.forceOffer}, defaultOfferCode: ${_this.defaultOfferCode}, addons: ${_this.addons}, integrationsData: ${_this.integrationsData}, status: ${_this.status}, type: ${_this.type}, metadata: ${_this.metadata})';
 }
 
 
@@ -2992,16 +3053,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&const DeepCollectionEquality().equals(other.decoration, decoration)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other._media, _media)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.category, category) || other.category == category)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.body, body) || other.body == body)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.price, price) || other.price == price)&&(identical(other.cost, cost) || other.cost == cost)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.variant, variant) || other.variant == variant)&&const DeepCollectionEquality().equals(other._offers, _offers)&&(identical(other.forceOffer, forceOffer) || other.forceOffer == forceOffer)&&(identical(other.defaultOfferCode, defaultOfferCode) || other.defaultOfferCode == defaultOfferCode)&&const DeepCollectionEquality().equals(other._addons, _addons)&&(identical(other.integrationsData, integrationsData) || other.integrationsData == integrationsData)&&(identical(other.status, status) || other.status == status)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&const DeepCollectionEquality().equals(other.decoration, decoration)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.media, _media)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.category, category) || other.category == category)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.body, body) || other.body == body)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.price, price) || other.price == price)&&(identical(other.cost, cost) || other.cost == cost)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.variant, variant) || other.variant == variant)&&const DeepCollectionEquality().equals(other.offers, _offers)&&(identical(other.forceOffer, forceOffer) || other.forceOffer == forceOffer)&&(identical(other.defaultOfferCode, defaultOfferCode) || other.defaultOfferCode == defaultOfferCode)&&const DeepCollectionEquality().equals(other.addons, _addons)&&(identical(other.integrationsData, integrationsData) || other.integrationsData == integrationsData)&&(identical(other.status, status) || other.status == status)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,slug,const DeepCollectionEquality().hash(decoration),photoUrl,const DeepCollectionEquality().hash(_media),storeId,shippingMethodId,shippingPriceId,categoryId,category,title,description,body,sku,barcode,price,cost,discount,stock,variant,const DeepCollectionEquality().hash(_offers),forceOffer,defaultOfferCode,const DeepCollectionEquality().hash(_addons),integrationsData,status,type,const DeepCollectionEquality().hash(_metadata)]);
+int get hashCode {
+    return Object.hashAll([runtimeType,id,name,slug,const DeepCollectionEquality().hash(decoration),photoUrl,const DeepCollectionEquality().hash(_media),storeId,shippingMethodId,shippingPriceId,categoryId,category,title,description,body,sku,barcode,price,cost,discount,stock,variant,const DeepCollectionEquality().hash(_offers),forceOffer,defaultOfferCode,const DeepCollectionEquality().hash(_addons),integrationsData,status,type,const DeepCollectionEquality().hash(_metadata)]);
+}
 
 @override
 String toString() {
-  return 'ProductCreate(id: $id, name: $name, slug: $slug, decoration: $decoration, photoUrl: $photoUrl, media: $media, storeId: $storeId, shippingMethodId: $shippingMethodId, shippingPriceId: $shippingPriceId, categoryId: $categoryId, category: $category, title: $title, description: $description, body: $body, sku: $sku, barcode: $barcode, price: $price, cost: $cost, discount: $discount, stock: $stock, variant: $variant, offers: $offers, forceOffer: $forceOffer, defaultOfferCode: $defaultOfferCode, addons: $addons, integrationsData: $integrationsData, status: $status, type: $type, metadata: $metadata)';
+    return 'ProductCreate(id: $id, name: $name, slug: $slug, decoration: $decoration, photoUrl: $photoUrl, media: $media, storeId: $storeId, shippingMethodId: $shippingMethodId, shippingPriceId: $shippingPriceId, categoryId: $categoryId, category: $category, title: $title, description: $description, body: $body, sku: $sku, barcode: $barcode, price: $price, cost: $cost, discount: $discount, stock: $stock, variant: $variant, offers: $offers, forceOffer: $forceOffer, defaultOfferCode: $defaultOfferCode, addons: $addons, integrationsData: $integrationsData, status: $status, type: $type, metadata: $metadata)';
 }
 
 
@@ -3123,16 +3186,21 @@ $ProductUpdateCopyWith<ProductUpdate> get copyWith => _$ProductUpdateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&const DeepCollectionEquality().equals(other.decoration, decoration)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.media, media)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.category, category) || other.category == category)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.body, body) || other.body == body)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.price, price) || other.price == price)&&(identical(other.cost, cost) || other.cost == cost)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.variant, variant) || other.variant == variant)&&const DeepCollectionEquality().equals(other.offers, offers)&&(identical(other.forceOffer, forceOffer) || other.forceOffer == forceOffer)&&(identical(other.defaultOfferCode, defaultOfferCode) || other.defaultOfferCode == defaultOfferCode)&&const DeepCollectionEquality().equals(other.addons, addons)&&(identical(other.integrationsData, integrationsData) || other.integrationsData == integrationsData)&&(identical(other.status, status) || other.status == status)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
+  final _this = this as ProductUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductUpdate&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.slug, _this.slug) || other.slug == _this.slug)&&const DeepCollectionEquality().equals(other.decoration, _this.decoration)&&(identical(other.photoUrl, _this.photoUrl) || other.photoUrl == _this.photoUrl)&&const DeepCollectionEquality().equals(other.media, _this.media)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&(identical(other.shippingMethodId, _this.shippingMethodId) || other.shippingMethodId == _this.shippingMethodId)&&(identical(other.shippingPriceId, _this.shippingPriceId) || other.shippingPriceId == _this.shippingPriceId)&&(identical(other.categoryId, _this.categoryId) || other.categoryId == _this.categoryId)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.body, _this.body) || other.body == _this.body)&&(identical(other.sku, _this.sku) || other.sku == _this.sku)&&(identical(other.barcode, _this.barcode) || other.barcode == _this.barcode)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.cost, _this.cost) || other.cost == _this.cost)&&(identical(other.discount, _this.discount) || other.discount == _this.discount)&&(identical(other.stock, _this.stock) || other.stock == _this.stock)&&(identical(other.variant, _this.variant) || other.variant == _this.variant)&&const DeepCollectionEquality().equals(other.offers, _this.offers)&&(identical(other.forceOffer, _this.forceOffer) || other.forceOffer == _this.forceOffer)&&(identical(other.defaultOfferCode, _this.defaultOfferCode) || other.defaultOfferCode == _this.defaultOfferCode)&&const DeepCollectionEquality().equals(other.addons, _this.addons)&&(identical(other.integrationsData, _this.integrationsData) || other.integrationsData == _this.integrationsData)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.type, _this.type) || other.type == _this.type)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,name,slug,const DeepCollectionEquality().hash(decoration),photoUrl,const DeepCollectionEquality().hash(media),storeId,shippingMethodId,shippingPriceId,categoryId,category,title,description,body,sku,barcode,price,cost,discount,stock,variant,const DeepCollectionEquality().hash(offers),forceOffer,defaultOfferCode,const DeepCollectionEquality().hash(addons),integrationsData,status,type,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(setToNull)]);
+int get hashCode {
+  final _this = this as ProductUpdate;
+  return Object.hashAll([runtimeType,_this.name,_this.slug,const DeepCollectionEquality().hash(_this.decoration),_this.photoUrl,const DeepCollectionEquality().hash(_this.media),_this.storeId,_this.shippingMethodId,_this.shippingPriceId,_this.categoryId,_this.category,_this.title,_this.description,_this.body,_this.sku,_this.barcode,_this.price,_this.cost,_this.discount,_this.stock,_this.variant,const DeepCollectionEquality().hash(_this.offers),_this.forceOffer,_this.defaultOfferCode,const DeepCollectionEquality().hash(_this.addons),_this.integrationsData,_this.status,_this.type,const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.setToNull)]);
+}
 
 @override
 String toString() {
-  return 'ProductUpdate(name: $name, slug: $slug, decoration: $decoration, photoUrl: $photoUrl, media: $media, storeId: $storeId, shippingMethodId: $shippingMethodId, shippingPriceId: $shippingPriceId, categoryId: $categoryId, category: $category, title: $title, description: $description, body: $body, sku: $sku, barcode: $barcode, price: $price, cost: $cost, discount: $discount, stock: $stock, variant: $variant, offers: $offers, forceOffer: $forceOffer, defaultOfferCode: $defaultOfferCode, addons: $addons, integrationsData: $integrationsData, status: $status, type: $type, metadata: $metadata, setToNull: $setToNull)';
+  final _this = this as ProductUpdate;
+  return 'ProductUpdate(name: ${_this.name}, slug: ${_this.slug}, decoration: ${_this.decoration}, photoUrl: ${_this.photoUrl}, media: ${_this.media}, storeId: ${_this.storeId}, shippingMethodId: ${_this.shippingMethodId}, shippingPriceId: ${_this.shippingPriceId}, categoryId: ${_this.categoryId}, category: ${_this.category}, title: ${_this.title}, description: ${_this.description}, body: ${_this.body}, sku: ${_this.sku}, barcode: ${_this.barcode}, price: ${_this.price}, cost: ${_this.cost}, discount: ${_this.discount}, stock: ${_this.stock}, variant: ${_this.variant}, offers: ${_this.offers}, forceOffer: ${_this.forceOffer}, defaultOfferCode: ${_this.defaultOfferCode}, addons: ${_this.addons}, integrationsData: ${_this.integrationsData}, status: ${_this.status}, type: ${_this.type}, metadata: ${_this.metadata}, setToNull: ${_this.setToNull})';
 }
 
 
@@ -3455,16 +3523,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&const DeepCollectionEquality().equals(other.decoration, decoration)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other._media, _media)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.category, category) || other.category == category)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.body, body) || other.body == body)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.price, price) || other.price == price)&&(identical(other.cost, cost) || other.cost == cost)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.variant, variant) || other.variant == variant)&&const DeepCollectionEquality().equals(other._offers, _offers)&&(identical(other.forceOffer, forceOffer) || other.forceOffer == forceOffer)&&(identical(other.defaultOfferCode, defaultOfferCode) || other.defaultOfferCode == defaultOfferCode)&&const DeepCollectionEquality().equals(other._addons, _addons)&&(identical(other.integrationsData, integrationsData) || other.integrationsData == integrationsData)&&(identical(other.status, status) || other.status == status)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&const DeepCollectionEquality().equals(other.decoration, decoration)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.media, _media)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.category, category) || other.category == category)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.body, body) || other.body == body)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.price, price) || other.price == price)&&(identical(other.cost, cost) || other.cost == cost)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.variant, variant) || other.variant == variant)&&const DeepCollectionEquality().equals(other.offers, _offers)&&(identical(other.forceOffer, forceOffer) || other.forceOffer == forceOffer)&&(identical(other.defaultOfferCode, defaultOfferCode) || other.defaultOfferCode == defaultOfferCode)&&const DeepCollectionEquality().equals(other.addons, _addons)&&(identical(other.integrationsData, integrationsData) || other.integrationsData == integrationsData)&&(identical(other.status, status) || other.status == status)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,name,slug,const DeepCollectionEquality().hash(decoration),photoUrl,const DeepCollectionEquality().hash(_media),storeId,shippingMethodId,shippingPriceId,categoryId,category,title,description,body,sku,barcode,price,cost,discount,stock,variant,const DeepCollectionEquality().hash(_offers),forceOffer,defaultOfferCode,const DeepCollectionEquality().hash(_addons),integrationsData,status,type,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_setToNull)]);
+int get hashCode {
+    return Object.hashAll([runtimeType,name,slug,const DeepCollectionEquality().hash(decoration),photoUrl,const DeepCollectionEquality().hash(_media),storeId,shippingMethodId,shippingPriceId,categoryId,category,title,description,body,sku,barcode,price,cost,discount,stock,variant,const DeepCollectionEquality().hash(_offers),forceOffer,defaultOfferCode,const DeepCollectionEquality().hash(_addons),integrationsData,status,type,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_setToNull)]);
+}
 
 @override
 String toString() {
-  return 'ProductUpdate(name: $name, slug: $slug, decoration: $decoration, photoUrl: $photoUrl, media: $media, storeId: $storeId, shippingMethodId: $shippingMethodId, shippingPriceId: $shippingPriceId, categoryId: $categoryId, category: $category, title: $title, description: $description, body: $body, sku: $sku, barcode: $barcode, price: $price, cost: $cost, discount: $discount, stock: $stock, variant: $variant, offers: $offers, forceOffer: $forceOffer, defaultOfferCode: $defaultOfferCode, addons: $addons, integrationsData: $integrationsData, status: $status, type: $type, metadata: $metadata, setToNull: $setToNull)';
+    return 'ProductUpdate(name: $name, slug: $slug, decoration: $decoration, photoUrl: $photoUrl, media: $media, storeId: $storeId, shippingMethodId: $shippingMethodId, shippingPriceId: $shippingPriceId, categoryId: $categoryId, category: $category, title: $title, description: $description, body: $body, sku: $sku, barcode: $barcode, price: $price, cost: $cost, discount: $discount, stock: $stock, variant: $variant, offers: $offers, forceOffer: $forceOffer, defaultOfferCode: $defaultOfferCode, addons: $addons, integrationsData: $integrationsData, status: $status, type: $type, metadata: $metadata, setToNull: $setToNull)';
 }
 
 
@@ -3583,16 +3653,21 @@ $ProductOfferCopyWith<ProductOffer> get copyWith => _$ProductOfferCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductOffer&&(identical(other.code, code) || other.code == code)&&(identical(other.title, title) || other.title == title)&&(identical(other.subtitle, subtitle) || other.subtitle == subtitle)&&(identical(other.price, price) || other.price == price)&&(identical(other.minQuantity, minQuantity) || other.minQuantity == minQuantity)&&(identical(other.maxQuantity, maxQuantity) || other.maxQuantity == maxQuantity)&&(identical(other.freeShipping, freeShipping) || other.freeShipping == freeShipping));
+  final _this = this as ProductOffer;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductOffer&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.subtitle, _this.subtitle) || other.subtitle == _this.subtitle)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.minQuantity, _this.minQuantity) || other.minQuantity == _this.minQuantity)&&(identical(other.maxQuantity, _this.maxQuantity) || other.maxQuantity == _this.maxQuantity)&&(identical(other.freeShipping, _this.freeShipping) || other.freeShipping == _this.freeShipping));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,title,subtitle,price,minQuantity,maxQuantity,freeShipping);
+int get hashCode {
+  final _this = this as ProductOffer;
+  return Object.hash(runtimeType,_this.code,_this.title,_this.subtitle,_this.price,_this.minQuantity,_this.maxQuantity,_this.freeShipping);
+}
 
 @override
 String toString() {
-  return 'ProductOffer(code: $code, title: $title, subtitle: $subtitle, price: $price, minQuantity: $minQuantity, maxQuantity: $maxQuantity, freeShipping: $freeShipping)';
+  final _this = this as ProductOffer;
+  return 'ProductOffer(code: ${_this.code}, title: ${_this.title}, subtitle: ${_this.subtitle}, price: ${_this.price}, minQuantity: ${_this.minQuantity}, maxQuantity: ${_this.maxQuantity}, freeShipping: ${_this.freeShipping})';
 }
 
 
@@ -3794,16 +3869,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductOffer&&(identical(other.code, code) || other.code == code)&&(identical(other.title, title) || other.title == title)&&(identical(other.subtitle, subtitle) || other.subtitle == subtitle)&&(identical(other.price, price) || other.price == price)&&(identical(other.minQuantity, minQuantity) || other.minQuantity == minQuantity)&&(identical(other.maxQuantity, maxQuantity) || other.maxQuantity == maxQuantity)&&(identical(other.freeShipping, freeShipping) || other.freeShipping == freeShipping));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductOffer&&(identical(other.code, code) || other.code == code)&&(identical(other.title, title) || other.title == title)&&(identical(other.subtitle, subtitle) || other.subtitle == subtitle)&&(identical(other.price, price) || other.price == price)&&(identical(other.minQuantity, minQuantity) || other.minQuantity == minQuantity)&&(identical(other.maxQuantity, maxQuantity) || other.maxQuantity == maxQuantity)&&(identical(other.freeShipping, freeShipping) || other.freeShipping == freeShipping));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,title,subtitle,price,minQuantity,maxQuantity,freeShipping);
+int get hashCode {
+    return Object.hash(runtimeType,code,title,subtitle,price,minQuantity,maxQuantity,freeShipping);
+}
 
 @override
 String toString() {
-  return 'ProductOffer(code: $code, title: $title, subtitle: $subtitle, price: $price, minQuantity: $minQuantity, maxQuantity: $maxQuantity, freeShipping: $freeShipping)';
+    return 'ProductOffer(code: $code, title: $title, subtitle: $subtitle, price: $price, minQuantity: $minQuantity, maxQuantity: $maxQuantity, freeShipping: $freeShipping)';
 }
 
 

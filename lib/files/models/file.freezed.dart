@@ -36,16 +36,21 @@ $FileObjectCopyWith<FileObject> get copyWith => _$FileObjectCopyWithImpl<FileObj
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FileObject&&(identical(other.name, name) || other.name == name)&&(identical(other.path, path) || other.path == path)&&(identical(other.type, type) || other.type == type)&&(identical(other.size, size) || other.size == size)&&(identical(other.lastModified, lastModified) || other.lastModified == lastModified)&&(identical(other.metadata, metadata) || other.metadata == metadata)&&(identical(other.isBeingDeleted, isBeingDeleted) || other.isBeingDeleted == isBeingDeleted));
+  final _this = this as FileObject;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FileObject&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.path, _this.path) || other.path == _this.path)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.size, _this.size) || other.size == _this.size)&&(identical(other.lastModified, _this.lastModified) || other.lastModified == _this.lastModified)&&(identical(other.metadata, _this.metadata) || other.metadata == _this.metadata)&&(identical(other.isBeingDeleted, _this.isBeingDeleted) || other.isBeingDeleted == _this.isBeingDeleted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,path,type,size,lastModified,metadata,isBeingDeleted);
+int get hashCode {
+  final _this = this as FileObject;
+  return Object.hash(runtimeType,_this.name,_this.path,_this.type,_this.size,_this.lastModified,_this.metadata,_this.isBeingDeleted);
+}
 
 @override
 String toString() {
-  return 'FileObject(name: $name, path: $path, type: $type, size: $size, lastModified: $lastModified, metadata: $metadata, isBeingDeleted: $isBeingDeleted)';
+  final _this = this as FileObject;
+  return 'FileObject(name: ${_this.name}, path: ${_this.path}, type: ${_this.type}, size: ${_this.size}, lastModified: ${_this.lastModified}, metadata: ${_this.metadata}, isBeingDeleted: ${_this.isBeingDeleted})';
 }
 
 
@@ -266,16 +271,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FileObject&&(identical(other.name, name) || other.name == name)&&(identical(other.path, path) || other.path == path)&&(identical(other.type, type) || other.type == type)&&(identical(other.size, size) || other.size == size)&&(identical(other.lastModified, lastModified) || other.lastModified == lastModified)&&(identical(other.metadata, metadata) || other.metadata == metadata)&&(identical(other.isBeingDeleted, isBeingDeleted) || other.isBeingDeleted == isBeingDeleted));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FileObject&&(identical(other.name, name) || other.name == name)&&(identical(other.path, path) || other.path == path)&&(identical(other.type, type) || other.type == type)&&(identical(other.size, size) || other.size == size)&&(identical(other.lastModified, lastModified) || other.lastModified == lastModified)&&(identical(other.metadata, metadata) || other.metadata == metadata)&&(identical(other.isBeingDeleted, isBeingDeleted) || other.isBeingDeleted == isBeingDeleted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,path,type,size,lastModified,metadata,isBeingDeleted);
+int get hashCode {
+    return Object.hash(runtimeType,name,path,type,size,lastModified,metadata,isBeingDeleted);
+}
 
 @override
 String toString() {
-  return 'FileObject(name: $name, path: $path, type: $type, size: $size, lastModified: $lastModified, metadata: $metadata, isBeingDeleted: $isBeingDeleted)';
+    return 'FileObject(name: $name, path: $path, type: $type, size: $size, lastModified: $lastModified, metadata: $metadata, isBeingDeleted: $isBeingDeleted)';
 }
 
 
@@ -355,16 +362,21 @@ $FileMetadataCopyWith<FileMetadata> get copyWith => _$FileMetadataCopyWithImpl<F
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FileMetadata&&(identical(other.exists, exists) || other.exists == exists)&&(identical(other.path, path) || other.path == path)&&(identical(other.contentType, contentType) || other.contentType == contentType)&&(identical(other.size, size) || other.size == size)&&(identical(other.etag, etag) || other.etag == etag)&&(identical(other.lastModified, lastModified) || other.lastModified == lastModified)&&const DeepCollectionEquality().equals(other.extra, extra));
+  final _this = this as FileMetadata;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FileMetadata&&(identical(other.exists, _this.exists) || other.exists == _this.exists)&&(identical(other.path, _this.path) || other.path == _this.path)&&(identical(other.contentType, _this.contentType) || other.contentType == _this.contentType)&&(identical(other.size, _this.size) || other.size == _this.size)&&(identical(other.etag, _this.etag) || other.etag == _this.etag)&&(identical(other.lastModified, _this.lastModified) || other.lastModified == _this.lastModified)&&const DeepCollectionEquality().equals(other.extra, _this.extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,exists,path,contentType,size,etag,lastModified,const DeepCollectionEquality().hash(extra));
+int get hashCode {
+  final _this = this as FileMetadata;
+  return Object.hash(runtimeType,_this.exists,_this.path,_this.contentType,_this.size,_this.etag,_this.lastModified,const DeepCollectionEquality().hash(_this.extra));
+}
 
 @override
 String toString() {
-  return 'FileMetadata(exists: $exists, path: $path, contentType: $contentType, size: $size, etag: $etag, lastModified: $lastModified, extra: $extra)';
+  final _this = this as FileMetadata;
+  return 'FileMetadata(exists: ${_this.exists}, path: ${_this.path}, contentType: ${_this.contentType}, size: ${_this.size}, etag: ${_this.etag}, lastModified: ${_this.lastModified}, extra: ${_this.extra})';
 }
 
 
@@ -582,16 +594,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FileMetadata&&(identical(other.exists, exists) || other.exists == exists)&&(identical(other.path, path) || other.path == path)&&(identical(other.contentType, contentType) || other.contentType == contentType)&&(identical(other.size, size) || other.size == size)&&(identical(other.etag, etag) || other.etag == etag)&&(identical(other.lastModified, lastModified) || other.lastModified == lastModified)&&const DeepCollectionEquality().equals(other._extra, _extra));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FileMetadata&&(identical(other.exists, exists) || other.exists == exists)&&(identical(other.path, path) || other.path == path)&&(identical(other.contentType, contentType) || other.contentType == contentType)&&(identical(other.size, size) || other.size == size)&&(identical(other.etag, etag) || other.etag == etag)&&(identical(other.lastModified, lastModified) || other.lastModified == lastModified)&&const DeepCollectionEquality().equals(other.extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,exists,path,contentType,size,etag,lastModified,const DeepCollectionEquality().hash(_extra));
+int get hashCode {
+    return Object.hash(runtimeType,exists,path,contentType,size,etag,lastModified,const DeepCollectionEquality().hash(_extra));
+}
 
 @override
 String toString() {
-  return 'FileMetadata(exists: $exists, path: $path, contentType: $contentType, size: $size, etag: $etag, lastModified: $lastModified, extra: $extra)';
+    return 'FileMetadata(exists: $exists, path: $path, contentType: $contentType, size: $size, etag: $etag, lastModified: $lastModified, extra: $extra)';
 }
 
 
@@ -652,16 +666,21 @@ $FileListResponseCopyWith<FileListResponse> get copyWith => _$FileListResponseCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FileListResponse&&const DeepCollectionEquality().equals(other.objects, objects)&&(identical(other.paginationToken, paginationToken) || other.paginationToken == paginationToken));
+  final _this = this as FileListResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FileListResponse&&const DeepCollectionEquality().equals(other.objects, _this.objects)&&(identical(other.paginationToken, _this.paginationToken) || other.paginationToken == _this.paginationToken));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(objects),paginationToken);
+int get hashCode {
+  final _this = this as FileListResponse;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.objects),_this.paginationToken);
+}
 
 @override
 String toString() {
-  return 'FileListResponse(objects: $objects, paginationToken: $paginationToken)';
+  final _this = this as FileListResponse;
+  return 'FileListResponse(objects: ${_this.objects}, paginationToken: ${_this.paginationToken})';
 }
 
 
@@ -859,16 +878,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FileListResponse&&const DeepCollectionEquality().equals(other._objects, _objects)&&(identical(other.paginationToken, paginationToken) || other.paginationToken == paginationToken));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FileListResponse&&const DeepCollectionEquality().equals(other.objects, _objects)&&(identical(other.paginationToken, paginationToken) || other.paginationToken == paginationToken));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_objects),paginationToken);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_objects),paginationToken);
+}
 
 @override
 String toString() {
-  return 'FileListResponse(objects: $objects, paginationToken: $paginationToken)';
+    return 'FileListResponse(objects: $objects, paginationToken: $paginationToken)';
 }
 
 

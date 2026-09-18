@@ -37,16 +37,21 @@ $StoreIntegrationsCopyWith<StoreIntegrations> get copyWith => _$StoreIntegration
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.feeefDelivery, feeefDelivery) || other.feeefDelivery == feeefDelivery)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.codpilot, codpilot) || other.codpilot == codpilot)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&(identical(other.connectors, connectors) || other.connectors == connectors)&&const DeepCollectionEquality().equals(other.sms, sms)&&const DeepCollectionEquality().equals(other.telegram, telegram));
+  final _this = this as StoreIntegrations;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.meta, _this.meta) || other.meta == _this.meta)&&(identical(other.metaPixel, _this.metaPixel) || other.metaPixel == _this.metaPixel)&&(identical(other.tiktokPixel, _this.tiktokPixel) || other.tiktokPixel == _this.tiktokPixel)&&(identical(other.googleAnalytics, _this.googleAnalytics) || other.googleAnalytics == _this.googleAnalytics)&&(identical(other.googleTags, _this.googleTags) || other.googleTags == _this.googleTags)&&(identical(other.clarity, _this.clarity) || other.clarity == _this.clarity)&&(identical(other.ai, _this.ai) || other.ai == _this.ai)&&(identical(other.yalidine, _this.yalidine) || other.yalidine == _this.yalidine)&&(identical(other.ecotrack, _this.ecotrack) || other.ecotrack == _this.ecotrack)&&(identical(other.ecomanager, _this.ecomanager) || other.ecomanager == _this.ecomanager)&&(identical(other.procolis, _this.procolis) || other.procolis == _this.procolis)&&(identical(other.noest, _this.noest) || other.noest == _this.noest)&&(identical(other.orderdz, _this.orderdz) || other.orderdz == _this.orderdz)&&(identical(other.zimou, _this.zimou) || other.zimou == _this.zimou)&&(identical(other.zrexpress, _this.zrexpress) || other.zrexpress == _this.zrexpress)&&(identical(other.mdmExpress, _this.mdmExpress) || other.mdmExpress == _this.mdmExpress)&&(identical(other.feeefDelivery, _this.feeefDelivery) || other.feeefDelivery == _this.feeefDelivery)&&(identical(other.maystroDelivery, _this.maystroDelivery) || other.maystroDelivery == _this.maystroDelivery)&&(identical(other.codpilot, _this.codpilot) || other.codpilot == _this.codpilot)&&(identical(other.googleSheet, _this.googleSheet) || other.googleSheet == _this.googleSheet)&&(identical(other.webhooks, _this.webhooks) || other.webhooks == _this.webhooks)&&(identical(other.security, _this.security) || other.security == _this.security)&&(identical(other.customFields, _this.customFields) || other.customFields == _this.customFields)&&(identical(other.payment, _this.payment) || other.payment == _this.payment)&&(identical(other.dispatcher, _this.dispatcher) || other.dispatcher == _this.dispatcher)&&(identical(other.inventory, _this.inventory) || other.inventory == _this.inventory)&&(identical(other.finance, _this.finance) || other.finance == _this.finance)&&(identical(other.connectors, _this.connectors) || other.connectors == _this.connectors)&&const DeepCollectionEquality().equals(other.sms, _this.sms)&&const DeepCollectionEquality().equals(other.telegram, _this.telegram));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(metadata),meta,metaPixel,tiktokPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,feeefDelivery,maystroDelivery,codpilot,googleSheet,webhooks,security,customFields,payment,dispatcher,inventory,finance,connectors,const DeepCollectionEquality().hash(sms),const DeepCollectionEquality().hash(telegram)]);
+int get hashCode {
+  final _this = this as StoreIntegrations;
+  return Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_this.metadata),_this.meta,_this.metaPixel,_this.tiktokPixel,_this.googleAnalytics,_this.googleTags,_this.clarity,_this.ai,_this.yalidine,_this.ecotrack,_this.ecomanager,_this.procolis,_this.noest,_this.orderdz,_this.zimou,_this.zrexpress,_this.mdmExpress,_this.feeefDelivery,_this.maystroDelivery,_this.codpilot,_this.googleSheet,_this.webhooks,_this.security,_this.customFields,_this.payment,_this.dispatcher,_this.inventory,_this.finance,_this.connectors,const DeepCollectionEquality().hash(_this.sms),const DeepCollectionEquality().hash(_this.telegram)]);
+}
 
 @override
 String toString() {
-  return 'StoreIntegrations(metadata: $metadata, meta: $meta, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, feeefDelivery: $feeefDelivery, maystroDelivery: $maystroDelivery, codpilot: $codpilot, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, connectors: $connectors, sms: $sms, telegram: $telegram)';
+  final _this = this as StoreIntegrations;
+  return 'StoreIntegrations(metadata: ${_this.metadata}, meta: ${_this.meta}, metaPixel: ${_this.metaPixel}, tiktokPixel: ${_this.tiktokPixel}, googleAnalytics: ${_this.googleAnalytics}, googleTags: ${_this.googleTags}, clarity: ${_this.clarity}, ai: ${_this.ai}, yalidine: ${_this.yalidine}, ecotrack: ${_this.ecotrack}, ecomanager: ${_this.ecomanager}, procolis: ${_this.procolis}, noest: ${_this.noest}, orderdz: ${_this.orderdz}, zimou: ${_this.zimou}, zrexpress: ${_this.zrexpress}, mdmExpress: ${_this.mdmExpress}, feeefDelivery: ${_this.feeefDelivery}, maystroDelivery: ${_this.maystroDelivery}, codpilot: ${_this.codpilot}, googleSheet: ${_this.googleSheet}, webhooks: ${_this.webhooks}, security: ${_this.security}, customFields: ${_this.customFields}, payment: ${_this.payment}, dispatcher: ${_this.dispatcher}, inventory: ${_this.inventory}, finance: ${_this.finance}, connectors: ${_this.connectors}, sms: ${_this.sms}, telegram: ${_this.telegram})';
 }
 
 
@@ -664,16 +669,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrations&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.feeefDelivery, feeefDelivery) || other.feeefDelivery == feeefDelivery)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.codpilot, codpilot) || other.codpilot == codpilot)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&(identical(other.connectors, connectors) || other.connectors == connectors)&&const DeepCollectionEquality().equals(other._sms, _sms)&&const DeepCollectionEquality().equals(other._telegram, _telegram));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.feeefDelivery, feeefDelivery) || other.feeefDelivery == feeefDelivery)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.codpilot, codpilot) || other.codpilot == codpilot)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&(identical(other.connectors, connectors) || other.connectors == connectors)&&const DeepCollectionEquality().equals(other.sms, _sms)&&const DeepCollectionEquality().equals(other.telegram, _telegram));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_metadata),meta,metaPixel,tiktokPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,feeefDelivery,maystroDelivery,codpilot,googleSheet,webhooks,security,customFields,payment,dispatcher,inventory,finance,connectors,const DeepCollectionEquality().hash(_sms),const DeepCollectionEquality().hash(_telegram)]);
+int get hashCode {
+    return Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_metadata),meta,metaPixel,tiktokPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,feeefDelivery,maystroDelivery,codpilot,googleSheet,webhooks,security,customFields,payment,dispatcher,inventory,finance,connectors,const DeepCollectionEquality().hash(_sms),const DeepCollectionEquality().hash(_telegram)]);
+}
 
 @override
 String toString() {
-  return 'StoreIntegrations(metadata: $metadata, meta: $meta, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, feeefDelivery: $feeefDelivery, maystroDelivery: $maystroDelivery, codpilot: $codpilot, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, connectors: $connectors, sms: $sms, telegram: $telegram)';
+    return 'StoreIntegrations(metadata: $metadata, meta: $meta, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, feeefDelivery: $feeefDelivery, maystroDelivery: $maystroDelivery, codpilot: $codpilot, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, connectors: $connectors, sms: $sms, telegram: $telegram)';
 }
 
 
@@ -1095,16 +1102,21 @@ $PixelStatusRuleCopyWith<PixelStatusRule> get copyWith => _$PixelStatusRuleCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PixelStatusRule&&(identical(other.id, id) || other.id == id)&&(identical(other.dimension, dimension) || other.dimension == dimension)&&(identical(other.equals, equals) || other.equals == equals)&&(identical(other.metaEvent, metaEvent) || other.metaEvent == metaEvent)&&(identical(other.tiktokEvent, tiktokEvent) || other.tiktokEvent == tiktokEvent)&&(identical(other.metaCustomEvent, metaCustomEvent) || other.metaCustomEvent == metaCustomEvent)&&(identical(other.tiktokCustomEvent, tiktokCustomEvent) || other.tiktokCustomEvent == tiktokCustomEvent));
+  final _this = this as PixelStatusRule;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PixelStatusRule&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.dimension, _this.dimension) || other.dimension == _this.dimension)&&(identical(other.equals, _this.equals) || other.equals == _this.equals)&&(identical(other.metaEvent, _this.metaEvent) || other.metaEvent == _this.metaEvent)&&(identical(other.tiktokEvent, _this.tiktokEvent) || other.tiktokEvent == _this.tiktokEvent)&&(identical(other.metaCustomEvent, _this.metaCustomEvent) || other.metaCustomEvent == _this.metaCustomEvent)&&(identical(other.tiktokCustomEvent, _this.tiktokCustomEvent) || other.tiktokCustomEvent == _this.tiktokCustomEvent));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,dimension,equals,metaEvent,tiktokEvent,metaCustomEvent,tiktokCustomEvent);
+int get hashCode {
+  final _this = this as PixelStatusRule;
+  return Object.hash(runtimeType,_this.id,_this.dimension,_this.equals,_this.metaEvent,_this.tiktokEvent,_this.metaCustomEvent,_this.tiktokCustomEvent);
+}
 
 @override
 String toString() {
-  return 'PixelStatusRule(id: $id, dimension: $dimension, equals: $equals, metaEvent: $metaEvent, tiktokEvent: $tiktokEvent, metaCustomEvent: $metaCustomEvent, tiktokCustomEvent: $tiktokCustomEvent)';
+  final _this = this as PixelStatusRule;
+  return 'PixelStatusRule(id: ${_this.id}, dimension: ${_this.dimension}, equals: ${_this.equals}, metaEvent: ${_this.metaEvent}, tiktokEvent: ${_this.tiktokEvent}, metaCustomEvent: ${_this.metaCustomEvent}, tiktokCustomEvent: ${_this.tiktokCustomEvent})';
 }
 
 
@@ -1307,16 +1319,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PixelStatusRule&&(identical(other.id, id) || other.id == id)&&(identical(other.dimension, dimension) || other.dimension == dimension)&&(identical(other.equals, equals) || other.equals == equals)&&(identical(other.metaEvent, metaEvent) || other.metaEvent == metaEvent)&&(identical(other.tiktokEvent, tiktokEvent) || other.tiktokEvent == tiktokEvent)&&(identical(other.metaCustomEvent, metaCustomEvent) || other.metaCustomEvent == metaCustomEvent)&&(identical(other.tiktokCustomEvent, tiktokCustomEvent) || other.tiktokCustomEvent == tiktokCustomEvent));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PixelStatusRule&&(identical(other.id, id) || other.id == id)&&(identical(other.dimension, dimension) || other.dimension == dimension)&&(identical(other.equals, equals) || other.equals == equals)&&(identical(other.metaEvent, metaEvent) || other.metaEvent == metaEvent)&&(identical(other.tiktokEvent, tiktokEvent) || other.tiktokEvent == tiktokEvent)&&(identical(other.metaCustomEvent, metaCustomEvent) || other.metaCustomEvent == metaCustomEvent)&&(identical(other.tiktokCustomEvent, tiktokCustomEvent) || other.tiktokCustomEvent == tiktokCustomEvent));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,dimension,equals,metaEvent,tiktokEvent,metaCustomEvent,tiktokCustomEvent);
+int get hashCode {
+    return Object.hash(runtimeType,id,dimension,equals,metaEvent,tiktokEvent,metaCustomEvent,tiktokCustomEvent);
+}
 
 @override
 String toString() {
-  return 'PixelStatusRule(id: $id, dimension: $dimension, equals: $equals, metaEvent: $metaEvent, tiktokEvent: $tiktokEvent, metaCustomEvent: $metaCustomEvent, tiktokCustomEvent: $tiktokCustomEvent)';
+    return 'PixelStatusRule(id: $id, dimension: $dimension, equals: $equals, metaEvent: $metaEvent, tiktokEvent: $tiktokEvent, metaCustomEvent: $metaCustomEvent, tiktokCustomEvent: $tiktokCustomEvent)';
 }
 
 
@@ -1377,16 +1391,21 @@ $FacebookMarketingOAuthCopyWith<FacebookMarketingOAuth> get copyWith => _$Facebo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FacebookMarketingOAuth&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.tokenType, tokenType) || other.tokenType == tokenType)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other.scopes, scopes));
+  final _this = this as FacebookMarketingOAuth;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FacebookMarketingOAuth&&(identical(other.accessToken, _this.accessToken) || other.accessToken == _this.accessToken)&&(identical(other.tokenType, _this.tokenType) || other.tokenType == _this.tokenType)&&(identical(other.expiresIn, _this.expiresIn) || other.expiresIn == _this.expiresIn)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt)&&const DeepCollectionEquality().equals(other.scopes, _this.scopes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,tokenType,expiresIn,expiresAt,const DeepCollectionEquality().hash(scopes));
+int get hashCode {
+  final _this = this as FacebookMarketingOAuth;
+  return Object.hash(runtimeType,_this.accessToken,_this.tokenType,_this.expiresIn,_this.expiresAt,const DeepCollectionEquality().hash(_this.scopes));
+}
 
 @override
 String toString() {
-  return 'FacebookMarketingOAuth(accessToken: $accessToken, tokenType: $tokenType, expiresIn: $expiresIn, expiresAt: $expiresAt, scopes: $scopes)';
+  final _this = this as FacebookMarketingOAuth;
+  return 'FacebookMarketingOAuth(accessToken: ${_this.accessToken}, tokenType: ${_this.tokenType}, expiresIn: ${_this.expiresIn}, expiresAt: ${_this.expiresAt}, scopes: ${_this.scopes})';
 }
 
 
@@ -1590,16 +1609,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FacebookMarketingOAuth&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.tokenType, tokenType) || other.tokenType == tokenType)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other._scopes, _scopes));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FacebookMarketingOAuth&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.tokenType, tokenType) || other.tokenType == tokenType)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other.scopes, _scopes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,tokenType,expiresIn,expiresAt,const DeepCollectionEquality().hash(_scopes));
+int get hashCode {
+    return Object.hash(runtimeType,accessToken,tokenType,expiresIn,expiresAt,const DeepCollectionEquality().hash(_scopes));
+}
 
 @override
 String toString() {
-  return 'FacebookMarketingOAuth(accessToken: $accessToken, tokenType: $tokenType, expiresIn: $expiresIn, expiresAt: $expiresAt, scopes: $scopes)';
+    return 'FacebookMarketingOAuth(accessToken: $accessToken, tokenType: $tokenType, expiresIn: $expiresIn, expiresAt: $expiresAt, scopes: $scopes)';
 }
 
 
@@ -1660,16 +1681,21 @@ $MetaAdAccountRefCopyWith<MetaAdAccountRef> get copyWith => _$MetaAdAccountRefCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaAdAccountRef&&(identical(other.id, id) || other.id == id)&&(identical(other.accountId, accountId) || other.accountId == accountId)&&(identical(other.name, name) || other.name == name)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.timezoneName, timezoneName) || other.timezoneName == timezoneName)&&(identical(other.accountStatus, accountStatus) || other.accountStatus == accountStatus));
+  final _this = this as MetaAdAccountRef;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaAdAccountRef&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.accountId, _this.accountId) || other.accountId == _this.accountId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.currency, _this.currency) || other.currency == _this.currency)&&(identical(other.timezoneName, _this.timezoneName) || other.timezoneName == _this.timezoneName)&&(identical(other.accountStatus, _this.accountStatus) || other.accountStatus == _this.accountStatus));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,accountId,name,currency,timezoneName,accountStatus);
+int get hashCode {
+  final _this = this as MetaAdAccountRef;
+  return Object.hash(runtimeType,_this.id,_this.accountId,_this.name,_this.currency,_this.timezoneName,_this.accountStatus);
+}
 
 @override
 String toString() {
-  return 'MetaAdAccountRef(id: $id, accountId: $accountId, name: $name, currency: $currency, timezoneName: $timezoneName, accountStatus: $accountStatus)';
+  final _this = this as MetaAdAccountRef;
+  return 'MetaAdAccountRef(id: ${_this.id}, accountId: ${_this.accountId}, name: ${_this.name}, currency: ${_this.currency}, timezoneName: ${_this.timezoneName}, accountStatus: ${_this.accountStatus})';
 }
 
 
@@ -1871,16 +1897,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaAdAccountRef&&(identical(other.id, id) || other.id == id)&&(identical(other.accountId, accountId) || other.accountId == accountId)&&(identical(other.name, name) || other.name == name)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.timezoneName, timezoneName) || other.timezoneName == timezoneName)&&(identical(other.accountStatus, accountStatus) || other.accountStatus == accountStatus));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaAdAccountRef&&(identical(other.id, id) || other.id == id)&&(identical(other.accountId, accountId) || other.accountId == accountId)&&(identical(other.name, name) || other.name == name)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.timezoneName, timezoneName) || other.timezoneName == timezoneName)&&(identical(other.accountStatus, accountStatus) || other.accountStatus == accountStatus));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,accountId,name,currency,timezoneName,accountStatus);
+int get hashCode {
+    return Object.hash(runtimeType,id,accountId,name,currency,timezoneName,accountStatus);
+}
 
 @override
 String toString() {
-  return 'MetaAdAccountRef(id: $id, accountId: $accountId, name: $name, currency: $currency, timezoneName: $timezoneName, accountStatus: $accountStatus)';
+    return 'MetaAdAccountRef(id: $id, accountId: $accountId, name: $name, currency: $currency, timezoneName: $timezoneName, accountStatus: $accountStatus)';
 }
 
 
@@ -1942,16 +1970,21 @@ $MetaAdsConfigCopyWith<MetaAdsConfig> get copyWith => _$MetaAdsConfigCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaAdsConfig&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.adAccounts, adAccounts)&&(identical(other.defaultAdAccountId, defaultAdAccountId) || other.defaultAdAccountId == defaultAdAccountId)&&(identical(other.defaultDatePreset, defaultDatePreset) || other.defaultDatePreset == defaultDatePreset)&&const DeepCollectionEquality().equals(other.extraStoreHosts, extraStoreHosts)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as MetaAdsConfig;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaAdsConfig&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.adAccounts, _this.adAccounts)&&(identical(other.defaultAdAccountId, _this.defaultAdAccountId) || other.defaultAdAccountId == _this.defaultAdAccountId)&&(identical(other.defaultDatePreset, _this.defaultDatePreset) || other.defaultDatePreset == _this.defaultDatePreset)&&const DeepCollectionEquality().equals(other.extraStoreHosts, _this.extraStoreHosts)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,const DeepCollectionEquality().hash(adAccounts),defaultAdAccountId,defaultDatePreset,const DeepCollectionEquality().hash(extraStoreHosts),const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as MetaAdsConfig;
+  return Object.hash(runtimeType,_this.active,const DeepCollectionEquality().hash(_this.adAccounts),_this.defaultAdAccountId,_this.defaultDatePreset,const DeepCollectionEquality().hash(_this.extraStoreHosts),const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'MetaAdsConfig(active: $active, adAccounts: $adAccounts, defaultAdAccountId: $defaultAdAccountId, defaultDatePreset: $defaultDatePreset, extraStoreHosts: $extraStoreHosts, metadata: $metadata)';
+  final _this = this as MetaAdsConfig;
+  return 'MetaAdsConfig(active: ${_this.active}, adAccounts: ${_this.adAccounts}, defaultAdAccountId: ${_this.defaultAdAccountId}, defaultDatePreset: ${_this.defaultDatePreset}, extraStoreHosts: ${_this.extraStoreHosts}, metadata: ${_this.metadata})';
 }
 
 
@@ -2172,16 +2205,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaAdsConfig&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._adAccounts, _adAccounts)&&(identical(other.defaultAdAccountId, defaultAdAccountId) || other.defaultAdAccountId == defaultAdAccountId)&&(identical(other.defaultDatePreset, defaultDatePreset) || other.defaultDatePreset == defaultDatePreset)&&const DeepCollectionEquality().equals(other._extraStoreHosts, _extraStoreHosts)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaAdsConfig&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.adAccounts, _adAccounts)&&(identical(other.defaultAdAccountId, defaultAdAccountId) || other.defaultAdAccountId == defaultAdAccountId)&&(identical(other.defaultDatePreset, defaultDatePreset) || other.defaultDatePreset == defaultDatePreset)&&const DeepCollectionEquality().equals(other.extraStoreHosts, _extraStoreHosts)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,const DeepCollectionEquality().hash(_adAccounts),defaultAdAccountId,defaultDatePreset,const DeepCollectionEquality().hash(_extraStoreHosts),const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,active,const DeepCollectionEquality().hash(_adAccounts),defaultAdAccountId,defaultDatePreset,const DeepCollectionEquality().hash(_extraStoreHosts),const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'MetaAdsConfig(active: $active, adAccounts: $adAccounts, defaultAdAccountId: $defaultAdAccountId, defaultDatePreset: $defaultDatePreset, extraStoreHosts: $extraStoreHosts, metadata: $metadata)';
+    return 'MetaAdsConfig(active: $active, adAccounts: $adAccounts, defaultAdAccountId: $defaultAdAccountId, defaultDatePreset: $defaultDatePreset, extraStoreHosts: $extraStoreHosts, metadata: $metadata)';
 }
 
 
@@ -2241,16 +2276,21 @@ $MetaAccountRefCopyWith<MetaAccountRef> get copyWith => _$MetaAccountRefCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaAccountRef&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name));
+  final _this = this as MetaAccountRef;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaAccountRef&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name);
+int get hashCode {
+  final _this = this as MetaAccountRef;
+  return Object.hash(runtimeType,_this.id,_this.name);
+}
 
 @override
 String toString() {
-  return 'MetaAccountRef(id: $id, name: $name)';
+  final _this = this as MetaAccountRef;
+  return 'MetaAccountRef(id: ${_this.id}, name: ${_this.name})';
 }
 
 
@@ -2442,16 +2482,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaAccountRef&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaAccountRef&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name);
+int get hashCode {
+    return Object.hash(runtimeType,id,name);
+}
 
 @override
 String toString() {
-  return 'MetaAccountRef(id: $id, name: $name)';
+    return 'MetaAccountRef(id: $id, name: $name)';
 }
 
 
@@ -2508,16 +2550,21 @@ $MetaIntegrationCopyWith<MetaIntegration> get copyWith => _$MetaIntegrationCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.account, account) || other.account == account)&&(identical(other.ads, ads) || other.ads == ads)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as MetaIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaIntegration&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.account, _this.account) || other.account == _this.account)&&(identical(other.ads, _this.ads) || other.ads == _this.ads)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,account,ads,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as MetaIntegration;
+  return Object.hash(runtimeType,_this.active,_this.account,_this.ads,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'MetaIntegration(active: $active, account: $account, ads: $ads, metadata: $metadata)';
+  final _this = this as MetaIntegration;
+  return 'MetaIntegration(active: ${_this.active}, account: ${_this.account}, ads: ${_this.ads}, metadata: ${_this.metadata})';
 }
 
 
@@ -2744,16 +2791,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.account, account) || other.account == account)&&(identical(other.ads, ads) || other.ads == ads)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.account, account) || other.account == account)&&(identical(other.ads, ads) || other.ads == ads)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,account,ads,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,active,account,ads,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'MetaIntegration(active: $active, account: $account, ads: $ads, metadata: $metadata)';
+    return 'MetaIntegration(active: $active, account: $account, ads: $ads, metadata: $metadata)';
 }
 
 
@@ -2838,16 +2887,21 @@ $MetaPixelIntegrationCopyWith<MetaPixelIntegration> get copyWith => _$MetaPixelI
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, pixels)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.oauth2, oauth2) || other.oauth2 == oauth2)&&(identical(other.mode, mode) || other.mode == mode)&&const DeepCollectionEquality().equals(other.statusRules, statusRules));
+  final _this = this as MetaPixelIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.objective, _this.objective) || other.objective == _this.objective)&&(identical(other.draftObjective, _this.draftObjective) || other.draftObjective == _this.draftObjective)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.oauth2, _this.oauth2) || other.oauth2 == _this.oauth2)&&(identical(other.mode, _this.mode) || other.mode == _this.mode)&&const DeepCollectionEquality().equals(other.statusRules, _this.statusRules));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(pixels),objective,draftObjective,active,const DeepCollectionEquality().hash(metadata),oauth2,mode,const DeepCollectionEquality().hash(statusRules));
+int get hashCode {
+  final _this = this as MetaPixelIntegration;
+  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.objective,_this.draftObjective,_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.oauth2,_this.mode,const DeepCollectionEquality().hash(_this.statusRules));
+}
 
 @override
 String toString() {
-  return 'MetaPixelIntegration(id: $id, pixels: $pixels, objective: $objective, draftObjective: $draftObjective, active: $active, metadata: $metadata, oauth2: $oauth2, mode: $mode, statusRules: $statusRules)';
+  final _this = this as MetaPixelIntegration;
+  return 'MetaPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, objective: ${_this.objective}, draftObjective: ${_this.draftObjective}, active: ${_this.active}, metadata: ${_this.metadata}, oauth2: ${_this.oauth2}, mode: ${_this.mode}, statusRules: ${_this.statusRules})';
 }
 
 
@@ -3087,16 +3141,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._pixels, _pixels)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.oauth2, oauth2) || other.oauth2 == oauth2)&&(identical(other.mode, mode) || other.mode == mode)&&const DeepCollectionEquality().equals(other._statusRules, _statusRules));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.oauth2, oauth2) || other.oauth2 == oauth2)&&(identical(other.mode, mode) || other.mode == mode)&&const DeepCollectionEquality().equals(other.statusRules, _statusRules));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),objective,draftObjective,active,const DeepCollectionEquality().hash(_metadata),oauth2,mode,const DeepCollectionEquality().hash(_statusRules));
+int get hashCode {
+    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),objective,draftObjective,active,const DeepCollectionEquality().hash(_metadata),oauth2,mode,const DeepCollectionEquality().hash(_statusRules));
+}
 
 @override
 String toString() {
-  return 'MetaPixelIntegration(id: $id, pixels: $pixels, objective: $objective, draftObjective: $draftObjective, active: $active, metadata: $metadata, oauth2: $oauth2, mode: $mode, statusRules: $statusRules)';
+    return 'MetaPixelIntegration(id: $id, pixels: $pixels, objective: $objective, draftObjective: $draftObjective, active: $active, metadata: $metadata, oauth2: $oauth2, mode: $mode, statusRules: $statusRules)';
 }
 
 
@@ -3171,16 +3227,21 @@ $MetaPixelCopyWith<MetaPixel> get copyWith => _$MetaPixelCopyWithImpl<MetaPixel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaPixel&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.key, key) || other.key == key));
+  final _this = this as MetaPixel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaPixel&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.key, _this.key) || other.key == _this.key));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,id,key);
+int get hashCode {
+  final _this = this as MetaPixel;
+  return Object.hash(runtimeType,_this.name,_this.id,_this.key);
+}
 
 @override
 String toString() {
-  return 'MetaPixel(name: $name, id: $id, key: $key)';
+  final _this = this as MetaPixel;
+  return 'MetaPixel(name: ${_this.name}, id: ${_this.id}, key: ${_this.key})';
 }
 
 
@@ -3374,16 +3435,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaPixel&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.key, key) || other.key == key));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaPixel&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.key, key) || other.key == key));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,id,key);
+int get hashCode {
+    return Object.hash(runtimeType,name,id,key);
+}
 
 @override
 String toString() {
-  return 'MetaPixel(name: $name, id: $id, key: $key)';
+    return 'MetaPixel(name: $name, id: $id, key: $key)';
 }
 
 
@@ -3442,16 +3505,21 @@ $TiktokPixelIntegrationCopyWith<TiktokPixelIntegration> get copyWith => _$Tiktok
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TiktokPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, pixels)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.mode, mode) || other.mode == mode)&&const DeepCollectionEquality().equals(other.statusRules, statusRules));
+  final _this = this as TiktokPixelIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TiktokPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.objective, _this.objective) || other.objective == _this.objective)&&(identical(other.draftObjective, _this.draftObjective) || other.draftObjective == _this.draftObjective)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.mode, _this.mode) || other.mode == _this.mode)&&const DeepCollectionEquality().equals(other.statusRules, _this.statusRules));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(pixels),objective,draftObjective,active,const DeepCollectionEquality().hash(metadata),mode,const DeepCollectionEquality().hash(statusRules));
+int get hashCode {
+  final _this = this as TiktokPixelIntegration;
+  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.objective,_this.draftObjective,_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.mode,const DeepCollectionEquality().hash(_this.statusRules));
+}
 
 @override
 String toString() {
-  return 'TiktokPixelIntegration(id: $id, pixels: $pixels, objective: $objective, draftObjective: $draftObjective, active: $active, metadata: $metadata, mode: $mode, statusRules: $statusRules)';
+  final _this = this as TiktokPixelIntegration;
+  return 'TiktokPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, objective: ${_this.objective}, draftObjective: ${_this.draftObjective}, active: ${_this.active}, metadata: ${_this.metadata}, mode: ${_this.mode}, statusRules: ${_this.statusRules})';
 }
 
 
@@ -3676,16 +3744,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TiktokPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._pixels, _pixels)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.mode, mode) || other.mode == mode)&&const DeepCollectionEquality().equals(other._statusRules, _statusRules));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TiktokPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.mode, mode) || other.mode == mode)&&const DeepCollectionEquality().equals(other.statusRules, _statusRules));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),objective,draftObjective,active,const DeepCollectionEquality().hash(_metadata),mode,const DeepCollectionEquality().hash(_statusRules));
+int get hashCode {
+    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),objective,draftObjective,active,const DeepCollectionEquality().hash(_metadata),mode,const DeepCollectionEquality().hash(_statusRules));
+}
 
 @override
 String toString() {
-  return 'TiktokPixelIntegration(id: $id, pixels: $pixels, objective: $objective, draftObjective: $draftObjective, active: $active, metadata: $metadata, mode: $mode, statusRules: $statusRules)';
+    return 'TiktokPixelIntegration(id: $id, pixels: $pixels, objective: $objective, draftObjective: $draftObjective, active: $active, metadata: $metadata, mode: $mode, statusRules: $statusRules)';
 }
 
 
@@ -3747,16 +3817,21 @@ $TiktokPixelCopyWith<TiktokPixel> get copyWith => _$TiktokPixelCopyWithImpl<Tikt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TiktokPixel&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken));
+  final _this = this as TiktokPixel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TiktokPixel&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.accessToken, _this.accessToken) || other.accessToken == _this.accessToken));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,id,accessToken);
+int get hashCode {
+  final _this = this as TiktokPixel;
+  return Object.hash(runtimeType,_this.name,_this.id,_this.accessToken);
+}
 
 @override
 String toString() {
-  return 'TiktokPixel(name: $name, id: $id, accessToken: $accessToken)';
+  final _this = this as TiktokPixel;
+  return 'TiktokPixel(name: ${_this.name}, id: ${_this.id}, accessToken: ${_this.accessToken})';
 }
 
 
@@ -3950,16 +4025,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TiktokPixel&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TiktokPixel&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,id,accessToken);
+int get hashCode {
+    return Object.hash(runtimeType,name,id,accessToken);
+}
 
 @override
 String toString() {
-  return 'TiktokPixel(name: $name, id: $id, accessToken: $accessToken)';
+    return 'TiktokPixel(name: $name, id: $id, accessToken: $accessToken)';
 }
 
 
@@ -4016,16 +4093,21 @@ $GoogleAnalyticsIntegrationCopyWith<GoogleAnalyticsIntegration> get copyWith => 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleAnalyticsIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as GoogleAnalyticsIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleAnalyticsIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,active,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as GoogleAnalyticsIntegration;
+  return Object.hash(runtimeType,_this.id,_this.active,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'GoogleAnalyticsIntegration(id: $id, active: $active, metadata: $metadata)';
+  final _this = this as GoogleAnalyticsIntegration;
+  return 'GoogleAnalyticsIntegration(id: ${_this.id}, active: ${_this.active}, metadata: ${_this.metadata})';
 }
 
 
@@ -4225,16 +4307,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleAnalyticsIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleAnalyticsIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,active,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,active,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'GoogleAnalyticsIntegration(id: $id, active: $active, metadata: $metadata)';
+    return 'GoogleAnalyticsIntegration(id: $id, active: $active, metadata: $metadata)';
 }
 
 
@@ -4291,16 +4375,21 @@ $GoogleTagsIntegrationCopyWith<GoogleTagsIntegration> get copyWith => _$GoogleTa
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleTagsIntegration&&(identical(other.key, key) || other.key == key)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as GoogleTagsIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleTagsIntegration&&(identical(other.key, _this.key) || other.key == _this.key)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,key,active,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as GoogleTagsIntegration;
+  return Object.hash(runtimeType,_this.key,_this.active,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'GoogleTagsIntegration(key: $key, active: $active, metadata: $metadata)';
+  final _this = this as GoogleTagsIntegration;
+  return 'GoogleTagsIntegration(key: ${_this.key}, active: ${_this.active}, metadata: ${_this.metadata})';
 }
 
 
@@ -4500,16 +4589,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleTagsIntegration&&(identical(other.key, key) || other.key == key)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleTagsIntegration&&(identical(other.key, key) || other.key == key)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,key,active,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,key,active,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'GoogleTagsIntegration(key: $key, active: $active, metadata: $metadata)';
+    return 'GoogleTagsIntegration(key: $key, active: $active, metadata: $metadata)';
 }
 
 
@@ -4567,16 +4658,21 @@ $ClarityIntegrationCopyWith<ClarityIntegration> get copyWith => _$ClarityIntegra
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClarityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.trackingCode, trackingCode) || other.trackingCode == trackingCode)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as ClarityIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClarityIntegration&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.trackingCode, _this.trackingCode) || other.trackingCode == _this.trackingCode)&&(identical(other.apiKey, _this.apiKey) || other.apiKey == _this.apiKey)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,trackingCode,apiKey,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as ClarityIntegration;
+  return Object.hash(runtimeType,_this.active,_this.trackingCode,_this.apiKey,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'ClarityIntegration(active: $active, trackingCode: $trackingCode, apiKey: $apiKey, metadata: $metadata)';
+  final _this = this as ClarityIntegration;
+  return 'ClarityIntegration(active: ${_this.active}, trackingCode: ${_this.trackingCode}, apiKey: ${_this.apiKey}, metadata: ${_this.metadata})';
 }
 
 
@@ -4779,16 +4875,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ClarityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.trackingCode, trackingCode) || other.trackingCode == trackingCode)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ClarityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.trackingCode, trackingCode) || other.trackingCode == trackingCode)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,trackingCode,apiKey,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,active,trackingCode,apiKey,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'ClarityIntegration(active: $active, trackingCode: $trackingCode, apiKey: $apiKey, metadata: $metadata)';
+    return 'ClarityIntegration(active: $active, trackingCode: $trackingCode, apiKey: $apiKey, metadata: $metadata)';
 }
 
 
@@ -4846,16 +4944,21 @@ $AiIntegrationCopyWith<AiIntegration> get copyWith => _$AiIntegrationCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.planningModel, planningModel) || other.planningModel == planningModel)&&(identical(other.textModel, textModel) || other.textModel == textModel)&&(identical(other.imageModel, imageModel) || other.imageModel == imageModel)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as AiIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiIntegration&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.apiKey, _this.apiKey) || other.apiKey == _this.apiKey)&&(identical(other.planningModel, _this.planningModel) || other.planningModel == _this.planningModel)&&(identical(other.textModel, _this.textModel) || other.textModel == _this.textModel)&&(identical(other.imageModel, _this.imageModel) || other.imageModel == _this.imageModel)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,apiKey,planningModel,textModel,imageModel,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as AiIntegration;
+  return Object.hash(runtimeType,_this.active,_this.apiKey,_this.planningModel,_this.textModel,_this.imageModel,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'AiIntegration(active: $active, apiKey: $apiKey, planningModel: $planningModel, textModel: $textModel, imageModel: $imageModel, metadata: $metadata)';
+  final _this = this as AiIntegration;
+  return 'AiIntegration(active: ${_this.active}, apiKey: ${_this.apiKey}, planningModel: ${_this.planningModel}, textModel: ${_this.textModel}, imageModel: ${_this.imageModel}, metadata: ${_this.metadata})';
 }
 
 
@@ -5061,16 +5164,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AiIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.planningModel, planningModel) || other.planningModel == planningModel)&&(identical(other.textModel, textModel) || other.textModel == textModel)&&(identical(other.imageModel, imageModel) || other.imageModel == imageModel)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AiIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.planningModel, planningModel) || other.planningModel == planningModel)&&(identical(other.textModel, textModel) || other.textModel == textModel)&&(identical(other.imageModel, imageModel) || other.imageModel == imageModel)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,apiKey,planningModel,textModel,imageModel,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,active,apiKey,planningModel,textModel,imageModel,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'AiIntegration(active: $active, apiKey: $apiKey, planningModel: $planningModel, textModel: $textModel, imageModel: $imageModel, metadata: $metadata)';
+    return 'AiIntegration(active: $active, apiKey: $apiKey, planningModel: $planningModel, textModel: $textModel, imageModel: $imageModel, metadata: $metadata)';
 }
 
 
@@ -5131,16 +5236,21 @@ $YalidineDeliveryIntegrationCopyWith<YalidineDeliveryIntegration> get copyWith =
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is YalidineDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.token, token) || other.token == token)&&(identical(other.agent, agent) || other.agent == agent)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&(identical(other.forceFreeShipping, forceFreeShipping) || other.forceFreeShipping == forceFreeShipping)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as YalidineDeliveryIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is YalidineDeliveryIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.agent, _this.agent) || other.agent == _this.agent)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.autoSend, _this.autoSend) || other.autoSend == _this.autoSend)&&(identical(other.forceFreeShipping, _this.forceFreeShipping) || other.forceFreeShipping == _this.forceFreeShipping)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,token,agent,active,autoSend,forceFreeShipping,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as YalidineDeliveryIntegration;
+  return Object.hash(runtimeType,_this.id,_this.token,_this.agent,_this.active,_this.autoSend,_this.forceFreeShipping,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'YalidineDeliveryIntegration(id: $id, token: $token, agent: $agent, active: $active, autoSend: $autoSend, forceFreeShipping: $forceFreeShipping, metadata: $metadata)';
+  final _this = this as YalidineDeliveryIntegration;
+  return 'YalidineDeliveryIntegration(id: ${_this.id}, token: ${_this.token}, agent: ${_this.agent}, active: ${_this.active}, autoSend: ${_this.autoSend}, forceFreeShipping: ${_this.forceFreeShipping}, metadata: ${_this.metadata})';
 }
 
 
@@ -5349,16 +5459,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _YalidineDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.token, token) || other.token == token)&&(identical(other.agent, agent) || other.agent == agent)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&(identical(other.forceFreeShipping, forceFreeShipping) || other.forceFreeShipping == forceFreeShipping)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _YalidineDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.token, token) || other.token == token)&&(identical(other.agent, agent) || other.agent == agent)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&(identical(other.forceFreeShipping, forceFreeShipping) || other.forceFreeShipping == forceFreeShipping)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,token,agent,active,autoSend,forceFreeShipping,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,token,agent,active,autoSend,forceFreeShipping,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'YalidineDeliveryIntegration(id: $id, token: $token, agent: $agent, active: $active, autoSend: $autoSend, forceFreeShipping: $forceFreeShipping, metadata: $metadata)';
+    return 'YalidineDeliveryIntegration(id: $id, token: $token, agent: $agent, active: $active, autoSend: $autoSend, forceFreeShipping: $forceFreeShipping, metadata: $metadata)';
 }
 
 
@@ -5422,16 +5534,21 @@ $EcotrackDeliveryIntegrationCopyWith<EcotrackDeliveryIntegration> get copyWith =
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EcotrackDeliveryIntegration&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as EcotrackDeliveryIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EcotrackDeliveryIntegration&&(identical(other.baseUrl, _this.baseUrl) || other.baseUrl == _this.baseUrl)&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,baseUrl,token,active,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as EcotrackDeliveryIntegration;
+  return Object.hash(runtimeType,_this.baseUrl,_this.token,_this.active,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'EcotrackDeliveryIntegration(baseUrl: $baseUrl, token: $token, active: $active, metadata: $metadata)';
+  final _this = this as EcotrackDeliveryIntegration;
+  return 'EcotrackDeliveryIntegration(baseUrl: ${_this.baseUrl}, token: ${_this.token}, active: ${_this.active}, metadata: ${_this.metadata})';
 }
 
 
@@ -5639,16 +5756,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EcotrackDeliveryIntegration&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EcotrackDeliveryIntegration&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,baseUrl,token,active,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,baseUrl,token,active,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'EcotrackDeliveryIntegration(baseUrl: $baseUrl, token: $token, active: $active, metadata: $metadata)';
+    return 'EcotrackDeliveryIntegration(baseUrl: $baseUrl, token: $token, active: $active, metadata: $metadata)';
 }
 
 
@@ -5706,16 +5825,21 @@ $EcomanagerDeliveryIntegrationCopyWith<EcomanagerDeliveryIntegration> get copyWi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EcomanagerDeliveryIntegration&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as EcomanagerDeliveryIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EcomanagerDeliveryIntegration&&(identical(other.baseUrl, _this.baseUrl) || other.baseUrl == _this.baseUrl)&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.autoSend, _this.autoSend) || other.autoSend == _this.autoSend)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,baseUrl,token,active,autoSend,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as EcomanagerDeliveryIntegration;
+  return Object.hash(runtimeType,_this.baseUrl,_this.token,_this.active,_this.autoSend,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'EcomanagerDeliveryIntegration(baseUrl: $baseUrl, token: $token, active: $active, autoSend: $autoSend, metadata: $metadata)';
+  final _this = this as EcomanagerDeliveryIntegration;
+  return 'EcomanagerDeliveryIntegration(baseUrl: ${_this.baseUrl}, token: ${_this.token}, active: ${_this.active}, autoSend: ${_this.autoSend}, metadata: ${_this.metadata})';
 }
 
 
@@ -5919,16 +6043,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EcomanagerDeliveryIntegration&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EcomanagerDeliveryIntegration&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,baseUrl,token,active,autoSend,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,baseUrl,token,active,autoSend,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'EcomanagerDeliveryIntegration(baseUrl: $baseUrl, token: $token, active: $active, autoSend: $autoSend, metadata: $metadata)';
+    return 'EcomanagerDeliveryIntegration(baseUrl: $baseUrl, token: $token, active: $active, autoSend: $autoSend, metadata: $metadata)';
 }
 
 
@@ -5987,16 +6113,21 @@ $ProcolisDeliveryIntegrationCopyWith<ProcolisDeliveryIntegration> get copyWith =
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProcolisDeliveryIntegration&&(identical(other.key, key) || other.key == key)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as ProcolisDeliveryIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProcolisDeliveryIntegration&&(identical(other.key, _this.key) || other.key == _this.key)&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,key,token,active,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as ProcolisDeliveryIntegration;
+  return Object.hash(runtimeType,_this.key,_this.token,_this.active,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'ProcolisDeliveryIntegration(key: $key, token: $token, active: $active, metadata: $metadata)';
+  final _this = this as ProcolisDeliveryIntegration;
+  return 'ProcolisDeliveryIntegration(key: ${_this.key}, token: ${_this.token}, active: ${_this.active}, metadata: ${_this.metadata})';
 }
 
 
@@ -6198,16 +6329,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProcolisDeliveryIntegration&&(identical(other.key, key) || other.key == key)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProcolisDeliveryIntegration&&(identical(other.key, key) || other.key == key)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,key,token,active,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,key,token,active,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'ProcolisDeliveryIntegration(key: $key, token: $token, active: $active, metadata: $metadata)';
+    return 'ProcolisDeliveryIntegration(key: $key, token: $token, active: $active, metadata: $metadata)';
 }
 
 
@@ -6265,16 +6398,21 @@ $NoestDeliveryIntegrationCopyWith<NoestDeliveryIntegration> get copyWith => _$No
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NoestDeliveryIntegration&&(identical(other.guid, guid) || other.guid == guid)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as NoestDeliveryIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NoestDeliveryIntegration&&(identical(other.guid, _this.guid) || other.guid == _this.guid)&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,guid,token,active,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as NoestDeliveryIntegration;
+  return Object.hash(runtimeType,_this.guid,_this.token,_this.active,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'NoestDeliveryIntegration(guid: $guid, token: $token, active: $active, metadata: $metadata)';
+  final _this = this as NoestDeliveryIntegration;
+  return 'NoestDeliveryIntegration(guid: ${_this.guid}, token: ${_this.token}, active: ${_this.active}, metadata: ${_this.metadata})';
 }
 
 
@@ -6476,16 +6614,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NoestDeliveryIntegration&&(identical(other.guid, guid) || other.guid == guid)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _NoestDeliveryIntegration&&(identical(other.guid, guid) || other.guid == guid)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,guid,token,active,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,guid,token,active,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'NoestDeliveryIntegration(guid: $guid, token: $token, active: $active, metadata: $metadata)';
+    return 'NoestDeliveryIntegration(guid: $guid, token: $token, active: $active, metadata: $metadata)';
 }
 
 
@@ -6543,16 +6683,21 @@ $OrderdzDeliveryIntegrationCopyWith<OrderdzDeliveryIntegration> get copyWith => 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderdzDeliveryIntegration&&(identical(other.url, url) || other.url == url)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as OrderdzDeliveryIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderdzDeliveryIntegration&&(identical(other.url, _this.url) || other.url == _this.url)&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.autoSend, _this.autoSend) || other.autoSend == _this.autoSend)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,url,token,active,autoSend,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as OrderdzDeliveryIntegration;
+  return Object.hash(runtimeType,_this.url,_this.token,_this.active,_this.autoSend,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'OrderdzDeliveryIntegration(url: $url, token: $token, active: $active, autoSend: $autoSend, metadata: $metadata)';
+  final _this = this as OrderdzDeliveryIntegration;
+  return 'OrderdzDeliveryIntegration(url: ${_this.url}, token: ${_this.token}, active: ${_this.active}, autoSend: ${_this.autoSend}, metadata: ${_this.metadata})';
 }
 
 
@@ -6756,16 +6901,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderdzDeliveryIntegration&&(identical(other.url, url) || other.url == url)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderdzDeliveryIntegration&&(identical(other.url, url) || other.url == url)&&(identical(other.token, token) || other.token == token)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,url,token,active,autoSend,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,url,token,active,autoSend,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'OrderdzDeliveryIntegration(url: $url, token: $token, active: $active, autoSend: $autoSend, metadata: $metadata)';
+    return 'OrderdzDeliveryIntegration(url: $url, token: $token, active: $active, autoSend: $autoSend, metadata: $metadata)';
 }
 
 
@@ -6824,16 +6971,21 @@ $ZimouExpressDeliveryIntegrationCopyWith<ZimouExpressDeliveryIntegration> get co
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZimouExpressDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.active, active) || other.active == active)&&(identical(other.silentMode, silentMode) || other.silentMode == silentMode)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as ZimouExpressDeliveryIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZimouExpressDeliveryIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.apiKey, _this.apiKey) || other.apiKey == _this.apiKey)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.silentMode, _this.silentMode) || other.silentMode == _this.silentMode)&&(identical(other.autoSend, _this.autoSend) || other.autoSend == _this.autoSend)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,apiKey,active,silentMode,autoSend,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as ZimouExpressDeliveryIntegration;
+  return Object.hash(runtimeType,_this.id,_this.apiKey,_this.active,_this.silentMode,_this.autoSend,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'ZimouExpressDeliveryIntegration(id: $id, apiKey: $apiKey, active: $active, silentMode: $silentMode, autoSend: $autoSend, metadata: $metadata)';
+  final _this = this as ZimouExpressDeliveryIntegration;
+  return 'ZimouExpressDeliveryIntegration(id: ${_this.id}, apiKey: ${_this.apiKey}, active: ${_this.active}, silentMode: ${_this.silentMode}, autoSend: ${_this.autoSend}, metadata: ${_this.metadata})';
 }
 
 
@@ -7039,16 +7191,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZimouExpressDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.active, active) || other.active == active)&&(identical(other.silentMode, silentMode) || other.silentMode == silentMode)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZimouExpressDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.active, active) || other.active == active)&&(identical(other.silentMode, silentMode) || other.silentMode == silentMode)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,apiKey,active,silentMode,autoSend,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,apiKey,active,silentMode,autoSend,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'ZimouExpressDeliveryIntegration(id: $id, apiKey: $apiKey, active: $active, silentMode: $silentMode, autoSend: $autoSend, metadata: $metadata)';
+    return 'ZimouExpressDeliveryIntegration(id: $id, apiKey: $apiKey, active: $active, silentMode: $silentMode, autoSend: $autoSend, metadata: $metadata)';
 }
 
 
@@ -7111,16 +7265,21 @@ $ZrexpressDeliveryIntegrationCopyWith<ZrexpressDeliveryIntegration> get copyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.tenantId, tenantId) || other.tenantId == tenantId)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&(identical(other.active, active) || other.active == active)&&(identical(other.silentMode, silentMode) || other.silentMode == silentMode)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as ZrexpressDeliveryIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressDeliveryIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.apiKey, _this.apiKey) || other.apiKey == _this.apiKey)&&(identical(other.tenantId, _this.tenantId) || other.tenantId == _this.tenantId)&&(identical(other.webhookSecret, _this.webhookSecret) || other.webhookSecret == _this.webhookSecret)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.silentMode, _this.silentMode) || other.silentMode == _this.silentMode)&&(identical(other.autoSend, _this.autoSend) || other.autoSend == _this.autoSend)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,apiKey,tenantId,webhookSecret,active,silentMode,autoSend,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as ZrexpressDeliveryIntegration;
+  return Object.hash(runtimeType,_this.id,_this.apiKey,_this.tenantId,_this.webhookSecret,_this.active,_this.silentMode,_this.autoSend,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'ZrexpressDeliveryIntegration(id: $id, apiKey: $apiKey, tenantId: $tenantId, webhookSecret: $webhookSecret, active: $active, silentMode: $silentMode, autoSend: $autoSend, metadata: $metadata)';
+  final _this = this as ZrexpressDeliveryIntegration;
+  return 'ZrexpressDeliveryIntegration(id: ${_this.id}, apiKey: ${_this.apiKey}, tenantId: ${_this.tenantId}, webhookSecret: ${_this.webhookSecret}, active: ${_this.active}, silentMode: ${_this.silentMode}, autoSend: ${_this.autoSend}, metadata: ${_this.metadata})';
 }
 
 
@@ -7333,16 +7492,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.tenantId, tenantId) || other.tenantId == tenantId)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&(identical(other.active, active) || other.active == active)&&(identical(other.silentMode, silentMode) || other.silentMode == silentMode)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.tenantId, tenantId) || other.tenantId == tenantId)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&(identical(other.active, active) || other.active == active)&&(identical(other.silentMode, silentMode) || other.silentMode == silentMode)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,apiKey,tenantId,webhookSecret,active,silentMode,autoSend,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,apiKey,tenantId,webhookSecret,active,silentMode,autoSend,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'ZrexpressDeliveryIntegration(id: $id, apiKey: $apiKey, tenantId: $tenantId, webhookSecret: $webhookSecret, active: $active, silentMode: $silentMode, autoSend: $autoSend, metadata: $metadata)';
+    return 'ZrexpressDeliveryIntegration(id: $id, apiKey: $apiKey, tenantId: $tenantId, webhookSecret: $webhookSecret, active: $active, silentMode: $silentMode, autoSend: $autoSend, metadata: $metadata)';
 }
 
 
@@ -7408,16 +7569,21 @@ $MdmExpressDeliveryIntegrationCopyWith<MdmExpressDeliveryIntegration> get copyWi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MdmExpressDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.bearerToken, bearerToken) || other.bearerToken == bearerToken)&&(identical(other.mdmStoreId, mdmStoreId) || other.mdmStoreId == mdmStoreId)&&(identical(other.mdmSellerId, mdmSellerId) || other.mdmSellerId == mdmSellerId)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&(identical(other.active, active) || other.active == active)&&(identical(other.silentMode, silentMode) || other.silentMode == silentMode)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as MdmExpressDeliveryIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MdmExpressDeliveryIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.apiKey, _this.apiKey) || other.apiKey == _this.apiKey)&&(identical(other.bearerToken, _this.bearerToken) || other.bearerToken == _this.bearerToken)&&(identical(other.mdmStoreId, _this.mdmStoreId) || other.mdmStoreId == _this.mdmStoreId)&&(identical(other.mdmSellerId, _this.mdmSellerId) || other.mdmSellerId == _this.mdmSellerId)&&(identical(other.webhookSecret, _this.webhookSecret) || other.webhookSecret == _this.webhookSecret)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.silentMode, _this.silentMode) || other.silentMode == _this.silentMode)&&(identical(other.autoSend, _this.autoSend) || other.autoSend == _this.autoSend)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,apiKey,bearerToken,mdmStoreId,mdmSellerId,webhookSecret,active,silentMode,autoSend,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as MdmExpressDeliveryIntegration;
+  return Object.hash(runtimeType,_this.id,_this.apiKey,_this.bearerToken,_this.mdmStoreId,_this.mdmSellerId,_this.webhookSecret,_this.active,_this.silentMode,_this.autoSend,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'MdmExpressDeliveryIntegration(id: $id, apiKey: $apiKey, bearerToken: $bearerToken, mdmStoreId: $mdmStoreId, mdmSellerId: $mdmSellerId, webhookSecret: $webhookSecret, active: $active, silentMode: $silentMode, autoSend: $autoSend, metadata: $metadata)';
+  final _this = this as MdmExpressDeliveryIntegration;
+  return 'MdmExpressDeliveryIntegration(id: ${_this.id}, apiKey: ${_this.apiKey}, bearerToken: ${_this.bearerToken}, mdmStoreId: ${_this.mdmStoreId}, mdmSellerId: ${_this.mdmSellerId}, webhookSecret: ${_this.webhookSecret}, active: ${_this.active}, silentMode: ${_this.silentMode}, autoSend: ${_this.autoSend}, metadata: ${_this.metadata})';
 }
 
 
@@ -7635,16 +7801,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MdmExpressDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.bearerToken, bearerToken) || other.bearerToken == bearerToken)&&(identical(other.mdmStoreId, mdmStoreId) || other.mdmStoreId == mdmStoreId)&&(identical(other.mdmSellerId, mdmSellerId) || other.mdmSellerId == mdmSellerId)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&(identical(other.active, active) || other.active == active)&&(identical(other.silentMode, silentMode) || other.silentMode == silentMode)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MdmExpressDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.bearerToken, bearerToken) || other.bearerToken == bearerToken)&&(identical(other.mdmStoreId, mdmStoreId) || other.mdmStoreId == mdmStoreId)&&(identical(other.mdmSellerId, mdmSellerId) || other.mdmSellerId == mdmSellerId)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&(identical(other.active, active) || other.active == active)&&(identical(other.silentMode, silentMode) || other.silentMode == silentMode)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,apiKey,bearerToken,mdmStoreId,mdmSellerId,webhookSecret,active,silentMode,autoSend,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,apiKey,bearerToken,mdmStoreId,mdmSellerId,webhookSecret,active,silentMode,autoSend,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'MdmExpressDeliveryIntegration(id: $id, apiKey: $apiKey, bearerToken: $bearerToken, mdmStoreId: $mdmStoreId, mdmSellerId: $mdmSellerId, webhookSecret: $webhookSecret, active: $active, silentMode: $silentMode, autoSend: $autoSend, metadata: $metadata)';
+    return 'MdmExpressDeliveryIntegration(id: $id, apiKey: $apiKey, bearerToken: $bearerToken, mdmStoreId: $mdmStoreId, mdmSellerId: $mdmSellerId, webhookSecret: $webhookSecret, active: $active, silentMode: $silentMode, autoSend: $autoSend, metadata: $metadata)';
 }
 
 
@@ -7712,16 +7880,21 @@ $FeeefDeliveryIntegrationCopyWith<FeeefDeliveryIntegration> get copyWith => _$Fe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeeefDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&(identical(other.nearSenderUserId, nearSenderUserId) || other.nearSenderUserId == nearSenderUserId)&&(identical(other.nearSenderUsername, nearSenderUsername) || other.nearSenderUsername == nearSenderUsername)&&(identical(other.nearSenderEmail, nearSenderEmail) || other.nearSenderEmail == nearSenderEmail)&&(identical(other.nearAccountType, nearAccountType) || other.nearAccountType == nearAccountType)&&(identical(other.pickupLocationType, pickupLocationType) || other.pickupLocationType == pickupLocationType)&&(identical(other.pickupAddress, pickupAddress) || other.pickupAddress == pickupAddress)&&(identical(other.senderCenterId, senderCenterId) || other.senderCenterId == senderCenterId)&&(identical(other.defaultBuralistId, defaultBuralistId) || other.defaultBuralistId == defaultBuralistId)&&(identical(other.useFeeefLabel, useFeeefLabel) || other.useFeeefLabel == useFeeefLabel)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as FeeefDeliveryIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeeefDeliveryIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.autoSend, _this.autoSend) || other.autoSend == _this.autoSend)&&(identical(other.nearSenderUserId, _this.nearSenderUserId) || other.nearSenderUserId == _this.nearSenderUserId)&&(identical(other.nearSenderUsername, _this.nearSenderUsername) || other.nearSenderUsername == _this.nearSenderUsername)&&(identical(other.nearSenderEmail, _this.nearSenderEmail) || other.nearSenderEmail == _this.nearSenderEmail)&&(identical(other.nearAccountType, _this.nearAccountType) || other.nearAccountType == _this.nearAccountType)&&(identical(other.pickupLocationType, _this.pickupLocationType) || other.pickupLocationType == _this.pickupLocationType)&&(identical(other.pickupAddress, _this.pickupAddress) || other.pickupAddress == _this.pickupAddress)&&(identical(other.senderCenterId, _this.senderCenterId) || other.senderCenterId == _this.senderCenterId)&&(identical(other.defaultBuralistId, _this.defaultBuralistId) || other.defaultBuralistId == _this.defaultBuralistId)&&(identical(other.useFeeefLabel, _this.useFeeefLabel) || other.useFeeefLabel == _this.useFeeefLabel)&&(identical(other.webhookSecret, _this.webhookSecret) || other.webhookSecret == _this.webhookSecret)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,active,autoSend,nearSenderUserId,nearSenderUsername,nearSenderEmail,nearAccountType,pickupLocationType,pickupAddress,senderCenterId,defaultBuralistId,useFeeefLabel,webhookSecret,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as FeeefDeliveryIntegration;
+  return Object.hash(runtimeType,_this.id,_this.active,_this.autoSend,_this.nearSenderUserId,_this.nearSenderUsername,_this.nearSenderEmail,_this.nearAccountType,_this.pickupLocationType,_this.pickupAddress,_this.senderCenterId,_this.defaultBuralistId,_this.useFeeefLabel,_this.webhookSecret,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'FeeefDeliveryIntegration(id: $id, active: $active, autoSend: $autoSend, nearSenderUserId: $nearSenderUserId, nearSenderUsername: $nearSenderUsername, nearSenderEmail: $nearSenderEmail, nearAccountType: $nearAccountType, pickupLocationType: $pickupLocationType, pickupAddress: $pickupAddress, senderCenterId: $senderCenterId, defaultBuralistId: $defaultBuralistId, useFeeefLabel: $useFeeefLabel, webhookSecret: $webhookSecret, metadata: $metadata)';
+  final _this = this as FeeefDeliveryIntegration;
+  return 'FeeefDeliveryIntegration(id: ${_this.id}, active: ${_this.active}, autoSend: ${_this.autoSend}, nearSenderUserId: ${_this.nearSenderUserId}, nearSenderUsername: ${_this.nearSenderUsername}, nearSenderEmail: ${_this.nearSenderEmail}, nearAccountType: ${_this.nearAccountType}, pickupLocationType: ${_this.pickupLocationType}, pickupAddress: ${_this.pickupAddress}, senderCenterId: ${_this.senderCenterId}, defaultBuralistId: ${_this.defaultBuralistId}, useFeeefLabel: ${_this.useFeeefLabel}, webhookSecret: ${_this.webhookSecret}, metadata: ${_this.metadata})';
 }
 
 
@@ -7947,16 +8120,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeeefDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&(identical(other.nearSenderUserId, nearSenderUserId) || other.nearSenderUserId == nearSenderUserId)&&(identical(other.nearSenderUsername, nearSenderUsername) || other.nearSenderUsername == nearSenderUsername)&&(identical(other.nearSenderEmail, nearSenderEmail) || other.nearSenderEmail == nearSenderEmail)&&(identical(other.nearAccountType, nearAccountType) || other.nearAccountType == nearAccountType)&&(identical(other.pickupLocationType, pickupLocationType) || other.pickupLocationType == pickupLocationType)&&(identical(other.pickupAddress, pickupAddress) || other.pickupAddress == pickupAddress)&&(identical(other.senderCenterId, senderCenterId) || other.senderCenterId == senderCenterId)&&(identical(other.defaultBuralistId, defaultBuralistId) || other.defaultBuralistId == defaultBuralistId)&&(identical(other.useFeeefLabel, useFeeefLabel) || other.useFeeefLabel == useFeeefLabel)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeeefDeliveryIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&(identical(other.nearSenderUserId, nearSenderUserId) || other.nearSenderUserId == nearSenderUserId)&&(identical(other.nearSenderUsername, nearSenderUsername) || other.nearSenderUsername == nearSenderUsername)&&(identical(other.nearSenderEmail, nearSenderEmail) || other.nearSenderEmail == nearSenderEmail)&&(identical(other.nearAccountType, nearAccountType) || other.nearAccountType == nearAccountType)&&(identical(other.pickupLocationType, pickupLocationType) || other.pickupLocationType == pickupLocationType)&&(identical(other.pickupAddress, pickupAddress) || other.pickupAddress == pickupAddress)&&(identical(other.senderCenterId, senderCenterId) || other.senderCenterId == senderCenterId)&&(identical(other.defaultBuralistId, defaultBuralistId) || other.defaultBuralistId == defaultBuralistId)&&(identical(other.useFeeefLabel, useFeeefLabel) || other.useFeeefLabel == useFeeefLabel)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,active,autoSend,nearSenderUserId,nearSenderUsername,nearSenderEmail,nearAccountType,pickupLocationType,pickupAddress,senderCenterId,defaultBuralistId,useFeeefLabel,webhookSecret,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,active,autoSend,nearSenderUserId,nearSenderUsername,nearSenderEmail,nearAccountType,pickupLocationType,pickupAddress,senderCenterId,defaultBuralistId,useFeeefLabel,webhookSecret,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'FeeefDeliveryIntegration(id: $id, active: $active, autoSend: $autoSend, nearSenderUserId: $nearSenderUserId, nearSenderUsername: $nearSenderUsername, nearSenderEmail: $nearSenderEmail, nearAccountType: $nearAccountType, pickupLocationType: $pickupLocationType, pickupAddress: $pickupAddress, senderCenterId: $senderCenterId, defaultBuralistId: $defaultBuralistId, useFeeefLabel: $useFeeefLabel, webhookSecret: $webhookSecret, metadata: $metadata)';
+    return 'FeeefDeliveryIntegration(id: $id, active: $active, autoSend: $autoSend, nearSenderUserId: $nearSenderUserId, nearSenderUsername: $nearSenderUsername, nearSenderEmail: $nearSenderEmail, nearAccountType: $nearAccountType, pickupLocationType: $pickupLocationType, pickupAddress: $pickupAddress, senderCenterId: $senderCenterId, defaultBuralistId: $defaultBuralistId, useFeeefLabel: $useFeeefLabel, webhookSecret: $webhookSecret, metadata: $metadata)';
 }
 
 
@@ -8024,16 +8199,21 @@ $MaystroDeliveryIntegrationCopyWith<MaystroDeliveryIntegration> get copyWith => 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroDeliveryIntegration&&(identical(other.token, token) || other.token == token)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as MaystroDeliveryIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroDeliveryIntegration&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.baseUrl, _this.baseUrl) || other.baseUrl == _this.baseUrl)&&(identical(other.webhookSecret, _this.webhookSecret) || other.webhookSecret == _this.webhookSecret)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.autoSend, _this.autoSend) || other.autoSend == _this.autoSend)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,token,baseUrl,webhookSecret,active,autoSend,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as MaystroDeliveryIntegration;
+  return Object.hash(runtimeType,_this.token,_this.baseUrl,_this.webhookSecret,_this.active,_this.autoSend,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'MaystroDeliveryIntegration(token: $token, baseUrl: $baseUrl, webhookSecret: $webhookSecret, active: $active, autoSend: $autoSend, metadata: $metadata)';
+  final _this = this as MaystroDeliveryIntegration;
+  return 'MaystroDeliveryIntegration(token: ${_this.token}, baseUrl: ${_this.baseUrl}, webhookSecret: ${_this.webhookSecret}, active: ${_this.active}, autoSend: ${_this.autoSend}, metadata: ${_this.metadata})';
 }
 
 
@@ -8239,16 +8419,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroDeliveryIntegration&&(identical(other.token, token) || other.token == token)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroDeliveryIntegration&&(identical(other.token, token) || other.token == token)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.webhookSecret, webhookSecret) || other.webhookSecret == webhookSecret)&&(identical(other.active, active) || other.active == active)&&(identical(other.autoSend, autoSend) || other.autoSend == autoSend)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,token,baseUrl,webhookSecret,active,autoSend,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,token,baseUrl,webhookSecret,active,autoSend,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'MaystroDeliveryIntegration(token: $token, baseUrl: $baseUrl, webhookSecret: $webhookSecret, active: $active, autoSend: $autoSend, metadata: $metadata)';
+    return 'MaystroDeliveryIntegration(token: $token, baseUrl: $baseUrl, webhookSecret: $webhookSecret, active: $active, autoSend: $autoSend, metadata: $metadata)';
 }
 
 
@@ -8311,16 +8493,21 @@ $CodpilotIntegrationCopyWith<CodpilotIntegration> get copyWith => _$CodpilotInte
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CodpilotIntegration&&(identical(other.subdomain, subdomain) || other.subdomain == subdomain)&&(identical(other.apiId, apiId) || other.apiId == apiId)&&(identical(other.apiToken, apiToken) || other.apiToken == apiToken)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.statusRules, statusRules)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as CodpilotIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CodpilotIntegration&&(identical(other.subdomain, _this.subdomain) || other.subdomain == _this.subdomain)&&(identical(other.apiId, _this.apiId) || other.apiId == _this.apiId)&&(identical(other.apiToken, _this.apiToken) || other.apiToken == _this.apiToken)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.statusRules, _this.statusRules)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,subdomain,apiId,apiToken,active,const DeepCollectionEquality().hash(statusRules),const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as CodpilotIntegration;
+  return Object.hash(runtimeType,_this.subdomain,_this.apiId,_this.apiToken,_this.active,const DeepCollectionEquality().hash(_this.statusRules),const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'CodpilotIntegration(subdomain: $subdomain, apiId: $apiId, apiToken: $apiToken, active: $active, statusRules: $statusRules, metadata: $metadata)';
+  final _this = this as CodpilotIntegration;
+  return 'CodpilotIntegration(subdomain: ${_this.subdomain}, apiId: ${_this.apiId}, apiToken: ${_this.apiToken}, active: ${_this.active}, statusRules: ${_this.statusRules}, metadata: ${_this.metadata})';
 }
 
 
@@ -8537,16 +8724,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CodpilotIntegration&&(identical(other.subdomain, subdomain) || other.subdomain == subdomain)&&(identical(other.apiId, apiId) || other.apiId == apiId)&&(identical(other.apiToken, apiToken) || other.apiToken == apiToken)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._statusRules, _statusRules)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CodpilotIntegration&&(identical(other.subdomain, subdomain) || other.subdomain == subdomain)&&(identical(other.apiId, apiId) || other.apiId == apiId)&&(identical(other.apiToken, apiToken) || other.apiToken == apiToken)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.statusRules, _statusRules)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,subdomain,apiId,apiToken,active,const DeepCollectionEquality().hash(_statusRules),const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,subdomain,apiId,apiToken,active,const DeepCollectionEquality().hash(_statusRules),const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'CodpilotIntegration(subdomain: $subdomain, apiId: $apiId, apiToken: $apiToken, active: $active, statusRules: $statusRules, metadata: $metadata)';
+    return 'CodpilotIntegration(subdomain: $subdomain, apiId: $apiId, apiToken: $apiToken, active: $active, statusRules: $statusRules, metadata: $metadata)';
 }
 
 
@@ -8606,16 +8795,21 @@ $SecurityOptionCopyWith<SecurityOption> get copyWith => _$SecurityOptionCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityOption&&(identical(other.active, active) || other.active == active)&&(identical(other.ttl, ttl) || other.ttl == ttl)&&(identical(other.treatment, treatment) || other.treatment == treatment));
+  final _this = this as SecurityOption;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityOption&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.ttl, _this.ttl) || other.ttl == _this.ttl)&&(identical(other.treatment, _this.treatment) || other.treatment == _this.treatment));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,ttl,treatment);
+int get hashCode {
+  final _this = this as SecurityOption;
+  return Object.hash(runtimeType,_this.active,_this.ttl,_this.treatment);
+}
 
 @override
 String toString() {
-  return 'SecurityOption(active: $active, ttl: $ttl, treatment: $treatment)';
+  final _this = this as SecurityOption;
+  return 'SecurityOption(active: ${_this.active}, ttl: ${_this.ttl}, treatment: ${_this.treatment})';
 }
 
 
@@ -8809,16 +9003,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityOption&&(identical(other.active, active) || other.active == active)&&(identical(other.ttl, ttl) || other.ttl == ttl)&&(identical(other.treatment, treatment) || other.treatment == treatment));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityOption&&(identical(other.active, active) || other.active == active)&&(identical(other.ttl, ttl) || other.ttl == ttl)&&(identical(other.treatment, treatment) || other.treatment == treatment));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,ttl,treatment);
+int get hashCode {
+    return Object.hash(runtimeType,active,ttl,treatment);
+}
 
 @override
 String toString() {
-  return 'SecurityOption(active: $active, ttl: $ttl, treatment: $treatment)';
+    return 'SecurityOption(active: $active, ttl: $ttl, treatment: $treatment)';
 }
 
 
@@ -8875,16 +9071,21 @@ $SecurityMinTimeOptionCopyWith<SecurityMinTimeOption> get copyWith => _$Security
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityMinTimeOption&&(identical(other.active, active) || other.active == active)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.treatment, treatment) || other.treatment == treatment));
+  final _this = this as SecurityMinTimeOption;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityMinTimeOption&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.duration, _this.duration) || other.duration == _this.duration)&&(identical(other.treatment, _this.treatment) || other.treatment == _this.treatment));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,duration,treatment);
+int get hashCode {
+  final _this = this as SecurityMinTimeOption;
+  return Object.hash(runtimeType,_this.active,_this.duration,_this.treatment);
+}
 
 @override
 String toString() {
-  return 'SecurityMinTimeOption(active: $active, duration: $duration, treatment: $treatment)';
+  final _this = this as SecurityMinTimeOption;
+  return 'SecurityMinTimeOption(active: ${_this.active}, duration: ${_this.duration}, treatment: ${_this.treatment})';
 }
 
 
@@ -9078,16 +9279,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityMinTimeOption&&(identical(other.active, active) || other.active == active)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.treatment, treatment) || other.treatment == treatment));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityMinTimeOption&&(identical(other.active, active) || other.active == active)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.treatment, treatment) || other.treatment == treatment));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,duration,treatment);
+int get hashCode {
+    return Object.hash(runtimeType,active,duration,treatment);
+}
 
 @override
 String toString() {
-  return 'SecurityMinTimeOption(active: $active, duration: $duration, treatment: $treatment)';
+    return 'SecurityMinTimeOption(active: $active, duration: $duration, treatment: $treatment)';
 }
 
 
@@ -9144,16 +9347,21 @@ $SecurityCountriesOptionCopyWith<SecurityCountriesOption> get copyWith => _$Secu
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityCountriesOption&&(identical(other.active, active) || other.active == active)&&(identical(other.treatment, treatment) || other.treatment == treatment)&&const DeepCollectionEquality().equals(other.allowed, allowed)&&const DeepCollectionEquality().equals(other.blocked, blocked));
+  final _this = this as SecurityCountriesOption;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityCountriesOption&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.treatment, _this.treatment) || other.treatment == _this.treatment)&&const DeepCollectionEquality().equals(other.allowed, _this.allowed)&&const DeepCollectionEquality().equals(other.blocked, _this.blocked));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,treatment,const DeepCollectionEquality().hash(allowed),const DeepCollectionEquality().hash(blocked));
+int get hashCode {
+  final _this = this as SecurityCountriesOption;
+  return Object.hash(runtimeType,_this.active,_this.treatment,const DeepCollectionEquality().hash(_this.allowed),const DeepCollectionEquality().hash(_this.blocked));
+}
 
 @override
 String toString() {
-  return 'SecurityCountriesOption(active: $active, treatment: $treatment, allowed: $allowed, blocked: $blocked)';
+  final _this = this as SecurityCountriesOption;
+  return 'SecurityCountriesOption(active: ${_this.active}, treatment: ${_this.treatment}, allowed: ${_this.allowed}, blocked: ${_this.blocked})';
 }
 
 
@@ -9363,16 +9571,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityCountriesOption&&(identical(other.active, active) || other.active == active)&&(identical(other.treatment, treatment) || other.treatment == treatment)&&const DeepCollectionEquality().equals(other._allowed, _allowed)&&const DeepCollectionEquality().equals(other._blocked, _blocked));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityCountriesOption&&(identical(other.active, active) || other.active == active)&&(identical(other.treatment, treatment) || other.treatment == treatment)&&const DeepCollectionEquality().equals(other.allowed, _allowed)&&const DeepCollectionEquality().equals(other.blocked, _blocked));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,treatment,const DeepCollectionEquality().hash(_allowed),const DeepCollectionEquality().hash(_blocked));
+int get hashCode {
+    return Object.hash(runtimeType,active,treatment,const DeepCollectionEquality().hash(_allowed),const DeepCollectionEquality().hash(_blocked));
+}
 
 @override
 String toString() {
-  return 'SecurityCountriesOption(active: $active, treatment: $treatment, allowed: $allowed, blocked: $blocked)';
+    return 'SecurityCountriesOption(active: $active, treatment: $treatment, allowed: $allowed, blocked: $blocked)';
 }
 
 
@@ -9430,16 +9640,21 @@ $SecuritySourcesOptionCopyWith<SecuritySourcesOption> get copyWith => _$Security
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecuritySourcesOption&&(identical(other.active, active) || other.active == active)&&(identical(other.treatment, treatment) || other.treatment == treatment)&&const DeepCollectionEquality().equals(other.allowed, allowed)&&const DeepCollectionEquality().equals(other.blocked, blocked));
+  final _this = this as SecuritySourcesOption;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecuritySourcesOption&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.treatment, _this.treatment) || other.treatment == _this.treatment)&&const DeepCollectionEquality().equals(other.allowed, _this.allowed)&&const DeepCollectionEquality().equals(other.blocked, _this.blocked));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,treatment,const DeepCollectionEquality().hash(allowed),const DeepCollectionEquality().hash(blocked));
+int get hashCode {
+  final _this = this as SecuritySourcesOption;
+  return Object.hash(runtimeType,_this.active,_this.treatment,const DeepCollectionEquality().hash(_this.allowed),const DeepCollectionEquality().hash(_this.blocked));
+}
 
 @override
 String toString() {
-  return 'SecuritySourcesOption(active: $active, treatment: $treatment, allowed: $allowed, blocked: $blocked)';
+  final _this = this as SecuritySourcesOption;
+  return 'SecuritySourcesOption(active: ${_this.active}, treatment: ${_this.treatment}, allowed: ${_this.allowed}, blocked: ${_this.blocked})';
 }
 
 
@@ -9649,16 +9864,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecuritySourcesOption&&(identical(other.active, active) || other.active == active)&&(identical(other.treatment, treatment) || other.treatment == treatment)&&const DeepCollectionEquality().equals(other._allowed, _allowed)&&const DeepCollectionEquality().equals(other._blocked, _blocked));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecuritySourcesOption&&(identical(other.active, active) || other.active == active)&&(identical(other.treatment, treatment) || other.treatment == treatment)&&const DeepCollectionEquality().equals(other.allowed, _allowed)&&const DeepCollectionEquality().equals(other.blocked, _blocked));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,treatment,const DeepCollectionEquality().hash(_allowed),const DeepCollectionEquality().hash(_blocked));
+int get hashCode {
+    return Object.hash(runtimeType,active,treatment,const DeepCollectionEquality().hash(_allowed),const DeepCollectionEquality().hash(_blocked));
+}
 
 @override
 String toString() {
-  return 'SecuritySourcesOption(active: $active, treatment: $treatment, allowed: $allowed, blocked: $blocked)';
+    return 'SecuritySourcesOption(active: $active, treatment: $treatment, allowed: $allowed, blocked: $blocked)';
 }
 
 
@@ -9716,16 +9933,21 @@ $SecurityOptionsCopyWith<SecurityOptions> get copyWith => _$SecurityOptionsCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityOptions&&(identical(other.fingerprint, fingerprint) || other.fingerprint == fingerprint)&&(identical(other.ip, ip) || other.ip == ip)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.ads, ads) || other.ads == ads)&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.doubleSend, doubleSend) || other.doubleSend == doubleSend)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources));
+  final _this = this as SecurityOptions;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityOptions&&(identical(other.fingerprint, _this.fingerprint) || other.fingerprint == _this.fingerprint)&&(identical(other.ip, _this.ip) || other.ip == _this.ip)&&(identical(other.phone, _this.phone) || other.phone == _this.phone)&&(identical(other.ads, _this.ads) || other.ads == _this.ads)&&(identical(other.frontend, _this.frontend) || other.frontend == _this.frontend)&&(identical(other.doubleSend, _this.doubleSend) || other.doubleSend == _this.doubleSend)&&(identical(other.minTimeInPage, _this.minTimeInPage) || other.minTimeInPage == _this.minTimeInPage)&&(identical(other.countries, _this.countries) || other.countries == _this.countries)&&(identical(other.sources, _this.sources) || other.sources == _this.sources));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,fingerprint,ip,phone,ads,frontend,doubleSend,minTimeInPage,countries,sources);
+int get hashCode {
+  final _this = this as SecurityOptions;
+  return Object.hash(runtimeType,_this.fingerprint,_this.ip,_this.phone,_this.ads,_this.frontend,_this.doubleSend,_this.minTimeInPage,_this.countries,_this.sources);
+}
 
 @override
 String toString() {
-  return 'SecurityOptions(fingerprint: $fingerprint, ip: $ip, phone: $phone, ads: $ads, frontend: $frontend, doubleSend: $doubleSend, minTimeInPage: $minTimeInPage, countries: $countries, sources: $sources)';
+  final _this = this as SecurityOptions;
+  return 'SecurityOptions(fingerprint: ${_this.fingerprint}, ip: ${_this.ip}, phone: ${_this.phone}, ads: ${_this.ads}, frontend: ${_this.frontend}, doubleSend: ${_this.doubleSend}, minTimeInPage: ${_this.minTimeInPage}, countries: ${_this.countries}, sources: ${_this.sources})';
 }
 
 
@@ -10039,16 +10261,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityOptions&&(identical(other.fingerprint, fingerprint) || other.fingerprint == fingerprint)&&(identical(other.ip, ip) || other.ip == ip)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.ads, ads) || other.ads == ads)&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.doubleSend, doubleSend) || other.doubleSend == doubleSend)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityOptions&&(identical(other.fingerprint, fingerprint) || other.fingerprint == fingerprint)&&(identical(other.ip, ip) || other.ip == ip)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.ads, ads) || other.ads == ads)&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.doubleSend, doubleSend) || other.doubleSend == doubleSend)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,fingerprint,ip,phone,ads,frontend,doubleSend,minTimeInPage,countries,sources);
+int get hashCode {
+    return Object.hash(runtimeType,fingerprint,ip,phone,ads,frontend,doubleSend,minTimeInPage,countries,sources);
+}
 
 @override
 String toString() {
-  return 'SecurityOptions(fingerprint: $fingerprint, ip: $ip, phone: $phone, ads: $ads, frontend: $frontend, doubleSend: $doubleSend, minTimeInPage: $minTimeInPage, countries: $countries, sources: $sources)';
+    return 'SecurityOptions(fingerprint: $fingerprint, ip: $ip, phone: $phone, ads: $ads, frontend: $frontend, doubleSend: $doubleSend, minTimeInPage: $minTimeInPage, countries: $countries, sources: $sources)';
 }
 
 
@@ -10219,16 +10443,21 @@ $SecurityIntegrationCopyWith<SecurityIntegration> get copyWith => _$SecurityInte
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.options, options) || other.options == options)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as SecurityIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityIntegration&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.options, _this.options) || other.options == _this.options)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,options,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as SecurityIntegration;
+  return Object.hash(runtimeType,_this.active,_this.options,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'SecurityIntegration(active: $active, options: $options, metadata: $metadata)';
+  final _this = this as SecurityIntegration;
+  return 'SecurityIntegration(active: ${_this.active}, options: ${_this.options}, metadata: ${_this.metadata})';
 }
 
 
@@ -10440,16 +10669,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.options, options) || other.options == options)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.options, options) || other.options == options)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,options,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,active,options,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'SecurityIntegration(active: $active, options: $options, metadata: $metadata)';
+    return 'SecurityIntegration(active: $active, options: $options, metadata: $metadata)';
 }
 
 
@@ -10518,16 +10749,21 @@ $StoreInventoryIntegrationCopyWith<StoreInventoryIntegration> get copyWith => _$
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreInventoryIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as StoreInventoryIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreInventoryIntegration&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as StoreInventoryIntegration;
+  return Object.hash(runtimeType,_this.active,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'StoreInventoryIntegration(active: $active, metadata: $metadata)';
+  final _this = this as StoreInventoryIntegration;
+  return 'StoreInventoryIntegration(active: ${_this.active}, metadata: ${_this.metadata})';
 }
 
 
@@ -10725,16 +10961,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreInventoryIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreInventoryIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,active,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'StoreInventoryIntegration(active: $active, metadata: $metadata)';
+    return 'StoreInventoryIntegration(active: $active, metadata: $metadata)';
 }
 
 
@@ -10790,16 +11028,21 @@ $StoreFinanceIntegrationCopyWith<StoreFinanceIntegration> get copyWith => _$Stor
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreFinanceIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as StoreFinanceIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreFinanceIntegration&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as StoreFinanceIntegration;
+  return Object.hash(runtimeType,_this.active,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'StoreFinanceIntegration(active: $active, metadata: $metadata)';
+  final _this = this as StoreFinanceIntegration;
+  return 'StoreFinanceIntegration(active: ${_this.active}, metadata: ${_this.metadata})';
 }
 
 
@@ -10997,16 +11240,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreFinanceIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreFinanceIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,active,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'StoreFinanceIntegration(active: $active, metadata: $metadata)';
+    return 'StoreFinanceIntegration(active: $active, metadata: $metadata)';
 }
 
 
@@ -11062,16 +11307,21 @@ $PublicSecurityOptionCopyWith<PublicSecurityOption> get copyWith => _$PublicSecu
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PublicSecurityOption&&(identical(other.active, active) || other.active == active)&&(identical(other.ttl, ttl) || other.ttl == ttl)&&(identical(other.treatment, treatment) || other.treatment == treatment));
+  final _this = this as PublicSecurityOption;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PublicSecurityOption&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.ttl, _this.ttl) || other.ttl == _this.ttl)&&(identical(other.treatment, _this.treatment) || other.treatment == _this.treatment));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,ttl,treatment);
+int get hashCode {
+  final _this = this as PublicSecurityOption;
+  return Object.hash(runtimeType,_this.active,_this.ttl,_this.treatment);
+}
 
 @override
 String toString() {
-  return 'PublicSecurityOption(active: $active, ttl: $ttl, treatment: $treatment)';
+  final _this = this as PublicSecurityOption;
+  return 'PublicSecurityOption(active: ${_this.active}, ttl: ${_this.ttl}, treatment: ${_this.treatment})';
 }
 
 
@@ -11265,16 +11515,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PublicSecurityOption&&(identical(other.active, active) || other.active == active)&&(identical(other.ttl, ttl) || other.ttl == ttl)&&(identical(other.treatment, treatment) || other.treatment == treatment));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PublicSecurityOption&&(identical(other.active, active) || other.active == active)&&(identical(other.ttl, ttl) || other.ttl == ttl)&&(identical(other.treatment, treatment) || other.treatment == treatment));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,ttl,treatment);
+int get hashCode {
+    return Object.hash(runtimeType,active,ttl,treatment);
+}
 
 @override
 String toString() {
-  return 'PublicSecurityOption(active: $active, ttl: $ttl, treatment: $treatment)';
+    return 'PublicSecurityOption(active: $active, ttl: $ttl, treatment: $treatment)';
 }
 
 
@@ -11331,16 +11583,21 @@ $PublicSecurityOptionsCopyWith<PublicSecurityOptions> get copyWith => _$PublicSe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PublicSecurityOptions&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.doubleSend, doubleSend) || other.doubleSend == doubleSend)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources));
+  final _this = this as PublicSecurityOptions;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PublicSecurityOptions&&(identical(other.frontend, _this.frontend) || other.frontend == _this.frontend)&&(identical(other.doubleSend, _this.doubleSend) || other.doubleSend == _this.doubleSend)&&(identical(other.minTimeInPage, _this.minTimeInPage) || other.minTimeInPage == _this.minTimeInPage)&&(identical(other.countries, _this.countries) || other.countries == _this.countries)&&(identical(other.sources, _this.sources) || other.sources == _this.sources));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,frontend,doubleSend,minTimeInPage,countries,sources);
+int get hashCode {
+  final _this = this as PublicSecurityOptions;
+  return Object.hash(runtimeType,_this.frontend,_this.doubleSend,_this.minTimeInPage,_this.countries,_this.sources);
+}
 
 @override
 String toString() {
-  return 'PublicSecurityOptions(frontend: $frontend, doubleSend: $doubleSend, minTimeInPage: $minTimeInPage, countries: $countries, sources: $sources)';
+  final _this = this as PublicSecurityOptions;
+  return 'PublicSecurityOptions(frontend: ${_this.frontend}, doubleSend: ${_this.doubleSend}, minTimeInPage: ${_this.minTimeInPage}, countries: ${_this.countries}, sources: ${_this.sources})';
 }
 
 
@@ -11598,16 +11855,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PublicSecurityOptions&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.doubleSend, doubleSend) || other.doubleSend == doubleSend)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PublicSecurityOptions&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.doubleSend, doubleSend) || other.doubleSend == doubleSend)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,frontend,doubleSend,minTimeInPage,countries,sources);
+int get hashCode {
+    return Object.hash(runtimeType,frontend,doubleSend,minTimeInPage,countries,sources);
+}
 
 @override
 String toString() {
-  return 'PublicSecurityOptions(frontend: $frontend, doubleSend: $doubleSend, minTimeInPage: $minTimeInPage, countries: $countries, sources: $sources)';
+    return 'PublicSecurityOptions(frontend: $frontend, doubleSend: $doubleSend, minTimeInPage: $minTimeInPage, countries: $countries, sources: $sources)';
 }
 
 
@@ -11726,16 +11985,21 @@ $PublicSecurityIntegrationCopyWith<PublicSecurityIntegration> get copyWith => _$
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PublicSecurityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.options, options) || other.options == options));
+  final _this = this as PublicSecurityIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PublicSecurityIntegration&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.options, _this.options) || other.options == _this.options));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,options);
+int get hashCode {
+  final _this = this as PublicSecurityIntegration;
+  return Object.hash(runtimeType,_this.active,_this.options);
+}
 
 @override
 String toString() {
-  return 'PublicSecurityIntegration(active: $active, options: $options)';
+  final _this = this as PublicSecurityIntegration;
+  return 'PublicSecurityIntegration(active: ${_this.active}, options: ${_this.options})';
 }
 
 
@@ -11936,16 +12200,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PublicSecurityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.options, options) || other.options == options));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PublicSecurityIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.options, options) || other.options == options));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,options);
+int get hashCode {
+    return Object.hash(runtimeType,active,options);
+}
 
 @override
 String toString() {
-  return 'PublicSecurityIntegration(active: $active, options: $options)';
+    return 'PublicSecurityIntegration(active: $active, options: $options)';
 }
 
 
@@ -12010,16 +12276,21 @@ $GoogleSheetsColumnCopyWith<GoogleSheetsColumn> get copyWith => _$GoogleSheetsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleSheetsColumn&&(identical(other.field, field) || other.field == field)&&(identical(other.name, name) || other.name == name)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.defaultValue, defaultValue));
+  final _this = this as GoogleSheetsColumn;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleSheetsColumn&&(identical(other.field, _this.field) || other.field == _this.field)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&const DeepCollectionEquality().equals(other.defaultValue, _this.defaultValue));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,field,name,enabled,const DeepCollectionEquality().hash(defaultValue));
+int get hashCode {
+  final _this = this as GoogleSheetsColumn;
+  return Object.hash(runtimeType,_this.field,_this.name,_this.enabled,const DeepCollectionEquality().hash(_this.defaultValue));
+}
 
 @override
 String toString() {
-  return 'GoogleSheetsColumn(field: $field, name: $name, enabled: $enabled, defaultValue: $defaultValue)';
+  final _this = this as GoogleSheetsColumn;
+  return 'GoogleSheetsColumn(field: ${_this.field}, name: ${_this.name}, enabled: ${_this.enabled}, defaultValue: ${_this.defaultValue})';
 }
 
 
@@ -12215,16 +12486,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleSheetsColumn&&(identical(other.field, field) || other.field == field)&&(identical(other.name, name) || other.name == name)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.defaultValue, defaultValue));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleSheetsColumn&&(identical(other.field, field) || other.field == field)&&(identical(other.name, name) || other.name == name)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.defaultValue, defaultValue));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,field,name,enabled,const DeepCollectionEquality().hash(defaultValue));
+int get hashCode {
+    return Object.hash(runtimeType,field,name,enabled,const DeepCollectionEquality().hash(defaultValue));
+}
 
 @override
 String toString() {
-  return 'GoogleSheetsColumn(field: $field, name: $name, enabled: $enabled, defaultValue: $defaultValue)';
+    return 'GoogleSheetsColumn(field: $field, name: $name, enabled: $enabled, defaultValue: $defaultValue)';
 }
 
 
@@ -12289,16 +12562,21 @@ $GoogleSheetsIntegrationCopyWith<GoogleSheetsIntegration> get copyWith => _$Goog
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleSheetsIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.oauth2, oauth2)&&const DeepCollectionEquality().equals(other.columns, columns)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.draftSheetEnabled, draftSheetEnabled) || other.draftSheetEnabled == draftSheetEnabled)&&(identical(other.draftSheetName, draftSheetName) || other.draftSheetName == draftSheetName));
+  final _this = this as GoogleSheetsIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleSheetsIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.oauth2, _this.oauth2)&&const DeepCollectionEquality().equals(other.columns, _this.columns)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.draftSheetEnabled, _this.draftSheetEnabled) || other.draftSheetEnabled == _this.draftSheetEnabled)&&(identical(other.draftSheetName, _this.draftSheetName) || other.draftSheetName == _this.draftSheetName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,active,const DeepCollectionEquality().hash(oauth2),const DeepCollectionEquality().hash(columns),const DeepCollectionEquality().hash(metadata),draftSheetEnabled,draftSheetName);
+int get hashCode {
+  final _this = this as GoogleSheetsIntegration;
+  return Object.hash(runtimeType,_this.id,_this.name,_this.active,const DeepCollectionEquality().hash(_this.oauth2),const DeepCollectionEquality().hash(_this.columns),const DeepCollectionEquality().hash(_this.metadata),_this.draftSheetEnabled,_this.draftSheetName);
+}
 
 @override
 String toString() {
-  return 'GoogleSheetsIntegration(id: $id, name: $name, active: $active, oauth2: $oauth2, columns: $columns, metadata: $metadata, draftSheetEnabled: $draftSheetEnabled, draftSheetName: $draftSheetName)';
+  final _this = this as GoogleSheetsIntegration;
+  return 'GoogleSheetsIntegration(id: ${_this.id}, name: ${_this.name}, active: ${_this.active}, oauth2: ${_this.oauth2}, columns: ${_this.columns}, metadata: ${_this.metadata}, draftSheetEnabled: ${_this.draftSheetEnabled}, draftSheetName: ${_this.draftSheetName})';
 }
 
 
@@ -12531,16 +12809,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleSheetsIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._oauth2, _oauth2)&&const DeepCollectionEquality().equals(other._columns, _columns)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.draftSheetEnabled, draftSheetEnabled) || other.draftSheetEnabled == draftSheetEnabled)&&(identical(other.draftSheetName, draftSheetName) || other.draftSheetName == draftSheetName));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleSheetsIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.oauth2, _oauth2)&&const DeepCollectionEquality().equals(other.columns, _columns)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.draftSheetEnabled, draftSheetEnabled) || other.draftSheetEnabled == draftSheetEnabled)&&(identical(other.draftSheetName, draftSheetName) || other.draftSheetName == draftSheetName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,active,const DeepCollectionEquality().hash(_oauth2),const DeepCollectionEquality().hash(_columns),const DeepCollectionEquality().hash(_metadata),draftSheetEnabled,draftSheetName);
+int get hashCode {
+    return Object.hash(runtimeType,id,name,active,const DeepCollectionEquality().hash(_oauth2),const DeepCollectionEquality().hash(_columns),const DeepCollectionEquality().hash(_metadata),draftSheetEnabled,draftSheetName);
+}
 
 @override
 String toString() {
-  return 'GoogleSheetsIntegration(id: $id, name: $name, active: $active, oauth2: $oauth2, columns: $columns, metadata: $metadata, draftSheetEnabled: $draftSheetEnabled, draftSheetName: $draftSheetName)';
+    return 'GoogleSheetsIntegration(id: $id, name: $name, active: $active, oauth2: $oauth2, columns: $columns, metadata: $metadata, draftSheetEnabled: $draftSheetEnabled, draftSheetName: $draftSheetName)';
 }
 
 
@@ -12602,16 +12882,21 @@ $WebhookConfigCopyWith<WebhookConfig> get copyWith => _$WebhookConfigCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WebhookConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.url, url) || other.url == url)&&const DeepCollectionEquality().equals(other.events, events)&&(identical(other.secret, secret) || other.secret == secret)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.headers, headers)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as WebhookConfig;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WebhookConfig&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.url, _this.url) || other.url == _this.url)&&const DeepCollectionEquality().equals(other.events, _this.events)&&(identical(other.secret, _this.secret) || other.secret == _this.secret)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.headers, _this.headers)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,url,const DeepCollectionEquality().hash(events),secret,active,const DeepCollectionEquality().hash(headers),const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as WebhookConfig;
+  return Object.hash(runtimeType,_this.id,_this.name,_this.url,const DeepCollectionEquality().hash(_this.events),_this.secret,_this.active,const DeepCollectionEquality().hash(_this.headers),const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'WebhookConfig(id: $id, name: $name, url: $url, events: $events, secret: $secret, active: $active, headers: $headers, metadata: $metadata)';
+  final _this = this as WebhookConfig;
+  return 'WebhookConfig(id: ${_this.id}, name: ${_this.name}, url: ${_this.url}, events: ${_this.events}, secret: ${_this.secret}, active: ${_this.active}, headers: ${_this.headers}, metadata: ${_this.metadata})';
 }
 
 
@@ -12833,16 +13118,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WebhookConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.url, url) || other.url == url)&&const DeepCollectionEquality().equals(other._events, _events)&&(identical(other.secret, secret) || other.secret == secret)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._headers, _headers)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WebhookConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.url, url) || other.url == url)&&const DeepCollectionEquality().equals(other.events, _events)&&(identical(other.secret, secret) || other.secret == secret)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.headers, _headers)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,url,const DeepCollectionEquality().hash(_events),secret,active,const DeepCollectionEquality().hash(_headers),const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,name,url,const DeepCollectionEquality().hash(_events),secret,active,const DeepCollectionEquality().hash(_headers),const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'WebhookConfig(id: $id, name: $name, url: $url, events: $events, secret: $secret, active: $active, headers: $headers, metadata: $metadata)';
+    return 'WebhookConfig(id: $id, name: $name, url: $url, events: $events, secret: $secret, active: $active, headers: $headers, metadata: $metadata)';
 }
 
 
@@ -12904,16 +13191,21 @@ $WebhooksIntegrationCopyWith<WebhooksIntegration> get copyWith => _$WebhooksInte
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WebhooksIntegration&&const DeepCollectionEquality().equals(other.webhooks, webhooks)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as WebhooksIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WebhooksIntegration&&const DeepCollectionEquality().equals(other.webhooks, _this.webhooks)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(webhooks),active,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as WebhooksIntegration;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.webhooks),_this.active,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'WebhooksIntegration(webhooks: $webhooks, active: $active, metadata: $metadata)';
+  final _this = this as WebhooksIntegration;
+  return 'WebhooksIntegration(webhooks: ${_this.webhooks}, active: ${_this.active}, metadata: ${_this.metadata})';
 }
 
 
@@ -13119,16 +13411,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WebhooksIntegration&&const DeepCollectionEquality().equals(other._webhooks, _webhooks)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WebhooksIntegration&&const DeepCollectionEquality().equals(other.webhooks, _webhooks)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_webhooks),active,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_webhooks),active,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'WebhooksIntegration(webhooks: $webhooks, active: $active, metadata: $metadata)';
+    return 'WebhooksIntegration(webhooks: $webhooks, active: $active, metadata: $metadata)';
 }
 
 
@@ -13199,16 +13493,21 @@ $CustomFieldCopyWith<CustomField> get copyWith => _$CustomFieldCopyWithImpl<Cust
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomField&&(identical(other.id, id) || other.id == id)&&(identical(other.label, label) || other.label == label)&&(identical(other.type, type) || other.type == type)&&(identical(other.required, required) || other.required == required)&&(identical(other.multiple, multiple) || other.multiple == multiple)&&(identical(other.minCount, minCount) || other.minCount == minCount)&&(identical(other.maxCount, maxCount) || other.maxCount == maxCount)&&(identical(other.placeholder, placeholder) || other.placeholder == placeholder)&&(identical(other.helpText, helpText) || other.helpText == helpText)&&(identical(other.regexPattern, regexPattern) || other.regexPattern == regexPattern)&&const DeepCollectionEquality().equals(other.defaultValue, defaultValue)&&(identical(other.order, order) || other.order == order)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as CustomField;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomField&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.required, _this.required) || other.required == _this.required)&&(identical(other.multiple, _this.multiple) || other.multiple == _this.multiple)&&(identical(other.minCount, _this.minCount) || other.minCount == _this.minCount)&&(identical(other.maxCount, _this.maxCount) || other.maxCount == _this.maxCount)&&(identical(other.placeholder, _this.placeholder) || other.placeholder == _this.placeholder)&&(identical(other.helpText, _this.helpText) || other.helpText == _this.helpText)&&(identical(other.regexPattern, _this.regexPattern) || other.regexPattern == _this.regexPattern)&&const DeepCollectionEquality().equals(other.defaultValue, _this.defaultValue)&&(identical(other.order, _this.order) || other.order == _this.order)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,label,type,required,multiple,minCount,maxCount,placeholder,helpText,regexPattern,const DeepCollectionEquality().hash(defaultValue),order,active,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as CustomField;
+  return Object.hash(runtimeType,_this.id,_this.label,_this.type,_this.required,_this.multiple,_this.minCount,_this.maxCount,_this.placeholder,_this.helpText,_this.regexPattern,const DeepCollectionEquality().hash(_this.defaultValue),_this.order,_this.active,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'CustomField(id: $id, label: $label, type: $type, required: $required, multiple: $multiple, minCount: $minCount, maxCount: $maxCount, placeholder: $placeholder, helpText: $helpText, regexPattern: $regexPattern, defaultValue: $defaultValue, order: $order, active: $active, metadata: $metadata)';
+  final _this = this as CustomField;
+  return 'CustomField(id: ${_this.id}, label: ${_this.label}, type: ${_this.type}, required: ${_this.required}, multiple: ${_this.multiple}, minCount: ${_this.minCount}, maxCount: ${_this.maxCount}, placeholder: ${_this.placeholder}, helpText: ${_this.helpText}, regexPattern: ${_this.regexPattern}, defaultValue: ${_this.defaultValue}, order: ${_this.order}, active: ${_this.active}, metadata: ${_this.metadata})';
 }
 
 
@@ -13445,16 +13744,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomField&&(identical(other.id, id) || other.id == id)&&(identical(other.label, label) || other.label == label)&&(identical(other.type, type) || other.type == type)&&(identical(other.required, required) || other.required == required)&&(identical(other.multiple, multiple) || other.multiple == multiple)&&(identical(other.minCount, minCount) || other.minCount == minCount)&&(identical(other.maxCount, maxCount) || other.maxCount == maxCount)&&(identical(other.placeholder, placeholder) || other.placeholder == placeholder)&&(identical(other.helpText, helpText) || other.helpText == helpText)&&(identical(other.regexPattern, regexPattern) || other.regexPattern == regexPattern)&&const DeepCollectionEquality().equals(other.defaultValue, defaultValue)&&(identical(other.order, order) || other.order == order)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomField&&(identical(other.id, id) || other.id == id)&&(identical(other.label, label) || other.label == label)&&(identical(other.type, type) || other.type == type)&&(identical(other.required, required) || other.required == required)&&(identical(other.multiple, multiple) || other.multiple == multiple)&&(identical(other.minCount, minCount) || other.minCount == minCount)&&(identical(other.maxCount, maxCount) || other.maxCount == maxCount)&&(identical(other.placeholder, placeholder) || other.placeholder == placeholder)&&(identical(other.helpText, helpText) || other.helpText == helpText)&&(identical(other.regexPattern, regexPattern) || other.regexPattern == regexPattern)&&const DeepCollectionEquality().equals(other.defaultValue, defaultValue)&&(identical(other.order, order) || other.order == order)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,label,type,required,multiple,minCount,maxCount,placeholder,helpText,regexPattern,const DeepCollectionEquality().hash(defaultValue),order,active,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,label,type,required,multiple,minCount,maxCount,placeholder,helpText,regexPattern,const DeepCollectionEquality().hash(defaultValue),order,active,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'CustomField(id: $id, label: $label, type: $type, required: $required, multiple: $multiple, minCount: $minCount, maxCount: $maxCount, placeholder: $placeholder, helpText: $helpText, regexPattern: $regexPattern, defaultValue: $defaultValue, order: $order, active: $active, metadata: $metadata)';
+    return 'CustomField(id: $id, label: $label, type: $type, required: $required, multiple: $multiple, minCount: $minCount, maxCount: $maxCount, placeholder: $placeholder, helpText: $helpText, regexPattern: $regexPattern, defaultValue: $defaultValue, order: $order, active: $active, metadata: $metadata)';
 }
 
 
@@ -13525,16 +13826,21 @@ $CustomFieldsIntegrationCopyWith<CustomFieldsIntegration> get copyWith => _$Cust
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomFieldsIntegration&&const DeepCollectionEquality().equals(other.fields, fields)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as CustomFieldsIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomFieldsIntegration&&const DeepCollectionEquality().equals(other.fields, _this.fields)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(fields),active,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as CustomFieldsIntegration;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.fields),_this.active,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'CustomFieldsIntegration(fields: $fields, active: $active, metadata: $metadata)';
+  final _this = this as CustomFieldsIntegration;
+  return 'CustomFieldsIntegration(fields: ${_this.fields}, active: ${_this.active}, metadata: ${_this.metadata})';
 }
 
 
@@ -13745,16 +14051,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomFieldsIntegration&&const DeepCollectionEquality().equals(other._fields, _fields)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomFieldsIntegration&&const DeepCollectionEquality().equals(other.fields, _fields)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_fields),active,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_fields),active,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'CustomFieldsIntegration(fields: $fields, active: $active, metadata: $metadata)';
+    return 'CustomFieldsIntegration(fields: $fields, active: $active, metadata: $metadata)';
 }
 
 
@@ -13811,16 +14119,21 @@ $PaymentMethodConfigCopyWith<PaymentMethodConfig> get copyWith => _$PaymentMetho
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentMethodConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.active, active) || other.active == active)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.clientId, clientId) || other.clientId == clientId)&&(identical(other.clientSecret, clientSecret) || other.clientSecret == clientSecret)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as PaymentMethodConfig;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentMethodConfig&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.apiKey, _this.apiKey) || other.apiKey == _this.apiKey)&&(identical(other.clientId, _this.clientId) || other.clientId == _this.clientId)&&(identical(other.clientSecret, _this.clientSecret) || other.clientSecret == _this.clientSecret)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,active,apiKey,clientId,clientSecret,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as PaymentMethodConfig;
+  return Object.hash(runtimeType,_this.id,_this.name,_this.active,_this.apiKey,_this.clientId,_this.clientSecret,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'PaymentMethodConfig(id: $id, name: $name, active: $active, apiKey: $apiKey, clientId: $clientId, clientSecret: $clientSecret, metadata: $metadata)';
+  final _this = this as PaymentMethodConfig;
+  return 'PaymentMethodConfig(id: ${_this.id}, name: ${_this.name}, active: ${_this.active}, apiKey: ${_this.apiKey}, clientId: ${_this.clientId}, clientSecret: ${_this.clientSecret}, metadata: ${_this.metadata})';
 }
 
 
@@ -14028,16 +14341,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaymentMethodConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.active, active) || other.active == active)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.clientId, clientId) || other.clientId == clientId)&&(identical(other.clientSecret, clientSecret) || other.clientSecret == clientSecret)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaymentMethodConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.active, active) || other.active == active)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.clientId, clientId) || other.clientId == clientId)&&(identical(other.clientSecret, clientSecret) || other.clientSecret == clientSecret)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,active,apiKey,clientId,clientSecret,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,name,active,apiKey,clientId,clientSecret,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'PaymentMethodConfig(id: $id, name: $name, active: $active, apiKey: $apiKey, clientId: $clientId, clientSecret: $clientSecret, metadata: $metadata)';
+    return 'PaymentMethodConfig(id: $id, name: $name, active: $active, apiKey: $apiKey, clientId: $clientId, clientSecret: $clientSecret, metadata: $metadata)';
 }
 
 
@@ -14098,16 +14413,21 @@ $PaymentIntegrationCopyWith<PaymentIntegration> get copyWith => _$PaymentIntegra
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.methods, methods)&&(identical(other.defaultMethod, defaultMethod) || other.defaultMethod == defaultMethod)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as PaymentIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentIntegration&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.methods, _this.methods)&&(identical(other.defaultMethod, _this.defaultMethod) || other.defaultMethod == _this.defaultMethod)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,const DeepCollectionEquality().hash(methods),defaultMethod,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as PaymentIntegration;
+  return Object.hash(runtimeType,_this.active,const DeepCollectionEquality().hash(_this.methods),_this.defaultMethod,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'PaymentIntegration(active: $active, methods: $methods, defaultMethod: $defaultMethod, metadata: $metadata)';
+  final _this = this as PaymentIntegration;
+  return 'PaymentIntegration(active: ${_this.active}, methods: ${_this.methods}, defaultMethod: ${_this.defaultMethod}, metadata: ${_this.metadata})';
 }
 
 
@@ -14315,16 +14635,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaymentIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._methods, _methods)&&(identical(other.defaultMethod, defaultMethod) || other.defaultMethod == defaultMethod)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaymentIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.methods, _methods)&&(identical(other.defaultMethod, defaultMethod) || other.defaultMethod == defaultMethod)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,const DeepCollectionEquality().hash(_methods),defaultMethod,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,active,const DeepCollectionEquality().hash(_methods),defaultMethod,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'PaymentIntegration(active: $active, methods: $methods, defaultMethod: $defaultMethod, metadata: $metadata)';
+    return 'PaymentIntegration(active: $active, methods: $methods, defaultMethod: $defaultMethod, metadata: $metadata)';
 }
 
 
@@ -14382,16 +14704,21 @@ $DispatcherIntegrationCopyWith<DispatcherIntegration> get copyWith => _$Dispatch
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DispatcherIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.strategy, strategy) || other.strategy == strategy)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as DispatcherIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DispatcherIntegration&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.strategy, _this.strategy) || other.strategy == _this.strategy)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,strategy,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as DispatcherIntegration;
+  return Object.hash(runtimeType,_this.active,_this.strategy,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'DispatcherIntegration(active: $active, strategy: $strategy, metadata: $metadata)';
+  final _this = this as DispatcherIntegration;
+  return 'DispatcherIntegration(active: ${_this.active}, strategy: ${_this.strategy}, metadata: ${_this.metadata})';
 }
 
 
@@ -14603,16 +14930,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DispatcherIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.strategy, strategy) || other.strategy == strategy)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DispatcherIntegration&&(identical(other.active, active) || other.active == active)&&(identical(other.strategy, strategy) || other.strategy == strategy)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,strategy,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,active,strategy,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'DispatcherIntegration(active: $active, strategy: $strategy, metadata: $metadata)';
+    return 'DispatcherIntegration(active: $active, strategy: $strategy, metadata: $metadata)';
 }
 
 
@@ -14681,16 +15010,21 @@ $ConnectorAuthCopyWith<ConnectorAuth> get copyWith => _$ConnectorAuthCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConnectorAuth&&(identical(other.authType, authType) || other.authType == authType)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as ConnectorAuth;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConnectorAuth&&(identical(other.authType, _this.authType) || other.authType == _this.authType)&&(identical(other.accessToken, _this.accessToken) || other.accessToken == _this.accessToken)&&(identical(other.refreshToken, _this.refreshToken) || other.refreshToken == _this.refreshToken)&&const DeepCollectionEquality().equals(other.scopes, _this.scopes)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt)&&(identical(other.apiKey, _this.apiKey) || other.apiKey == _this.apiKey)&&(identical(other.baseUrl, _this.baseUrl) || other.baseUrl == _this.baseUrl)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,authType,accessToken,refreshToken,const DeepCollectionEquality().hash(scopes),expiresAt,apiKey,baseUrl,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as ConnectorAuth;
+  return Object.hash(runtimeType,_this.authType,_this.accessToken,_this.refreshToken,const DeepCollectionEquality().hash(_this.scopes),_this.expiresAt,_this.apiKey,_this.baseUrl,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'ConnectorAuth(authType: $authType, accessToken: $accessToken, refreshToken: $refreshToken, scopes: $scopes, expiresAt: $expiresAt, apiKey: $apiKey, baseUrl: $baseUrl, metadata: $metadata)';
+  final _this = this as ConnectorAuth;
+  return 'ConnectorAuth(authType: ${_this.authType}, accessToken: ${_this.accessToken}, refreshToken: ${_this.refreshToken}, scopes: ${_this.scopes}, expiresAt: ${_this.expiresAt}, apiKey: ${_this.apiKey}, baseUrl: ${_this.baseUrl}, metadata: ${_this.metadata})';
 }
 
 
@@ -14906,16 +15240,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConnectorAuth&&(identical(other.authType, authType) || other.authType == authType)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConnectorAuth&&(identical(other.authType, authType) || other.authType == authType)&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&const DeepCollectionEquality().equals(other.scopes, _scopes)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,authType,accessToken,refreshToken,const DeepCollectionEquality().hash(_scopes),expiresAt,apiKey,baseUrl,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,authType,accessToken,refreshToken,const DeepCollectionEquality().hash(_scopes),expiresAt,apiKey,baseUrl,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'ConnectorAuth(authType: $authType, accessToken: $accessToken, refreshToken: $refreshToken, scopes: $scopes, expiresAt: $expiresAt, apiKey: $apiKey, baseUrl: $baseUrl, metadata: $metadata)';
+    return 'ConnectorAuth(authType: $authType, accessToken: $accessToken, refreshToken: $refreshToken, scopes: $scopes, expiresAt: $expiresAt, apiKey: $apiKey, baseUrl: $baseUrl, metadata: $metadata)';
 }
 
 
@@ -14977,16 +15313,21 @@ $ConnectorConfigCopyWith<ConnectorConfig> get copyWith => _$ConnectorConfigCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConnectorConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.active, active) || other.active == active)&&(identical(other.name, name) || other.name == name)&&(identical(other.status, status) || other.status == status)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&const DeepCollectionEquality().equals(other.fieldMapping, fieldMapping)&&const DeepCollectionEquality().equals(other.syncState, syncState)&&(identical(other.auth, auth) || other.auth == auth)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as ConnectorConfig;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConnectorConfig&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.externalId, _this.externalId) || other.externalId == _this.externalId)&&const DeepCollectionEquality().equals(other.fieldMapping, _this.fieldMapping)&&const DeepCollectionEquality().equals(other.syncState, _this.syncState)&&(identical(other.auth, _this.auth) || other.auth == _this.auth)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,type,active,name,status,externalId,const DeepCollectionEquality().hash(fieldMapping),const DeepCollectionEquality().hash(syncState),auth,createdAt,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as ConnectorConfig;
+  return Object.hash(runtimeType,_this.id,_this.type,_this.active,_this.name,_this.status,_this.externalId,const DeepCollectionEquality().hash(_this.fieldMapping),const DeepCollectionEquality().hash(_this.syncState),_this.auth,_this.createdAt,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'ConnectorConfig(id: $id, type: $type, active: $active, name: $name, status: $status, externalId: $externalId, fieldMapping: $fieldMapping, syncState: $syncState, auth: $auth, createdAt: $createdAt, metadata: $metadata)';
+  final _this = this as ConnectorConfig;
+  return 'ConnectorConfig(id: ${_this.id}, type: ${_this.type}, active: ${_this.active}, name: ${_this.name}, status: ${_this.status}, externalId: ${_this.externalId}, fieldMapping: ${_this.fieldMapping}, syncState: ${_this.syncState}, auth: ${_this.auth}, createdAt: ${_this.createdAt}, metadata: ${_this.metadata})';
 }
 
 
@@ -15226,16 +15567,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConnectorConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.active, active) || other.active == active)&&(identical(other.name, name) || other.name == name)&&(identical(other.status, status) || other.status == status)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&const DeepCollectionEquality().equals(other._fieldMapping, _fieldMapping)&&const DeepCollectionEquality().equals(other._syncState, _syncState)&&(identical(other.auth, auth) || other.auth == auth)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConnectorConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.active, active) || other.active == active)&&(identical(other.name, name) || other.name == name)&&(identical(other.status, status) || other.status == status)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&const DeepCollectionEquality().equals(other.fieldMapping, _fieldMapping)&&const DeepCollectionEquality().equals(other.syncState, _syncState)&&(identical(other.auth, auth) || other.auth == auth)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,type,active,name,status,externalId,const DeepCollectionEquality().hash(_fieldMapping),const DeepCollectionEquality().hash(_syncState),auth,createdAt,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,type,active,name,status,externalId,const DeepCollectionEquality().hash(_fieldMapping),const DeepCollectionEquality().hash(_syncState),auth,createdAt,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'ConnectorConfig(id: $id, type: $type, active: $active, name: $name, status: $status, externalId: $externalId, fieldMapping: $fieldMapping, syncState: $syncState, auth: $auth, createdAt: $createdAt, metadata: $metadata)';
+    return 'ConnectorConfig(id: $id, type: $type, active: $active, name: $name, status: $status, externalId: $externalId, fieldMapping: $fieldMapping, syncState: $syncState, auth: $auth, createdAt: $createdAt, metadata: $metadata)';
 }
 
 
@@ -15312,16 +15655,21 @@ $ConnectorsIntegrationCopyWith<ConnectorsIntegration> get copyWith => _$Connecto
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConnectorsIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.connectors, connectors)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as ConnectorsIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConnectorsIntegration&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.connectors, _this.connectors)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,const DeepCollectionEquality().hash(connectors),const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as ConnectorsIntegration;
+  return Object.hash(runtimeType,_this.active,const DeepCollectionEquality().hash(_this.connectors),const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'ConnectorsIntegration(active: $active, connectors: $connectors, metadata: $metadata)';
+  final _this = this as ConnectorsIntegration;
+  return 'ConnectorsIntegration(active: ${_this.active}, connectors: ${_this.connectors}, metadata: ${_this.metadata})';
 }
 
 
@@ -15527,16 +15875,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConnectorsIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._connectors, _connectors)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConnectorsIntegration&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.connectors, _connectors)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,active,const DeepCollectionEquality().hash(_connectors),const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,active,const DeepCollectionEquality().hash(_connectors),const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'ConnectorsIntegration(active: $active, connectors: $connectors, metadata: $metadata)';
+    return 'ConnectorsIntegration(active: $active, connectors: $connectors, metadata: $metadata)';
 }
 
 

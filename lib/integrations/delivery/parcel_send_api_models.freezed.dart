@@ -29,16 +29,21 @@ $ParcelSendCustomerCopyWith<ParcelSendCustomer> get copyWith => _$ParcelSendCust
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ParcelSendCustomer&&(identical(other.customerId, customerId) || other.customerId == customerId)&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone));
+  final _this = this as ParcelSendCustomer;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ParcelSendCustomer&&(identical(other.customerId, _this.customerId) || other.customerId == _this.customerId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.phone, _this.phone) || other.phone == _this.phone));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,customerId,name,phone);
+int get hashCode {
+  final _this = this as ParcelSendCustomer;
+  return Object.hash(runtimeType,_this.customerId,_this.name,_this.phone);
+}
 
 @override
 String toString() {
-  return 'ParcelSendCustomer(customerId: $customerId, name: $name, phone: $phone)';
+  final _this = this as ParcelSendCustomer;
+  return 'ParcelSendCustomer(customerId: ${_this.customerId}, name: ${_this.name}, phone: ${_this.phone})';
 }
 
 
@@ -241,16 +246,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ParcelSendCustomer&&(identical(other.customerId, customerId) || other.customerId == customerId)&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ParcelSendCustomer&&(identical(other.customerId, customerId) || other.customerId == customerId)&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,customerId,name,phone);
+int get hashCode {
+    return Object.hash(runtimeType,customerId,name,phone);
+}
 
 @override
 String toString() {
-  return 'ParcelSendCustomer(customerId: $customerId, name: $name, phone: $phone)';
+    return 'ParcelSendCustomer(customerId: $customerId, name: $name, phone: $phone)';
 }
 
 
@@ -316,16 +323,21 @@ $ParcelSendPhoneCopyWith<ParcelSendPhone> get copyWith => _$ParcelSendPhoneCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ParcelSendPhone&&(identical(other.number1, number1) || other.number1 == number1)&&(identical(other.number2, number2) || other.number2 == number2));
+  final _this = this as ParcelSendPhone;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ParcelSendPhone&&(identical(other.number1, _this.number1) || other.number1 == _this.number1)&&(identical(other.number2, _this.number2) || other.number2 == _this.number2));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,number1,number2);
+int get hashCode {
+  final _this = this as ParcelSendPhone;
+  return Object.hash(runtimeType,_this.number1,_this.number2);
+}
 
 @override
 String toString() {
-  return 'ParcelSendPhone(number1: $number1, number2: $number2)';
+  final _this = this as ParcelSendPhone;
+  return 'ParcelSendPhone(number1: ${_this.number1}, number2: ${_this.number2})';
 }
 
 
@@ -517,16 +529,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ParcelSendPhone&&(identical(other.number1, number1) || other.number1 == number1)&&(identical(other.number2, number2) || other.number2 == number2));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ParcelSendPhone&&(identical(other.number1, number1) || other.number1 == number1)&&(identical(other.number2, number2) || other.number2 == number2));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,number1,number2);
+int get hashCode {
+    return Object.hash(runtimeType,number1,number2);
+}
 
 @override
 String toString() {
-  return 'ParcelSendPhone(number1: $number1, number2: $number2)';
+    return 'ParcelSendPhone(number1: $number1, number2: $number2)';
 }
 
 
@@ -584,16 +598,21 @@ $ParcelSendDeliveryAddressCopyWith<ParcelSendDeliveryAddress> get copyWith => _$
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ParcelSendDeliveryAddress&&(identical(other.street, street) || other.street == street)&&(identical(other.city, city) || other.city == city)&&(identical(other.district, district) || other.district == district)&&(identical(other.postalCode, postalCode) || other.postalCode == postalCode)&&(identical(other.country, country) || other.country == country)&&(identical(other.cityTerritoryId, cityTerritoryId) || other.cityTerritoryId == cityTerritoryId)&&(identical(other.districtTerritoryId, districtTerritoryId) || other.districtTerritoryId == districtTerritoryId));
+  final _this = this as ParcelSendDeliveryAddress;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ParcelSendDeliveryAddress&&(identical(other.street, _this.street) || other.street == _this.street)&&(identical(other.city, _this.city) || other.city == _this.city)&&(identical(other.district, _this.district) || other.district == _this.district)&&(identical(other.postalCode, _this.postalCode) || other.postalCode == _this.postalCode)&&(identical(other.country, _this.country) || other.country == _this.country)&&(identical(other.cityTerritoryId, _this.cityTerritoryId) || other.cityTerritoryId == _this.cityTerritoryId)&&(identical(other.districtTerritoryId, _this.districtTerritoryId) || other.districtTerritoryId == _this.districtTerritoryId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,street,city,district,postalCode,country,cityTerritoryId,districtTerritoryId);
+int get hashCode {
+  final _this = this as ParcelSendDeliveryAddress;
+  return Object.hash(runtimeType,_this.street,_this.city,_this.district,_this.postalCode,_this.country,_this.cityTerritoryId,_this.districtTerritoryId);
+}
 
 @override
 String toString() {
-  return 'ParcelSendDeliveryAddress(street: $street, city: $city, district: $district, postalCode: $postalCode, country: $country, cityTerritoryId: $cityTerritoryId, districtTerritoryId: $districtTerritoryId)';
+  final _this = this as ParcelSendDeliveryAddress;
+  return 'ParcelSendDeliveryAddress(street: ${_this.street}, city: ${_this.city}, district: ${_this.district}, postalCode: ${_this.postalCode}, country: ${_this.country}, cityTerritoryId: ${_this.cityTerritoryId}, districtTerritoryId: ${_this.districtTerritoryId})';
 }
 
 
@@ -797,16 +816,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ParcelSendDeliveryAddress&&(identical(other.street, street) || other.street == street)&&(identical(other.city, city) || other.city == city)&&(identical(other.district, district) || other.district == district)&&(identical(other.postalCode, postalCode) || other.postalCode == postalCode)&&(identical(other.country, country) || other.country == country)&&(identical(other.cityTerritoryId, cityTerritoryId) || other.cityTerritoryId == cityTerritoryId)&&(identical(other.districtTerritoryId, districtTerritoryId) || other.districtTerritoryId == districtTerritoryId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ParcelSendDeliveryAddress&&(identical(other.street, street) || other.street == street)&&(identical(other.city, city) || other.city == city)&&(identical(other.district, district) || other.district == district)&&(identical(other.postalCode, postalCode) || other.postalCode == postalCode)&&(identical(other.country, country) || other.country == country)&&(identical(other.cityTerritoryId, cityTerritoryId) || other.cityTerritoryId == cityTerritoryId)&&(identical(other.districtTerritoryId, districtTerritoryId) || other.districtTerritoryId == districtTerritoryId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,street,city,district,postalCode,country,cityTerritoryId,districtTerritoryId);
+int get hashCode {
+    return Object.hash(runtimeType,street,city,district,postalCode,country,cityTerritoryId,districtTerritoryId);
+}
 
 @override
 String toString() {
-  return 'ParcelSendDeliveryAddress(street: $street, city: $city, district: $district, postalCode: $postalCode, country: $country, cityTerritoryId: $cityTerritoryId, districtTerritoryId: $districtTerritoryId)';
+    return 'ParcelSendDeliveryAddress(street: $street, city: $city, district: $district, postalCode: $postalCode, country: $country, cityTerritoryId: $cityTerritoryId, districtTerritoryId: $districtTerritoryId)';
 }
 
 
@@ -867,16 +888,21 @@ $ParcelSendOrderedProductCopyWith<ParcelSendOrderedProduct> get copyWith => _$Pa
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ParcelSendOrderedProduct&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.unitPrice, unitPrice) || other.unitPrice == unitPrice)&&(identical(other.stockType, stockType) || other.stockType == stockType)&&(identical(other.productSku, productSku) || other.productSku == productSku));
+  final _this = this as ParcelSendOrderedProduct;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ParcelSendOrderedProduct&&(identical(other.productName, _this.productName) || other.productName == _this.productName)&&(identical(other.quantity, _this.quantity) || other.quantity == _this.quantity)&&(identical(other.unitPrice, _this.unitPrice) || other.unitPrice == _this.unitPrice)&&(identical(other.stockType, _this.stockType) || other.stockType == _this.stockType)&&(identical(other.productSku, _this.productSku) || other.productSku == _this.productSku));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,productName,quantity,unitPrice,stockType,productSku);
+int get hashCode {
+  final _this = this as ParcelSendOrderedProduct;
+  return Object.hash(runtimeType,_this.productName,_this.quantity,_this.unitPrice,_this.stockType,_this.productSku);
+}
 
 @override
 String toString() {
-  return 'ParcelSendOrderedProduct(productName: $productName, quantity: $quantity, unitPrice: $unitPrice, stockType: $stockType, productSku: $productSku)';
+  final _this = this as ParcelSendOrderedProduct;
+  return 'ParcelSendOrderedProduct(productName: ${_this.productName}, quantity: ${_this.quantity}, unitPrice: ${_this.unitPrice}, stockType: ${_this.stockType}, productSku: ${_this.productSku})';
 }
 
 
@@ -1074,16 +1100,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ParcelSendOrderedProduct&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.unitPrice, unitPrice) || other.unitPrice == unitPrice)&&(identical(other.stockType, stockType) || other.stockType == stockType)&&(identical(other.productSku, productSku) || other.productSku == productSku));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ParcelSendOrderedProduct&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.unitPrice, unitPrice) || other.unitPrice == unitPrice)&&(identical(other.stockType, stockType) || other.stockType == stockType)&&(identical(other.productSku, productSku) || other.productSku == productSku));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,productName,quantity,unitPrice,stockType,productSku);
+int get hashCode {
+    return Object.hash(runtimeType,productName,quantity,unitPrice,stockType,productSku);
+}
 
 @override
 String toString() {
-  return 'ParcelSendOrderedProduct(productName: $productName, quantity: $quantity, unitPrice: $unitPrice, stockType: $stockType, productSku: $productSku)';
+    return 'ParcelSendOrderedProduct(productName: $productName, quantity: $quantity, unitPrice: $unitPrice, stockType: $stockType, productSku: $productSku)';
 }
 
 
@@ -1142,16 +1170,21 @@ $ParcelSendRequestCopyWith<ParcelSendRequest> get copyWith => _$ParcelSendReques
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ParcelSendRequest&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.customer, customer) || other.customer == customer)&&(identical(other.deliveryAddress, deliveryAddress) || other.deliveryAddress == deliveryAddress)&&const DeepCollectionEquality().equals(other.orderedProducts, orderedProducts)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.deliveryType, deliveryType) || other.deliveryType == deliveryType)&&(identical(other.hubId, hubId) || other.hubId == hubId)&&(identical(other.description, description) || other.description == description)&&(identical(other.stateCode, stateCode) || other.stateCode == stateCode)&&(identical(other.cityCode, cityCode) || other.cityCode == cityCode));
+  final _this = this as ParcelSendRequest;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ParcelSendRequest&&(identical(other.externalId, _this.externalId) || other.externalId == _this.externalId)&&(identical(other.customer, _this.customer) || other.customer == _this.customer)&&(identical(other.deliveryAddress, _this.deliveryAddress) || other.deliveryAddress == _this.deliveryAddress)&&const DeepCollectionEquality().equals(other.orderedProducts, _this.orderedProducts)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.deliveryType, _this.deliveryType) || other.deliveryType == _this.deliveryType)&&(identical(other.hubId, _this.hubId) || other.hubId == _this.hubId)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.stateCode, _this.stateCode) || other.stateCode == _this.stateCode)&&(identical(other.cityCode, _this.cityCode) || other.cityCode == _this.cityCode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,externalId,customer,deliveryAddress,const DeepCollectionEquality().hash(orderedProducts),amount,deliveryType,hubId,description,stateCode,cityCode);
+int get hashCode {
+  final _this = this as ParcelSendRequest;
+  return Object.hash(runtimeType,_this.externalId,_this.customer,_this.deliveryAddress,const DeepCollectionEquality().hash(_this.orderedProducts),_this.amount,_this.deliveryType,_this.hubId,_this.description,_this.stateCode,_this.cityCode);
+}
 
 @override
 String toString() {
-  return 'ParcelSendRequest(externalId: $externalId, customer: $customer, deliveryAddress: $deliveryAddress, orderedProducts: $orderedProducts, amount: $amount, deliveryType: $deliveryType, hubId: $hubId, description: $description, stateCode: $stateCode, cityCode: $cityCode)';
+  final _this = this as ParcelSendRequest;
+  return 'ParcelSendRequest(externalId: ${_this.externalId}, customer: ${_this.customer}, deliveryAddress: ${_this.deliveryAddress}, orderedProducts: ${_this.orderedProducts}, amount: ${_this.amount}, deliveryType: ${_this.deliveryType}, hubId: ${_this.hubId}, description: ${_this.description}, stateCode: ${_this.stateCode}, cityCode: ${_this.cityCode})';
 }
 
 
@@ -1383,16 +1416,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ParcelSendRequest&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.customer, customer) || other.customer == customer)&&(identical(other.deliveryAddress, deliveryAddress) || other.deliveryAddress == deliveryAddress)&&const DeepCollectionEquality().equals(other._orderedProducts, _orderedProducts)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.deliveryType, deliveryType) || other.deliveryType == deliveryType)&&(identical(other.hubId, hubId) || other.hubId == hubId)&&(identical(other.description, description) || other.description == description)&&(identical(other.stateCode, stateCode) || other.stateCode == stateCode)&&(identical(other.cityCode, cityCode) || other.cityCode == cityCode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ParcelSendRequest&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.customer, customer) || other.customer == customer)&&(identical(other.deliveryAddress, deliveryAddress) || other.deliveryAddress == deliveryAddress)&&const DeepCollectionEquality().equals(other.orderedProducts, _orderedProducts)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.deliveryType, deliveryType) || other.deliveryType == deliveryType)&&(identical(other.hubId, hubId) || other.hubId == hubId)&&(identical(other.description, description) || other.description == description)&&(identical(other.stateCode, stateCode) || other.stateCode == stateCode)&&(identical(other.cityCode, cityCode) || other.cityCode == cityCode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,externalId,customer,deliveryAddress,const DeepCollectionEquality().hash(_orderedProducts),amount,deliveryType,hubId,description,stateCode,cityCode);
+int get hashCode {
+    return Object.hash(runtimeType,externalId,customer,deliveryAddress,const DeepCollectionEquality().hash(_orderedProducts),amount,deliveryType,hubId,description,stateCode,cityCode);
+}
 
 @override
 String toString() {
-  return 'ParcelSendRequest(externalId: $externalId, customer: $customer, deliveryAddress: $deliveryAddress, orderedProducts: $orderedProducts, amount: $amount, deliveryType: $deliveryType, hubId: $hubId, description: $description, stateCode: $stateCode, cityCode: $cityCode)';
+    return 'ParcelSendRequest(externalId: $externalId, customer: $customer, deliveryAddress: $deliveryAddress, orderedProducts: $orderedProducts, amount: $amount, deliveryType: $deliveryType, hubId: $hubId, description: $description, stateCode: $stateCode, cityCode: $cityCode)';
 }
 
 

@@ -2446,6 +2446,38 @@ class FinancePayout {
       );
 }
 
+/// Feeef team payouts: confirmers (`agent`) and editors/owners (`salary`).
+/// Legacy Opencod `marketer` rows still list with the team filter.
+const kTeamPayoutTypeFilter = 'team';
+
+/// External beneficiaries (`provider` + `misc_charges`).
+const kOtherPayoutTypeFilter = 'other';
+
+/// Default ledger type from a payee `role` (`owner` / `editor` / `confermer`).
+String inferPayoutTypeFromMemberRole(String? role) =>
+    role == 'confermer' ? 'agent' : 'salary';
+
+/// Persistable create type: never write `marketer`.
+String normalizeCreatePayoutType(
+  String? requested, {
+  String? memberRole,
+  bool hasPayeeUser = false,
+}) {
+  final inferred = inferPayoutTypeFromMemberRole(memberRole);
+  if (requested == null ||
+      requested.isEmpty ||
+      requested == 'marketer') {
+    return hasPayeeUser ? inferred : 'provider';
+  }
+  return requested;
+}
+
+bool isTeamPayoutType(String type) =>
+    type == 'agent' || type == 'salary' || type == 'marketer';
+
+bool isOtherPayoutType(String type) =>
+    type == 'provider' || type == 'misc_charges';
+
 /// Operating charge catalog row (`POST /finance/charges`).
 class FinanceCharge {
   final String id;
@@ -2499,11 +2531,15 @@ class FinancePayee {
   final String name;
   final String? role;
 
+  /// Suggested ledger type from [role] (`agent` for confermers, else `salary`).
+  final String? defaultPayoutType;
+
   const FinancePayee({
     required this.id,
     required this.userId,
     required this.name,
     this.role,
+    this.defaultPayoutType,
   });
 
   factory FinancePayee.fromJson(Map<String, dynamic> json) => FinancePayee(
@@ -2511,6 +2547,8 @@ class FinancePayee {
         userId: (json['userId'] ?? json['id'])?.toString() ?? '',
         name: json['name']?.toString() ?? '',
         role: json['role']?.toString(),
+        defaultPayoutType: json['defaultPayoutType']?.toString() ??
+            inferPayoutTypeFromMemberRole(json['role']?.toString()),
       );
 }
 

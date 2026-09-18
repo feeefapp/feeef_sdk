@@ -381,7 +381,10 @@ class FinanceRepository {
   }) async {
     final response = await client.get('/finance/payouts/dues', queryParameters: {
       'projectId': projectId,
-      if (payeeUserId != null) 'payeeUserId': payeeUserId,
+      if (payeeUserId != null) ...{
+        'payeeUserId': payeeUserId,
+        'userId': payeeUserId,
+      },
       if (beneficiaryName != null) 'beneficiaryName': beneficiaryName,
     });
     final map = response.data is Map
@@ -390,15 +393,18 @@ class FinanceRepository {
     final data = map['data'] is Map
         ? Map<String, dynamic>.from(map['data'] as Map)
         : map;
+    double asMoney(dynamic a, dynamic b) {
+      if (a is num) return a.toDouble();
+      final parsed = double.tryParse('$a');
+      if (parsed != null) return parsed;
+      if (b is num) return b.toDouble();
+      return double.tryParse('$b') ?? 0;
+    }
+
     return (
-      amountDue: _financeAsInt(data['amountDue'])?.toDouble() ??
-          (data['amountDue'] is num ? (data['amountDue'] as num).toDouble() : 0),
-      amountPaid: data['amountPaid'] is num
-          ? (data['amountPaid'] as num).toDouble()
-          : double.tryParse('${data['amountPaid']}') ?? 0,
-      remaining: data['remaining'] is num
-          ? (data['remaining'] as num).toDouble()
-          : double.tryParse('${data['remaining']}') ?? 0,
+      amountDue: asMoney(data['amountDue'], data['owedThisPeriod']),
+      amountPaid: asMoney(data['amountPaid'], data['alreadyPaid']),
+      remaining: asMoney(data['remaining'], data['stillOwed']),
     );
   }
 

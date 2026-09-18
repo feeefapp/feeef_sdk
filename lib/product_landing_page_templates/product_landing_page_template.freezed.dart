@@ -29,16 +29,21 @@ $ProductLandingPageTemplateCopyWith<ProductLandingPageTemplate> get copyWith => 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductLandingPageTemplate&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&const DeepCollectionEquality().equals(other.schema, schema)&&const DeepCollectionEquality().equals(other.defaults, defaults));
+  final _this = this as ProductLandingPageTemplate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductLandingPageTemplate&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.imageUrl, _this.imageUrl) || other.imageUrl == _this.imageUrl)&&const DeepCollectionEquality().equals(other.schema, _this.schema)&&const DeepCollectionEquality().equals(other.defaults, _this.defaults));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,name,description,imageUrl,const DeepCollectionEquality().hash(schema),const DeepCollectionEquality().hash(defaults));
+int get hashCode {
+  final _this = this as ProductLandingPageTemplate;
+  return Object.hash(runtimeType,_this.id,_this.createdAt,_this.updatedAt,_this.name,_this.description,_this.imageUrl,const DeepCollectionEquality().hash(_this.schema),const DeepCollectionEquality().hash(_this.defaults));
+}
 
 @override
 String toString() {
-  return 'ProductLandingPageTemplate(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, imageUrl: $imageUrl, schema: $schema, defaults: $defaults)';
+  final _this = this as ProductLandingPageTemplate;
+  return 'ProductLandingPageTemplate(id: ${_this.id}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, name: ${_this.name}, description: ${_this.description}, imageUrl: ${_this.imageUrl}, schema: ${_this.schema}, defaults: ${_this.defaults})';
 }
 
 
@@ -256,16 +261,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductLandingPageTemplate&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&const DeepCollectionEquality().equals(other._schema, _schema)&&const DeepCollectionEquality().equals(other._defaults, _defaults));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductLandingPageTemplate&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&const DeepCollectionEquality().equals(other.schema, _schema)&&const DeepCollectionEquality().equals(other.defaults, _defaults));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,name,description,imageUrl,const DeepCollectionEquality().hash(_schema),const DeepCollectionEquality().hash(_defaults));
+int get hashCode {
+    return Object.hash(runtimeType,id,createdAt,updatedAt,name,description,imageUrl,const DeepCollectionEquality().hash(_schema),const DeepCollectionEquality().hash(_defaults));
+}
 
 @override
 String toString() {
-  return 'ProductLandingPageTemplate(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, imageUrl: $imageUrl, schema: $schema, defaults: $defaults)';
+    return 'ProductLandingPageTemplate(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, imageUrl: $imageUrl, schema: $schema, defaults: $defaults)';
 }
 
 
@@ -327,16 +334,21 @@ $ProductLandingPageTemplateCreateCopyWith<ProductLandingPageTemplateCreate> get 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductLandingPageTemplateCreate&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&const DeepCollectionEquality().equals(other.schema, schema)&&const DeepCollectionEquality().equals(other.defaults, defaults));
+  final _this = this as ProductLandingPageTemplateCreate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductLandingPageTemplateCreate&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.imageUrl, _this.imageUrl) || other.imageUrl == _this.imageUrl)&&const DeepCollectionEquality().equals(other.schema, _this.schema)&&const DeepCollectionEquality().equals(other.defaults, _this.defaults));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,description,imageUrl,const DeepCollectionEquality().hash(schema),const DeepCollectionEquality().hash(defaults));
+int get hashCode {
+  final _this = this as ProductLandingPageTemplateCreate;
+  return Object.hash(runtimeType,_this.name,_this.description,_this.imageUrl,const DeepCollectionEquality().hash(_this.schema),const DeepCollectionEquality().hash(_this.defaults));
+}
 
 @override
 String toString() {
-  return 'ProductLandingPageTemplateCreate(name: $name, description: $description, imageUrl: $imageUrl, schema: $schema, defaults: $defaults)';
+  final _this = this as ProductLandingPageTemplateCreate;
+  return 'ProductLandingPageTemplateCreate(name: ${_this.name}, description: ${_this.description}, imageUrl: ${_this.imageUrl}, schema: ${_this.schema}, defaults: ${_this.defaults})';
 }
 
 
@@ -546,16 +558,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductLandingPageTemplateCreate&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&const DeepCollectionEquality().equals(other._schema, _schema)&&const DeepCollectionEquality().equals(other._defaults, _defaults));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductLandingPageTemplateCreate&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&const DeepCollectionEquality().equals(other.schema, _schema)&&const DeepCollectionEquality().equals(other.defaults, _defaults));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,description,imageUrl,const DeepCollectionEquality().hash(_schema),const DeepCollectionEquality().hash(_defaults));
+int get hashCode {
+    return Object.hash(runtimeType,name,description,imageUrl,const DeepCollectionEquality().hash(_schema),const DeepCollectionEquality().hash(_defaults));
+}
 
 @override
 String toString() {
-  return 'ProductLandingPageTemplateCreate(name: $name, description: $description, imageUrl: $imageUrl, schema: $schema, defaults: $defaults)';
+    return 'ProductLandingPageTemplateCreate(name: $name, description: $description, imageUrl: $imageUrl, schema: $schema, defaults: $defaults)';
 }
 
 
@@ -614,16 +628,21 @@ $ProductLandingPageTemplateUpdateCopyWith<ProductLandingPageTemplateUpdate> get 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductLandingPageTemplateUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&const DeepCollectionEquality().equals(other.schema, schema)&&const DeepCollectionEquality().equals(other.defaults, defaults)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
+  final _this = this as ProductLandingPageTemplateUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductLandingPageTemplateUpdate&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.imageUrl, _this.imageUrl) || other.imageUrl == _this.imageUrl)&&const DeepCollectionEquality().equals(other.schema, _this.schema)&&const DeepCollectionEquality().equals(other.defaults, _this.defaults)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,description,imageUrl,const DeepCollectionEquality().hash(schema),const DeepCollectionEquality().hash(defaults),const DeepCollectionEquality().hash(setToNull));
+int get hashCode {
+  final _this = this as ProductLandingPageTemplateUpdate;
+  return Object.hash(runtimeType,_this.name,_this.description,_this.imageUrl,const DeepCollectionEquality().hash(_this.schema),const DeepCollectionEquality().hash(_this.defaults),const DeepCollectionEquality().hash(_this.setToNull));
+}
 
 @override
 String toString() {
-  return 'ProductLandingPageTemplateUpdate(name: $name, description: $description, imageUrl: $imageUrl, schema: $schema, defaults: $defaults, setToNull: $setToNull)';
+  final _this = this as ProductLandingPageTemplateUpdate;
+  return 'ProductLandingPageTemplateUpdate(name: ${_this.name}, description: ${_this.description}, imageUrl: ${_this.imageUrl}, schema: ${_this.schema}, defaults: ${_this.defaults}, setToNull: ${_this.setToNull})';
 }
 
 
@@ -845,16 +864,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductLandingPageTemplateUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&const DeepCollectionEquality().equals(other._schema, _schema)&&const DeepCollectionEquality().equals(other._defaults, _defaults)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductLandingPageTemplateUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&const DeepCollectionEquality().equals(other.schema, _schema)&&const DeepCollectionEquality().equals(other.defaults, _defaults)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,description,imageUrl,const DeepCollectionEquality().hash(_schema),const DeepCollectionEquality().hash(_defaults),const DeepCollectionEquality().hash(_setToNull));
+int get hashCode {
+    return Object.hash(runtimeType,name,description,imageUrl,const DeepCollectionEquality().hash(_schema),const DeepCollectionEquality().hash(_defaults),const DeepCollectionEquality().hash(_setToNull));
+}
 
 @override
 String toString() {
-  return 'ProductLandingPageTemplateUpdate(name: $name, description: $description, imageUrl: $imageUrl, schema: $schema, defaults: $defaults, setToNull: $setToNull)';
+    return 'ProductLandingPageTemplateUpdate(name: $name, description: $description, imageUrl: $imageUrl, schema: $schema, defaults: $defaults, setToNull: $setToNull)';
 }
 
 

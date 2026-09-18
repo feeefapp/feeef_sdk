@@ -29,16 +29,21 @@ $AuthTokenCopyWith<AuthToken> get copyWith => _$AuthTokenCopyWithImpl<AuthToken>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthToken&&(identical(other.type, type) || other.type == type)&&(identical(other.name, name) || other.name == name)&&(identical(other.token, token) || other.token == token)&&const DeepCollectionEquality().equals(other.abilities, abilities)&&(identical(other.lastUsedAt, lastUsedAt) || other.lastUsedAt == lastUsedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
+  final _this = this as AuthToken;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthToken&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.token, _this.token) || other.token == _this.token)&&const DeepCollectionEquality().equals(other.abilities, _this.abilities)&&(identical(other.lastUsedAt, _this.lastUsedAt) || other.lastUsedAt == _this.lastUsedAt)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,type,name,token,const DeepCollectionEquality().hash(abilities),lastUsedAt,expiresAt);
+int get hashCode {
+  final _this = this as AuthToken;
+  return Object.hash(runtimeType,_this.type,_this.name,_this.token,const DeepCollectionEquality().hash(_this.abilities),_this.lastUsedAt,_this.expiresAt);
+}
 
 @override
 String toString() {
-  return 'AuthToken(type: $type, name: $name, token: $token, abilities: $abilities, lastUsedAt: $lastUsedAt, expiresAt: $expiresAt)';
+  final _this = this as AuthToken;
+  return 'AuthToken(type: ${_this.type}, name: ${_this.name}, token: ${_this.token}, abilities: ${_this.abilities}, lastUsedAt: ${_this.lastUsedAt}, expiresAt: ${_this.expiresAt})';
 }
 
 
@@ -244,16 +249,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthToken&&(identical(other.type, type) || other.type == type)&&(identical(other.name, name) || other.name == name)&&(identical(other.token, token) || other.token == token)&&const DeepCollectionEquality().equals(other._abilities, _abilities)&&(identical(other.lastUsedAt, lastUsedAt) || other.lastUsedAt == lastUsedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthToken&&(identical(other.type, type) || other.type == type)&&(identical(other.name, name) || other.name == name)&&(identical(other.token, token) || other.token == token)&&const DeepCollectionEquality().equals(other.abilities, _abilities)&&(identical(other.lastUsedAt, lastUsedAt) || other.lastUsedAt == lastUsedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,type,name,token,const DeepCollectionEquality().hash(_abilities),lastUsedAt,expiresAt);
+int get hashCode {
+    return Object.hash(runtimeType,type,name,token,const DeepCollectionEquality().hash(_abilities),lastUsedAt,expiresAt);
+}
 
 @override
 String toString() {
-  return 'AuthToken(type: $type, name: $name, token: $token, abilities: $abilities, lastUsedAt: $lastUsedAt, expiresAt: $expiresAt)';
+    return 'AuthToken(type: $type, name: $name, token: $token, abilities: $abilities, lastUsedAt: $lastUsedAt, expiresAt: $expiresAt)';
 }
 
 
@@ -313,16 +320,21 @@ $AccessTokenCopyWith<AccessToken> get copyWith => _$AccessTokenCopyWithImpl<Acce
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccessToken&&const DeepCollectionEquality().equals(other.identifier, identifier)&&const DeepCollectionEquality().equals(other.tokenableId, tokenableId)&&const DeepCollectionEquality().equals(other.value, value)&&(identical(other.name, name) || other.name == name)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.abilities, abilities)&&(identical(other.hash, hash) || other.hash == hash)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.lastUsedAt, lastUsedAt) || other.lastUsedAt == lastUsedAt));
+  final _this = this as AccessToken;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccessToken&&const DeepCollectionEquality().equals(other.identifier, _this.identifier)&&const DeepCollectionEquality().equals(other.tokenableId, _this.tokenableId)&&const DeepCollectionEquality().equals(other.value, _this.value)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.type, _this.type) || other.type == _this.type)&&const DeepCollectionEquality().equals(other.abilities, _this.abilities)&&(identical(other.hash, _this.hash) || other.hash == _this.hash)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt)&&(identical(other.lastUsedAt, _this.lastUsedAt) || other.lastUsedAt == _this.lastUsedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(identifier),const DeepCollectionEquality().hash(tokenableId),const DeepCollectionEquality().hash(value),name,type,const DeepCollectionEquality().hash(abilities),hash,createdAt,updatedAt,expiresAt,lastUsedAt);
+int get hashCode {
+  final _this = this as AccessToken;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.identifier),const DeepCollectionEquality().hash(_this.tokenableId),const DeepCollectionEquality().hash(_this.value),_this.name,_this.type,const DeepCollectionEquality().hash(_this.abilities),_this.hash,_this.createdAt,_this.updatedAt,_this.expiresAt,_this.lastUsedAt);
+}
 
 @override
 String toString() {
-  return 'AccessToken(identifier: $identifier, tokenableId: $tokenableId, value: $value, name: $name, type: $type, abilities: $abilities, hash: $hash, createdAt: $createdAt, updatedAt: $updatedAt, expiresAt: $expiresAt, lastUsedAt: $lastUsedAt)';
+  final _this = this as AccessToken;
+  return 'AccessToken(identifier: ${_this.identifier}, tokenableId: ${_this.tokenableId}, value: ${_this.value}, name: ${_this.name}, type: ${_this.type}, abilities: ${_this.abilities}, hash: ${_this.hash}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, expiresAt: ${_this.expiresAt}, lastUsedAt: ${_this.lastUsedAt})';
 }
 
 
@@ -538,16 +550,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AccessToken&&const DeepCollectionEquality().equals(other.identifier, identifier)&&const DeepCollectionEquality().equals(other.tokenableId, tokenableId)&&const DeepCollectionEquality().equals(other.value, value)&&(identical(other.name, name) || other.name == name)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other._abilities, _abilities)&&(identical(other.hash, hash) || other.hash == hash)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.lastUsedAt, lastUsedAt) || other.lastUsedAt == lastUsedAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AccessToken&&const DeepCollectionEquality().equals(other.identifier, identifier)&&const DeepCollectionEquality().equals(other.tokenableId, tokenableId)&&const DeepCollectionEquality().equals(other.value, value)&&(identical(other.name, name) || other.name == name)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.abilities, _abilities)&&(identical(other.hash, hash) || other.hash == hash)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.lastUsedAt, lastUsedAt) || other.lastUsedAt == lastUsedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(identifier),const DeepCollectionEquality().hash(tokenableId),const DeepCollectionEquality().hash(value),name,type,const DeepCollectionEquality().hash(_abilities),hash,createdAt,updatedAt,expiresAt,lastUsedAt);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(identifier),const DeepCollectionEquality().hash(tokenableId),const DeepCollectionEquality().hash(value),name,type,const DeepCollectionEquality().hash(_abilities),hash,createdAt,updatedAt,expiresAt,lastUsedAt);
+}
 
 @override
 String toString() {
-  return 'AccessToken(identifier: $identifier, tokenableId: $tokenableId, value: $value, name: $name, type: $type, abilities: $abilities, hash: $hash, createdAt: $createdAt, updatedAt: $updatedAt, expiresAt: $expiresAt, lastUsedAt: $lastUsedAt)';
+    return 'AccessToken(identifier: $identifier, tokenableId: $tokenableId, value: $value, name: $name, type: $type, abilities: $abilities, hash: $hash, createdAt: $createdAt, updatedAt: $updatedAt, expiresAt: $expiresAt, lastUsedAt: $lastUsedAt)';
 }
 
 

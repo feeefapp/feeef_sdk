@@ -18,7 +18,7 @@ dependencies:
   dio: ^5.9.0
   freezed_annotation: ^3.1.0
   http_parser: ^4.0.2
-  json_annotation: ^4.11.0
+  json_annotation: ^4.12.0
   path: ^1.9.0
   petitparser: ^7.0.0
   recase: ^4.1.0
@@ -26,8 +26,8 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.4.13
-  # Dart 3.13 forbids `final` on constructor params; Freezed 3.x still emits that.
-  freezed: 4.0.0-dev.3
+  # Freezed 4.x required on Dart 3.13+ (no `final` on constructor params).
+  freezed: ^4.0.1
   json_serializable: ^6.9.0
   lints: ^6.0.0
   test: ^1.25.6

@@ -29,16 +29,21 @@ $StoreSummaryCopyWith<StoreSummary> get copyWith => _$StoreSummaryCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreSummary&&(identical(other.orders, orders) || other.orders == orders));
+  final _this = this as StoreSummary;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreSummary&&(identical(other.orders, _this.orders) || other.orders == _this.orders));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,orders);
+int get hashCode {
+  final _this = this as StoreSummary;
+  return Object.hash(runtimeType,_this.orders);
+}
 
 @override
 String toString() {
-  return 'StoreSummary(orders: $orders)';
+  final _this = this as StoreSummary;
+  return 'StoreSummary(orders: ${_this.orders})';
 }
 
 
@@ -237,16 +242,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreSummary&&(identical(other.orders, orders) || other.orders == orders));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreSummary&&(identical(other.orders, orders) || other.orders == orders));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,orders);
+int get hashCode {
+    return Object.hash(runtimeType,orders);
+}
 
 @override
 String toString() {
-  return 'StoreSummary(orders: $orders)';
+    return 'StoreSummary(orders: $orders)';
 }
 
 
@@ -312,16 +319,21 @@ $StoreOrdersSummaryCopyWith<StoreOrdersSummary> get copyWith => _$StoreOrdersSum
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreOrdersSummary&&(identical(other.total, total) || other.total == total)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.pending, pending) || other.pending == pending)&&(identical(other.review, review) || other.review == review)&&(identical(other.processing, processing) || other.processing == processing)&&(identical(other.accepted, accepted) || other.accepted == accepted)&&(identical(other.followup, followup) || other.followup == followup)&&(identical(other.completed, completed) || other.completed == completed)&&(identical(other.cancelled, cancelled) || other.cancelled == cancelled));
+  final _this = this as StoreOrdersSummary;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreOrdersSummary&&(identical(other.total, _this.total) || other.total == _this.total)&&(identical(other.draft, _this.draft) || other.draft == _this.draft)&&(identical(other.pending, _this.pending) || other.pending == _this.pending)&&(identical(other.review, _this.review) || other.review == _this.review)&&(identical(other.processing, _this.processing) || other.processing == _this.processing)&&(identical(other.accepted, _this.accepted) || other.accepted == _this.accepted)&&(identical(other.followup, _this.followup) || other.followup == _this.followup)&&(identical(other.completed, _this.completed) || other.completed == _this.completed)&&(identical(other.cancelled, _this.cancelled) || other.cancelled == _this.cancelled));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,total,draft,pending,review,processing,accepted,followup,completed,cancelled);
+int get hashCode {
+  final _this = this as StoreOrdersSummary;
+  return Object.hash(runtimeType,_this.total,_this.draft,_this.pending,_this.review,_this.processing,_this.accepted,_this.followup,_this.completed,_this.cancelled);
+}
 
 @override
 String toString() {
-  return 'StoreOrdersSummary(total: $total, draft: $draft, pending: $pending, review: $review, processing: $processing, accepted: $accepted, followup: $followup, completed: $completed, cancelled: $cancelled)';
+  final _this = this as StoreOrdersSummary;
+  return 'StoreOrdersSummary(total: ${_this.total}, draft: ${_this.draft}, pending: ${_this.pending}, review: ${_this.review}, processing: ${_this.processing}, accepted: ${_this.accepted}, followup: ${_this.followup}, completed: ${_this.completed}, cancelled: ${_this.cancelled})';
 }
 
 
@@ -529,16 +541,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreOrdersSummary&&(identical(other.total, total) || other.total == total)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.pending, pending) || other.pending == pending)&&(identical(other.review, review) || other.review == review)&&(identical(other.processing, processing) || other.processing == processing)&&(identical(other.accepted, accepted) || other.accepted == accepted)&&(identical(other.followup, followup) || other.followup == followup)&&(identical(other.completed, completed) || other.completed == completed)&&(identical(other.cancelled, cancelled) || other.cancelled == cancelled));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreOrdersSummary&&(identical(other.total, total) || other.total == total)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.pending, pending) || other.pending == pending)&&(identical(other.review, review) || other.review == review)&&(identical(other.processing, processing) || other.processing == processing)&&(identical(other.accepted, accepted) || other.accepted == accepted)&&(identical(other.followup, followup) || other.followup == followup)&&(identical(other.completed, completed) || other.completed == completed)&&(identical(other.cancelled, cancelled) || other.cancelled == cancelled));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,total,draft,pending,review,processing,accepted,followup,completed,cancelled);
+int get hashCode {
+    return Object.hash(runtimeType,total,draft,pending,review,processing,accepted,followup,completed,cancelled);
+}
 
 @override
 String toString() {
-  return 'StoreOrdersSummary(total: $total, draft: $draft, pending: $pending, review: $review, processing: $processing, accepted: $accepted, followup: $followup, completed: $completed, cancelled: $cancelled)';
+    return 'StoreOrdersSummary(total: $total, draft: $draft, pending: $pending, review: $review, processing: $processing, accepted: $accepted, followup: $followup, completed: $completed, cancelled: $cancelled)';
 }
 
 

@@ -29,16 +29,21 @@ $CategoryCopyWith<Category> get copyWith => _$CategoryCopyWithImpl<Category>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Category&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.parent, parent) || other.parent == parent)&&const DeepCollectionEquality().equals(other.children, children));
+  final _this = this as Category;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Category&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&(identical(other.parentId, _this.parentId) || other.parentId == _this.parentId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.photoUrl, _this.photoUrl) || other.photoUrl == _this.photoUrl)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.parent, _this.parent) || other.parent == _this.parent)&&const DeepCollectionEquality().equals(other.children, _this.children));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,storeId,parentId,name,description,photoUrl,const DeepCollectionEquality().hash(metadata),parent,const DeepCollectionEquality().hash(children));
+int get hashCode {
+  final _this = this as Category;
+  return Object.hash(runtimeType,_this.id,_this.createdAt,_this.updatedAt,_this.storeId,_this.parentId,_this.name,_this.description,_this.photoUrl,const DeepCollectionEquality().hash(_this.metadata),_this.parent,const DeepCollectionEquality().hash(_this.children));
+}
 
 @override
 String toString() {
-  return 'Category(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, storeId: $storeId, parentId: $parentId, name: $name, description: $description, photoUrl: $photoUrl, metadata: $metadata, parent: $parent, children: $children)';
+  final _this = this as Category;
+  return 'Category(id: ${_this.id}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, storeId: ${_this.storeId}, parentId: ${_this.parentId}, name: ${_this.name}, description: ${_this.description}, photoUrl: ${_this.photoUrl}, metadata: ${_this.metadata}, parent: ${_this.parent}, children: ${_this.children})';
 }
 
 
@@ -274,16 +279,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Category&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.parent, parent) || other.parent == parent)&&const DeepCollectionEquality().equals(other._children, _children));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Category&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.parent, parent) || other.parent == parent)&&const DeepCollectionEquality().equals(other.children, _children));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,storeId,parentId,name,description,photoUrl,const DeepCollectionEquality().hash(_metadata),parent,const DeepCollectionEquality().hash(_children));
+int get hashCode {
+    return Object.hash(runtimeType,id,createdAt,updatedAt,storeId,parentId,name,description,photoUrl,const DeepCollectionEquality().hash(_metadata),parent,const DeepCollectionEquality().hash(_children));
+}
 
 @override
 String toString() {
-  return 'Category(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, storeId: $storeId, parentId: $parentId, name: $name, description: $description, photoUrl: $photoUrl, metadata: $metadata, parent: $parent, children: $children)';
+    return 'Category(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, storeId: $storeId, parentId: $parentId, name: $name, description: $description, photoUrl: $photoUrl, metadata: $metadata, parent: $parent, children: $children)';
 }
 
 
@@ -360,16 +367,21 @@ $CategoryCreateCopyWith<CategoryCreate> get copyWith => _$CategoryCreateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoryCreate&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as CategoryCreate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoryCreate&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&(identical(other.parentId, _this.parentId) || other.parentId == _this.parentId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.photoUrl, _this.photoUrl) || other.photoUrl == _this.photoUrl)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,storeId,parentId,name,description,photoUrl,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as CategoryCreate;
+  return Object.hash(runtimeType,_this.storeId,_this.parentId,_this.name,_this.description,_this.photoUrl,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'CategoryCreate(storeId: $storeId, parentId: $parentId, name: $name, description: $description, photoUrl: $photoUrl, metadata: $metadata)';
+  final _this = this as CategoryCreate;
+  return 'CategoryCreate(storeId: ${_this.storeId}, parentId: ${_this.parentId}, name: ${_this.name}, description: ${_this.description}, photoUrl: ${_this.photoUrl}, metadata: ${_this.metadata})';
 }
 
 
@@ -575,16 +587,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CategoryCreate&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CategoryCreate&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,storeId,parentId,name,description,photoUrl,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,storeId,parentId,name,description,photoUrl,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'CategoryCreate(storeId: $storeId, parentId: $parentId, name: $name, description: $description, photoUrl: $photoUrl, metadata: $metadata)';
+    return 'CategoryCreate(storeId: $storeId, parentId: $parentId, name: $name, description: $description, photoUrl: $photoUrl, metadata: $metadata)';
 }
 
 
@@ -644,16 +658,21 @@ $CategoryUpdateCopyWith<CategoryUpdate> get copyWith => _$CategoryUpdateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoryUpdate&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
+  final _this = this as CategoryUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoryUpdate&&(identical(other.parentId, _this.parentId) || other.parentId == _this.parentId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.photoUrl, _this.photoUrl) || other.photoUrl == _this.photoUrl)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,parentId,name,description,photoUrl,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(setToNull));
+int get hashCode {
+  final _this = this as CategoryUpdate;
+  return Object.hash(runtimeType,_this.parentId,_this.name,_this.description,_this.photoUrl,const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.setToNull));
+}
 
 @override
 String toString() {
-  return 'CategoryUpdate(parentId: $parentId, name: $name, description: $description, photoUrl: $photoUrl, metadata: $metadata, setToNull: $setToNull)';
+  final _this = this as CategoryUpdate;
+  return 'CategoryUpdate(parentId: ${_this.parentId}, name: ${_this.name}, description: ${_this.description}, photoUrl: ${_this.photoUrl}, metadata: ${_this.metadata}, setToNull: ${_this.setToNull})';
 }
 
 
@@ -867,16 +886,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CategoryUpdate&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CategoryUpdate&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,parentId,name,description,photoUrl,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_setToNull));
+int get hashCode {
+    return Object.hash(runtimeType,parentId,name,description,photoUrl,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_setToNull));
+}
 
 @override
 String toString() {
-  return 'CategoryUpdate(parentId: $parentId, name: $name, description: $description, photoUrl: $photoUrl, metadata: $metadata, setToNull: $setToNull)';
+    return 'CategoryUpdate(parentId: $parentId, name: $name, description: $description, photoUrl: $photoUrl, metadata: $metadata, setToNull: $setToNull)';
 }
 
 

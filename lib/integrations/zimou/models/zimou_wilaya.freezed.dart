@@ -29,16 +29,21 @@ $ZimouWilayaCopyWith<ZimouWilaya> get copyWith => _$ZimouWilayaCopyWithImpl<Zimo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZimouWilaya&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as ZimouWilaya;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZimouWilaya&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as ZimouWilaya;
+  return Object.hash(runtimeType,_this.id,_this.name,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'ZimouWilaya(id: $id, name: $name, metadata: $metadata)';
+  final _this = this as ZimouWilaya;
+  return 'ZimouWilaya(id: ${_this.id}, name: ${_this.name}, metadata: ${_this.metadata})';
 }
 
 
@@ -238,16 +243,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZimouWilaya&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZimouWilaya&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'ZimouWilaya(id: $id, name: $name, metadata: $metadata)';
+    return 'ZimouWilaya(id: $id, name: $name, metadata: $metadata)';
 }
 
 

@@ -29,16 +29,21 @@ $SatimCreateOrderResponseCopyWith<SatimCreateOrderResponse> get copyWith => _$Sa
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatimCreateOrderResponse&&(identical(other.success, success) || other.success == success)&&const DeepCollectionEquality().equals(other.deposit, deposit)&&(identical(other.satim, satim) || other.satim == satim));
+  final _this = this as SatimCreateOrderResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatimCreateOrderResponse&&(identical(other.success, _this.success) || other.success == _this.success)&&const DeepCollectionEquality().equals(other.deposit, _this.deposit)&&(identical(other.satim, _this.satim) || other.satim == _this.satim));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,success,const DeepCollectionEquality().hash(deposit),satim);
+int get hashCode {
+  final _this = this as SatimCreateOrderResponse;
+  return Object.hash(runtimeType,_this.success,const DeepCollectionEquality().hash(_this.deposit),_this.satim);
+}
 
 @override
 String toString() {
-  return 'SatimCreateOrderResponse(success: $success, deposit: $deposit, satim: $satim)';
+  final _this = this as SatimCreateOrderResponse;
+  return 'SatimCreateOrderResponse(success: ${_this.success}, deposit: ${_this.deposit}, satim: ${_this.satim})';
 }
 
 
@@ -247,16 +252,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SatimCreateOrderResponse&&(identical(other.success, success) || other.success == success)&&const DeepCollectionEquality().equals(other._deposit, _deposit)&&(identical(other.satim, satim) || other.satim == satim));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SatimCreateOrderResponse&&(identical(other.success, success) || other.success == success)&&const DeepCollectionEquality().equals(other.deposit, _deposit)&&(identical(other.satim, satim) || other.satim == satim));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,success,const DeepCollectionEquality().hash(_deposit),satim);
+int get hashCode {
+    return Object.hash(runtimeType,success,const DeepCollectionEquality().hash(_deposit),satim);
+}
 
 @override
 String toString() {
-  return 'SatimCreateOrderResponse(success: $success, deposit: $deposit, satim: $satim)';
+    return 'SatimCreateOrderResponse(success: $success, deposit: $deposit, satim: $satim)';
 }
 
 
@@ -322,16 +329,21 @@ $SatimOrderDataCopyWith<SatimOrderData> get copyWith => _$SatimOrderDataCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatimOrderData&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.formUrl, formUrl) || other.formUrl == formUrl)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  final _this = this as SatimOrderData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatimOrderData&&(identical(other.orderId, _this.orderId) || other.orderId == _this.orderId)&&(identical(other.formUrl, _this.formUrl) || other.formUrl == _this.formUrl)&&(identical(other.errorCode, _this.errorCode) || other.errorCode == _this.errorCode)&&(identical(other.errorMessage, _this.errorMessage) || other.errorMessage == _this.errorMessage));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,orderId,formUrl,errorCode,errorMessage);
+int get hashCode {
+  final _this = this as SatimOrderData;
+  return Object.hash(runtimeType,_this.orderId,_this.formUrl,_this.errorCode,_this.errorMessage);
+}
 
 @override
 String toString() {
-  return 'SatimOrderData(orderId: $orderId, formUrl: $formUrl, errorCode: $errorCode, errorMessage: $errorMessage)';
+  final _this = this as SatimOrderData;
+  return 'SatimOrderData(orderId: ${_this.orderId}, formUrl: ${_this.formUrl}, errorCode: ${_this.errorCode}, errorMessage: ${_this.errorMessage})';
 }
 
 
@@ -527,16 +539,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SatimOrderData&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.formUrl, formUrl) || other.formUrl == formUrl)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SatimOrderData&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.formUrl, formUrl) || other.formUrl == formUrl)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,orderId,formUrl,errorCode,errorMessage);
+int get hashCode {
+    return Object.hash(runtimeType,orderId,formUrl,errorCode,errorMessage);
+}
 
 @override
 String toString() {
-  return 'SatimOrderData(orderId: $orderId, formUrl: $formUrl, errorCode: $errorCode, errorMessage: $errorMessage)';
+    return 'SatimOrderData(orderId: $orderId, formUrl: $formUrl, errorCode: $errorCode, errorMessage: $errorMessage)';
 }
 
 

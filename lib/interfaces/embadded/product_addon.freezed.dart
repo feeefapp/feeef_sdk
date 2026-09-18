@@ -30,16 +30,21 @@ $ProductAddonCopyWith<ProductAddon> get copyWith => _$ProductAddonCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductAddon&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.title, title) || other.title == title)&&(identical(other.subtitle, subtitle) || other.subtitle == subtitle)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.price, price) || other.price == price)&&(identical(other.min, min) || other.min == min)&&(identical(other.max, max) || other.max == max));
+  final _this = this as ProductAddon;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductAddon&&(identical(other.photoUrl, _this.photoUrl) || other.photoUrl == _this.photoUrl)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.subtitle, _this.subtitle) || other.subtitle == _this.subtitle)&&(identical(other.sku, _this.sku) || other.sku == _this.sku)&&(identical(other.stock, _this.stock) || other.stock == _this.stock)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.min, _this.min) || other.min == _this.min)&&(identical(other.max, _this.max) || other.max == _this.max));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,photoUrl,title,subtitle,sku,stock,price,min,max);
+int get hashCode {
+  final _this = this as ProductAddon;
+  return Object.hash(runtimeType,_this.photoUrl,_this.title,_this.subtitle,_this.sku,_this.stock,_this.price,_this.min,_this.max);
+}
 
 @override
 String toString() {
-  return 'ProductAddon(photoUrl: $photoUrl, title: $title, subtitle: $subtitle, sku: $sku, stock: $stock, price: $price, min: $min, max: $max)';
+  final _this = this as ProductAddon;
+  return 'ProductAddon(photoUrl: ${_this.photoUrl}, title: ${_this.title}, subtitle: ${_this.subtitle}, sku: ${_this.sku}, stock: ${_this.stock}, price: ${_this.price}, min: ${_this.min}, max: ${_this.max})';
 }
 
 
@@ -244,16 +249,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductAddon&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.title, title) || other.title == title)&&(identical(other.subtitle, subtitle) || other.subtitle == subtitle)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.price, price) || other.price == price)&&(identical(other.min, min) || other.min == min)&&(identical(other.max, max) || other.max == max));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductAddon&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.title, title) || other.title == title)&&(identical(other.subtitle, subtitle) || other.subtitle == subtitle)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.price, price) || other.price == price)&&(identical(other.min, min) || other.min == min)&&(identical(other.max, max) || other.max == max));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,photoUrl,title,subtitle,sku,stock,price,min,max);
+int get hashCode {
+    return Object.hash(runtimeType,photoUrl,title,subtitle,sku,stock,price,min,max);
+}
 
 @override
 String toString() {
-  return 'ProductAddon(photoUrl: $photoUrl, title: $title, subtitle: $subtitle, sku: $sku, stock: $stock, price: $price, min: $min, max: $max)';
+    return 'ProductAddon(photoUrl: $photoUrl, title: $title, subtitle: $subtitle, sku: $sku, stock: $stock, price: $price, min: $min, max: $max)';
 }
 
 

@@ -614,16 +614,21 @@ $StoreCreateCopyWith<StoreCreate> get copyWith => _$StoreCreateCopyWithImpl<Stor
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other.categories, categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.addresses, addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other.defaultShippingRates, defaultShippingRates)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due));
+  final _this = this as StoreCreate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreCreate&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.slug, _this.slug) || other.slug == _this.slug)&&(identical(other.banner, _this.banner) || other.banner == _this.banner)&&(identical(other.action, _this.action) || other.action == _this.action)&&(identical(other.domain, _this.domain) || other.domain == _this.domain)&&(identical(other.decoration, _this.decoration) || other.decoration == _this.decoration)&&(identical(other.logoUrl, _this.logoUrl) || other.logoUrl == _this.logoUrl)&&(identical(other.ondarkLogoUrl, _this.ondarkLogoUrl) || other.ondarkLogoUrl == _this.ondarkLogoUrl)&&const DeepCollectionEquality().equals(other.categories, _this.categories)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.description, _this.description) || other.description == _this.description)&&const DeepCollectionEquality().equals(other.addresses, _this.addresses)&&(identical(other.address, _this.address) || other.address == _this.address)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.contacts, _this.contacts)&&(identical(other.integrations, _this.integrations) || other.integrations == _this.integrations)&&const DeepCollectionEquality().equals(other.defaultShippingRates, _this.defaultShippingRates)&&(identical(other.shippingPriceId, _this.shippingPriceId) || other.shippingPriceId == _this.shippingPriceId)&&(identical(other.projectId, _this.projectId) || other.projectId == _this.projectId)&&(identical(other.subscription, _this.subscription) || other.subscription == _this.subscription)&&(identical(other.due, _this.due) || other.due == _this.due));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,slug,banner,action,domain,decoration,logoUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(categories),title,description,const DeepCollectionEquality().hash(addresses),address,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(contacts),integrations,const DeepCollectionEquality().hash(defaultShippingRates),shippingPriceId,projectId,subscription,due]);
+int get hashCode {
+  final _this = this as StoreCreate;
+  return Object.hashAll([runtimeType,_this.id,_this.name,_this.slug,_this.banner,_this.action,_this.domain,_this.decoration,_this.logoUrl,_this.ondarkLogoUrl,const DeepCollectionEquality().hash(_this.categories),_this.title,_this.description,const DeepCollectionEquality().hash(_this.addresses),_this.address,const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.contacts),_this.integrations,const DeepCollectionEquality().hash(_this.defaultShippingRates),_this.shippingPriceId,_this.projectId,_this.subscription,_this.due]);
+}
 
 @override
 String toString() {
-  return 'StoreCreate(id: $id, name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, shippingPriceId: $shippingPriceId, projectId: $projectId, subscription: $subscription, due: $due)';
+  final _this = this as StoreCreate;
+  return 'StoreCreate(id: ${_this.id}, name: ${_this.name}, slug: ${_this.slug}, banner: ${_this.banner}, action: ${_this.action}, domain: ${_this.domain}, decoration: ${_this.decoration}, logoUrl: ${_this.logoUrl}, ondarkLogoUrl: ${_this.ondarkLogoUrl}, categories: ${_this.categories}, title: ${_this.title}, description: ${_this.description}, addresses: ${_this.addresses}, address: ${_this.address}, metadata: ${_this.metadata}, contacts: ${_this.contacts}, integrations: ${_this.integrations}, defaultShippingRates: ${_this.defaultShippingRates}, shippingPriceId: ${_this.shippingPriceId}, projectId: ${_this.projectId}, subscription: ${_this.subscription}, due: ${_this.due})';
 }
 
 
@@ -966,16 +971,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other._categories, _categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._addresses, _addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other._defaultShippingRates, _defaultShippingRates)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other.categories, _categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.addresses, _addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.contacts, _contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other.defaultShippingRates, _defaultShippingRates)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,slug,banner,action,domain,decoration,logoUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(_categories),title,description,const DeepCollectionEquality().hash(_addresses),address,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_contacts),integrations,const DeepCollectionEquality().hash(_defaultShippingRates),shippingPriceId,projectId,subscription,due]);
+int get hashCode {
+    return Object.hashAll([runtimeType,id,name,slug,banner,action,domain,decoration,logoUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(_categories),title,description,const DeepCollectionEquality().hash(_addresses),address,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_contacts),integrations,const DeepCollectionEquality().hash(_defaultShippingRates),shippingPriceId,projectId,subscription,due]);
+}
 
 @override
 String toString() {
-  return 'StoreCreate(id: $id, name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, shippingPriceId: $shippingPriceId, projectId: $projectId, subscription: $subscription, due: $due)';
+    return 'StoreCreate(id: $id, name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, shippingPriceId: $shippingPriceId, projectId: $projectId, subscription: $subscription, due: $due)';
 }
 
 
@@ -1132,16 +1139,21 @@ $StoreUpdateCopyWith<StoreUpdate> get copyWith => _$StoreUpdateCopyWithImpl<Stor
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other.categories, categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.addresses, addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other.defaultShippingRates, defaultShippingRates)&&const DeepCollectionEquality().equals(other.setToNull, setToNull)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due)&&(identical(other.configs, configs) || other.configs == configs)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.templateId, templateId) || other.templateId == templateId)&&(identical(other.projectId, projectId) || other.projectId == projectId));
+  final _this = this as StoreUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreUpdate&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.slug, _this.slug) || other.slug == _this.slug)&&(identical(other.banner, _this.banner) || other.banner == _this.banner)&&(identical(other.action, _this.action) || other.action == _this.action)&&(identical(other.domain, _this.domain) || other.domain == _this.domain)&&(identical(other.decoration, _this.decoration) || other.decoration == _this.decoration)&&(identical(other.logoUrl, _this.logoUrl) || other.logoUrl == _this.logoUrl)&&(identical(other.iconUrl, _this.iconUrl) || other.iconUrl == _this.iconUrl)&&(identical(other.ondarkLogoUrl, _this.ondarkLogoUrl) || other.ondarkLogoUrl == _this.ondarkLogoUrl)&&const DeepCollectionEquality().equals(other.categories, _this.categories)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.description, _this.description) || other.description == _this.description)&&const DeepCollectionEquality().equals(other.addresses, _this.addresses)&&(identical(other.address, _this.address) || other.address == _this.address)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.contacts, _this.contacts)&&(identical(other.integrations, _this.integrations) || other.integrations == _this.integrations)&&const DeepCollectionEquality().equals(other.defaultShippingRates, _this.defaultShippingRates)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull)&&(identical(other.subscription, _this.subscription) || other.subscription == _this.subscription)&&(identical(other.due, _this.due) || other.due == _this.due)&&(identical(other.configs, _this.configs) || other.configs == _this.configs)&&(identical(other.shippingPriceId, _this.shippingPriceId) || other.shippingPriceId == _this.shippingPriceId)&&(identical(other.templateId, _this.templateId) || other.templateId == _this.templateId)&&(identical(other.projectId, _this.projectId) || other.projectId == _this.projectId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,name,slug,banner,action,domain,decoration,logoUrl,iconUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(categories),title,description,const DeepCollectionEquality().hash(addresses),address,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(contacts),integrations,const DeepCollectionEquality().hash(defaultShippingRates),const DeepCollectionEquality().hash(setToNull),subscription,due,configs,shippingPriceId,templateId,projectId]);
+int get hashCode {
+  final _this = this as StoreUpdate;
+  return Object.hashAll([runtimeType,_this.name,_this.slug,_this.banner,_this.action,_this.domain,_this.decoration,_this.logoUrl,_this.iconUrl,_this.ondarkLogoUrl,const DeepCollectionEquality().hash(_this.categories),_this.title,_this.description,const DeepCollectionEquality().hash(_this.addresses),_this.address,const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.contacts),_this.integrations,const DeepCollectionEquality().hash(_this.defaultShippingRates),const DeepCollectionEquality().hash(_this.setToNull),_this.subscription,_this.due,_this.configs,_this.shippingPriceId,_this.templateId,_this.projectId]);
+}
 
 @override
 String toString() {
-  return 'StoreUpdate(name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, iconUrl: $iconUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, setToNull: $setToNull, subscription: $subscription, due: $due, configs: $configs, shippingPriceId: $shippingPriceId, templateId: $templateId, projectId: $projectId)';
+  final _this = this as StoreUpdate;
+  return 'StoreUpdate(name: ${_this.name}, slug: ${_this.slug}, banner: ${_this.banner}, action: ${_this.action}, domain: ${_this.domain}, decoration: ${_this.decoration}, logoUrl: ${_this.logoUrl}, iconUrl: ${_this.iconUrl}, ondarkLogoUrl: ${_this.ondarkLogoUrl}, categories: ${_this.categories}, title: ${_this.title}, description: ${_this.description}, addresses: ${_this.addresses}, address: ${_this.address}, metadata: ${_this.metadata}, contacts: ${_this.contacts}, integrations: ${_this.integrations}, defaultShippingRates: ${_this.defaultShippingRates}, setToNull: ${_this.setToNull}, subscription: ${_this.subscription}, due: ${_this.due}, configs: ${_this.configs}, shippingPriceId: ${_this.shippingPriceId}, templateId: ${_this.templateId}, projectId: ${_this.projectId})';
 }
 
 
@@ -1521,16 +1533,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other._categories, _categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._addresses, _addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other._defaultShippingRates, _defaultShippingRates)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due)&&(identical(other.configs, configs) || other.configs == configs)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.templateId, templateId) || other.templateId == templateId)&&(identical(other.projectId, projectId) || other.projectId == projectId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.banner, banner) || other.banner == banner)&&(identical(other.action, action) || other.action == action)&&(identical(other.domain, domain) || other.domain == domain)&&(identical(other.decoration, decoration) || other.decoration == decoration)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&const DeepCollectionEquality().equals(other.categories, _categories)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.addresses, _addresses)&&(identical(other.address, address) || other.address == address)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.contacts, _contacts)&&(identical(other.integrations, integrations) || other.integrations == integrations)&&const DeepCollectionEquality().equals(other.defaultShippingRates, _defaultShippingRates)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull)&&(identical(other.subscription, subscription) || other.subscription == subscription)&&(identical(other.due, due) || other.due == due)&&(identical(other.configs, configs) || other.configs == configs)&&(identical(other.shippingPriceId, shippingPriceId) || other.shippingPriceId == shippingPriceId)&&(identical(other.templateId, templateId) || other.templateId == templateId)&&(identical(other.projectId, projectId) || other.projectId == projectId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,name,slug,banner,action,domain,decoration,logoUrl,iconUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(_categories),title,description,const DeepCollectionEquality().hash(_addresses),address,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_contacts),integrations,const DeepCollectionEquality().hash(_defaultShippingRates),const DeepCollectionEquality().hash(_setToNull),subscription,due,configs,shippingPriceId,templateId,projectId]);
+int get hashCode {
+    return Object.hashAll([runtimeType,name,slug,banner,action,domain,decoration,logoUrl,iconUrl,ondarkLogoUrl,const DeepCollectionEquality().hash(_categories),title,description,const DeepCollectionEquality().hash(_addresses),address,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_contacts),integrations,const DeepCollectionEquality().hash(_defaultShippingRates),const DeepCollectionEquality().hash(_setToNull),subscription,due,configs,shippingPriceId,templateId,projectId]);
+}
 
 @override
 String toString() {
-  return 'StoreUpdate(name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, iconUrl: $iconUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, setToNull: $setToNull, subscription: $subscription, due: $due, configs: $configs, shippingPriceId: $shippingPriceId, templateId: $templateId, projectId: $projectId)';
+    return 'StoreUpdate(name: $name, slug: $slug, banner: $banner, action: $action, domain: $domain, decoration: $decoration, logoUrl: $logoUrl, iconUrl: $iconUrl, ondarkLogoUrl: $ondarkLogoUrl, categories: $categories, title: $title, description: $description, addresses: $addresses, address: $address, metadata: $metadata, contacts: $contacts, integrations: $integrations, defaultShippingRates: $defaultShippingRates, setToNull: $setToNull, subscription: $subscription, due: $due, configs: $configs, shippingPriceId: $shippingPriceId, templateId: $templateId, projectId: $projectId)';
 }
 
 
@@ -1705,16 +1719,21 @@ $StoreIntegrationSubscriptionCopyWith<StoreIntegrationSubscription> get copyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrationSubscription&&(identical(other.startAt, startAt) || other.startAt == startAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.status, status) || other.status == status)&&(identical(other.price, price) || other.price == price)&&(identical(other.autoRenew, autoRenew) || other.autoRenew == autoRenew)&&(identical(other.failedAttempts, failedAttempts) || other.failedAttempts == failedAttempts)&&(identical(other.nextRetryAt, nextRetryAt) || other.nextRetryAt == nextRetryAt));
+  final _this = this as StoreIntegrationSubscription;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrationSubscription&&(identical(other.startAt, _this.startAt) || other.startAt == _this.startAt)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.autoRenew, _this.autoRenew) || other.autoRenew == _this.autoRenew)&&(identical(other.failedAttempts, _this.failedAttempts) || other.failedAttempts == _this.failedAttempts)&&(identical(other.nextRetryAt, _this.nextRetryAt) || other.nextRetryAt == _this.nextRetryAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,startAt,expiresAt,status,price,autoRenew,failedAttempts,nextRetryAt);
+int get hashCode {
+  final _this = this as StoreIntegrationSubscription;
+  return Object.hash(runtimeType,_this.startAt,_this.expiresAt,_this.status,_this.price,_this.autoRenew,_this.failedAttempts,_this.nextRetryAt);
+}
 
 @override
 String toString() {
-  return 'StoreIntegrationSubscription(startAt: $startAt, expiresAt: $expiresAt, status: $status, price: $price, autoRenew: $autoRenew, failedAttempts: $failedAttempts, nextRetryAt: $nextRetryAt)';
+  final _this = this as StoreIntegrationSubscription;
+  return 'StoreIntegrationSubscription(startAt: ${_this.startAt}, expiresAt: ${_this.expiresAt}, status: ${_this.status}, price: ${_this.price}, autoRenew: ${_this.autoRenew}, failedAttempts: ${_this.failedAttempts}, nextRetryAt: ${_this.nextRetryAt})';
 }
 
 
@@ -1916,16 +1935,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrationSubscription&&(identical(other.startAt, startAt) || other.startAt == startAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.status, status) || other.status == status)&&(identical(other.price, price) || other.price == price)&&(identical(other.autoRenew, autoRenew) || other.autoRenew == autoRenew)&&(identical(other.failedAttempts, failedAttempts) || other.failedAttempts == failedAttempts)&&(identical(other.nextRetryAt, nextRetryAt) || other.nextRetryAt == nextRetryAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrationSubscription&&(identical(other.startAt, startAt) || other.startAt == startAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.status, status) || other.status == status)&&(identical(other.price, price) || other.price == price)&&(identical(other.autoRenew, autoRenew) || other.autoRenew == autoRenew)&&(identical(other.failedAttempts, failedAttempts) || other.failedAttempts == failedAttempts)&&(identical(other.nextRetryAt, nextRetryAt) || other.nextRetryAt == nextRetryAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,startAt,expiresAt,status,price,autoRenew,failedAttempts,nextRetryAt);
+int get hashCode {
+    return Object.hash(runtimeType,startAt,expiresAt,status,price,autoRenew,failedAttempts,nextRetryAt);
+}
 
 @override
 String toString() {
-  return 'StoreIntegrationSubscription(startAt: $startAt, expiresAt: $expiresAt, status: $status, price: $price, autoRenew: $autoRenew, failedAttempts: $failedAttempts, nextRetryAt: $nextRetryAt)';
+    return 'StoreIntegrationSubscription(startAt: $startAt, expiresAt: $expiresAt, status: $status, price: $price, autoRenew: $autoRenew, failedAttempts: $failedAttempts, nextRetryAt: $nextRetryAt)';
 }
 
 
@@ -1986,16 +2007,21 @@ $StoreSubscriptionCopyWith<StoreSubscription> get copyWith => _$StoreSubscriptio
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreSubscription&&(identical(other.type, type) || other.type == type)&&(identical(other.status, status) || other.status == status)&&(identical(other.quota, quota) || other.quota == quota)&&(identical(other.consumed, consumed) || other.consumed == consumed)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.integrations, integrations));
+  final _this = this as StoreSubscription;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreSubscription&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.quota, _this.quota) || other.quota == _this.quota)&&(identical(other.consumed, _this.consumed) || other.consumed == _this.consumed)&&(identical(other.startedAt, _this.startedAt) || other.startedAt == _this.startedAt)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.integrations, _this.integrations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,type,status,quota,consumed,startedAt,expiresAt,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(integrations));
+int get hashCode {
+  final _this = this as StoreSubscription;
+  return Object.hash(runtimeType,_this.type,_this.status,_this.quota,_this.consumed,_this.startedAt,_this.expiresAt,const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.integrations));
+}
 
 @override
 String toString() {
-  return 'StoreSubscription(type: $type, status: $status, quota: $quota, consumed: $consumed, startedAt: $startedAt, expiresAt: $expiresAt, metadata: $metadata, integrations: $integrations)';
+  final _this = this as StoreSubscription;
+  return 'StoreSubscription(type: ${_this.type}, status: ${_this.status}, quota: ${_this.quota}, consumed: ${_this.consumed}, startedAt: ${_this.startedAt}, expiresAt: ${_this.expiresAt}, metadata: ${_this.metadata}, integrations: ${_this.integrations})';
 }
 
 
@@ -2211,16 +2237,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreSubscription&&(identical(other.type, type) || other.type == type)&&(identical(other.status, status) || other.status == status)&&(identical(other.quota, quota) || other.quota == quota)&&(identical(other.consumed, consumed) || other.consumed == consumed)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._integrations, _integrations));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreSubscription&&(identical(other.type, type) || other.type == type)&&(identical(other.status, status) || other.status == status)&&(identical(other.quota, quota) || other.quota == quota)&&(identical(other.consumed, consumed) || other.consumed == consumed)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.integrations, _integrations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,type,status,quota,consumed,startedAt,expiresAt,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_integrations));
+int get hashCode {
+    return Object.hash(runtimeType,type,status,quota,consumed,startedAt,expiresAt,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_integrations));
+}
 
 @override
 String toString() {
-  return 'StoreSubscription(type: $type, status: $status, quota: $quota, consumed: $consumed, startedAt: $startedAt, expiresAt: $expiresAt, metadata: $metadata, integrations: $integrations)';
+    return 'StoreSubscription(type: $type, status: $status, quota: $quota, consumed: $consumed, startedAt: $startedAt, expiresAt: $expiresAt, metadata: $metadata, integrations: $integrations)';
 }
 
 
@@ -2282,16 +2310,21 @@ $StoreConfigsCopyWith<StoreConfigs> get copyWith => _$StoreConfigsCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other.customStatusMappings, customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.confirmationQueue, confirmationQueue) || other.confirmationQueue == confirmationQueue)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration)&&(identical(other.finance_integration, finance_integration) || other.finance_integration == finance_integration));
+  final _this = this as StoreConfigs;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, _this.currencies)&&(identical(other.selectedCurrency, _this.selectedCurrency) || other.selectedCurrency == _this.selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, _this.languages)&&(identical(other.defaultLanguage, _this.defaultLanguage) || other.defaultLanguage == _this.defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, _this.countries)&&(identical(other.selectedCountry, _this.selectedCountry) || other.selectedCountry == _this.selectedCountry)&&const DeepCollectionEquality().equals(other.customStatusMappings, _this.customStatusMappings)&&(identical(other.customStatusEnabled, _this.customStatusEnabled) || other.customStatusEnabled == _this.customStatusEnabled)&&(identical(other.confirmationQueue, _this.confirmationQueue) || other.confirmationQueue == _this.confirmationQueue)&&(identical(other.inventory_integration, _this.inventory_integration) || other.inventory_integration == _this.inventory_integration)&&(identical(other.finance_integration, _this.finance_integration) || other.finance_integration == _this.finance_integration));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(currencies),selectedCurrency,const DeepCollectionEquality().hash(languages),defaultLanguage,const DeepCollectionEquality().hash(countries),selectedCountry,const DeepCollectionEquality().hash(customStatusMappings),customStatusEnabled,confirmationQueue,inventory_integration,finance_integration);
+int get hashCode {
+  final _this = this as StoreConfigs;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.currencies),_this.selectedCurrency,const DeepCollectionEquality().hash(_this.languages),_this.defaultLanguage,const DeepCollectionEquality().hash(_this.countries),_this.selectedCountry,const DeepCollectionEquality().hash(_this.customStatusMappings),_this.customStatusEnabled,_this.confirmationQueue,_this.inventory_integration,_this.finance_integration);
+}
 
 @override
 String toString() {
-  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, confirmationQueue: $confirmationQueue, inventory_integration: $inventory_integration, finance_integration: $finance_integration)';
+  final _this = this as StoreConfigs;
+  return 'StoreConfigs(currencies: ${_this.currencies}, selectedCurrency: ${_this.selectedCurrency}, languages: ${_this.languages}, defaultLanguage: ${_this.defaultLanguage}, countries: ${_this.countries}, selectedCountry: ${_this.selectedCountry}, customStatusMappings: ${_this.customStatusMappings}, customStatusEnabled: ${_this.customStatusEnabled}, confirmationQueue: ${_this.confirmationQueue}, inventory_integration: ${_this.inventory_integration}, finance_integration: ${_this.finance_integration})';
 }
 
 
@@ -2561,16 +2594,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreConfigs&&const DeepCollectionEquality().equals(other._currencies, _currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other._languages, _languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other._countries, _countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other._customStatusMappings, _customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.confirmationQueue, confirmationQueue) || other.confirmationQueue == confirmationQueue)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration)&&(identical(other.finance_integration, finance_integration) || other.finance_integration == finance_integration));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, _currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, _languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, _countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&const DeepCollectionEquality().equals(other.customStatusMappings, _customStatusMappings)&&(identical(other.customStatusEnabled, customStatusEnabled) || other.customStatusEnabled == customStatusEnabled)&&(identical(other.confirmationQueue, confirmationQueue) || other.confirmationQueue == confirmationQueue)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration)&&(identical(other.finance_integration, finance_integration) || other.finance_integration == finance_integration));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_currencies),selectedCurrency,const DeepCollectionEquality().hash(_languages),defaultLanguage,const DeepCollectionEquality().hash(_countries),selectedCountry,const DeepCollectionEquality().hash(_customStatusMappings),customStatusEnabled,confirmationQueue,inventory_integration,finance_integration);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_currencies),selectedCurrency,const DeepCollectionEquality().hash(_languages),defaultLanguage,const DeepCollectionEquality().hash(_countries),selectedCountry,const DeepCollectionEquality().hash(_customStatusMappings),customStatusEnabled,confirmationQueue,inventory_integration,finance_integration);
+}
 
 @override
 String toString() {
-  return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, confirmationQueue: $confirmationQueue, inventory_integration: $inventory_integration, finance_integration: $finance_integration)';
+    return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, customStatusMappings: $customStatusMappings, customStatusEnabled: $customStatusEnabled, confirmationQueue: $confirmationQueue, inventory_integration: $inventory_integration, finance_integration: $finance_integration)';
 }
 
 
@@ -2671,16 +2706,21 @@ $InventoryLifecycleRuleCopyWith<InventoryLifecycleRule> get copyWith => _$Invent
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryLifecycleRule&&(identical(other.id, id) || other.id == id)&&(identical(other.dimension, dimension) || other.dimension == dimension)&&(identical(other.equals, equals) || other.equals == equals));
+  final _this = this as InventoryLifecycleRule;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryLifecycleRule&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.dimension, _this.dimension) || other.dimension == _this.dimension)&&(identical(other.equals, _this.equals) || other.equals == _this.equals));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,dimension,equals);
+int get hashCode {
+  final _this = this as InventoryLifecycleRule;
+  return Object.hash(runtimeType,_this.id,_this.dimension,_this.equals);
+}
 
 @override
 String toString() {
-  return 'InventoryLifecycleRule(id: $id, dimension: $dimension, equals: $equals)';
+  final _this = this as InventoryLifecycleRule;
+  return 'InventoryLifecycleRule(id: ${_this.id}, dimension: ${_this.dimension}, equals: ${_this.equals})';
 }
 
 
@@ -2874,16 +2914,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryLifecycleRule&&(identical(other.id, id) || other.id == id)&&(identical(other.dimension, dimension) || other.dimension == dimension)&&(identical(other.equals, equals) || other.equals == equals));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryLifecycleRule&&(identical(other.id, id) || other.id == id)&&(identical(other.dimension, dimension) || other.dimension == dimension)&&(identical(other.equals, equals) || other.equals == equals));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,dimension,equals);
+int get hashCode {
+    return Object.hash(runtimeType,id,dimension,equals);
+}
 
 @override
 String toString() {
-  return 'InventoryLifecycleRule(id: $id, dimension: $dimension, equals: $equals)';
+    return 'InventoryLifecycleRule(id: $id, dimension: $dimension, equals: $equals)';
 }
 
 
@@ -2941,16 +2983,21 @@ $InventoryIntegrationCopyWith<InventoryIntegration> get copyWith => _$InventoryI
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryIntegration&&const DeepCollectionEquality().equals(other.reserve_on, reserve_on)&&const DeepCollectionEquality().equals(other.unreserve_on, unreserve_on)&&const DeepCollectionEquality().equals(other.consume_on, consume_on)&&const DeepCollectionEquality().equals(other.reserve_rules, reserve_rules)&&const DeepCollectionEquality().equals(other.unreserve_rules, unreserve_rules)&&const DeepCollectionEquality().equals(other.consume_rules, consume_rules)&&(identical(other.missing_bucket_policy, missing_bucket_policy) || other.missing_bucket_policy == missing_bucket_policy)&&(identical(other.allow_backorder, allow_backorder) || other.allow_backorder == allow_backorder)&&(identical(other.show_unavailable_on_frontend, show_unavailable_on_frontend) || other.show_unavailable_on_frontend == show_unavailable_on_frontend));
+  final _this = this as InventoryIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryIntegration&&const DeepCollectionEquality().equals(other.reserve_on, _this.reserve_on)&&const DeepCollectionEquality().equals(other.unreserve_on, _this.unreserve_on)&&const DeepCollectionEquality().equals(other.consume_on, _this.consume_on)&&const DeepCollectionEquality().equals(other.reserve_rules, _this.reserve_rules)&&const DeepCollectionEquality().equals(other.unreserve_rules, _this.unreserve_rules)&&const DeepCollectionEquality().equals(other.consume_rules, _this.consume_rules)&&(identical(other.missing_bucket_policy, _this.missing_bucket_policy) || other.missing_bucket_policy == _this.missing_bucket_policy)&&(identical(other.allow_backorder, _this.allow_backorder) || other.allow_backorder == _this.allow_backorder)&&(identical(other.show_unavailable_on_frontend, _this.show_unavailable_on_frontend) || other.show_unavailable_on_frontend == _this.show_unavailable_on_frontend));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(reserve_on),const DeepCollectionEquality().hash(unreserve_on),const DeepCollectionEquality().hash(consume_on),const DeepCollectionEquality().hash(reserve_rules),const DeepCollectionEquality().hash(unreserve_rules),const DeepCollectionEquality().hash(consume_rules),missing_bucket_policy,allow_backorder,show_unavailable_on_frontend);
+int get hashCode {
+  final _this = this as InventoryIntegration;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.reserve_on),const DeepCollectionEquality().hash(_this.unreserve_on),const DeepCollectionEquality().hash(_this.consume_on),const DeepCollectionEquality().hash(_this.reserve_rules),const DeepCollectionEquality().hash(_this.unreserve_rules),const DeepCollectionEquality().hash(_this.consume_rules),_this.missing_bucket_policy,_this.allow_backorder,_this.show_unavailable_on_frontend);
+}
 
 @override
 String toString() {
-  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on, reserve_rules: $reserve_rules, unreserve_rules: $unreserve_rules, consume_rules: $consume_rules, missing_bucket_policy: $missing_bucket_policy, allow_backorder: $allow_backorder, show_unavailable_on_frontend: $show_unavailable_on_frontend)';
+  final _this = this as InventoryIntegration;
+  return 'InventoryIntegration(reserve_on: ${_this.reserve_on}, unreserve_on: ${_this.unreserve_on}, consume_on: ${_this.consume_on}, reserve_rules: ${_this.reserve_rules}, unreserve_rules: ${_this.unreserve_rules}, consume_rules: ${_this.consume_rules}, missing_bucket_policy: ${_this.missing_bucket_policy}, allow_backorder: ${_this.allow_backorder}, show_unavailable_on_frontend: ${_this.show_unavailable_on_frontend})';
 }
 
 
@@ -3193,16 +3240,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryIntegration&&const DeepCollectionEquality().equals(other._reserve_on, _reserve_on)&&const DeepCollectionEquality().equals(other._unreserve_on, _unreserve_on)&&const DeepCollectionEquality().equals(other._consume_on, _consume_on)&&const DeepCollectionEquality().equals(other._reserve_rules, _reserve_rules)&&const DeepCollectionEquality().equals(other._unreserve_rules, _unreserve_rules)&&const DeepCollectionEquality().equals(other._consume_rules, _consume_rules)&&(identical(other.missing_bucket_policy, missing_bucket_policy) || other.missing_bucket_policy == missing_bucket_policy)&&(identical(other.allow_backorder, allow_backorder) || other.allow_backorder == allow_backorder)&&(identical(other.show_unavailable_on_frontend, show_unavailable_on_frontend) || other.show_unavailable_on_frontend == show_unavailable_on_frontend));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryIntegration&&const DeepCollectionEquality().equals(other.reserve_on, _reserve_on)&&const DeepCollectionEquality().equals(other.unreserve_on, _unreserve_on)&&const DeepCollectionEquality().equals(other.consume_on, _consume_on)&&const DeepCollectionEquality().equals(other.reserve_rules, _reserve_rules)&&const DeepCollectionEquality().equals(other.unreserve_rules, _unreserve_rules)&&const DeepCollectionEquality().equals(other.consume_rules, _consume_rules)&&(identical(other.missing_bucket_policy, missing_bucket_policy) || other.missing_bucket_policy == missing_bucket_policy)&&(identical(other.allow_backorder, allow_backorder) || other.allow_backorder == allow_backorder)&&(identical(other.show_unavailable_on_frontend, show_unavailable_on_frontend) || other.show_unavailable_on_frontend == show_unavailable_on_frontend));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_reserve_on),const DeepCollectionEquality().hash(_unreserve_on),const DeepCollectionEquality().hash(_consume_on),const DeepCollectionEquality().hash(_reserve_rules),const DeepCollectionEquality().hash(_unreserve_rules),const DeepCollectionEquality().hash(_consume_rules),missing_bucket_policy,allow_backorder,show_unavailable_on_frontend);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_reserve_on),const DeepCollectionEquality().hash(_unreserve_on),const DeepCollectionEquality().hash(_consume_on),const DeepCollectionEquality().hash(_reserve_rules),const DeepCollectionEquality().hash(_unreserve_rules),const DeepCollectionEquality().hash(_consume_rules),missing_bucket_policy,allow_backorder,show_unavailable_on_frontend);
+}
 
 @override
 String toString() {
-  return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on, reserve_rules: $reserve_rules, unreserve_rules: $unreserve_rules, consume_rules: $consume_rules, missing_bucket_policy: $missing_bucket_policy, allow_backorder: $allow_backorder, show_unavailable_on_frontend: $show_unavailable_on_frontend)';
+    return 'InventoryIntegration(reserve_on: $reserve_on, unreserve_on: $unreserve_on, consume_on: $consume_on, reserve_rules: $reserve_rules, unreserve_rules: $unreserve_rules, consume_rules: $consume_rules, missing_bucket_policy: $missing_bucket_policy, allow_backorder: $allow_backorder, show_unavailable_on_frontend: $show_unavailable_on_frontend)';
 }
 
 
@@ -3265,16 +3314,21 @@ $FinancePdfSettingsCopyWith<FinancePdfSettings> get copyWith => _$FinancePdfSett
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinancePdfSettings&&(identical(other.paperSize, paperSize) || other.paperSize == paperSize)&&(identical(other.showQrCode, showQrCode) || other.showQrCode == showQrCode)&&(identical(other.showLogo, showLogo) || other.showLogo == showLogo)&&(identical(other.showStoreContact, showStoreContact) || other.showStoreContact == showStoreContact)&&(identical(other.showSupplierDetails, showSupplierDetails) || other.showSupplierDetails == showSupplierDetails)&&(identical(other.showDocumentId, showDocumentId) || other.showDocumentId == showDocumentId)&&(identical(other.showFooter, showFooter) || other.showFooter == showFooter)&&(identical(other.showStatusBadge, showStatusBadge) || other.showStatusBadge == showStatusBadge)&&(identical(other.showSignatureLines, showSignatureLines) || other.showSignatureLines == showSignatureLines)&&(identical(other.showPaymentHistory, showPaymentHistory) || other.showPaymentHistory == showPaymentHistory)&&(identical(other.footerNote, footerNote) || other.footerNote == footerNote));
+  final _this = this as FinancePdfSettings;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinancePdfSettings&&(identical(other.paperSize, _this.paperSize) || other.paperSize == _this.paperSize)&&(identical(other.showQrCode, _this.showQrCode) || other.showQrCode == _this.showQrCode)&&(identical(other.showLogo, _this.showLogo) || other.showLogo == _this.showLogo)&&(identical(other.showStoreContact, _this.showStoreContact) || other.showStoreContact == _this.showStoreContact)&&(identical(other.showSupplierDetails, _this.showSupplierDetails) || other.showSupplierDetails == _this.showSupplierDetails)&&(identical(other.showDocumentId, _this.showDocumentId) || other.showDocumentId == _this.showDocumentId)&&(identical(other.showFooter, _this.showFooter) || other.showFooter == _this.showFooter)&&(identical(other.showStatusBadge, _this.showStatusBadge) || other.showStatusBadge == _this.showStatusBadge)&&(identical(other.showSignatureLines, _this.showSignatureLines) || other.showSignatureLines == _this.showSignatureLines)&&(identical(other.showPaymentHistory, _this.showPaymentHistory) || other.showPaymentHistory == _this.showPaymentHistory)&&(identical(other.footerNote, _this.footerNote) || other.footerNote == _this.footerNote));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,paperSize,showQrCode,showLogo,showStoreContact,showSupplierDetails,showDocumentId,showFooter,showStatusBadge,showSignatureLines,showPaymentHistory,footerNote);
+int get hashCode {
+  final _this = this as FinancePdfSettings;
+  return Object.hash(runtimeType,_this.paperSize,_this.showQrCode,_this.showLogo,_this.showStoreContact,_this.showSupplierDetails,_this.showDocumentId,_this.showFooter,_this.showStatusBadge,_this.showSignatureLines,_this.showPaymentHistory,_this.footerNote);
+}
 
 @override
 String toString() {
-  return 'FinancePdfSettings(paperSize: $paperSize, showQrCode: $showQrCode, showLogo: $showLogo, showStoreContact: $showStoreContact, showSupplierDetails: $showSupplierDetails, showDocumentId: $showDocumentId, showFooter: $showFooter, showStatusBadge: $showStatusBadge, showSignatureLines: $showSignatureLines, showPaymentHistory: $showPaymentHistory, footerNote: $footerNote)';
+  final _this = this as FinancePdfSettings;
+  return 'FinancePdfSettings(paperSize: ${_this.paperSize}, showQrCode: ${_this.showQrCode}, showLogo: ${_this.showLogo}, showStoreContact: ${_this.showStoreContact}, showSupplierDetails: ${_this.showSupplierDetails}, showDocumentId: ${_this.showDocumentId}, showFooter: ${_this.showFooter}, showStatusBadge: ${_this.showStatusBadge}, showSignatureLines: ${_this.showSignatureLines}, showPaymentHistory: ${_this.showPaymentHistory}, footerNote: ${_this.footerNote})';
 }
 
 
@@ -3484,16 +3538,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinancePdfSettings&&(identical(other.paperSize, paperSize) || other.paperSize == paperSize)&&(identical(other.showQrCode, showQrCode) || other.showQrCode == showQrCode)&&(identical(other.showLogo, showLogo) || other.showLogo == showLogo)&&(identical(other.showStoreContact, showStoreContact) || other.showStoreContact == showStoreContact)&&(identical(other.showSupplierDetails, showSupplierDetails) || other.showSupplierDetails == showSupplierDetails)&&(identical(other.showDocumentId, showDocumentId) || other.showDocumentId == showDocumentId)&&(identical(other.showFooter, showFooter) || other.showFooter == showFooter)&&(identical(other.showStatusBadge, showStatusBadge) || other.showStatusBadge == showStatusBadge)&&(identical(other.showSignatureLines, showSignatureLines) || other.showSignatureLines == showSignatureLines)&&(identical(other.showPaymentHistory, showPaymentHistory) || other.showPaymentHistory == showPaymentHistory)&&(identical(other.footerNote, footerNote) || other.footerNote == footerNote));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinancePdfSettings&&(identical(other.paperSize, paperSize) || other.paperSize == paperSize)&&(identical(other.showQrCode, showQrCode) || other.showQrCode == showQrCode)&&(identical(other.showLogo, showLogo) || other.showLogo == showLogo)&&(identical(other.showStoreContact, showStoreContact) || other.showStoreContact == showStoreContact)&&(identical(other.showSupplierDetails, showSupplierDetails) || other.showSupplierDetails == showSupplierDetails)&&(identical(other.showDocumentId, showDocumentId) || other.showDocumentId == showDocumentId)&&(identical(other.showFooter, showFooter) || other.showFooter == showFooter)&&(identical(other.showStatusBadge, showStatusBadge) || other.showStatusBadge == showStatusBadge)&&(identical(other.showSignatureLines, showSignatureLines) || other.showSignatureLines == showSignatureLines)&&(identical(other.showPaymentHistory, showPaymentHistory) || other.showPaymentHistory == showPaymentHistory)&&(identical(other.footerNote, footerNote) || other.footerNote == footerNote));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,paperSize,showQrCode,showLogo,showStoreContact,showSupplierDetails,showDocumentId,showFooter,showStatusBadge,showSignatureLines,showPaymentHistory,footerNote);
+int get hashCode {
+    return Object.hash(runtimeType,paperSize,showQrCode,showLogo,showStoreContact,showSupplierDetails,showDocumentId,showFooter,showStatusBadge,showSignatureLines,showPaymentHistory,footerNote);
+}
 
 @override
 String toString() {
-  return 'FinancePdfSettings(paperSize: $paperSize, showQrCode: $showQrCode, showLogo: $showLogo, showStoreContact: $showStoreContact, showSupplierDetails: $showSupplierDetails, showDocumentId: $showDocumentId, showFooter: $showFooter, showStatusBadge: $showStatusBadge, showSignatureLines: $showSignatureLines, showPaymentHistory: $showPaymentHistory, footerNote: $footerNote)';
+    return 'FinancePdfSettings(paperSize: $paperSize, showQrCode: $showQrCode, showLogo: $showLogo, showStoreContact: $showStoreContact, showSupplierDetails: $showSupplierDetails, showDocumentId: $showDocumentId, showFooter: $showFooter, showStatusBadge: $showStatusBadge, showSignatureLines: $showSignatureLines, showPaymentHistory: $showPaymentHistory, footerNote: $footerNote)';
 }
 
 
@@ -3559,16 +3615,21 @@ $FinanceIntegrationCopyWith<FinanceIntegration> get copyWith => _$FinanceIntegra
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinanceIntegration&&const DeepCollectionEquality().equals(other.recognize_on, recognize_on)&&(identical(other.pdf, pdf) || other.pdf == pdf)&&(identical(other.activated_at, activated_at) || other.activated_at == activated_at));
+  final _this = this as FinanceIntegration;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinanceIntegration&&const DeepCollectionEquality().equals(other.recognize_on, _this.recognize_on)&&(identical(other.pdf, _this.pdf) || other.pdf == _this.pdf)&&(identical(other.activated_at, _this.activated_at) || other.activated_at == _this.activated_at));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(recognize_on),pdf,activated_at);
+int get hashCode {
+  final _this = this as FinanceIntegration;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.recognize_on),_this.pdf,_this.activated_at);
+}
 
 @override
 String toString() {
-  return 'FinanceIntegration(recognize_on: $recognize_on, pdf: $pdf, activated_at: $activated_at)';
+  final _this = this as FinanceIntegration;
+  return 'FinanceIntegration(recognize_on: ${_this.recognize_on}, pdf: ${_this.pdf}, activated_at: ${_this.activated_at})';
 }
 
 
@@ -3778,16 +3839,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinanceIntegration&&const DeepCollectionEquality().equals(other._recognize_on, _recognize_on)&&(identical(other.pdf, pdf) || other.pdf == pdf)&&(identical(other.activated_at, activated_at) || other.activated_at == activated_at));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinanceIntegration&&const DeepCollectionEquality().equals(other.recognize_on, _recognize_on)&&(identical(other.pdf, pdf) || other.pdf == pdf)&&(identical(other.activated_at, activated_at) || other.activated_at == activated_at));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_recognize_on),pdf,activated_at);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_recognize_on),pdf,activated_at);
+}
 
 @override
 String toString() {
-  return 'FinanceIntegration(recognize_on: $recognize_on, pdf: $pdf, activated_at: $activated_at)';
+    return 'FinanceIntegration(recognize_on: $recognize_on, pdf: $pdf, activated_at: $activated_at)';
 }
 
 
@@ -3860,16 +3923,21 @@ $ConfirmationQueueConfigCopyWith<ConfirmationQueueConfig> get copyWith => _$Conf
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConfirmationQueueConfig&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.draftDelayMinutes, draftDelayMinutes) || other.draftDelayMinutes == draftDelayMinutes)&&(identical(other.skipDeferMinutes, skipDeferMinutes) || other.skipDeferMinutes == skipDeferMinutes)&&(identical(other.historyActionMinutes, historyActionMinutes) || other.historyActionMinutes == historyActionMinutes));
+  final _this = this as ConfirmationQueueConfig;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConfirmationQueueConfig&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&(identical(other.draftDelayMinutes, _this.draftDelayMinutes) || other.draftDelayMinutes == _this.draftDelayMinutes)&&(identical(other.skipDeferMinutes, _this.skipDeferMinutes) || other.skipDeferMinutes == _this.skipDeferMinutes)&&(identical(other.historyActionMinutes, _this.historyActionMinutes) || other.historyActionMinutes == _this.historyActionMinutes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,draftDelayMinutes,skipDeferMinutes,historyActionMinutes);
+int get hashCode {
+  final _this = this as ConfirmationQueueConfig;
+  return Object.hash(runtimeType,_this.enabled,_this.draftDelayMinutes,_this.skipDeferMinutes,_this.historyActionMinutes);
+}
 
 @override
 String toString() {
-  return 'ConfirmationQueueConfig(enabled: $enabled, draftDelayMinutes: $draftDelayMinutes, skipDeferMinutes: $skipDeferMinutes, historyActionMinutes: $historyActionMinutes)';
+  final _this = this as ConfirmationQueueConfig;
+  return 'ConfirmationQueueConfig(enabled: ${_this.enabled}, draftDelayMinutes: ${_this.draftDelayMinutes}, skipDeferMinutes: ${_this.skipDeferMinutes}, historyActionMinutes: ${_this.historyActionMinutes})';
 }
 
 
@@ -4072,16 +4140,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConfirmationQueueConfig&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.draftDelayMinutes, draftDelayMinutes) || other.draftDelayMinutes == draftDelayMinutes)&&(identical(other.skipDeferMinutes, skipDeferMinutes) || other.skipDeferMinutes == skipDeferMinutes)&&(identical(other.historyActionMinutes, historyActionMinutes) || other.historyActionMinutes == historyActionMinutes));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConfirmationQueueConfig&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.draftDelayMinutes, draftDelayMinutes) || other.draftDelayMinutes == draftDelayMinutes)&&(identical(other.skipDeferMinutes, skipDeferMinutes) || other.skipDeferMinutes == skipDeferMinutes)&&(identical(other.historyActionMinutes, historyActionMinutes) || other.historyActionMinutes == historyActionMinutes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,draftDelayMinutes,skipDeferMinutes,historyActionMinutes);
+int get hashCode {
+    return Object.hash(runtimeType,enabled,draftDelayMinutes,skipDeferMinutes,historyActionMinutes);
+}
 
 @override
 String toString() {
-  return 'ConfirmationQueueConfig(enabled: $enabled, draftDelayMinutes: $draftDelayMinutes, skipDeferMinutes: $skipDeferMinutes, historyActionMinutes: $historyActionMinutes)';
+    return 'ConfirmationQueueConfig(enabled: $enabled, draftDelayMinutes: $draftDelayMinutes, skipDeferMinutes: $skipDeferMinutes, historyActionMinutes: $historyActionMinutes)';
 }
 
 
@@ -4159,16 +4229,21 @@ $CustomStatusMappingCopyWith<CustomStatusMapping> get copyWith => _$CustomStatus
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomStatusMapping&&(identical(other.name, name) || other.name == name)&&(identical(other.code, code) || other.code == code)&&(identical(other.color, color) || other.color == color)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.status, status) || other.status == status)&&(identical(other.deliveryStatus, deliveryStatus) || other.deliveryStatus == deliveryStatus)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&const DeepCollectionEquality().equals(other.next, next)&&(identical(other.snoozeMinutes, snoozeMinutes) || other.snoozeMinutes == snoozeMinutes)&&const DeepCollectionEquality().equals(other.reasons, reasons)&&(identical(other.allowOtherReason, allowOtherReason) || other.allowOtherReason == allowOtherReason)&&(identical(other.requiresReason, requiresReason) || other.requiresReason == requiresReason)&&(identical(other.queueEligible, queueEligible) || other.queueEligible == queueEligible));
+  final _this = this as CustomStatusMapping;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomStatusMapping&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.deliveryStatus, _this.deliveryStatus) || other.deliveryStatus == _this.deliveryStatus)&&(identical(other.paymentStatus, _this.paymentStatus) || other.paymentStatus == _this.paymentStatus)&&const DeepCollectionEquality().equals(other.next, _this.next)&&(identical(other.snoozeMinutes, _this.snoozeMinutes) || other.snoozeMinutes == _this.snoozeMinutes)&&const DeepCollectionEquality().equals(other.reasons, _this.reasons)&&(identical(other.allowOtherReason, _this.allowOtherReason) || other.allowOtherReason == _this.allowOtherReason)&&(identical(other.requiresReason, _this.requiresReason) || other.requiresReason == _this.requiresReason)&&(identical(other.queueEligible, _this.queueEligible) || other.queueEligible == _this.queueEligible));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,code,color,enabled,status,deliveryStatus,paymentStatus,const DeepCollectionEquality().hash(next),snoozeMinutes,const DeepCollectionEquality().hash(reasons),allowOtherReason,requiresReason,queueEligible);
+int get hashCode {
+  final _this = this as CustomStatusMapping;
+  return Object.hash(runtimeType,_this.name,_this.code,_this.color,_this.enabled,_this.status,_this.deliveryStatus,_this.paymentStatus,const DeepCollectionEquality().hash(_this.next),_this.snoozeMinutes,const DeepCollectionEquality().hash(_this.reasons),_this.allowOtherReason,_this.requiresReason,_this.queueEligible);
+}
 
 @override
 String toString() {
-  return 'CustomStatusMapping(name: $name, code: $code, color: $color, enabled: $enabled, status: $status, deliveryStatus: $deliveryStatus, paymentStatus: $paymentStatus, next: $next, snoozeMinutes: $snoozeMinutes, reasons: $reasons, allowOtherReason: $allowOtherReason, requiresReason: $requiresReason, queueEligible: $queueEligible)';
+  final _this = this as CustomStatusMapping;
+  return 'CustomStatusMapping(name: ${_this.name}, code: ${_this.code}, color: ${_this.color}, enabled: ${_this.enabled}, status: ${_this.status}, deliveryStatus: ${_this.deliveryStatus}, paymentStatus: ${_this.paymentStatus}, next: ${_this.next}, snoozeMinutes: ${_this.snoozeMinutes}, reasons: ${_this.reasons}, allowOtherReason: ${_this.allowOtherReason}, requiresReason: ${_this.requiresReason}, queueEligible: ${_this.queueEligible})';
 }
 
 
@@ -4416,16 +4491,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomStatusMapping&&(identical(other.name, name) || other.name == name)&&(identical(other.code, code) || other.code == code)&&(identical(other.color, color) || other.color == color)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.status, status) || other.status == status)&&(identical(other.deliveryStatus, deliveryStatus) || other.deliveryStatus == deliveryStatus)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&const DeepCollectionEquality().equals(other._next, _next)&&(identical(other.snoozeMinutes, snoozeMinutes) || other.snoozeMinutes == snoozeMinutes)&&const DeepCollectionEquality().equals(other._reasons, _reasons)&&(identical(other.allowOtherReason, allowOtherReason) || other.allowOtherReason == allowOtherReason)&&(identical(other.requiresReason, requiresReason) || other.requiresReason == requiresReason)&&(identical(other.queueEligible, queueEligible) || other.queueEligible == queueEligible));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomStatusMapping&&(identical(other.name, name) || other.name == name)&&(identical(other.code, code) || other.code == code)&&(identical(other.color, color) || other.color == color)&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.status, status) || other.status == status)&&(identical(other.deliveryStatus, deliveryStatus) || other.deliveryStatus == deliveryStatus)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&const DeepCollectionEquality().equals(other.next, _next)&&(identical(other.snoozeMinutes, snoozeMinutes) || other.snoozeMinutes == snoozeMinutes)&&const DeepCollectionEquality().equals(other.reasons, _reasons)&&(identical(other.allowOtherReason, allowOtherReason) || other.allowOtherReason == allowOtherReason)&&(identical(other.requiresReason, requiresReason) || other.requiresReason == requiresReason)&&(identical(other.queueEligible, queueEligible) || other.queueEligible == queueEligible));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,code,color,enabled,status,deliveryStatus,paymentStatus,const DeepCollectionEquality().hash(_next),snoozeMinutes,const DeepCollectionEquality().hash(_reasons),allowOtherReason,requiresReason,queueEligible);
+int get hashCode {
+    return Object.hash(runtimeType,name,code,color,enabled,status,deliveryStatus,paymentStatus,const DeepCollectionEquality().hash(_next),snoozeMinutes,const DeepCollectionEquality().hash(_reasons),allowOtherReason,requiresReason,queueEligible);
+}
 
 @override
 String toString() {
-  return 'CustomStatusMapping(name: $name, code: $code, color: $color, enabled: $enabled, status: $status, deliveryStatus: $deliveryStatus, paymentStatus: $paymentStatus, next: $next, snoozeMinutes: $snoozeMinutes, reasons: $reasons, allowOtherReason: $allowOtherReason, requiresReason: $requiresReason, queueEligible: $queueEligible)';
+    return 'CustomStatusMapping(name: $name, code: $code, color: $color, enabled: $enabled, status: $status, deliveryStatus: $deliveryStatus, paymentStatus: $paymentStatus, next: $next, snoozeMinutes: $snoozeMinutes, reasons: $reasons, allowOtherReason: $allowOtherReason, requiresReason: $requiresReason, queueEligible: $queueEligible)';
 }
 
 
@@ -4492,16 +4569,21 @@ $StoreCurrencyConfigCopyWith<StoreCurrencyConfig> get copyWith => _$StoreCurrenc
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreCurrencyConfig&&(identical(other.code, code) || other.code == code)&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.precision, precision) || other.precision == precision)&&(identical(other.rate, rate) || other.rate == rate));
+  final _this = this as StoreCurrencyConfig;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreCurrencyConfig&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.symbol, _this.symbol) || other.symbol == _this.symbol)&&(identical(other.precision, _this.precision) || other.precision == _this.precision)&&(identical(other.rate, _this.rate) || other.rate == _this.rate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,symbol,precision,rate);
+int get hashCode {
+  final _this = this as StoreCurrencyConfig;
+  return Object.hash(runtimeType,_this.code,_this.symbol,_this.precision,_this.rate);
+}
 
 @override
 String toString() {
-  return 'StoreCurrencyConfig(code: $code, symbol: $symbol, precision: $precision, rate: $rate)';
+  final _this = this as StoreCurrencyConfig;
+  return 'StoreCurrencyConfig(code: ${_this.code}, symbol: ${_this.symbol}, precision: ${_this.precision}, rate: ${_this.rate})';
 }
 
 
@@ -4697,16 +4779,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreCurrencyConfig&&(identical(other.code, code) || other.code == code)&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.precision, precision) || other.precision == precision)&&(identical(other.rate, rate) || other.rate == rate));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreCurrencyConfig&&(identical(other.code, code) || other.code == code)&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.precision, precision) || other.precision == precision)&&(identical(other.rate, rate) || other.rate == rate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,symbol,precision,rate);
+int get hashCode {
+    return Object.hash(runtimeType,code,symbol,precision,rate);
+}
 
 @override
 String toString() {
-  return 'StoreCurrencyConfig(code: $code, symbol: $symbol, precision: $precision, rate: $rate)';
+    return 'StoreCurrencyConfig(code: $code, symbol: $symbol, precision: $precision, rate: $rate)';
 }
 
 
@@ -4764,16 +4848,21 @@ $StoreLanguageConfigCopyWith<StoreLanguageConfig> get copyWith => _$StoreLanguag
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreLanguageConfig&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.nativeName, nativeName) || other.nativeName == nativeName)&&(identical(other.rtl, rtl) || other.rtl == rtl));
+  final _this = this as StoreLanguageConfig;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreLanguageConfig&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.nativeName, _this.nativeName) || other.nativeName == _this.nativeName)&&(identical(other.rtl, _this.rtl) || other.rtl == _this.rtl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,name,nativeName,rtl);
+int get hashCode {
+  final _this = this as StoreLanguageConfig;
+  return Object.hash(runtimeType,_this.code,_this.name,_this.nativeName,_this.rtl);
+}
 
 @override
 String toString() {
-  return 'StoreLanguageConfig(code: $code, name: $name, nativeName: $nativeName, rtl: $rtl)';
+  final _this = this as StoreLanguageConfig;
+  return 'StoreLanguageConfig(code: ${_this.code}, name: ${_this.name}, nativeName: ${_this.nativeName}, rtl: ${_this.rtl})';
 }
 
 
@@ -4969,16 +5058,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreLanguageConfig&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.nativeName, nativeName) || other.nativeName == nativeName)&&(identical(other.rtl, rtl) || other.rtl == rtl));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreLanguageConfig&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.nativeName, nativeName) || other.nativeName == nativeName)&&(identical(other.rtl, rtl) || other.rtl == rtl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,name,nativeName,rtl);
+int get hashCode {
+    return Object.hash(runtimeType,code,name,nativeName,rtl);
+}
 
 @override
 String toString() {
-  return 'StoreLanguageConfig(code: $code, name: $name, nativeName: $nativeName, rtl: $rtl)';
+    return 'StoreLanguageConfig(code: $code, name: $name, nativeName: $nativeName, rtl: $rtl)';
 }
 
 
@@ -5036,16 +5127,21 @@ $StoreCountryConfigCopyWith<StoreCountryConfig> get copyWith => _$StoreCountryCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreCountryConfig&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.nativeName, nativeName) || other.nativeName == nativeName));
+  final _this = this as StoreCountryConfig;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreCountryConfig&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.nativeName, _this.nativeName) || other.nativeName == _this.nativeName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,name,nativeName);
+int get hashCode {
+  final _this = this as StoreCountryConfig;
+  return Object.hash(runtimeType,_this.code,_this.name,_this.nativeName);
+}
 
 @override
 String toString() {
-  return 'StoreCountryConfig(code: $code, name: $name, nativeName: $nativeName)';
+  final _this = this as StoreCountryConfig;
+  return 'StoreCountryConfig(code: ${_this.code}, name: ${_this.name}, nativeName: ${_this.nativeName})';
 }
 
 
@@ -5239,16 +5335,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreCountryConfig&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.nativeName, nativeName) || other.nativeName == nativeName));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreCountryConfig&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.nativeName, nativeName) || other.nativeName == nativeName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,name,nativeName);
+int get hashCode {
+    return Object.hash(runtimeType,code,name,nativeName);
+}
 
 @override
 String toString() {
-  return 'StoreCountryConfig(code: $code, name: $name, nativeName: $nativeName)';
+    return 'StoreCountryConfig(code: $code, name: $name, nativeName: $nativeName)';
 }
 
 

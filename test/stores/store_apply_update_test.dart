@@ -44,20 +44,20 @@ void main() {
       expect(updated.domain, isNull);
     });
 
-    test('fromJson merge with toJson still fails for nested banner (regression guard)', () {
+    test('fromJson merge with toJson works for nested banner (explicit_to_json)', () {
       final store = _minimalStore(
         banner: StoreBanner(title: 'Banner', enabled: true),
       );
 
-      expect(
-        () => Store.fromJson({
-          ...store.toJson(),
-          ...StoreUpdate(
-            banner: StoreBanner(title: 'Patched', enabled: false),
-          ).toUpdateJson(),
-        }),
-        throwsA(isA<TypeError>()),
-      );
+      final merged = Store.fromJson({
+        ...store.toJson(),
+        ...StoreUpdate(
+          banner: StoreBanner(title: 'Patched', enabled: false),
+        ).toUpdateJson(),
+      });
+      expect(merged.banner?.title, 'Patched');
+      expect(merged.banner?.enabled, isFalse);
+      expect(merged.name, 'My Store');
     });
   });
 }

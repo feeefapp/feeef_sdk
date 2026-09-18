@@ -33,16 +33,21 @@ $ZrexpressParcelCreateResponseCopyWith<ZrexpressParcelCreateResponse> get copyWi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressParcelCreateResponse&&(identical(other.parcelId, parcelId) || other.parcelId == parcelId)&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.success, success) || other.success == success));
+  final _this = this as ZrexpressParcelCreateResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressParcelCreateResponse&&(identical(other.parcelId, _this.parcelId) || other.parcelId == _this.parcelId)&&(identical(other.trackingNumber, _this.trackingNumber) || other.trackingNumber == _this.trackingNumber)&&(identical(other.externalId, _this.externalId) || other.externalId == _this.externalId)&&(identical(other.success, _this.success) || other.success == _this.success));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,parcelId,trackingNumber,externalId,success);
+int get hashCode {
+  final _this = this as ZrexpressParcelCreateResponse;
+  return Object.hash(runtimeType,_this.parcelId,_this.trackingNumber,_this.externalId,_this.success);
+}
 
 @override
 String toString() {
-  return 'ZrexpressParcelCreateResponse(parcelId: $parcelId, trackingNumber: $trackingNumber, externalId: $externalId, success: $success)';
+  final _this = this as ZrexpressParcelCreateResponse;
+  return 'ZrexpressParcelCreateResponse(parcelId: ${_this.parcelId}, trackingNumber: ${_this.trackingNumber}, externalId: ${_this.externalId}, success: ${_this.success})';
 }
 
 
@@ -242,16 +247,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressParcelCreateResponse&&(identical(other.parcelId, parcelId) || other.parcelId == parcelId)&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.success, success) || other.success == success));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressParcelCreateResponse&&(identical(other.parcelId, parcelId) || other.parcelId == parcelId)&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.success, success) || other.success == success));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,parcelId,trackingNumber,externalId,success);
+int get hashCode {
+    return Object.hash(runtimeType,parcelId,trackingNumber,externalId,success);
+}
 
 @override
 String toString() {
-  return 'ZrexpressParcelCreateResponse(parcelId: $parcelId, trackingNumber: $trackingNumber, externalId: $externalId, success: $success)';
+    return 'ZrexpressParcelCreateResponse(parcelId: $parcelId, trackingNumber: $trackingNumber, externalId: $externalId, success: $success)';
 }
 
 
@@ -314,16 +321,21 @@ $ZrexpressBulkResponseCopyWith<ZrexpressBulkResponse> get copyWith => _$Zrexpres
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressBulkResponse&&(identical(other.totalRequested, totalRequested) || other.totalRequested == totalRequested)&&(identical(other.successCount, successCount) || other.successCount == successCount)&&(identical(other.failureCount, failureCount) || other.failureCount == failureCount)&&const DeepCollectionEquality().equals(other.successes, successes)&&const DeepCollectionEquality().equals(other.failures, failures));
+  final _this = this as ZrexpressBulkResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressBulkResponse&&(identical(other.totalRequested, _this.totalRequested) || other.totalRequested == _this.totalRequested)&&(identical(other.successCount, _this.successCount) || other.successCount == _this.successCount)&&(identical(other.failureCount, _this.failureCount) || other.failureCount == _this.failureCount)&&const DeepCollectionEquality().equals(other.successes, _this.successes)&&const DeepCollectionEquality().equals(other.failures, _this.failures));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,totalRequested,successCount,failureCount,const DeepCollectionEquality().hash(successes),const DeepCollectionEquality().hash(failures));
+int get hashCode {
+  final _this = this as ZrexpressBulkResponse;
+  return Object.hash(runtimeType,_this.totalRequested,_this.successCount,_this.failureCount,const DeepCollectionEquality().hash(_this.successes),const DeepCollectionEquality().hash(_this.failures));
+}
 
 @override
 String toString() {
-  return 'ZrexpressBulkResponse(totalRequested: $totalRequested, successCount: $successCount, failureCount: $failureCount, successes: $successes, failures: $failures)';
+  final _this = this as ZrexpressBulkResponse;
+  return 'ZrexpressBulkResponse(totalRequested: ${_this.totalRequested}, successCount: ${_this.successCount}, failureCount: ${_this.failureCount}, successes: ${_this.successes}, failures: ${_this.failures})';
 }
 
 
@@ -540,16 +552,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressBulkResponse&&(identical(other.totalRequested, totalRequested) || other.totalRequested == totalRequested)&&(identical(other.successCount, successCount) || other.successCount == successCount)&&(identical(other.failureCount, failureCount) || other.failureCount == failureCount)&&const DeepCollectionEquality().equals(other._successes, _successes)&&const DeepCollectionEquality().equals(other._failures, _failures));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressBulkResponse&&(identical(other.totalRequested, totalRequested) || other.totalRequested == totalRequested)&&(identical(other.successCount, successCount) || other.successCount == successCount)&&(identical(other.failureCount, failureCount) || other.failureCount == failureCount)&&const DeepCollectionEquality().equals(other.successes, _successes)&&const DeepCollectionEquality().equals(other.failures, _failures));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,totalRequested,successCount,failureCount,const DeepCollectionEquality().hash(_successes),const DeepCollectionEquality().hash(_failures));
+int get hashCode {
+    return Object.hash(runtimeType,totalRequested,successCount,failureCount,const DeepCollectionEquality().hash(_successes),const DeepCollectionEquality().hash(_failures));
+}
 
 @override
 String toString() {
-  return 'ZrexpressBulkResponse(totalRequested: $totalRequested, successCount: $successCount, failureCount: $failureCount, successes: $successes, failures: $failures)';
+    return 'ZrexpressBulkResponse(totalRequested: $totalRequested, successCount: $successCount, failureCount: $failureCount, successes: $successes, failures: $failures)';
 }
 
 
@@ -612,16 +626,21 @@ $ZrexpressBulkSuccessCopyWith<ZrexpressBulkSuccess> get copyWith => _$ZrexpressB
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressBulkSuccess&&(identical(other.index, index) || other.index == index)&&(identical(other.parcelId, parcelId) || other.parcelId == parcelId)&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.externalId, externalId) || other.externalId == externalId));
+  final _this = this as ZrexpressBulkSuccess;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressBulkSuccess&&(identical(other.index, _this.index) || other.index == _this.index)&&(identical(other.parcelId, _this.parcelId) || other.parcelId == _this.parcelId)&&(identical(other.trackingNumber, _this.trackingNumber) || other.trackingNumber == _this.trackingNumber)&&(identical(other.externalId, _this.externalId) || other.externalId == _this.externalId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,parcelId,trackingNumber,externalId);
+int get hashCode {
+  final _this = this as ZrexpressBulkSuccess;
+  return Object.hash(runtimeType,_this.index,_this.parcelId,_this.trackingNumber,_this.externalId);
+}
 
 @override
 String toString() {
-  return 'ZrexpressBulkSuccess(index: $index, parcelId: $parcelId, trackingNumber: $trackingNumber, externalId: $externalId)';
+  final _this = this as ZrexpressBulkSuccess;
+  return 'ZrexpressBulkSuccess(index: ${_this.index}, parcelId: ${_this.parcelId}, trackingNumber: ${_this.trackingNumber}, externalId: ${_this.externalId})';
 }
 
 
@@ -821,16 +840,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressBulkSuccess&&(identical(other.index, index) || other.index == index)&&(identical(other.parcelId, parcelId) || other.parcelId == parcelId)&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.externalId, externalId) || other.externalId == externalId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressBulkSuccess&&(identical(other.index, index) || other.index == index)&&(identical(other.parcelId, parcelId) || other.parcelId == parcelId)&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.externalId, externalId) || other.externalId == externalId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,parcelId,trackingNumber,externalId);
+int get hashCode {
+    return Object.hash(runtimeType,index,parcelId,trackingNumber,externalId);
+}
 
 @override
 String toString() {
-  return 'ZrexpressBulkSuccess(index: $index, parcelId: $parcelId, trackingNumber: $trackingNumber, externalId: $externalId)';
+    return 'ZrexpressBulkSuccess(index: $index, parcelId: $parcelId, trackingNumber: $trackingNumber, externalId: $externalId)';
 }
 
 
@@ -892,16 +913,21 @@ $ZrexpressBulkFailureCopyWith<ZrexpressBulkFailure> get copyWith => _$ZrexpressB
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressBulkFailure&&(identical(other.index, index) || other.index == index)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.error, error) || other.error == error)&&const DeepCollectionEquality().equals(other.details, details));
+  final _this = this as ZrexpressBulkFailure;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressBulkFailure&&(identical(other.index, _this.index) || other.index == _this.index)&&(identical(other.externalId, _this.externalId) || other.externalId == _this.externalId)&&(identical(other.error, _this.error) || other.error == _this.error)&&const DeepCollectionEquality().equals(other.details, _this.details));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,externalId,error,const DeepCollectionEquality().hash(details));
+int get hashCode {
+  final _this = this as ZrexpressBulkFailure;
+  return Object.hash(runtimeType,_this.index,_this.externalId,_this.error,const DeepCollectionEquality().hash(_this.details));
+}
 
 @override
 String toString() {
-  return 'ZrexpressBulkFailure(index: $index, externalId: $externalId, error: $error, details: $details)';
+  final _this = this as ZrexpressBulkFailure;
+  return 'ZrexpressBulkFailure(index: ${_this.index}, externalId: ${_this.externalId}, error: ${_this.error}, details: ${_this.details})';
 }
 
 
@@ -1110,16 +1136,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressBulkFailure&&(identical(other.index, index) || other.index == index)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.error, error) || other.error == error)&&const DeepCollectionEquality().equals(other._details, _details));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressBulkFailure&&(identical(other.index, index) || other.index == index)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.error, error) || other.error == error)&&const DeepCollectionEquality().equals(other.details, _details));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,externalId,error,const DeepCollectionEquality().hash(_details));
+int get hashCode {
+    return Object.hash(runtimeType,index,externalId,error,const DeepCollectionEquality().hash(_details));
+}
 
 @override
 String toString() {
-  return 'ZrexpressBulkFailure(index: $index, externalId: $externalId, error: $error, details: $details)';
+    return 'ZrexpressBulkFailure(index: $index, externalId: $externalId, error: $error, details: $details)';
 }
 
 
@@ -1179,16 +1207,21 @@ $ZrexpressLabelsResponseCopyWith<ZrexpressLabelsResponse> get copyWith => _$Zrex
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressLabelsResponse&&(identical(other.fileUrl, fileUrl) || other.fileUrl == fileUrl)&&const DeepCollectionEquality().equals(other.failedTrackingNumbers, failedTrackingNumbers));
+  final _this = this as ZrexpressLabelsResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressLabelsResponse&&(identical(other.fileUrl, _this.fileUrl) || other.fileUrl == _this.fileUrl)&&const DeepCollectionEquality().equals(other.failedTrackingNumbers, _this.failedTrackingNumbers));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,fileUrl,const DeepCollectionEquality().hash(failedTrackingNumbers));
+int get hashCode {
+  final _this = this as ZrexpressLabelsResponse;
+  return Object.hash(runtimeType,_this.fileUrl,const DeepCollectionEquality().hash(_this.failedTrackingNumbers));
+}
 
 @override
 String toString() {
-  return 'ZrexpressLabelsResponse(fileUrl: $fileUrl, failedTrackingNumbers: $failedTrackingNumbers)';
+  final _this = this as ZrexpressLabelsResponse;
+  return 'ZrexpressLabelsResponse(fileUrl: ${_this.fileUrl}, failedTrackingNumbers: ${_this.failedTrackingNumbers})';
 }
 
 
@@ -1389,16 +1422,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressLabelsResponse&&(identical(other.fileUrl, fileUrl) || other.fileUrl == fileUrl)&&const DeepCollectionEquality().equals(other._failedTrackingNumbers, _failedTrackingNumbers));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressLabelsResponse&&(identical(other.fileUrl, fileUrl) || other.fileUrl == fileUrl)&&const DeepCollectionEquality().equals(other.failedTrackingNumbers, _failedTrackingNumbers));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,fileUrl,const DeepCollectionEquality().hash(_failedTrackingNumbers));
+int get hashCode {
+    return Object.hash(runtimeType,fileUrl,const DeepCollectionEquality().hash(_failedTrackingNumbers));
+}
 
 @override
 String toString() {
-  return 'ZrexpressLabelsResponse(fileUrl: $fileUrl, failedTrackingNumbers: $failedTrackingNumbers)';
+    return 'ZrexpressLabelsResponse(fileUrl: $fileUrl, failedTrackingNumbers: $failedTrackingNumbers)';
 }
 
 
@@ -1456,16 +1491,21 @@ $ZrexpressIndividualLabelCopyWith<ZrexpressIndividualLabel> get copyWith => _$Zr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressIndividualLabel&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.fileUrl, fileUrl) || other.fileUrl == fileUrl));
+  final _this = this as ZrexpressIndividualLabel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressIndividualLabel&&(identical(other.trackingNumber, _this.trackingNumber) || other.trackingNumber == _this.trackingNumber)&&(identical(other.fileUrl, _this.fileUrl) || other.fileUrl == _this.fileUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,trackingNumber,fileUrl);
+int get hashCode {
+  final _this = this as ZrexpressIndividualLabel;
+  return Object.hash(runtimeType,_this.trackingNumber,_this.fileUrl);
+}
 
 @override
 String toString() {
-  return 'ZrexpressIndividualLabel(trackingNumber: $trackingNumber, fileUrl: $fileUrl)';
+  final _this = this as ZrexpressIndividualLabel;
+  return 'ZrexpressIndividualLabel(trackingNumber: ${_this.trackingNumber}, fileUrl: ${_this.fileUrl})';
 }
 
 
@@ -1659,16 +1699,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressIndividualLabel&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.fileUrl, fileUrl) || other.fileUrl == fileUrl));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressIndividualLabel&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.fileUrl, fileUrl) || other.fileUrl == fileUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,trackingNumber,fileUrl);
+int get hashCode {
+    return Object.hash(runtimeType,trackingNumber,fileUrl);
+}
 
 @override
 String toString() {
-  return 'ZrexpressIndividualLabel(trackingNumber: $trackingNumber, fileUrl: $fileUrl)';
+    return 'ZrexpressIndividualLabel(trackingNumber: $trackingNumber, fileUrl: $fileUrl)';
 }
 
 
@@ -1726,16 +1768,21 @@ $ZrexpressIndividualLabelsResponseCopyWith<ZrexpressIndividualLabelsResponse> ge
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressIndividualLabelsResponse&&const DeepCollectionEquality().equals(other.parcelLabelFiles, parcelLabelFiles)&&const DeepCollectionEquality().equals(other.failedTrackingNumbers, failedTrackingNumbers));
+  final _this = this as ZrexpressIndividualLabelsResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZrexpressIndividualLabelsResponse&&const DeepCollectionEquality().equals(other.parcelLabelFiles, _this.parcelLabelFiles)&&const DeepCollectionEquality().equals(other.failedTrackingNumbers, _this.failedTrackingNumbers));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(parcelLabelFiles),const DeepCollectionEquality().hash(failedTrackingNumbers));
+int get hashCode {
+  final _this = this as ZrexpressIndividualLabelsResponse;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.parcelLabelFiles),const DeepCollectionEquality().hash(_this.failedTrackingNumbers));
+}
 
 @override
 String toString() {
-  return 'ZrexpressIndividualLabelsResponse(parcelLabelFiles: $parcelLabelFiles, failedTrackingNumbers: $failedTrackingNumbers)';
+  final _this = this as ZrexpressIndividualLabelsResponse;
+  return 'ZrexpressIndividualLabelsResponse(parcelLabelFiles: ${_this.parcelLabelFiles}, failedTrackingNumbers: ${_this.failedTrackingNumbers})';
 }
 
 
@@ -1943,16 +1990,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressIndividualLabelsResponse&&const DeepCollectionEquality().equals(other._parcelLabelFiles, _parcelLabelFiles)&&const DeepCollectionEquality().equals(other._failedTrackingNumbers, _failedTrackingNumbers));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZrexpressIndividualLabelsResponse&&const DeepCollectionEquality().equals(other.parcelLabelFiles, _parcelLabelFiles)&&const DeepCollectionEquality().equals(other.failedTrackingNumbers, _failedTrackingNumbers));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_parcelLabelFiles),const DeepCollectionEquality().hash(_failedTrackingNumbers));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_parcelLabelFiles),const DeepCollectionEquality().hash(_failedTrackingNumbers));
+}
 
 @override
 String toString() {
-  return 'ZrexpressIndividualLabelsResponse(parcelLabelFiles: $parcelLabelFiles, failedTrackingNumbers: $failedTrackingNumbers)';
+    return 'ZrexpressIndividualLabelsResponse(parcelLabelFiles: $parcelLabelFiles, failedTrackingNumbers: $failedTrackingNumbers)';
 }
 
 

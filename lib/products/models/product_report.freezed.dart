@@ -34,16 +34,21 @@ $ProductReportCopyWith<ProductReport> get copyWith => _$ProductReportCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductReport&&(identical(other.today, today) || other.today == today)&&(identical(other.yesterday, yesterday) || other.yesterday == yesterday)&&(identical(other.week, week) || other.week == week)&&(identical(other.month, month) || other.month == month)&&(identical(other.totals, totals) || other.totals == totals));
+  final _this = this as ProductReport;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductReport&&(identical(other.today, _this.today) || other.today == _this.today)&&(identical(other.yesterday, _this.yesterday) || other.yesterday == _this.yesterday)&&(identical(other.week, _this.week) || other.week == _this.week)&&(identical(other.month, _this.month) || other.month == _this.month)&&(identical(other.totals, _this.totals) || other.totals == _this.totals));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,today,yesterday,week,month,totals);
+int get hashCode {
+  final _this = this as ProductReport;
+  return Object.hash(runtimeType,_this.today,_this.yesterday,_this.week,_this.month,_this.totals);
+}
 
 @override
 String toString() {
-  return 'ProductReport(today: $today, yesterday: $yesterday, week: $week, month: $month, totals: $totals)';
+  final _this = this as ProductReport;
+  return 'ProductReport(today: ${_this.today}, yesterday: ${_this.yesterday}, week: ${_this.week}, month: ${_this.month}, totals: ${_this.totals})';
 }
 
 
@@ -291,16 +296,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductReport&&(identical(other.today, today) || other.today == today)&&(identical(other.yesterday, yesterday) || other.yesterday == yesterday)&&(identical(other.week, week) || other.week == week)&&(identical(other.month, month) || other.month == month)&&(identical(other.totals, totals) || other.totals == totals));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductReport&&(identical(other.today, today) || other.today == today)&&(identical(other.yesterday, yesterday) || other.yesterday == yesterday)&&(identical(other.week, week) || other.week == week)&&(identical(other.month, month) || other.month == month)&&(identical(other.totals, totals) || other.totals == totals));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,today,yesterday,week,month,totals);
+int get hashCode {
+    return Object.hash(runtimeType,today,yesterday,week,month,totals);
+}
 
 @override
 String toString() {
-  return 'ProductReport(today: $today, yesterday: $yesterday, week: $week, month: $month, totals: $totals)';
+    return 'ProductReport(today: $today, yesterday: $yesterday, week: $week, month: $month, totals: $totals)';
 }
 
 
@@ -409,16 +416,21 @@ $DayMetricsCopyWith<DayMetrics> get copyWith => _$DayMetricsCopyWithImpl<DayMetr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DayMetrics&&const DeepCollectionEquality().equals(other.sales, sales)&&const DeepCollectionEquality().equals(other.revenue, revenue)&&const DeepCollectionEquality().equals(other.profit, profit)&&const DeepCollectionEquality().equals(other.views, views)&&const DeepCollectionEquality().equals(other.states, states));
+  final _this = this as DayMetrics;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DayMetrics&&const DeepCollectionEquality().equals(other.sales, _this.sales)&&const DeepCollectionEquality().equals(other.revenue, _this.revenue)&&const DeepCollectionEquality().equals(other.profit, _this.profit)&&const DeepCollectionEquality().equals(other.views, _this.views)&&const DeepCollectionEquality().equals(other.states, _this.states));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(sales),const DeepCollectionEquality().hash(revenue),const DeepCollectionEquality().hash(profit),const DeepCollectionEquality().hash(views),const DeepCollectionEquality().hash(states));
+int get hashCode {
+  final _this = this as DayMetrics;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.sales),const DeepCollectionEquality().hash(_this.revenue),const DeepCollectionEquality().hash(_this.profit),const DeepCollectionEquality().hash(_this.views),const DeepCollectionEquality().hash(_this.states));
+}
 
 @override
 String toString() {
-  return 'DayMetrics(sales: $sales, revenue: $revenue, profit: $profit, views: $views, states: $states)';
+  final _this = this as DayMetrics;
+  return 'DayMetrics(sales: ${_this.sales}, revenue: ${_this.revenue}, profit: ${_this.profit}, views: ${_this.views}, states: ${_this.states})';
 }
 
 
@@ -656,16 +668,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DayMetrics&&const DeepCollectionEquality().equals(other._sales, _sales)&&const DeepCollectionEquality().equals(other._revenue, _revenue)&&const DeepCollectionEquality().equals(other._profit, _profit)&&const DeepCollectionEquality().equals(other._views, _views)&&const DeepCollectionEquality().equals(other._states, _states));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DayMetrics&&const DeepCollectionEquality().equals(other.sales, _sales)&&const DeepCollectionEquality().equals(other.revenue, _revenue)&&const DeepCollectionEquality().equals(other.profit, _profit)&&const DeepCollectionEquality().equals(other.views, _views)&&const DeepCollectionEquality().equals(other.states, _states));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_sales),const DeepCollectionEquality().hash(_revenue),const DeepCollectionEquality().hash(_profit),const DeepCollectionEquality().hash(_views),const DeepCollectionEquality().hash(_states));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_sales),const DeepCollectionEquality().hash(_revenue),const DeepCollectionEquality().hash(_profit),const DeepCollectionEquality().hash(_views),const DeepCollectionEquality().hash(_states));
+}
 
 @override
 String toString() {
-  return 'DayMetrics(sales: $sales, revenue: $revenue, profit: $profit, views: $views, states: $states)';
+    return 'DayMetrics(sales: $sales, revenue: $revenue, profit: $profit, views: $views, states: $states)';
 }
 
 
@@ -729,16 +743,21 @@ $WeekMetricsCopyWith<WeekMetrics> get copyWith => _$WeekMetricsCopyWithImpl<Week
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeekMetrics&&const DeepCollectionEquality().equals(other.sales, sales)&&const DeepCollectionEquality().equals(other.revenue, revenue)&&const DeepCollectionEquality().equals(other.profit, profit)&&const DeepCollectionEquality().equals(other.views, views)&&const DeepCollectionEquality().equals(other.states, states));
+  final _this = this as WeekMetrics;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeekMetrics&&const DeepCollectionEquality().equals(other.sales, _this.sales)&&const DeepCollectionEquality().equals(other.revenue, _this.revenue)&&const DeepCollectionEquality().equals(other.profit, _this.profit)&&const DeepCollectionEquality().equals(other.views, _this.views)&&const DeepCollectionEquality().equals(other.states, _this.states));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(sales),const DeepCollectionEquality().hash(revenue),const DeepCollectionEquality().hash(profit),const DeepCollectionEquality().hash(views),const DeepCollectionEquality().hash(states));
+int get hashCode {
+  final _this = this as WeekMetrics;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.sales),const DeepCollectionEquality().hash(_this.revenue),const DeepCollectionEquality().hash(_this.profit),const DeepCollectionEquality().hash(_this.views),const DeepCollectionEquality().hash(_this.states));
+}
 
 @override
 String toString() {
-  return 'WeekMetrics(sales: $sales, revenue: $revenue, profit: $profit, views: $views, states: $states)';
+  final _this = this as WeekMetrics;
+  return 'WeekMetrics(sales: ${_this.sales}, revenue: ${_this.revenue}, profit: ${_this.profit}, views: ${_this.views}, states: ${_this.states})';
 }
 
 
@@ -976,16 +995,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeekMetrics&&const DeepCollectionEquality().equals(other._sales, _sales)&&const DeepCollectionEquality().equals(other._revenue, _revenue)&&const DeepCollectionEquality().equals(other._profit, _profit)&&const DeepCollectionEquality().equals(other._views, _views)&&const DeepCollectionEquality().equals(other._states, _states));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeekMetrics&&const DeepCollectionEquality().equals(other.sales, _sales)&&const DeepCollectionEquality().equals(other.revenue, _revenue)&&const DeepCollectionEquality().equals(other.profit, _profit)&&const DeepCollectionEquality().equals(other.views, _views)&&const DeepCollectionEquality().equals(other.states, _states));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_sales),const DeepCollectionEquality().hash(_revenue),const DeepCollectionEquality().hash(_profit),const DeepCollectionEquality().hash(_views),const DeepCollectionEquality().hash(_states));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_sales),const DeepCollectionEquality().hash(_revenue),const DeepCollectionEquality().hash(_profit),const DeepCollectionEquality().hash(_views),const DeepCollectionEquality().hash(_states));
+}
 
 @override
 String toString() {
-  return 'WeekMetrics(sales: $sales, revenue: $revenue, profit: $profit, views: $views, states: $states)';
+    return 'WeekMetrics(sales: $sales, revenue: $revenue, profit: $profit, views: $views, states: $states)';
 }
 
 
@@ -1049,16 +1070,21 @@ $MonthMetricsCopyWith<MonthMetrics> get copyWith => _$MonthMetricsCopyWithImpl<M
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonthMetrics&&const DeepCollectionEquality().equals(other.sales, sales)&&const DeepCollectionEquality().equals(other.revenue, revenue)&&const DeepCollectionEquality().equals(other.profit, profit)&&const DeepCollectionEquality().equals(other.views, views)&&const DeepCollectionEquality().equals(other.states, states));
+  final _this = this as MonthMetrics;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonthMetrics&&const DeepCollectionEquality().equals(other.sales, _this.sales)&&const DeepCollectionEquality().equals(other.revenue, _this.revenue)&&const DeepCollectionEquality().equals(other.profit, _this.profit)&&const DeepCollectionEquality().equals(other.views, _this.views)&&const DeepCollectionEquality().equals(other.states, _this.states));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(sales),const DeepCollectionEquality().hash(revenue),const DeepCollectionEquality().hash(profit),const DeepCollectionEquality().hash(views),const DeepCollectionEquality().hash(states));
+int get hashCode {
+  final _this = this as MonthMetrics;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.sales),const DeepCollectionEquality().hash(_this.revenue),const DeepCollectionEquality().hash(_this.profit),const DeepCollectionEquality().hash(_this.views),const DeepCollectionEquality().hash(_this.states));
+}
 
 @override
 String toString() {
-  return 'MonthMetrics(sales: $sales, revenue: $revenue, profit: $profit, views: $views, states: $states)';
+  final _this = this as MonthMetrics;
+  return 'MonthMetrics(sales: ${_this.sales}, revenue: ${_this.revenue}, profit: ${_this.profit}, views: ${_this.views}, states: ${_this.states})';
 }
 
 
@@ -1296,16 +1322,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonthMetrics&&const DeepCollectionEquality().equals(other._sales, _sales)&&const DeepCollectionEquality().equals(other._revenue, _revenue)&&const DeepCollectionEquality().equals(other._profit, _profit)&&const DeepCollectionEquality().equals(other._views, _views)&&const DeepCollectionEquality().equals(other._states, _states));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonthMetrics&&const DeepCollectionEquality().equals(other.sales, _sales)&&const DeepCollectionEquality().equals(other.revenue, _revenue)&&const DeepCollectionEquality().equals(other.profit, _profit)&&const DeepCollectionEquality().equals(other.views, _views)&&const DeepCollectionEquality().equals(other.states, _states));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_sales),const DeepCollectionEquality().hash(_revenue),const DeepCollectionEquality().hash(_profit),const DeepCollectionEquality().hash(_views),const DeepCollectionEquality().hash(_states));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_sales),const DeepCollectionEquality().hash(_revenue),const DeepCollectionEquality().hash(_profit),const DeepCollectionEquality().hash(_views),const DeepCollectionEquality().hash(_states));
+}
 
 @override
 String toString() {
-  return 'MonthMetrics(sales: $sales, revenue: $revenue, profit: $profit, views: $views, states: $states)';
+    return 'MonthMetrics(sales: $sales, revenue: $revenue, profit: $profit, views: $views, states: $states)';
 }
 
 
@@ -1369,16 +1397,21 @@ $TotalsCopyWith<Totals> get copyWith => _$TotalsCopyWithImpl<Totals>(this as Tot
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Totals&&(identical(other.views, views) || other.views == views)&&(identical(other.sales, sales) || other.sales == sales)&&(identical(other.revenue, revenue) || other.revenue == revenue)&&(identical(other.profit, profit) || other.profit == profit)&&(identical(other.states, states) || other.states == states));
+  final _this = this as Totals;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Totals&&(identical(other.views, _this.views) || other.views == _this.views)&&(identical(other.sales, _this.sales) || other.sales == _this.sales)&&(identical(other.revenue, _this.revenue) || other.revenue == _this.revenue)&&(identical(other.profit, _this.profit) || other.profit == _this.profit)&&(identical(other.states, _this.states) || other.states == _this.states));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,views,sales,revenue,profit,states);
+int get hashCode {
+  final _this = this as Totals;
+  return Object.hash(runtimeType,_this.views,_this.sales,_this.revenue,_this.profit,_this.states);
+}
 
 @override
 String toString() {
-  return 'Totals(views: $views, sales: $sales, revenue: $revenue, profit: $profit, states: $states)';
+  final _this = this as Totals;
+  return 'Totals(views: ${_this.views}, sales: ${_this.sales}, revenue: ${_this.revenue}, profit: ${_this.profit}, states: ${_this.states})';
 }
 
 
@@ -1626,16 +1659,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Totals&&(identical(other.views, views) || other.views == views)&&(identical(other.sales, sales) || other.sales == sales)&&(identical(other.revenue, revenue) || other.revenue == revenue)&&(identical(other.profit, profit) || other.profit == profit)&&(identical(other.states, states) || other.states == states));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Totals&&(identical(other.views, views) || other.views == views)&&(identical(other.sales, sales) || other.sales == sales)&&(identical(other.revenue, revenue) || other.revenue == revenue)&&(identical(other.profit, profit) || other.profit == profit)&&(identical(other.states, states) || other.states == states));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,views,sales,revenue,profit,states);
+int get hashCode {
+    return Object.hash(runtimeType,views,sales,revenue,profit,states);
+}
 
 @override
 String toString() {
-  return 'Totals(views: $views, sales: $sales, revenue: $revenue, profit: $profit, states: $states)';
+    return 'Totals(views: $views, sales: $sales, revenue: $revenue, profit: $profit, states: $states)';
 }
 
 
@@ -1743,16 +1778,21 @@ $TimeFrameTotalsCopyWith<TimeFrameTotals> get copyWith => _$TimeFrameTotalsCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimeFrameTotals&&(identical(other.today, today) || other.today == today)&&(identical(other.yesterday, yesterday) || other.yesterday == yesterday)&&(identical(other.week, week) || other.week == week)&&(identical(other.month, month) || other.month == month));
+  final _this = this as TimeFrameTotals;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimeFrameTotals&&(identical(other.today, _this.today) || other.today == _this.today)&&(identical(other.yesterday, _this.yesterday) || other.yesterday == _this.yesterday)&&(identical(other.week, _this.week) || other.week == _this.week)&&(identical(other.month, _this.month) || other.month == _this.month));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,today,yesterday,week,month);
+int get hashCode {
+  final _this = this as TimeFrameTotals;
+  return Object.hash(runtimeType,_this.today,_this.yesterday,_this.week,_this.month);
+}
 
 @override
 String toString() {
-  return 'TimeFrameTotals(today: $today, yesterday: $yesterday, week: $week, month: $month)';
+  final _this = this as TimeFrameTotals;
+  return 'TimeFrameTotals(today: ${_this.today}, yesterday: ${_this.yesterday}, week: ${_this.week}, month: ${_this.month})';
 }
 
 
@@ -1952,16 +1992,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimeFrameTotals&&(identical(other.today, today) || other.today == today)&&(identical(other.yesterday, yesterday) || other.yesterday == yesterday)&&(identical(other.week, week) || other.week == week)&&(identical(other.month, month) || other.month == month));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimeFrameTotals&&(identical(other.today, today) || other.today == today)&&(identical(other.yesterday, yesterday) || other.yesterday == yesterday)&&(identical(other.week, week) || other.week == week)&&(identical(other.month, month) || other.month == month));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,today,yesterday,week,month);
+int get hashCode {
+    return Object.hash(runtimeType,today,yesterday,week,month);
+}
 
 @override
 String toString() {
-  return 'TimeFrameTotals(today: $today, yesterday: $yesterday, week: $week, month: $month)';
+    return 'TimeFrameTotals(today: $today, yesterday: $yesterday, week: $week, month: $month)';
 }
 
 
@@ -2023,16 +2065,21 @@ $StateFrameTotalsCopyWith<StateFrameTotals> get copyWith => _$StateFrameTotalsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StateFrameTotals&&const DeepCollectionEquality().equals(other.today, today)&&const DeepCollectionEquality().equals(other.yesterday, yesterday)&&const DeepCollectionEquality().equals(other.week, week)&&const DeepCollectionEquality().equals(other.month, month));
+  final _this = this as StateFrameTotals;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StateFrameTotals&&const DeepCollectionEquality().equals(other.today, _this.today)&&const DeepCollectionEquality().equals(other.yesterday, _this.yesterday)&&const DeepCollectionEquality().equals(other.week, _this.week)&&const DeepCollectionEquality().equals(other.month, _this.month));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(today),const DeepCollectionEquality().hash(yesterday),const DeepCollectionEquality().hash(week),const DeepCollectionEquality().hash(month));
+int get hashCode {
+  final _this = this as StateFrameTotals;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.today),const DeepCollectionEquality().hash(_this.yesterday),const DeepCollectionEquality().hash(_this.week),const DeepCollectionEquality().hash(_this.month));
+}
 
 @override
 String toString() {
-  return 'StateFrameTotals(today: $today, yesterday: $yesterday, week: $week, month: $month)';
+  final _this = this as StateFrameTotals;
+  return 'StateFrameTotals(today: ${_this.today}, yesterday: ${_this.yesterday}, week: ${_this.week}, month: ${_this.month})';
 }
 
 
@@ -2260,16 +2307,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StateFrameTotals&&const DeepCollectionEquality().equals(other._today, _today)&&const DeepCollectionEquality().equals(other._yesterday, _yesterday)&&const DeepCollectionEquality().equals(other._week, _week)&&const DeepCollectionEquality().equals(other._month, _month));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StateFrameTotals&&const DeepCollectionEquality().equals(other.today, _today)&&const DeepCollectionEquality().equals(other.yesterday, _yesterday)&&const DeepCollectionEquality().equals(other.week, _week)&&const DeepCollectionEquality().equals(other.month, _month));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_today),const DeepCollectionEquality().hash(_yesterday),const DeepCollectionEquality().hash(_week),const DeepCollectionEquality().hash(_month));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_today),const DeepCollectionEquality().hash(_yesterday),const DeepCollectionEquality().hash(_week),const DeepCollectionEquality().hash(_month));
+}
 
 @override
 String toString() {
-  return 'StateFrameTotals(today: $today, yesterday: $yesterday, week: $week, month: $month)';
+    return 'StateFrameTotals(today: $today, yesterday: $yesterday, week: $week, month: $month)';
 }
 
 

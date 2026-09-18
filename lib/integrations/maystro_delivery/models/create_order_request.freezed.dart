@@ -29,16 +29,21 @@ $MaystroCustomerCopyWith<MaystroCustomer> get copyWith => _$MaystroCustomerCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroCustomer&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone));
+  final _this = this as MaystroCustomer;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroCustomer&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.phone, _this.phone) || other.phone == _this.phone));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,phone);
+int get hashCode {
+  final _this = this as MaystroCustomer;
+  return Object.hash(runtimeType,_this.name,_this.phone);
+}
 
 @override
 String toString() {
-  return 'MaystroCustomer(name: $name, phone: $phone)';
+  final _this = this as MaystroCustomer;
+  return 'MaystroCustomer(name: ${_this.name}, phone: ${_this.phone})';
 }
 
 
@@ -230,16 +235,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroCustomer&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroCustomer&&(identical(other.name, name) || other.name == name)&&(identical(other.phone, phone) || other.phone == phone));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,phone);
+int get hashCode {
+    return Object.hash(runtimeType,name,phone);
+}
 
 @override
 String toString() {
-  return 'MaystroCustomer(name: $name, phone: $phone)';
+    return 'MaystroCustomer(name: $name, phone: $phone)';
 }
 
 
@@ -295,16 +302,21 @@ $MaystroDeliveryAddressCopyWith<MaystroDeliveryAddress> get copyWith => _$Maystr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroDeliveryAddress&&(identical(other.street, street) || other.street == street)&&(identical(other.city, city) || other.city == city)&&(identical(other.district, district) || other.district == district)&&(identical(other.postalCode, postalCode) || other.postalCode == postalCode)&&(identical(other.country, country) || other.country == country)&&(identical(other.communeId, communeId) || other.communeId == communeId)&&(identical(other.wilayaId, wilayaId) || other.wilayaId == wilayaId));
+  final _this = this as MaystroDeliveryAddress;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroDeliveryAddress&&(identical(other.street, _this.street) || other.street == _this.street)&&(identical(other.city, _this.city) || other.city == _this.city)&&(identical(other.district, _this.district) || other.district == _this.district)&&(identical(other.postalCode, _this.postalCode) || other.postalCode == _this.postalCode)&&(identical(other.country, _this.country) || other.country == _this.country)&&(identical(other.communeId, _this.communeId) || other.communeId == _this.communeId)&&(identical(other.wilayaId, _this.wilayaId) || other.wilayaId == _this.wilayaId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,street,city,district,postalCode,country,communeId,wilayaId);
+int get hashCode {
+  final _this = this as MaystroDeliveryAddress;
+  return Object.hash(runtimeType,_this.street,_this.city,_this.district,_this.postalCode,_this.country,_this.communeId,_this.wilayaId);
+}
 
 @override
 String toString() {
-  return 'MaystroDeliveryAddress(street: $street, city: $city, district: $district, postalCode: $postalCode, country: $country, communeId: $communeId, wilayaId: $wilayaId)';
+  final _this = this as MaystroDeliveryAddress;
+  return 'MaystroDeliveryAddress(street: ${_this.street}, city: ${_this.city}, district: ${_this.district}, postalCode: ${_this.postalCode}, country: ${_this.country}, communeId: ${_this.communeId}, wilayaId: ${_this.wilayaId})';
 }
 
 
@@ -506,16 +518,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroDeliveryAddress&&(identical(other.street, street) || other.street == street)&&(identical(other.city, city) || other.city == city)&&(identical(other.district, district) || other.district == district)&&(identical(other.postalCode, postalCode) || other.postalCode == postalCode)&&(identical(other.country, country) || other.country == country)&&(identical(other.communeId, communeId) || other.communeId == communeId)&&(identical(other.wilayaId, wilayaId) || other.wilayaId == wilayaId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroDeliveryAddress&&(identical(other.street, street) || other.street == street)&&(identical(other.city, city) || other.city == city)&&(identical(other.district, district) || other.district == district)&&(identical(other.postalCode, postalCode) || other.postalCode == postalCode)&&(identical(other.country, country) || other.country == country)&&(identical(other.communeId, communeId) || other.communeId == communeId)&&(identical(other.wilayaId, wilayaId) || other.wilayaId == wilayaId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,street,city,district,postalCode,country,communeId,wilayaId);
+int get hashCode {
+    return Object.hash(runtimeType,street,city,district,postalCode,country,communeId,wilayaId);
+}
 
 @override
 String toString() {
-  return 'MaystroDeliveryAddress(street: $street, city: $city, district: $district, postalCode: $postalCode, country: $country, communeId: $communeId, wilayaId: $wilayaId)';
+    return 'MaystroDeliveryAddress(street: $street, city: $city, district: $district, postalCode: $postalCode, country: $country, communeId: $communeId, wilayaId: $wilayaId)';
 }
 
 
@@ -576,16 +590,21 @@ $MaystroOrderedProductCopyWith<MaystroOrderedProduct> get copyWith => _$MaystroO
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroOrderedProduct&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.unitPrice, unitPrice) || other.unitPrice == unitPrice)&&(identical(other.productSku, productSku) || other.productSku == productSku));
+  final _this = this as MaystroOrderedProduct;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroOrderedProduct&&(identical(other.productName, _this.productName) || other.productName == _this.productName)&&(identical(other.quantity, _this.quantity) || other.quantity == _this.quantity)&&(identical(other.unitPrice, _this.unitPrice) || other.unitPrice == _this.unitPrice)&&(identical(other.productSku, _this.productSku) || other.productSku == _this.productSku));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,productName,quantity,unitPrice,productSku);
+int get hashCode {
+  final _this = this as MaystroOrderedProduct;
+  return Object.hash(runtimeType,_this.productName,_this.quantity,_this.unitPrice,_this.productSku);
+}
 
 @override
 String toString() {
-  return 'MaystroOrderedProduct(productName: $productName, quantity: $quantity, unitPrice: $unitPrice, productSku: $productSku)';
+  final _this = this as MaystroOrderedProduct;
+  return 'MaystroOrderedProduct(productName: ${_this.productName}, quantity: ${_this.quantity}, unitPrice: ${_this.unitPrice}, productSku: ${_this.productSku})';
 }
 
 
@@ -781,16 +800,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroOrderedProduct&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.unitPrice, unitPrice) || other.unitPrice == unitPrice)&&(identical(other.productSku, productSku) || other.productSku == productSku));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroOrderedProduct&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.unitPrice, unitPrice) || other.unitPrice == unitPrice)&&(identical(other.productSku, productSku) || other.productSku == productSku));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,productName,quantity,unitPrice,productSku);
+int get hashCode {
+    return Object.hash(runtimeType,productName,quantity,unitPrice,productSku);
+}
 
 @override
 String toString() {
-  return 'MaystroOrderedProduct(productName: $productName, quantity: $quantity, unitPrice: $unitPrice, productSku: $productSku)';
+    return 'MaystroOrderedProduct(productName: $productName, quantity: $quantity, unitPrice: $unitPrice, productSku: $productSku)';
 }
 
 
@@ -848,16 +869,21 @@ $MaystroCreateOrderRequestCopyWith<MaystroCreateOrderRequest> get copyWith => _$
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroCreateOrderRequest&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.customer, customer) || other.customer == customer)&&(identical(other.deliveryAddress, deliveryAddress) || other.deliveryAddress == deliveryAddress)&&const DeepCollectionEquality().equals(other.orderedProducts, orderedProducts)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.description, description) || other.description == description)&&(identical(other.stateCode, stateCode) || other.stateCode == stateCode)&&(identical(other.cityCode, cityCode) || other.cityCode == cityCode));
+  final _this = this as MaystroCreateOrderRequest;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroCreateOrderRequest&&(identical(other.externalId, _this.externalId) || other.externalId == _this.externalId)&&(identical(other.customer, _this.customer) || other.customer == _this.customer)&&(identical(other.deliveryAddress, _this.deliveryAddress) || other.deliveryAddress == _this.deliveryAddress)&&const DeepCollectionEquality().equals(other.orderedProducts, _this.orderedProducts)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.stateCode, _this.stateCode) || other.stateCode == _this.stateCode)&&(identical(other.cityCode, _this.cityCode) || other.cityCode == _this.cityCode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,externalId,customer,deliveryAddress,const DeepCollectionEquality().hash(orderedProducts),amount,description,stateCode,cityCode);
+int get hashCode {
+  final _this = this as MaystroCreateOrderRequest;
+  return Object.hash(runtimeType,_this.externalId,_this.customer,_this.deliveryAddress,const DeepCollectionEquality().hash(_this.orderedProducts),_this.amount,_this.description,_this.stateCode,_this.cityCode);
+}
 
 @override
 String toString() {
-  return 'MaystroCreateOrderRequest(externalId: $externalId, customer: $customer, deliveryAddress: $deliveryAddress, orderedProducts: $orderedProducts, amount: $amount, description: $description, stateCode: $stateCode, cityCode: $cityCode)';
+  final _this = this as MaystroCreateOrderRequest;
+  return 'MaystroCreateOrderRequest(externalId: ${_this.externalId}, customer: ${_this.customer}, deliveryAddress: ${_this.deliveryAddress}, orderedProducts: ${_this.orderedProducts}, amount: ${_this.amount}, description: ${_this.description}, stateCode: ${_this.stateCode}, cityCode: ${_this.cityCode})';
 }
 
 
@@ -1085,16 +1111,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroCreateOrderRequest&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.customer, customer) || other.customer == customer)&&(identical(other.deliveryAddress, deliveryAddress) || other.deliveryAddress == deliveryAddress)&&const DeepCollectionEquality().equals(other._orderedProducts, _orderedProducts)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.description, description) || other.description == description)&&(identical(other.stateCode, stateCode) || other.stateCode == stateCode)&&(identical(other.cityCode, cityCode) || other.cityCode == cityCode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroCreateOrderRequest&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.customer, customer) || other.customer == customer)&&(identical(other.deliveryAddress, deliveryAddress) || other.deliveryAddress == deliveryAddress)&&const DeepCollectionEquality().equals(other.orderedProducts, _orderedProducts)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.description, description) || other.description == description)&&(identical(other.stateCode, stateCode) || other.stateCode == stateCode)&&(identical(other.cityCode, cityCode) || other.cityCode == cityCode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,externalId,customer,deliveryAddress,const DeepCollectionEquality().hash(_orderedProducts),amount,description,stateCode,cityCode);
+int get hashCode {
+    return Object.hash(runtimeType,externalId,customer,deliveryAddress,const DeepCollectionEquality().hash(_orderedProducts),amount,description,stateCode,cityCode);
+}
 
 @override
 String toString() {
-  return 'MaystroCreateOrderRequest(externalId: $externalId, customer: $customer, deliveryAddress: $deliveryAddress, orderedProducts: $orderedProducts, amount: $amount, description: $description, stateCode: $stateCode, cityCode: $cityCode)';
+    return 'MaystroCreateOrderRequest(externalId: $externalId, customer: $customer, deliveryAddress: $deliveryAddress, orderedProducts: $orderedProducts, amount: $amount, description: $description, stateCode: $stateCode, cityCode: $cityCode)';
 }
 
 
@@ -1174,16 +1202,21 @@ $MaystroCreateOrderResponseCopyWith<MaystroCreateOrderResponse> get copyWith => 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroCreateOrderResponse&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.success, success) || other.success == success));
+  final _this = this as MaystroCreateOrderResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroCreateOrderResponse&&(identical(other.orderId, _this.orderId) || other.orderId == _this.orderId)&&(identical(other.trackingNumber, _this.trackingNumber) || other.trackingNumber == _this.trackingNumber)&&(identical(other.externalId, _this.externalId) || other.externalId == _this.externalId)&&(identical(other.success, _this.success) || other.success == _this.success));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,orderId,trackingNumber,externalId,success);
+int get hashCode {
+  final _this = this as MaystroCreateOrderResponse;
+  return Object.hash(runtimeType,_this.orderId,_this.trackingNumber,_this.externalId,_this.success);
+}
 
 @override
 String toString() {
-  return 'MaystroCreateOrderResponse(orderId: $orderId, trackingNumber: $trackingNumber, externalId: $externalId, success: $success)';
+  final _this = this as MaystroCreateOrderResponse;
+  return 'MaystroCreateOrderResponse(orderId: ${_this.orderId}, trackingNumber: ${_this.trackingNumber}, externalId: ${_this.externalId}, success: ${_this.success})';
 }
 
 
@@ -1379,16 +1412,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroCreateOrderResponse&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.success, success) || other.success == success));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroCreateOrderResponse&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.success, success) || other.success == success));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,orderId,trackingNumber,externalId,success);
+int get hashCode {
+    return Object.hash(runtimeType,orderId,trackingNumber,externalId,success);
+}
 
 @override
 String toString() {
-  return 'MaystroCreateOrderResponse(orderId: $orderId, trackingNumber: $trackingNumber, externalId: $externalId, success: $success)';
+    return 'MaystroCreateOrderResponse(orderId: $orderId, trackingNumber: $trackingNumber, externalId: $externalId, success: $success)';
 }
 
 
@@ -1446,16 +1481,21 @@ $MaystroIndividualLabelCopyWith<MaystroIndividualLabel> get copyWith => _$Maystr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroIndividualLabel&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.fileUrl, fileUrl) || other.fileUrl == fileUrl));
+  final _this = this as MaystroIndividualLabel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroIndividualLabel&&(identical(other.trackingNumber, _this.trackingNumber) || other.trackingNumber == _this.trackingNumber)&&(identical(other.fileUrl, _this.fileUrl) || other.fileUrl == _this.fileUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,trackingNumber,fileUrl);
+int get hashCode {
+  final _this = this as MaystroIndividualLabel;
+  return Object.hash(runtimeType,_this.trackingNumber,_this.fileUrl);
+}
 
 @override
 String toString() {
-  return 'MaystroIndividualLabel(trackingNumber: $trackingNumber, fileUrl: $fileUrl)';
+  final _this = this as MaystroIndividualLabel;
+  return 'MaystroIndividualLabel(trackingNumber: ${_this.trackingNumber}, fileUrl: ${_this.fileUrl})';
 }
 
 
@@ -1647,16 +1687,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroIndividualLabel&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.fileUrl, fileUrl) || other.fileUrl == fileUrl));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroIndividualLabel&&(identical(other.trackingNumber, trackingNumber) || other.trackingNumber == trackingNumber)&&(identical(other.fileUrl, fileUrl) || other.fileUrl == fileUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,trackingNumber,fileUrl);
+int get hashCode {
+    return Object.hash(runtimeType,trackingNumber,fileUrl);
+}
 
 @override
 String toString() {
-  return 'MaystroIndividualLabel(trackingNumber: $trackingNumber, fileUrl: $fileUrl)';
+    return 'MaystroIndividualLabel(trackingNumber: $trackingNumber, fileUrl: $fileUrl)';
 }
 
 
@@ -1712,16 +1754,21 @@ $MaystroIndividualLabelsResponseCopyWith<MaystroIndividualLabelsResponse> get co
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroIndividualLabelsResponse&&const DeepCollectionEquality().equals(other.parcelLabelFiles, parcelLabelFiles)&&const DeepCollectionEquality().equals(other.failedTrackingNumbers, failedTrackingNumbers));
+  final _this = this as MaystroIndividualLabelsResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MaystroIndividualLabelsResponse&&const DeepCollectionEquality().equals(other.parcelLabelFiles, _this.parcelLabelFiles)&&const DeepCollectionEquality().equals(other.failedTrackingNumbers, _this.failedTrackingNumbers));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(parcelLabelFiles),const DeepCollectionEquality().hash(failedTrackingNumbers));
+int get hashCode {
+  final _this = this as MaystroIndividualLabelsResponse;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.parcelLabelFiles),const DeepCollectionEquality().hash(_this.failedTrackingNumbers));
+}
 
 @override
 String toString() {
-  return 'MaystroIndividualLabelsResponse(parcelLabelFiles: $parcelLabelFiles, failedTrackingNumbers: $failedTrackingNumbers)';
+  final _this = this as MaystroIndividualLabelsResponse;
+  return 'MaystroIndividualLabelsResponse(parcelLabelFiles: ${_this.parcelLabelFiles}, failedTrackingNumbers: ${_this.failedTrackingNumbers})';
 }
 
 
@@ -1925,16 +1972,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroIndividualLabelsResponse&&const DeepCollectionEquality().equals(other._parcelLabelFiles, _parcelLabelFiles)&&const DeepCollectionEquality().equals(other._failedTrackingNumbers, _failedTrackingNumbers));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MaystroIndividualLabelsResponse&&const DeepCollectionEquality().equals(other.parcelLabelFiles, _parcelLabelFiles)&&const DeepCollectionEquality().equals(other.failedTrackingNumbers, _failedTrackingNumbers));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_parcelLabelFiles),const DeepCollectionEquality().hash(_failedTrackingNumbers));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_parcelLabelFiles),const DeepCollectionEquality().hash(_failedTrackingNumbers));
+}
 
 @override
 String toString() {
-  return 'MaystroIndividualLabelsResponse(parcelLabelFiles: $parcelLabelFiles, failedTrackingNumbers: $failedTrackingNumbers)';
+    return 'MaystroIndividualLabelsResponse(parcelLabelFiles: $parcelLabelFiles, failedTrackingNumbers: $failedTrackingNumbers)';
 }
 
 

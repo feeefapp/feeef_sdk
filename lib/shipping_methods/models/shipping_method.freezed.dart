@@ -29,16 +29,21 @@ $ShippingMethodCopyWith<ShippingMethod> get copyWith => _$ShippingMethodCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShippingMethod&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.price, price) || other.price == price)&&(identical(other.forks, forks) || other.forks == forks)&&(identical(other.sourceId, sourceId) || other.sourceId == sourceId)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other.rates, rates)&&(identical(other.status, status) || other.status == status)&&(identical(other.policy, policy) || other.policy == policy)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt));
+  final _this = this as ShippingMethod;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShippingMethod&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.logoUrl, _this.logoUrl) || other.logoUrl == _this.logoUrl)&&(identical(other.ondarkLogoUrl, _this.ondarkLogoUrl) || other.ondarkLogoUrl == _this.ondarkLogoUrl)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.forks, _this.forks) || other.forks == _this.forks)&&(identical(other.sourceId, _this.sourceId) || other.sourceId == _this.sourceId)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&const DeepCollectionEquality().equals(other.rates, _this.rates)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.policy, _this.policy) || other.policy == _this.policy)&&(identical(other.verifiedAt, _this.verifiedAt) || other.verifiedAt == _this.verifiedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,const DeepCollectionEquality().hash(metadata),name,description,logoUrl,ondarkLogoUrl,price,forks,sourceId,storeId,const DeepCollectionEquality().hash(rates),status,policy,verifiedAt);
+int get hashCode {
+  final _this = this as ShippingMethod;
+  return Object.hash(runtimeType,_this.id,_this.createdAt,_this.updatedAt,const DeepCollectionEquality().hash(_this.metadata),_this.name,_this.description,_this.logoUrl,_this.ondarkLogoUrl,_this.price,_this.forks,_this.sourceId,_this.storeId,const DeepCollectionEquality().hash(_this.rates),_this.status,_this.policy,_this.verifiedAt);
+}
 
 @override
 String toString() {
-  return 'ShippingMethod(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, metadata: $metadata, name: $name, description: $description, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, price: $price, forks: $forks, sourceId: $sourceId, storeId: $storeId, rates: $rates, status: $status, policy: $policy, verifiedAt: $verifiedAt)';
+  final _this = this as ShippingMethod;
+  return 'ShippingMethod(id: ${_this.id}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, metadata: ${_this.metadata}, name: ${_this.name}, description: ${_this.description}, logoUrl: ${_this.logoUrl}, ondarkLogoUrl: ${_this.ondarkLogoUrl}, price: ${_this.price}, forks: ${_this.forks}, sourceId: ${_this.sourceId}, storeId: ${_this.storeId}, rates: ${_this.rates}, status: ${_this.status}, policy: ${_this.policy}, verifiedAt: ${_this.verifiedAt})';
 }
 
 
@@ -270,16 +275,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShippingMethod&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.price, price) || other.price == price)&&(identical(other.forks, forks) || other.forks == forks)&&(identical(other.sourceId, sourceId) || other.sourceId == sourceId)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other._rates, _rates)&&(identical(other.status, status) || other.status == status)&&(identical(other.policy, policy) || other.policy == policy)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShippingMethod&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.price, price) || other.price == price)&&(identical(other.forks, forks) || other.forks == forks)&&(identical(other.sourceId, sourceId) || other.sourceId == sourceId)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other.rates, _rates)&&(identical(other.status, status) || other.status == status)&&(identical(other.policy, policy) || other.policy == policy)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,const DeepCollectionEquality().hash(_metadata),name,description,logoUrl,ondarkLogoUrl,price,forks,sourceId,storeId,const DeepCollectionEquality().hash(_rates),status,policy,verifiedAt);
+int get hashCode {
+    return Object.hash(runtimeType,id,createdAt,updatedAt,const DeepCollectionEquality().hash(_metadata),name,description,logoUrl,ondarkLogoUrl,price,forks,sourceId,storeId,const DeepCollectionEquality().hash(_rates),status,policy,verifiedAt);
+}
 
 @override
 String toString() {
-  return 'ShippingMethod(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, metadata: $metadata, name: $name, description: $description, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, price: $price, forks: $forks, sourceId: $sourceId, storeId: $storeId, rates: $rates, status: $status, policy: $policy, verifiedAt: $verifiedAt)';
+    return 'ShippingMethod(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, metadata: $metadata, name: $name, description: $description, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, price: $price, forks: $forks, sourceId: $sourceId, storeId: $storeId, rates: $rates, status: $status, policy: $policy, verifiedAt: $verifiedAt)';
 }
 
 
@@ -349,16 +356,21 @@ $ShippingMethodCreateCopyWith<ShippingMethodCreate> get copyWith => _$ShippingMe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShippingMethodCreate&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.price, price) || other.price == price)&&(identical(other.forks, forks) || other.forks == forks)&&(identical(other.sourceId, sourceId) || other.sourceId == sourceId)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other.rates, rates)&&(identical(other.status, status) || other.status == status)&&(identical(other.policy, policy) || other.policy == policy)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt));
+  final _this = this as ShippingMethodCreate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShippingMethodCreate&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.logoUrl, _this.logoUrl) || other.logoUrl == _this.logoUrl)&&(identical(other.ondarkLogoUrl, _this.ondarkLogoUrl) || other.ondarkLogoUrl == _this.ondarkLogoUrl)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.forks, _this.forks) || other.forks == _this.forks)&&(identical(other.sourceId, _this.sourceId) || other.sourceId == _this.sourceId)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&const DeepCollectionEquality().equals(other.rates, _this.rates)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.policy, _this.policy) || other.policy == _this.policy)&&(identical(other.verifiedAt, _this.verifiedAt) || other.verifiedAt == _this.verifiedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(metadata),name,description,logoUrl,ondarkLogoUrl,price,forks,sourceId,storeId,const DeepCollectionEquality().hash(rates),status,policy,verifiedAt);
+int get hashCode {
+  final _this = this as ShippingMethodCreate;
+  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.metadata),_this.name,_this.description,_this.logoUrl,_this.ondarkLogoUrl,_this.price,_this.forks,_this.sourceId,_this.storeId,const DeepCollectionEquality().hash(_this.rates),_this.status,_this.policy,_this.verifiedAt);
+}
 
 @override
 String toString() {
-  return 'ShippingMethodCreate(id: $id, metadata: $metadata, name: $name, description: $description, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, price: $price, forks: $forks, sourceId: $sourceId, storeId: $storeId, rates: $rates, status: $status, policy: $policy, verifiedAt: $verifiedAt)';
+  final _this = this as ShippingMethodCreate;
+  return 'ShippingMethodCreate(id: ${_this.id}, metadata: ${_this.metadata}, name: ${_this.name}, description: ${_this.description}, logoUrl: ${_this.logoUrl}, ondarkLogoUrl: ${_this.ondarkLogoUrl}, price: ${_this.price}, forks: ${_this.forks}, sourceId: ${_this.sourceId}, storeId: ${_this.storeId}, rates: ${_this.rates}, status: ${_this.status}, policy: ${_this.policy}, verifiedAt: ${_this.verifiedAt})';
 }
 
 
@@ -586,16 +598,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShippingMethodCreate&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.price, price) || other.price == price)&&(identical(other.forks, forks) || other.forks == forks)&&(identical(other.sourceId, sourceId) || other.sourceId == sourceId)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other._rates, _rates)&&(identical(other.status, status) || other.status == status)&&(identical(other.policy, policy) || other.policy == policy)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShippingMethodCreate&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.price, price) || other.price == price)&&(identical(other.forks, forks) || other.forks == forks)&&(identical(other.sourceId, sourceId) || other.sourceId == sourceId)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other.rates, _rates)&&(identical(other.status, status) || other.status == status)&&(identical(other.policy, policy) || other.policy == policy)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_metadata),name,description,logoUrl,ondarkLogoUrl,price,forks,sourceId,storeId,const DeepCollectionEquality().hash(_rates),status,policy,verifiedAt);
+int get hashCode {
+    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_metadata),name,description,logoUrl,ondarkLogoUrl,price,forks,sourceId,storeId,const DeepCollectionEquality().hash(_rates),status,policy,verifiedAt);
+}
 
 @override
 String toString() {
-  return 'ShippingMethodCreate(id: $id, metadata: $metadata, name: $name, description: $description, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, price: $price, forks: $forks, sourceId: $sourceId, storeId: $storeId, rates: $rates, status: $status, policy: $policy, verifiedAt: $verifiedAt)';
+    return 'ShippingMethodCreate(id: $id, metadata: $metadata, name: $name, description: $description, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, price: $price, forks: $forks, sourceId: $sourceId, storeId: $storeId, rates: $rates, status: $status, policy: $policy, verifiedAt: $verifiedAt)';
 }
 
 
@@ -663,16 +677,21 @@ $ShippingMethodUpdateCopyWith<ShippingMethodUpdate> get copyWith => _$ShippingMe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShippingMethodUpdate&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.price, price) || other.price == price)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other.rates, rates)&&(identical(other.status, status) || other.status == status)&&(identical(other.policy, policy) || other.policy == policy)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
+  final _this = this as ShippingMethodUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShippingMethodUpdate&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.logoUrl, _this.logoUrl) || other.logoUrl == _this.logoUrl)&&(identical(other.ondarkLogoUrl, _this.ondarkLogoUrl) || other.ondarkLogoUrl == _this.ondarkLogoUrl)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&const DeepCollectionEquality().equals(other.rates, _this.rates)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.policy, _this.policy) || other.policy == _this.policy)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(metadata),name,description,logoUrl,ondarkLogoUrl,price,storeId,const DeepCollectionEquality().hash(rates),status,policy,const DeepCollectionEquality().hash(setToNull));
+int get hashCode {
+  final _this = this as ShippingMethodUpdate;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.metadata),_this.name,_this.description,_this.logoUrl,_this.ondarkLogoUrl,_this.price,_this.storeId,const DeepCollectionEquality().hash(_this.rates),_this.status,_this.policy,const DeepCollectionEquality().hash(_this.setToNull));
+}
 
 @override
 String toString() {
-  return 'ShippingMethodUpdate(metadata: $metadata, name: $name, description: $description, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, price: $price, storeId: $storeId, rates: $rates, status: $status, policy: $policy, setToNull: $setToNull)';
+  final _this = this as ShippingMethodUpdate;
+  return 'ShippingMethodUpdate(metadata: ${_this.metadata}, name: ${_this.name}, description: ${_this.description}, logoUrl: ${_this.logoUrl}, ondarkLogoUrl: ${_this.ondarkLogoUrl}, price: ${_this.price}, storeId: ${_this.storeId}, rates: ${_this.rates}, status: ${_this.status}, policy: ${_this.policy}, setToNull: ${_this.setToNull})';
 }
 
 
@@ -904,16 +923,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShippingMethodUpdate&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.price, price) || other.price == price)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other._rates, _rates)&&(identical(other.status, status) || other.status == status)&&(identical(other.policy, policy) || other.policy == policy)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShippingMethodUpdate&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.ondarkLogoUrl, ondarkLogoUrl) || other.ondarkLogoUrl == ondarkLogoUrl)&&(identical(other.price, price) || other.price == price)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other.rates, _rates)&&(identical(other.status, status) || other.status == status)&&(identical(other.policy, policy) || other.policy == policy)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_metadata),name,description,logoUrl,ondarkLogoUrl,price,storeId,const DeepCollectionEquality().hash(_rates),status,policy,const DeepCollectionEquality().hash(_setToNull));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_metadata),name,description,logoUrl,ondarkLogoUrl,price,storeId,const DeepCollectionEquality().hash(_rates),status,policy,const DeepCollectionEquality().hash(_setToNull));
+}
 
 @override
 String toString() {
-  return 'ShippingMethodUpdate(metadata: $metadata, name: $name, description: $description, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, price: $price, storeId: $storeId, rates: $rates, status: $status, policy: $policy, setToNull: $setToNull)';
+    return 'ShippingMethodUpdate(metadata: $metadata, name: $name, description: $description, logoUrl: $logoUrl, ondarkLogoUrl: $ondarkLogoUrl, price: $price, storeId: $storeId, rates: $rates, status: $status, policy: $policy, setToNull: $setToNull)';
 }
 
 

@@ -48,8 +48,8 @@ Map<String, dynamic> _$ZrexpressBulkResponseToJson(
   'totalRequested': instance.totalRequested,
   'successCount': instance.successCount,
   'failureCount': instance.failureCount,
-  'successes': instance.successes,
-  'failures': instance.failures,
+  'successes': instance.successes.map((e) => e.toJson()).toList(),
+  'failures': instance.failures.map((e) => e.toJson()).toList(),
 };
 
 _ZrexpressBulkSuccess _$ZrexpressBulkSuccessFromJson(
@@ -140,6 +140,6 @@ _ZrexpressIndividualLabelsResponse _$ZrexpressIndividualLabelsResponseFromJson(
 Map<String, dynamic> _$ZrexpressIndividualLabelsResponseToJson(
   _ZrexpressIndividualLabelsResponse instance,
 ) => <String, dynamic>{
-  'parcelLabelFiles': instance.parcelLabelFiles,
+  'parcelLabelFiles': instance.parcelLabelFiles.map((e) => e.toJson()).toList(),
   'failedTrackingNumbers': instance.failedTrackingNumbers,
 };

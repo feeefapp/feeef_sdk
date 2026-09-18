@@ -29,16 +29,21 @@ $FeeefValidationExceptionCopyWith<FeeefValidationException> get copyWith => _$Fe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeeefValidationException&&const DeepCollectionEquality().equals(other.errors, errors));
+  final _this = this as FeeefValidationException;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeeefValidationException&&const DeepCollectionEquality().equals(other.errors, _this.errors));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(errors));
+int get hashCode {
+  final _this = this as FeeefValidationException;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.errors));
+}
 
 @override
 String toString() {
-  return 'FeeefValidationException(errors: $errors)';
+  final _this = this as FeeefValidationException;
+  return 'FeeefValidationException(errors: ${_this.errors})';
 }
 
 
@@ -234,16 +239,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeeefValidationException&&const DeepCollectionEquality().equals(other._errors, _errors));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeeefValidationException&&const DeepCollectionEquality().equals(other.errors, _errors));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_errors));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_errors));
+}
 
 @override
 String toString() {
-  return 'FeeefValidationException(errors: $errors)';
+    return 'FeeefValidationException(errors: $errors)';
 }
 
 
@@ -298,16 +305,21 @@ $FeeefViolationCopyWith<FeeefViolation> get copyWith => _$FeeefViolationCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeeefViolation&&(identical(other.message, message) || other.message == message)&&(identical(other.rule, rule) || other.rule == rule)&&(identical(other.field, field) || other.field == field));
+  final _this = this as FeeefViolation;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FeeefViolation&&(identical(other.message, _this.message) || other.message == _this.message)&&(identical(other.rule, _this.rule) || other.rule == _this.rule)&&(identical(other.field, _this.field) || other.field == _this.field));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,message,rule,field);
+int get hashCode {
+  final _this = this as FeeefViolation;
+  return Object.hash(runtimeType,_this.message,_this.rule,_this.field);
+}
 
 @override
 String toString() {
-  return 'FeeefViolation(message: $message, rule: $rule, field: $field)';
+  final _this = this as FeeefViolation;
+  return 'FeeefViolation(message: ${_this.message}, rule: ${_this.rule}, field: ${_this.field})';
 }
 
 
@@ -501,16 +513,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeeefViolation&&(identical(other.message, message) || other.message == message)&&(identical(other.rule, rule) || other.rule == rule)&&(identical(other.field, field) || other.field == field));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FeeefViolation&&(identical(other.message, message) || other.message == message)&&(identical(other.rule, rule) || other.rule == rule)&&(identical(other.field, field) || other.field == field));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,message,rule,field);
+int get hashCode {
+    return Object.hash(runtimeType,message,rule,field);
+}
 
 @override
 String toString() {
-  return 'FeeefViolation(message: $message, rule: $rule, field: $field)';
+    return 'FeeefViolation(message: $message, rule: $rule, field: $field)';
 }
 
 

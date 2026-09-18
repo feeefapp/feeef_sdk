@@ -29,16 +29,21 @@ $SatimCreateOrderRequestCopyWith<SatimCreateOrderRequest> get copyWith => _$Sati
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatimCreateOrderRequest&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.depositId, depositId) || other.depositId == depositId)&&(identical(other.language, language) || other.language == language)&&(identical(other.description, description) || other.description == description));
+  final _this = this as SatimCreateOrderRequest;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SatimCreateOrderRequest&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.currency, _this.currency) || other.currency == _this.currency)&&(identical(other.depositId, _this.depositId) || other.depositId == _this.depositId)&&(identical(other.language, _this.language) || other.language == _this.language)&&(identical(other.description, _this.description) || other.description == _this.description));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,amount,currency,depositId,language,description);
+int get hashCode {
+  final _this = this as SatimCreateOrderRequest;
+  return Object.hash(runtimeType,_this.amount,_this.currency,_this.depositId,_this.language,_this.description);
+}
 
 @override
 String toString() {
-  return 'SatimCreateOrderRequest(amount: $amount, currency: $currency, depositId: $depositId, language: $language, description: $description)';
+  final _this = this as SatimCreateOrderRequest;
+  return 'SatimCreateOrderRequest(amount: ${_this.amount}, currency: ${_this.currency}, depositId: ${_this.depositId}, language: ${_this.language}, description: ${_this.description})';
 }
 
 
@@ -236,16 +241,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SatimCreateOrderRequest&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.depositId, depositId) || other.depositId == depositId)&&(identical(other.language, language) || other.language == language)&&(identical(other.description, description) || other.description == description));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SatimCreateOrderRequest&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.depositId, depositId) || other.depositId == depositId)&&(identical(other.language, language) || other.language == language)&&(identical(other.description, description) || other.description == description));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,amount,currency,depositId,language,description);
+int get hashCode {
+    return Object.hash(runtimeType,amount,currency,depositId,language,description);
+}
 
 @override
 String toString() {
-  return 'SatimCreateOrderRequest(amount: $amount, currency: $currency, depositId: $depositId, language: $language, description: $description)';
+    return 'SatimCreateOrderRequest(amount: $amount, currency: $currency, depositId: $depositId, language: $language, description: $description)';
 }
 
 

@@ -29,16 +29,21 @@ $TransferCopyWith<Transfer> get copyWith => _$TransferCopyWithImpl<Transfer>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Transfer&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.debitAccountId, debitAccountId) || other.debitAccountId == debitAccountId)&&(identical(other.creditAccountId, creditAccountId) || other.creditAccountId == creditAccountId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.type, type) || other.type == type)&&(identical(other.referenceId, referenceId) || other.referenceId == referenceId)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as Transfer;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Transfer&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.debitAccountId, _this.debitAccountId) || other.debitAccountId == _this.debitAccountId)&&(identical(other.creditAccountId, _this.creditAccountId) || other.creditAccountId == _this.creditAccountId)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.referenceId, _this.referenceId) || other.referenceId == _this.referenceId)&&(identical(other.description, _this.description) || other.description == _this.description)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,debitAccountId,creditAccountId,amount,type,referenceId,description,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as Transfer;
+  return Object.hash(runtimeType,_this.id,_this.createdAt,_this.debitAccountId,_this.creditAccountId,_this.amount,_this.type,_this.referenceId,_this.description,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'Transfer(id: $id, createdAt: $createdAt, debitAccountId: $debitAccountId, creditAccountId: $creditAccountId, amount: $amount, type: $type, referenceId: $referenceId, description: $description, metadata: $metadata)';
+  final _this = this as Transfer;
+  return 'Transfer(id: ${_this.id}, createdAt: ${_this.createdAt}, debitAccountId: ${_this.debitAccountId}, creditAccountId: ${_this.creditAccountId}, amount: ${_this.amount}, type: ${_this.type}, referenceId: ${_this.referenceId}, description: ${_this.description}, metadata: ${_this.metadata})';
 }
 
 
@@ -250,16 +255,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Transfer&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.debitAccountId, debitAccountId) || other.debitAccountId == debitAccountId)&&(identical(other.creditAccountId, creditAccountId) || other.creditAccountId == creditAccountId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.type, type) || other.type == type)&&(identical(other.referenceId, referenceId) || other.referenceId == referenceId)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Transfer&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.debitAccountId, debitAccountId) || other.debitAccountId == debitAccountId)&&(identical(other.creditAccountId, creditAccountId) || other.creditAccountId == creditAccountId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.type, type) || other.type == type)&&(identical(other.referenceId, referenceId) || other.referenceId == referenceId)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,debitAccountId,creditAccountId,amount,type,referenceId,description,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,createdAt,debitAccountId,creditAccountId,amount,type,referenceId,description,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'Transfer(id: $id, createdAt: $createdAt, debitAccountId: $debitAccountId, creditAccountId: $creditAccountId, amount: $amount, type: $type, referenceId: $referenceId, description: $description, metadata: $metadata)';
+    return 'Transfer(id: $id, createdAt: $createdAt, debitAccountId: $debitAccountId, creditAccountId: $creditAccountId, amount: $amount, type: $type, referenceId: $referenceId, description: $description, metadata: $metadata)';
 }
 
 

@@ -35,16 +35,21 @@ $NoestStationCopyWith<NoestStation> get copyWith => _$NoestStationCopyWithImpl<N
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NoestStation&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.map, map) || other.map == map)&&const DeepCollectionEquality().equals(other.phones, phones)&&(identical(other.email, email) || other.email == email));
+  final _this = this as NoestStation;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NoestStation&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.address, _this.address) || other.address == _this.address)&&(identical(other.map, _this.map) || other.map == _this.map)&&const DeepCollectionEquality().equals(other.phones, _this.phones)&&(identical(other.email, _this.email) || other.email == _this.email));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,name,address,map,const DeepCollectionEquality().hash(phones),email);
+int get hashCode {
+  final _this = this as NoestStation;
+  return Object.hash(runtimeType,_this.code,_this.name,_this.address,_this.map,const DeepCollectionEquality().hash(_this.phones),_this.email);
+}
 
 @override
 String toString() {
-  return 'NoestStation(code: $code, name: $name, address: $address, map: $map, phones: $phones, email: $email)';
+  final _this = this as NoestStation;
+  return 'NoestStation(code: ${_this.code}, name: ${_this.name}, address: ${_this.address}, map: ${_this.map}, phones: ${_this.phones}, email: ${_this.email})';
 }
 
 
@@ -257,16 +262,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NoestStation&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.map, map) || other.map == map)&&const DeepCollectionEquality().equals(other._phones, _phones)&&(identical(other.email, email) || other.email == email));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _NoestStation&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.map, map) || other.map == map)&&const DeepCollectionEquality().equals(other.phones, _phones)&&(identical(other.email, email) || other.email == email));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,name,address,map,const DeepCollectionEquality().hash(_phones),email);
+int get hashCode {
+    return Object.hash(runtimeType,code,name,address,map,const DeepCollectionEquality().hash(_phones),email);
+}
 
 @override
 String toString() {
-  return 'NoestStation(code: $code, name: $name, address: $address, map: $map, phones: $phones, email: $email)';
+    return 'NoestStation(code: $code, name: $name, address: $address, map: $map, phones: $phones, email: $email)';
 }
 
 

@@ -63,7 +63,7 @@ mixin _$OrdersDispatchStrategy {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategy);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategy);
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -72,7 +72,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OrdersDispatchStrategy()';
+    return 'OrdersDispatchStrategy()';
 }
 
 
@@ -259,7 +259,7 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategyFirstUpdate);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategyFirstUpdate);
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -268,7 +268,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OrdersDispatchStrategy.firstUpdate()';
+    return 'OrdersDispatchStrategy.firstUpdate()';
 }
 
 
@@ -298,7 +298,7 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategyRandom);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategyRandom);
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -307,7 +307,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OrdersDispatchStrategy.random()';
+    return 'OrdersDispatchStrategy.random()';
 }
 
 
@@ -348,16 +348,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategyWeightedRandom&&const DeepCollectionEquality().equals(other._weights, _weights));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategyWeightedRandom&&const DeepCollectionEquality().equals(other.weights, _weights));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_weights));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_weights));
+}
 
 @override
 String toString() {
-  return 'OrdersDispatchStrategy.weightedRandom(weights: $weights)';
+    return 'OrdersDispatchStrategy.weightedRandom(weights: $weights)';
 }
 
 
@@ -422,16 +424,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategyRoundRobin&&(identical(other.lastAssignedConfirmerId, lastAssignedConfirmerId) || other.lastAssignedConfirmerId == lastAssignedConfirmerId)&&(identical(other.sortBy, sortBy) || other.sortBy == sortBy));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategyRoundRobin&&(identical(other.lastAssignedConfirmerId, lastAssignedConfirmerId) || other.lastAssignedConfirmerId == lastAssignedConfirmerId)&&(identical(other.sortBy, sortBy) || other.sortBy == sortBy));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,lastAssignedConfirmerId,sortBy);
+int get hashCode {
+    return Object.hash(runtimeType,lastAssignedConfirmerId,sortBy);
+}
 
 @override
 String toString() {
-  return 'OrdersDispatchStrategy.roundRobin(lastAssignedConfirmerId: $lastAssignedConfirmerId, sortBy: $sortBy)';
+    return 'OrdersDispatchStrategy.roundRobin(lastAssignedConfirmerId: $lastAssignedConfirmerId, sortBy: $sortBy)';
 }
 
 
@@ -491,7 +495,7 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategyManualOnly);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategyManualOnly);
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -500,7 +504,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OrdersDispatchStrategy.manualOnly()';
+    return 'OrdersDispatchStrategy.manualOnly()';
 }
 
 
@@ -541,16 +545,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategyPriority&&const DeepCollectionEquality().equals(other._confirmerIds, _confirmerIds));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OrdersDispatchStrategyPriority&&const DeepCollectionEquality().equals(other.confirmerIds, _confirmerIds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_confirmerIds));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_confirmerIds));
+}
 
 @override
 String toString() {
-  return 'OrdersDispatchStrategy.priority(confirmerIds: $confirmerIds)';
+    return 'OrdersDispatchStrategy.priority(confirmerIds: $confirmerIds)';
 }
 
 

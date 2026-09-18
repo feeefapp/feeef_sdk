@@ -143,34 +143,34 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
 Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
     <String, dynamic>{
       'metadata': instance.metadata,
-      'meta': instance.meta,
-      'metaPixel': instance.metaPixel,
-      'tiktokPixel': instance.tiktokPixel,
-      'googleAnalytics': instance.googleAnalytics,
-      'googleTags': instance.googleTags,
-      'clarity': instance.clarity,
-      'ai': instance.ai,
-      'yalidine': instance.yalidine,
-      'ecotrack': instance.ecotrack,
-      'ecomanager': instance.ecomanager,
-      'procolis': instance.procolis,
-      'noest': instance.noest,
-      'orderdz': instance.orderdz,
-      'zimou': instance.zimou,
-      'zrexpress': instance.zrexpress,
-      'mdmExpress': instance.mdmExpress,
-      'feeefDelivery': instance.feeefDelivery,
-      'maystroDelivery': instance.maystroDelivery,
-      'codpilot': instance.codpilot,
-      'googleSheet': instance.googleSheet,
-      'webhooks': instance.webhooks,
-      'security': instance.security,
-      'customFields': instance.customFields,
-      'payment': instance.payment,
-      'dispatcher': instance.dispatcher,
-      'inventory': instance.inventory,
-      'finance': instance.finance,
-      'connectors': instance.connectors,
+      'meta': instance.meta?.toJson(),
+      'metaPixel': instance.metaPixel?.toJson(),
+      'tiktokPixel': instance.tiktokPixel?.toJson(),
+      'googleAnalytics': instance.googleAnalytics?.toJson(),
+      'googleTags': instance.googleTags?.toJson(),
+      'clarity': instance.clarity?.toJson(),
+      'ai': instance.ai?.toJson(),
+      'yalidine': instance.yalidine?.toJson(),
+      'ecotrack': instance.ecotrack?.toJson(),
+      'ecomanager': instance.ecomanager?.toJson(),
+      'procolis': instance.procolis?.toJson(),
+      'noest': instance.noest?.toJson(),
+      'orderdz': instance.orderdz?.toJson(),
+      'zimou': instance.zimou?.toJson(),
+      'zrexpress': instance.zrexpress?.toJson(),
+      'mdmExpress': instance.mdmExpress?.toJson(),
+      'feeefDelivery': instance.feeefDelivery?.toJson(),
+      'maystroDelivery': instance.maystroDelivery?.toJson(),
+      'codpilot': instance.codpilot?.toJson(),
+      'googleSheet': instance.googleSheet?.toJson(),
+      'webhooks': instance.webhooks?.toJson(),
+      'security': instance.security?.toJson(),
+      'customFields': instance.customFields?.toJson(),
+      'payment': instance.payment?.toJson(),
+      'dispatcher': instance.dispatcher?.toJson(),
+      'inventory': instance.inventory?.toJson(),
+      'finance': instance.finance?.toJson(),
+      'connectors': instance.connectors?.toJson(),
       'sms': instance.sms,
       'telegram': instance.telegram,
     };
@@ -295,7 +295,7 @@ _MetaAdsConfig _$MetaAdsConfigFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$MetaAdsConfigToJson(_MetaAdsConfig instance) =>
     <String, dynamic>{
       'active': instance.active,
-      'adAccounts': instance.adAccounts,
+      'adAccounts': instance.adAccounts.map((e) => e.toJson()).toList(),
       'defaultAdAccountId': instance.defaultAdAccountId,
       'defaultDatePreset': instance.defaultDatePreset,
       'extraStoreHosts': instance.extraStoreHosts,
@@ -323,8 +323,8 @@ _MetaIntegration _$MetaIntegrationFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$MetaIntegrationToJson(_MetaIntegration instance) =>
     <String, dynamic>{
       'active': instance.active,
-      'account': instance.account,
-      'ads': instance.ads,
+      'account': instance.account?.toJson(),
+      'ads': instance.ads?.toJson(),
       'metadata': instance.metadata,
     };
 
@@ -360,14 +360,14 @@ Map<String, dynamic> _$MetaPixelIntegrationToJson(
   _MetaPixelIntegration instance,
 ) => <String, dynamic>{
   'id': instance.id,
-  'pixels': instance.pixels,
+  'pixels': instance.pixels.map((e) => e.toJson()).toList(),
   'objective': _$MetaPixelEventEnumMap[instance.objective]!,
   'draftObjective': _$MetaPixelEventEnumMap[instance.draftObjective]!,
   'active': instance.active,
   'metadata': instance.metadata,
-  'oauth2': instance.oauth2,
+  'oauth2': instance.oauth2?.toJson(),
   'mode': _$PixelReportModeEnumMap[instance.mode],
-  'statusRules': instance.statusRules,
+  'statusRules': instance.statusRules.map((e) => e.toJson()).toList(),
 };
 
 const _$PixelReportModeEnumMap = {
@@ -418,13 +418,13 @@ Map<String, dynamic> _$TiktokPixelIntegrationToJson(
   _TiktokPixelIntegration instance,
 ) => <String, dynamic>{
   'id': instance.id,
-  'pixels': instance.pixels,
+  'pixels': instance.pixels.map((e) => e.toJson()).toList(),
   'objective': _$TiktokPixelEventEnumMap[instance.objective]!,
   'draftObjective': _$TiktokPixelEventEnumMap[instance.draftObjective]!,
   'active': instance.active,
   'metadata': instance.metadata,
   'mode': _$PixelReportModeEnumMap[instance.mode],
-  'statusRules': instance.statusRules,
+  'statusRules': instance.statusRules.map((e) => e.toJson()).toList(),
 };
 
 _TiktokPixel _$TiktokPixelFromJson(Map<String, dynamic> json) => _TiktokPixel(
@@ -803,7 +803,7 @@ Map<String, dynamic> _$CodpilotIntegrationToJson(
   'apiId': instance.apiId,
   'apiToken': instance.apiToken,
   'active': instance.active,
-  'statusRules': instance.statusRules,
+  'statusRules': instance.statusRules.map((e) => e.toJson()).toList(),
   'metadata': instance.metadata,
 };
 
@@ -933,15 +933,15 @@ _SecurityOptions _$SecurityOptionsFromJson(
 
 Map<String, dynamic> _$SecurityOptionsToJson(_SecurityOptions instance) =>
     <String, dynamic>{
-      'fingerprint': instance.fingerprint,
-      'ip': instance.ip,
-      'phone': instance.phone,
-      'ads': instance.ads,
-      'frontend': instance.frontend,
-      'doubleSend': instance.doubleSend,
-      'minTimeInPage': instance.minTimeInPage,
-      'countries': instance.countries,
-      'sources': instance.sources,
+      'fingerprint': instance.fingerprint?.toJson(),
+      'ip': instance.ip?.toJson(),
+      'phone': instance.phone?.toJson(),
+      'ads': instance.ads?.toJson(),
+      'frontend': instance.frontend?.toJson(),
+      'doubleSend': instance.doubleSend?.toJson(),
+      'minTimeInPage': instance.minTimeInPage?.toJson(),
+      'countries': instance.countries?.toJson(),
+      'sources': instance.sources?.toJson(),
     };
 
 _SecurityIntegration _$SecurityIntegrationFromJson(Map<String, dynamic> json) =>
@@ -957,7 +957,7 @@ Map<String, dynamic> _$SecurityIntegrationToJson(
   _SecurityIntegration instance,
 ) => <String, dynamic>{
   'active': instance.active,
-  'options': instance.options,
+  'options': instance.options?.toJson(),
   'metadata': instance.metadata,
 };
 
@@ -1036,11 +1036,11 @@ _PublicSecurityOptions _$PublicSecurityOptionsFromJson(
 Map<String, dynamic> _$PublicSecurityOptionsToJson(
   _PublicSecurityOptions instance,
 ) => <String, dynamic>{
-  'frontend': instance.frontend,
-  'doubleSend': instance.doubleSend,
-  'minTimeInPage': instance.minTimeInPage,
-  'countries': instance.countries,
-  'sources': instance.sources,
+  'frontend': instance.frontend?.toJson(),
+  'doubleSend': instance.doubleSend?.toJson(),
+  'minTimeInPage': instance.minTimeInPage?.toJson(),
+  'countries': instance.countries?.toJson(),
+  'sources': instance.sources?.toJson(),
 };
 
 _PublicSecurityIntegration _$PublicSecurityIntegrationFromJson(
@@ -1054,7 +1054,10 @@ _PublicSecurityIntegration _$PublicSecurityIntegrationFromJson(
 
 Map<String, dynamic> _$PublicSecurityIntegrationToJson(
   _PublicSecurityIntegration instance,
-) => <String, dynamic>{'active': instance.active, 'options': instance.options};
+) => <String, dynamic>{
+  'active': instance.active,
+  'options': instance.options.toJson(),
+};
 
 _GoogleSheetsColumn _$GoogleSheetsColumnFromJson(Map<String, dynamic> json) =>
     _GoogleSheetsColumn(
@@ -1096,7 +1099,7 @@ Map<String, dynamic> _$GoogleSheetsIntegrationToJson(
   'name': instance.name,
   'active': instance.active,
   'oauth2': instance.oauth2,
-  'columns': instance.columns,
+  'columns': instance.columns?.map((e) => e.toJson()).toList(),
   'metadata': instance.metadata,
   'draftSheetEnabled': instance.draftSheetEnabled,
   'draftSheetName': instance.draftSheetName,
@@ -1157,7 +1160,7 @@ _WebhooksIntegration _$WebhooksIntegrationFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$WebhooksIntegrationToJson(
   _WebhooksIntegration instance,
 ) => <String, dynamic>{
-  'webhooks': instance.webhooks,
+  'webhooks': instance.webhooks.map((e) => e.toJson()).toList(),
   'active': instance.active,
   'metadata': instance.metadata,
 };
@@ -1226,7 +1229,7 @@ _CustomFieldsIntegration _$CustomFieldsIntegrationFromJson(
 Map<String, dynamic> _$CustomFieldsIntegrationToJson(
   _CustomFieldsIntegration instance,
 ) => <String, dynamic>{
-  'fields': instance.fields,
+  'fields': instance.fields.map((e) => e.toJson()).toList(),
   'active': instance.active,
   'metadata': instance.metadata,
 };
@@ -1271,7 +1274,7 @@ _PaymentIntegration _$PaymentIntegrationFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$PaymentIntegrationToJson(_PaymentIntegration instance) =>
     <String, dynamic>{
       'active': instance.active,
-      'methods': instance.methods,
+      'methods': instance.methods.map((e) => e.toJson()).toList(),
       'defaultMethod': instance.defaultMethod,
       'metadata': instance.metadata,
     };
@@ -1292,7 +1295,7 @@ Map<String, dynamic> _$DispatcherIntegrationToJson(
   _DispatcherIntegration instance,
 ) => <String, dynamic>{
   'active': instance.active,
-  'strategy': instance.strategy,
+  'strategy': instance.strategy?.toJson(),
   'metadata': instance.metadata,
 };
 
@@ -1351,7 +1354,7 @@ Map<String, dynamic> _$ConnectorConfigToJson(_ConnectorConfig instance) =>
       'externalId': instance.externalId,
       'fieldMapping': instance.fieldMapping,
       'syncState': instance.syncState,
-      'auth': instance.auth,
+      'auth': instance.auth?.toJson(),
       'createdAt': instance.createdAt,
       'metadata': instance.metadata,
     };
@@ -1372,6 +1375,6 @@ Map<String, dynamic> _$ConnectorsIntegrationToJson(
   _ConnectorsIntegration instance,
 ) => <String, dynamic>{
   'active': instance.active,
-  'connectors': instance.connectors,
+  'connectors': instance.connectors.map((e) => e.toJson()).toList(),
   'metadata': instance.metadata,
 };

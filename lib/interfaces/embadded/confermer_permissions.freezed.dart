@@ -32,16 +32,21 @@ $ConfermerPermissionsCopyWith<ConfermerPermissions> get copyWith => _$ConfermerP
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConfermerPermissions&&(identical(other.canSeeAllOrders, canSeeAllOrders) || other.canSeeAllOrders == canSeeAllOrders)&&(identical(other.canAssignOrder, canAssignOrder) || other.canAssignOrder == canAssignOrder)&&(identical(other.canReAssignOrder, canReAssignOrder) || other.canReAssignOrder == canReAssignOrder)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as ConfermerPermissions;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConfermerPermissions&&(identical(other.canSeeAllOrders, _this.canSeeAllOrders) || other.canSeeAllOrders == _this.canSeeAllOrders)&&(identical(other.canAssignOrder, _this.canAssignOrder) || other.canAssignOrder == _this.canAssignOrder)&&(identical(other.canReAssignOrder, _this.canReAssignOrder) || other.canReAssignOrder == _this.canReAssignOrder)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,canSeeAllOrders,canAssignOrder,canReAssignOrder,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as ConfermerPermissions;
+  return Object.hash(runtimeType,_this.canSeeAllOrders,_this.canAssignOrder,_this.canReAssignOrder,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'ConfermerPermissions(canSeeAllOrders: $canSeeAllOrders, canAssignOrder: $canAssignOrder, canReAssignOrder: $canReAssignOrder, metadata: $metadata)';
+  final _this = this as ConfermerPermissions;
+  return 'ConfermerPermissions(canSeeAllOrders: ${_this.canSeeAllOrders}, canAssignOrder: ${_this.canAssignOrder}, canReAssignOrder: ${_this.canReAssignOrder}, metadata: ${_this.metadata})';
 }
 
 
@@ -246,16 +251,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConfermerPermissions&&(identical(other.canSeeAllOrders, canSeeAllOrders) || other.canSeeAllOrders == canSeeAllOrders)&&(identical(other.canAssignOrder, canAssignOrder) || other.canAssignOrder == canAssignOrder)&&(identical(other.canReAssignOrder, canReAssignOrder) || other.canReAssignOrder == canReAssignOrder)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConfermerPermissions&&(identical(other.canSeeAllOrders, canSeeAllOrders) || other.canSeeAllOrders == canSeeAllOrders)&&(identical(other.canAssignOrder, canAssignOrder) || other.canAssignOrder == canAssignOrder)&&(identical(other.canReAssignOrder, canReAssignOrder) || other.canReAssignOrder == canReAssignOrder)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,canSeeAllOrders,canAssignOrder,canReAssignOrder,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,canSeeAllOrders,canAssignOrder,canReAssignOrder,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'ConfermerPermissions(canSeeAllOrders: $canSeeAllOrders, canAssignOrder: $canAssignOrder, canReAssignOrder: $canReAssignOrder, metadata: $metadata)';
+    return 'ConfermerPermissions(canSeeAllOrders: $canSeeAllOrders, canAssignOrder: $canAssignOrder, canReAssignOrder: $canReAssignOrder, metadata: $metadata)';
 }
 
 

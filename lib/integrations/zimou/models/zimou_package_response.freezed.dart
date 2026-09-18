@@ -29,16 +29,21 @@ $ZimouPackageResponseCopyWith<ZimouPackageResponse> get copyWith => _$ZimouPacka
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZimouPackageResponse&&(identical(other.id, id) || other.id == id)&&(identical(other.trackingCode, trackingCode) || other.trackingCode == trackingCode)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.printUrl, printUrl) || other.printUrl == printUrl)&&(identical(other.statusName, statusName) || other.statusName == statusName)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as ZimouPackageResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZimouPackageResponse&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.trackingCode, _this.trackingCode) || other.trackingCode == _this.trackingCode)&&(identical(other.orderId, _this.orderId) || other.orderId == _this.orderId)&&(identical(other.printUrl, _this.printUrl) || other.printUrl == _this.printUrl)&&(identical(other.statusName, _this.statusName) || other.statusName == _this.statusName)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,trackingCode,orderId,printUrl,statusName,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as ZimouPackageResponse;
+  return Object.hash(runtimeType,_this.id,_this.trackingCode,_this.orderId,_this.printUrl,_this.statusName,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'ZimouPackageResponse(id: $id, trackingCode: $trackingCode, orderId: $orderId, printUrl: $printUrl, statusName: $statusName, metadata: $metadata)';
+  final _this = this as ZimouPackageResponse;
+  return 'ZimouPackageResponse(id: ${_this.id}, trackingCode: ${_this.trackingCode}, orderId: ${_this.orderId}, printUrl: ${_this.printUrl}, statusName: ${_this.statusName}, metadata: ${_this.metadata})';
 }
 
 
@@ -244,16 +249,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZimouPackageResponse&&(identical(other.id, id) || other.id == id)&&(identical(other.trackingCode, trackingCode) || other.trackingCode == trackingCode)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.printUrl, printUrl) || other.printUrl == printUrl)&&(identical(other.statusName, statusName) || other.statusName == statusName)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZimouPackageResponse&&(identical(other.id, id) || other.id == id)&&(identical(other.trackingCode, trackingCode) || other.trackingCode == trackingCode)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.printUrl, printUrl) || other.printUrl == printUrl)&&(identical(other.statusName, statusName) || other.statusName == statusName)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,trackingCode,orderId,printUrl,statusName,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,trackingCode,orderId,printUrl,statusName,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'ZimouPackageResponse(id: $id, trackingCode: $trackingCode, orderId: $orderId, printUrl: $printUrl, statusName: $statusName, metadata: $metadata)';
+    return 'ZimouPackageResponse(id: $id, trackingCode: $trackingCode, orderId: $orderId, printUrl: $printUrl, statusName: $statusName, metadata: $metadata)';
 }
 
 
@@ -313,16 +320,21 @@ $ZimouStatisticsResponseCopyWith<ZimouStatisticsResponse> get copyWith => _$Zimo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZimouStatisticsResponse&&(identical(other.packagesAdded, packagesAdded) || other.packagesAdded == packagesAdded)&&(identical(other.packagesDispatched, packagesDispatched) || other.packagesDispatched == packagesDispatched)&&(identical(other.netPaid, netPaid) || other.netPaid == netPaid)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as ZimouStatisticsResponse;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZimouStatisticsResponse&&(identical(other.packagesAdded, _this.packagesAdded) || other.packagesAdded == _this.packagesAdded)&&(identical(other.packagesDispatched, _this.packagesDispatched) || other.packagesDispatched == _this.packagesDispatched)&&(identical(other.netPaid, _this.netPaid) || other.netPaid == _this.netPaid)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,packagesAdded,packagesDispatched,netPaid,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as ZimouStatisticsResponse;
+  return Object.hash(runtimeType,_this.packagesAdded,_this.packagesDispatched,_this.netPaid,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'ZimouStatisticsResponse(packagesAdded: $packagesAdded, packagesDispatched: $packagesDispatched, netPaid: $netPaid, metadata: $metadata)';
+  final _this = this as ZimouStatisticsResponse;
+  return 'ZimouStatisticsResponse(packagesAdded: ${_this.packagesAdded}, packagesDispatched: ${_this.packagesDispatched}, netPaid: ${_this.netPaid}, metadata: ${_this.metadata})';
 }
 
 
@@ -524,16 +536,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZimouStatisticsResponse&&(identical(other.packagesAdded, packagesAdded) || other.packagesAdded == packagesAdded)&&(identical(other.packagesDispatched, packagesDispatched) || other.packagesDispatched == packagesDispatched)&&(identical(other.netPaid, netPaid) || other.netPaid == netPaid)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ZimouStatisticsResponse&&(identical(other.packagesAdded, packagesAdded) || other.packagesAdded == packagesAdded)&&(identical(other.packagesDispatched, packagesDispatched) || other.packagesDispatched == packagesDispatched)&&(identical(other.netPaid, netPaid) || other.netPaid == netPaid)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,packagesAdded,packagesDispatched,netPaid,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,packagesAdded,packagesDispatched,netPaid,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'ZimouStatisticsResponse(packagesAdded: $packagesAdded, packagesDispatched: $packagesDispatched, netPaid: $netPaid, metadata: $metadata)';
+    return 'ZimouStatisticsResponse(packagesAdded: $packagesAdded, packagesDispatched: $packagesDispatched, netPaid: $netPaid, metadata: $metadata)';
 }
 
 

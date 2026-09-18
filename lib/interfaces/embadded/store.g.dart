@@ -136,7 +136,7 @@ Map<String, dynamic> _$EmbaddedAddressToJson(_EmbaddedAddress instance) =>
       'country': instance.country,
       'street': instance.street,
       'zip': instance.zip,
-      'location': instance.location,
+      'location': instance.location?.toJson(),
       'metadata': instance.metadata,
     };
 
@@ -274,7 +274,7 @@ Map<String, dynamic> _$StoreInviteToJson(_StoreInvite instance) =>
       'metadata': instance.metadata,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
-      'store': instance.store,
+      'store': instance.store?.toJson(),
       'token': instance.token,
       'scopes': instance.scopes,
     };

@@ -36,16 +36,21 @@ $CurrencyCopyWith<Currency> get copyWith => _$CurrencyCopyWithImpl<Currency>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Currency&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.decimals, decimals) || other.decimals == decimals)&&(identical(other.rate, rate) || other.rate == rate)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  final _this = this as Currency;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Currency&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.symbol, _this.symbol) || other.symbol == _this.symbol)&&(identical(other.decimals, _this.decimals) || other.decimals == _this.decimals)&&(identical(other.rate, _this.rate) || other.rate == _this.rate)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,name,symbol,decimals,rate,const DeepCollectionEquality().hash(metadata),createdAt);
+int get hashCode {
+  final _this = this as Currency;
+  return Object.hash(runtimeType,_this.code,_this.name,_this.symbol,_this.decimals,_this.rate,const DeepCollectionEquality().hash(_this.metadata),_this.createdAt);
+}
 
 @override
 String toString() {
-  return 'Currency(code: $code, name: $name, symbol: $symbol, decimals: $decimals, rate: $rate, metadata: $metadata, createdAt: $createdAt)';
+  final _this = this as Currency;
+  return 'Currency(code: ${_this.code}, name: ${_this.name}, symbol: ${_this.symbol}, decimals: ${_this.decimals}, rate: ${_this.rate}, metadata: ${_this.metadata}, createdAt: ${_this.createdAt})';
 }
 
 
@@ -261,16 +266,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Currency&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.decimals, decimals) || other.decimals == decimals)&&(identical(other.rate, rate) || other.rate == rate)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Currency&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.decimals, decimals) || other.decimals == decimals)&&(identical(other.rate, rate) || other.rate == rate)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,name,symbol,decimals,rate,const DeepCollectionEquality().hash(_metadata),createdAt);
+int get hashCode {
+    return Object.hash(runtimeType,code,name,symbol,decimals,rate,const DeepCollectionEquality().hash(_metadata),createdAt);
+}
 
 @override
 String toString() {
-  return 'Currency(code: $code, name: $name, symbol: $symbol, decimals: $decimals, rate: $rate, metadata: $metadata, createdAt: $createdAt)';
+    return 'Currency(code: $code, name: $name, symbol: $symbol, decimals: $decimals, rate: $rate, metadata: $metadata, createdAt: $createdAt)';
 }
 
 
@@ -337,16 +344,21 @@ $CurrencyCreateCopyWith<CurrencyCreate> get copyWith => _$CurrencyCreateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CurrencyCreate&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.decimals, decimals) || other.decimals == decimals)&&(identical(other.rate, rate) || other.rate == rate)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as CurrencyCreate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CurrencyCreate&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.symbol, _this.symbol) || other.symbol == _this.symbol)&&(identical(other.decimals, _this.decimals) || other.decimals == _this.decimals)&&(identical(other.rate, _this.rate) || other.rate == _this.rate)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,name,symbol,decimals,rate,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as CurrencyCreate;
+  return Object.hash(runtimeType,_this.code,_this.name,_this.symbol,_this.decimals,_this.rate,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'CurrencyCreate(code: $code, name: $name, symbol: $symbol, decimals: $decimals, rate: $rate, metadata: $metadata)';
+  final _this = this as CurrencyCreate;
+  return 'CurrencyCreate(code: ${_this.code}, name: ${_this.name}, symbol: ${_this.symbol}, decimals: ${_this.decimals}, rate: ${_this.rate}, metadata: ${_this.metadata})';
 }
 
 
@@ -561,16 +573,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CurrencyCreate&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.decimals, decimals) || other.decimals == decimals)&&(identical(other.rate, rate) || other.rate == rate)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CurrencyCreate&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.decimals, decimals) || other.decimals == decimals)&&(identical(other.rate, rate) || other.rate == rate)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,code,name,symbol,decimals,rate,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,code,name,symbol,decimals,rate,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'CurrencyCreate(code: $code, name: $name, symbol: $symbol, decimals: $decimals, rate: $rate, metadata: $metadata)';
+    return 'CurrencyCreate(code: $code, name: $name, symbol: $symbol, decimals: $decimals, rate: $rate, metadata: $metadata)';
 }
 
 
@@ -635,16 +649,21 @@ $CurrencyUpdateCopyWith<CurrencyUpdate> get copyWith => _$CurrencyUpdateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CurrencyUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.decimals, decimals) || other.decimals == decimals)&&(identical(other.rate, rate) || other.rate == rate)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
+  final _this = this as CurrencyUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CurrencyUpdate&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.symbol, _this.symbol) || other.symbol == _this.symbol)&&(identical(other.decimals, _this.decimals) || other.decimals == _this.decimals)&&(identical(other.rate, _this.rate) || other.rate == _this.rate)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,symbol,decimals,rate,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(setToNull));
+int get hashCode {
+  final _this = this as CurrencyUpdate;
+  return Object.hash(runtimeType,_this.name,_this.symbol,_this.decimals,_this.rate,const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.setToNull));
+}
 
 @override
 String toString() {
-  return 'CurrencyUpdate(name: $name, symbol: $symbol, decimals: $decimals, rate: $rate, metadata: $metadata, setToNull: $setToNull)';
+  final _this = this as CurrencyUpdate;
+  return 'CurrencyUpdate(name: ${_this.name}, symbol: ${_this.symbol}, decimals: ${_this.decimals}, rate: ${_this.rate}, metadata: ${_this.metadata}, setToNull: ${_this.setToNull})';
 }
 
 
@@ -864,16 +883,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CurrencyUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.decimals, decimals) || other.decimals == decimals)&&(identical(other.rate, rate) || other.rate == rate)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CurrencyUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.symbol, symbol) || other.symbol == symbol)&&(identical(other.decimals, decimals) || other.decimals == decimals)&&(identical(other.rate, rate) || other.rate == rate)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,symbol,decimals,rate,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_setToNull));
+int get hashCode {
+    return Object.hash(runtimeType,name,symbol,decimals,rate,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_setToNull));
+}
 
 @override
 String toString() {
-  return 'CurrencyUpdate(name: $name, symbol: $symbol, decimals: $decimals, rate: $rate, metadata: $metadata, setToNull: $setToNull)';
+    return 'CurrencyUpdate(name: $name, symbol: $symbol, decimals: $decimals, rate: $rate, metadata: $metadata, setToNull: $setToNull)';
 }
 
 

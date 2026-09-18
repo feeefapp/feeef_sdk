@@ -29,16 +29,21 @@ $ProductVariantCopyWith<ProductVariant> get copyWith => _$ProductVariantCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductVariant&&(identical(other.name, name) || other.name == name)&&(identical(other.view, view) || other.view == view)&&(identical(other.required, required) || other.required == required)&&const DeepCollectionEquality().equals(other.options, options));
+  final _this = this as ProductVariant;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductVariant&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.view, _this.view) || other.view == _this.view)&&(identical(other.required, _this.required) || other.required == _this.required)&&const DeepCollectionEquality().equals(other.options, _this.options));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,view,required,const DeepCollectionEquality().hash(options));
+int get hashCode {
+  final _this = this as ProductVariant;
+  return Object.hash(runtimeType,_this.name,_this.view,_this.required,const DeepCollectionEquality().hash(_this.options));
+}
 
 @override
 String toString() {
-  return 'ProductVariant(name: $name, view: $view, required: $required, options: $options)';
+  final _this = this as ProductVariant;
+  return 'ProductVariant(name: ${_this.name}, view: ${_this.view}, required: ${_this.required}, options: ${_this.options})';
 }
 
 
@@ -240,16 +245,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductVariant&&(identical(other.name, name) || other.name == name)&&(identical(other.view, view) || other.view == view)&&(identical(other.required, required) || other.required == required)&&const DeepCollectionEquality().equals(other._options, _options));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductVariant&&(identical(other.name, name) || other.name == name)&&(identical(other.view, view) || other.view == view)&&(identical(other.required, required) || other.required == required)&&const DeepCollectionEquality().equals(other.options, _options));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,view,required,const DeepCollectionEquality().hash(_options));
+int get hashCode {
+    return Object.hash(runtimeType,name,view,required,const DeepCollectionEquality().hash(_options));
+}
 
 @override
 String toString() {
-  return 'ProductVariant(name: $name, view: $view, required: $required, options: $options)';
+    return 'ProductVariant(name: $name, view: $view, required: $required, options: $options)';
 }
 
 
@@ -307,16 +314,21 @@ $ProductVariantOptionCopyWith<ProductVariantOption> get copyWith => _$ProductVar
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductVariantOption&&(identical(other.name, name) || other.name == name)&&(identical(other.hidden, hidden) || other.hidden == hidden)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.value, value)&&(identical(other.child, child) || other.child == child)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.price, price) || other.price == price)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.sold, sold) || other.sold == sold)&&(identical(other.mustSelectChild, mustSelectChild) || other.mustSelectChild == mustSelectChild));
+  final _this = this as ProductVariantOption;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductVariantOption&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.hidden, _this.hidden) || other.hidden == _this.hidden)&&(identical(other.type, _this.type) || other.type == _this.type)&&const DeepCollectionEquality().equals(other.value, _this.value)&&(identical(other.child, _this.child) || other.child == _this.child)&&(identical(other.sku, _this.sku) || other.sku == _this.sku)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.discount, _this.discount) || other.discount == _this.discount)&&(identical(other.stock, _this.stock) || other.stock == _this.stock)&&(identical(other.sold, _this.sold) || other.sold == _this.sold)&&(identical(other.mustSelectChild, _this.mustSelectChild) || other.mustSelectChild == _this.mustSelectChild));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,hidden,type,const DeepCollectionEquality().hash(value),child,sku,price,discount,stock,sold,mustSelectChild);
+int get hashCode {
+  final _this = this as ProductVariantOption;
+  return Object.hash(runtimeType,_this.name,_this.hidden,_this.type,const DeepCollectionEquality().hash(_this.value),_this.child,_this.sku,_this.price,_this.discount,_this.stock,_this.sold,_this.mustSelectChild);
+}
 
 @override
 String toString() {
-  return 'ProductVariantOption(name: $name, hidden: $hidden, type: $type, value: $value, child: $child, sku: $sku, price: $price, discount: $discount, stock: $stock, sold: $sold, mustSelectChild: $mustSelectChild)';
+  final _this = this as ProductVariantOption;
+  return 'ProductVariantOption(name: ${_this.name}, hidden: ${_this.hidden}, type: ${_this.type}, value: ${_this.value}, child: ${_this.child}, sku: ${_this.sku}, price: ${_this.price}, discount: ${_this.discount}, stock: ${_this.stock}, sold: ${_this.sold}, mustSelectChild: ${_this.mustSelectChild})';
 }
 
 
@@ -538,16 +550,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductVariantOption&&(identical(other.name, name) || other.name == name)&&(identical(other.hidden, hidden) || other.hidden == hidden)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.value, value)&&(identical(other.child, child) || other.child == child)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.price, price) || other.price == price)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.sold, sold) || other.sold == sold)&&(identical(other.mustSelectChild, mustSelectChild) || other.mustSelectChild == mustSelectChild));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductVariantOption&&(identical(other.name, name) || other.name == name)&&(identical(other.hidden, hidden) || other.hidden == hidden)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.value, value)&&(identical(other.child, child) || other.child == child)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.price, price) || other.price == price)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.sold, sold) || other.sold == sold)&&(identical(other.mustSelectChild, mustSelectChild) || other.mustSelectChild == mustSelectChild));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,hidden,type,const DeepCollectionEquality().hash(value),child,sku,price,discount,stock,sold,mustSelectChild);
+int get hashCode {
+    return Object.hash(runtimeType,name,hidden,type,const DeepCollectionEquality().hash(value),child,sku,price,discount,stock,sold,mustSelectChild);
+}
 
 @override
 String toString() {
-  return 'ProductVariantOption(name: $name, hidden: $hidden, type: $type, value: $value, child: $child, sku: $sku, price: $price, discount: $discount, stock: $stock, sold: $sold, mustSelectChild: $mustSelectChild)';
+    return 'ProductVariantOption(name: $name, hidden: $hidden, type: $type, value: $value, child: $child, sku: $sku, price: $price, discount: $discount, stock: $stock, sold: $sold, mustSelectChild: $mustSelectChild)';
 }
 
 

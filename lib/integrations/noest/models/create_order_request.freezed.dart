@@ -56,16 +56,21 @@ $NoestOrderCreateRequestCopyWith<NoestOrderCreateRequest> get copyWith => _$Noes
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NoestOrderCreateRequest&&(identical(other.reference, reference) || other.reference == reference)&&(identical(other.client, client) || other.client == client)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.phone2, phone2) || other.phone2 == phone2)&&(identical(other.adresse, adresse) || other.adresse == adresse)&&(identical(other.wilayaId, wilayaId) || other.wilayaId == wilayaId)&&(identical(other.commune, commune) || other.commune == commune)&&(identical(other.montant, montant) || other.montant == montant)&&(identical(other.remarque, remarque) || other.remarque == remarque)&&(identical(other.produit, produit) || other.produit == produit)&&(identical(other.typeId, typeId) || other.typeId == typeId)&&(identical(other.poids, poids) || other.poids == poids)&&(identical(other.stopDesk, stopDesk) || other.stopDesk == stopDesk)&&(identical(other.stationCode, stationCode) || other.stationCode == stationCode)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.quantite, quantite) || other.quantite == quantite)&&(identical(other.canOpen, canOpen) || other.canOpen == canOpen));
+  final _this = this as NoestOrderCreateRequest;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NoestOrderCreateRequest&&(identical(other.reference, _this.reference) || other.reference == _this.reference)&&(identical(other.client, _this.client) || other.client == _this.client)&&(identical(other.phone, _this.phone) || other.phone == _this.phone)&&(identical(other.phone2, _this.phone2) || other.phone2 == _this.phone2)&&(identical(other.adresse, _this.adresse) || other.adresse == _this.adresse)&&(identical(other.wilayaId, _this.wilayaId) || other.wilayaId == _this.wilayaId)&&(identical(other.commune, _this.commune) || other.commune == _this.commune)&&(identical(other.montant, _this.montant) || other.montant == _this.montant)&&(identical(other.remarque, _this.remarque) || other.remarque == _this.remarque)&&(identical(other.produit, _this.produit) || other.produit == _this.produit)&&(identical(other.typeId, _this.typeId) || other.typeId == _this.typeId)&&(identical(other.poids, _this.poids) || other.poids == _this.poids)&&(identical(other.stopDesk, _this.stopDesk) || other.stopDesk == _this.stopDesk)&&(identical(other.stationCode, _this.stationCode) || other.stationCode == _this.stationCode)&&(identical(other.stock, _this.stock) || other.stock == _this.stock)&&(identical(other.quantite, _this.quantite) || other.quantite == _this.quantite)&&(identical(other.canOpen, _this.canOpen) || other.canOpen == _this.canOpen));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,reference,client,phone,phone2,adresse,wilayaId,commune,montant,remarque,produit,typeId,poids,stopDesk,stationCode,stock,quantite,canOpen);
+int get hashCode {
+  final _this = this as NoestOrderCreateRequest;
+  return Object.hash(runtimeType,_this.reference,_this.client,_this.phone,_this.phone2,_this.adresse,_this.wilayaId,_this.commune,_this.montant,_this.remarque,_this.produit,_this.typeId,_this.poids,_this.stopDesk,_this.stationCode,_this.stock,_this.quantite,_this.canOpen);
+}
 
 @override
 String toString() {
-  return 'NoestOrderCreateRequest(reference: $reference, client: $client, phone: $phone, phone2: $phone2, adresse: $adresse, wilayaId: $wilayaId, commune: $commune, montant: $montant, remarque: $remarque, produit: $produit, typeId: $typeId, poids: $poids, stopDesk: $stopDesk, stationCode: $stationCode, stock: $stock, quantite: $quantite, canOpen: $canOpen)';
+  final _this = this as NoestOrderCreateRequest;
+  return 'NoestOrderCreateRequest(reference: ${_this.reference}, client: ${_this.client}, phone: ${_this.phone}, phone2: ${_this.phone2}, adresse: ${_this.adresse}, wilayaId: ${_this.wilayaId}, commune: ${_this.commune}, montant: ${_this.montant}, remarque: ${_this.remarque}, produit: ${_this.produit}, typeId: ${_this.typeId}, poids: ${_this.poids}, stopDesk: ${_this.stopDesk}, stationCode: ${_this.stationCode}, stock: ${_this.stock}, quantite: ${_this.quantite}, canOpen: ${_this.canOpen})';
 }
 
 
@@ -314,16 +319,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NoestOrderCreateRequest&&(identical(other.reference, reference) || other.reference == reference)&&(identical(other.client, client) || other.client == client)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.phone2, phone2) || other.phone2 == phone2)&&(identical(other.adresse, adresse) || other.adresse == adresse)&&(identical(other.wilayaId, wilayaId) || other.wilayaId == wilayaId)&&(identical(other.commune, commune) || other.commune == commune)&&(identical(other.montant, montant) || other.montant == montant)&&(identical(other.remarque, remarque) || other.remarque == remarque)&&(identical(other.produit, produit) || other.produit == produit)&&(identical(other.typeId, typeId) || other.typeId == typeId)&&(identical(other.poids, poids) || other.poids == poids)&&(identical(other.stopDesk, stopDesk) || other.stopDesk == stopDesk)&&(identical(other.stationCode, stationCode) || other.stationCode == stationCode)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.quantite, quantite) || other.quantite == quantite)&&(identical(other.canOpen, canOpen) || other.canOpen == canOpen));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _NoestOrderCreateRequest&&(identical(other.reference, reference) || other.reference == reference)&&(identical(other.client, client) || other.client == client)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.phone2, phone2) || other.phone2 == phone2)&&(identical(other.adresse, adresse) || other.adresse == adresse)&&(identical(other.wilayaId, wilayaId) || other.wilayaId == wilayaId)&&(identical(other.commune, commune) || other.commune == commune)&&(identical(other.montant, montant) || other.montant == montant)&&(identical(other.remarque, remarque) || other.remarque == remarque)&&(identical(other.produit, produit) || other.produit == produit)&&(identical(other.typeId, typeId) || other.typeId == typeId)&&(identical(other.poids, poids) || other.poids == poids)&&(identical(other.stopDesk, stopDesk) || other.stopDesk == stopDesk)&&(identical(other.stationCode, stationCode) || other.stationCode == stationCode)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.quantite, quantite) || other.quantite == quantite)&&(identical(other.canOpen, canOpen) || other.canOpen == canOpen));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,reference,client,phone,phone2,adresse,wilayaId,commune,montant,remarque,produit,typeId,poids,stopDesk,stationCode,stock,quantite,canOpen);
+int get hashCode {
+    return Object.hash(runtimeType,reference,client,phone,phone2,adresse,wilayaId,commune,montant,remarque,produit,typeId,poids,stopDesk,stationCode,stock,quantite,canOpen);
+}
 
 @override
 String toString() {
-  return 'NoestOrderCreateRequest(reference: $reference, client: $client, phone: $phone, phone2: $phone2, adresse: $adresse, wilayaId: $wilayaId, commune: $commune, montant: $montant, remarque: $remarque, produit: $produit, typeId: $typeId, poids: $poids, stopDesk: $stopDesk, stationCode: $stationCode, stock: $stock, quantite: $quantite, canOpen: $canOpen)';
+    return 'NoestOrderCreateRequest(reference: $reference, client: $client, phone: $phone, phone2: $phone2, adresse: $adresse, wilayaId: $wilayaId, commune: $commune, montant: $montant, remarque: $remarque, produit: $produit, typeId: $typeId, poids: $poids, stopDesk: $stopDesk, stationCode: $stationCode, stock: $stock, quantite: $quantite, canOpen: $canOpen)';
 }
 
 

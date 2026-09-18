@@ -29,16 +29,21 @@ $CustomOrderTagCopyWith<CustomOrderTag> get copyWith => _$CustomOrderTagCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomOrderTag&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.note, note) || other.note == note)&&(identical(other.color, color) || other.color == color));
+  final _this = this as CustomOrderTag;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomOrderTag&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.note, _this.note) || other.note == _this.note)&&(identical(other.color, _this.color) || other.color == _this.color));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,userId,name,note,color);
+int get hashCode {
+  final _this = this as CustomOrderTag;
+  return Object.hash(runtimeType,_this.userId,_this.name,_this.note,_this.color);
+}
 
 @override
 String toString() {
-  return 'CustomOrderTag(userId: $userId, name: $name, note: $note, color: $color)';
+  final _this = this as CustomOrderTag;
+  return 'CustomOrderTag(userId: ${_this.userId}, name: ${_this.name}, note: ${_this.note}, color: ${_this.color})';
 }
 
 
@@ -234,16 +239,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomOrderTag&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.note, note) || other.note == note)&&(identical(other.color, color) || other.color == color));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomOrderTag&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.note, note) || other.note == note)&&(identical(other.color, color) || other.color == color));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,userId,name,note,color);
+int get hashCode {
+    return Object.hash(runtimeType,userId,name,note,color);
+}
 
 @override
 String toString() {
-  return 'CustomOrderTag(userId: $userId, name: $name, note: $note, color: $color)';
+    return 'CustomOrderTag(userId: $userId, name: $name, note: $note, color: $color)';
 }
 
 
@@ -301,16 +308,21 @@ $CustomOrderTagHistoryCopyWith<CustomOrderTagHistory> get copyWith => _$CustomOr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomOrderTagHistory&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.tag, tag) || other.tag == tag)&&(identical(other.note, note) || other.note == note)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  final _this = this as CustomOrderTagHistory;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomOrderTagHistory&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.tag, _this.tag) || other.tag == _this.tag)&&(identical(other.note, _this.note) || other.note == _this.note)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,userId,tag,note,createdAt);
+int get hashCode {
+  final _this = this as CustomOrderTagHistory;
+  return Object.hash(runtimeType,_this.userId,_this.tag,_this.note,_this.createdAt);
+}
 
 @override
 String toString() {
-  return 'CustomOrderTagHistory(userId: $userId, tag: $tag, note: $note, createdAt: $createdAt)';
+  final _this = this as CustomOrderTagHistory;
+  return 'CustomOrderTagHistory(userId: ${_this.userId}, tag: ${_this.tag}, note: ${_this.note}, createdAt: ${_this.createdAt})';
 }
 
 
@@ -515,16 +527,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomOrderTagHistory&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.tag, tag) || other.tag == tag)&&(identical(other.note, note) || other.note == note)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomOrderTagHistory&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.tag, tag) || other.tag == tag)&&(identical(other.note, note) || other.note == note)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,userId,tag,note,createdAt);
+int get hashCode {
+    return Object.hash(runtimeType,userId,tag,note,createdAt);
+}
 
 @override
 String toString() {
-  return 'CustomOrderTagHistory(userId: $userId, tag: $tag, note: $note, createdAt: $createdAt)';
+    return 'CustomOrderTagHistory(userId: $userId, tag: $tag, note: $note, createdAt: $createdAt)';
 }
 
 

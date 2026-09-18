@@ -2250,7 +2250,8 @@ class Actions {
     }
   }
 
-  /// @deprecated Prefer [generateBrandAsset]. Maps [identityStudioId] → brandStudioId.
+  /// Prefer [generateBrandAsset]. Maps [identityStudioId] → brandStudioId.
+  @Deprecated('Use generateBrandAsset instead')
   Future<
     ({
       bool success,

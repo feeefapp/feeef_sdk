@@ -29,16 +29,21 @@ $OrderItemCopyWith<OrderItem> get copyWith => _$OrderItemCopyWithImpl<OrderItem>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderItem&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.productPhotoUrl, productPhotoUrl) || other.productPhotoUrl == productPhotoUrl)&&(identical(other.variantPath, variantPath) || other.variantPath == variantPath)&&(identical(other.offerCode, offerCode) || other.offerCode == offerCode)&&(identical(other.offerName, offerName) || other.offerName == offerName)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.price, price) || other.price == price)&&(identical(other.discount, discount) || other.discount == discount)&&const DeepCollectionEquality().equals(other.addons, addons));
+  final _this = this as OrderItem;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderItem&&(identical(other.productId, _this.productId) || other.productId == _this.productId)&&(identical(other.productName, _this.productName) || other.productName == _this.productName)&&(identical(other.productPhotoUrl, _this.productPhotoUrl) || other.productPhotoUrl == _this.productPhotoUrl)&&(identical(other.variantPath, _this.variantPath) || other.variantPath == _this.variantPath)&&(identical(other.offerCode, _this.offerCode) || other.offerCode == _this.offerCode)&&(identical(other.offerName, _this.offerName) || other.offerName == _this.offerName)&&(identical(other.sku, _this.sku) || other.sku == _this.sku)&&(identical(other.quantity, _this.quantity) || other.quantity == _this.quantity)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.discount, _this.discount) || other.discount == _this.discount)&&const DeepCollectionEquality().equals(other.addons, _this.addons));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,productId,productName,productPhotoUrl,variantPath,offerCode,offerName,sku,quantity,price,discount,const DeepCollectionEquality().hash(addons));
+int get hashCode {
+  final _this = this as OrderItem;
+  return Object.hash(runtimeType,_this.productId,_this.productName,_this.productPhotoUrl,_this.variantPath,_this.offerCode,_this.offerName,_this.sku,_this.quantity,_this.price,_this.discount,const DeepCollectionEquality().hash(_this.addons));
+}
 
 @override
 String toString() {
-  return 'OrderItem(productId: $productId, productName: $productName, productPhotoUrl: $productPhotoUrl, variantPath: $variantPath, offerCode: $offerCode, offerName: $offerName, sku: $sku, quantity: $quantity, price: $price, discount: $discount, addons: $addons)';
+  final _this = this as OrderItem;
+  return 'OrderItem(productId: ${_this.productId}, productName: ${_this.productName}, productPhotoUrl: ${_this.productPhotoUrl}, variantPath: ${_this.variantPath}, offerCode: ${_this.offerCode}, offerName: ${_this.offerName}, sku: ${_this.sku}, quantity: ${_this.quantity}, price: ${_this.price}, discount: ${_this.discount}, addons: ${_this.addons})';
 }
 
 
@@ -256,16 +261,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderItem&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.productPhotoUrl, productPhotoUrl) || other.productPhotoUrl == productPhotoUrl)&&(identical(other.variantPath, variantPath) || other.variantPath == variantPath)&&(identical(other.offerCode, offerCode) || other.offerCode == offerCode)&&(identical(other.offerName, offerName) || other.offerName == offerName)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.price, price) || other.price == price)&&(identical(other.discount, discount) || other.discount == discount)&&const DeepCollectionEquality().equals(other._addons, _addons));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderItem&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.productPhotoUrl, productPhotoUrl) || other.productPhotoUrl == productPhotoUrl)&&(identical(other.variantPath, variantPath) || other.variantPath == variantPath)&&(identical(other.offerCode, offerCode) || other.offerCode == offerCode)&&(identical(other.offerName, offerName) || other.offerName == offerName)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.price, price) || other.price == price)&&(identical(other.discount, discount) || other.discount == discount)&&const DeepCollectionEquality().equals(other.addons, _addons));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,productId,productName,productPhotoUrl,variantPath,offerCode,offerName,sku,quantity,price,discount,const DeepCollectionEquality().hash(_addons));
+int get hashCode {
+    return Object.hash(runtimeType,productId,productName,productPhotoUrl,variantPath,offerCode,offerName,sku,quantity,price,discount,const DeepCollectionEquality().hash(_addons));
+}
 
 @override
 String toString() {
-  return 'OrderItem(productId: $productId, productName: $productName, productPhotoUrl: $productPhotoUrl, variantPath: $variantPath, offerCode: $offerCode, offerName: $offerName, sku: $sku, quantity: $quantity, price: $price, discount: $discount, addons: $addons)';
+    return 'OrderItem(productId: $productId, productName: $productName, productPhotoUrl: $productPhotoUrl, variantPath: $variantPath, offerCode: $offerCode, offerName: $offerName, sku: $sku, quantity: $quantity, price: $price, discount: $discount, addons: $addons)';
 }
 
 

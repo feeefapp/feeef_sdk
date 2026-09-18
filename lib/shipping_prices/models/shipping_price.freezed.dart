@@ -29,16 +29,21 @@ $ShippingPriceCopyWith<ShippingPrice> get copyWith => _$ShippingPriceCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShippingPrice&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other.prices, prices)&&(identical(other.status, status) || other.status == status));
+  final _this = this as ShippingPrice;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShippingPrice&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.logoUrl, _this.logoUrl) || other.logoUrl == _this.logoUrl)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&const DeepCollectionEquality().equals(other.prices, _this.prices)&&(identical(other.status, _this.status) || other.status == _this.status));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,const DeepCollectionEquality().hash(metadata),name,logoUrl,storeId,const DeepCollectionEquality().hash(prices),status);
+int get hashCode {
+  final _this = this as ShippingPrice;
+  return Object.hash(runtimeType,_this.id,_this.createdAt,_this.updatedAt,const DeepCollectionEquality().hash(_this.metadata),_this.name,_this.logoUrl,_this.storeId,const DeepCollectionEquality().hash(_this.prices),_this.status);
+}
 
 @override
 String toString() {
-  return 'ShippingPrice(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, metadata: $metadata, name: $name, logoUrl: $logoUrl, storeId: $storeId, prices: $prices, status: $status)';
+  final _this = this as ShippingPrice;
+  return 'ShippingPrice(id: ${_this.id}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, metadata: ${_this.metadata}, name: ${_this.name}, logoUrl: ${_this.logoUrl}, storeId: ${_this.storeId}, prices: ${_this.prices}, status: ${_this.status})';
 }
 
 
@@ -256,16 +261,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShippingPrice&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other._prices, _prices)&&(identical(other.status, status) || other.status == status));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShippingPrice&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other.prices, _prices)&&(identical(other.status, status) || other.status == status));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,const DeepCollectionEquality().hash(_metadata),name,logoUrl,storeId,const DeepCollectionEquality().hash(_prices),status);
+int get hashCode {
+    return Object.hash(runtimeType,id,createdAt,updatedAt,const DeepCollectionEquality().hash(_metadata),name,logoUrl,storeId,const DeepCollectionEquality().hash(_prices),status);
+}
 
 @override
 String toString() {
-  return 'ShippingPrice(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, metadata: $metadata, name: $name, logoUrl: $logoUrl, storeId: $storeId, prices: $prices, status: $status)';
+    return 'ShippingPrice(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, metadata: $metadata, name: $name, logoUrl: $logoUrl, storeId: $storeId, prices: $prices, status: $status)';
 }
 
 
@@ -328,16 +335,21 @@ $ShippingPriceCreateCopyWith<ShippingPriceCreate> get copyWith => _$ShippingPric
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShippingPriceCreate&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other.prices, prices)&&(identical(other.status, status) || other.status == status));
+  final _this = this as ShippingPriceCreate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShippingPriceCreate&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.logoUrl, _this.logoUrl) || other.logoUrl == _this.logoUrl)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&const DeepCollectionEquality().equals(other.prices, _this.prices)&&(identical(other.status, _this.status) || other.status == _this.status));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(metadata),name,logoUrl,storeId,const DeepCollectionEquality().hash(prices),status);
+int get hashCode {
+  final _this = this as ShippingPriceCreate;
+  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.metadata),_this.name,_this.logoUrl,_this.storeId,const DeepCollectionEquality().hash(_this.prices),_this.status);
+}
 
 @override
 String toString() {
-  return 'ShippingPriceCreate(id: $id, metadata: $metadata, name: $name, logoUrl: $logoUrl, storeId: $storeId, prices: $prices, status: $status)';
+  final _this = this as ShippingPriceCreate;
+  return 'ShippingPriceCreate(id: ${_this.id}, metadata: ${_this.metadata}, name: ${_this.name}, logoUrl: ${_this.logoUrl}, storeId: ${_this.storeId}, prices: ${_this.prices}, status: ${_this.status})';
 }
 
 
@@ -551,16 +563,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShippingPriceCreate&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other._prices, _prices)&&(identical(other.status, status) || other.status == status));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShippingPriceCreate&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other.prices, _prices)&&(identical(other.status, status) || other.status == status));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_metadata),name,logoUrl,storeId,const DeepCollectionEquality().hash(_prices),status);
+int get hashCode {
+    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_metadata),name,logoUrl,storeId,const DeepCollectionEquality().hash(_prices),status);
+}
 
 @override
 String toString() {
-  return 'ShippingPriceCreate(id: $id, metadata: $metadata, name: $name, logoUrl: $logoUrl, storeId: $storeId, prices: $prices, status: $status)';
+    return 'ShippingPriceCreate(id: $id, metadata: $metadata, name: $name, logoUrl: $logoUrl, storeId: $storeId, prices: $prices, status: $status)';
 }
 
 
@@ -621,16 +635,21 @@ $ShippingPriceUpdateCopyWith<ShippingPriceUpdate> get copyWith => _$ShippingPric
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShippingPriceUpdate&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other.prices, prices)&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
+  final _this = this as ShippingPriceUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShippingPriceUpdate&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.logoUrl, _this.logoUrl) || other.logoUrl == _this.logoUrl)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&const DeepCollectionEquality().equals(other.prices, _this.prices)&&(identical(other.status, _this.status) || other.status == _this.status)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(metadata),name,logoUrl,storeId,const DeepCollectionEquality().hash(prices),status,const DeepCollectionEquality().hash(setToNull));
+int get hashCode {
+  final _this = this as ShippingPriceUpdate;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.metadata),_this.name,_this.logoUrl,_this.storeId,const DeepCollectionEquality().hash(_this.prices),_this.status,const DeepCollectionEquality().hash(_this.setToNull));
+}
 
 @override
 String toString() {
-  return 'ShippingPriceUpdate(metadata: $metadata, name: $name, logoUrl: $logoUrl, storeId: $storeId, prices: $prices, status: $status, setToNull: $setToNull)';
+  final _this = this as ShippingPriceUpdate;
+  return 'ShippingPriceUpdate(metadata: ${_this.metadata}, name: ${_this.name}, logoUrl: ${_this.logoUrl}, storeId: ${_this.storeId}, prices: ${_this.prices}, status: ${_this.status}, setToNull: ${_this.setToNull})';
 }
 
 
@@ -854,16 +873,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShippingPriceUpdate&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other._prices, _prices)&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShippingPriceUpdate&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other.prices, _prices)&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_metadata),name,logoUrl,storeId,const DeepCollectionEquality().hash(_prices),status,const DeepCollectionEquality().hash(_setToNull));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_metadata),name,logoUrl,storeId,const DeepCollectionEquality().hash(_prices),status,const DeepCollectionEquality().hash(_setToNull));
+}
 
 @override
 String toString() {
-  return 'ShippingPriceUpdate(metadata: $metadata, name: $name, logoUrl: $logoUrl, storeId: $storeId, prices: $prices, status: $status, setToNull: $setToNull)';
+    return 'ShippingPriceUpdate(metadata: $metadata, name: $name, logoUrl: $logoUrl, storeId: $storeId, prices: $prices, status: $status, setToNull: $setToNull)';
 }
 
 

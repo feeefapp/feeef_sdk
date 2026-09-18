@@ -17,7 +17,7 @@ Map<String, dynamic> _$ParcelSendCustomerToJson(_ParcelSendCustomer instance) =>
     <String, dynamic>{
       'customerId': instance.customerId,
       'name': instance.name,
-      'phone': instance.phone,
+      'phone': instance.phone.toJson(),
     };
 
 _ParcelSendPhone _$ParcelSendPhoneFromJson(Map<String, dynamic> json) =>
@@ -98,19 +98,20 @@ _ParcelSendRequest _$ParcelSendRequestFromJson(Map<String, dynamic> json) =>
       cityCode: json['cityCode'] as String?,
     );
 
-Map<String, dynamic> _$ParcelSendRequestToJson(_ParcelSendRequest instance) =>
-    <String, dynamic>{
-      'externalId': instance.externalId,
-      'customer': instance.customer,
-      'deliveryAddress': instance.deliveryAddress,
-      'orderedProducts': instance.orderedProducts,
-      'amount': instance.amount,
-      'deliveryType': _$ParcelSendDeliveryTypeEnumMap[instance.deliveryType]!,
-      'hubId': instance.hubId,
-      'description': instance.description,
-      'stateCode': instance.stateCode,
-      'cityCode': instance.cityCode,
-    };
+Map<String, dynamic> _$ParcelSendRequestToJson(
+  _ParcelSendRequest instance,
+) => <String, dynamic>{
+  'externalId': instance.externalId,
+  'customer': instance.customer.toJson(),
+  'deliveryAddress': instance.deliveryAddress.toJson(),
+  'orderedProducts': instance.orderedProducts.map((e) => e.toJson()).toList(),
+  'amount': instance.amount,
+  'deliveryType': _$ParcelSendDeliveryTypeEnumMap[instance.deliveryType]!,
+  'hubId': instance.hubId,
+  'description': instance.description,
+  'stateCode': instance.stateCode,
+  'cityCode': instance.cityCode,
+};
 
 const _$ParcelSendDeliveryTypeEnumMap = {
   ParcelSendDeliveryType.home: 'home',

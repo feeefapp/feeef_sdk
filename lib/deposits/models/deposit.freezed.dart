@@ -29,16 +29,21 @@ $DepositCopyWith<Deposit> get copyWith => _$DepositCopyWithImpl<Deposit>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Deposit&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.paymentMethod, paymentMethod) || other.paymentMethod == paymentMethod)&&(identical(other.attachment, attachment) || other.attachment == attachment)&&(identical(other.status, status) || other.status == status)&&(identical(other.note, note) || other.note == note)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.history, history));
+  final _this = this as Deposit;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Deposit&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.externalId, _this.externalId) || other.externalId == _this.externalId)&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.currency, _this.currency) || other.currency == _this.currency)&&(identical(other.paymentMethod, _this.paymentMethod) || other.paymentMethod == _this.paymentMethod)&&(identical(other.attachment, _this.attachment) || other.attachment == _this.attachment)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.note, _this.note) || other.note == _this.note)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.history, _this.history));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,externalId,userId,amount,currency,paymentMethod,attachment,status,note,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(history));
+int get hashCode {
+  final _this = this as Deposit;
+  return Object.hash(runtimeType,_this.id,_this.createdAt,_this.updatedAt,_this.externalId,_this.userId,_this.amount,_this.currency,_this.paymentMethod,_this.attachment,_this.status,_this.note,const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.history));
+}
 
 @override
 String toString() {
-  return 'Deposit(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, externalId: $externalId, userId: $userId, amount: $amount, currency: $currency, paymentMethod: $paymentMethod, attachment: $attachment, status: $status, note: $note, metadata: $metadata, history: $history)';
+  final _this = this as Deposit;
+  return 'Deposit(id: ${_this.id}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, externalId: ${_this.externalId}, userId: ${_this.userId}, amount: ${_this.amount}, currency: ${_this.currency}, paymentMethod: ${_this.paymentMethod}, attachment: ${_this.attachment}, status: ${_this.status}, note: ${_this.note}, metadata: ${_this.metadata}, history: ${_this.history})';
 }
 
 
@@ -264,16 +269,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Deposit&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.paymentMethod, paymentMethod) || other.paymentMethod == paymentMethod)&&(identical(other.attachment, attachment) || other.attachment == attachment)&&(identical(other.status, status) || other.status == status)&&(identical(other.note, note) || other.note == note)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._history, _history));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Deposit&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.paymentMethod, paymentMethod) || other.paymentMethod == paymentMethod)&&(identical(other.attachment, attachment) || other.attachment == attachment)&&(identical(other.status, status) || other.status == status)&&(identical(other.note, note) || other.note == note)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.history, _history));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,externalId,userId,amount,currency,paymentMethod,attachment,status,note,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_history));
+int get hashCode {
+    return Object.hash(runtimeType,id,createdAt,updatedAt,externalId,userId,amount,currency,paymentMethod,attachment,status,note,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_history));
+}
 
 @override
 String toString() {
-  return 'Deposit(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, externalId: $externalId, userId: $userId, amount: $amount, currency: $currency, paymentMethod: $paymentMethod, attachment: $attachment, status: $status, note: $note, metadata: $metadata, history: $history)';
+    return 'Deposit(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, externalId: $externalId, userId: $userId, amount: $amount, currency: $currency, paymentMethod: $paymentMethod, attachment: $attachment, status: $status, note: $note, metadata: $metadata, history: $history)';
 }
 
 
@@ -340,16 +347,21 @@ $DepositCreateCopyWith<DepositCreate> get copyWith => _$DepositCreateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DepositCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.paymentMethod, paymentMethod) || other.paymentMethod == paymentMethod)&&(identical(other.attachment, attachment) || other.attachment == attachment)&&(identical(other.status, status) || other.status == status)&&(identical(other.note, note) || other.note == note)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as DepositCreate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DepositCreate&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.externalId, _this.externalId) || other.externalId == _this.externalId)&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.currency, _this.currency) || other.currency == _this.currency)&&(identical(other.paymentMethod, _this.paymentMethod) || other.paymentMethod == _this.paymentMethod)&&(identical(other.attachment, _this.attachment) || other.attachment == _this.attachment)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.note, _this.note) || other.note == _this.note)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,externalId,userId,amount,currency,paymentMethod,attachment,status,note,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as DepositCreate;
+  return Object.hash(runtimeType,_this.id,_this.externalId,_this.userId,_this.amount,_this.currency,_this.paymentMethod,_this.attachment,_this.status,_this.note,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'DepositCreate(id: $id, externalId: $externalId, userId: $userId, amount: $amount, currency: $currency, paymentMethod: $paymentMethod, attachment: $attachment, status: $status, note: $note, metadata: $metadata)';
+  final _this = this as DepositCreate;
+  return 'DepositCreate(id: ${_this.id}, externalId: ${_this.externalId}, userId: ${_this.userId}, amount: ${_this.amount}, currency: ${_this.currency}, paymentMethod: ${_this.paymentMethod}, attachment: ${_this.attachment}, status: ${_this.status}, note: ${_this.note}, metadata: ${_this.metadata})';
 }
 
 
@@ -563,16 +575,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DepositCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.paymentMethod, paymentMethod) || other.paymentMethod == paymentMethod)&&(identical(other.attachment, attachment) || other.attachment == attachment)&&(identical(other.status, status) || other.status == status)&&(identical(other.note, note) || other.note == note)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DepositCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.paymentMethod, paymentMethod) || other.paymentMethod == paymentMethod)&&(identical(other.attachment, attachment) || other.attachment == attachment)&&(identical(other.status, status) || other.status == status)&&(identical(other.note, note) || other.note == note)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,externalId,userId,amount,currency,paymentMethod,attachment,status,note,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,id,externalId,userId,amount,currency,paymentMethod,attachment,status,note,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'DepositCreate(id: $id, externalId: $externalId, userId: $userId, amount: $amount, currency: $currency, paymentMethod: $paymentMethod, attachment: $attachment, status: $status, note: $note, metadata: $metadata)';
+    return 'DepositCreate(id: $id, externalId: $externalId, userId: $userId, amount: $amount, currency: $currency, paymentMethod: $paymentMethod, attachment: $attachment, status: $status, note: $note, metadata: $metadata)';
 }
 
 
@@ -636,16 +650,21 @@ $DepositUpdateCopyWith<DepositUpdate> get copyWith => _$DepositUpdateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DepositUpdate&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.paymentMethod, paymentMethod) || other.paymentMethod == paymentMethod)&&(identical(other.attachment, attachment) || other.attachment == attachment)&&(identical(other.status, status) || other.status == status)&&(identical(other.note, note) || other.note == note)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.history, history)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
+  final _this = this as DepositUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DepositUpdate&&(identical(other.externalId, _this.externalId) || other.externalId == _this.externalId)&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.currency, _this.currency) || other.currency == _this.currency)&&(identical(other.paymentMethod, _this.paymentMethod) || other.paymentMethod == _this.paymentMethod)&&(identical(other.attachment, _this.attachment) || other.attachment == _this.attachment)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.note, _this.note) || other.note == _this.note)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.history, _this.history)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,externalId,userId,amount,currency,paymentMethod,attachment,status,note,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(history),const DeepCollectionEquality().hash(setToNull));
+int get hashCode {
+  final _this = this as DepositUpdate;
+  return Object.hash(runtimeType,_this.externalId,_this.userId,_this.amount,_this.currency,_this.paymentMethod,_this.attachment,_this.status,_this.note,const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.history),const DeepCollectionEquality().hash(_this.setToNull));
+}
 
 @override
 String toString() {
-  return 'DepositUpdate(externalId: $externalId, userId: $userId, amount: $amount, currency: $currency, paymentMethod: $paymentMethod, attachment: $attachment, status: $status, note: $note, metadata: $metadata, history: $history, setToNull: $setToNull)';
+  final _this = this as DepositUpdate;
+  return 'DepositUpdate(externalId: ${_this.externalId}, userId: ${_this.userId}, amount: ${_this.amount}, currency: ${_this.currency}, paymentMethod: ${_this.paymentMethod}, attachment: ${_this.attachment}, status: ${_this.status}, note: ${_this.note}, metadata: ${_this.metadata}, history: ${_this.history}, setToNull: ${_this.setToNull})';
 }
 
 
@@ -877,16 +896,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DepositUpdate&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.paymentMethod, paymentMethod) || other.paymentMethod == paymentMethod)&&(identical(other.attachment, attachment) || other.attachment == attachment)&&(identical(other.status, status) || other.status == status)&&(identical(other.note, note) || other.note == note)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._history, _history)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DepositUpdate&&(identical(other.externalId, externalId) || other.externalId == externalId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.paymentMethod, paymentMethod) || other.paymentMethod == paymentMethod)&&(identical(other.attachment, attachment) || other.attachment == attachment)&&(identical(other.status, status) || other.status == status)&&(identical(other.note, note) || other.note == note)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.history, _history)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,externalId,userId,amount,currency,paymentMethod,attachment,status,note,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_history),const DeepCollectionEquality().hash(_setToNull));
+int get hashCode {
+    return Object.hash(runtimeType,externalId,userId,amount,currency,paymentMethod,attachment,status,note,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_history),const DeepCollectionEquality().hash(_setToNull));
+}
 
 @override
 String toString() {
-  return 'DepositUpdate(externalId: $externalId, userId: $userId, amount: $amount, currency: $currency, paymentMethod: $paymentMethod, attachment: $attachment, status: $status, note: $note, metadata: $metadata, history: $history, setToNull: $setToNull)';
+    return 'DepositUpdate(externalId: $externalId, userId: $userId, amount: $amount, currency: $currency, paymentMethod: $paymentMethod, attachment: $attachment, status: $status, note: $note, metadata: $metadata, history: $history, setToNull: $setToNull)';
 }
 
 
@@ -951,16 +972,21 @@ $DepositHistoryCopyWith<DepositHistory> get copyWith => _$DepositHistoryCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DepositHistory&&(identical(other.status, status) || other.status == status)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.note, note) || other.note == note));
+  final _this = this as DepositHistory;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DepositHistory&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.timestamp, _this.timestamp) || other.timestamp == _this.timestamp)&&(identical(other.note, _this.note) || other.note == _this.note));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,status,timestamp,note);
+int get hashCode {
+  final _this = this as DepositHistory;
+  return Object.hash(runtimeType,_this.status,_this.timestamp,_this.note);
+}
 
 @override
 String toString() {
-  return 'DepositHistory(status: $status, timestamp: $timestamp, note: $note)';
+  final _this = this as DepositHistory;
+  return 'DepositHistory(status: ${_this.status}, timestamp: ${_this.timestamp}, note: ${_this.note})';
 }
 
 
@@ -1154,16 +1180,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DepositHistory&&(identical(other.status, status) || other.status == status)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.note, note) || other.note == note));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DepositHistory&&(identical(other.status, status) || other.status == status)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.note, note) || other.note == note));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,status,timestamp,note);
+int get hashCode {
+    return Object.hash(runtimeType,status,timestamp,note);
+}
 
 @override
 String toString() {
-  return 'DepositHistory(status: $status, timestamp: $timestamp, note: $note)';
+    return 'DepositHistory(status: $status, timestamp: $timestamp, note: $note)';
 }
 
 

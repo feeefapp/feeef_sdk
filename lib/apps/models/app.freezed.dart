@@ -31,16 +31,21 @@ $AppCopyWith<App> get copyWith => _$AppCopyWithImpl<App>(this as App, _$identity
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is App&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.clientId, clientId) || other.clientId == clientId)&&const DeepCollectionEquality().equals(other.redirectUris, redirectUris)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.active, active) || other.active == active)&&(identical(other.lastUsedAt, lastUsedAt) || other.lastUsedAt == lastUsedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.clientSecret, clientSecret) || other.clientSecret == clientSecret));
+  final _this = this as App;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is App&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.logoUrl, _this.logoUrl) || other.logoUrl == _this.logoUrl)&&(identical(other.clientId, _this.clientId) || other.clientId == _this.clientId)&&const DeepCollectionEquality().equals(other.redirectUris, _this.redirectUris)&&const DeepCollectionEquality().equals(other.scopes, _this.scopes)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.lastUsedAt, _this.lastUsedAt) || other.lastUsedAt == _this.lastUsedAt)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.clientSecret, _this.clientSecret) || other.clientSecret == _this.clientSecret));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,logoUrl,clientId,const DeepCollectionEquality().hash(redirectUris),const DeepCollectionEquality().hash(scopes),active,lastUsedAt,createdAt,updatedAt,clientSecret);
+int get hashCode {
+  final _this = this as App;
+  return Object.hash(runtimeType,_this.id,_this.name,_this.logoUrl,_this.clientId,const DeepCollectionEquality().hash(_this.redirectUris),const DeepCollectionEquality().hash(_this.scopes),_this.active,_this.lastUsedAt,_this.createdAt,_this.updatedAt,_this.clientSecret);
+}
 
 @override
 String toString() {
-  return 'App(id: $id, name: $name, logoUrl: $logoUrl, clientId: $clientId, redirectUris: $redirectUris, scopes: $scopes, active: $active, lastUsedAt: $lastUsedAt, createdAt: $createdAt, updatedAt: $updatedAt, clientSecret: $clientSecret)';
+  final _this = this as App;
+  return 'App(id: ${_this.id}, name: ${_this.name}, logoUrl: ${_this.logoUrl}, clientId: ${_this.clientId}, redirectUris: ${_this.redirectUris}, scopes: ${_this.scopes}, active: ${_this.active}, lastUsedAt: ${_this.lastUsedAt}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, clientSecret: ${_this.clientSecret})';
 }
 
 
@@ -264,16 +269,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _App&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.clientId, clientId) || other.clientId == clientId)&&const DeepCollectionEquality().equals(other._redirectUris, _redirectUris)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.active, active) || other.active == active)&&(identical(other.lastUsedAt, lastUsedAt) || other.lastUsedAt == lastUsedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.clientSecret, clientSecret) || other.clientSecret == clientSecret));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _App&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.clientId, clientId) || other.clientId == clientId)&&const DeepCollectionEquality().equals(other.redirectUris, _redirectUris)&&const DeepCollectionEquality().equals(other.scopes, _scopes)&&(identical(other.active, active) || other.active == active)&&(identical(other.lastUsedAt, lastUsedAt) || other.lastUsedAt == lastUsedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.clientSecret, clientSecret) || other.clientSecret == clientSecret));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,logoUrl,clientId,const DeepCollectionEquality().hash(_redirectUris),const DeepCollectionEquality().hash(_scopes),active,lastUsedAt,createdAt,updatedAt,clientSecret);
+int get hashCode {
+    return Object.hash(runtimeType,id,name,logoUrl,clientId,const DeepCollectionEquality().hash(_redirectUris),const DeepCollectionEquality().hash(_scopes),active,lastUsedAt,createdAt,updatedAt,clientSecret);
+}
 
 @override
 String toString() {
-  return 'App(id: $id, name: $name, logoUrl: $logoUrl, clientId: $clientId, redirectUris: $redirectUris, scopes: $scopes, active: $active, lastUsedAt: $lastUsedAt, createdAt: $createdAt, updatedAt: $updatedAt, clientSecret: $clientSecret)';
+    return 'App(id: $id, name: $name, logoUrl: $logoUrl, clientId: $clientId, redirectUris: $redirectUris, scopes: $scopes, active: $active, lastUsedAt: $lastUsedAt, createdAt: $createdAt, updatedAt: $updatedAt, clientSecret: $clientSecret)';
 }
 
 
@@ -339,16 +346,21 @@ $AppCreateCopyWith<AppCreate> get copyWith => _$AppCreateCopyWithImpl<AppCreate>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppCreate&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&const DeepCollectionEquality().equals(other.redirectUris, redirectUris)&&const DeepCollectionEquality().equals(other.scopes, scopes));
+  final _this = this as AppCreate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppCreate&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.logoUrl, _this.logoUrl) || other.logoUrl == _this.logoUrl)&&const DeepCollectionEquality().equals(other.redirectUris, _this.redirectUris)&&const DeepCollectionEquality().equals(other.scopes, _this.scopes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,logoUrl,const DeepCollectionEquality().hash(redirectUris),const DeepCollectionEquality().hash(scopes));
+int get hashCode {
+  final _this = this as AppCreate;
+  return Object.hash(runtimeType,_this.name,_this.logoUrl,const DeepCollectionEquality().hash(_this.redirectUris),const DeepCollectionEquality().hash(_this.scopes));
+}
 
 @override
 String toString() {
-  return 'AppCreate(name: $name, logoUrl: $logoUrl, redirectUris: $redirectUris, scopes: $scopes)';
+  final _this = this as AppCreate;
+  return 'AppCreate(name: ${_this.name}, logoUrl: ${_this.logoUrl}, redirectUris: ${_this.redirectUris}, scopes: ${_this.scopes})';
 }
 
 
@@ -557,16 +569,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppCreate&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&const DeepCollectionEquality().equals(other._redirectUris, _redirectUris)&&const DeepCollectionEquality().equals(other._scopes, _scopes));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppCreate&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&const DeepCollectionEquality().equals(other.redirectUris, _redirectUris)&&const DeepCollectionEquality().equals(other.scopes, _scopes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,logoUrl,const DeepCollectionEquality().hash(_redirectUris),const DeepCollectionEquality().hash(_scopes));
+int get hashCode {
+    return Object.hash(runtimeType,name,logoUrl,const DeepCollectionEquality().hash(_redirectUris),const DeepCollectionEquality().hash(_scopes));
+}
 
 @override
 String toString() {
-  return 'AppCreate(name: $name, logoUrl: $logoUrl, redirectUris: $redirectUris, scopes: $scopes)';
+    return 'AppCreate(name: $name, logoUrl: $logoUrl, redirectUris: $redirectUris, scopes: $scopes)';
 }
 
 
@@ -625,16 +639,21 @@ $AppUpdateCopyWith<AppUpdate> get copyWith => _$AppUpdateCopyWithImpl<AppUpdate>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&const DeepCollectionEquality().equals(other.redirectUris, redirectUris)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
+  final _this = this as AppUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppUpdate&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.logoUrl, _this.logoUrl) || other.logoUrl == _this.logoUrl)&&const DeepCollectionEquality().equals(other.redirectUris, _this.redirectUris)&&const DeepCollectionEquality().equals(other.scopes, _this.scopes)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,logoUrl,const DeepCollectionEquality().hash(redirectUris),const DeepCollectionEquality().hash(scopes),active,const DeepCollectionEquality().hash(setToNull));
+int get hashCode {
+  final _this = this as AppUpdate;
+  return Object.hash(runtimeType,_this.name,_this.logoUrl,const DeepCollectionEquality().hash(_this.redirectUris),const DeepCollectionEquality().hash(_this.scopes),_this.active,const DeepCollectionEquality().hash(_this.setToNull));
+}
 
 @override
 String toString() {
-  return 'AppUpdate(name: $name, logoUrl: $logoUrl, redirectUris: $redirectUris, scopes: $scopes, active: $active, setToNull: $setToNull)';
+  final _this = this as AppUpdate;
+  return 'AppUpdate(name: ${_this.name}, logoUrl: ${_this.logoUrl}, redirectUris: ${_this.redirectUris}, scopes: ${_this.scopes}, active: ${_this.active}, setToNull: ${_this.setToNull})';
 }
 
 
@@ -857,16 +876,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&const DeepCollectionEquality().equals(other._redirectUris, _redirectUris)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppUpdate&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&const DeepCollectionEquality().equals(other.redirectUris, _redirectUris)&&const DeepCollectionEquality().equals(other.scopes, _scopes)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,logoUrl,const DeepCollectionEquality().hash(_redirectUris),const DeepCollectionEquality().hash(_scopes),active,const DeepCollectionEquality().hash(_setToNull));
+int get hashCode {
+    return Object.hash(runtimeType,name,logoUrl,const DeepCollectionEquality().hash(_redirectUris),const DeepCollectionEquality().hash(_scopes),active,const DeepCollectionEquality().hash(_setToNull));
+}
 
 @override
 String toString() {
-  return 'AppUpdate(name: $name, logoUrl: $logoUrl, redirectUris: $redirectUris, scopes: $scopes, active: $active, setToNull: $setToNull)';
+    return 'AppUpdate(name: $name, logoUrl: $logoUrl, redirectUris: $redirectUris, scopes: $scopes, active: $active, setToNull: $setToNull)';
 }
 
 

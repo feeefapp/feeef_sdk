@@ -35,16 +35,21 @@ $CityCopyWith<City> get copyWith => _$CityCopyWithImpl<City>(this as City, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is City&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.stateCode, stateCode) || other.stateCode == stateCode)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.locales, locales)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  final _this = this as City;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is City&&(identical(other.countryCode, _this.countryCode) || other.countryCode == _this.countryCode)&&(identical(other.stateCode, _this.stateCode) || other.stateCode == _this.stateCode)&&(identical(other.name, _this.name) || other.name == _this.name)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.locales, _this.locales)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,countryCode,stateCode,name,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(locales),createdAt);
+int get hashCode {
+  final _this = this as City;
+  return Object.hash(runtimeType,_this.countryCode,_this.stateCode,_this.name,const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.locales),_this.createdAt);
+}
 
 @override
 String toString() {
-  return 'City(countryCode: $countryCode, stateCode: $stateCode, name: $name, metadata: $metadata, locales: $locales, createdAt: $createdAt)';
+  final _this = this as City;
+  return 'City(countryCode: ${_this.countryCode}, stateCode: ${_this.stateCode}, name: ${_this.name}, metadata: ${_this.metadata}, locales: ${_this.locales}, createdAt: ${_this.createdAt})';
 }
 
 
@@ -266,16 +271,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _City&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.stateCode, stateCode) || other.stateCode == stateCode)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._locales, _locales)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _City&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.stateCode, stateCode) || other.stateCode == stateCode)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.locales, _locales)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,countryCode,stateCode,name,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_locales),createdAt);
+int get hashCode {
+    return Object.hash(runtimeType,countryCode,stateCode,name,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_locales),createdAt);
+}
 
 @override
 String toString() {
-  return 'City(countryCode: $countryCode, stateCode: $stateCode, name: $name, metadata: $metadata, locales: $locales, createdAt: $createdAt)';
+    return 'City(countryCode: $countryCode, stateCode: $stateCode, name: $name, metadata: $metadata, locales: $locales, createdAt: $createdAt)';
 }
 
 
@@ -339,16 +346,21 @@ $CityCreateCopyWith<CityCreate> get copyWith => _$CityCreateCopyWithImpl<CityCre
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CityCreate&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.stateCode, stateCode) || other.stateCode == stateCode)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.metadata, metadata));
+  final _this = this as CityCreate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CityCreate&&(identical(other.countryCode, _this.countryCode) || other.countryCode == _this.countryCode)&&(identical(other.stateCode, _this.stateCode) || other.stateCode == _this.stateCode)&&(identical(other.name, _this.name) || other.name == _this.name)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,countryCode,stateCode,name,const DeepCollectionEquality().hash(metadata));
+int get hashCode {
+  final _this = this as CityCreate;
+  return Object.hash(runtimeType,_this.countryCode,_this.stateCode,_this.name,const DeepCollectionEquality().hash(_this.metadata));
+}
 
 @override
 String toString() {
-  return 'CityCreate(countryCode: $countryCode, stateCode: $stateCode, name: $name, metadata: $metadata)';
+  final _this = this as CityCreate;
+  return 'CityCreate(countryCode: ${_this.countryCode}, stateCode: ${_this.stateCode}, name: ${_this.name}, metadata: ${_this.metadata})';
 }
 
 
@@ -555,16 +567,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CityCreate&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.stateCode, stateCode) || other.stateCode == stateCode)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CityCreate&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.stateCode, stateCode) || other.stateCode == stateCode)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,countryCode,stateCode,name,const DeepCollectionEquality().hash(_metadata));
+int get hashCode {
+    return Object.hash(runtimeType,countryCode,stateCode,name,const DeepCollectionEquality().hash(_metadata));
+}
 
 @override
 String toString() {
-  return 'CityCreate(countryCode: $countryCode, stateCode: $stateCode, name: $name, metadata: $metadata)';
+    return 'CityCreate(countryCode: $countryCode, stateCode: $stateCode, name: $name, metadata: $metadata)';
 }
 
 
@@ -624,16 +638,21 @@ $CityUpdateCopyWith<CityUpdate> get copyWith => _$CityUpdateCopyWithImpl<CityUpd
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CityUpdate&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.setToNull, setToNull));
+  final _this = this as CityUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CityUpdate&&(identical(other.name, _this.name) || other.name == _this.name)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(setToNull));
+int get hashCode {
+  final _this = this as CityUpdate;
+  return Object.hash(runtimeType,_this.name,const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.setToNull));
+}
 
 @override
 String toString() {
-  return 'CityUpdate(name: $name, metadata: $metadata, setToNull: $setToNull)';
+  final _this = this as CityUpdate;
+  return 'CityUpdate(name: ${_this.name}, metadata: ${_this.metadata}, setToNull: ${_this.setToNull})';
 }
 
 
@@ -844,16 +863,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CityUpdate&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._metadata, _metadata)&&const DeepCollectionEquality().equals(other._setToNull, _setToNull));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CityUpdate&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_setToNull));
+int get hashCode {
+    return Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_setToNull));
+}
 
 @override
 String toString() {
-  return 'CityUpdate(name: $name, metadata: $metadata, setToNull: $setToNull)';
+    return 'CityUpdate(name: $name, metadata: $metadata, setToNull: $setToNull)';
 }
 
 

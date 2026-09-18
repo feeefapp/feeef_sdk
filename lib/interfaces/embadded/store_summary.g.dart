@@ -14,7 +14,7 @@ _StoreSummary _$StoreSummaryFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$StoreSummaryToJson(_StoreSummary instance) =>
-    <String, dynamic>{'orders': instance.orders};
+    <String, dynamic>{'orders': instance.orders.toJson()};
 
 _StoreOrdersSummary _$StoreOrdersSummaryFromJson(Map<String, dynamic> json) =>
     _StoreOrdersSummary(

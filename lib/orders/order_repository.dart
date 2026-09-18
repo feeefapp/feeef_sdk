@@ -159,6 +159,7 @@ class OrderRepository extends ModelRepository<Order>
     required String storeId,
     required List<OrderItem> items,
     String? shippingState,
+    String? shippingCity,
     String? shippingCountry,
     ShippingType? shippingType,
     String? shippingAddress,
@@ -182,6 +183,7 @@ class OrderRepository extends ModelRepository<Order>
               )
               .toList(),
           if (shippingState != null) 'shippingState': shippingState,
+          if (shippingCity != null) 'shippingCity': shippingCity,
           if (shippingCountry != null) 'shippingCountry': shippingCountry,
           if (shippingType != null) 'shippingType': shippingType.name,
           if (shippingAddress != null) 'shippingAddress': shippingAddress,

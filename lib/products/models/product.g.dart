@@ -17,7 +17,7 @@ _Product _$ProductFromJson(Map<String, dynamic> json) => _Product(
   media: (json['media'] as List<dynamic>).map((e) => e as String).toList(),
   storeId: json['storeId'] as String,
   shippingMethodId: json['shippingMethodId'] as String?,
-  shippingPriceId: json['shippingPriceId'] as String?,
+  shippingFeeId: json['shippingFeeId'] as String?,
   categoryId: json['categoryId'] as String?,
   category: json['category'] == null
       ? null
@@ -81,7 +81,7 @@ Map<String, dynamic> _$ProductToJson(_Product instance) => <String, dynamic>{
   'media': instance.media,
   'storeId': instance.storeId,
   'shippingMethodId': instance.shippingMethodId,
-  'shippingPriceId': instance.shippingPriceId,
+  'shippingFeeId': instance.shippingFeeId,
   'categoryId': instance.categoryId,
   'category': instance.category?.toJson(),
   'categoryRelation': instance.categoryRelation?.toJson(),
@@ -329,7 +329,7 @@ _ProductCreate _$ProductCreateFromJson(Map<String, dynamic> json) =>
       media: (json['media'] as List<dynamic>).map((e) => e as String).toList(),
       storeId: json['storeId'] as String,
       shippingMethodId: json['shippingMethodId'] as String?,
-      shippingPriceId: json['shippingPriceId'] as String?,
+      shippingFeeId: json['shippingFeeId'] as String?,
       categoryId: json['categoryId'] as String?,
       category: json['category'] == null
           ? null
@@ -378,7 +378,7 @@ Map<String, dynamic> _$ProductCreateToJson(_ProductCreate instance) =>
       'media': instance.media,
       'storeId': instance.storeId,
       'shippingMethodId': instance.shippingMethodId,
-      'shippingPriceId': instance.shippingPriceId,
+      'shippingFeeId': instance.shippingFeeId,
       'categoryId': instance.categoryId,
       'category': instance.category?.toJson(),
       'title': instance.title,
@@ -412,7 +412,7 @@ _ProductUpdate _$ProductUpdateFromJson(Map<String, dynamic> json) =>
           .toList(),
       storeId: json['storeId'] as String?,
       shippingMethodId: json['shippingMethodId'] as String?,
-      shippingPriceId: json['shippingPriceId'] as String?,
+      shippingFeeId: json['shippingFeeId'] as String?,
       categoryId: json['categoryId'] as String?,
       category: json['category'] == null
           ? null
@@ -456,7 +456,7 @@ Map<String, dynamic> _$ProductUpdateToJson(_ProductUpdate instance) =>
       'media': instance.media,
       'storeId': instance.storeId,
       'shippingMethodId': instance.shippingMethodId,
-      'shippingPriceId': instance.shippingPriceId,
+      'shippingFeeId': instance.shippingFeeId,
       'categoryId': instance.categoryId,
       'category': instance.category?.toJson(),
       'title': instance.title,

@@ -73,7 +73,7 @@ _Store _$StoreFromJson(Map<String, dynamic> json) => _Store(
   configs: json['configs'] == null
       ? null
       : StoreConfigs.fromJson(json['configs'] as Map<String, dynamic>),
-  shippingPriceId: json['shippingPriceId'] as String?,
+  shippingFeeId: json['shippingFeeId'] as String?,
   templateId: json['templateId'] as String?,
   projectId: json['projectId'] as String?,
   metaPixelIds: (json['metaPixelIds'] as List<dynamic>?)
@@ -119,7 +119,7 @@ Map<String, dynamic> _$StoreToJson(_Store instance) => <String, dynamic>{
   'subscription': _storeSubscriptionToJson(instance.subscription),
   'due': instance.due,
   'configs': instance.configs?.toJson(),
-  'shippingPriceId': instance.shippingPriceId,
+  'shippingFeeId': instance.shippingFeeId,
   'templateId': instance.templateId,
   'projectId': instance.projectId,
   'metaPixelIds': instance.metaPixelIds,
@@ -177,7 +177,7 @@ _StoreCreate _$StoreCreateFromJson(Map<String, dynamic> json) => _StoreCreate(
           ?.map((e) => (e as List<dynamic>?)?.map((e) => e as num?).toList())
           .toList() ??
       const [],
-  shippingPriceId: json['shippingPriceId'] as String?,
+  shippingFeeId: json['shippingFeeId'] as String?,
   projectId: json['projectId'] as String?,
   subscription: _storeSubscriptionFromJson(json['subscription']),
   due: json['due'] as num?,
@@ -203,7 +203,7 @@ Map<String, dynamic> _$StoreCreateToJson(_StoreCreate instance) =>
       'contacts': instance.contacts.map((e) => e.toJson()).toList(),
       'integrations': _storeIntegrationsToJson(instance.integrations),
       'defaultShippingRates': instance.defaultShippingRates,
-      'shippingPriceId': instance.shippingPriceId,
+      'shippingFeeId': instance.shippingFeeId,
       'projectId': instance.projectId,
       'subscription': _storeSubscriptionToJson(instance.subscription),
       'due': instance.due,
@@ -253,7 +253,7 @@ _StoreUpdate _$StoreUpdateFromJson(Map<String, dynamic> json) => _StoreUpdate(
   configs: json['configs'] == null
       ? null
       : StoreConfigs.fromJson(json['configs'] as Map<String, dynamic>),
-  shippingPriceId: json['shippingPriceId'] as String?,
+  shippingFeeId: json['shippingFeeId'] as String?,
   templateId: json['templateId'] as String?,
   projectId: json['projectId'] as String?,
 );
@@ -281,7 +281,7 @@ Map<String, dynamic> _$StoreUpdateToJson(_StoreUpdate instance) =>
       'subscription': _storeSubscriptionToJson(instance.subscription),
       'due': instance.due,
       'configs': instance.configs?.toJson(),
-      'shippingPriceId': instance.shippingPriceId,
+      'shippingFeeId': instance.shippingFeeId,
       'templateId': instance.templateId,
       'projectId': instance.projectId,
     };

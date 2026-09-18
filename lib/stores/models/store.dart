@@ -198,7 +198,7 @@ abstract class Store extends StoreEntity
     num? due,
     // StoreConfigs
     StoreConfigs? configs,
-    String? shippingPriceId,
+    String? shippingFeeId,
     String? templateId,
     String? projectId,
     // metaPixelIds
@@ -249,7 +249,7 @@ abstract class Store extends StoreEntity
             other.subscription == subscription &&
             other.due == due &&
             other.configs == configs &&
-            other.shippingPriceId == shippingPriceId &&
+            other.shippingFeeId == shippingFeeId &&
             other.templateId == templateId &&
             other.projectId == projectId &&
             _storeDeepEq.equals(other.metaPixelIds, metaPixelIds) &&
@@ -289,7 +289,7 @@ abstract class Store extends StoreEntity
         subscription,
         due,
         configs,
-        shippingPriceId,
+        shippingFeeId,
         templateId,
         projectId,
         _storeDeepEq.hash(metaPixelIds),
@@ -335,7 +335,7 @@ abstract class StoreCreate with _$StoreCreate implements ModelCreate {
     @Default(StoreIntegrations())
     StoreIntegrations integrations,
     @Default([]) List<List<num?>?> defaultShippingRates,
-    String? shippingPriceId,
+    String? shippingFeeId,
     String? projectId,
     // subscription
     @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson)
@@ -381,7 +381,7 @@ abstract class StoreUpdate with _$StoreUpdate implements ModelUpdate {
     num? due,
     // StoreConfigs
     StoreConfigs? configs,
-    String? shippingPriceId,
+    String? shippingFeeId,
     String? templateId,
     String? projectId,
   }) = _StoreUpdate;
@@ -484,8 +484,8 @@ extension StoreExtensions on Store {
           patch.containsKey('subscription') ? update.subscription : subscription,
       due: patch.containsKey('due') ? update.due : due,
       configs: patch.containsKey('configs') ? update.configs : configs,
-      shippingPriceId:
-          patch.containsKey('shippingPriceId') ? update.shippingPriceId : shippingPriceId,
+      shippingFeeId:
+          patch.containsKey('shippingFeeId') ? update.shippingFeeId : shippingFeeId,
       templateId: patch.containsKey('templateId') ? update.templateId : templateId,
       projectId: patch.containsKey('projectId') ? update.projectId : projectId,
     );

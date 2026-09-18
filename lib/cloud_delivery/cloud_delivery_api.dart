@@ -665,17 +665,30 @@ class CloudDeliveryApi {
   }
 
   Future<CloudParcel> sendParcel(String storeId, String parcelId) async {
-    final res = await client.post('/stores/$storeId/parcels/$parcelId/send');
+    final res = await client.post(
+      '/stores/$storeId/parcels/$parcelId/send',
+      data: const <String, dynamic>{},
+    );
     return CloudParcel.fromJson(_unwrapMap(res));
   }
 
   Future<CloudParcel> syncParcel(String storeId, String parcelId) async {
-    final res = await client.post('/stores/$storeId/parcels/$parcelId/sync');
+    final res = await client.post(
+      '/stores/$storeId/parcels/$parcelId/sync',
+      data: const <String, dynamic>{},
+    );
     return CloudParcel.fromJson(_unwrapMap(res));
   }
 
-  Future<CloudParcel> cancelParcel(String storeId, String parcelId) async {
-    final res = await client.post('/stores/$storeId/parcels/$parcelId/cancel');
+  Future<CloudParcel> cancelParcel(
+    String storeId,
+    String parcelId, {
+    String? force,
+  }) async {
+    final res = await client.post(
+      '/stores/$storeId/parcels/$parcelId/cancel',
+      data: {if (force != null) 'force': force},
+    );
     return CloudParcel.fromJson(_unwrapMap(res));
   }
 

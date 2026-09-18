@@ -198,6 +198,7 @@ abstract class Store extends StoreEntity
     num? due,
     // StoreConfigs
     StoreConfigs? configs,
+    /// Cloud shipping fee: `ca_…` (account) or `unassigned` (project fees).
     String? shippingFeeId,
     String? templateId,
     String? projectId,

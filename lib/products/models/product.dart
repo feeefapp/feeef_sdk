@@ -36,6 +36,7 @@ abstract class Product extends ProductEntity
     required List<String> media,
     required String storeId,
     String? shippingMethodId,
+    /// Cloud shipping fee override: `ca_…` or `unassigned`.
     String? shippingFeeId,
     String? categoryId,
     EmbaddedCategory? category,

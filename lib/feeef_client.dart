@@ -16,6 +16,7 @@ import 'package:feeef/categories/category_repository.dart';
 import 'package:feeef/cities/city_repository.dart';
 import 'package:feeef/config_repository.dart';
 import 'package:feeef/countries/country_repository.dart';
+import 'package:feeef/geo/geo_api.dart';
 import 'package:feeef/currencies/currency_repository.dart';
 import 'package:feeef/deposits/deposit_repository.dart';
 import 'package:feeef/files/services/actions.dart';
@@ -176,6 +177,7 @@ class Feeef {
   late final CountryRepository countries;
   late final StateRepository states;
   late final CityRepository cities;
+  late final GeoApi geo;
 
   late final StorageService storage;
 
@@ -232,6 +234,7 @@ class Feeef {
     countries = CountryRepository(client: client);
     states = StateRepository(client: client);
     cities = CityRepository(client: client);
+    geo = GeoApi(client: client);
 
     storage = StorageService(client: client);
   }

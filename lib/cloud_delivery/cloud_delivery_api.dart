@@ -117,57 +117,74 @@ class CloudParcel implements Model {
   const CloudParcel({
     required this.id,
     this.tracking,
+    this.reference,
     this.status,
     this.carrierAccountId,
+    this.courierId,
     this.customerName,
+    this.customerPhone,
     this.toState,
     this.toCity,
+    this.deliveryType,
+    this.codAmount,
     this.raw = const {},
   });
 
   @override
   final String id;
   final String? tracking;
+  final String? reference;
   final String? status;
   final String? carrierAccountId;
+  final String? courierId;
   final String? customerName;
+  final String? customerPhone;
   final String? toState;
   final String? toCity;
+  final String? deliveryType;
+  final num? codAmount;
   final Map<String, dynamic> raw;
 
   factory CloudParcel.fromJson(Map<String, dynamic> json) {
+    Map<String, dynamic>? recipient;
+    final rec = json['recipient'] ?? json['to'];
+    if (rec is Map) recipient = rec.cast<String, dynamic>();
+    Map<String, dynamic>? dest;
+    final d = json['destination'];
+    if (d is Map) dest = d.cast<String, dynamic>();
     return CloudParcel(
       id: _cloudString(json['id']),
       tracking: _cloudStringOrNull(
-        json['trackingId'] ??
-            json['tracking'] ??
-            json['trackingCode'] ??
-            json['reference'],
+        json['trackingId'] ?? json['tracking'] ?? json['trackingCode'],
       ),
+      reference: _cloudStringOrNull(json['reference']),
       status: _cloudStringOrNull(json['status']),
       carrierAccountId: _cloudStringOrNull(json['carrierAccountId']),
+      courierId: _cloudStringOrNull(json['courierId']),
       customerName: _cloudStringOrNull(json['customerName']) ??
-          (json['to'] is Map
-              ? _cloudStringOrNull((json['to'] as Map)['name'])
-              : null),
+          _cloudStringOrNull(recipient?['name']),
+      customerPhone: _cloudStringOrNull(json['customerPhone']) ??
+          _cloudStringOrNull(recipient?['phone']),
       toState: _cloudStringOrNull(json['toState']) ??
-          (json['to'] is Map
-              ? _cloudStringOrNull((json['to'] as Map)['state'])
-              : null),
+          _cloudStringOrNull(dest?['state'] ?? dest?['stateCode']) ??
+          _cloudStringOrNull(recipient?['state']),
       toCity: _cloudStringOrNull(json['toCity']) ??
-          (json['to'] is Map
-              ? _cloudStringOrNull((json['to'] as Map)['city'])
-              : null),
+          _cloudStringOrNull(dest?['city'] ?? dest?['cityName']) ??
+          _cloudStringOrNull(recipient?['city']),
+      deliveryType: _cloudStringOrNull(
+        json['deliveryType'] ?? dest?['deliveryType'],
+      ),
+      codAmount: json['codAmount'] as num?,
       raw: Map<String, dynamic>.from(json),
     );
   }
 
   Map<String, dynamic> toJson() => Map<String, dynamic>.from(raw);
 
-  String get title => tracking ?? id;
+  String get title => tracking ?? reference ?? id;
 
   String get searchText =>
-      '$id ${tracking ?? ''} ${status ?? ''} ${customerName ?? ''} ${toState ?? ''} ${toCity ?? ''}'
+      '$id ${tracking ?? ''} ${reference ?? ''} ${status ?? ''} ${customerName ?? ''} ${customerPhone ?? ''} ${toState ?? ''} ${toCity ?? ''}'
           .toLowerCase();
 }
 
@@ -558,6 +575,40 @@ class CloudQuotesResult {
   }
 }
 
+/// One row from batch `POST …/carrier-accounts/fees/resolve`.
+class CloudFeeResolveRow {
+  const CloudFeeResolveRow({
+    required this.accountId,
+    this.amount,
+    this.matched = 'default',
+    this.fees = const {},
+  });
+
+  final String accountId;
+  final num? amount;
+  final String matched;
+  final Map<String, num?> fees;
+
+  factory CloudFeeResolveRow.fromJson(Map<String, dynamic> json) {
+    final feesRaw = json['fees'];
+    final fees = <String, num?>{};
+    if (feesRaw is Map) {
+      for (final e in feesRaw.entries) {
+        final v = e.value;
+        fees[e.key.toString()] = v is num ? v : null;
+      }
+    }
+    return CloudFeeResolveRow(
+      accountId: (json['accountId'] ?? '').toString(),
+      amount: json['amount'] as num?,
+      matched: (json['matched'] ?? 'default').toString(),
+      fees: fees,
+    );
+  }
+
+  num? feeFor(String deliveryType) => fees[deliveryType];
+}
+
 /// Full management client for Cloud carrier-accounts + parcels via Feeef proxy.
 class CloudDeliveryApi {
   CloudDeliveryApi({required this.client});
@@ -661,6 +712,23 @@ class CloudDeliveryApi {
     Map<String, dynamic> body,
   ) async {
     final res = await client.post('/stores/$storeId/parcels', data: body);
+    return CloudParcel.fromJson(_unwrapMap(res));
+  }
+
+  Future<CloudParcel> getParcel(String storeId, String parcelId) async {
+    final res = await client.get('/stores/$storeId/parcels/$parcelId');
+    return CloudParcel.fromJson(_unwrapMap(res));
+  }
+
+  Future<CloudParcel> updateParcel(
+    String storeId,
+    String parcelId,
+    Map<String, dynamic> body,
+  ) async {
+    final res = await client.patch(
+      '/stores/$storeId/parcels/$parcelId',
+      data: body,
+    );
     return CloudParcel.fromJson(_unwrapMap(res));
   }
 
@@ -828,6 +896,30 @@ class CloudDeliveryApi {
       },
     );
     return CloudQuotesResult.fromJson(res.data['data']);
+  }
+
+  /// Batch fee resolve for create-parcel — one destination, every account.
+  Future<List<CloudFeeResolveRow>> resolveFeesBatch(
+    String storeId, {
+    required String state,
+    String? city,
+    String deliveryType = 'home',
+    List<String>? accountIds,
+    String country = 'DZ',
+  }) async {
+    final res = await client.post(
+      '/stores/$storeId/carrier-accounts/fees/resolve',
+      data: {
+        'country': country,
+        'state': state,
+        if (city != null && city.isNotEmpty) 'city': city,
+        'deliveryType': deliveryType,
+        if (accountIds != null) 'accountIds': accountIds,
+      },
+    );
+    return [
+      for (final row in _unwrapList(res)) CloudFeeResolveRow.fromJson(row),
+    ];
   }
 
   /// Unwraps [CloudQuotesResult.quotes].

@@ -1383,6 +1383,116 @@ class Actions {
     }
   }
 
+  /// updateOrderUsingAi
+  ///
+  /// Builds an updated merchant order **form draft** from natural-language
+  /// instructions (and optional attachments) via backend AI. Mirrors
+  /// [updateShippingPriceUsingAi] / [updateProductUsingAi], but the backend
+  /// **does not persist** the order — apply [order] to the form and let the
+  /// user save.
+  ///
+  /// [mode] is inferred from [orderId] when omitted (`update` if set, else
+  /// `create`). Pass the current form state as [order] so the model edits it
+  /// in place. [input] may be empty when [attachments] are present.
+  ///
+  /// Returns `(success, mode, order, message, error, validationErrors, raw)`.
+  Future<
+    ({
+      bool success,
+      String mode,
+      Map<String, dynamic>? order,
+      String message,
+      String? error,
+      Map<String, dynamic>? validationErrors,
+      String? raw,
+    })
+  >
+  updateOrderUsingAi({
+    required String storeId,
+    String input = '',
+    String? orderId,
+    String? mode,
+    Map<String, dynamic>? order,
+    List<String>? referenceImageUrls,
+    Map<String, String>? referenceImageLabels,
+    List<Attachment>? attachments,
+    bool? useSearchGrounding,
+    String? modelId,
+  }) async {
+    try {
+      if (storeId.isEmpty) throw ArgumentError('storeId required');
+      final trimmedInput = input.trim();
+      final hasAttachments = attachments != null && attachments.isNotEmpty;
+      if (trimmedInput.length < 4 && !hasAttachments) {
+        throw ArgumentError(
+          'input (min 4 chars) or attachments required',
+        );
+      }
+      final attachmentMaps = hasAttachments
+          ? attachments.map((a) => a.toJson()).toList()
+          : null;
+      final trimmedCatalogModelId = modelId?.trim();
+      final payload = <String, dynamic>{
+        'storeId': storeId,
+        'input': trimmedInput,
+        if (orderId != null) 'orderId': orderId,
+        if (mode != null) 'mode': mode,
+        if (order != null) 'order': order,
+        if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
+          'referenceImageUrls': referenceImageUrls,
+        if (referenceImageLabels != null && referenceImageLabels.isNotEmpty)
+          'referenceImageLabels': referenceImageLabels,
+        if (attachmentMaps != null) 'attachments': attachmentMaps,
+        if (useSearchGrounding == true) 'useSearchGrounding': true,
+        if (trimmedCatalogModelId != null && trimmedCatalogModelId.isNotEmpty)
+          'modelId': trimmedCatalogModelId,
+      };
+      final resp = await client.post(
+        '/actions/updateOrderUsingAi',
+        data: payload,
+      );
+      final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
+      return (
+        success: _jsonBool(d['success']),
+        mode: d['mode'] as String? ?? (orderId != null ? 'update' : 'create'),
+        order: _jsonObjectMap(d['order']),
+        message: d['message'] as String? ?? '',
+        error: d['error'] as String?,
+        validationErrors: _jsonObjectMap(d['validationErrors']),
+        raw: d['raw'] is String ? d['raw'] as String : null,
+      );
+    } on DioException catch (e) {
+      final res = e.response?.data;
+      final resMap = _jsonObjectMap(res);
+      final serverError = resMap != null
+          ? (resMap['error'] as String? ??
+              resMap['message'] as String? ??
+              e.message)
+          : e.message;
+      return (
+        success: false,
+        mode: orderId != null ? 'update' : 'create',
+        order: null,
+        message: 'AI order request failed',
+        error: serverError,
+        validationErrors:
+            resMap != null ? _jsonObjectMap(resMap['validationErrors']) : null,
+        raw: resMap != null ? jsonEncode(resMap) : null,
+      );
+    } catch (e) {
+      developer.log('Error in updateOrderUsingAi: $e');
+      return (
+        success: false,
+        mode: orderId != null ? 'update' : 'create',
+        order: null,
+        message: 'Unexpected error',
+        error: 'An unexpected error occurred. Please try again.',
+        validationErrors: null,
+        raw: null,
+      );
+    }
+  }
+
   /// generateListFilterUsingAi
   ///
   /// Converts a natural-language filter request into either a simple key/value

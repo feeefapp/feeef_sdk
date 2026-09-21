@@ -864,8 +864,9 @@ class AiCalculator {
 
   /// Estimate the cost of a text generation action.
   ///
-  /// Covers: updateProductUsingAi, generateSimpleCode,
-  /// generateCustomComponentCode. Uses estimated tokens (the backend bills
+  /// Covers: updateProductUsingAi, updateShippingPriceUsingAi,
+  /// updateOrderUsingAi, generateSimpleCode, generateCustomComponentCode.
+  /// Uses estimated tokens (the backend bills
   /// exact usage post-generation). Free when the model is unpriced everywhere
   /// or `promptTokens < freeTierMaxPromptTokens` (prompt tokens — not total,
   /// mirroring the backend's documented free-tier semantics).

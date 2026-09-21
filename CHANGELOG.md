@@ -2,6 +2,8 @@
 
 ## 1.4.0
 
+- **actions**: `updateOrderUsingAi` — builds an updated merchant order **form draft** from natural-language instructions (does **not** persist). Mirrors `updateShippingPriceUsingAi`: supports `order` draft JSON, `orderId`, `mode`, `attachments`, `modelId`, `useSearchGrounding`. Returns `(success, mode, order, message, error, validationErrors, raw)`. Backend: `POST /actions/updateOrderUsingAi`.
+
 - **orders**: add `OrderStatus.followup` — confirmed order that may still need merchant action, between `accepted` and `processing` / `completed`. `StoreOrdersSummary.followup` counts it (defaults to `0` when the API omits the key).
 
 ## 1.2.0

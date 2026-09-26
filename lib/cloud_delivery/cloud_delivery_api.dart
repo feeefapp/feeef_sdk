@@ -30,6 +30,7 @@ class CloudCarrierAccount implements Model {
     this.labelSource,
     this.createdAt,
     this.updatedAt,
+    this.joinedExisting = false,
   });
 
   @override
@@ -46,6 +47,9 @@ class CloudCarrierAccount implements Model {
   final String? createdAt;
   final String? updatedAt;
 
+  /// True when this login already had a Cloud account. The token is the same one.
+  final bool joinedExisting;
+
   factory CloudCarrierAccount.fromJson(Map<String, dynamic> json) {
     return CloudCarrierAccount(
       id: _cloudString(json['id']),
@@ -61,6 +65,7 @@ class CloudCarrierAccount implements Model {
       labelSource: _cloudStringOrNull(json['labelSource']),
       createdAt: _cloudStringOrNull(json['createdAt']),
       updatedAt: _cloudStringOrNull(json['updatedAt']),
+      joinedExisting: json['joinedExisting'] == true,
     );
   }
 
@@ -77,6 +82,7 @@ class CloudCarrierAccount implements Model {
         'labelSource': labelSource,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'joinedExisting': joinedExisting,
       };
 
   CloudCarrierAccount copyWith({
@@ -637,6 +643,7 @@ class CloudDeliveryApi {
     required Map<String, dynamic> config,
     bool? samePriceAllWilayas,
     Map<String, dynamic>? fees,
+    String? linkCode,
   }) async {
     final res = await client.post(
       '/stores/$storeId/carrier-accounts',
@@ -644,6 +651,7 @@ class CloudDeliveryApi {
         'courierId': courierId,
         'name': name,
         'config': config,
+        if (linkCode != null && linkCode.isNotEmpty) 'linkCode': linkCode,
         if (samePriceAllWilayas != null)
           'samePriceAllWilayas': samePriceAllWilayas,
         if (fees != null) 'fees': fees,

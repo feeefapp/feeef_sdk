@@ -187,6 +187,27 @@ class CloudParcel implements Model {
 
   Map<String, dynamic> toJson() => Map<String, dynamic>.from(raw);
 
+  /// Copies the row, optionally replacing [status] in both the field and `raw`.
+  CloudParcel copyWith({String? status}) {
+    final nextRaw = Map<String, dynamic>.from(raw);
+    if (status != null) nextRaw['status'] = status;
+    return CloudParcel(
+      id: id,
+      tracking: tracking,
+      reference: reference,
+      status: status ?? this.status,
+      carrierAccountId: carrierAccountId,
+      courierId: courierId,
+      customerName: customerName,
+      customerPhone: customerPhone,
+      toState: toState,
+      toCity: toCity,
+      deliveryType: deliveryType,
+      codAmount: codAmount,
+      raw: nextRaw,
+    );
+  }
+
   String get title => tracking ?? reference ?? id;
 
   String get searchText =>
@@ -387,12 +408,16 @@ class CloudSuggestedDestination {
     required this.cityName,
     this.distanceKm,
     this.pickupId,
+    this.placeLabel,
   });
 
   final String stateCode;
   final String cityName;
   final num? distanceKm;
   final String? pickupId;
+
+  /// Desk name shown on the chip. [cityName] stays the commune written on the parcel.
+  final String? placeLabel;
 
   factory CloudSuggestedDestination.fromJson(Map<String, dynamic> json) {
     return CloudSuggestedDestination(
@@ -411,10 +436,16 @@ class CloudSuggestedDestination {
       };
 
   String get label {
-    if (distanceKm == null) return cityName;
+    final desk = placeLabel?.trim();
+    final place = (desk != null &&
+            desk.isNotEmpty &&
+            desk.toLowerCase() != cityName.toLowerCase())
+        ? '$desk · $cityName'
+        : cityName;
+    if (distanceKm == null) return place;
     final km = distanceKm!;
-    if (km < 1) return '$cityName (<1 km)';
-    return '$cityName (${km.round()} km)';
+    if (km < 1) return '$place (<1 km)';
+    return '$place (${km.round()} km)';
   }
 }
 
@@ -469,6 +500,8 @@ class CloudPickup implements Model {
     required this.label,
     this.state,
     this.city,
+    this.lat,
+    this.lng,
     this.raw = const {},
   });
 
@@ -477,17 +510,41 @@ class CloudPickup implements Model {
   final String label;
   final String? state;
   final String? city;
+
+  /// Desk GPS when Geo published it. Null when the carrier has no coordinates.
+  final double? lat;
+  final double? lng;
   final Map<String, dynamic> raw;
 
   factory CloudPickup.fromJson(Map<String, dynamic> json) {
     final id = _cloudString(json['id']);
+    final cityRaw = json['city'];
+    String? cityName;
+    String? stateCode;
+    if (cityRaw is Map) {
+      cityName = _cloudStringOrNull(cityRaw['name'] ?? cityRaw['displayName']);
+      stateCode = _cloudStringOrNull(cityRaw['stateCode'] ?? cityRaw['state']);
+    } else {
+      cityName = _cloudStringOrNull(cityRaw ?? json['commune']);
+    }
+    final loc = json['location'];
+    double? lat;
+    double? lng;
+    if (loc is Map) {
+      final rawLat = loc['lat'];
+      final rawLng = loc['lng'];
+      if (rawLat is num) lat = rawLat.toDouble();
+      if (rawLng is num) lng = rawLng.toDouble();
+    }
     return CloudPickup(
       id: id,
       label: _cloudString(
         json['displayName'] ?? json['name'] ?? json['label'] ?? id,
       ),
-      state: _cloudStringOrNull(json['state'] ?? json['stateCode']),
-      city: _cloudStringOrNull(json['city'] ?? json['commune']),
+      state: _cloudStringOrNull(json['state'] ?? json['stateCode']) ?? stateCode,
+      city: cityName,
+      lat: lat,
+      lng: lng,
       raw: Map<String, dynamic>.from(json),
     );
   }
@@ -613,6 +670,74 @@ class CloudFeeResolveRow {
   }
 
   num? feeFor(String deliveryType) => fees[deliveryType];
+}
+
+/// One row from `POST /stores/:storeId/parcels:batch`.
+class CloudParcelBatchItem {
+  const CloudParcelBatchItem({
+    required this.id,
+    required this.ok,
+    this.pending = false,
+    this.error,
+    this.parcel,
+  });
+
+  final String id;
+  final bool ok;
+
+  /// Cloud accepted the batch and is still working. Do not roll the row back.
+  final bool pending;
+  final String? error;
+  final CloudParcel? parcel;
+
+  factory CloudParcelBatchItem.fromJson(Map<String, dynamic> json) {
+    final raw = json['parcel'];
+    return CloudParcelBatchItem(
+      id: _cloudString(json['id']),
+      ok: json['ok'] == true,
+      pending: json['pending'] == true,
+      error: _cloudStringOrNull(json['error']),
+      parcel: raw is Map
+          ? CloudParcel.fromJson(Map<String, dynamic>.from(raw))
+          : null,
+    );
+  }
+}
+
+/// Summary of a parcel batch. [succeeded] excludes [pending] rows.
+class CloudParcelBatchResult {
+  const CloudParcelBatchResult({
+    required this.total,
+    required this.succeeded,
+    required this.failed,
+    required this.pending,
+    required this.results,
+  });
+
+  final int total;
+  final int succeeded;
+  final int failed;
+  final int pending;
+  final List<CloudParcelBatchItem> results;
+
+  factory CloudParcelBatchResult.fromJson(Map<String, dynamic> json) {
+    final rows = json['results'];
+    return CloudParcelBatchResult(
+      total: (json['total'] as num?)?.toInt() ?? 0,
+      succeeded: (json['succeeded'] as num?)?.toInt() ?? 0,
+      failed: (json['failed'] as num?)?.toInt() ?? 0,
+      pending: (json['pending'] as num?)?.toInt() ?? 0,
+      results: rows is List
+          ? [
+              for (final row in rows)
+                if (row is Map)
+                  CloudParcelBatchItem.fromJson(
+                    Map<String, dynamic>.from(row),
+                  ),
+            ]
+          : const [],
+    );
+  }
 }
 
 /// Full management client for Cloud carrier-accounts + parcels via Feeef proxy.
@@ -766,6 +891,33 @@ class CloudDeliveryApi {
       data: {if (force != null) 'force': force},
     );
     return CloudParcel.fromJson(_unwrapMap(res));
+  }
+
+  /// Send, sync, cancel, or delete many parcels in one request.
+  Future<CloudParcelBatchResult> batchParcels(
+    String storeId, {
+    required String action,
+    required List<CloudParcel> parcels,
+  }) async {
+    final res = await client.post(
+      '/stores/$storeId/parcels:batch',
+      data: {
+        'action': action,
+        'items': [
+          for (final parcel in parcels)
+            {
+              'id': parcel.id,
+              if (parcel.carrierAccountId != null &&
+                  parcel.carrierAccountId!.isNotEmpty)
+                'carrierAccountId': parcel.carrierAccountId,
+            },
+        ],
+      },
+      options: Options(
+        receiveTimeout: const Duration(seconds: 120),
+      ),
+    );
+    return CloudParcelBatchResult.fromJson(_unwrapMap(res));
   }
 
   Future<void> deleteParcel(String storeId, String parcelId) async {

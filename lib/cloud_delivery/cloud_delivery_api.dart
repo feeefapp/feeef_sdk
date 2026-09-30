@@ -1317,22 +1317,18 @@ class CloudDeliveryApi {
 
   Future<Map<String, dynamic>> shipOrders(
     String storeId, {
-    required List<String> orderIds,
+    required List<Map<String, dynamic>> items,
     required String carrierAccountId,
-    String? pickupId,
     String? note,
     String coverageFallback = 'none',
-    Map<String, dynamic>? destinationOverride,
   }) async {
     final res = await client.post(
       '/stores/$storeId/orders/cloud-parcels/sendMany',
       data: {
-        'orderIds': orderIds,
+        'items': items,
         'carrierAccountId': carrierAccountId,
-        if (pickupId != null && pickupId.isNotEmpty) 'pickupId': pickupId,
         if (note != null && note.isNotEmpty) 'note': note,
         if (coverageFallback != 'none') 'coverageFallback': coverageFallback,
-        if (destinationOverride != null) 'destinationOverride': destinationOverride,
       },
     );
     return _unwrapMap(res);

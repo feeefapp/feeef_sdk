@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
@@ -949,7 +950,7 @@ class CloudDeliveryApi {
   }
 
   /// Merged PDF for many parcels (Cloud POST /parcels/labels).
-  Future<Uint8List> labelsPdf(
+  Future<CloudLabelsBulkResponse> labelsPdf(
     String storeId,
     List<String> parcelIds, {
     String? source,
@@ -971,7 +972,7 @@ class CloudDeliveryApi {
         receiveTimeout: const Duration(seconds: 120),
       ),
     );
-    return Uint8List.fromList(res.data ?? const []);
+    return CloudLabelsBulkResponse.fromResponse(res);
   }
 
   Future<CloudLabelSettings> getLabelSettings(String storeId) async {
@@ -1343,4 +1344,89 @@ class CloudDeliveryApi {
     );
     return _unwrapMap(res);
   }
+}
+
+/// Merged label PDF plus optional Feeef proxy warnings (`X-Feeef-Cloud-Label-Warnings`).
+class CloudLabelsBulkResponse {
+  const CloudLabelsBulkResponse({
+    required this.bytes,
+    this.skippedParcelIds = const [],
+    this.failedAccounts = const [],
+  });
+
+  final Uint8List bytes;
+  final List<String> skippedParcelIds;
+  final List<CloudLabelBulkAccountFailure> failedAccounts;
+
+  static CloudLabelsBulkResponse fromResponse(Response<List<int>> res) {
+    final bytes = Uint8List.fromList(res.data ?? const []);
+    final warnings = _parseWarningsHeader(res.headers);
+    return CloudLabelsBulkResponse(
+      bytes: bytes,
+      skippedParcelIds: warnings.skippedParcelIds,
+      failedAccounts: warnings.failedAccounts,
+    );
+  }
+
+  static _LabelWarningHeader _parseWarningsHeader(Headers headers) {
+    final raw = headers.value('x-feeef-cloud-label-warnings') ??
+        headers.value('X-Feeef-Cloud-Label-Warnings');
+    if (raw == null || raw.trim().isEmpty) {
+      return const _LabelWarningHeader();
+    }
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is! Map) return const _LabelWarningHeader();
+      final skipped = <String>[];
+      final rawSkipped = decoded['skippedParcelIds'];
+      if (rawSkipped is List) {
+        for (final id in rawSkipped) {
+          final text = id?.toString().trim() ?? '';
+          if (text.isNotEmpty) skipped.add(text);
+        }
+      }
+      final failed = <CloudLabelBulkAccountFailure>[];
+      final rawFailed = decoded['failedAccounts'];
+      if (rawFailed is List) {
+        for (final row in rawFailed) {
+          if (row is! Map) continue;
+          final accountId = row['carrierAccountId']?.toString() ?? '';
+          final error = row['error']?.toString() ?? '';
+          if (accountId.isEmpty && error.isEmpty) continue;
+          failed.add(
+            CloudLabelBulkAccountFailure(
+              carrierAccountId: accountId,
+              error: error,
+            ),
+          );
+        }
+      }
+      return _LabelWarningHeader(
+        skippedParcelIds: skipped,
+        failedAccounts: failed,
+      );
+    } catch (_) {
+      return const _LabelWarningHeader();
+    }
+  }
+}
+
+class CloudLabelBulkAccountFailure {
+  const CloudLabelBulkAccountFailure({
+    required this.carrierAccountId,
+    required this.error,
+  });
+
+  final String carrierAccountId;
+  final String error;
+}
+
+class _LabelWarningHeader {
+  const _LabelWarningHeader({
+    this.skippedParcelIds = const [],
+    this.failedAccounts = const [],
+  });
+
+  final List<String> skippedParcelIds;
+  final List<CloudLabelBulkAccountFailure> failedAccounts;
 }

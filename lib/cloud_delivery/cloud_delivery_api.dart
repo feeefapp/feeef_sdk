@@ -1299,7 +1299,7 @@ class CloudDeliveryApi {
     required String carrierAccountId,
     String? pickupId,
     String? note,
-    String coverageFallback = 'none',
+    String coverageFallback = 'nearest_covered',
     Map<String, dynamic>? destinationOverride,
   }) async {
     final res = await client.post(
@@ -1320,7 +1320,7 @@ class CloudDeliveryApi {
     required List<Map<String, dynamic>> items,
     required String carrierAccountId,
     String? note,
-    String coverageFallback = 'none',
+    String coverageFallback = 'nearest_covered',
   }) async {
     final res = await client.post(
       '/stores/$storeId/orders/cloud-parcels/sendMany',

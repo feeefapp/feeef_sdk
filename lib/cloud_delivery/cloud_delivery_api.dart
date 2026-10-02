@@ -680,6 +680,8 @@ class CloudParcelBatchItem {
     required this.ok,
     this.pending = false,
     this.error,
+    this.code,
+    this.details,
     this.parcel,
   });
 
@@ -689,6 +691,8 @@ class CloudParcelBatchItem {
   /// Cloud accepted the batch and is still working. Do not roll the row back.
   final bool pending;
   final String? error;
+  final String? code;
+  final Map<String, dynamic>? details;
   final CloudParcel? parcel;
 
   factory CloudParcelBatchItem.fromJson(Map<String, dynamic> json) {
@@ -698,6 +702,8 @@ class CloudParcelBatchItem {
       ok: json['ok'] == true,
       pending: json['pending'] == true,
       error: _cloudStringOrNull(json['error']),
+      code: _cloudStringOrNull(json['code']),
+      details: json['details'] is Map ? Map<String, dynamic>.from(json['details'] as Map) : null,
       parcel: raw is Map
           ? CloudParcel.fromJson(Map<String, dynamic>.from(raw))
           : null,
@@ -826,6 +832,19 @@ class CloudDeliveryApi {
     final res = await client.post(
       '/stores/$storeId/carrier-accounts/ecotrack-login',
       data: {'baseUrl': baseUrl, 'email': email, 'password': password},
+    );
+    return _unwrapMap(res);
+  }
+
+  /// Maystro merchant web login (username/password → API token). Password is not stored.
+  Future<Map<String, dynamic>> maystroLogin(
+    String storeId, {
+    required String username,
+    required String password,
+  }) async {
+    final res = await client.post(
+      '/stores/$storeId/carrier-accounts/maystro-login',
+      data: {'username': username, 'password': password},
     );
     return _unwrapMap(res);
   }

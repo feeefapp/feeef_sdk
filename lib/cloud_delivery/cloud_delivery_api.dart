@@ -1309,7 +1309,9 @@ class CloudDeliveryApi {
         'carrierAccountId': carrierAccountId,
         if (pickupId != null && pickupId.isNotEmpty) 'pickupId': pickupId,
         if (note != null && note.isNotEmpty) 'note': note,
-        if (coverageFallback != 'none') 'coverageFallback': coverageFallback,
+        // Always send the flag. Omitting `none` makes the API default back to
+        // `nearest_covered`, so the sheet toggle would not turn nearest cover off.
+        'coverageFallback': coverageFallback,
         if (destinationOverride != null) 'destinationOverride': destinationOverride,
       },
     );
@@ -1329,7 +1331,9 @@ class CloudDeliveryApi {
         'items': items,
         'carrierAccountId': carrierAccountId,
         if (note != null && note.isNotEmpty) 'note': note,
-        if (coverageFallback != 'none') 'coverageFallback': coverageFallback,
+        // Always send the flag. Omitting `none` makes the API default back to
+        // `nearest_covered`, so the sheet toggle would not turn nearest cover off.
+        'coverageFallback': coverageFallback,
       },
     );
     return _unwrapMap(res);

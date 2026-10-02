@@ -41,6 +41,7 @@ export 'integrations/delivery/parcel.dart';
 export 'integrations/delivery/parcel_create_request.dart';
 export 'integrations/ecotrack/ecotrack_delivery_integration_api.dart';
 export 'integrations/google_sheets_integration_api.dart';
+export 'integrations/store_integration_api.dart';
 export 'integrations/connectors_integration_api.dart';
 export 'integrations/meta_ads_integration_api.dart';
 export 'integrations/models/meta_ads_models.dart';

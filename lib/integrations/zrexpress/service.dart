@@ -76,15 +76,34 @@ class ZrexpressDeliveryService
 
     // Format phone number for ZR Express (add +213 prefix if needed)
     String formatPhone(String? phone) {
-      if (phone == null || phone.isEmpty) return '';
-      phone = phone.replaceAll(RegExp(r'\s+'), '');
-      if (phone.startsWith('0')) {
-        return '+213${phone.substring(1)}';
+      var value = (phone ?? '')
+          .replaceAllMapped(
+            RegExp(r'[٠-٩]'),
+            (m) => '${m[0]!.codeUnitAt(0) - 0x0660}',
+          )
+          .replaceAllMapped(
+            RegExp(r'[۰-۹]'),
+            (m) => '${m[0]!.codeUnitAt(0) - 0x06f0}',
+          )
+          .replaceAll(RegExp(r'[\s().\-\u200e\u200f]'), '');
+      if (value.isEmpty) return '';
+      if (value.startsWith('00')) value = '+${value.substring(2)}';
+      if (RegExp(r'^213\d+$').hasMatch(value)) value = '+$value';
+      if (RegExp(r'^\+2130\d{9}$').hasMatch(value))
+        value = '+213${value.substring(5)}';
+      if (RegExp(r'^0\d{9}$').hasMatch(value)) {
+        value = '+213${value.substring(1)}';
+      } else if (RegExp(r'^[2-7]\d{8}$').hasMatch(value)) {
+        value = '+213$value';
       }
-      if (!phone.startsWith('+')) {
-        return '+213$phone';
+      if (!RegExp(r'^\+[1-9]\d{7,14}$').hasMatch(value) ||
+          (value.startsWith('+213') &&
+              !RegExp(r'^\+213[2-7]\d{8}$').hasMatch(value))) {
+        throw const FormatException(
+          'ZR Express requires a valid international phone number (for Algeria: 0555123456 or +213555123456)',
+        );
       }
-      return phone;
+      return value;
     }
 
     // Determine delivery type based on shipping type
@@ -125,8 +144,7 @@ class ZrexpressDeliveryService
       orderedProducts: products,
       amount: order.total.toDouble(),
       deliveryType: deliveryType,
-      stateCode:
-          stateCodeOnly, // Always send state code for backend to fetch territory IDs
+      stateCode: stateCodeOnly, // Always send state code for backend to fetch territory IDs
       cityCode: order
           .shippingCity, // Send city code for backend to fetch territory IDs
       description: order.customerNote ?? order.shippingNote,
@@ -399,8 +417,10 @@ class ZrexpressDeliveryService
           if (matches.isEmpty) continue;
           final order = matches.first;
 
-          final payload =
-              zrexpressBulkCreatedRowToAttachPayload(orderData, order);
+          final payload = zrexpressBulkCreatedRowToAttachPayload(
+            orderData,
+            order,
+          );
           if (payload == null) continue;
 
           await attach(order: order, payload: payload);

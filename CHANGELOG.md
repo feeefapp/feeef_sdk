@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- **cloud delivery**: `shipOrders` (`POST …/orders/cloud-parcels/sendMany`) waits up to 15 minutes. A selection of up to 500 orders is one request; Cloud splits it into the courier's 50–100 parcel calls and rests 1–5 seconds between chunks.
+
 ## 1.4.0
 
 - **actions**: `updateOrderUsingAi` — builds an updated merchant order **form draft** from natural-language instructions (does **not** persist). Mirrors `updateShippingPriceUsingAi`: supports `order` draft JSON, `orderId`, `mode`, `attachments`, `modelId`, `useSearchGrounding`. Returns `(success, mode, order, message, error, validationErrors, raw)`. Backend: `POST /actions/updateOrderUsingAi`.

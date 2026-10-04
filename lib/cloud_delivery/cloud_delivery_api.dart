@@ -1344,8 +1344,15 @@ class CloudDeliveryApi {
     String? note,
     String coverageFallback = 'nearest_covered',
   }) async {
+    // A selection of up to 500 stays one request. Cloud splits it into the
+    // courier's 50–100 parcel calls and rests 1–5s between those chunks.
+    // The call stays open until that finishes.
     final res = await client.post(
       '/stores/$storeId/orders/cloud-parcels/sendMany',
+      options: Options(
+        receiveTimeout: const Duration(minutes: 15),
+        sendTimeout: const Duration(minutes: 2),
+      ),
       data: {
         'items': items,
         'carrierAccountId': carrierAccountId,

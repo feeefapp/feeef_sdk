@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Product {
 
- String get id; DateTime get createdAt; DateTime get updatedAt; String get slug; ProductDecoration get decoration; String get name; String? get photoUrl; List<String> get media; String get storeId; String? get shippingMethodId; String? get shippingFeeId; String? get categoryId; EmbaddedCategory? get category; Category? get categoryRelation; String? get title; String? get description; String? get body; String? get sku; String? get barcode; num get price; num? get cost; num? get discount; num? get stock; num get sold; num get views; num get likes; ProductVariant? get variant; List<ProductOffer>? get offers;/// When true, customer must keep an offer selected. With a valid
+ String get id; DateTime get createdAt; DateTime get updatedAt; String get slug; ProductDecoration get decoration; String get name; String? get photoUrl; List<String> get media; String get storeId; String? get shippingMethodId;/// Cloud shipping fee override: `ca_…` or `unassigned`.
+ String? get shippingFeeId; String? get categoryId; EmbaddedCategory? get category; Category? get categoryRelation; String? get title; String? get description; String? get body; String? get sku; String? get barcode; num get price; num? get cost; num? get discount; num? get stock; num get sold; num get views; num get likes; ProductVariant? get variant; List<ProductOffer>? get offers;/// When true, customer must keep an offer selected. With a valid
 /// [defaultOfferCode], that offer is locked.
  bool? get forceOffer;/// Offer code to preselect; synced to null when missing from [offers].
  String? get defaultOfferCode; List<ProductAddon>? get addons; num get dislikes; ProductStatus get status; ProductType get type; IntegrationsData? get integrationsData; DateTime? get verifiedAt; DateTime? get blockedAt; Map<String, dynamic> get metadata;/// Present when list/show is called with `with[]=lor` and the user may view analytics.
@@ -324,6 +325,7 @@ class _Product extends Product {
 
 @override final  String storeId;
 @override final  String? shippingMethodId;
+/// Cloud shipping fee override: `ca_…` or `unassigned`.
 @override final  String? shippingFeeId;
 @override final  String? categoryId;
 @override final  EmbaddedCategory? category;
@@ -532,7 +534,7 @@ $IntegrationsDataCopyWith<$Res>? get integrationsData {
 /// @nodoc
 mixin _$IntegrationsData {
 
- MetaPixelData? get metaPixelData; TiktokPixelData? get tiktokPixelData; GoogleSheetsData? get googleSheetsData; PaymentMethodData? get paymentMethodData; CustomFieldsIntegrationData? get customFieldsData;/// Per-product Ecotrack warehouse stock mapping (merchant-only).
+ MetaPixelData? get metaPixelData; TiktokPixelData? get tiktokPixelData; SnapchatPixelData? get snapchatPixelData; GoogleSheetsData? get googleSheetsData; PaymentMethodData? get paymentMethodData; CustomFieldsIntegrationData? get customFieldsData;/// Per-product Ecotrack warehouse stock mapping (merchant-only).
  EcotrackData? get ecotrackData;
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
@@ -547,20 +549,20 @@ $IntegrationsDataCopyWith<IntegrationsData> get copyWith => _$IntegrationsDataCo
 @override
 bool operator ==(Object other) {
   final _this = this as IntegrationsData;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IntegrationsData&&(identical(other.metaPixelData, _this.metaPixelData) || other.metaPixelData == _this.metaPixelData)&&(identical(other.tiktokPixelData, _this.tiktokPixelData) || other.tiktokPixelData == _this.tiktokPixelData)&&(identical(other.googleSheetsData, _this.googleSheetsData) || other.googleSheetsData == _this.googleSheetsData)&&(identical(other.paymentMethodData, _this.paymentMethodData) || other.paymentMethodData == _this.paymentMethodData)&&(identical(other.customFieldsData, _this.customFieldsData) || other.customFieldsData == _this.customFieldsData)&&(identical(other.ecotrackData, _this.ecotrackData) || other.ecotrackData == _this.ecotrackData));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IntegrationsData&&(identical(other.metaPixelData, _this.metaPixelData) || other.metaPixelData == _this.metaPixelData)&&(identical(other.tiktokPixelData, _this.tiktokPixelData) || other.tiktokPixelData == _this.tiktokPixelData)&&(identical(other.snapchatPixelData, _this.snapchatPixelData) || other.snapchatPixelData == _this.snapchatPixelData)&&(identical(other.googleSheetsData, _this.googleSheetsData) || other.googleSheetsData == _this.googleSheetsData)&&(identical(other.paymentMethodData, _this.paymentMethodData) || other.paymentMethodData == _this.paymentMethodData)&&(identical(other.customFieldsData, _this.customFieldsData) || other.customFieldsData == _this.customFieldsData)&&(identical(other.ecotrackData, _this.ecotrackData) || other.ecotrackData == _this.ecotrackData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as IntegrationsData;
-  return Object.hash(runtimeType,_this.metaPixelData,_this.tiktokPixelData,_this.googleSheetsData,_this.paymentMethodData,_this.customFieldsData,_this.ecotrackData);
+  return Object.hash(runtimeType,_this.metaPixelData,_this.tiktokPixelData,_this.snapchatPixelData,_this.googleSheetsData,_this.paymentMethodData,_this.customFieldsData,_this.ecotrackData);
 }
 
 @override
 String toString() {
   final _this = this as IntegrationsData;
-  return 'IntegrationsData(metaPixelData: ${_this.metaPixelData}, tiktokPixelData: ${_this.tiktokPixelData}, googleSheetsData: ${_this.googleSheetsData}, paymentMethodData: ${_this.paymentMethodData}, customFieldsData: ${_this.customFieldsData}, ecotrackData: ${_this.ecotrackData})';
+  return 'IntegrationsData(metaPixelData: ${_this.metaPixelData}, tiktokPixelData: ${_this.tiktokPixelData}, snapchatPixelData: ${_this.snapchatPixelData}, googleSheetsData: ${_this.googleSheetsData}, paymentMethodData: ${_this.paymentMethodData}, customFieldsData: ${_this.customFieldsData}, ecotrackData: ${_this.ecotrackData})';
 }
 
 
@@ -571,11 +573,11 @@ abstract mixin class $IntegrationsDataCopyWith<$Res>  {
   factory $IntegrationsDataCopyWith(IntegrationsData value, $Res Function(IntegrationsData) _then) = _$IntegrationsDataCopyWithImpl;
 @useResult
 $Res call({
- MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData
+ MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, SnapchatPixelData? snapchatPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData
 });
 
 
-$MetaPixelDataCopyWith<$Res>? get metaPixelData;$TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;$GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;$PaymentMethodDataCopyWith<$Res>? get paymentMethodData;$CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;$EcotrackDataCopyWith<$Res>? get ecotrackData;
+$MetaPixelDataCopyWith<$Res>? get metaPixelData;$TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;$SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData;$GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;$PaymentMethodDataCopyWith<$Res>? get paymentMethodData;$CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;$EcotrackDataCopyWith<$Res>? get ecotrackData;
 
 }
 /// @nodoc
@@ -588,11 +590,12 @@ class _$IntegrationsDataCopyWithImpl<$Res>
 
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? snapchatPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,}) {
   return _then(IntegrationsData(
 metaPixelData: freezed == metaPixelData ? _self.metaPixelData : metaPixelData // ignore: cast_nullable_to_non_nullable
 as MetaPixelData?,tiktokPixelData: freezed == tiktokPixelData ? _self.tiktokPixelData : tiktokPixelData // ignore: cast_nullable_to_non_nullable
-as TiktokPixelData?,googleSheetsData: freezed == googleSheetsData ? _self.googleSheetsData : googleSheetsData // ignore: cast_nullable_to_non_nullable
+as TiktokPixelData?,snapchatPixelData: freezed == snapchatPixelData ? _self.snapchatPixelData : snapchatPixelData // ignore: cast_nullable_to_non_nullable
+as SnapchatPixelData?,googleSheetsData: freezed == googleSheetsData ? _self.googleSheetsData : googleSheetsData // ignore: cast_nullable_to_non_nullable
 as GoogleSheetsData?,paymentMethodData: freezed == paymentMethodData ? _self.paymentMethodData : paymentMethodData // ignore: cast_nullable_to_non_nullable
 as PaymentMethodData?,customFieldsData: freezed == customFieldsData ? _self.customFieldsData : customFieldsData // ignore: cast_nullable_to_non_nullable
 as CustomFieldsIntegrationData?,ecotrackData: freezed == ecotrackData ? _self.ecotrackData : ecotrackData // ignore: cast_nullable_to_non_nullable
@@ -622,6 +625,18 @@ $TiktokPixelDataCopyWith<$Res>? get tiktokPixelData {
 
   return $TiktokPixelDataCopyWith<$Res>(_self.tiktokPixelData!, (value) {
     return _then(_self.copyWith(tiktokPixelData: value));
+  });
+}/// Create a copy of IntegrationsData
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData {
+    if (_self.snapchatPixelData == null) {
+    return null;
+  }
+
+  return $SnapchatPixelDataCopyWith<$Res>(_self.snapchatPixelData!, (value) {
+    return _then(_self.copyWith(snapchatPixelData: value));
   });
 }/// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
@@ -753,10 +768,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _IntegrationsData() when $default != null:
-return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData);case _:
+return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData);case _:
   return orElse();
 
 }
@@ -774,10 +789,10 @@ return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData)  $default,) {final _that = this;
 switch (_that) {
 case _IntegrationsData():
-return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData);case _:
+return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -794,10 +809,10 @@ return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData)?  $default,) {final _that = this;
 switch (_that) {
 case _IntegrationsData() when $default != null:
-return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData);case _:
+return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData);case _:
   return null;
 
 }
@@ -809,11 +824,12 @@ return $default(_that.metaPixelData,_that.tiktokPixelData,_that.googleSheetsData
 @JsonSerializable()
 
 class _IntegrationsData extends IntegrationsData {
-   _IntegrationsData({this.metaPixelData, this.tiktokPixelData, this.googleSheetsData, this.paymentMethodData, this.customFieldsData, this.ecotrackData}): super._();
+   _IntegrationsData({this.metaPixelData, this.tiktokPixelData, this.snapchatPixelData, this.googleSheetsData, this.paymentMethodData, this.customFieldsData, this.ecotrackData}): super._();
   factory _IntegrationsData.fromJson(Map<String, dynamic> json) => _$IntegrationsDataFromJson(json);
 
 @override final  MetaPixelData? metaPixelData;
 @override final  TiktokPixelData? tiktokPixelData;
+@override final  SnapchatPixelData? snapchatPixelData;
 @override final  GoogleSheetsData? googleSheetsData;
 @override final  PaymentMethodData? paymentMethodData;
 @override final  CustomFieldsIntegrationData? customFieldsData;
@@ -833,18 +849,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _IntegrationsData&&(identical(other.metaPixelData, metaPixelData) || other.metaPixelData == metaPixelData)&&(identical(other.tiktokPixelData, tiktokPixelData) || other.tiktokPixelData == tiktokPixelData)&&(identical(other.googleSheetsData, googleSheetsData) || other.googleSheetsData == googleSheetsData)&&(identical(other.paymentMethodData, paymentMethodData) || other.paymentMethodData == paymentMethodData)&&(identical(other.customFieldsData, customFieldsData) || other.customFieldsData == customFieldsData)&&(identical(other.ecotrackData, ecotrackData) || other.ecotrackData == ecotrackData));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _IntegrationsData&&(identical(other.metaPixelData, metaPixelData) || other.metaPixelData == metaPixelData)&&(identical(other.tiktokPixelData, tiktokPixelData) || other.tiktokPixelData == tiktokPixelData)&&(identical(other.snapchatPixelData, snapchatPixelData) || other.snapchatPixelData == snapchatPixelData)&&(identical(other.googleSheetsData, googleSheetsData) || other.googleSheetsData == googleSheetsData)&&(identical(other.paymentMethodData, paymentMethodData) || other.paymentMethodData == paymentMethodData)&&(identical(other.customFieldsData, customFieldsData) || other.customFieldsData == customFieldsData)&&(identical(other.ecotrackData, ecotrackData) || other.ecotrackData == ecotrackData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,metaPixelData,tiktokPixelData,googleSheetsData,paymentMethodData,customFieldsData,ecotrackData);
+    return Object.hash(runtimeType,metaPixelData,tiktokPixelData,snapchatPixelData,googleSheetsData,paymentMethodData,customFieldsData,ecotrackData);
 }
 
 @override
 String toString() {
-    return 'IntegrationsData(metaPixelData: $metaPixelData, tiktokPixelData: $tiktokPixelData, googleSheetsData: $googleSheetsData, paymentMethodData: $paymentMethodData, customFieldsData: $customFieldsData, ecotrackData: $ecotrackData)';
+    return 'IntegrationsData(metaPixelData: $metaPixelData, tiktokPixelData: $tiktokPixelData, snapchatPixelData: $snapchatPixelData, googleSheetsData: $googleSheetsData, paymentMethodData: $paymentMethodData, customFieldsData: $customFieldsData, ecotrackData: $ecotrackData)';
 }
 
 
@@ -855,11 +871,11 @@ abstract mixin class _$IntegrationsDataCopyWith<$Res> implements $IntegrationsDa
   factory _$IntegrationsDataCopyWith(_IntegrationsData value, $Res Function(_IntegrationsData) _then) = __$IntegrationsDataCopyWithImpl;
 @override @useResult
 $Res call({
- MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData
+ MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, SnapchatPixelData? snapchatPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData
 });
 
 
-@override $MetaPixelDataCopyWith<$Res>? get metaPixelData;@override $TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;@override $GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;@override $PaymentMethodDataCopyWith<$Res>? get paymentMethodData;@override $CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;@override $EcotrackDataCopyWith<$Res>? get ecotrackData;
+@override $MetaPixelDataCopyWith<$Res>? get metaPixelData;@override $TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;@override $SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData;@override $GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;@override $PaymentMethodDataCopyWith<$Res>? get paymentMethodData;@override $CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;@override $EcotrackDataCopyWith<$Res>? get ecotrackData;
 
 }
 /// @nodoc
@@ -872,11 +888,12 @@ class __$IntegrationsDataCopyWithImpl<$Res>
 
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? snapchatPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,}) {
   return _then(_IntegrationsData(
 metaPixelData: freezed == metaPixelData ? _self.metaPixelData : metaPixelData // ignore: cast_nullable_to_non_nullable
 as MetaPixelData?,tiktokPixelData: freezed == tiktokPixelData ? _self.tiktokPixelData : tiktokPixelData // ignore: cast_nullable_to_non_nullable
-as TiktokPixelData?,googleSheetsData: freezed == googleSheetsData ? _self.googleSheetsData : googleSheetsData // ignore: cast_nullable_to_non_nullable
+as TiktokPixelData?,snapchatPixelData: freezed == snapchatPixelData ? _self.snapchatPixelData : snapchatPixelData // ignore: cast_nullable_to_non_nullable
+as SnapchatPixelData?,googleSheetsData: freezed == googleSheetsData ? _self.googleSheetsData : googleSheetsData // ignore: cast_nullable_to_non_nullable
 as GoogleSheetsData?,paymentMethodData: freezed == paymentMethodData ? _self.paymentMethodData : paymentMethodData // ignore: cast_nullable_to_non_nullable
 as PaymentMethodData?,customFieldsData: freezed == customFieldsData ? _self.customFieldsData : customFieldsData // ignore: cast_nullable_to_non_nullable
 as CustomFieldsIntegrationData?,ecotrackData: freezed == ecotrackData ? _self.ecotrackData : ecotrackData // ignore: cast_nullable_to_non_nullable
@@ -907,6 +924,18 @@ $TiktokPixelDataCopyWith<$Res>? get tiktokPixelData {
 
   return $TiktokPixelDataCopyWith<$Res>(_self.tiktokPixelData!, (value) {
     return _then(_self.copyWith(tiktokPixelData: value));
+  });
+}/// Create a copy of IntegrationsData
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData {
+    if (_self.snapchatPixelData == null) {
+    return null;
+  }
+
+  return $SnapchatPixelDataCopyWith<$Res>(_self.snapchatPixelData!, (value) {
+    return _then(_self.copyWith(snapchatPixelData: value));
   });
 }/// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
@@ -1837,6 +1866,305 @@ as bool,ids: freezed == ids ? _self._ids : ids // ignore: cast_nullable_to_non_n
 as List<String>?,objective: freezed == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
 as TiktokPixelEvent?,draftObjective: freezed == draftObjective ? _self.draftObjective : draftObjective // ignore: cast_nullable_to_non_nullable
 as TiktokPixelEvent?,statusRules: null == statusRules ? _self._statusRules : statusRules // ignore: cast_nullable_to_non_nullable
+as List<PixelStatusRule>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$SnapchatPixelData {
+
+ bool get enabled; List<String>? get ids; SnapchatPixelEvent? get objective; SnapchatPixelEvent? get draftObjective;/// Product-level status rules; empty → inherit store rules on `order:updated`.
+ List<PixelStatusRule> get statusRules;
+/// Create a copy of SnapchatPixelData
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SnapchatPixelDataCopyWith<SnapchatPixelData> get copyWith => _$SnapchatPixelDataCopyWithImpl<SnapchatPixelData>(this as SnapchatPixelData, _$identity);
+
+  /// Serializes this SnapchatPixelData to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as SnapchatPixelData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SnapchatPixelData&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&const DeepCollectionEquality().equals(other.ids, _this.ids)&&(identical(other.objective, _this.objective) || other.objective == _this.objective)&&(identical(other.draftObjective, _this.draftObjective) || other.draftObjective == _this.draftObjective)&&const DeepCollectionEquality().equals(other.statusRules, _this.statusRules));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as SnapchatPixelData;
+  return Object.hash(runtimeType,_this.enabled,const DeepCollectionEquality().hash(_this.ids),_this.objective,_this.draftObjective,const DeepCollectionEquality().hash(_this.statusRules));
+}
+
+@override
+String toString() {
+  final _this = this as SnapchatPixelData;
+  return 'SnapchatPixelData(enabled: ${_this.enabled}, ids: ${_this.ids}, objective: ${_this.objective}, draftObjective: ${_this.draftObjective}, statusRules: ${_this.statusRules})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SnapchatPixelDataCopyWith<$Res>  {
+  factory $SnapchatPixelDataCopyWith(SnapchatPixelData value, $Res Function(SnapchatPixelData) _then) = _$SnapchatPixelDataCopyWithImpl;
+@useResult
+$Res call({
+ bool enabled, List<String>? ids, SnapchatPixelEvent? objective, SnapchatPixelEvent? draftObjective, List<PixelStatusRule> statusRules
+});
+
+
+
+
+}
+/// @nodoc
+class _$SnapchatPixelDataCopyWithImpl<$Res>
+    implements $SnapchatPixelDataCopyWith<$Res> {
+  _$SnapchatPixelDataCopyWithImpl(this._self, this._then);
+
+  final SnapchatPixelData _self;
+  final $Res Function(SnapchatPixelData) _then;
+
+/// Create a copy of SnapchatPixelData
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? ids = freezed,Object? objective = freezed,Object? draftObjective = freezed,Object? statusRules = null,}) {
+  return _then(SnapchatPixelData(
+enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
+as bool,ids: freezed == ids ? _self.ids : ids // ignore: cast_nullable_to_non_nullable
+as List<String>?,objective: freezed == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
+as SnapchatPixelEvent?,draftObjective: freezed == draftObjective ? _self.draftObjective : draftObjective // ignore: cast_nullable_to_non_nullable
+as SnapchatPixelEvent?,statusRules: null == statusRules ? _self.statusRules : statusRules // ignore: cast_nullable_to_non_nullable
+as List<PixelStatusRule>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SnapchatPixelData].
+extension SnapchatPixelDataPatterns on SnapchatPixelData {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SnapchatPixelData value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SnapchatPixelData() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SnapchatPixelData value)  $default,){
+final _that = this;
+switch (_that) {
+case _SnapchatPixelData():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SnapchatPixelData value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SnapchatPixelData() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool enabled,  List<String>? ids,  SnapchatPixelEvent? objective,  SnapchatPixelEvent? draftObjective,  List<PixelStatusRule> statusRules)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SnapchatPixelData() when $default != null:
+return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective,_that.statusRules);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool enabled,  List<String>? ids,  SnapchatPixelEvent? objective,  SnapchatPixelEvent? draftObjective,  List<PixelStatusRule> statusRules)  $default,) {final _that = this;
+switch (_that) {
+case _SnapchatPixelData():
+return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective,_that.statusRules);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool enabled,  List<String>? ids,  SnapchatPixelEvent? objective,  SnapchatPixelEvent? draftObjective,  List<PixelStatusRule> statusRules)?  $default,) {final _that = this;
+switch (_that) {
+case _SnapchatPixelData() when $default != null:
+return $default(_that.enabled,_that.ids,_that.objective,_that.draftObjective,_that.statusRules);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SnapchatPixelData extends SnapchatPixelData {
+   _SnapchatPixelData({this.enabled = true,  List<String>? ids, this.objective, this.draftObjective,  List<PixelStatusRule> statusRules = const []}): _ids = ids,_statusRules = statusRules,super._();
+  factory _SnapchatPixelData.fromJson(Map<String, dynamic> json) => _$SnapchatPixelDataFromJson(json);
+
+@override@JsonKey() final  bool enabled;
+ final  List<String>? _ids;
+@override List<String>? get ids {
+  final value = _ids;
+  if (value == null) return null;
+  if (_ids is EqualUnmodifiableListView) return _ids;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+@override final  SnapchatPixelEvent? objective;
+@override final  SnapchatPixelEvent? draftObjective;
+/// Product-level status rules; empty → inherit store rules on `order:updated`.
+ final  List<PixelStatusRule> _statusRules;
+/// Product-level status rules; empty → inherit store rules on `order:updated`.
+@override@JsonKey() List<PixelStatusRule> get statusRules {
+  if (_statusRules is EqualUnmodifiableListView) return _statusRules;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_statusRules);
+}
+
+
+/// Create a copy of SnapchatPixelData
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SnapchatPixelDataCopyWith<_SnapchatPixelData> get copyWith => __$SnapchatPixelDataCopyWithImpl<_SnapchatPixelData>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SnapchatPixelDataToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SnapchatPixelData&&(identical(other.enabled, enabled) || other.enabled == enabled)&&const DeepCollectionEquality().equals(other.ids, _ids)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&const DeepCollectionEquality().equals(other.statusRules, _statusRules));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,enabled,const DeepCollectionEquality().hash(_ids),objective,draftObjective,const DeepCollectionEquality().hash(_statusRules));
+}
+
+@override
+String toString() {
+    return 'SnapchatPixelData(enabled: $enabled, ids: $ids, objective: $objective, draftObjective: $draftObjective, statusRules: $statusRules)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SnapchatPixelDataCopyWith<$Res> implements $SnapchatPixelDataCopyWith<$Res> {
+  factory _$SnapchatPixelDataCopyWith(_SnapchatPixelData value, $Res Function(_SnapchatPixelData) _then) = __$SnapchatPixelDataCopyWithImpl;
+@override @useResult
+$Res call({
+ bool enabled, List<String>? ids, SnapchatPixelEvent? objective, SnapchatPixelEvent? draftObjective, List<PixelStatusRule> statusRules
+});
+
+
+
+
+}
+/// @nodoc
+class __$SnapchatPixelDataCopyWithImpl<$Res>
+    implements _$SnapchatPixelDataCopyWith<$Res> {
+  __$SnapchatPixelDataCopyWithImpl(this._self, this._then);
+
+  final _SnapchatPixelData _self;
+  final $Res Function(_SnapchatPixelData) _then;
+
+/// Create a copy of SnapchatPixelData
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? enabled = null,Object? ids = freezed,Object? objective = freezed,Object? draftObjective = freezed,Object? statusRules = null,}) {
+  return _then(_SnapchatPixelData(
+enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
+as bool,ids: freezed == ids ? _self._ids : ids // ignore: cast_nullable_to_non_nullable
+as List<String>?,objective: freezed == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
+as SnapchatPixelEvent?,draftObjective: freezed == draftObjective ? _self.draftObjective : draftObjective // ignore: cast_nullable_to_non_nullable
+as SnapchatPixelEvent?,statusRules: null == statusRules ? _self._statusRules : statusRules // ignore: cast_nullable_to_non_nullable
 as List<PixelStatusRule>,
   ));
 }

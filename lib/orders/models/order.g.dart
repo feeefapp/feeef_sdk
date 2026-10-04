@@ -36,6 +36,8 @@ _Order _$OrderFromJson(Map<String, dynamic> json) => _Order(
   shippingMethodId: json['shippingMethodId'] as String?,
   shippingNote: json['shippingNote'] as String?,
   trackingCode: json['trackingCode'] as String?,
+  carrierAccountId: json['carrierAccountId'] as String?,
+  parcelId: json['parcelId'] as String?,
   paymentMethodId: json['paymentMethodId'] as String?,
   shippingType: json['shippingType'] == null
       ? ShippingType.home
@@ -100,6 +102,8 @@ Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
   'shippingMethodId': instance.shippingMethodId,
   'shippingNote': instance.shippingNote,
   'trackingCode': instance.trackingCode,
+  'carrierAccountId': instance.carrierAccountId,
+  'parcelId': instance.parcelId,
   'paymentMethodId': instance.paymentMethodId,
   'shippingType': shippingTypeToJson(instance.shippingType),
   'tags': instance.tags,

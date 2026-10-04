@@ -63,6 +63,29 @@ enum SendEventToTiktokPixelActionEvents {
   completeRegistration,
 }
 
+/// Manual Snap CAPI events. [apiName] is the Conversions API event name.
+enum SendEventToSnapchatPixelActionEvents {
+  purchase,
+  pageView,
+  viewContent,
+  addCart,
+  startCheckout,
+  signUp,
+  addToWishlist,
+  search;
+
+  String get apiName => switch (this) {
+    purchase => 'PURCHASE',
+    pageView => 'PAGE_VIEW',
+    viewContent => 'VIEW_CONTENT',
+    addCart => 'ADD_CART',
+    startCheckout => 'START_CHECKOUT',
+    signUp => 'SIGN_UP',
+    addToWishlist => 'ADD_TO_WISHLIST',
+    search => 'SEARCH',
+  };
+}
+
 enum GenerateSimpleCodeLanguage { html, css, javascript, markdown }
 
 enum AICodeGenerationMode { create, edit }
@@ -545,6 +568,27 @@ class Actions {
     }
   }
 
+  /// Validate a Snap CAPI token via `/events/validate` (not a live conversion).
+  Future<Map<String, dynamic>> sendSnapchatPixelTestEvent({
+    required SnapchatPixel pixel,
+    String? testCode,
+  }) async {
+    try {
+      final response = await client.post(
+        '/actions/sendSnapchatPixelTestEvent',
+        data: {
+          'id': pixel.id,
+          'accessToken': pixel.accessToken,
+          'testCode': testCode ?? 'FEEEF_TEST_CODE',
+        },
+      );
+      return response.data;
+    } catch (e) {
+      developer.log('Error sending Snapchat Pixel test event: $e');
+      rethrow;
+    }
+  }
+
   /// sendTiktokPixelTestEvent
   Future<Map<String, dynamic>> sendTiktokPixelTestEvent({
     required TiktokPixel pixel,
@@ -681,6 +725,52 @@ class Actions {
     } catch (e) {
       // Handle the error
       developer.log('Error sending bulk TikTok Pixel events: $e');
+      rethrow;
+    }
+  }
+
+  /// Send one Snap CAPI event for an order.
+  Future<Map<String, dynamic>> sendEventToSnapchatPixel({
+    required SendEventToSnapchatPixelActionEvents event,
+    required String storeId,
+    required String orderId,
+  }) async {
+    try {
+      final response = await client.post(
+        '/actions/sendEventToSnapchatPixel',
+        data: {
+          'event': event.apiName,
+          'storeId': storeId,
+          'orderId': orderId,
+        },
+      );
+      return response.data;
+    } catch (e) {
+      developer.log('Error sending Snapchat Pixel event: $e');
+      rethrow;
+    }
+  }
+
+  /// Bulk Snap CAPI send. [pixelIds] limits which store pixels receive the event.
+  Future<Map<String, dynamic>> sendEventsToSnapchatPixel({
+    required SendEventToSnapchatPixelActionEvents event,
+    required String storeId,
+    required List<String> orderIds,
+    List<String>? pixelIds,
+  }) async {
+    try {
+      final response = await client.post(
+        '/actions/sendEventsToSnapchatPixel',
+        data: {
+          'event': event.apiName,
+          'storeId': storeId,
+          'orderIds': orderIds,
+          if (pixelIds != null && pixelIds.isNotEmpty) 'pixelIds': pixelIds,
+        },
+      );
+      return response.data;
+    } catch (e) {
+      developer.log('Error sending bulk Snapchat Pixel events: $e');
       rethrow;
     }
   }

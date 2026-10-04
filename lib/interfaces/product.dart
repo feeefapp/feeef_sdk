@@ -59,6 +59,7 @@ abstract class ProductEntity {
 abstract class IntegrationsDataEntity {
   MetaPixelDataEntity? get metaPixelData;
   TiktokPixelDataEntity? get tiktokPixelData;
+  SnapchatPixelDataEntity? get snapchatPixelData;
   // GoogleAnalyticsData? get googleAnalyticsData;
   // GoogleTagData? get googleTagsData;
   GoogleSheetsDataEntity? get googleSheetsData;
@@ -111,6 +112,43 @@ enum MetaPixelEvent {
     viewContent => 'ViewContent',
     addToCart => 'AddToCart',
     initiateCheckout => 'InitiateCheckout',
+  };
+}
+
+enum SnapchatPixelEvent {
+  none,
+  pageView,
+  viewContent,
+  addCart,
+  startCheckout,
+  signUp,
+  addToWishlist,
+  search,
+  purchase;
+
+  /// Snap Conversions API / Pixel event name.
+  String get apiName => switch (this) {
+    none => 'none',
+    pageView => 'PAGE_VIEW',
+    viewContent => 'VIEW_CONTENT',
+    addCart => 'ADD_CART',
+    startCheckout => 'START_CHECKOUT',
+    signUp => 'SIGN_UP',
+    addToWishlist => 'ADD_TO_WISHLIST',
+    search => 'SEARCH',
+    purchase => 'PURCHASE',
+  };
+
+  String get tr => switch (this) {
+    none => 'غير محدد',
+    pageView => 'مشاهدة صفحة',
+    viewContent => 'عرض محتوى',
+    addCart => 'إضافة إلى السلة',
+    startCheckout => 'بدء الدفع',
+    signUp => 'تسجيل',
+    addToWishlist => 'إضافة إلى قائمة الرغبات',
+    search => 'بحث',
+    purchase => 'شراء',
   };
 }
 
@@ -170,6 +208,17 @@ abstract class TiktokPixelDataEntity extends BaseIntegrationEntity {
   List<String>? get ids;
   TiktokPixelEvent? get objective;
   TiktokPixelEvent? get draftObjective;
+
+  /// Product-level status transition rules; empty/null → use store rules.
+  List<PixelStatusRule> get statusRules;
+}
+
+abstract class SnapchatPixelDataEntity extends BaseIntegrationEntity {
+  @override
+  bool get enabled;
+  List<String>? get ids;
+  SnapchatPixelEvent? get objective;
+  SnapchatPixelEvent? get draftObjective;
 
   /// Product-level status transition rules; empty/null → use store rules.
   List<PixelStatusRule> get statusRules;

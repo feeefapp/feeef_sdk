@@ -66,6 +66,10 @@ class OrderRepository extends ModelRepository<Order>
   }
 
   /// Convenience wrapper: batch-update orders in [storeId] with a shared patch.
+  ///
+  /// The server accepts at most 200 ids per call. Larger selections are sent
+  /// in chunks and merged so [BatchResult.failedRequests] keys stay indexes
+  /// into the original [orderIds] list.
   Future<BatchResult<Order>> updateManyInStore({
     required String storeId,
     required List<String> orderIds,
@@ -73,13 +77,90 @@ class OrderRepository extends ModelRepository<Order>
     Map<String, dynamic> fields = const {},
     bool returnPartialSuccess = true,
   }) {
-    return updateMany(
-      request: BatchUpdateManyRequest(
-        projectId: storeId,
-        names: orderIds,
-        updateMask: updateMask,
-        fields: fields,
-        returnPartialSuccess: returnPartialSuccess,
+    return _chunkedOrderBatch(
+      orderIds,
+      (slice) => updateMany(
+        request: BatchUpdateManyRequest(
+          projectId: storeId,
+          names: slice,
+          updateMask: updateMask,
+          fields: fields,
+          returnPartialSuccess: returnPartialSuccess,
+        ),
+      ),
+    );
+  }
+
+  /// Batch-delete orders in [storeId] (`POST /orders:batchDelete`).
+  ///
+  /// Partial success is allowed. Failed keys are indexes into [orderIds].
+  Future<BatchResult<Order>> deleteManyInStore({
+    required String storeId,
+    required List<String> orderIds,
+    bool returnPartialSuccess = true,
+  }) {
+    return _chunkedOrderBatch(
+      orderIds,
+      (slice) => postBatchAction<Order>(
+        action: 'batchDelete',
+        body: {
+          'storeId': storeId,
+          'names': slice,
+          'returnPartialSuccess': returnPartialSuccess,
+        },
+      ),
+    );
+  }
+
+  /// Runs [call] on slices of 200 and stitches the batch envelopes together.
+  Future<BatchResult<Order>> _chunkedOrderBatch(
+    List<String> orderIds,
+    Future<BatchResult<Order>> Function(List<String> slice) call,
+  ) async {
+    const chunkSize = 200;
+    if (orderIds.length <= chunkSize) {
+      return call(orderIds);
+    }
+    final resources = <Order>[];
+    final failed = <String, BatchRpcStatus>{};
+    var succeeded = 0;
+    var failedCount = 0;
+    for (var start = 0; start < orderIds.length; start += chunkSize) {
+      final end = start + chunkSize > orderIds.length
+          ? orderIds.length
+          : start + chunkSize;
+      final slice = orderIds.sublist(start, end);
+      final part = await call(slice);
+      resources.addAll(part.resources ?? const <Order>[]);
+      final unstructured =
+          part.summary.allFailed && part.summary.total != slice.length;
+      if (unstructured) {
+        final status = part.failedRequests.values.isEmpty
+            ? BatchRpcStatus(
+                code: part.topLevelCode ?? 'ABORTED',
+                message: part.topLevelMessage ?? 'Batch request failed',
+              )
+            : part.failedRequests.values.first;
+        for (var i = 0; i < slice.length; i++) {
+          failed['${start + i}'] = status;
+        }
+        failedCount += slice.length;
+        continue;
+      }
+      succeeded += part.summary.succeeded;
+      failedCount += part.summary.failed;
+      for (final entry in part.failedRequests.entries) {
+        final local = int.tryParse(entry.key);
+        failed[local == null ? entry.key : '${start + local}'] = entry.value;
+      }
+    }
+    return BatchResult<Order>(
+      resources: resources.isEmpty ? null : resources,
+      failedRequests: failed,
+      summary: BatchSummary(
+        total: orderIds.length,
+        succeeded: succeeded,
+        failed: failedCount,
       ),
     );
   }

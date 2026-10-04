@@ -41,6 +41,14 @@ abstract class Order extends OrderEntity
     String? shippingMethodId,
     String? shippingNote,
     String? trackingCode,
+
+    /// Feeef Cloud carrier account (`ca_…`). Null until the order is shipped.
+    /// Cleared when that Cloud parcel is deleted.
+    String? carrierAccountId,
+
+    /// Feeef Cloud parcel id (`pcl_…`). Null until the order is shipped.
+    /// Cleared when that Cloud parcel is deleted.
+    String? parcelId,
     String? paymentMethodId,
     @JsonKey(
       fromJson: shippingTypeFromJson,

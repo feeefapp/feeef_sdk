@@ -262,6 +262,90 @@ class OrdersV1Api {
     return Map<String, dynamic>.from(res.data['data'] as Map? ?? res.data as Map);
   }
 
+  /// Apply one sticker to many orders (`POST /stores/:storeId/orders/applyMany`).
+  ///
+  /// One HTTP call. Partial success is normal — inspect [OrderApplyManyResult.failed].
+  /// Ids are sent in chunks of 200, which is the server cap.
+  Future<OrderApplyManyResult> applyMany(
+    String storeId, {
+    required List<String> orderIds,
+    required String statusId,
+    bool allowCrossRoom = false,
+  }) async {
+    if (orderIds.isEmpty) {
+      return const OrderApplyManyResult(
+        applied: [],
+        failed: {},
+        total: 0,
+        succeeded: 0,
+        failedCount: 0,
+      );
+    }
+    const chunkSize = 200;
+    if (orderIds.length <= chunkSize) {
+      return _applyManyOnce(
+        storeId,
+        orderIds: orderIds,
+        statusId: statusId,
+        allowCrossRoom: allowCrossRoom,
+      );
+    }
+    final applied = <Map<String, dynamic>>[];
+    final failed = <String, String>{};
+    var succeeded = 0;
+    var failedCount = 0;
+    for (var start = 0; start < orderIds.length; start += chunkSize) {
+      final end = start + chunkSize > orderIds.length
+          ? orderIds.length
+          : start + chunkSize;
+      final slice = orderIds.sublist(start, end);
+      final part = await _applyManyOnce(
+        storeId,
+        orderIds: slice,
+        statusId: statusId,
+        allowCrossRoom: allowCrossRoom,
+      );
+      applied.addAll(part.applied);
+      succeeded += part.succeeded;
+      failedCount += part.failedCount;
+      failed.addAll(part.failed);
+    }
+    return OrderApplyManyResult(
+      applied: applied,
+      failed: failed,
+      total: orderIds.length,
+      succeeded: succeeded,
+      failedCount: failedCount,
+    );
+  }
+
+  Future<OrderApplyManyResult> _applyManyOnce(
+    String storeId, {
+    required List<String> orderIds,
+    required String statusId,
+    required bool allowCrossRoom,
+  }) async {
+    try {
+      final res = await client.post(
+        '/stores/$storeId/orders/applyMany',
+        data: {
+          'orderIds': orderIds,
+          'statusId': statusId,
+          if (allowCrossRoom) 'allowCrossRoom': true,
+        },
+      );
+      return OrderApplyManyResult.fromJson(
+        Map<String, dynamic>.from(res.data as Map),
+      );
+    } on DioException catch (e) {
+      final data = e.response?.data;
+      if (data is Map && data['summary'] is Map) {
+        return OrderApplyManyResult.fromJson(Map<String, dynamic>.from(data));
+      }
+      rethrow;
+    }
+  }
+
   /// Open → pack door (Opencod SPEC-API-010).
   Future<Map<String, dynamic>> confirm(
     String storeId,
@@ -296,5 +380,65 @@ class OrdersV1Api {
       },
     );
     return Map<String, dynamic>.from(res.data['data'] as Map? ?? res.data as Map);
+  }
+}
+
+/// Partial result of [OrdersV1Api.applyMany].
+///
+/// [failed] is keyed by order id. [applied] rows are the same shape as a
+/// single `POST .../apply` body (`id`, `statusId`, `room`, `kind`, `closeAs`,
+/// optional `deprecated`).
+class OrderApplyManyResult {
+  const OrderApplyManyResult({
+    required this.applied,
+    required this.failed,
+    required this.total,
+    required this.succeeded,
+    required this.failedCount,
+    this.message,
+  });
+
+  final List<Map<String, dynamic>> applied;
+  final Map<String, String> failed;
+  final int total;
+  final int succeeded;
+  final int failedCount;
+  final String? message;
+
+  bool get allFailed => total > 0 && succeeded == 0;
+
+  factory OrderApplyManyResult.fromJson(Map<String, dynamic> json) {
+    final applied = <Map<String, dynamic>>[];
+    final resources = json['resources'];
+    if (resources is List) {
+      for (final row in resources) {
+        if (row is Map) {
+          applied.add(Map<String, dynamic>.from(row));
+        }
+      }
+    }
+    final failed = <String, String>{};
+    final failedRaw = json['failedRequests'];
+    if (failedRaw is Map) {
+      for (final entry in failedRaw.entries) {
+        final value = entry.value;
+        final message = value is Map
+            ? (value['message']?.toString() ?? 'Request failed')
+            : value.toString();
+        failed[entry.key.toString()] = message;
+      }
+    }
+    final summaryRaw = json['summary'];
+    final summary = summaryRaw is Map
+        ? Map<String, dynamic>.from(summaryRaw)
+        : const <String, dynamic>{};
+    return OrderApplyManyResult(
+      applied: applied,
+      failed: failed,
+      total: (summary['total'] as num?)?.toInt() ?? applied.length + failed.length,
+      succeeded: (summary['succeeded'] as num?)?.toInt() ?? applied.length,
+      failedCount: (summary['failed'] as num?)?.toInt() ?? failed.length,
+      message: json['message'] as String?,
+    );
   }
 }

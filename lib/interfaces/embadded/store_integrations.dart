@@ -25,6 +25,7 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     // Analytics Integrations
     MetaPixelIntegration? metaPixel,
     TiktokPixelIntegration? tiktokPixel,
+    SnapchatPixelIntegration? snapchatPixel,
     GoogleAnalyticsIntegration? googleAnalytics,
     GoogleTagsIntegration? googleTags,
     /// Microsoft Clarity (trackingCode public in storefront; apiKey never in public JSON).
@@ -105,9 +106,12 @@ abstract class PixelStatusRule with _$PixelStatusRule {
     required String equals,
     MetaPixelEvent? metaEvent,
     TiktokPixelEvent? tiktokEvent,
+    SnapchatPixelEvent? snapchatEvent,
     /// When set, takes precedence over [metaEvent] (Meta CAPI custom name).
     String? metaCustomEvent,
     String? tiktokCustomEvent,
+    /// Overrides [snapchatEvent]. Snap name such as `CUSTOM_EVENT_1`.
+    String? snapchatCustomEvent,
   }) = _PixelStatusRule;
 
   factory PixelStatusRule.fromJson(Map<String, dynamic> json) =>
@@ -280,6 +284,46 @@ abstract class TiktokPixel with _$TiktokPixel {
 
   factory TiktokPixel.fromJson(Map<String, dynamic> json) =>
       _$TiktokPixelFromJson(json);
+}
+
+/// Snap Pixel + Conversions API (`store.integrations.snapchatPixel`).
+///
+/// [SnapchatPixel.accessToken] is the CAPI token. Public store JSON must
+/// expose pixel ids only.
+@freezed
+abstract class SnapchatPixelIntegration with _$SnapchatPixelIntegration {
+  const SnapchatPixelIntegration._();
+  const factory SnapchatPixelIntegration({
+    @Default('default') String id,
+    @Default([]) List<SnapchatPixel> pixels,
+    @Default(SnapchatPixelEvent.purchase) SnapchatPixelEvent objective,
+    @Default(SnapchatPixelEvent.startCheckout) SnapchatPixelEvent draftObjective,
+    @Default(true) bool active,
+    @Default({}) Map<String, dynamic> metadata,
+
+    /// Where to send events: server (CAPI), client (`snaptr`), or both. Null = auto.
+    PixelReportMode? mode,
+
+    /// Server-only: fire CAPI when a status transitions into [PixelStatusRule.equals].
+    @Default([]) List<PixelStatusRule> statusRules,
+  }) = _SnapchatPixelIntegration;
+
+  factory SnapchatPixelIntegration.fromJson(Map<String, dynamic> json) =>
+      _$SnapchatPixelIntegrationFromJson(json);
+}
+
+/// One Snap Pixel. [id] is the UUID from Events Manager.
+@freezed
+abstract class SnapchatPixel with _$SnapchatPixel {
+  const SnapchatPixel._();
+  const factory SnapchatPixel({
+    @Default('Snapchat Pixel') String name,
+    required String id,
+    String? accessToken,
+  }) = _SnapchatPixel;
+
+  factory SnapchatPixel.fromJson(Map<String, dynamic> json) =>
+      _$SnapchatPixelFromJson(json);
 }
 
 /// Google Analytics integration configuration.

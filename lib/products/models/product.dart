@@ -85,6 +85,7 @@ abstract class IntegrationsData extends IntegrationsDataEntity
   factory IntegrationsData({
     MetaPixelData? metaPixelData,
     TiktokPixelData? tiktokPixelData,
+    SnapchatPixelData? snapchatPixelData,
     // GoogleAnalyticsData? googleAnalyticsData;
     // GoogleTagData? googleTagsData;
     GoogleSheetsData? googleSheetsData,
@@ -150,6 +151,24 @@ abstract class TiktokPixelData extends TiktokPixelDataEntity
 
   factory TiktokPixelData.fromJson(Map<String, dynamic> json) =>
       _$TiktokPixelDataFromJson(json);
+}
+
+/// Per-product Snap Pixel override (ids, objectives, status rules).
+@freezed
+abstract class SnapchatPixelData extends SnapchatPixelDataEntity
+    with _$SnapchatPixelData {
+  SnapchatPixelData._();
+  factory SnapchatPixelData({
+    @Default(true) bool enabled,
+    List<String>? ids,
+    SnapchatPixelEvent? objective,
+    SnapchatPixelEvent? draftObjective,
+    /// Product-level status rules; empty → inherit store rules on `order:updated`.
+    @Default([]) List<PixelStatusRule> statusRules,
+  }) = _SnapchatPixelData;
+
+  factory SnapchatPixelData.fromJson(Map<String, dynamic> json) =>
+      _$SnapchatPixelDataFromJson(json);
 }
 
 // GoogleSheetsData

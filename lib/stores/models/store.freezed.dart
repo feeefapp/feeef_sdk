@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Store {
 
- String get id; DateTime get createdAt; DateTime get updatedAt; String get slug; StoreBanner? get banner; StoreAction? get action; StoreDomain? get domain; StoreDecoration? get decoration; String get name; String? get iconUrl; String? get logoUrl;@Deprecated("use logoUrl") String? get ondarkLogoUrl; String get userId; List<EmbaddedCategory> get categories; List<Category>? get categoriesRelation; String? get title; String? get description; List<EmbaddedAddress> get addresses; EmbaddedAddress? get address; Map<String, dynamic> get metadata; List<EmbaddedContact> get contacts;@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations get integrations; List<List<num?>?> get defaultShippingRates; DateTime? get verifiedAt; DateTime? get blockedAt;@JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) StoreSubscription? get subscription; num? get due; StoreConfigs? get configs; String? get shippingFeeId; String? get templateId; String? get projectId; List<String>? get metaPixelIds; Map<String, StoreMember> get members;/// Present when list/show is called with `with[]=lor` and the user may view analytics.
+ String get id; DateTime get createdAt; DateTime get updatedAt; String get slug; StoreBanner? get banner; StoreAction? get action; StoreDomain? get domain; StoreDecoration? get decoration; String get name; String? get iconUrl; String? get logoUrl;@Deprecated("use logoUrl") String? get ondarkLogoUrl; String get userId; List<EmbaddedCategory> get categories; List<Category>? get categoriesRelation; String? get title; String? get description; List<EmbaddedAddress> get addresses; EmbaddedAddress? get address; Map<String, dynamic> get metadata; List<EmbaddedContact> get contacts;@JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson) StoreIntegrations get integrations; List<List<num?>?> get defaultShippingRates; DateTime? get verifiedAt; DateTime? get blockedAt;@JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) StoreSubscription? get subscription; num? get due; StoreConfigs? get configs;/// Cloud shipping fee: `ca_…` (account) or `unassigned` (project fees).
+ String? get shippingFeeId; String? get templateId; String? get projectId; List<String>? get metaPixelIds; Map<String, StoreMember> get members;/// Present when list/show is called with `with[]=lor` and the user may view analytics.
 @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson) LiteOrdersReport? get lor;/// Present when `with[]=template` — active [StoreTemplate] row (usually the store fork).
 @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson) StoreTemplate? get template;
 /// Create a copy of Store
@@ -397,6 +398,7 @@ class _Store extends Store {
 @override@JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson) final  StoreSubscription? subscription;
 @override final  num? due;
 @override final  StoreConfigs? configs;
+/// Cloud shipping fee: `ca_…` (account) or `unassigned` (project fees).
 @override final  String? shippingFeeId;
 @override final  String? templateId;
 @override final  String? projectId;

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:typed_data';
 
@@ -327,7 +328,17 @@ class Feeef {
 
     await users.init();
     realtime.init();
-    await configs.init();
+    // ConfigProviderWidget fetches this again for the shell. The language
+    // screen does not need the response before it can paint.
+    unawaited(_loadConfigs());
+  }
+
+  Future<void> _loadConfigs() async {
+    try {
+      await configs.init();
+    } catch (e, st) {
+      developer.log('configs.init failed: $e', stackTrace: st);
+    }
   }
 }
 

@@ -19,14 +19,28 @@ import 'package:feeef/users/models/user.dart';
 mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
   AuthResponse<T>? _auth;
 
+  /// Bumps when the signed-in user id changes, including sign-out.
+  ///
+  /// Cached restore writes [_auth] directly and does not bump this. A late
+  /// `/auth` response compares the epoch it captured and drops itself if the
+  /// user signed out or switched accounts while the request was in flight.
+  int _authEpoch = 0;
+
   AuthResponse<T>? get auth => _auth;
 
   /// Resolves the current push token via the repository's [getPushToken] callback, if set.
+  ///
+  /// Gives up after 400ms. The underlying token request is not cancelled, but
+  /// its result is discarded: a token that arrives late is not attached to an
+  /// account. Sign-in must not wait on a hung Firebase call.
   Future<String?> _getPushToken() async {
     final getter = getPushToken;
     if (getter == null) return null;
     try {
-      return await getter();
+      return await getter().timeout(const Duration(milliseconds: 400));
+    } on TimeoutException {
+      developer.log('push token timed out');
+      return null;
     } catch (e) {
       developer.log('$e');
       return null;
@@ -81,7 +95,9 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
     if (token != null && token.isNotEmpty) {
       client.options.headers['Authorization'] = 'Bearer $token';
       await _loadCachedUserData();
-      await _verifyWithServer();
+      // Paint from the cached session. Server verify and the socket catch up
+      // after the first frame instead of holding runApp.
+      unawaited(_verifyWithServer());
     }
   }
 
@@ -100,7 +116,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
           user: modelFromJson(userData),
           token: AuthToken.fromJson(tokenData),
         );
-        await _listenToRealtimeSubscription();
+        unawaited(_listenToRealtimeSubscription());
 
         _authController.add(_auth);
         developer.log('Loaded cached user data for offline mode');
@@ -111,9 +127,11 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
   }
 
   Future<void> _verifyWithServer() async {
+    final epoch = _authEpoch;
     try {
       await me();
-      await _listenToRealtimeSubscription();
+      if (epoch != _authEpoch) return;
+      unawaited(_listenToRealtimeSubscription());
       developer.log('Server verification successful');
     } catch (e) {
       developer.log('Server verification failed, but keeping cached data: $e');
@@ -151,6 +169,11 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
   }
 
   set auth(AuthResponse<T>? value) {
+    final previousId = _auth?.user.id;
+    final nextId = value?.user.id;
+    if (previousId != nextId) {
+      _authEpoch++;
+    }
     _auth = value;
     _saveAuthToken(_auth);
     _authController.add(value);
@@ -184,7 +207,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
         token: AuthToken.fromJson(response.data['token']),
       );
       client.options.headers['Authorization'] = 'Bearer ${auth!.token.token}';
-      await _listenToRealtimeSubscription();
+      unawaited(_listenToRealtimeSubscription());
       return auth!;
     } on DioException catch (e) {
       if (e.response?.statusCode != null &&
@@ -223,7 +246,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
         user: modelFromJson(response.data['user']),
         token: AuthToken.fromJson({...response.data['token'], 'token': token}),
       );
-      await _listenToRealtimeSubscription();
+      unawaited(_listenToRealtimeSubscription());
 
       developer.log("Auth response created successfully");
 
@@ -282,7 +305,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
         token: AuthToken.fromJson(response.data['token']),
       );
       client.options.headers['Authorization'] = 'Bearer ${auth!.token.token}';
-      await _listenToRealtimeSubscription();
+      unawaited(_listenToRealtimeSubscription());
       return auth!;
     } on DioException catch (e) {
       if (e.response?.statusCode != null &&
@@ -346,7 +369,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
         token: AuthToken.fromJson(response.data['token']),
       );
       client.options.headers['Authorization'] = 'Bearer ${auth!.token.token}';
-      await _listenToRealtimeSubscription();
+      unawaited(_listenToRealtimeSubscription());
       return auth!;
     } on DioException catch (e) {
       if (e.response?.statusCode != null &&
@@ -383,7 +406,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
         token: AuthToken.fromJson(response.data['token']),
       );
       client.options.headers['Authorization'] = 'Bearer ${auth!.token.token}';
-      await _listenToRealtimeSubscription();
+      unawaited(_listenToRealtimeSubscription());
       return auth!;
     } on DioException catch (e) {
       if (e.response?.statusCode != null &&
@@ -417,7 +440,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
         token: AuthToken.fromJson(response.data['token']),
       );
       client.options.headers['Authorization'] = 'Bearer ${auth!.token.token}';
-      await _listenToRealtimeSubscription();
+      unawaited(_listenToRealtimeSubscription());
       return auth!;
     } on DioException catch (e) {
       if (e.response?.statusCode != null &&
@@ -454,7 +477,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
         token: AuthToken.fromJson(response.data['token']),
       );
       client.options.headers['Authorization'] = 'Bearer ${auth!.token.token}';
-      await _listenToRealtimeSubscription();
+      unawaited(_listenToRealtimeSubscription());
       return auth!;
     } on DioException catch (e) {
       if (e.response?.statusCode != null &&
@@ -491,7 +514,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
         token: AuthToken.fromJson(response.data['token']),
       );
       client.options.headers['Authorization'] = 'Bearer ${auth!.token.token}';
-      await _listenToRealtimeSubscription();
+      unawaited(_listenToRealtimeSubscription());
       return auth!;
     } on DioException catch (e) {
       if (e.response?.statusCode != null &&
@@ -536,10 +559,15 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
   }
 
   Future<T?> me() async {
+    final epoch = _authEpoch;
     try {
       developer.log('Verifying authentication with server...');
       final response = await client.get('/$table/auth');
       developer.log('Server verification successful');
+      if (epoch != _authEpoch) {
+        developer.log('Discarding stale auth verification');
+        return _auth?.user;
+      }
 
       auth = AuthResponse(
         user: modelFromJson(response.data["user"]),
@@ -551,7 +579,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
               .last,
         }),
       );
-      await _listenToRealtimeSubscription();
+      unawaited(_listenToRealtimeSubscription());
       return auth!.user;
     } on DioException catch (e) {
       developer.log('DioException during server verification: ${e.type}');
@@ -588,7 +616,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
         user: modelFromJson(response.data),
         token: auth!.token,
       );
-      await _listenToRealtimeSubscription();
+      unawaited(_listenToRealtimeSubscription());
       return auth!.user;
     } on DioException catch (e) {
       if (e.response?.statusCode != null &&
@@ -638,7 +666,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
         token: AuthToken.fromJson(response.data['token']),
       );
       client.options.headers['Authorization'] = 'Bearer ${auth!.token.token}';
-      await _listenToRealtimeSubscription();
+      unawaited(_listenToRealtimeSubscription());
       return auth!;
     } on DioException catch (e) {
       if (e.response?.statusCode != null &&
@@ -684,7 +712,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
         token: AuthToken.fromJson(response.data['token']),
       );
       client.options.headers['Authorization'] = 'Bearer ${auth!.token.token}';
-      await _listenToRealtimeSubscription();
+      unawaited(_listenToRealtimeSubscription());
       return auth!;
     } on DioException catch (e) {
       if (e.response?.statusCode != null &&

@@ -963,6 +963,9 @@ class CloudDeliveryApi {
       options: Options(
         responseType: ResponseType.bytes,
         receiveTimeout: const Duration(seconds: 30),
+        // Override the client's Accept: application/json so a PDF body is
+        // returned instead of a JSON error wrapper.
+        headers: const {'Accept': 'application/pdf, application/json'},
       ),
     );
     return Uint8List.fromList(res.data ?? const []);
@@ -989,6 +992,7 @@ class CloudDeliveryApi {
       options: Options(
         responseType: ResponseType.bytes,
         receiveTimeout: const Duration(seconds: 120),
+        headers: const {'Accept': 'application/pdf, application/json'},
       ),
     );
     return CloudLabelsBulkResponse.fromResponse(res);
@@ -1374,6 +1378,94 @@ class CloudDeliveryApi {
     );
     return _unwrapMap(res);
   }
+
+  /// Detach many orders from Cloud delivery (`POST .../unsendMany`).
+  ///
+  /// One request per 200 ids. Parcel cancels are batched on the server.
+  /// [CloudUnsendManyResult.failed] is keyed by order id.
+  Future<CloudUnsendManyResult> unsendOrders(
+    String storeId,
+    List<String> orderIds,
+  ) async {
+    if (orderIds.isEmpty) {
+      return const CloudUnsendManyResult(detachedIds: [], failed: {});
+    }
+    const chunkSize = 200;
+    if (orderIds.length <= chunkSize) {
+      return _unsendOrdersOnce(storeId, orderIds);
+    }
+    final detachedIds = <String>[];
+    final failed = <String, String>{};
+    for (var start = 0; start < orderIds.length; start += chunkSize) {
+      final end = start + chunkSize > orderIds.length
+          ? orderIds.length
+          : start + chunkSize;
+      final part = await _unsendOrdersOnce(storeId, orderIds.sublist(start, end));
+      detachedIds.addAll(part.detachedIds);
+      failed.addAll(part.failed);
+    }
+    return CloudUnsendManyResult(detachedIds: detachedIds, failed: failed);
+  }
+
+  Future<CloudUnsendManyResult> _unsendOrdersOnce(
+    String storeId,
+    List<String> orderIds,
+  ) async {
+    try {
+      final res = await client.post(
+        '/stores/$storeId/orders/cloud-parcels/unsendMany',
+        data: {'orderIds': orderIds},
+      );
+      return CloudUnsendManyResult.fromJson(_unwrapMap(res));
+    } on DioException catch (e) {
+      final data = e.response?.data;
+      if (data is Map) {
+        final inner = data['data'] ?? data;
+        if (inner is Map && (inner['detached'] != null || inner['failed'] != null)) {
+          return CloudUnsendManyResult.fromJson(Map<String, dynamic>.from(inner));
+        }
+      }
+      rethrow;
+    }
+  }
+}
+
+/// Partial result of [CloudDeliveryApi.unsendOrders].
+class CloudUnsendManyResult {
+  const CloudUnsendManyResult({
+    required this.detachedIds,
+    required this.failed,
+  });
+
+  final List<String> detachedIds;
+  final Map<String, String> failed;
+
+  bool get allFailed => detachedIds.isEmpty && failed.isNotEmpty;
+
+  factory CloudUnsendManyResult.fromJson(Map<String, dynamic> json) {
+    final detachedIds = <String>[];
+    final detached = json['detached'];
+    if (detached is List) {
+      for (final row in detached) {
+        if (row is Map) {
+          final id = row['orderId']?.toString().trim() ?? '';
+          if (id.isNotEmpty) detachedIds.add(id);
+        }
+      }
+    }
+    final failed = <String, String>{};
+    final failedRaw = json['failed'];
+    if (failedRaw is List) {
+      for (final row in failedRaw) {
+        if (row is Map) {
+          final id = row['orderId']?.toString().trim() ?? '';
+          if (id.isEmpty) continue;
+          failed[id] = row['message']?.toString() ?? 'Could not detach order';
+        }
+      }
+    }
+    return CloudUnsendManyResult(detachedIds: detachedIds, failed: failed);
+  }
 }
 
 /// Merged label PDF plus optional Feeef proxy warnings (`X-Feeef-Cloud-Label-Warnings`).
@@ -1382,11 +1474,22 @@ class CloudLabelsBulkResponse {
     required this.bytes,
     this.skippedParcelIds = const [],
     this.failedAccounts = const [],
+    this.trace,
   });
 
   final Uint8List bytes;
   final List<String> skippedParcelIds;
   final List<CloudLabelBulkAccountFailure> failedAccounts;
+
+  /// JSON from `X-Feeef-Label-Trace`: Feeef, Cloud, and courier step timings.
+  final Map<String, dynamic>? trace;
+
+  /// One line for a snackbar. Null when the API did not send a trace.
+  String? get traceSummary {
+    final summary = trace?['summary'];
+    if (summary is String && summary.trim().isNotEmpty) return summary.trim();
+    return null;
+  }
 
   static CloudLabelsBulkResponse fromResponse(Response<List<int>> res) {
     final bytes = Uint8List.fromList(res.data ?? const []);
@@ -1395,7 +1498,20 @@ class CloudLabelsBulkResponse {
       bytes: bytes,
       skippedParcelIds: warnings.skippedParcelIds,
       failedAccounts: warnings.failedAccounts,
+      trace: _parseTraceHeader(res.headers),
     );
+  }
+
+  static Map<String, dynamic>? _parseTraceHeader(Headers headers) {
+    final raw = headers.value('x-feeef-label-trace') ??
+        headers.value('X-Feeef-Label-Trace');
+    if (raw == null || raw.trim().isEmpty) return null;
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is Map<String, dynamic>) return decoded;
+      if (decoded is Map) return Map<String, dynamic>.from(decoded);
+    } catch (_) {}
+    return null;
   }
 
   static _LabelWarningHeader _parseWarningsHeader(Headers headers) {

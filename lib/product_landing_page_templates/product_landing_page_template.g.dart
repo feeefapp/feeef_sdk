@@ -15,6 +15,7 @@ _ProductLandingPageTemplate _$ProductLandingPageTemplateFromJson(
   name: json['name'] as String,
   description: json['description'] as String,
   imageUrl: json['imageUrl'] as String,
+  storeId: json['storeId'] as String?,
   schema: json['schema'] as Map<String, dynamic>?,
   defaults: json['defaults'] as Map<String, dynamic>,
 );
@@ -28,6 +29,7 @@ Map<String, dynamic> _$ProductLandingPageTemplateToJson(
   'name': instance.name,
   'description': instance.description,
   'imageUrl': instance.imageUrl,
+  'storeId': instance.storeId,
   'schema': instance.schema,
   'defaults': instance.defaults,
 };

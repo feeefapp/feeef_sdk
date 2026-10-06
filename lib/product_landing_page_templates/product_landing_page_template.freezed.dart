@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProductLandingPageTemplate {
 
- String get id; DateTime get createdAt; DateTime get updatedAt; String get name; String get description; String get imageUrl; Map<String, dynamic>? get schema; Map<String, dynamic> get defaults;
+ String get id; DateTime get createdAt; DateTime get updatedAt; String get name; String get description; String get imageUrl;/// Store that published this listing. Null is a platform template.
+ String? get storeId; Map<String, dynamic>? get schema; Map<String, dynamic> get defaults;
 /// Create a copy of ProductLandingPageTemplate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +31,20 @@ $ProductLandingPageTemplateCopyWith<ProductLandingPageTemplate> get copyWith => 
 @override
 bool operator ==(Object other) {
   final _this = this as ProductLandingPageTemplate;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductLandingPageTemplate&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.imageUrl, _this.imageUrl) || other.imageUrl == _this.imageUrl)&&const DeepCollectionEquality().equals(other.schema, _this.schema)&&const DeepCollectionEquality().equals(other.defaults, _this.defaults));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductLandingPageTemplate&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.imageUrl, _this.imageUrl) || other.imageUrl == _this.imageUrl)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&const DeepCollectionEquality().equals(other.schema, _this.schema)&&const DeepCollectionEquality().equals(other.defaults, _this.defaults));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as ProductLandingPageTemplate;
-  return Object.hash(runtimeType,_this.id,_this.createdAt,_this.updatedAt,_this.name,_this.description,_this.imageUrl,const DeepCollectionEquality().hash(_this.schema),const DeepCollectionEquality().hash(_this.defaults));
+  return Object.hash(runtimeType,_this.id,_this.createdAt,_this.updatedAt,_this.name,_this.description,_this.imageUrl,_this.storeId,const DeepCollectionEquality().hash(_this.schema),const DeepCollectionEquality().hash(_this.defaults));
 }
 
 @override
 String toString() {
   final _this = this as ProductLandingPageTemplate;
-  return 'ProductLandingPageTemplate(id: ${_this.id}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, name: ${_this.name}, description: ${_this.description}, imageUrl: ${_this.imageUrl}, schema: ${_this.schema}, defaults: ${_this.defaults})';
+  return 'ProductLandingPageTemplate(id: ${_this.id}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, name: ${_this.name}, description: ${_this.description}, imageUrl: ${_this.imageUrl}, storeId: ${_this.storeId}, schema: ${_this.schema}, defaults: ${_this.defaults})';
 }
 
 
@@ -54,7 +55,7 @@ abstract mixin class $ProductLandingPageTemplateCopyWith<$Res>  {
   factory $ProductLandingPageTemplateCopyWith(ProductLandingPageTemplate value, $Res Function(ProductLandingPageTemplate) _then) = _$ProductLandingPageTemplateCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime createdAt, DateTime updatedAt, String name, String description, String imageUrl, Map<String, dynamic>? schema, Map<String, dynamic> defaults
+ String id, DateTime createdAt, DateTime updatedAt, String name, String description, String imageUrl, String? storeId, Map<String, dynamic>? schema, Map<String, dynamic> defaults
 });
 
 
@@ -71,7 +72,7 @@ class _$ProductLandingPageTemplateCopyWithImpl<$Res>
 
 /// Create a copy of ProductLandingPageTemplate
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? name = null,Object? description = null,Object? imageUrl = null,Object? schema = freezed,Object? defaults = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? name = null,Object? description = null,Object? imageUrl = null,Object? storeId = freezed,Object? schema = freezed,Object? defaults = null,}) {
   return _then(ProductLandingPageTemplate(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
@@ -79,7 +80,8 @@ as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore
 as DateTime,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
-as String,schema: freezed == schema ? _self.schema : schema // ignore: cast_nullable_to_non_nullable
+as String,storeId: freezed == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
+as String?,schema: freezed == schema ? _self.schema : schema // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,defaults: null == defaults ? _self.defaults : defaults // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));
@@ -166,10 +168,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String name,  String description,  String imageUrl,  Map<String, dynamic>? schema,  Map<String, dynamic> defaults)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String name,  String description,  String imageUrl,  String? storeId,  Map<String, dynamic>? schema,  Map<String, dynamic> defaults)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProductLandingPageTemplate() when $default != null:
-return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.description,_that.imageUrl,_that.schema,_that.defaults);case _:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.description,_that.imageUrl,_that.storeId,_that.schema,_that.defaults);case _:
   return orElse();
 
 }
@@ -187,10 +189,10 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.descri
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String name,  String description,  String imageUrl,  Map<String, dynamic>? schema,  Map<String, dynamic> defaults)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String name,  String description,  String imageUrl,  String? storeId,  Map<String, dynamic>? schema,  Map<String, dynamic> defaults)  $default,) {final _that = this;
 switch (_that) {
 case _ProductLandingPageTemplate():
-return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.description,_that.imageUrl,_that.schema,_that.defaults);case _:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.description,_that.imageUrl,_that.storeId,_that.schema,_that.defaults);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -207,10 +209,10 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.descri
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  DateTime updatedAt,  String name,  String description,  String imageUrl,  Map<String, dynamic>? schema,  Map<String, dynamic> defaults)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  DateTime updatedAt,  String name,  String description,  String imageUrl,  String? storeId,  Map<String, dynamic>? schema,  Map<String, dynamic> defaults)?  $default,) {final _that = this;
 switch (_that) {
 case _ProductLandingPageTemplate() when $default != null:
-return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.description,_that.imageUrl,_that.schema,_that.defaults);case _:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.description,_that.imageUrl,_that.storeId,_that.schema,_that.defaults);case _:
   return null;
 
 }
@@ -222,7 +224,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.name,_that.descri
 @JsonSerializable()
 
 class _ProductLandingPageTemplate extends ProductLandingPageTemplate {
-   _ProductLandingPageTemplate({required this.id, required this.createdAt, required this.updatedAt, required this.name, required this.description, required this.imageUrl,  Map<String, dynamic>? schema, required  Map<String, dynamic> defaults}): _schema = schema,_defaults = defaults,super._();
+   _ProductLandingPageTemplate({required this.id, required this.createdAt, required this.updatedAt, required this.name, required this.description, required this.imageUrl, this.storeId,  Map<String, dynamic>? schema, required  Map<String, dynamic> defaults}): _schema = schema,_defaults = defaults,super._();
   factory _ProductLandingPageTemplate.fromJson(Map<String, dynamic> json) => _$ProductLandingPageTemplateFromJson(json);
 
 @override final  String id;
@@ -231,6 +233,8 @@ class _ProductLandingPageTemplate extends ProductLandingPageTemplate {
 @override final  String name;
 @override final  String description;
 @override final  String imageUrl;
+/// Store that published this listing. Null is a platform template.
+@override final  String? storeId;
  final  Map<String, dynamic>? _schema;
 @override Map<String, dynamic>? get schema {
   final value = _schema;
@@ -261,18 +265,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductLandingPageTemplate&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&const DeepCollectionEquality().equals(other.schema, _schema)&&const DeepCollectionEquality().equals(other.defaults, _defaults));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductLandingPageTemplate&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&const DeepCollectionEquality().equals(other.schema, _schema)&&const DeepCollectionEquality().equals(other.defaults, _defaults));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,createdAt,updatedAt,name,description,imageUrl,const DeepCollectionEquality().hash(_schema),const DeepCollectionEquality().hash(_defaults));
+    return Object.hash(runtimeType,id,createdAt,updatedAt,name,description,imageUrl,storeId,const DeepCollectionEquality().hash(_schema),const DeepCollectionEquality().hash(_defaults));
 }
 
 @override
 String toString() {
-    return 'ProductLandingPageTemplate(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, imageUrl: $imageUrl, schema: $schema, defaults: $defaults)';
+    return 'ProductLandingPageTemplate(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, imageUrl: $imageUrl, storeId: $storeId, schema: $schema, defaults: $defaults)';
 }
 
 
@@ -283,7 +287,7 @@ abstract mixin class _$ProductLandingPageTemplateCopyWith<$Res> implements $Prod
   factory _$ProductLandingPageTemplateCopyWith(_ProductLandingPageTemplate value, $Res Function(_ProductLandingPageTemplate) _then) = __$ProductLandingPageTemplateCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime createdAt, DateTime updatedAt, String name, String description, String imageUrl, Map<String, dynamic>? schema, Map<String, dynamic> defaults
+ String id, DateTime createdAt, DateTime updatedAt, String name, String description, String imageUrl, String? storeId, Map<String, dynamic>? schema, Map<String, dynamic> defaults
 });
 
 
@@ -300,7 +304,7 @@ class __$ProductLandingPageTemplateCopyWithImpl<$Res>
 
 /// Create a copy of ProductLandingPageTemplate
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? name = null,Object? description = null,Object? imageUrl = null,Object? schema = freezed,Object? defaults = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? name = null,Object? description = null,Object? imageUrl = null,Object? storeId = freezed,Object? schema = freezed,Object? defaults = null,}) {
   return _then(_ProductLandingPageTemplate(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
@@ -308,7 +312,8 @@ as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore
 as DateTime,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
-as String,schema: freezed == schema ? _self._schema : schema // ignore: cast_nullable_to_non_nullable
+as String,storeId: freezed == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
+as String?,schema: freezed == schema ? _self._schema : schema // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,defaults: null == defaults ? _self._defaults : defaults // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));

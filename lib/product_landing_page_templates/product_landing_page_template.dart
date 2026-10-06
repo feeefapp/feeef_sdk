@@ -19,6 +19,8 @@ abstract class ProductLandingPageTemplate
     required String name,
     required String description,
     required String imageUrl,
+    /// Store that published this listing. Null is a platform template.
+    String? storeId,
     Map<String, dynamic>? schema,
     required Map<String, dynamic> defaults,
   }) = _ProductLandingPageTemplate;

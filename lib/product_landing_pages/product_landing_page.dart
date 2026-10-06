@@ -62,6 +62,8 @@ abstract class ProductLandingPage extends ProductLandingPageEntity
     required String name,
     String? description,
     String? templateId,
+    /// Public template this page last published. A later publish updates it.
+    String? publishedTemplateId,
     Map<String, dynamic>? schema,
     required Map<String, dynamic> defaults,
     required String productId,

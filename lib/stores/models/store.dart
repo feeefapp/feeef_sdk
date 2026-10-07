@@ -401,7 +401,7 @@ extension StoreExtensions on Store {
     } else {
       // Assuming the Store class has a property `id` or `slug` to generate the public URL
       // Replace `id` with the appropriate property if necessary
-      url = "$url$slug.feeef.store";
+      url = "$url$slug.alpha.feeef.store";
     }
     return url + path;
   }
@@ -417,7 +417,7 @@ extension StoreExtensions on Store {
 
   // apikey is just the store id shifted the domain name
   String getApiKey() {
-    var rawKey = "$id;${domain?.name ?? "$slug.feeef.store"}".toUpperCase();
+    var rawKey = "$id;${domain?.name ?? "$slug.alpha.feeef.store"}".toUpperCase();
     // manipulate the rawKey to get the api key (looks random)
     var encodedKey = base64Url.encode(utf8.encode(rawKey));
     // reverse the encodedKey

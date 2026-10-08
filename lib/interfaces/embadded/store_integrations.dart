@@ -8,6 +8,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../product.dart';
 import 'orders_dispatch_strategy.dart';
+import 'security_geo_json.dart';
+
+export 'security_geo_json.dart';
 
 part 'store_integrations.freezed.dart';
 part 'store_integrations.g.dart';
@@ -860,9 +863,122 @@ abstract class SecuritySourcesOption with _$SecuritySourcesOption {
       _$SecuritySourcesOptionFromJson(json);
 }
 
+/// Outcome of checking one visitor value against a [SecurityGeoListOption].
+///
+/// Client-side preview only; the backend engine makes the real decision.
+enum SecurityGeoRuleDecision {
+  /// Rule is off.
+  inactive,
+
+  /// Value passes: not blocked, and the allowlist is empty or contains it.
+  pass,
+
+  /// Value is in `blocked` (blocked wins over allowed).
+  blocked,
+
+  /// `allowed` is non-empty and does not contain the value.
+  notAllowed,
+
+  /// Visitor geo is unknown (null / `XX`) while the rule has entries; the
+  /// backend applies its `unknownGeo` policy.
+  unknown,
+}
+
+/// Visitor region (state / wilaya) or city allow/block rule.
+///
+/// Wire shape (PROVISIONAL, keys in [SecurityGeoJsonKeys]):
+/// `{ "active": bool, "treatment": "block"|"warning"|"fake", "allowed": [string], "blocked": [string] }`.
+///
+/// Semantics (design §4.3): blocked wins over allowed, empty [allowed] means
+/// allow all, matching is case-insensitive on normalized names
+/// ([normalizeSecurityGeoName]). Values are the names Traefik's geoip2 plugin
+/// puts in `X-GeoIP2-Region` / `X-GeoIP2-City` (DB-IP Lite).
+///
+/// Parsing is lenient: missing/null/wrong-typed fields fall back to defaults,
+/// unknown treatments fall back to [SecurityTreatment.block], a comma separated
+/// string is accepted for the lists, and unknown keys are ignored.
+@freezed
+abstract class SecurityGeoListOption with _$SecurityGeoListOption {
+  const SecurityGeoListOption._();
+  const factory SecurityGeoListOption({
+    @JsonKey(name: SecurityGeoJsonKeys.active, fromJson: securityLenientBool)
+    @Default(false)
+    bool active,
+    @JsonKey(
+      name: SecurityGeoJsonKeys.treatment,
+      fromJson: securityTreatmentFromJson,
+    )
+    @Default(SecurityTreatment.block)
+    SecurityTreatment treatment,
+
+    /// Names allowed; empty = allow all.
+    @JsonKey(
+      name: SecurityGeoJsonKeys.allowed,
+      fromJson: securityStringListFromJson,
+    )
+    @Default(<String>[])
+    List<String> allowed,
+
+    /// Names blocked; wins over [allowed].
+    @JsonKey(
+      name: SecurityGeoJsonKeys.blocked,
+      fromJson: securityStringListFromJson,
+    )
+    @Default(<String>[])
+    List<String> blocked,
+  }) = _SecurityGeoListOption;
+
+  factory SecurityGeoListOption.fromJson(Map<String, dynamic> json) =>
+      _$SecurityGeoListOptionFromJson(json);
+
+  /// Lenient parse: returns null when [value] is not a JSON object.
+  static SecurityGeoListOption? tryParse(Object? value) =>
+      securityGeoListOptionFromJson(value);
+
+  /// True when [allowed] restricts traffic to a list.
+  bool get hasAllowlist => allowed.isNotEmpty;
+
+  /// True when at least one name is listed.
+  bool get hasEntries => allowed.isNotEmpty || blocked.isNotEmpty;
+
+  /// Whether [value] is in [allowed] (normalized compare).
+  bool isAllowed(String value) => _contains(allowed, value);
+
+  /// Whether [value] is in [blocked] (normalized compare).
+  bool isBlocked(String value) => _contains(blocked, value);
+
+  /// Client-side preview of the rule for one visitor value (see
+  /// [SecurityGeoRuleDecision]).
+  SecurityGeoRuleDecision evaluate(String? value) {
+    if (!active) return SecurityGeoRuleDecision.inactive;
+    if (!hasEntries) return SecurityGeoRuleDecision.pass;
+    final v = securityGeoValueFromJson(value);
+    if (v == null) return SecurityGeoRuleDecision.unknown;
+    if (isBlocked(v)) return SecurityGeoRuleDecision.blocked;
+    if (hasAllowlist && !isAllowed(v)) {
+      return SecurityGeoRuleDecision.notAllowed;
+    }
+    return SecurityGeoRuleDecision.pass;
+  }
+
+  static bool _contains(List<String> list, String value) {
+    final key = normalizeSecurityGeoName(value);
+    if (key.isEmpty) return false;
+    return list.any((e) => normalizeSecurityGeoName(e) == key);
+  }
+}
+
+/// Lenient JSON -> [SecurityGeoListOption]; null for null / non-object values.
+SecurityGeoListOption? securityGeoListOptionFromJson(Object? value) {
+  final map = securityJsonObjectOrNull(value);
+  if (map == null) return null;
+  return SecurityGeoListOption.fromJson(map);
+}
+
 /// All security options (private - merchant app). Keys are optional/nullable like the API.
 @freezed
 abstract class SecurityOptions with _$SecurityOptions {
+  const SecurityOptions._();
   const factory SecurityOptions({
     SecurityOption? fingerprint,
     SecurityOption? ip,
@@ -873,10 +989,52 @@ abstract class SecurityOptions with _$SecurityOptions {
     SecurityMinTimeOption? minTimeInPage,
     SecurityCountriesOption? countries,
     SecuritySourcesOption? sources,
+
+    /// Visitor region (state / wilaya) rule. PROVISIONAL (design §4.3).
+    /// Omitted from JSON when null; a non-object value parses as null.
+    @JsonKey(
+      name: SecurityGeoJsonKeys.regions,
+      fromJson: securityGeoListOptionFromJson,
+      includeIfNull: false,
+    )
+    SecurityGeoListOption? regions,
+
+    /// Visitor city rule. PROVISIONAL (design §4.3).
+    @JsonKey(
+      name: SecurityGeoJsonKeys.cities,
+      fromJson: securityGeoListOptionFromJson,
+      includeIfNull: false,
+    )
+    SecurityGeoListOption? cities,
+
+    /// Policy when the visitor geo is unknown (design §4.1 / review §2.5).
+    ///
+    /// The backend shape is not decided (a treatment string such as
+    /// `"allow"`, or an object), so the raw JSON value is kept as-is and
+    /// written back unchanged. Use [unknownGeoTreatment] /
+    /// [unknownGeoTreatmentName] to read it.
+    @JsonKey(name: SecurityGeoJsonKeys.unknownGeo, includeIfNull: false)
+    Object? unknownGeo,
   }) = _SecurityOptions;
 
   factory SecurityOptions.fromJson(Map<String, dynamic> json) =>
       _$SecurityOptionsFromJson(json);
+
+  /// Raw treatment name in [unknownGeo] (a string, or an object with a
+  /// `treatment` key). May be a value outside [SecurityTreatment] (e.g. `allow`).
+  String? get unknownGeoTreatmentName {
+    final raw = unknownGeo;
+    if (raw is String) return securityStringOrNull(raw)?.toLowerCase();
+    final map = securityJsonObjectOrNull(raw);
+    if (map == null) return null;
+    return securityStringOrNull(map[SecurityGeoJsonKeys.treatment])
+        ?.toLowerCase();
+  }
+
+  /// [unknownGeoTreatmentName] as a [SecurityTreatment], or null when unset or
+  /// not one of block / warning / fake (e.g. `allow`).
+  SecurityTreatment? get unknownGeoTreatment =>
+      securityTreatmentOrNull(unknownGeoTreatmentName);
 }
 
 /// Checkout fraud / abuse protection for public order create (not account 2FA).

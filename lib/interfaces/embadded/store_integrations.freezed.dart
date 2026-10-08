@@ -10543,9 +10543,315 @@ as List<String>,
 
 
 /// @nodoc
+mixin _$SecurityGeoListOption {
+
+@JsonKey(name: SecurityGeoJsonKeys.active, fromJson: securityLenientBool) bool get active;@JsonKey(name: SecurityGeoJsonKeys.treatment, fromJson: securityTreatmentFromJson) SecurityTreatment get treatment;/// Names allowed; empty = allow all.
+@JsonKey(name: SecurityGeoJsonKeys.allowed, fromJson: securityStringListFromJson) List<String> get allowed;/// Names blocked; wins over [allowed].
+@JsonKey(name: SecurityGeoJsonKeys.blocked, fromJson: securityStringListFromJson) List<String> get blocked;
+/// Create a copy of SecurityGeoListOption
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SecurityGeoListOptionCopyWith<SecurityGeoListOption> get copyWith => _$SecurityGeoListOptionCopyWithImpl<SecurityGeoListOption>(this as SecurityGeoListOption, _$identity);
+
+  /// Serializes this SecurityGeoListOption to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as SecurityGeoListOption;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityGeoListOption&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.treatment, _this.treatment) || other.treatment == _this.treatment)&&const DeepCollectionEquality().equals(other.allowed, _this.allowed)&&const DeepCollectionEquality().equals(other.blocked, _this.blocked));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as SecurityGeoListOption;
+  return Object.hash(runtimeType,_this.active,_this.treatment,const DeepCollectionEquality().hash(_this.allowed),const DeepCollectionEquality().hash(_this.blocked));
+}
+
+@override
+String toString() {
+  final _this = this as SecurityGeoListOption;
+  return 'SecurityGeoListOption(active: ${_this.active}, treatment: ${_this.treatment}, allowed: ${_this.allowed}, blocked: ${_this.blocked})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SecurityGeoListOptionCopyWith<$Res>  {
+  factory $SecurityGeoListOptionCopyWith(SecurityGeoListOption value, $Res Function(SecurityGeoListOption) _then) = _$SecurityGeoListOptionCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: SecurityGeoJsonKeys.active, fromJson: securityLenientBool) bool active,@JsonKey(name: SecurityGeoJsonKeys.treatment, fromJson: securityTreatmentFromJson) SecurityTreatment treatment,@JsonKey(name: SecurityGeoJsonKeys.allowed, fromJson: securityStringListFromJson) List<String> allowed,@JsonKey(name: SecurityGeoJsonKeys.blocked, fromJson: securityStringListFromJson) List<String> blocked
+});
+
+
+
+
+}
+/// @nodoc
+class _$SecurityGeoListOptionCopyWithImpl<$Res>
+    implements $SecurityGeoListOptionCopyWith<$Res> {
+  _$SecurityGeoListOptionCopyWithImpl(this._self, this._then);
+
+  final SecurityGeoListOption _self;
+  final $Res Function(SecurityGeoListOption) _then;
+
+/// Create a copy of SecurityGeoListOption
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? treatment = null,Object? allowed = null,Object? blocked = null,}) {
+  return _then(SecurityGeoListOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,allowed: null == allowed ? _self.allowed : allowed // ignore: cast_nullable_to_non_nullable
+as List<String>,blocked: null == blocked ? _self.blocked : blocked // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SecurityGeoListOption].
+extension SecurityGeoListOptionPatterns on SecurityGeoListOption {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SecurityGeoListOption value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SecurityGeoListOption() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SecurityGeoListOption value)  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityGeoListOption():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SecurityGeoListOption value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityGeoListOption() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: SecurityGeoJsonKeys.active, fromJson: securityLenientBool)  bool active, @JsonKey(name: SecurityGeoJsonKeys.treatment, fromJson: securityTreatmentFromJson)  SecurityTreatment treatment, @JsonKey(name: SecurityGeoJsonKeys.allowed, fromJson: securityStringListFromJson)  List<String> allowed, @JsonKey(name: SecurityGeoJsonKeys.blocked, fromJson: securityStringListFromJson)  List<String> blocked)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SecurityGeoListOption() when $default != null:
+return $default(_that.active,_that.treatment,_that.allowed,_that.blocked);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: SecurityGeoJsonKeys.active, fromJson: securityLenientBool)  bool active, @JsonKey(name: SecurityGeoJsonKeys.treatment, fromJson: securityTreatmentFromJson)  SecurityTreatment treatment, @JsonKey(name: SecurityGeoJsonKeys.allowed, fromJson: securityStringListFromJson)  List<String> allowed, @JsonKey(name: SecurityGeoJsonKeys.blocked, fromJson: securityStringListFromJson)  List<String> blocked)  $default,) {final _that = this;
+switch (_that) {
+case _SecurityGeoListOption():
+return $default(_that.active,_that.treatment,_that.allowed,_that.blocked);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: SecurityGeoJsonKeys.active, fromJson: securityLenientBool)  bool active, @JsonKey(name: SecurityGeoJsonKeys.treatment, fromJson: securityTreatmentFromJson)  SecurityTreatment treatment, @JsonKey(name: SecurityGeoJsonKeys.allowed, fromJson: securityStringListFromJson)  List<String> allowed, @JsonKey(name: SecurityGeoJsonKeys.blocked, fromJson: securityStringListFromJson)  List<String> blocked)?  $default,) {final _that = this;
+switch (_that) {
+case _SecurityGeoListOption() when $default != null:
+return $default(_that.active,_that.treatment,_that.allowed,_that.blocked);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SecurityGeoListOption extends SecurityGeoListOption {
+  const _SecurityGeoListOption({@JsonKey(name: SecurityGeoJsonKeys.active, fromJson: securityLenientBool) this.active = false, @JsonKey(name: SecurityGeoJsonKeys.treatment, fromJson: securityTreatmentFromJson) this.treatment = SecurityTreatment.block, @JsonKey(name: SecurityGeoJsonKeys.allowed, fromJson: securityStringListFromJson)  List<String> allowed = const <String>[], @JsonKey(name: SecurityGeoJsonKeys.blocked, fromJson: securityStringListFromJson)  List<String> blocked = const <String>[]}): _allowed = allowed,_blocked = blocked,super._();
+  factory _SecurityGeoListOption.fromJson(Map<String, dynamic> json) => _$SecurityGeoListOptionFromJson(json);
+
+@override@JsonKey(name: SecurityGeoJsonKeys.active, fromJson: securityLenientBool) final  bool active;
+@override@JsonKey(name: SecurityGeoJsonKeys.treatment, fromJson: securityTreatmentFromJson) final  SecurityTreatment treatment;
+/// Names allowed; empty = allow all.
+ final  List<String> _allowed;
+/// Names allowed; empty = allow all.
+@override@JsonKey(name: SecurityGeoJsonKeys.allowed, fromJson: securityStringListFromJson) List<String> get allowed {
+  if (_allowed is EqualUnmodifiableListView) return _allowed;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_allowed);
+}
+
+/// Names blocked; wins over [allowed].
+ final  List<String> _blocked;
+/// Names blocked; wins over [allowed].
+@override@JsonKey(name: SecurityGeoJsonKeys.blocked, fromJson: securityStringListFromJson) List<String> get blocked {
+  if (_blocked is EqualUnmodifiableListView) return _blocked;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_blocked);
+}
+
+
+/// Create a copy of SecurityGeoListOption
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SecurityGeoListOptionCopyWith<_SecurityGeoListOption> get copyWith => __$SecurityGeoListOptionCopyWithImpl<_SecurityGeoListOption>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SecurityGeoListOptionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityGeoListOption&&(identical(other.active, active) || other.active == active)&&(identical(other.treatment, treatment) || other.treatment == treatment)&&const DeepCollectionEquality().equals(other.allowed, _allowed)&&const DeepCollectionEquality().equals(other.blocked, _blocked));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,active,treatment,const DeepCollectionEquality().hash(_allowed),const DeepCollectionEquality().hash(_blocked));
+}
+
+@override
+String toString() {
+    return 'SecurityGeoListOption(active: $active, treatment: $treatment, allowed: $allowed, blocked: $blocked)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SecurityGeoListOptionCopyWith<$Res> implements $SecurityGeoListOptionCopyWith<$Res> {
+  factory _$SecurityGeoListOptionCopyWith(_SecurityGeoListOption value, $Res Function(_SecurityGeoListOption) _then) = __$SecurityGeoListOptionCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: SecurityGeoJsonKeys.active, fromJson: securityLenientBool) bool active,@JsonKey(name: SecurityGeoJsonKeys.treatment, fromJson: securityTreatmentFromJson) SecurityTreatment treatment,@JsonKey(name: SecurityGeoJsonKeys.allowed, fromJson: securityStringListFromJson) List<String> allowed,@JsonKey(name: SecurityGeoJsonKeys.blocked, fromJson: securityStringListFromJson) List<String> blocked
+});
+
+
+
+
+}
+/// @nodoc
+class __$SecurityGeoListOptionCopyWithImpl<$Res>
+    implements _$SecurityGeoListOptionCopyWith<$Res> {
+  __$SecurityGeoListOptionCopyWithImpl(this._self, this._then);
+
+  final _SecurityGeoListOption _self;
+  final $Res Function(_SecurityGeoListOption) _then;
+
+/// Create a copy of SecurityGeoListOption
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? treatment = null,Object? allowed = null,Object? blocked = null,}) {
+  return _then(_SecurityGeoListOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,allowed: null == allowed ? _self._allowed : allowed // ignore: cast_nullable_to_non_nullable
+as List<String>,blocked: null == blocked ? _self._blocked : blocked // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$SecurityOptions {
 
- SecurityOption? get fingerprint; SecurityOption? get ip; SecurityOption? get phone; SecurityOption? get ads; SecurityOption? get frontend; SecurityOption? get doubleSend; SecurityMinTimeOption? get minTimeInPage; SecurityCountriesOption? get countries; SecuritySourcesOption? get sources;
+ SecurityOption? get fingerprint; SecurityOption? get ip; SecurityOption? get phone; SecurityOption? get ads; SecurityOption? get frontend; SecurityOption? get doubleSend; SecurityMinTimeOption? get minTimeInPage; SecurityCountriesOption? get countries; SecuritySourcesOption? get sources;/// Visitor region (state / wilaya) rule. PROVISIONAL (design §4.3).
+/// Omitted from JSON when null; a non-object value parses as null.
+@JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? get regions;/// Visitor city rule. PROVISIONAL (design §4.3).
+@JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? get cities;/// Policy when the visitor geo is unknown (design §4.1 / review §2.5).
+///
+/// The backend shape is not decided (a treatment string such as
+/// `"allow"`, or an object), so the raw JSON value is kept as-is and
+/// written back unchanged. Use [unknownGeoTreatment] /
+/// [unknownGeoTreatmentName] to read it.
+@JsonKey(name: SecurityGeoJsonKeys.unknownGeo, includeIfNull: false) Object? get unknownGeo;
 /// Create a copy of SecurityOptions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -10559,20 +10865,20 @@ $SecurityOptionsCopyWith<SecurityOptions> get copyWith => _$SecurityOptionsCopyW
 @override
 bool operator ==(Object other) {
   final _this = this as SecurityOptions;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityOptions&&(identical(other.fingerprint, _this.fingerprint) || other.fingerprint == _this.fingerprint)&&(identical(other.ip, _this.ip) || other.ip == _this.ip)&&(identical(other.phone, _this.phone) || other.phone == _this.phone)&&(identical(other.ads, _this.ads) || other.ads == _this.ads)&&(identical(other.frontend, _this.frontend) || other.frontend == _this.frontend)&&(identical(other.doubleSend, _this.doubleSend) || other.doubleSend == _this.doubleSend)&&(identical(other.minTimeInPage, _this.minTimeInPage) || other.minTimeInPage == _this.minTimeInPage)&&(identical(other.countries, _this.countries) || other.countries == _this.countries)&&(identical(other.sources, _this.sources) || other.sources == _this.sources));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityOptions&&(identical(other.fingerprint, _this.fingerprint) || other.fingerprint == _this.fingerprint)&&(identical(other.ip, _this.ip) || other.ip == _this.ip)&&(identical(other.phone, _this.phone) || other.phone == _this.phone)&&(identical(other.ads, _this.ads) || other.ads == _this.ads)&&(identical(other.frontend, _this.frontend) || other.frontend == _this.frontend)&&(identical(other.doubleSend, _this.doubleSend) || other.doubleSend == _this.doubleSend)&&(identical(other.minTimeInPage, _this.minTimeInPage) || other.minTimeInPage == _this.minTimeInPage)&&(identical(other.countries, _this.countries) || other.countries == _this.countries)&&(identical(other.sources, _this.sources) || other.sources == _this.sources)&&(identical(other.regions, _this.regions) || other.regions == _this.regions)&&(identical(other.cities, _this.cities) || other.cities == _this.cities)&&const DeepCollectionEquality().equals(other.unknownGeo, _this.unknownGeo));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as SecurityOptions;
-  return Object.hash(runtimeType,_this.fingerprint,_this.ip,_this.phone,_this.ads,_this.frontend,_this.doubleSend,_this.minTimeInPage,_this.countries,_this.sources);
+  return Object.hash(runtimeType,_this.fingerprint,_this.ip,_this.phone,_this.ads,_this.frontend,_this.doubleSend,_this.minTimeInPage,_this.countries,_this.sources,_this.regions,_this.cities,const DeepCollectionEquality().hash(_this.unknownGeo));
 }
 
 @override
 String toString() {
   final _this = this as SecurityOptions;
-  return 'SecurityOptions(fingerprint: ${_this.fingerprint}, ip: ${_this.ip}, phone: ${_this.phone}, ads: ${_this.ads}, frontend: ${_this.frontend}, doubleSend: ${_this.doubleSend}, minTimeInPage: ${_this.minTimeInPage}, countries: ${_this.countries}, sources: ${_this.sources})';
+  return 'SecurityOptions(fingerprint: ${_this.fingerprint}, ip: ${_this.ip}, phone: ${_this.phone}, ads: ${_this.ads}, frontend: ${_this.frontend}, doubleSend: ${_this.doubleSend}, minTimeInPage: ${_this.minTimeInPage}, countries: ${_this.countries}, sources: ${_this.sources}, regions: ${_this.regions}, cities: ${_this.cities}, unknownGeo: ${_this.unknownGeo})';
 }
 
 
@@ -10583,11 +10889,11 @@ abstract mixin class $SecurityOptionsCopyWith<$Res>  {
   factory $SecurityOptionsCopyWith(SecurityOptions value, $Res Function(SecurityOptions) _then) = _$SecurityOptionsCopyWithImpl;
 @useResult
 $Res call({
- SecurityOption? fingerprint, SecurityOption? ip, SecurityOption? phone, SecurityOption? ads, SecurityOption? frontend, SecurityOption? doubleSend, SecurityMinTimeOption? minTimeInPage, SecurityCountriesOption? countries, SecuritySourcesOption? sources
+ SecurityOption? fingerprint, SecurityOption? ip, SecurityOption? phone, SecurityOption? ads, SecurityOption? frontend, SecurityOption? doubleSend, SecurityMinTimeOption? minTimeInPage, SecurityCountriesOption? countries, SecuritySourcesOption? sources,@JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? regions,@JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? cities,@JsonKey(name: SecurityGeoJsonKeys.unknownGeo, includeIfNull: false) Object? unknownGeo
 });
 
 
-$SecurityOptionCopyWith<$Res>? get fingerprint;$SecurityOptionCopyWith<$Res>? get ip;$SecurityOptionCopyWith<$Res>? get phone;$SecurityOptionCopyWith<$Res>? get ads;$SecurityOptionCopyWith<$Res>? get frontend;$SecurityOptionCopyWith<$Res>? get doubleSend;$SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;$SecurityCountriesOptionCopyWith<$Res>? get countries;$SecuritySourcesOptionCopyWith<$Res>? get sources;
+$SecurityOptionCopyWith<$Res>? get fingerprint;$SecurityOptionCopyWith<$Res>? get ip;$SecurityOptionCopyWith<$Res>? get phone;$SecurityOptionCopyWith<$Res>? get ads;$SecurityOptionCopyWith<$Res>? get frontend;$SecurityOptionCopyWith<$Res>? get doubleSend;$SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;$SecurityCountriesOptionCopyWith<$Res>? get countries;$SecuritySourcesOptionCopyWith<$Res>? get sources;$SecurityGeoListOptionCopyWith<$Res>? get regions;$SecurityGeoListOptionCopyWith<$Res>? get cities;
 
 }
 /// @nodoc
@@ -10600,7 +10906,7 @@ class _$SecurityOptionsCopyWithImpl<$Res>
 
 /// Create a copy of SecurityOptions
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? fingerprint = freezed,Object? ip = freezed,Object? phone = freezed,Object? ads = freezed,Object? frontend = freezed,Object? doubleSend = freezed,Object? minTimeInPage = freezed,Object? countries = freezed,Object? sources = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? fingerprint = freezed,Object? ip = freezed,Object? phone = freezed,Object? ads = freezed,Object? frontend = freezed,Object? doubleSend = freezed,Object? minTimeInPage = freezed,Object? countries = freezed,Object? sources = freezed,Object? regions = freezed,Object? cities = freezed,Object? unknownGeo = freezed,}) {
   return _then(SecurityOptions(
 fingerprint: freezed == fingerprint ? _self.fingerprint : fingerprint // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,ip: freezed == ip ? _self.ip : ip // ignore: cast_nullable_to_non_nullable
@@ -10611,7 +10917,9 @@ as SecurityOption?,doubleSend: freezed == doubleSend ? _self.doubleSend : double
 as SecurityOption?,minTimeInPage: freezed == minTimeInPage ? _self.minTimeInPage : minTimeInPage // ignore: cast_nullable_to_non_nullable
 as SecurityMinTimeOption?,countries: freezed == countries ? _self.countries : countries // ignore: cast_nullable_to_non_nullable
 as SecurityCountriesOption?,sources: freezed == sources ? _self.sources : sources // ignore: cast_nullable_to_non_nullable
-as SecuritySourcesOption?,
+as SecuritySourcesOption?,regions: freezed == regions ? _self.regions : regions // ignore: cast_nullable_to_non_nullable
+as SecurityGeoListOption?,cities: freezed == cities ? _self.cities : cities // ignore: cast_nullable_to_non_nullable
+as SecurityGeoListOption?,unknownGeo: freezed == unknownGeo ? _self.unknownGeo : unknownGeo ,
   ));
 }
 /// Create a copy of SecurityOptions
@@ -10721,6 +11029,30 @@ $SecuritySourcesOptionCopyWith<$Res>? get sources {
 
   return $SecuritySourcesOptionCopyWith<$Res>(_self.sources!, (value) {
     return _then(_self.copyWith(sources: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityGeoListOptionCopyWith<$Res>? get regions {
+    if (_self.regions == null) {
+    return null;
+  }
+
+  return $SecurityGeoListOptionCopyWith<$Res>(_self.regions!, (value) {
+    return _then(_self.copyWith(regions: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityGeoListOptionCopyWith<$Res>? get cities {
+    if (_self.cities == null) {
+    return null;
+  }
+
+  return $SecurityGeoListOptionCopyWith<$Res>(_self.cities!, (value) {
+    return _then(_self.copyWith(cities: value));
   });
 }
 }
@@ -10804,10 +11136,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SecurityOption? fingerprint,  SecurityOption? ip,  SecurityOption? phone,  SecurityOption? ads,  SecurityOption? frontend,  SecurityOption? doubleSend,  SecurityMinTimeOption? minTimeInPage,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SecurityOption? fingerprint,  SecurityOption? ip,  SecurityOption? phone,  SecurityOption? ads,  SecurityOption? frontend,  SecurityOption? doubleSend,  SecurityMinTimeOption? minTimeInPage,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? cities, @JsonKey(name: SecurityGeoJsonKeys.unknownGeo, includeIfNull: false)  Object? unknownGeo)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SecurityOptions() when $default != null:
-return $default(_that.fingerprint,_that.ip,_that.phone,_that.ads,_that.frontend,_that.doubleSend,_that.minTimeInPage,_that.countries,_that.sources);case _:
+return $default(_that.fingerprint,_that.ip,_that.phone,_that.ads,_that.frontend,_that.doubleSend,_that.minTimeInPage,_that.countries,_that.sources,_that.regions,_that.cities,_that.unknownGeo);case _:
   return orElse();
 
 }
@@ -10825,10 +11157,10 @@ return $default(_that.fingerprint,_that.ip,_that.phone,_that.ads,_that.frontend,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SecurityOption? fingerprint,  SecurityOption? ip,  SecurityOption? phone,  SecurityOption? ads,  SecurityOption? frontend,  SecurityOption? doubleSend,  SecurityMinTimeOption? minTimeInPage,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SecurityOption? fingerprint,  SecurityOption? ip,  SecurityOption? phone,  SecurityOption? ads,  SecurityOption? frontend,  SecurityOption? doubleSend,  SecurityMinTimeOption? minTimeInPage,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? cities, @JsonKey(name: SecurityGeoJsonKeys.unknownGeo, includeIfNull: false)  Object? unknownGeo)  $default,) {final _that = this;
 switch (_that) {
 case _SecurityOptions():
-return $default(_that.fingerprint,_that.ip,_that.phone,_that.ads,_that.frontend,_that.doubleSend,_that.minTimeInPage,_that.countries,_that.sources);case _:
+return $default(_that.fingerprint,_that.ip,_that.phone,_that.ads,_that.frontend,_that.doubleSend,_that.minTimeInPage,_that.countries,_that.sources,_that.regions,_that.cities,_that.unknownGeo);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -10845,10 +11177,10 @@ return $default(_that.fingerprint,_that.ip,_that.phone,_that.ads,_that.frontend,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SecurityOption? fingerprint,  SecurityOption? ip,  SecurityOption? phone,  SecurityOption? ads,  SecurityOption? frontend,  SecurityOption? doubleSend,  SecurityMinTimeOption? minTimeInPage,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SecurityOption? fingerprint,  SecurityOption? ip,  SecurityOption? phone,  SecurityOption? ads,  SecurityOption? frontend,  SecurityOption? doubleSend,  SecurityMinTimeOption? minTimeInPage,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? cities, @JsonKey(name: SecurityGeoJsonKeys.unknownGeo, includeIfNull: false)  Object? unknownGeo)?  $default,) {final _that = this;
 switch (_that) {
 case _SecurityOptions() when $default != null:
-return $default(_that.fingerprint,_that.ip,_that.phone,_that.ads,_that.frontend,_that.doubleSend,_that.minTimeInPage,_that.countries,_that.sources);case _:
+return $default(_that.fingerprint,_that.ip,_that.phone,_that.ads,_that.frontend,_that.doubleSend,_that.minTimeInPage,_that.countries,_that.sources,_that.regions,_that.cities,_that.unknownGeo);case _:
   return null;
 
 }
@@ -10859,8 +11191,8 @@ return $default(_that.fingerprint,_that.ip,_that.phone,_that.ads,_that.frontend,
 /// @nodoc
 @JsonSerializable()
 
-class _SecurityOptions implements SecurityOptions {
-  const _SecurityOptions({this.fingerprint, this.ip, this.phone, this.ads, this.frontend, this.doubleSend, this.minTimeInPage, this.countries, this.sources});
+class _SecurityOptions extends SecurityOptions {
+  const _SecurityOptions({this.fingerprint, this.ip, this.phone, this.ads, this.frontend, this.doubleSend, this.minTimeInPage, this.countries, this.sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) this.regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityGeoListOptionFromJson, includeIfNull: false) this.cities, @JsonKey(name: SecurityGeoJsonKeys.unknownGeo, includeIfNull: false) this.unknownGeo}): super._();
   factory _SecurityOptions.fromJson(Map<String, dynamic> json) => _$SecurityOptionsFromJson(json);
 
 @override final  SecurityOption? fingerprint;
@@ -10872,6 +11204,18 @@ class _SecurityOptions implements SecurityOptions {
 @override final  SecurityMinTimeOption? minTimeInPage;
 @override final  SecurityCountriesOption? countries;
 @override final  SecuritySourcesOption? sources;
+/// Visitor region (state / wilaya) rule. PROVISIONAL (design §4.3).
+/// Omitted from JSON when null; a non-object value parses as null.
+@override@JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) final  SecurityGeoListOption? regions;
+/// Visitor city rule. PROVISIONAL (design §4.3).
+@override@JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityGeoListOptionFromJson, includeIfNull: false) final  SecurityGeoListOption? cities;
+/// Policy when the visitor geo is unknown (design §4.1 / review §2.5).
+///
+/// The backend shape is not decided (a treatment string such as
+/// `"allow"`, or an object), so the raw JSON value is kept as-is and
+/// written back unchanged. Use [unknownGeoTreatment] /
+/// [unknownGeoTreatmentName] to read it.
+@override@JsonKey(name: SecurityGeoJsonKeys.unknownGeo, includeIfNull: false) final  Object? unknownGeo;
 
 /// Create a copy of SecurityOptions
 /// with the given fields replaced by the non-null parameter values.
@@ -10886,18 +11230,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityOptions&&(identical(other.fingerprint, fingerprint) || other.fingerprint == fingerprint)&&(identical(other.ip, ip) || other.ip == ip)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.ads, ads) || other.ads == ads)&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.doubleSend, doubleSend) || other.doubleSend == doubleSend)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityOptions&&(identical(other.fingerprint, fingerprint) || other.fingerprint == fingerprint)&&(identical(other.ip, ip) || other.ip == ip)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.ads, ads) || other.ads == ads)&&(identical(other.frontend, frontend) || other.frontend == frontend)&&(identical(other.doubleSend, doubleSend) || other.doubleSend == doubleSend)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources)&&(identical(other.regions, regions) || other.regions == regions)&&(identical(other.cities, cities) || other.cities == cities)&&const DeepCollectionEquality().equals(other.unknownGeo, unknownGeo));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,fingerprint,ip,phone,ads,frontend,doubleSend,minTimeInPage,countries,sources);
+    return Object.hash(runtimeType,fingerprint,ip,phone,ads,frontend,doubleSend,minTimeInPage,countries,sources,regions,cities,const DeepCollectionEquality().hash(unknownGeo));
 }
 
 @override
 String toString() {
-    return 'SecurityOptions(fingerprint: $fingerprint, ip: $ip, phone: $phone, ads: $ads, frontend: $frontend, doubleSend: $doubleSend, minTimeInPage: $minTimeInPage, countries: $countries, sources: $sources)';
+    return 'SecurityOptions(fingerprint: $fingerprint, ip: $ip, phone: $phone, ads: $ads, frontend: $frontend, doubleSend: $doubleSend, minTimeInPage: $minTimeInPage, countries: $countries, sources: $sources, regions: $regions, cities: $cities, unknownGeo: $unknownGeo)';
 }
 
 
@@ -10908,11 +11252,11 @@ abstract mixin class _$SecurityOptionsCopyWith<$Res> implements $SecurityOptions
   factory _$SecurityOptionsCopyWith(_SecurityOptions value, $Res Function(_SecurityOptions) _then) = __$SecurityOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- SecurityOption? fingerprint, SecurityOption? ip, SecurityOption? phone, SecurityOption? ads, SecurityOption? frontend, SecurityOption? doubleSend, SecurityMinTimeOption? minTimeInPage, SecurityCountriesOption? countries, SecuritySourcesOption? sources
+ SecurityOption? fingerprint, SecurityOption? ip, SecurityOption? phone, SecurityOption? ads, SecurityOption? frontend, SecurityOption? doubleSend, SecurityMinTimeOption? minTimeInPage, SecurityCountriesOption? countries, SecuritySourcesOption? sources,@JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? regions,@JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? cities,@JsonKey(name: SecurityGeoJsonKeys.unknownGeo, includeIfNull: false) Object? unknownGeo
 });
 
 
-@override $SecurityOptionCopyWith<$Res>? get fingerprint;@override $SecurityOptionCopyWith<$Res>? get ip;@override $SecurityOptionCopyWith<$Res>? get phone;@override $SecurityOptionCopyWith<$Res>? get ads;@override $SecurityOptionCopyWith<$Res>? get frontend;@override $SecurityOptionCopyWith<$Res>? get doubleSend;@override $SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;@override $SecurityCountriesOptionCopyWith<$Res>? get countries;@override $SecuritySourcesOptionCopyWith<$Res>? get sources;
+@override $SecurityOptionCopyWith<$Res>? get fingerprint;@override $SecurityOptionCopyWith<$Res>? get ip;@override $SecurityOptionCopyWith<$Res>? get phone;@override $SecurityOptionCopyWith<$Res>? get ads;@override $SecurityOptionCopyWith<$Res>? get frontend;@override $SecurityOptionCopyWith<$Res>? get doubleSend;@override $SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;@override $SecurityCountriesOptionCopyWith<$Res>? get countries;@override $SecuritySourcesOptionCopyWith<$Res>? get sources;@override $SecurityGeoListOptionCopyWith<$Res>? get regions;@override $SecurityGeoListOptionCopyWith<$Res>? get cities;
 
 }
 /// @nodoc
@@ -10925,7 +11269,7 @@ class __$SecurityOptionsCopyWithImpl<$Res>
 
 /// Create a copy of SecurityOptions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? fingerprint = freezed,Object? ip = freezed,Object? phone = freezed,Object? ads = freezed,Object? frontend = freezed,Object? doubleSend = freezed,Object? minTimeInPage = freezed,Object? countries = freezed,Object? sources = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? fingerprint = freezed,Object? ip = freezed,Object? phone = freezed,Object? ads = freezed,Object? frontend = freezed,Object? doubleSend = freezed,Object? minTimeInPage = freezed,Object? countries = freezed,Object? sources = freezed,Object? regions = freezed,Object? cities = freezed,Object? unknownGeo = freezed,}) {
   return _then(_SecurityOptions(
 fingerprint: freezed == fingerprint ? _self.fingerprint : fingerprint // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,ip: freezed == ip ? _self.ip : ip // ignore: cast_nullable_to_non_nullable
@@ -10936,7 +11280,9 @@ as SecurityOption?,doubleSend: freezed == doubleSend ? _self.doubleSend : double
 as SecurityOption?,minTimeInPage: freezed == minTimeInPage ? _self.minTimeInPage : minTimeInPage // ignore: cast_nullable_to_non_nullable
 as SecurityMinTimeOption?,countries: freezed == countries ? _self.countries : countries // ignore: cast_nullable_to_non_nullable
 as SecurityCountriesOption?,sources: freezed == sources ? _self.sources : sources // ignore: cast_nullable_to_non_nullable
-as SecuritySourcesOption?,
+as SecuritySourcesOption?,regions: freezed == regions ? _self.regions : regions // ignore: cast_nullable_to_non_nullable
+as SecurityGeoListOption?,cities: freezed == cities ? _self.cities : cities // ignore: cast_nullable_to_non_nullable
+as SecurityGeoListOption?,unknownGeo: freezed == unknownGeo ? _self.unknownGeo : unknownGeo ,
   ));
 }
 
@@ -11047,6 +11393,30 @@ $SecuritySourcesOptionCopyWith<$Res>? get sources {
 
   return $SecuritySourcesOptionCopyWith<$Res>(_self.sources!, (value) {
     return _then(_self.copyWith(sources: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityGeoListOptionCopyWith<$Res>? get regions {
+    if (_self.regions == null) {
+    return null;
+  }
+
+  return $SecurityGeoListOptionCopyWith<$Res>(_self.regions!, (value) {
+    return _then(_self.copyWith(regions: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityGeoListOptionCopyWith<$Res>? get cities {
+    if (_self.cities == null) {
+    return null;
+  }
+
+  return $SecurityGeoListOptionCopyWith<$Res>(_self.cities!, (value) {
+    return _then(_self.copyWith(cities: value));
   });
 }
 }

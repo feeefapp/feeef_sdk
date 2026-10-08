@@ -5,6 +5,10 @@ import 'package:feeef/shipping_methods/models/shipping_method.dart';
 import 'package:feeef/stores/models/store.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+/// Typed `claims.security` (incl. trusted visitor geo) and the
+/// `order.securityClaims` / `order.securityGeo` extension.
+export 'order_security_claims.dart';
+
 part 'order.freezed.dart';
 part 'order.g.dart';
 

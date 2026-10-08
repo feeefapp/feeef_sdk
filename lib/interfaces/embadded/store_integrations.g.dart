@@ -894,14 +894,17 @@ _SecurityOption _$SecurityOptionFromJson(Map<String, dynamic> json) =>
       treatment:
           $enumDecodeNullable(_$SecurityTreatmentEnumMap, json['treatment']) ??
           SecurityTreatment.block,
+      missingTreatment: securityTreatmentOrNull(json['missingTreatment']),
     );
 
-Map<String, dynamic> _$SecurityOptionToJson(_SecurityOption instance) =>
-    <String, dynamic>{
-      'active': instance.active,
-      'ttl': instance.ttl,
-      'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
-    };
+Map<String, dynamic> _$SecurityOptionToJson(
+  _SecurityOption instance,
+) => <String, dynamic>{
+  'active': instance.active,
+  'ttl': instance.ttl,
+  'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
+  'missingTreatment': ?_$SecurityTreatmentEnumMap[instance.missingTreatment],
+};
 
 const _$SecurityTreatmentEnumMap = {
   SecurityTreatment.block: 'block',
@@ -984,10 +987,10 @@ _SecurityGeoListOption _$SecurityGeoListOptionFromJson(
       : securityTreatmentFromJson(json['treatment']),
   allowed: json['allowed'] == null
       ? const <String>[]
-      : securityStringListFromJson(json['allowed']),
+      : securityRegionListFromJson(json['allowed']),
   blocked: json['blocked'] == null
       ? const <String>[]
-      : securityStringListFromJson(json['blocked']),
+      : securityRegionListFromJson(json['blocked']),
 );
 
 Map<String, dynamic> _$SecurityGeoListOptionToJson(
@@ -995,8 +998,41 @@ Map<String, dynamic> _$SecurityGeoListOptionToJson(
 ) => <String, dynamic>{
   'active': instance.active,
   'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
-  'allowed': instance.allowed,
+  'allowed': securityAllowedListToJson(instance.allowed),
   'blocked': instance.blocked,
+};
+
+_SecurityCityRef _$SecurityCityRefFromJson(Map<String, dynamic> json) =>
+    _SecurityCityRef(
+      name: json['name'] == null ? '' : _cityNameFromJson(json['name']),
+      id: securityStringOrNull(json['id']),
+    );
+
+Map<String, dynamic> _$SecurityCityRefToJson(_SecurityCityRef instance) =>
+    <String, dynamic>{'name': instance.name, 'id': ?instance.id};
+
+_SecurityCityListOption _$SecurityCityListOptionFromJson(
+  Map<String, dynamic> json,
+) => _SecurityCityListOption(
+  active: json['active'] == null ? false : securityLenientBool(json['active']),
+  treatment: json['treatment'] == null
+      ? SecurityTreatment.block
+      : securityTreatmentFromJson(json['treatment']),
+  allowed: json['allowed'] == null
+      ? const <SecurityCityRef>[]
+      : securityCityListFromJson(json['allowed']),
+  blocked: json['blocked'] == null
+      ? const <SecurityCityRef>[]
+      : securityCityListFromJson(json['blocked']),
+);
+
+Map<String, dynamic> _$SecurityCityListOptionToJson(
+  _SecurityCityListOption instance,
+) => <String, dynamic>{
+  'active': instance.active,
+  'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
+  'allowed': _cityAllowedToJson(instance.allowed),
+  'blocked': _cityListToJson(instance.blocked),
 };
 
 _SecurityOptions _$SecurityOptionsFromJson(
@@ -1034,8 +1070,7 @@ _SecurityOptions _$SecurityOptionsFromJson(
       ? null
       : SecuritySourcesOption.fromJson(json['sources'] as Map<String, dynamic>),
   regions: securityGeoListOptionFromJson(json['regions']),
-  cities: securityGeoListOptionFromJson(json['cities']),
-  unknownGeo: json['unknownGeo'],
+  cities: securityCityListOptionFromJson(json['cities']),
 );
 
 Map<String, dynamic> _$SecurityOptionsToJson(_SecurityOptions instance) =>
@@ -1051,7 +1086,6 @@ Map<String, dynamic> _$SecurityOptionsToJson(_SecurityOptions instance) =>
       'sources': instance.sources?.toJson(),
       'regions': ?instance.regions?.toJson(),
       'cities': ?instance.cities?.toJson(),
-      'unknownGeo': ?instance.unknownGeo,
     };
 
 _SecurityIntegration _$SecurityIntegrationFromJson(Map<String, dynamic> json) =>
@@ -1061,6 +1095,9 @@ _SecurityIntegration _$SecurityIntegrationFromJson(Map<String, dynamic> json) =>
           ? null
           : SecurityOptions.fromJson(json['options'] as Map<String, dynamic>),
       metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
+      geoStatus: json['geoStatus'] == null
+          ? SecurityGeoStatus.off
+          : securityGeoStatusFromJson(json['geoStatus']),
     );
 
 Map<String, dynamic> _$SecurityIntegrationToJson(

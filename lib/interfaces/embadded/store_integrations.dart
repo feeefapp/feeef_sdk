@@ -812,11 +812,31 @@ enum SecurityTreatment {
 /// [ttl] is optional in API payloads (seconds). When null, the backend applies its own default per check.
 @freezed
 abstract class SecurityOption with _$SecurityOption {
+  const SecurityOption._();
   const factory SecurityOption({
     @Default(false) bool active,
     int? ttl,
     @Default(SecurityTreatment.block) SecurityTreatment treatment,
+
+    /// Fingerprint rule only (`options.fingerprint.missingTreatment`):
+    /// treatment when the device fingerprint is missing (ad-blocker, private
+    /// mode, form sent before the fingerprint loaded). `block | warning`;
+    /// null = follow [treatment] (today's backend behavior).
+    ///
+    /// NOT CONFIRMED by the backend yet (spec §3.13 / §7). Lenient parse
+    /// (unknown values -> null) and omitted from JSON when null, so existing
+    /// payloads round-trip unchanged.
+    @JsonKey(
+      name: SecurityGeoJsonKeys.missingTreatment,
+      fromJson: securityTreatmentOrNull,
+      includeIfNull: false,
+    )
+    SecurityTreatment? missingTreatment,
   }) = _SecurityOption;
+
+  /// Treatment applied when the fingerprint is missing.
+  SecurityTreatment get effectiveMissingTreatment =>
+      missingTreatment ?? treatment;
 
   factory SecurityOption.fromJson(Map<String, dynamic> json) =>
       _$SecurityOptionFromJson(json);
@@ -879,20 +899,30 @@ enum SecurityGeoRuleDecision {
   /// `allowed` is non-empty and does not contain the value.
   notAllowed,
 
-  /// Visitor geo is unknown (null / `XX`) while the rule has entries; the
-  /// backend applies its `unknownGeo` policy.
-  unknown,
+  /// Visitor value is unknown (null / empty / `XX`) and [allowed] is
+  /// non-empty: an unknown location never passes an allow list, so the rule's
+  /// treatment applies (spec §4). Block lists ignore unknown values ([pass]).
+  unknown;
+
+  /// Whether the rule's treatment applies.
+  bool get triggers =>
+      this == SecurityGeoRuleDecision.blocked ||
+      this == SecurityGeoRuleDecision.notAllowed ||
+      this == SecurityGeoRuleDecision.unknown;
 }
 
-/// Visitor region (state / wilaya) or city allow/block rule.
+/// Visitor region (wilaya) allow/block rule (`options.regions`).
 ///
-/// Wire shape (PROVISIONAL, keys in [SecurityGeoJsonKeys]):
-/// `{ "active": bool, "treatment": "block"|"warning"|"fake", "allowed": [string], "blocked": [string] }`.
+/// Wire shape (keys in [SecurityGeoJsonKeys], spec §7):
+/// `{ "active": bool, "treatment": "block"|"warning"|"fake", "allowed": ["DZ-16"] | null, "blocked": ["DZ-11"] }`.
 ///
-/// Semantics (design §4.3): blocked wins over allowed, empty [allowed] means
-/// allow all, matching is case-insensitive on normalized names
-/// ([normalizeSecurityGeoName]). Values are the names Traefik's geoip2 plugin
-/// puts in `X-GeoIP2-Region` / `X-GeoIP2-City` (DB-IP Lite).
+/// Values are ISO 3166-2 codes (`DZ-16`), what the edge geo plugin sends as
+/// the region. Code-like input (`16`, `dz16`, `DZ-1`) is canonicalised on
+/// parse; other strings are kept and matched by normalized name.
+///
+/// Semantics (spec §4): blocked wins over allowed, empty [allowed] means
+/// allow all, an unknown visitor region never passes a non-empty allow list
+/// and is ignored by block lists. An empty [allowed] is written as null.
 ///
 /// Parsing is lenient: missing/null/wrong-typed fields fall back to defaults,
 /// unknown treatments fall back to [SecurityTreatment.block], a comma separated
@@ -911,18 +941,19 @@ abstract class SecurityGeoListOption with _$SecurityGeoListOption {
     @Default(SecurityTreatment.block)
     SecurityTreatment treatment,
 
-    /// Names allowed; empty = allow all.
+    /// Region codes allowed; empty = allow all (written as null).
     @JsonKey(
       name: SecurityGeoJsonKeys.allowed,
-      fromJson: securityStringListFromJson,
+      fromJson: securityRegionListFromJson,
+      toJson: securityAllowedListToJson,
     )
     @Default(<String>[])
     List<String> allowed,
 
-    /// Names blocked; wins over [allowed].
+    /// Region codes blocked; wins over [allowed].
     @JsonKey(
       name: SecurityGeoJsonKeys.blocked,
-      fromJson: securityStringListFromJson,
+      fromJson: securityRegionListFromJson,
     )
     @Default(<String>[])
     List<String> blocked,
@@ -941,31 +972,51 @@ abstract class SecurityGeoListOption with _$SecurityGeoListOption {
   /// True when at least one name is listed.
   bool get hasEntries => allowed.isNotEmpty || blocked.isNotEmpty;
 
-  /// Whether [value] is in [allowed] (normalized compare).
+  /// Whether [value] is in [allowed] (code / normalized-name compare).
   bool isAllowed(String value) => _contains(allowed, value);
 
-  /// Whether [value] is in [blocked] (normalized compare).
+  /// Whether [value] is in [blocked] (code / normalized-name compare).
   bool isBlocked(String value) => _contains(blocked, value);
 
-  /// Client-side preview of the rule for one visitor value (see
+  /// Client-side preview of the rule for one visitor region (see
   /// [SecurityGeoRuleDecision]).
-  SecurityGeoRuleDecision evaluate(String? value) {
-    if (!active) return SecurityGeoRuleDecision.inactive;
-    if (!hasEntries) return SecurityGeoRuleDecision.pass;
-    final v = securityGeoValueFromJson(value);
-    if (v == null) return SecurityGeoRuleDecision.unknown;
-    if (isBlocked(v)) return SecurityGeoRuleDecision.blocked;
-    if (hasAllowlist && !isAllowed(v)) {
-      return SecurityGeoRuleDecision.notAllowed;
-    }
-    return SecurityGeoRuleDecision.pass;
-  }
+  SecurityGeoRuleDecision evaluate(String? value) =>
+      _evaluateGeoList(
+        active: active,
+        hasAllowlist: hasAllowlist,
+        hasEntries: hasEntries,
+        value: securityGeoValueFromJson(value),
+        isBlocked: isBlocked,
+        isAllowed: isAllowed,
+      );
 
   static bool _contains(List<String> list, String value) {
-    final key = normalizeSecurityGeoName(value);
+    final key = securityRegionMatchKey(value);
     if (key.isEmpty) return false;
-    return list.any((e) => normalizeSecurityGeoName(e) == key);
+    return list.any((e) => securityRegionMatchKey(e) == key);
   }
+}
+
+SecurityGeoRuleDecision _evaluateGeoList({
+  required bool active,
+  required bool hasAllowlist,
+  required bool hasEntries,
+  required String? value,
+  required bool Function(String) isBlocked,
+  required bool Function(String) isAllowed,
+}) {
+  if (!active) return SecurityGeoRuleDecision.inactive;
+  if (!hasEntries) return SecurityGeoRuleDecision.pass;
+  if (value == null) {
+    return hasAllowlist
+        ? SecurityGeoRuleDecision.unknown
+        : SecurityGeoRuleDecision.pass;
+  }
+  if (isBlocked(value)) return SecurityGeoRuleDecision.blocked;
+  if (hasAllowlist && !isAllowed(value)) {
+    return SecurityGeoRuleDecision.notAllowed;
+  }
+  return SecurityGeoRuleDecision.pass;
 }
 
 /// Lenient JSON -> [SecurityGeoListOption]; null for null / non-object values.
@@ -973,6 +1024,141 @@ SecurityGeoListOption? securityGeoListOptionFromJson(Object? value) {
   final map = securityJsonObjectOrNull(value);
   if (map == null) return null;
   return SecurityGeoListOption.fromJson(map);
+}
+
+/// One city in `options.cities.allowed` / `blocked`: `{ "name", "id"? }`.
+///
+/// [name] is the English city name (what the edge geo plugin sends, e.g.
+/// `"Algiers"`); [id] is the states-catalog city id when the city was picked
+/// from the catalog. A bare string entry parses as `{name: <string>}`.
+@freezed
+abstract class SecurityCityRef with _$SecurityCityRef {
+  const SecurityCityRef._();
+  const factory SecurityCityRef({
+    @JsonKey(name: SecurityGeoJsonKeys.cityName, fromJson: _cityNameFromJson)
+    @Default('')
+    String name,
+    @JsonKey(
+      name: SecurityGeoJsonKeys.cityId,
+      fromJson: securityStringOrNull,
+      includeIfNull: false,
+    )
+    String? id,
+  }) = _SecurityCityRef;
+
+  factory SecurityCityRef.fromJson(Map<String, dynamic> json) =>
+      _$SecurityCityRefFromJson(json);
+
+  /// Lenient: a JSON object, or a plain string / number used as the name.
+  /// Null when there is no usable name.
+  static SecurityCityRef? tryParse(Object? value) {
+    final map = securityJsonObjectOrNull(value);
+    final ref = map != null
+        ? SecurityCityRef.fromJson(map)
+        : SecurityCityRef(name: securityStringOrNull(value) ?? '');
+    return ref.name.isEmpty ? null : ref;
+  }
+
+  /// Match key (case- and accent-insensitive name).
+  String get matchKey => normalizeSecurityGeoName(name);
+}
+
+String _cityNameFromJson(Object? value) => securityStringOrNull(value) ?? '';
+
+/// Lenient city list: objects or strings; entries without a name are dropped;
+/// duplicates (same normalized name) keep the first.
+List<SecurityCityRef> securityCityListFromJson(Object? value) {
+  Iterable<Object?> raw;
+  if (value is List) {
+    raw = value;
+  } else if (value is String) {
+    raw = value.split(',');
+  } else {
+    return const <SecurityCityRef>[];
+  }
+  final seen = <String>{};
+  final out = <SecurityCityRef>[];
+  for (final e in raw) {
+    final ref = SecurityCityRef.tryParse(e);
+    if (ref != null && seen.add(ref.matchKey)) out.add(ref);
+  }
+  return out;
+}
+
+List<Map<String, dynamic>> _cityListToJson(List<SecurityCityRef> value) =>
+    [for (final c in value) c.toJson()];
+
+List<Map<String, dynamic>>? _cityAllowedToJson(List<SecurityCityRef> value) =>
+    value.isEmpty ? null : _cityListToJson(value);
+
+/// Visitor city allow/block rule (`options.cities`, spec §4 / §7).
+///
+/// `{ "active", "treatment", "allowed": [CityRef] | null, "blocked": [CityRef] }`
+/// with `CityRef = {name, id?}`. Matching is on [SecurityCityRef.name],
+/// case- and accent-insensitive. Same unknown-location rule as regions.
+@freezed
+abstract class SecurityCityListOption with _$SecurityCityListOption {
+  const SecurityCityListOption._();
+  const factory SecurityCityListOption({
+    @JsonKey(name: SecurityGeoJsonKeys.active, fromJson: securityLenientBool)
+    @Default(false)
+    bool active,
+    @JsonKey(
+      name: SecurityGeoJsonKeys.treatment,
+      fromJson: securityTreatmentFromJson,
+    )
+    @Default(SecurityTreatment.block)
+    SecurityTreatment treatment,
+    @JsonKey(
+      name: SecurityGeoJsonKeys.allowed,
+      fromJson: securityCityListFromJson,
+      toJson: _cityAllowedToJson,
+    )
+    @Default(<SecurityCityRef>[])
+    List<SecurityCityRef> allowed,
+    @JsonKey(
+      name: SecurityGeoJsonKeys.blocked,
+      fromJson: securityCityListFromJson,
+      toJson: _cityListToJson,
+    )
+    @Default(<SecurityCityRef>[])
+    List<SecurityCityRef> blocked,
+  }) = _SecurityCityListOption;
+
+  factory SecurityCityListOption.fromJson(Map<String, dynamic> json) =>
+      _$SecurityCityListOptionFromJson(json);
+
+  static SecurityCityListOption? tryParse(Object? value) =>
+      securityCityListOptionFromJson(value);
+
+  bool get hasAllowlist => allowed.isNotEmpty;
+  bool get hasEntries => allowed.isNotEmpty || blocked.isNotEmpty;
+
+  bool isAllowed(String name) => _contains(allowed, name);
+  bool isBlocked(String name) => _contains(blocked, name);
+
+  /// Client-side preview for one visitor city name.
+  SecurityGeoRuleDecision evaluate(String? cityName) => _evaluateGeoList(
+        active: active,
+        hasAllowlist: hasAllowlist,
+        hasEntries: hasEntries,
+        value: securityGeoValueFromJson(cityName),
+        isBlocked: isBlocked,
+        isAllowed: isAllowed,
+      );
+
+  static bool _contains(List<SecurityCityRef> list, String name) {
+    final key = normalizeSecurityGeoName(name);
+    if (key.isEmpty) return false;
+    return list.any((c) => c.matchKey == key);
+  }
+}
+
+/// Lenient JSON -> [SecurityCityListOption]; null for non-object values.
+SecurityCityListOption? securityCityListOptionFromJson(Object? value) {
+  final map = securityJsonObjectOrNull(value);
+  if (map == null) return null;
+  return SecurityCityListOption.fromJson(map);
 }
 
 /// All security options (private - merchant app). Keys are optional/nullable like the API.
@@ -990,8 +1176,8 @@ abstract class SecurityOptions with _$SecurityOptions {
     SecurityCountriesOption? countries,
     SecuritySourcesOption? sources,
 
-    /// Visitor region (state / wilaya) rule. PROVISIONAL (design §4.3).
-    /// Omitted from JSON when null; a non-object value parses as null.
+    /// Visitor wilaya rule (ISO 3166-2 codes). Omitted from JSON when null;
+    /// a non-object value parses as null.
     @JsonKey(
       name: SecurityGeoJsonKeys.regions,
       fromJson: securityGeoListOptionFromJson,
@@ -999,42 +1185,17 @@ abstract class SecurityOptions with _$SecurityOptions {
     )
     SecurityGeoListOption? regions,
 
-    /// Visitor city rule. PROVISIONAL (design §4.3).
+    /// Visitor city rule (`{name, id?}` entries). Omitted from JSON when null.
     @JsonKey(
       name: SecurityGeoJsonKeys.cities,
-      fromJson: securityGeoListOptionFromJson,
+      fromJson: securityCityListOptionFromJson,
       includeIfNull: false,
     )
-    SecurityGeoListOption? cities,
-
-    /// Policy when the visitor geo is unknown (design §4.1 / review §2.5).
-    ///
-    /// The backend shape is not decided (a treatment string such as
-    /// `"allow"`, or an object), so the raw JSON value is kept as-is and
-    /// written back unchanged. Use [unknownGeoTreatment] /
-    /// [unknownGeoTreatmentName] to read it.
-    @JsonKey(name: SecurityGeoJsonKeys.unknownGeo, includeIfNull: false)
-    Object? unknownGeo,
+    SecurityCityListOption? cities,
   }) = _SecurityOptions;
 
   factory SecurityOptions.fromJson(Map<String, dynamic> json) =>
       _$SecurityOptionsFromJson(json);
-
-  /// Raw treatment name in [unknownGeo] (a string, or an object with a
-  /// `treatment` key). May be a value outside [SecurityTreatment] (e.g. `allow`).
-  String? get unknownGeoTreatmentName {
-    final raw = unknownGeo;
-    if (raw is String) return securityStringOrNull(raw)?.toLowerCase();
-    final map = securityJsonObjectOrNull(raw);
-    if (map == null) return null;
-    return securityStringOrNull(map[SecurityGeoJsonKeys.treatment])
-        ?.toLowerCase();
-  }
-
-  /// [unknownGeoTreatmentName] as a [SecurityTreatment], or null when unset or
-  /// not one of block / warning / fake (e.g. `allow`).
-  SecurityTreatment? get unknownGeoTreatment =>
-      securityTreatmentOrNull(unknownGeoTreatmentName);
 }
 
 /// Checkout fraud / abuse protection for public order create (not account 2FA).
@@ -1049,11 +1210,41 @@ abstract class SecurityIntegration with _$SecurityIntegration {
     @Default(false) bool active,
     SecurityOptions? options,
     @Default({}) Map<String, dynamic> metadata,
+
+    /// Read-only visitor-location status from the backend (`'live' | 'off'`;
+    /// missing / unknown = [SecurityGeoStatus.off]). Never written back:
+    /// excluded from [toJson] so store updates cannot send it.
+    @JsonKey(
+      name: SecurityGeoJsonKeys.geoStatus,
+      fromJson: securityGeoStatusFromJson,
+      includeToJson: false,
+    )
+    @Default(SecurityGeoStatus.off)
+    SecurityGeoStatus geoStatus,
   }) = _SecurityIntegration;
 
   factory SecurityIntegration.fromJson(Map<String, dynamic> json) =>
       _$SecurityIntegrationFromJson(json);
+
+  /// Geo rules (countries / regions / cities) can be switched on and are
+  /// evaluated only while this is true.
+  bool get isGeoLive => geoStatus == SecurityGeoStatus.live;
 }
+
+/// `security.geoStatus` (read-only, spec §2.4 / §9 decision 3).
+enum SecurityGeoStatus {
+  /// Trusted visitor location is enforced; geo rules apply.
+  live,
+
+  /// Not live yet (default): geo rules are paused and cannot be turned on.
+  off,
+}
+
+/// Lenient `geoStatus`: case-insensitive `live`, anything else -> off.
+SecurityGeoStatus securityGeoStatusFromJson(Object? value) =>
+    value is String && value.trim().toLowerCase() == SecurityGeoStatus.live.name
+        ? SecurityGeoStatus.live
+        : SecurityGeoStatus.off;
 
 // ===================== INVENTORY INTEGRATION =====================
 

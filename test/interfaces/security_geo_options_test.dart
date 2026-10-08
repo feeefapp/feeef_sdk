@@ -8,7 +8,7 @@ Map<String, dynamic> _wire(Map<String, dynamic> json) =>
     jsonDecode(jsonEncode(json)) as Map<String, dynamic>;
 
 void main() {
-  group('SecurityOptions regions / cities (new shape)', () {
+  group('SecurityOptions regions / cities (final shape)', () {
     final json = <String, dynamic>{
       'countries': {
         'active': true,
@@ -19,49 +19,51 @@ void main() {
       'regions': {
         'active': true,
         'treatment': 'warning',
-        'allowed': ['Algiers', 'Oran'],
-        'blocked': ['Tamanrasset'],
+        'allowed': null,
+        'blocked': ['DZ-11', 'DZ-33', 'DZ-37'],
       },
       'cities': {
-        'active': false,
+        'active': true,
         'treatment': 'fake',
-        'allowed': <String>[],
-        'blocked': ['Bab Ezzouar'],
+        'allowed': null,
+        'blocked': [
+          {'name': 'Algiers', 'id': '16-01'},
+          {'name': 'Bab Ezzouar'},
+        ],
       },
-      'unknownGeo': 'allow',
     };
 
     test('parses both rule groups', () {
       final o = SecurityOptions.fromJson(json);
-      expect(o.regions, isNotNull);
       expect(o.regions!.active, isTrue);
       expect(o.regions!.treatment, SecurityTreatment.warning);
-      expect(o.regions!.allowed, ['Algiers', 'Oran']);
-      expect(o.regions!.blocked, ['Tamanrasset']);
-      expect(o.cities!.active, isFalse);
+      expect(o.regions!.allowed, isEmpty);
+      expect(o.regions!.blocked, ['DZ-11', 'DZ-33', 'DZ-37']);
       expect(o.cities!.treatment, SecurityTreatment.fake);
-      expect(o.cities!.allowed, isEmpty);
-      expect(o.cities!.blocked, ['Bab Ezzouar']);
+      expect(o.cities!.blocked, const [
+        SecurityCityRef(name: 'Algiers', id: '16-01'),
+        SecurityCityRef(name: 'Bab Ezzouar'),
+      ]);
       expect(o.countries!.allowed, ['DZ']);
     });
 
-    test('round trip keeps the wire shape and equality', () {
+    test('round trip keeps the wire shape (allowed: null when empty)', () {
       final o = SecurityOptions.fromJson(json);
       final out = _wire(o.toJson());
-      expect(out['regions'], {
-        'active': true,
-        'treatment': 'warning',
-        'allowed': ['Algiers', 'Oran'],
-        'blocked': ['Tamanrasset'],
-      });
-      expect(out['cities'], {
-        'active': false,
-        'treatment': 'fake',
-        'allowed': <String>[],
-        'blocked': ['Bab Ezzouar'],
-      });
-      expect(out['unknownGeo'], 'allow');
+      expect(out['regions'], json['regions']);
+      expect(out['cities'], json['cities']);
+      expect(out.containsKey('unknownGeo'), isFalse);
       expect(SecurityOptions.fromJson(out), o);
+    });
+
+    test('allow mode writes the list', () {
+      const o = SecurityGeoListOption(active: true, allowed: ['DZ-16']);
+      expect(_wire(o.toJson()), {
+        'active': true,
+        'treatment': 'block',
+        'allowed': ['DZ-16'],
+        'blocked': <String>[],
+      });
     });
 
     test('round trip through StoreIntegrations', () {
@@ -70,14 +72,14 @@ void main() {
       });
       final again = StoreIntegrations.fromJson(_wire(integrations.toJson()));
       expect(again.security, integrations.security);
-      expect(again.security!.options!.regions!.allowed, ['Algiers', 'Oran']);
+      expect(again.security!.options!.regions!.blocked.first, 'DZ-11');
     });
 
     test('copyWith and equality', () {
-      const a = SecurityGeoListOption(active: true, allowed: ['Oran']);
-      final b = a.copyWith(blocked: ['Blida']);
-      expect(b.allowed, ['Oran']);
-      expect(b.blocked, ['Blida']);
+      const a = SecurityGeoListOption(active: true, allowed: ['DZ-31']);
+      final b = a.copyWith(blocked: ['DZ-09']);
+      expect(b.allowed, ['DZ-31']);
+      expect(b.blocked, ['DZ-09']);
       expect(b, isNot(a));
       expect(b.copyWith(blocked: const []), a);
       expect(b.hashCode, b.copyWith().hashCode);
@@ -90,25 +92,160 @@ void main() {
       expect(o.allowed, isEmpty);
       expect(o.blocked, isEmpty);
       expect(SecurityGeoListOption.fromJson(const {}), o);
+      expect(SecurityCityListOption.fromJson(const {}),
+          const SecurityCityListOption());
+    });
+  });
+
+  group('wilaya codes (DZ-xx)', () {
+    test('code-like values are canonicalised on parse', () {
+      final o = SecurityGeoListOption.fromJson({
+        'blocked': ['16', 'dz-1', 'DZ09', ' DZ_31 ', 'DZ-16', 'Alger'],
+      });
+      // '16' and 'DZ-16' are the same wilaya; names are kept as-is.
+      expect(o.blocked, ['DZ-16', 'DZ-01', 'DZ-09', 'DZ-31', 'Alger']);
+    });
+
+    test('normalizeSecurityRegionCode', () {
+      expect(normalizeSecurityRegionCode('DZ-16'), 'DZ-16');
+      expect(normalizeSecurityRegionCode('dz16'), 'DZ-16');
+      expect(normalizeSecurityRegionCode(7), 'DZ-07');
+      expect(normalizeSecurityRegionCode('07'), 'DZ-07');
+      expect(normalizeSecurityRegionCode('FR-IDF'), 'FR-IDF');
+      expect(normalizeSecurityRegionCode('3', defaultCountry: 'ma'), 'MA-03');
+      expect(normalizeSecurityRegionCode('Alger'), isNull);
+      expect(normalizeSecurityRegionCode('XX'), isNull);
+      expect(normalizeSecurityRegionCode(''), isNull);
+      expect(normalizeSecurityRegionCode('0'), isNull);
+    });
+
+    test('evaluate compares codes', () {
+      const o = SecurityGeoListOption(active: true, blocked: ['DZ-16']);
+      expect(o.evaluate('dz-16'), SecurityGeoRuleDecision.blocked);
+      expect(o.evaluate('16'), SecurityGeoRuleDecision.blocked);
+      expect(o.evaluate('DZ-31'), SecurityGeoRuleDecision.pass);
+    });
+  });
+
+  group('cities {name, id?}', () {
+    test('strings and objects, dedupe by normalized name', () {
+      final o = SecurityCityListOption.fromJson({
+        'active': 'true',
+        'allowed': [
+          'Algiers',
+          {'name': 'algiers', 'id': 'x'},
+          {'name': ' Sétif ', 'id': 19},
+          {'id': 'no-name'},
+          null,
+          '',
+        ],
+        'blocked': 'Blida, Medea ,',
+      });
+      expect(o.active, isTrue);
+      expect(o.allowed, const [
+        SecurityCityRef(name: 'Algiers'),
+        SecurityCityRef(name: 'Sétif', id: '19'),
+      ]);
+      expect(o.blocked.map((c) => c.name), ['Blida', 'Medea']);
+    });
+
+    test('id omitted from JSON when null', () {
+      expect(const SecurityCityRef(name: 'Oran').toJson(), {'name': 'Oran'});
+    });
+
+    test('evaluate by English name, accent-insensitive', () {
+      const o = SecurityCityListOption(
+        active: true,
+        allowed: [SecurityCityRef(name: 'Setif')],
+      );
+      expect(o.evaluate('Sétif'), SecurityGeoRuleDecision.pass);
+      expect(o.evaluate('Oran'), SecurityGeoRuleDecision.notAllowed);
+      expect(o.evaluate(null), SecurityGeoRuleDecision.unknown);
+    });
+  });
+
+  group('fingerprint.missingTreatment (optional, backend not confirmed)', () {
+    test('absent: null, follows treatment, not written', () {
+      final f = SecurityOption.fromJson(
+          {'active': true, 'ttl': 3600, 'treatment': 'block'});
+      expect(f.missingTreatment, isNull);
+      expect(f.effectiveMissingTreatment, SecurityTreatment.block);
+      expect(f.toJson().containsKey('missingTreatment'), isFalse);
+    });
+
+    test('parsed leniently and round-tripped', () {
+      final o = SecurityOptions.fromJson({
+        'fingerprint': {
+          'active': true,
+          'ttl': 86400,
+          'treatment': 'block',
+          'missingTreatment': 'Warning',
+        },
+      });
+      expect(o.fingerprint!.missingTreatment, SecurityTreatment.warning);
+      expect(o.fingerprint!.effectiveMissingTreatment,
+          SecurityTreatment.warning);
+      final out = _wire(o.toJson());
+      expect(out['fingerprint']['missingTreatment'], 'warning');
+      expect(SecurityOptions.fromJson(out), o);
+    });
+
+    test('unknown or wrong-typed value -> null (never throws)', () {
+      for (final v in ['allow', 3, true, <String, dynamic>{}]) {
+        final f = SecurityOption.fromJson({'missingTreatment': v});
+        expect(f.missingTreatment, isNull, reason: '$v');
+      }
+    });
+  });
+
+  group('security.geoStatus (read-only)', () {
+    test('live / off / missing / unknown', () {
+      SecurityIntegration p(Object? v) =>
+          SecurityIntegration.fromJson({'active': true, 'geoStatus': v});
+      expect(p('live').geoStatus, SecurityGeoStatus.live);
+      expect(p(' LIVE ').isGeoLive, isTrue);
+      expect(p('off').geoStatus, SecurityGeoStatus.off);
+      expect(p(null).geoStatus, SecurityGeoStatus.off);
+      expect(p('soon').geoStatus, SecurityGeoStatus.off);
+      expect(p(1).geoStatus, SecurityGeoStatus.off);
+      expect(SecurityIntegration.fromJson(const {}).isGeoLive, isFalse);
+    });
+
+    test('never written back', () {
+      final s = SecurityIntegration.fromJson({
+        'active': true,
+        'geoStatus': 'live',
+      });
+      expect(s.toJson().containsKey('geoStatus'), isFalse);
+      final store =
+          StoreIntegrations.fromJson(const {}).copyWith(security: s);
+      final wire = _wire(store.toJson());
+      expect((wire['security'] as Map).containsKey('geoStatus'), isFalse);
+      // copyWith keeps it in memory.
+      expect(s.copyWith(active: false).isGeoLive, isTrue);
     });
   });
 
   group('backward compatible parsing', () {
-    test('legacy options without regions / cities / unknownGeo', () {
+    test('legacy options without regions / cities', () {
       final o = SecurityOptions.fromJson({
         'ip': {'active': true, 'ttl': 3600, 'treatment': 'block'},
         'countries': {'active': true, 'allowed': null},
       });
       expect(o.regions, isNull);
       expect(o.cities, isNull);
-      expect(o.unknownGeo, isNull);
-      expect(o.unknownGeoTreatment, isNull);
       final out = o.toJson();
       // New keys are not written when unset, so old backends see the old shape.
       expect(out.containsKey('regions'), isFalse);
       expect(out.containsKey('cities'), isFalse);
-      expect(out.containsKey('unknownGeo'), isFalse);
+      expect((out['ip'] as Map).containsKey('missingTreatment'), isFalse);
       expect(SecurityOptions.fromJson(_wire(out)), o);
+    });
+
+    test('a stray unknownGeo key is ignored (no such setting, §9 decision 2)',
+        () {
+      final o = SecurityOptions.fromJson({'unknownGeo': 'allow'});
+      expect(o.toJson().containsKey('unknownGeo'), isFalse);
     });
 
     test('explicit nulls', () {
@@ -120,29 +257,28 @@ void main() {
           'allowed': null,
           'blocked': null,
         },
-        'unknownGeo': null,
       });
       expect(o.regions, isNull);
-      expect(o.cities, const SecurityGeoListOption());
+      expect(o.cities, const SecurityCityListOption());
     });
 
     test('wrong types and unknown values never throw', () {
       final o = SecurityOptions.fromJson({
-        'regions': 'Algiers', // not an object
-        'cities': {
+        'regions': {
           'active': 'true',
           'treatment': 'ALLOW', // not a SecurityTreatment
-          'allowed': [' Oran ', null, '', 16, {'x': 1}, 'oran'],
-          'blocked': 'Blida, Medea ,',
+          'allowed': [' DZ-31 ', null, '', 16, {'x': 1}, 'dz-31'],
+          'blocked': 'DZ-09, DZ-26 ,',
           'mode': 'allowlist', // unknown extra key
         },
+        'cities': 'Algiers', // not an object
         'somethingNew': {'a': 1}, // unknown option
       });
-      expect(o.regions, isNull);
-      expect(o.cities!.active, isTrue);
-      expect(o.cities!.treatment, SecurityTreatment.block);
-      expect(o.cities!.allowed, ['Oran', '16']); // trimmed, deduped
-      expect(o.cities!.blocked, ['Blida', 'Medea']);
+      expect(o.cities, isNull);
+      expect(o.regions!.active, isTrue);
+      expect(o.regions!.treatment, SecurityTreatment.block);
+      expect(o.regions!.allowed, ['DZ-31', 'DZ-16']); // trimmed, deduped
+      expect(o.regions!.blocked, ['DZ-09', 'DZ-26']);
     });
 
     test('treatment is case-insensitive', () {
@@ -161,61 +297,44 @@ void main() {
     });
   });
 
-  group('unknownGeo passthrough', () {
-    test('string', () {
-      final o = SecurityOptions.fromJson({'unknownGeo': 'warning'});
-      expect(o.unknownGeoTreatmentName, 'warning');
-      expect(o.unknownGeoTreatment, SecurityTreatment.warning);
-    });
-
-    test('object is kept unchanged on toJson', () {
-      final raw = {'treatment': 'Fake', 'extra': true};
-      final o = SecurityOptions.fromJson({'unknownGeo': raw});
-      expect(o.unknownGeoTreatment, SecurityTreatment.fake);
-      expect(_wire(o.toJson())['unknownGeo'], raw);
-    });
-
-    test('allow is readable as a name but not as a SecurityTreatment', () {
-      final o = SecurityOptions.fromJson({'unknownGeo': 'allow'});
-      expect(o.unknownGeoTreatmentName, 'allow');
-      expect(o.unknownGeoTreatment, isNull);
-    });
-  });
-
   group('SecurityGeoListOption.evaluate', () {
     test('inactive', () {
-      const o = SecurityGeoListOption(blocked: ['Oran']);
-      expect(o.evaluate('Oran'), SecurityGeoRuleDecision.inactive);
+      const o = SecurityGeoListOption(blocked: ['DZ-31']);
+      expect(o.evaluate('DZ-31'), SecurityGeoRuleDecision.inactive);
     });
 
     test('active with no entries passes everything', () {
       const o = SecurityGeoListOption(active: true);
       expect(o.evaluate(null), SecurityGeoRuleDecision.pass);
-      expect(o.evaluate('Oran'), SecurityGeoRuleDecision.pass);
+      expect(o.evaluate('DZ-31'), SecurityGeoRuleDecision.pass);
     });
 
-    test('blocked wins over allowed, case and accent insensitive', () {
+    test('blocked wins over allowed; legacy names still match', () {
       const o = SecurityGeoListOption(
         active: true,
-        allowed: ['Oran', 'Sétif'],
-        blocked: ['oran'],
+        allowed: ['DZ-31', 'Sétif'],
+        blocked: ['dz-31'],
       );
-      expect(o.evaluate('ORAN'), SecurityGeoRuleDecision.blocked);
+      expect(o.evaluate('DZ-31'), SecurityGeoRuleDecision.blocked);
       expect(o.evaluate('setif'), SecurityGeoRuleDecision.pass);
-      expect(o.evaluate('Blida'), SecurityGeoRuleDecision.notAllowed);
+      expect(o.evaluate('DZ-09'), SecurityGeoRuleDecision.notAllowed);
     });
 
     test('empty allowed = allow all', () {
-      const o = SecurityGeoListOption(active: true, blocked: ['Blida']);
-      expect(o.evaluate('Oran'), SecurityGeoRuleDecision.pass);
-      expect(o.evaluate('blida'), SecurityGeoRuleDecision.blocked);
+      const o = SecurityGeoListOption(active: true, blocked: ['DZ-09']);
+      expect(o.evaluate('DZ-31'), SecurityGeoRuleDecision.pass);
+      expect(o.evaluate('DZ-09'), SecurityGeoRuleDecision.blocked);
     });
 
-    test('unknown geo (null, empty, XX)', () {
-      const o = SecurityGeoListOption(active: true, allowed: ['Oran']);
-      expect(o.evaluate(null), SecurityGeoRuleDecision.unknown);
-      expect(o.evaluate(''), SecurityGeoRuleDecision.unknown);
-      expect(o.evaluate('XX'), SecurityGeoRuleDecision.unknown);
+    test('unknown never passes an allow list, ignored by block lists', () {
+      const allow = SecurityGeoListOption(active: true, allowed: ['DZ-31']);
+      for (final v in [null, '', 'XX']) {
+        expect(allow.evaluate(v), SecurityGeoRuleDecision.unknown);
+        expect(allow.evaluate(v).triggers, isTrue);
+      }
+      const block = SecurityGeoListOption(active: true, blocked: ['DZ-31']);
+      expect(block.evaluate(null), SecurityGeoRuleDecision.pass);
+      expect(block.evaluate(null).triggers, isFalse);
     });
 
     test('normalizeSecurityGeoName', () {
@@ -229,5 +348,9 @@ void main() {
     expect(SecurityGeoJsonKeys.regions, 'regions');
     expect(SecurityGeoJsonKeys.cities, 'cities');
     expect(SecurityGeoJsonKeys.claimsGeo, 'geo');
+    expect(SecurityGeoJsonKeys.geoStatus, 'geoStatus');
+    expect(SecurityGeoJsonKeys.missingTreatment, 'missingTreatment');
+    expect(SecurityGeoJsonKeys.cityName, 'name');
+    expect(SecurityGeoJsonKeys.cityId, 'id');
   });
 }

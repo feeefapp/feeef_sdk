@@ -133,6 +133,19 @@ abstract class OrderSecurityGeo with _$OrderSecurityGeo {
       .whereType<String>()
       .join(', ');
 
+  /// Visitor wilaya as an ISO 3166-2 code (`DZ-16`), or null when the region
+  /// is unknown / not a code. Unknown is the normal case today (spec §6).
+  String? get regionCode => region == null
+      ? null
+      : normalizeSecurityRegionCode(
+          region,
+          defaultCountry:
+              countryCode ?? SecurityGeoJsonKeys.defaultRegionCountry,
+        );
+
+  /// Country known but region missing ("wilaya not detected").
+  bool get isRegionUnknown => region == null;
+
   /// Whether the visitor country differs from [shippingCountry] (ISO code).
   /// Null when either side is unknown.
   bool? countryDiffersFrom(String? shippingCountry) {
@@ -148,10 +161,19 @@ abstract class OrderSecurityGeo with _$OrderSecurityGeo {
   /// The order stores the wilaya as the merchant's state value (often a code
   /// or a localized name), so callers should pass a resolved state name; the
   /// result is only a hint.
+  ///
+  /// When both sides parse as region codes (`DZ-16` vs the order's
+  /// `shippingState` `"16"`), the codes are compared; otherwise names.
   bool? regionDiffersFrom(String? shippingRegionName) {
     final a = region;
     final b = securityStringOrNull(shippingRegionName);
     if (a == null || b == null) return null;
+    final ca = regionCode;
+    final cb = normalizeSecurityRegionCode(
+      b,
+      defaultCountry: countryCode ?? SecurityGeoJsonKeys.defaultRegionCountry,
+    );
+    if (ca != null && cb != null) return ca != cb;
     return normalizeSecurityGeoName(a) != normalizeSecurityGeoName(b);
   }
 }
@@ -299,6 +321,10 @@ abstract class OrderSecurityClaims with _$OrderSecurityClaims {
     final c = legacyCountry;
     return c == null ? null : OrderSecurityGeo(country: c);
   }
+
+  /// No device fingerprint was captured (used to label a `fingerprint`
+  /// violation as "Unidentified device").
+  bool get isDeviceFingerprintMissing => deviceFingerprint == null;
 
   /// True when the server flagged the order (warning treatment or violations).
   bool get isFlagged => treatment != null || violations.isNotEmpty;

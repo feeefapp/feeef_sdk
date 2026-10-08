@@ -2,11 +2,11 @@
 /// (security integration `regions` / `cities` rules and order
 /// `claims.security.geo`).
 ///
-/// PROVISIONAL: the backend shape is not final yet (see
-/// `docs/security-geo-design-2026-10-09.md` §4.3 / §4.4 and
-/// `docs/security-geo-review.md`). Every wire key used by the new models lives
-/// in [SecurityGeoJsonKeys], so a rename on the backend is a one-line change
-/// here followed by `dart run build_runner build`.
+/// Shapes follow `docs/security-ui-redesign.md` §4 / §7 (FINAL, 2026-10-09).
+/// Backend support for `fingerprint.missingTreatment` is not confirmed yet.
+/// Every wire key used by the new models lives in [SecurityGeoJsonKeys], so a
+/// rename on the backend is a one-line change here followed by
+/// `dart run build_runner build`.
 ///
 /// The parsers never throw: wrong types, nulls and unknown values fall back to
 /// the documented defaults so an unexpected payload cannot break store or
@@ -27,15 +27,30 @@ abstract final class SecurityGeoJsonKeys {
   /// City allow/block rule group.
   static const String cities = 'cities';
 
-  /// Treatment when the visitor geo is unknown. Shape not decided yet, kept as
-  /// a raw passthrough (see `SecurityOptions.unknownGeo`).
-  static const String unknownGeo = 'unknownGeo';
+  // ---- store.integrations.security.* ----
+
+  /// Read-only visitor-location status written by the backend
+  /// (`'live' | 'off'`). Parsed, never written back.
+  static const String geoStatus = 'geoStatus';
+
+  /// `options.fingerprint.missingTreatment`: treatment when the device
+  /// fingerprint is missing (`block | warning`; null = follow `treatment`).
+  /// NOT CONFIRMED by the backend yet.
+  static const String missingTreatment = 'missingTreatment';
 
   // ---- fields of a geo rule group ----
   static const String active = 'active';
   static const String treatment = 'treatment';
   static const String allowed = 'allowed';
   static const String blocked = 'blocked';
+
+  // ---- city reference inside `cities.allowed` / `cities.blocked` ----
+
+  /// English city name (what the edge geo plugin sends).
+  static const String cityName = 'name';
+
+  /// States-catalog city id, only when the city comes from the catalog.
+  static const String cityId = 'id';
 
   // ---- order.claims.* ----
 
@@ -68,6 +83,9 @@ abstract final class SecurityGeoJsonKeys {
   static const String securityFormLoadTime = 'formLoadTime';
 
   // ---- values ----
+
+  /// Default country for bare wilaya numbers (`"16"` -> `"DZ-16"`).
+  static const String defaultRegionCountry = 'DZ';
 
   /// Placeholder the Traefik geoip2 plugin uses for "unknown".
   static const String unknownGeoPlaceholder = 'XX';
@@ -181,3 +199,58 @@ Map<String, dynamic>? securityJsonObjectOrNull(Object? value) {
   }
   return null;
 }
+
+final RegExp _regionCodeDigits = RegExp(r'^([A-Z]{2})[-_ ]?(\d{1,3})$');
+final RegExp _regionCodeAlnum = RegExp(r'^([A-Z]{2})-([A-Z0-9]{1,3})$');
+final RegExp _bareDigits = RegExp(r'^\d{1,2}$');
+
+/// ISO 3166-2 subdivision code (`"DZ-16"`) for a region value, or null when
+/// [value] does not look like a code.
+///
+/// Accepts `DZ-16`, `dz-16`, `DZ16`, `DZ_16`, `DZ-1` (padded to `DZ-01`) and a
+/// bare wilaya number (`"16"`, `16`) which is read as [defaultCountry]
+/// (Algerian wilaya numbers; spec §3.7 `'DZ-${code.padLeft(2, '0')}'`).
+/// Names ("Alger") return null.
+String? normalizeSecurityRegionCode(
+  Object? value, {
+  String defaultCountry = SecurityGeoJsonKeys.defaultRegionCountry,
+}) {
+  final raw = securityGeoValueFromJson(value);
+  if (raw == null) return null;
+  final v = raw.toUpperCase();
+  if (_bareDigits.hasMatch(v)) {
+    final n = int.parse(v);
+    if (n < 1) return null;
+    return '${defaultCountry.toUpperCase()}-${v.padLeft(2, '0')}';
+  }
+  final d = _regionCodeDigits.firstMatch(v);
+  if (d != null) {
+    return '${d.group(1)}-${d.group(2)!.padLeft(2, '0')}';
+  }
+  final a = _regionCodeAlnum.firstMatch(v);
+  if (a != null) return '${a.group(1)}-${a.group(2)}';
+  return null;
+}
+
+/// Comparison key for a region value: the ISO code when it parses as one,
+/// else the normalized name (legacy / hand-written data).
+String securityRegionMatchKey(String value) =>
+    normalizeSecurityRegionCode(value) ?? normalizeSecurityGeoName(value);
+
+/// Lenient region list (`options.regions.allowed/blocked`): like
+/// [securityStringListFromJson], and code-like values are canonicalised to
+/// `DZ-16`. Non-code strings are kept trimmed (never dropped).
+List<String> securityRegionListFromJson(Object? value) {
+  final seen = <String>{};
+  final out = <String>[];
+  for (final s in securityStringListFromJson(value)) {
+    final v = normalizeSecurityRegionCode(s) ?? s;
+    if (seen.add(securityRegionMatchKey(v))) out.add(v);
+  }
+  return out;
+}
+
+/// `allowed` list writer: an empty list is written as null, matching what the
+/// app writes for `countries` (block mode -> `allowed: null`).
+List<String>? securityAllowedListToJson(List<String> value) =>
+    value.isEmpty ? null : value;

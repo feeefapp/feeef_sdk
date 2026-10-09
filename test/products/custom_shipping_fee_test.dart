@@ -17,6 +17,39 @@ Map<String, dynamic> _product([Map<String, dynamic> extra = const {}]) => {
     };
 
 void main() {
+  group('Product.shippingFeeId read alias', () {
+    test('reads shippingFeeId', () {
+      expect(
+        Product.fromJson(_product({'shippingFeeId': 'ca_a'})).shippingFeeId,
+        'ca_a',
+      );
+    });
+    test('falls back to defaultCarrierAccountId', () {
+      expect(
+        Product.fromJson(_product({'defaultCarrierAccountId': 'ca_b'}))
+            .shippingFeeId,
+        'ca_b',
+      );
+    });
+    test('shippingFeeId wins when both are present', () {
+      expect(
+        Product.fromJson(_product({
+          'shippingFeeId': 'ca_a',
+          'defaultCarrierAccountId': 'ca_b',
+        })).shippingFeeId,
+        'ca_a',
+      );
+    });
+    test('neither field stays null and toJson writes shippingFeeId', () {
+      final p = Product.fromJson(_product());
+      expect(p.shippingFeeId, isNull);
+      final json = Product.fromJson(_product({'defaultCarrierAccountId': 'ca_b'}))
+          .toJson();
+      expect(json['shippingFeeId'], 'ca_b');
+      expect(json.containsKey('defaultCarrierAccountId'), isFalse);
+    });
+  });
+
   group('CustomShippingFee parsing', () {
     test('product without the field parses (older backends)', () {
       expect(Product.fromJson(_product()).customShippingFee, isNull);

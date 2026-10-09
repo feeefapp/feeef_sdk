@@ -17,7 +17,7 @@ _Product _$ProductFromJson(Map<String, dynamic> json) => _Product(
   media: (json['media'] as List<dynamic>).map((e) => e as String).toList(),
   storeId: json['storeId'] as String,
   shippingMethodId: json['shippingMethodId'] as String?,
-  shippingFeeId: json['shippingFeeId'] as String?,
+  shippingFeeId: readProductShippingFeeId(json, 'shippingFeeId') as String?,
   customShippingFee: customShippingFeeFromJson(json['customShippingFee']),
   categoryId: json['categoryId'] as String?,
   category: json['category'] == null

@@ -271,11 +271,7 @@ class OrderRepository extends ModelRepository<Order>
         },
       );
 
-      return OrderPricing(
-        subtotal: response.data['pricing']['subtotal'] as num,
-        shippingPrice: response.data['pricing']['shippingPrice'] as num?,
-        calculatedTotal: response.data['pricing']['calculatedTotal'] as num,
-      );
+      return OrderPricing.fromCalculateResponse(response.data as Map);
     } on DioException catch (e) {
       if (e.response?.statusCode == 422) {
         var errors = FeeefValidationException.fromJson(e.response?.data);
@@ -493,9 +489,28 @@ class OrderPricing {
   final num? shippingPrice;
   final num calculatedTotal;
 
+  /// `shipping.breakdown`: one entry per parcel (courier account). Null when
+  /// the backend sends none (older API, free shipping, no wilaya yet).
+  final List<ShippingBreakdownEntry>? shippingBreakdown;
+
   OrderPricing({
     required this.subtotal,
     this.shippingPrice,
     required this.calculatedTotal,
+    this.shippingBreakdown,
   });
+
+  /// Parses a `POST /orders/calculate` body.
+  factory OrderPricing.fromCalculateResponse(Map data) {
+    final pricing = data['pricing'] as Map;
+    final shipping = data['shipping'];
+    return OrderPricing(
+      subtotal: pricing['subtotal'] as num,
+      shippingPrice: pricing['shippingPrice'] as num?,
+      calculatedTotal: pricing['calculatedTotal'] as num,
+      shippingBreakdown: shipping is Map
+          ? shippingBreakdownFromJson(shipping['breakdown'])
+          : null,
+    );
+  }
 }

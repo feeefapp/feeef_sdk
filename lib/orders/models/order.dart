@@ -5,9 +5,12 @@ import 'package:feeef/shipping_methods/models/shipping_method.dart';
 import 'package:feeef/stores/models/store.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'shipping_breakdown.dart';
+
 /// Typed `claims.security` (incl. trusted visitor geo) and the
 /// `order.securityClaims` / `order.securityGeo` extension.
 export 'order_security_claims.dart';
+export 'shipping_breakdown.dart';
 
 part 'order.freezed.dart';
 part 'order.g.dart';
@@ -64,6 +67,13 @@ abstract class Order extends OrderEntity
     required List<OrderItem> items,
     required num subtotal,
     num? shippingPrice,
+    /// Per-parcel shipping stored at order time (one entry per courier
+    /// account); null on older orders.
+    @JsonKey(
+      fromJson: shippingBreakdownFromJson,
+      toJson: shippingBreakdownToJson,
+    )
+    List<ShippingBreakdownEntry>? shippingBreakdown,
     required num total,
     required num calculatedTotal,
     num? manualTotal,

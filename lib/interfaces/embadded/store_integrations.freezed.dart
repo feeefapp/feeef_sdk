@@ -9412,10 +9412,11 @@ mixin _$SecurityOption {
 /// mode, form sent before the fingerprint loaded). `block | warning`;
 /// null = follow [treatment] (today's backend behavior).
 ///
-/// NOT CONFIRMED by the backend yet (spec §3.13 / §7). Lenient parse
-/// (unknown values -> null) and omitted from JSON when null, so existing
-/// payloads round-trip unchanged.
-@JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityTreatmentOrNull, includeIfNull: false) SecurityTreatment? get missingTreatment;
+/// Confirmed by the team lead as `'block' | 'warning' | null`;
+/// PROVISIONAL until the backend sends the final shape. Only block /
+/// warning are accepted (`fake` and unknown values -> null) and the key is
+/// omitted from JSON when null, so existing payloads round-trip unchanged.
+@JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityMissingTreatmentFromJson, toJson: securityMissingTreatmentToJson, includeIfNull: false) SecurityTreatment? get missingTreatment;
 /// Create a copy of SecurityOption
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -9453,7 +9454,7 @@ abstract mixin class $SecurityOptionCopyWith<$Res>  {
   factory $SecurityOptionCopyWith(SecurityOption value, $Res Function(SecurityOption) _then) = _$SecurityOptionCopyWithImpl;
 @useResult
 $Res call({
- bool active, int? ttl, SecurityTreatment treatment,@JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityTreatmentOrNull, includeIfNull: false) SecurityTreatment? missingTreatment
+ bool active, int? ttl, SecurityTreatment treatment,@JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityMissingTreatmentFromJson, toJson: securityMissingTreatmentToJson, includeIfNull: false) SecurityTreatment? missingTreatment
 });
 
 
@@ -9561,7 +9562,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  int? ttl,  SecurityTreatment treatment, @JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityTreatmentOrNull, includeIfNull: false)  SecurityTreatment? missingTreatment)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  int? ttl,  SecurityTreatment treatment, @JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityMissingTreatmentFromJson, toJson: securityMissingTreatmentToJson, includeIfNull: false)  SecurityTreatment? missingTreatment)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SecurityOption() when $default != null:
 return $default(_that.active,_that.ttl,_that.treatment,_that.missingTreatment);case _:
@@ -9582,7 +9583,7 @@ return $default(_that.active,_that.ttl,_that.treatment,_that.missingTreatment);c
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  int? ttl,  SecurityTreatment treatment, @JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityTreatmentOrNull, includeIfNull: false)  SecurityTreatment? missingTreatment)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  int? ttl,  SecurityTreatment treatment, @JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityMissingTreatmentFromJson, toJson: securityMissingTreatmentToJson, includeIfNull: false)  SecurityTreatment? missingTreatment)  $default,) {final _that = this;
 switch (_that) {
 case _SecurityOption():
 return $default(_that.active,_that.ttl,_that.treatment,_that.missingTreatment);case _:
@@ -9602,7 +9603,7 @@ return $default(_that.active,_that.ttl,_that.treatment,_that.missingTreatment);c
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  int? ttl,  SecurityTreatment treatment, @JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityTreatmentOrNull, includeIfNull: false)  SecurityTreatment? missingTreatment)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  int? ttl,  SecurityTreatment treatment, @JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityMissingTreatmentFromJson, toJson: securityMissingTreatmentToJson, includeIfNull: false)  SecurityTreatment? missingTreatment)?  $default,) {final _that = this;
 switch (_that) {
 case _SecurityOption() when $default != null:
 return $default(_that.active,_that.ttl,_that.treatment,_that.missingTreatment);case _:
@@ -9617,7 +9618,7 @@ return $default(_that.active,_that.ttl,_that.treatment,_that.missingTreatment);c
 @JsonSerializable()
 
 class _SecurityOption extends SecurityOption {
-  const _SecurityOption({this.active = false, this.ttl, this.treatment = SecurityTreatment.block, @JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityTreatmentOrNull, includeIfNull: false) this.missingTreatment}): super._();
+  const _SecurityOption({this.active = false, this.ttl, this.treatment = SecurityTreatment.block, @JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityMissingTreatmentFromJson, toJson: securityMissingTreatmentToJson, includeIfNull: false) this.missingTreatment}): super._();
   factory _SecurityOption.fromJson(Map<String, dynamic> json) => _$SecurityOptionFromJson(json);
 
 @override@JsonKey() final  bool active;
@@ -9628,10 +9629,11 @@ class _SecurityOption extends SecurityOption {
 /// mode, form sent before the fingerprint loaded). `block | warning`;
 /// null = follow [treatment] (today's backend behavior).
 ///
-/// NOT CONFIRMED by the backend yet (spec §3.13 / §7). Lenient parse
-/// (unknown values -> null) and omitted from JSON when null, so existing
-/// payloads round-trip unchanged.
-@override@JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityTreatmentOrNull, includeIfNull: false) final  SecurityTreatment? missingTreatment;
+/// Confirmed by the team lead as `'block' | 'warning' | null`;
+/// PROVISIONAL until the backend sends the final shape. Only block /
+/// warning are accepted (`fake` and unknown values -> null) and the key is
+/// omitted from JSON when null, so existing payloads round-trip unchanged.
+@override@JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityMissingTreatmentFromJson, toJson: securityMissingTreatmentToJson, includeIfNull: false) final  SecurityTreatment? missingTreatment;
 
 /// Create a copy of SecurityOption
 /// with the given fields replaced by the non-null parameter values.
@@ -9668,7 +9670,7 @@ abstract mixin class _$SecurityOptionCopyWith<$Res> implements $SecurityOptionCo
   factory _$SecurityOptionCopyWith(_SecurityOption value, $Res Function(_SecurityOption) _then) = __$SecurityOptionCopyWithImpl;
 @override @useResult
 $Res call({
- bool active, int? ttl, SecurityTreatment treatment,@JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityTreatmentOrNull, includeIfNull: false) SecurityTreatment? missingTreatment
+ bool active, int? ttl, SecurityTreatment treatment,@JsonKey(name: SecurityGeoJsonKeys.missingTreatment, fromJson: securityMissingTreatmentFromJson, toJson: securityMissingTreatmentToJson, includeIfNull: false) SecurityTreatment? missingTreatment
 });
 
 
@@ -11997,7 +11999,8 @@ mixin _$SecurityIntegration {
 
  bool get active; SecurityOptions? get options; Map<String, dynamic> get metadata;/// Read-only visitor-location status from the backend (`'live' | 'off'`;
 /// missing / unknown = [SecurityGeoStatus.off]). Never written back:
-/// excluded from [toJson] so store updates cannot send it.
+/// excluded from [toJson] so store updates cannot send it. PROVISIONAL
+/// until the backend sends the final shape.
 @JsonKey(name: SecurityGeoJsonKeys.geoStatus, fromJson: securityGeoStatusFromJson, includeToJson: false) SecurityGeoStatus get geoStatus;
 /// Create a copy of SecurityIntegration
 /// with the given fields replaced by the non-null parameter values.
@@ -12226,7 +12229,8 @@ class _SecurityIntegration extends SecurityIntegration {
 
 /// Read-only visitor-location status from the backend (`'live' | 'off'`;
 /// missing / unknown = [SecurityGeoStatus.off]). Never written back:
-/// excluded from [toJson] so store updates cannot send it.
+/// excluded from [toJson] so store updates cannot send it. PROVISIONAL
+/// until the backend sends the final shape.
 @override@JsonKey(name: SecurityGeoJsonKeys.geoStatus, fromJson: securityGeoStatusFromJson, includeToJson: false) final  SecurityGeoStatus geoStatus;
 
 /// Create a copy of SecurityIntegration

@@ -164,7 +164,7 @@ void main() {
     });
   });
 
-  group('fingerprint.missingTreatment (optional, backend not confirmed)', () {
+  group('fingerprint.missingTreatment (block | warning | null, provisional)', () {
     test('absent: null, follows treatment, not written', () {
       final f = SecurityOption.fromJson(
           {'active': true, 'ttl': 3600, 'treatment': 'block'});
@@ -188,6 +188,30 @@ void main() {
       final out = _wire(o.toJson());
       expect(out['fingerprint']['missingTreatment'], 'warning');
       expect(SecurityOptions.fromJson(out), o);
+    });
+
+    test('explicit null -> null (follow treatment), not written', () {
+      final f = SecurityOption.fromJson(
+          {'active': true, 'treatment': 'warning', 'missingTreatment': null});
+      expect(f.missingTreatment, isNull);
+      expect(f.effectiveMissingTreatment, SecurityTreatment.warning);
+      expect(f.toJson().containsKey('missingTreatment'), isFalse);
+    });
+
+    test('only block / warning accepted', () {
+      for (final v in ['block', 'BLOCK', 'warning', ' Warning ']) {
+        final f = SecurityOption.fromJson({'missingTreatment': v});
+        expect(f.missingTreatment, isNotNull, reason: v);
+        expect(f.toJson()['missingTreatment'], v.trim().toLowerCase());
+      }
+      final fake = SecurityOption.fromJson({'missingTreatment': 'fake'});
+      expect(fake.missingTreatment, isNull);
+    });
+
+    test('an in-memory fake is never written', () {
+      const f = SecurityOption(
+          active: true, missingTreatment: SecurityTreatment.fake);
+      expect(f.toJson().containsKey('missingTreatment'), isFalse);
     });
 
     test('unknown or wrong-typed value -> null (never throws)', () {

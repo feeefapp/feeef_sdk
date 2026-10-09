@@ -823,12 +823,14 @@ abstract class SecurityOption with _$SecurityOption {
     /// mode, form sent before the fingerprint loaded). `block | warning`;
     /// null = follow [treatment] (today's backend behavior).
     ///
-    /// NOT CONFIRMED by the backend yet (spec §3.13 / §7). Lenient parse
-    /// (unknown values -> null) and omitted from JSON when null, so existing
-    /// payloads round-trip unchanged.
+    /// Confirmed by the team lead as `'block' | 'warning' | null`;
+    /// PROVISIONAL until the backend sends the final shape. Only block /
+    /// warning are accepted (`fake` and unknown values -> null) and the key is
+    /// omitted from JSON when null, so existing payloads round-trip unchanged.
     @JsonKey(
       name: SecurityGeoJsonKeys.missingTreatment,
-      fromJson: securityTreatmentOrNull,
+      fromJson: securityMissingTreatmentFromJson,
+      toJson: securityMissingTreatmentToJson,
       includeIfNull: false,
     )
     SecurityTreatment? missingTreatment,
@@ -1213,7 +1215,8 @@ abstract class SecurityIntegration with _$SecurityIntegration {
 
     /// Read-only visitor-location status from the backend (`'live' | 'off'`;
     /// missing / unknown = [SecurityGeoStatus.off]). Never written back:
-    /// excluded from [toJson] so store updates cannot send it.
+    /// excluded from [toJson] so store updates cannot send it. PROVISIONAL
+    /// until the backend sends the final shape.
     @JsonKey(
       name: SecurityGeoJsonKeys.geoStatus,
       fromJson: securityGeoStatusFromJson,
@@ -1226,8 +1229,9 @@ abstract class SecurityIntegration with _$SecurityIntegration {
   factory SecurityIntegration.fromJson(Map<String, dynamic> json) =>
       _$SecurityIntegrationFromJson(json);
 
-  /// Geo rules (countries / regions / cities) can be switched on and are
-  /// evaluated only while this is true.
+  /// Wilaya / city rules can be switched on and are evaluated only while this
+  /// is true. The country rule stays active either way (it falls back to a
+  /// less reliable source while location is off).
   bool get isGeoLive => geoStatus == SecurityGeoStatus.live;
 }
 
@@ -1236,7 +1240,8 @@ enum SecurityGeoStatus {
   /// Trusted visitor location is enforced; geo rules apply.
   live,
 
-  /// Not live yet (default): geo rules are paused and cannot be turned on.
+  /// Not live yet (default): wilaya / city rules are paused and cannot be
+  /// turned on; the country rule stays active on a less reliable source.
   off,
 }
 

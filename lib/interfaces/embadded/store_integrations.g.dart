@@ -894,17 +894,20 @@ _SecurityOption _$SecurityOptionFromJson(Map<String, dynamic> json) =>
       treatment:
           $enumDecodeNullable(_$SecurityTreatmentEnumMap, json['treatment']) ??
           SecurityTreatment.block,
-      missingTreatment: securityTreatmentOrNull(json['missingTreatment']),
+      missingTreatment: securityMissingTreatmentFromJson(
+        json['missingTreatment'],
+      ),
     );
 
-Map<String, dynamic> _$SecurityOptionToJson(
-  _SecurityOption instance,
-) => <String, dynamic>{
-  'active': instance.active,
-  'ttl': instance.ttl,
-  'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
-  'missingTreatment': ?_$SecurityTreatmentEnumMap[instance.missingTreatment],
-};
+Map<String, dynamic> _$SecurityOptionToJson(_SecurityOption instance) =>
+    <String, dynamic>{
+      'active': instance.active,
+      'ttl': instance.ttl,
+      'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
+      'missingTreatment': ?securityMissingTreatmentToJson(
+        instance.missingTreatment,
+      ),
+    };
 
 const _$SecurityTreatmentEnumMap = {
   SecurityTreatment.block: 'block',

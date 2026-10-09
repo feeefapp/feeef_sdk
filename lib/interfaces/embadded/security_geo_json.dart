@@ -113,6 +113,23 @@ SecurityTreatment? securityTreatmentOrNull(Object? value) {
   return null;
 }
 
+/// `fingerprint.missingTreatment`: only `block` or `warning` (case
+/// insensitive). `fake`, unknown values, wrong types and null -> null, which
+/// means "follow the rule's treatment". PROVISIONAL until the backend ships the
+/// final shape.
+SecurityTreatment? securityMissingTreatmentFromJson(Object? value) {
+  final t = securityTreatmentOrNull(value);
+  return t == SecurityTreatment.block || t == SecurityTreatment.warning
+      ? t
+      : null;
+}
+
+/// Writes only `block` / `warning`; anything else is omitted (null).
+String? securityMissingTreatmentToJson(SecurityTreatment? value) =>
+    value == SecurityTreatment.block || value == SecurityTreatment.warning
+        ? value!.name
+        : null;
+
 /// Lenient treatment: unknown, null or wrong type -> [SecurityTreatment.block]
 /// (same default as the backend validator and the existing options).
 SecurityTreatment securityTreatmentFromJson(Object? value) =>

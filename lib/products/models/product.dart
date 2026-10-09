@@ -23,6 +23,12 @@ LiteOrdersReport? _productLorFromJson(Object? o) {
 
 Object? _productLorToJson(LiteOrdersReport? v) => v?.toJson();
 
+/// Reads `shippingFeeId`, falling back to `defaultCarrierAccountId` (the
+/// planned API name for the product's default courier account) so either
+/// response shape parses.
+Object? readProductShippingFeeId(Map json, String key) =>
+    json['shippingFeeId'] ?? json['defaultCarrierAccountId'];
+
 @freezed
 abstract class Product extends ProductEntity
     with _$Product
@@ -41,7 +47,8 @@ abstract class Product extends ProductEntity
     String? shippingMethodId,
     /// Cloud shipping fee override: `ca_…` or `unassigned`. A `ca_…` value is
     /// also the product's default courier account at ship time (shipping P2).
-    String? shippingFeeId,
+    /// Also read from `defaultCarrierAccountId` when `shippingFeeId` is absent.
+    @JsonKey(readValue: readProductShippingFeeId) String? shippingFeeId,
     /// Product custom shipping fee (overrides the courier rate); null = none.
     @JsonKey(
       fromJson: customShippingFeeFromJson,

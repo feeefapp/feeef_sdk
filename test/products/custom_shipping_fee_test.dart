@@ -17,36 +17,52 @@ Map<String, dynamic> _product([Map<String, dynamic> extra = const {}]) => {
     };
 
 void main() {
-  group('Product.shippingFeeId read alias', () {
-    test('reads shippingFeeId', () {
-      expect(
-        Product.fromJson(_product({'shippingFeeId': 'ca_a'})).shippingFeeId,
-        'ca_a',
+  group('Product.defaultCarrierAccountId', () {
+    test('parses and falls back to a ca_ shippingFeeId', () {
+      final own = Product.fromJson(
+        _product({'defaultCarrierAccountId': 'ca_b', 'shippingFeeId': 'ca_a'}),
       );
+      expect(own.defaultCarrierAccountId, 'ca_b');
+      expect(own.shippingFeeId, 'ca_a');
+      expect(own.courierAccountId, 'ca_b');
+
+      final legacy = Product.fromJson(_product({'shippingFeeId': 'ca_a'}));
+      expect(legacy.defaultCarrierAccountId, isNull);
+      expect(legacy.courierAccountId, 'ca_a');
+
+      final unassigned = Product.fromJson(
+        _product({'shippingFeeId': 'unassigned'}),
+      );
+      expect(unassigned.courierAccountId, isNull);
     });
-    test('falls back to defaultCarrierAccountId', () {
+
+    test('ProductUpdate writes it and clears it via setToNull', () {
       expect(
-        Product.fromJson(_product({'defaultCarrierAccountId': 'ca_b'}))
-            .shippingFeeId,
+        const ProductUpdate(defaultCarrierAccountId: 'ca_b').toUpdateJson(),
+        containsPair('defaultCarrierAccountId', 'ca_b'),
+      );
+      final cleared = const ProductUpdate(
+        setToNull: ['defaultCarrierAccountId'],
+      ).toUpdateJson();
+      expect(cleared.containsKey('defaultCarrierAccountId'), isTrue);
+      expect(cleared['defaultCarrierAccountId'], isNull);
+      expect(
+        const ProductUpdate(name: 'x').toUpdateJson().containsKey(
+          'defaultCarrierAccountId',
+        ),
+        isFalse,
+      );
+      expect(
+        const ProductCreate(
+          name: 'n',
+          slug: 's',
+          media: [],
+          storeId: 's1',
+          price: 1000,
+          defaultCarrierAccountId: 'ca_b',
+        ).toJson()['defaultCarrierAccountId'],
         'ca_b',
       );
-    });
-    test('shippingFeeId wins when both are present', () {
-      expect(
-        Product.fromJson(_product({
-          'shippingFeeId': 'ca_a',
-          'defaultCarrierAccountId': 'ca_b',
-        })).shippingFeeId,
-        'ca_a',
-      );
-    });
-    test('neither field stays null and toJson writes shippingFeeId', () {
-      final p = Product.fromJson(_product());
-      expect(p.shippingFeeId, isNull);
-      final json = Product.fromJson(_product({'defaultCarrierAccountId': 'ca_b'}))
-          .toJson();
-      expect(json['shippingFeeId'], 'ca_b');
-      expect(json.containsKey('defaultCarrierAccountId'), isFalse);
     });
   });
 

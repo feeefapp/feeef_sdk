@@ -7,6 +7,9 @@ import 'package:feeef/orders/models/lite_orders_report.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../interfaces/helpers.dart';
+import 'custom_shipping_fee.dart';
+
+export 'custom_shipping_fee.dart';
 
 part 'product.freezed.dart';
 part 'product.g.dart';
@@ -36,8 +39,15 @@ abstract class Product extends ProductEntity
     required List<String> media,
     required String storeId,
     String? shippingMethodId,
-    /// Cloud shipping fee override: `ca_…` or `unassigned`.
+    /// Cloud shipping fee override: `ca_…` or `unassigned`. A `ca_…` value is
+    /// also the product's default courier account at ship time (shipping P2).
     String? shippingFeeId,
+    /// Product custom shipping fee (overrides the courier rate); null = none.
+    @JsonKey(
+      fromJson: customShippingFeeFromJson,
+      toJson: customShippingFeeToJson,
+    )
+    CustomShippingFee? customShippingFee,
     String? categoryId,
     EmbaddedCategory? category,
     Category? categoryRelation,
@@ -262,6 +272,13 @@ abstract class ProductCreate with _$ProductCreate implements ModelCreate {
     required String storeId,
     String? shippingMethodId,
     String? shippingFeeId,
+    /// Product custom shipping fee (overrides the courier rate); null = none (update: add
+    /// `customShippingFee` to `setToNull` to clear it).
+    @JsonKey(
+      fromJson: customShippingFeeFromJson,
+      toJson: customShippingFeeToJson,
+    )
+    CustomShippingFee? customShippingFee,
     String? categoryId,
     EmbaddedCategory? category,
     String? title,
@@ -303,6 +320,13 @@ abstract class ProductUpdate with _$ProductUpdate implements ModelUpdate {
     String? storeId,
     String? shippingMethodId,
     String? shippingFeeId,
+    /// Product custom shipping fee (overrides the courier rate); null = none (update: add
+    /// `customShippingFee` to `setToNull` to clear it).
+    @JsonKey(
+      fromJson: customShippingFeeFromJson,
+      toJson: customShippingFeeToJson,
+    )
+    CustomShippingFee? customShippingFee,
     String? categoryId,
     EmbaddedCategory? category,
     String? title,

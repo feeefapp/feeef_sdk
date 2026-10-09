@@ -330,6 +330,31 @@ class CloudLabelTemplate {
   }
 }
 
+/// Ship error code: the order's products default to different courier
+/// accounts, so the caller must pick one (`carrierAccountId`).
+const String kMixedCourierAccountsCode = 'MIXED_COURIER_ACCOUNTS';
+
+/// Courier account ids (`ca_…`) from a [kMixedCourierAccountsCode] answer, or
+/// null when [errorOrBody] is something else.
+///
+/// Accepts a [DioException], the single-ship 409 body
+/// (`{code, message, accounts}`), a sendMany `failed` row
+/// (`{code, details: {accounts}}`) or a Cloud `{error: {...}}` wrapper.
+List<String>? mixedCourierAccountsFrom(Object? errorOrBody) {
+  Object? data = errorOrBody;
+  if (data is DioException) data = data.response?.data;
+  if (data is! Map) return null;
+  final map = data['error'] is Map ? data['error'] as Map : data;
+  if (map['code']?.toString() != kMixedCourierAccountsCode) return null;
+  final details = map['details'];
+  final raw = map['accounts'] ?? (details is Map ? details['accounts'] : null);
+  if (raw is! List) return const [];
+  return [
+    for (final a in raw)
+      if (a != null && '$a'.trim().isNotEmpty) '$a'.trim(),
+  ];
+}
+
 /// Live quote row from Cloud Parcel quotes.
 class CloudQuote implements Model {
   const CloudQuote({
@@ -1317,10 +1342,14 @@ class CloudDeliveryApi {
     return _unwrapList(res);
   }
 
+  /// Ships one order. Without [carrierAccountId] the backend uses the order
+  /// products' default courier account (`Product.shippingFeeId`), else the
+  /// store's; it answers 409 [kMixedCourierAccountsCode] when the products
+  /// default to different accounts (see [mixedCourierAccountsFrom]).
   Future<Map<String, dynamic>> shipOrder(
     String storeId,
     String orderId, {
-    required String carrierAccountId,
+    String? carrierAccountId,
     String? pickupId,
     String? note,
     String coverageFallback = 'nearest_covered',
@@ -1329,7 +1358,8 @@ class CloudDeliveryApi {
     final res = await client.post(
       '/stores/$storeId/orders/$orderId/cloud-parcels/send',
       data: {
-        'carrierAccountId': carrierAccountId,
+        if (carrierAccountId != null && carrierAccountId.isNotEmpty)
+          'carrierAccountId': carrierAccountId,
         if (pickupId != null && pickupId.isNotEmpty) 'pickupId': pickupId,
         if (note != null && note.isNotEmpty) 'note': note,
         // Always send the flag. Omitting `none` makes the API default back to
@@ -1341,10 +1371,13 @@ class CloudDeliveryApi {
     return _unwrapMap(res);
   }
 
+  /// Ships many orders. Without [carrierAccountId] each order uses its
+  /// products' default courier account; mixed orders come back in `failed`
+  /// with code [kMixedCourierAccountsCode] and `details.accounts`.
   Future<Map<String, dynamic>> shipOrders(
     String storeId, {
     required List<Map<String, dynamic>> items,
-    required String carrierAccountId,
+    String? carrierAccountId,
     String? note,
     String coverageFallback = 'nearest_covered',
   }) async {
@@ -1359,7 +1392,8 @@ class CloudDeliveryApi {
       ),
       data: {
         'items': items,
-        'carrierAccountId': carrierAccountId,
+        if (carrierAccountId != null && carrierAccountId.isNotEmpty)
+          'carrierAccountId': carrierAccountId,
         if (note != null && note.isNotEmpty) 'note': note,
         // Always send the flag. Omitting `none` makes the API default back to
         // `nearest_covered`, so the sheet toggle would not turn nearest cover off.

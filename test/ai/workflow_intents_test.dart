@@ -126,9 +126,10 @@ void main() {
           throwsA(isA<DioException>()),
         );
       }
+      expect(adapter.calls, hasLength(2));
       expect(
         adapter.calls.map((r) => r.headers['Idempotency-Key']).toSet(),
-        hasLength(3),
+        hasLength(2),
       );
     },
   );

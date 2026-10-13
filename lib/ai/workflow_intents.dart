@@ -99,11 +99,28 @@ class CloudAiWorkflowIntents extends QueuedInterceptor {
           )
           .toString();
       final slot = 'feeef.ai.workflow.$digest';
+      final route = sha256
+          .convert(
+            utf8.encode(
+              jsonEncode([options.baseUrl, account, options.uri.path]),
+            ),
+          )
+          .toString();
+      final active = 'feeef.ai.unresolved.$route';
+      final prior = await storage.get(active);
+      if (prior != null && prior != digest) {
+        throw StateError(
+          'An earlier AI request is unresolved. Retry it with its original input before starting replacement work.',
+        );
+      }
       final key = await storage.get(slot) ?? 'workflow-${cuid()}';
       await storage.set(slot, key);
+      await storage.set(active, digest);
       options.headers['Idempotency-Key'] = key;
       options.extra['feeefAiIntentSlot'] = slot;
       options.extra['feeefAiIntentKey'] = key;
+      options.extra['feeefAiActiveSlot'] = active;
+      options.extra['feeefAiFingerprint'] = digest;
       handler.next(options);
     } catch (error) {
       handler.reject(DioException(requestOptions: options, error: error));
@@ -114,6 +131,8 @@ class CloudAiWorkflowIntents extends QueuedInterceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
     final slot = response.requestOptions.extra['feeefAiIntentSlot'];
     final key = response.requestOptions.extra['feeefAiIntentKey'];
+    final active = response.requestOptions.extra['feeefAiActiveSlot'];
+    final digest = response.requestOptions.extra['feeefAiFingerprint'];
     final body = jsonEncode(response.data);
     final data = response.data is Map ? response.data as Map : const {};
     final status =
@@ -158,6 +177,11 @@ class CloudAiWorkflowIntents extends QueuedInterceptor {
         }
       }
     }
+    if (active is String &&
+        !body.contains('reconcil') &&
+        !body.contains('original request') &&
+        await storage.get(active) == digest)
+      await storage.remove(active);
     handler.next(response);
   }
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.3
+
+- Keep unresolved AI intent keys across restarts and block changed input until the original request is recovered.
+
 ## 1.5.2
 
 - Explicit empty Cloud capability lists disable controls instead of falling back to hardcoded options; automatic provider size is retained as `auto`.

@@ -5,6 +5,7 @@ import 'package:cuid2/cuid2.dart';
 import 'package:dio/dio.dart';
 
 import 'package:feeef/ai/ai_repository.dart';
+import 'package:feeef/ai/workflow_intents.dart';
 import 'package:feeef/ai/brand_studios_repository.dart';
 import 'package:feeef/ai/post_studios_repository.dart';
 import 'package:feeef/ai/ui_studios_repository.dart';
@@ -326,6 +327,12 @@ class Feeef {
     );
 
     await users.init();
+    client.interceptors.add(
+      CloudAiWorkflowIntents(
+        storage: storage,
+        accountId: () => users.auth?.user.id,
+      ),
+    );
     realtime.init();
     // The update gate compares this payload to the app build number.
     // Painting before it arrives treats the version as missing and asks for

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.1
+
+- Legacy AI actions persist a workflow key before sending and retain it across unknown responses and application restarts. Async acknowledgements keep their key until completion is observed.
+- All paid steps use Feeef Cloud receipts; no automatic paid-call retry is added by the SDK.
+
 ## Unreleased
 
 - **cloud delivery**: `shipOrders` (`POST …/orders/cloud-parcels/sendMany`) waits up to 15 minutes. A selection of up to 500 orders is one request; Cloud splits it into the courier's 50–100 parcel calls and rests 1–5 seconds between chunks.

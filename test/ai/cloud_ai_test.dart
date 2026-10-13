@@ -62,6 +62,54 @@ class FixtureAdapter implements HttpClientAdapter {
 }
 
 void main() {
+  test('expired local snapshots can only reach the explicit original-request recovery path', () async {
+    final expired = CloudAiModel.fromJson({
+      ...imageModel().raw,
+      'pricing': {'valid_until': '2000-01-01T00:00:00Z'},
+    });
+    final dio = Dio(BaseOptions(baseUrl: 'https://feeef.test/v1'));
+    final adapter = FixtureAdapter();
+    dio.httpClientAdapter = adapter;
+    final api = CloudAiApi(client: dio);
+    await expectLater(
+      api.generateImage(
+        model: expired,
+        prompt: 'original',
+        settings: {},
+        idempotencyKey: 'persisted-key',
+      ),
+      throwsArgumentError,
+    );
+    expect(adapter.calls, isEmpty);
+    await api.generateImage(
+      model: expired,
+      prompt: 'original',
+      settings: {},
+      idempotencyKey: 'persisted-key',
+      recoverOriginal: true,
+    );
+    expect(adapter.calls.single.headers['Idempotency-Key'], 'persisted-key');
+    expect(adapter.calls.single.path, '/ai/images');
+    await expectLater(
+      api.submit(endpoint: 'responses', body: {}, idempotencyKey: ''),
+      throwsArgumentError,
+    );
+    expect(adapter.calls, hasLength(1));
+  });
+  test('advertised pixel presets still obey reviewed bounds', () {
+    final model = CloudAiModel.fromJson({
+      ...imageModel().raw,
+      'feeef_image': {
+        ...imageModel().image!.raw,
+        'sizes': ['512x4096'],
+      },
+    });
+    expect(
+      () => model.image!.validate({'size': '512x4096'}),
+      throwsArgumentError,
+    );
+  });
+
   test('9:32 dimensions are selectable only when advertised or inside reviewed custom bounds', () {
     final caps = imageModel().image!;
     expect(

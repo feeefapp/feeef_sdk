@@ -357,9 +357,16 @@ class CloudAiApi {
       throw ArgumentError('Use PNG, JPEG or WebP references');
     }
 
-    if (maskBytes != null && (type(maskBytes) != 'image/png' || (imageBytes == null && !attachments.any((a) => a.typeId == 'image')))) { throw ArgumentError('A PNG mask requires a reference image'); }
+    if (maskBytes != null &&
+        (type(maskBytes) != 'image/png' ||
+            (imageBytes == null &&
+                !attachments.any((a) => a.typeId == 'image')))) {
+      throw ArgumentError('A PNG mask requires a reference image');
+    }
     for (final bytes in [imageBytes, maskBytes].whereType<Uint8List>()) {
-      if (!caps.referenceFormats.contains(type(bytes))) { throw ArgumentError('Unsupported reference image format'); }
+      if (!caps.referenceFormats.contains(type(bytes))) {
+        throw ArgumentError('Unsupported reference image format');
+      }
     }
     final form = FormData.fromMap({
       'model': model.id,

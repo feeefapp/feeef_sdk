@@ -196,3 +196,40 @@ This fails if coverage drops below 90% for that set.
 - **License** – MIT; see [LICENSE](LICENSE).
 - **Publishing** – See [PUBLISH_READINESS.md](PUBLISH_READINESS.md) for security notes and a publish checklist.
 - **Changelog** – See [CHANGELOG.md](CHANGELOG.md).
+
+## Feeef Cloud AI (SDK 1.5.0)
+
+`Feeef.instance.ai` / `.ai.cloud` uses Feeef authentication and server-owned Cloud
+workspaces. It exposes current model metadata, native durable requests, streams,
+file uploads, live transcription tickets and strict image generation. The existing
+image-generation repository methods remain available.
+
+```dart
+final ai = Feeef.instance.ai;
+final models = await ai.models();
+final model = models.firstWhere((m) => m.image != null && m.available);
+// Save the immutable input AND this key in durable application storage first.
+final savedKey = 'your-persisted-request-key';
+final generation = await ai.generateImage(
+  model: model,
+  prompt: 'A clean product photograph',
+  settings: model.image!.defaults(),
+  idempotencyKey: savedKey,
+);
+```
+
+Derive controls from `model.image` and validate options before submission. Do not
+infer capabilities from names or copy settings between provider routes. Unknown
+Cloud metadata is retained in `model.raw`. For native APIs, use
+`submit(endpoint: ..., body: ..., idempotencyKey: ...)` and poll the returned job
+with `request(id)`. `stream` returns SSE bytes or a 202 JSON job on recovery;
+inspect its content type/status. `prepareLiveSession` returns an ephemeral ticket
+for the Cloud WebSocket; it never exposes a permanent provider credential.
+
+A timeout can occur after admission. Recover with `requests(idempotencyKey: key)`
+or replay the same input/key. Never automatically create a replacement key.
+`recoverOriginal: true` on image generation permits a saved request snapshot to
+reach backend recovery even after its local price card expires. The backend still
+validates the current catalog for new jobs. Charges (`chargeDzd`, `chargedMicros`)
+remain decimal strings; pending charges stay unknown. New Cloud AI billing is
+postpaid with no Feeef wallet reserve and can produce a negative balance.

@@ -1,4 +1,7 @@
 import 'dart:convert';
+
+import 'cloud_ai.dart';
+
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
@@ -7,10 +10,11 @@ import 'package:http_parser/http_parser.dart' show MediaType;
 
 /// Image generations repository.
 /// Usage: `ff.imageGenerations.createImageGeneration(...)`
-class ImageGenerationsRepository {
-  final Dio client;
+class ImageGenerationsRepository extends CloudAiApi {
+  ImageGenerationsRepository({required super.client});
 
-  ImageGenerationsRepository({required this.client});
+  /// Compatibility access; all Cloud AI methods are also available directly on ff.ai.
+  CloudAiApi get cloud => this;
 
   /// List user's image generations (paginated).
   /// Backend returns Lucid paginator json: `{ meta: {...}, data: [...] }`.
@@ -136,8 +140,10 @@ class ImageGenerationsRepository {
     String? prompt,
     Uint8List? imageBytes,
     String? aspectRatio,
+
     /// Output image size: "1K", "2K", "4K". Use for generated image dimensions.
     String? imageSize,
+
     /// Input resolution (how reference images are processed). Distinct from [imageSize]. Default HIGH.
     String resolution = 'MEDIA_RESOLUTION_HIGH',
     String? systemInstructions,
@@ -154,11 +160,13 @@ class ImageGenerationsRepository {
         : null;
     final formData = FormData.fromMap({
       if (id != null && id.trim().isNotEmpty) 'id': id.trim(),
-      if (storeId != null && storeId.trim().isNotEmpty) 'storeId': storeId.trim(),
+      if (storeId != null && storeId.trim().isNotEmpty)
+        'storeId': storeId.trim(),
       if (title != null && title.trim().isNotEmpty) 'title': title.trim(),
       if (prompt != null && prompt.trim().isNotEmpty) 'prompt': prompt.trim(),
       if (aspectRatio != null) 'aspectRatio': aspectRatio,
-      if (imageSize != null && imageSize.trim().isNotEmpty) 'imageSize': imageSize.trim(),
+      if (imageSize != null && imageSize.trim().isNotEmpty)
+        'imageSize': imageSize.trim(),
       'resolution': resolution,
       if (systemInstructions != null && systemInstructions.trim().isNotEmpty)
         'systemInstructions': systemInstructions.trim(),
@@ -169,7 +177,8 @@ class ImageGenerationsRepository {
       if (imageSearch != null) 'imageSearch': imageSearch,
       if (background != null && background.trim().isNotEmpty)
         'background': background.trim(),
-      if (quality != null && quality.trim().isNotEmpty) 'quality': quality.trim(),
+      if (quality != null && quality.trim().isNotEmpty)
+        'quality': quality.trim(),
       if (outputFormat != null && outputFormat.trim().isNotEmpty)
         'outputFormat': outputFormat.trim(),
       if (imageBytes != null)

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.2
+
+- Explicit empty Cloud capability lists disable controls instead of falling back to hardcoded options; automatic provider size is retained as `auto`.
+
 ## 1.5.1
 
 - Legacy AI actions persist a workflow key before sending and retain it across unknown responses and application restarts. Async acknowledgements keep their key until completion is observed.

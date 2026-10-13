@@ -143,7 +143,10 @@ ImageGenCaps _defaultsForModel(ModelCatalogRow? row, String modelId) {
 
 List<String>? _aspectRatioList(dynamic v) {
   if (v is! List) return null;
-  return v.map((e) => e.toString()).where((s) => s.contains(':')).toList();
+  return v
+      .map((e) => e.toString())
+      .where((s) => s == 'auto' || s.contains(':'))
+      .toList();
 }
 
 List<String>? _stringList(dynamic v) {
@@ -182,15 +185,9 @@ ImageGenCaps resolveImageGenCaps(ModelCatalogRow? row, String modelId) {
   }
 
   return ImageGenCaps(
-    allowedAspectRatios: aspects != null && aspects.isNotEmpty
-        ? aspects
-        : base.allowedAspectRatios,
-    outputSizeTiers: outTiers != null && outTiers.isNotEmpty
-        ? outTiers
-        : base.outputSizeTiers,
-    inputResolutionTiers: inTiers != null && inTiers.isNotEmpty
-        ? inTiers
-        : base.inputResolutionTiers,
+    allowedAspectRatios: aspects ?? base.allowedAspectRatios,
+    outputSizeTiers: outTiers ?? base.outputSizeTiers,
+    inputResolutionTiers: inTiers ?? base.inputResolutionTiers,
     googleSearch: gSearch ?? base.googleSearch,
     imageSearch: iSearch ?? base.imageSearch,
     backgroundOptions: bgOpts ?? base.backgroundOptions,

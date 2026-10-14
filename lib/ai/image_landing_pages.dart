@@ -181,6 +181,7 @@ class ImageLandingPagesApi {
   }) async {
     final response = await client.post(
       '/ai/image-landing-pages/questions',
+      options: Options(headers: {'Idempotency-Key': idempotencyKey}),
       data: {
         'key': idempotencyKey,
         'storeId': ?storeId,

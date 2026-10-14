@@ -1,6 +1,6 @@
 import 'package:feeef/attachments/attachment.dart';
 
-/// Aspect ratios accepted by `POST /actions/generateImageLandingPage`.
+/// Aspect ratios accepted by `POST /ai/image-landing-pages`.
 ///
 /// Keep in sync with backend `IMAGE_LANDING_PAGE_ASPECT_RATIOS`
 /// (`backend/app/validators/generate_image_landing_page.ts`).

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-/// Poststudio projects (`/postStudios`) — regional social / ad creatives.
+/// Poststudio projects (`/ai/post-studios`) — regional social / ad creatives.
 ///
 /// Generations are created via [Actions.generatePostAsset].
 class PostStudiosRepository {
@@ -13,7 +13,7 @@ class PostStudiosRepository {
   >
   list({int page = 1, int limit = 24}) async {
     final response = await client.get(
-      '/postStudios',
+      '/ai/post-studios',
       queryParameters: {'page': page, 'limit': limit},
     );
     return _parsePage(response.data, page);
@@ -30,7 +30,7 @@ class PostStudiosRepository {
     String? status,
   }) async {
     final response = await client.post(
-      '/postStudios',
+      '/ai/post-studios',
       data: {
         'name': name,
         if (brief != null) 'brief': brief,
@@ -49,7 +49,7 @@ class PostStudiosRepository {
   }
 
   Future<Map<String, dynamic>> find(String id) async {
-    final response = await client.get('/postStudios/$id');
+    final response = await client.get('/ai/post-studios/$id');
     final body = Map<String, dynamic>.from(response.data as Map);
     final data = body['data'];
     if (data is Map) return Map<String, dynamic>.from(data);
@@ -68,7 +68,7 @@ class PostStudiosRepository {
     String? status,
   }) async {
     final response = await client.patch(
-      '/postStudios/$id',
+      '/ai/post-studios/$id',
       data: {
         if (name != null) 'name': name,
         if (brief != null) 'brief': brief,
@@ -87,7 +87,7 @@ class PostStudiosRepository {
   }
 
   Future<void> delete(String id) async {
-    await client.delete('/postStudios/$id');
+    await client.delete('/ai/post-studios/$id');
   }
 
   /// Chat history for one deliverable kind (newest first).
@@ -106,7 +106,7 @@ class PostStudiosRepository {
     int limit = 40,
   }) async {
     final response = await client.get(
-      '/postStudios/$studioId/generations',
+      '/ai/post-studios/$studioId/generations',
       queryParameters: {'kind': kind, 'page': page, 'limit': limit},
     );
     final pageResult = _parsePage(response.data, page);
@@ -125,7 +125,7 @@ class PostStudiosRepository {
     required String generationId,
   }) async {
     final response = await client.patch(
-      '/postStudios/$studioId/primaries',
+      '/ai/post-studios/$studioId/primaries',
       data: {'kind': kind, 'generationId': generationId},
     );
     final body = Map<String, dynamic>.from(response.data as Map);

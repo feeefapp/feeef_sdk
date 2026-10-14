@@ -6,38 +6,28 @@ import 'package:dio/dio.dart';
 
 import '../core/feeef_storage.dart';
 
-/// Persist intent keys before sending legacy AI actions. Unknown outcomes retain
+/// Persist intent keys before sending paid AI workflow requests. Unknown outcomes retain
 /// their key across application restarts. The server owns all paid-step retries.
 class CloudAiWorkflowIntents extends QueuedInterceptor {
   CloudAiWorkflowIntents({required this.storage, required this.accountId});
   final FeeefStorage storage;
   final String? Function() accountId;
-  static const actions = {
-    'updateProductUsingAi',
-    'updateShippingPriceUsingAi',
-    'updateOrderUsingAi',
-    'generateListFilterUsingAi',
-    'generateDatePresetUsingAi',
-    'generateCustomComponentCode',
-    'generateSimpleCode',
-    'generateProductLandingPageTemplateData',
-    'editTemplatePageUsingAi',
-    'generateAiLandingPage',
-    'editOrGenerateSimpleImage',
-    'generateVoiceover',
-    'generateImageLandingPage',
-    'generateBrandAsset',
-    'generateLogo',
-    'generatePostAsset',
-    'generateUiAsset',
-  };
+  /// Paid `/ai/*` POSTs that run as durable Cloud workflows (mirror of the
+  /// backend `workflow_routes.ts`).
+  static final _paths = [
+    RegExp(r'^text/(product-draft|shipping-price-draft|order-draft|list-filter|date-preset|custom-fields-draft)$'),
+    RegExp(r'^code/(snippet|custom-component|template-page-edit|landing-page-template-data)$'),
+    RegExp(r'^landing-pages$'),
+    RegExp(r'^images/sync$'),
+    RegExp(r'^image-generations(?:/[^/]+/regenerate)?$'),
+    RegExp(r'^image-landing-pages$'),
+    RegExp(r'^voiceovers$'),
+    RegExp(r'^(brand|post|ui)-assets$'),
+  ];
   static bool applies(RequestOptions options) {
     if (options.method.toUpperCase() != 'POST') return false;
-    final path = options.uri.path;
-    return (path.contains('/actions/') &&
-            actions.contains(path.split('/').last)) ||
-        RegExp(r'/image_generations(?:/[^/]+)?/generate$').hasMatch(path) ||
-        path.endsWith('/image_generations');
+    final match = RegExp(r'/ai/(.+)$').firstMatch(options.uri.path);
+    return match != null && _paths.any((p) => p.hasMatch(match.group(1)!));
   }
 
   static dynamic canonical(dynamic value) {

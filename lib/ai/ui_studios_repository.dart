@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-/// Uistudio projects (`/uiStudios`) — UI mockup screens + canvas.
+/// Uistudio projects (`/ai/ui-studios`) — UI mockup screens + canvas.
 ///
 /// Generations are created via [Actions.generateUiAsset].
 class UiStudiosRepository {
@@ -13,7 +13,7 @@ class UiStudiosRepository {
   >
   list({int page = 1, int limit = 24}) async {
     final response = await client.get(
-      '/uiStudios',
+      '/ai/ui-studios',
       queryParameters: {'page': page, 'limit': limit},
     );
     return _parsePage(response.data, page);
@@ -30,7 +30,7 @@ class UiStudiosRepository {
     String? status,
   }) async {
     final response = await client.post(
-      '/uiStudios',
+      '/ai/ui-studios',
       data: {
         'name': name,
         if (brief != null) 'brief': brief,
@@ -49,7 +49,7 @@ class UiStudiosRepository {
   }
 
   Future<Map<String, dynamic>> find(String id) async {
-    final response = await client.get('/uiStudios/$id');
+    final response = await client.get('/ai/ui-studios/$id');
     final body = Map<String, dynamic>.from(response.data as Map);
     final data = body['data'];
     if (data is Map) return Map<String, dynamic>.from(data);
@@ -68,7 +68,7 @@ class UiStudiosRepository {
     String? status,
   }) async {
     final response = await client.patch(
-      '/uiStudios/$id',
+      '/ai/ui-studios/$id',
       data: {
         if (name != null) 'name': name,
         if (brief != null) 'brief': brief,
@@ -87,7 +87,7 @@ class UiStudiosRepository {
   }
 
   Future<void> delete(String id) async {
-    await client.delete('/uiStudios/$id');
+    await client.delete('/ai/ui-studios/$id');
   }
 
   /// Chat history for one deliverable kind (newest first).
@@ -106,7 +106,7 @@ class UiStudiosRepository {
     int limit = 40,
   }) async {
     final response = await client.get(
-      '/uiStudios/$studioId/generations',
+      '/ai/ui-studios/$studioId/generations',
       queryParameters: {'kind': kind, 'page': page, 'limit': limit},
     );
     final pageResult = _parsePage(response.data, page);
@@ -125,7 +125,7 @@ class UiStudiosRepository {
     required String generationId,
   }) async {
     final response = await client.patch(
-      '/uiStudios/$studioId/primaries',
+      '/ai/ui-studios/$studioId/primaries',
       data: {'kind': kind, 'generationId': generationId},
     );
     final body = Map<String, dynamic>.from(response.data as Map);

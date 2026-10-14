@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-/// Brandstudio projects (`/brandStudios`).
+/// Brandstudio projects (`/ai/brand-studios`).
 ///
 /// Each studio groups many [image_generations] rows (board versions + cut-outs).
 class BrandStudiosRepository {
@@ -13,7 +13,7 @@ class BrandStudiosRepository {
   >
   list({int page = 1, int limit = 24}) async {
     final response = await client.get(
-      '/brandStudios',
+      '/ai/brand-studios',
       queryParameters: {'page': page, 'limit': limit},
     );
     return _parsePage(response.data, page);
@@ -30,7 +30,7 @@ class BrandStudiosRepository {
     String? status,
   }) async {
     final response = await client.post(
-      '/brandStudios',
+      '/ai/brand-studios',
       data: {
         'name': name,
         if (brief != null) 'brief': brief,
@@ -49,7 +49,7 @@ class BrandStudiosRepository {
   }
 
   Future<Map<String, dynamic>> find(String id) async {
-    final response = await client.get('/brandStudios/$id');
+    final response = await client.get('/ai/brand-studios/$id');
     final body = Map<String, dynamic>.from(response.data as Map);
     final data = body['data'];
     if (data is Map) return Map<String, dynamic>.from(data);
@@ -68,7 +68,7 @@ class BrandStudiosRepository {
     String? status,
   }) async {
     final response = await client.patch(
-      '/brandStudios/$id',
+      '/ai/brand-studios/$id',
       data: {
         if (name != null) 'name': name,
         if (brief != null) 'brief': brief,
@@ -87,7 +87,7 @@ class BrandStudiosRepository {
   }
 
   Future<void> delete(String id) async {
-    await client.delete('/brandStudios/$id');
+    await client.delete('/ai/brand-studios/$id');
   }
 
   /// Chat history for one deliverable kind (newest first).
@@ -106,7 +106,7 @@ class BrandStudiosRepository {
     int limit = 40,
   }) async {
     final response = await client.get(
-      '/brandStudios/$studioId/generations',
+      '/ai/brand-studios/$studioId/generations',
       queryParameters: {'kind': kind, 'page': page, 'limit': limit},
     );
     final pageResult = _parsePage(response.data, page);
@@ -125,7 +125,7 @@ class BrandStudiosRepository {
     required String generationId,
   }) async {
     final response = await client.patch(
-      '/brandStudios/$studioId/primaries',
+      '/ai/brand-studios/$studioId/primaries',
       data: {'kind': kind, 'generationId': generationId},
     );
     final body = Map<String, dynamic>.from(response.data as Map);

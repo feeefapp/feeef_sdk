@@ -931,7 +931,7 @@ class Actions {
       };
 
       final response = await client.post(
-        '/actions/generateSimpleCode',
+        '/ai/code/snippet',
         data: requestData,
       );
 
@@ -1036,7 +1036,7 @@ class Actions {
       };
 
       final response = await client.post(
-        '/actions/generateCustomComponentCode',
+        '/ai/code/custom-component',
         data: requestData,
         cancelToken: cancelToken,
       );
@@ -1125,7 +1125,7 @@ class Actions {
       };
 
       final response = await client.post(
-        '/actions/generateProductLandingPageTemplateData',
+        '/ai/code/landing-page-template-data',
         data: requestData,
       );
 
@@ -1202,7 +1202,7 @@ class Actions {
       };
 
       final response = await client.post(
-        '/actions/generateAiLandingPage',
+        '/ai/landing-pages',
         data: requestData,
       );
 
@@ -1250,8 +1250,7 @@ class Actions {
         throw ArgumentError('jobId is required');
       }
       final response = await client.get(
-        '/actions/getAiLandingPageJobStatus',
-        queryParameters: {'jobId': jobId},
+        '/ai/landing-pages/jobs/${Uri.encodeComponent(jobId)}',
       );
       final responseData = response.data as Map<String, dynamic>;
       return (
@@ -1334,7 +1333,7 @@ class Actions {
           'modelId': trimmedCatalogModelId,
       };
       final resp = await client.post(
-        '/actions/updateProductUsingAi',
+        '/ai/text/product-draft',
         data: payload,
       );
       final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
@@ -1436,7 +1435,7 @@ class Actions {
           'modelId': trimmedCatalogModelId,
       };
       final resp = await client.post(
-        '/actions/updateShippingPriceUsingAi',
+        '/ai/text/shipping-price-draft',
         data: payload,
       );
       final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
@@ -1547,7 +1546,7 @@ class Actions {
           'modelId': trimmedCatalogModelId,
       };
       final resp = await client.post(
-        '/actions/updateOrderUsingAi',
+        '/ai/text/order-draft',
         data: payload,
       );
       final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
@@ -1640,7 +1639,7 @@ class Actions {
       };
 
       final resp = await client.post(
-        '/actions/generateListFilterUsingAi',
+        '/ai/text/list-filter',
         data: payload,
       );
       final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
@@ -1717,7 +1716,7 @@ class Actions {
       };
 
       final resp = await client.post(
-        '/actions/generateDatePresetUsingAi',
+        '/ai/text/date-preset',
         data: payload,
       );
       final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
@@ -1747,6 +1746,85 @@ class Actions {
         message: 'Unexpected error',
         error: 'An unexpected error occurred. Please try again.',
         raw: null,
+      );
+    }
+  }
+
+  /// generateCustomFieldsUsingAi
+  ///
+  /// Natural language → the complete next list of order-form custom fields.
+  /// Pass [currentFields] to edit an existing setup (kept fields keep their
+  /// ids). Nothing is saved server-side: apply the returned draft locally and
+  /// persist it through the `customFields` integration route.
+  ///
+  /// Paid AI workflow route: persist [idempotencyKey] with the input and reuse
+  /// it when retrying the same request.
+  Future<
+    ({
+      bool success,
+      List<CustomField>? fields,
+      String message,
+      String? error,
+    })
+  >
+  generateCustomFieldsUsingAi({
+    required String storeId,
+    required String input,
+    required String idempotencyKey,
+    List<CustomField> currentFields = const [],
+    String? modelId,
+    List<Attachment>? attachments,
+  }) async {
+    try {
+      if (storeId.isEmpty) throw ArgumentError('storeId required');
+      if (input.trim().length < 2) throw ArgumentError('input required');
+      final trimmedModelId = modelId?.trim();
+      final resp = await client.post(
+        '/ai/text/custom-fields-draft',
+        data: {
+          'storeId': storeId,
+          'input': input.trim(),
+          'currentFields': currentFields.map((f) => f.toJson()).toList(),
+          if (trimmedModelId != null && trimmedModelId.isNotEmpty)
+            'modelId': trimmedModelId,
+          if (attachments != null && attachments.isNotEmpty)
+            'attachments': attachments.map((a) => a.toJson()).toList(),
+        },
+        options: Options(headers: {'Idempotency-Key': idempotencyKey}),
+      );
+      final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
+      final rawFields = d['fields'];
+      return (
+        success: _jsonBool(d['success']),
+        fields: rawFields is List
+            ? rawFields
+                  .map(_jsonObjectMap)
+                  .whereType<Map<String, dynamic>>()
+                  .map(CustomField.fromJson)
+                  .toList()
+            : null,
+        message: d['message'] as String? ?? '',
+        error: d['error'] as String?,
+      );
+    } on DioException catch (e) {
+      final resMap = _jsonObjectMap(e.response?.data);
+      final nested = _jsonObjectMap(resMap?['error']);
+      return (
+        success: false,
+        fields: null,
+        message: 'AI custom fields request failed',
+        error: nested?['message'] as String? ??
+            resMap?['error'] as String? ??
+            resMap?['message'] as String? ??
+            e.message,
+      );
+    } catch (e) {
+      developer.log('Error in generateCustomFieldsUsingAi: $e');
+      return (
+        success: false,
+        fields: null,
+        message: 'Unexpected error',
+        error: 'An unexpected error occurred. Please try again.',
       );
     }
   }
@@ -1822,7 +1900,7 @@ class Actions {
       });
 
       final response = await client.post(
-        '/actions/editOrGenerateSimpleImage',
+        '/ai/images/sync',
         data: formData,
       );
 
@@ -1908,7 +1986,7 @@ class Actions {
         ),
     });
 
-    final response = await client.post('/image_generations', data: formData);
+    final response = await client.post('/ai/image-generations', data: formData);
     return Map<String, dynamic>.from(response.data as Map);
   }
 
@@ -1969,7 +2047,7 @@ class Actions {
     });
 
     final response = await client.post(
-      '/image_generations/$id/generate',
+      '/ai/image-generations/$id/regenerate',
       data: formData,
     );
     return Map<String, dynamic>.from(response.data as Map);
@@ -2184,7 +2262,7 @@ class Actions {
       };
 
       final response = await client.post(
-        '/actions/generateVoiceover',
+        '/ai/voiceovers',
         data: requestData,
       );
 
@@ -2302,7 +2380,7 @@ class Actions {
       );
 
       final response = await client.post(
-        '/actions/generateImageLandingPage',
+        '/ai/image-landing-pages',
         data: requestData,
       );
 
@@ -2346,7 +2424,7 @@ class Actions {
     }
   }
 
-  /// Brandstudio asset generation (`POST /actions/generateBrandAsset`).
+  /// Brandstudio asset generation (`POST /ai/brand-assets`).
   ///
   /// [assetKind] `identity` produces an opaque brand-kit board. Other kinds are
   /// isolated transparent PNGs. Pass [inputImageUrl] to edit/extract from a board.
@@ -2418,7 +2496,7 @@ class Actions {
       }
 
       final response = await client.post(
-        '/actions/generateBrandAsset',
+        '/ai/brand-assets',
         data: requestData,
       );
 
@@ -2471,55 +2549,7 @@ class Actions {
     }
   }
 
-  /// Prefer [generateBrandAsset]. Maps [identityStudioId] → brandStudioId.
-  @Deprecated('Use generateBrandAsset instead')
-  Future<
-    ({
-      bool success,
-      String? id,
-      String? brandStudioId,
-      String? identityStudioId,
-      String message,
-      String? error,
-      Map<String, dynamic>? metadata,
-    })
-  >
-  generateLogo({
-    required String logoName,
-    required String description,
-    int? color1,
-    int? color2,
-    List<int>? colors,
-    String? aspectRatio,
-    String? imageModel,
-    String? assetKind,
-    String? inputImageUrl,
-    String? identityStudioId,
-    String? brandStudioId,
-    bool createStudio = false,
-    List<Attachment>? attachments,
-    List<String>? referenceImageUrls,
-    Map<String, String>? referenceImageLabels,
-  }) {
-    return generateBrandAsset(
-      logoName: logoName,
-      description: description,
-      color1: color1,
-      color2: color2,
-      colors: colors,
-      aspectRatio: aspectRatio,
-      imageModel: imageModel,
-      assetKind: assetKind,
-      inputImageUrl: inputImageUrl,
-      brandStudioId: brandStudioId ?? identityStudioId,
-      createStudio: createStudio,
-      attachments: attachments,
-      referenceImageUrls: referenceImageUrls,
-      referenceImageLabels: referenceImageLabels,
-    );
-  }
-
-  /// Poststudio asset generation (`POST /actions/generatePostAsset`).
+  /// Poststudio asset generation (`POST /ai/post-assets`).
   ///
   /// [assetKind]: `feed` | `story` | `square` | `wide`.
   /// Pass [postStudioId] or [createStudio]: true.
@@ -2566,7 +2596,7 @@ class Actions {
       };
 
       final response = await client.post(
-        '/actions/generatePostAsset',
+        '/ai/post-assets',
         data: requestData,
       );
 
@@ -2614,7 +2644,7 @@ class Actions {
     }
   }
 
-  /// Uistudio asset generation (`POST /actions/generateUiAsset`).
+  /// Uistudio asset generation (`POST /ai/ui-assets`).
   ///
   /// [assetKind]: `web` | `mobile` | `dashboard` | `landing` | `settings`.
   /// Pass [uiStudioId] or [createStudio]: true.
@@ -2660,7 +2690,7 @@ class Actions {
       };
 
       final response = await client.post(
-        '/actions/generateUiAsset',
+        '/ai/ui-assets',
         data: requestData,
       );
 

@@ -67,7 +67,7 @@ void main() {
       final adapter = Adapter();
       final first = client(storage, adapter);
       await expectLater(
-        first.post('/actions/generateSimpleCode', data: {'text': 'hello'}),
+        first.post('/ai/code/snippet', data: {'text': 'hello'}),
         throwsA(isA<DioException>()),
       );
       expect(adapter.calls, hasLength(1));
@@ -75,12 +75,12 @@ void main() {
       adapter.fail = false;
       final restarted = client(storage, adapter);
       await restarted.post(
-        '/actions/generateSimpleCode',
+        '/ai/code/snippet',
         data: {'text': 'hello'},
       );
       expect(adapter.calls.last.headers['Idempotency-Key'], key);
       await restarted.post(
-        '/actions/generateSimpleCode',
+        '/ai/code/snippet',
         data: {'text': 'hello'},
       );
       expect(adapter.calls.last.headers['Idempotency-Key'], isNot(key));
@@ -93,17 +93,17 @@ void main() {
       final adapter = Adapter()..fail = false;
       adapter.response = {'id': 'image', 'status': 'processing'};
       final dio = client(storage, adapter);
-      await dio.post('/image_generations/generate', data: {'prompt': 'one'});
+      await dio.post('/ai/image-generations', data: {'prompt': 'one'});
       final key = adapter.calls.last.headers['Idempotency-Key'];
       await client(
         storage,
         adapter,
-      ).post('/image_generations/generate', data: {'prompt': 'one'});
+      ).post('/ai/image-generations', data: {'prompt': 'one'});
       expect(adapter.calls.last.headers['Idempotency-Key'], key);
       adapter.response = {'id': 'image', 'status': 'completed'};
-      await dio.get('/image_generations/image');
+      await dio.get('/ai/image-generations/image');
       adapter.response = {'id': 'next', 'status': 'pending'};
-      await dio.post('/image_generations/generate', data: {'prompt': 'one'});
+      await dio.post('/ai/image-generations', data: {'prompt': 'one'});
       expect(adapter.calls.last.headers['Idempotency-Key'], isNot(key));
     },
   );
@@ -122,7 +122,7 @@ void main() {
             storage,
             adapter,
             account,
-          ).post('/actions/generateSimpleCode', data: {'text': text}),
+          ).post('/ai/code/snippet', data: {'text': text}),
           throwsA(isA<DioException>()),
         );
       }

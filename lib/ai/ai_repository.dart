@@ -27,7 +27,7 @@ class ImageGenerationsRepository extends CloudAiApi {
       queryParams['tags'] = tags;
     }
     final response = await client.get(
-      '/image_generations',
+      '/ai/image-generations',
       queryParameters: queryParams,
     );
 
@@ -54,7 +54,7 @@ class ImageGenerationsRepository extends CloudAiApi {
   >
   gallery({int page = 1, int limit = 24}) async {
     final response = await client.get(
-      '/image_generations/gallery',
+      '/ai/image-generations/gallery',
       queryParameters: {'page': page, 'limit': limit},
     );
 
@@ -77,7 +77,7 @@ class ImageGenerationsRepository extends CloudAiApi {
 
   /// Fetch a single image generation record (includes `generations` history).
   Future<Map<String, dynamic>> find(String id) async {
-    final response = await client.get('/image_generations/$id');
+    final response = await client.get('/ai/image-generations/$id');
     return Map<String, dynamic>.from(response.data as Map);
   }
 
@@ -88,7 +88,7 @@ class ImageGenerationsRepository extends CloudAiApi {
     required bool isPublished,
   }) async {
     final response = await client.patch(
-      '/image_generations/$id',
+      '/ai/image-generations/$id',
       data: {'status': isPublished ? 'published' : 'completed'},
     );
     return Map<String, dynamic>.from(response.data as Map);
@@ -190,7 +190,7 @@ class ImageGenerationsRepository extends CloudAiApi {
     });
 
     final response = await client.post(
-      '/image_generations/generate',
+      '/ai/image-generations',
       data: formData,
     );
     return Map<String, dynamic>.from(response.data as Map);

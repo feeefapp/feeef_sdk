@@ -155,8 +155,6 @@ class Feeef {
   late final ImageGenerationsRepository imageGenerations;
   late final BrandStudiosRepository brandStudios;
 
-  /// @deprecated Use [brandStudios].
-  BrandStudiosRepository get identityStudios => brandStudios;
   late final PostStudiosRepository postStudios;
   late final UiStudiosRepository uiStudios;
   late final AiRepository ai;

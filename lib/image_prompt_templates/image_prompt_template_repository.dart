@@ -10,7 +10,7 @@ class ImagePromptTemplateRepository
           ImagePromptTemplateUpdate
         > {
   ImagePromptTemplateRepository({required super.client})
-    : super(table: 'image_prompt_templates');
+    : super(table: 'ai/image-prompt-templates');
 
   @override
   ImagePromptTemplateCreate createFromJson(json) =>

@@ -7,6 +7,7 @@ library;
 
 export 'ai/ai_calculator.dart';
 export 'ai/cloud_ai.dart';
+export 'ai/landing_page_studio.dart';
 export 'ai/brand_studios_repository.dart';
 export 'ai/identity_studios_repository.dart';
 export 'ai/post_studios_repository.dart';

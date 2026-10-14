@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 void main() {
   group('resolveImageGenCaps', () {
     test(
-      'explicit empty capabilities disable controls and auto is preserved',
+      'auto-only aspect list falls back to the model default ratios',
       () {
         const row = ModelCatalogRow(
           id: 'coconutstudio/gpt-image-2',
@@ -21,7 +21,8 @@ void main() {
           },
         );
         final caps = resolveImageGenCaps(row, row.id);
-        expect(caps.allowedAspectRatios, ['auto']);
+        expect(caps.allowedAspectRatios, isNot(contains('auto')));
+        expect(caps.allowedAspectRatios, contains('9:32'));
         expect(caps.outputSizeTiers, isEmpty);
         expect(caps.inputResolutionTiers, isEmpty);
         expect(caps.backgroundOptions, isEmpty);

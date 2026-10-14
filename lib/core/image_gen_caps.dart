@@ -102,10 +102,29 @@ bool modelIdSupportsImageOutputTiers(String modelId, {ModelCatalogRow? row}) {
   return false;
 }
 
+bool _isFreeSizeImageModel(String id) =>
+    RegExp(r'(?:^|[/:])gpt-image-2(?:[-_.]|$)').hasMatch(id);
+
 ImageGenCaps _defaultsForModel(ModelCatalogRow? row, String modelId) {
   final id = modelId.toLowerCase().trim();
   final slug = row?.providerSlug.toLowerCase() ?? '';
   final isGoogle = slug == 'google' && id.contains('gemini');
+  // gpt-image-2 accepts arbitrary sizes, so tall landing ratios stay allowed.
+  if (_isFreeSizeImageModel(id)) {
+    return ImageGenCaps(
+      allowedAspectRatios: List<String>.from(kStandardImageAspectRatios),
+      outputSizeTiers: const ['1K', '2K', '4K'],
+      inputResolutionTiers: const [
+        'MEDIA_RESOLUTION_LOW',
+        'MEDIA_RESOLUTION_MEDIUM',
+        'MEDIA_RESOLUTION_HIGH',
+      ],
+      googleSearch: false,
+      imageSearch: false,
+      backgroundOptions: const ['auto', 'opaque', 'transparent'],
+      transparentBackgroundAddonDzd: 0,
+    );
+  }
 
   if (isGoogle && (id.contains('flash-image') || id.contains('pro-image'))) {
     final flashImage =
@@ -143,10 +162,14 @@ ImageGenCaps _defaultsForModel(ModelCatalogRow? row, String modelId) {
 
 List<String>? _aspectRatioList(dynamic v) {
   if (v is! List) return null;
-  return v
-      .map((e) => e.toString())
-      .where((s) => s == 'auto' || s.contains(':'))
+  // The API drops `auto` (no colon) and, when nothing remains, uses the model
+  // default. Keep the same rule so the UI cannot offer a ratio the request rejects.
+  final ratios = v
+      .map((e) => e.toString().trim())
+      .where((s) => s.contains(':'))
       .toList();
+  if (ratios.isEmpty) return null;
+  return ratios;
 }
 
 List<String>? _stringList(dynamic v) {

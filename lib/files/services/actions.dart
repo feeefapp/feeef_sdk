@@ -546,8 +546,12 @@ class Actions {
     return Map<String, dynamic>.from(response.data as Map);
   }
 
-  /// sendMetaPixelTestEvent
+  /// Sends a test event to one Meta pixel of [storeId].
+  ///
+  /// The server resolves the pixel credentials from the store by [MetaPixel.id], so the
+  /// event can only reach that store's pixel. `id`/`key` are kept for older servers.
   Future<Map<String, dynamic>> sendMetaPixelTestEvent({
+    required String storeId,
     required MetaPixel pixel,
     String? testCode,
   }) async {
@@ -555,6 +559,8 @@ class Actions {
       final response = await client.post(
         '/actions/sendMetaPixelTestEvent',
         data: {
+          "storeId": storeId,
+          "pixelId": pixel.id,
           "id": pixel.id,
           "key": pixel.key,
           "code": testCode ?? 'FEEEF_TEST_CODE',
@@ -589,8 +595,9 @@ class Actions {
     }
   }
 
-  /// sendTiktokPixelTestEvent
+  /// Sends a test event to one TikTok pixel of [storeId] (same contract as Meta).
   Future<Map<String, dynamic>> sendTiktokPixelTestEvent({
+    required String storeId,
     required TiktokPixel pixel,
     String? testCode,
   }) async {
@@ -598,6 +605,8 @@ class Actions {
       final response = await client.post(
         '/actions/sendTiktokPixelTestEvent',
         data: {
+          "storeId": storeId,
+          "pixelId": pixel.id,
           "id": pixel.id,
           "accessToken": pixel.accessToken,
           "testCode": testCode ?? 'FEEEF_TEST_CODE',
@@ -2237,6 +2246,12 @@ class Actions {
     required String text,
     List<Attachment>? attachments,
     Map<String, dynamic>? templateData,
+    /// Stored template id (`image_prompt_templates`, kind `landing_page`); wins over [templateData].
+    String? templateId,
+    /// Wizard answers keyed by form field key.
+    Map<String, Object>? answers,
+    /// Store whose Cloud workspace runs the job (and owns its templates).
+    String? storeId,
     /// Aspect ratio for the generated image (e.g. '9:32', '1:8', '1:1').
     /// Defaults to `'9:32'` on the server if omitted.
     String? aspectRatio,
@@ -2248,6 +2263,8 @@ class Actions {
     String? mediaResolution,
     /// Output image dimensions for models that support 1K/2K/4K (e.g. Flash/Pro image preview).
     String? imageSize,
+    /// Exact `WIDTHxHEIGHT` when the model has pixel sizes instead of aspect ratios.
+    String? size,
     String? background,
 
     /// When `false`, the server will NOT auto-resolve `product` attachments into
@@ -2270,11 +2287,15 @@ class Actions {
         text: text,
         attachments: attachments,
         templateData: templateData,
+        templateId: templateId,
+        answers: answers,
+        storeId: storeId,
         aspectRatio: aspectRatio,
         imageModel: imageModel,
         textModel: textModel,
         mediaResolution: mediaResolution,
         imageSize: imageSize,
+        size: size,
         background: background,
         loadProductImage: loadProductImage,
         sectionsCount: sectionsCount,

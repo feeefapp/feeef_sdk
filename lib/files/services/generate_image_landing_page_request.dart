@@ -5,6 +5,7 @@ import 'package:feeef/attachments/attachment.dart';
 /// Keep in sync with backend `IMAGE_LANDING_PAGE_ASPECT_RATIOS`
 /// (`backend/app/validators/generate_image_landing_page.ts`).
 const List<String> kImageLandingPageAspectRatios = [
+  'auto',
   '1:8',
   '1:6',
   '1:5',
@@ -26,11 +27,15 @@ abstract final class ImageLandingPageRequestKeys {
   static const text = 'text';
   static const attachments = 'attachments';
   static const templateData = 'templateData';
+  static const templateId = 'templateId';
+  static const answers = 'answers';
+  static const storeId = 'storeId';
   static const aspectRatio = 'aspectRatio';
   static const imageModel = 'imageModel';
   static const textModel = 'textModel';
   static const mediaResolution = 'mediaResolution';
   static const imageSize = 'imageSize';
+  static const size = 'size';
   static const background = 'background';
   static const loadProductImage = 'loadProductImage';
   static const sectionsCount = 'sectionsCount';
@@ -45,11 +50,16 @@ Map<String, dynamic> buildGenerateImageLandingPageRequestData({
   required String text,
   List<Attachment>? attachments,
   Map<String, dynamic>? templateData,
+  String? templateId,
+  Map<String, Object>? answers,
+  String? storeId,
   String? aspectRatio,
   String? imageModel,
   String? textModel,
   String? mediaResolution,
   String? imageSize,
+  /// Exact `WIDTHxHEIGHT` for models that take a pixel size instead of an aspect ratio.
+  String? size,
   String? background,
   bool? loadProductImage,
   int? sectionsCount,
@@ -67,6 +77,12 @@ Map<String, dynamic> buildGenerateImageLandingPageRequestData({
       ImageLandingPageRequestKeys.attachments: attachmentMaps,
     if (templateData != null)
       ImageLandingPageRequestKeys.templateData: templateData,
+    if (templateId != null && templateId.trim().isNotEmpty)
+      ImageLandingPageRequestKeys.templateId: templateId.trim(),
+    if (answers != null && answers.isNotEmpty)
+      ImageLandingPageRequestKeys.answers: answers,
+    if (storeId != null && storeId.trim().isNotEmpty)
+      ImageLandingPageRequestKeys.storeId: storeId.trim(),
     if (aspectRatio != null && aspectRatio.trim().isNotEmpty)
       ImageLandingPageRequestKeys.aspectRatio: aspectRatio.trim(),
     if (imageModel != null && imageModel.trim().isNotEmpty)
@@ -77,6 +93,8 @@ Map<String, dynamic> buildGenerateImageLandingPageRequestData({
       ImageLandingPageRequestKeys.mediaResolution: mediaResolution.trim(),
     if (imageSize != null && imageSize.trim().isNotEmpty)
       ImageLandingPageRequestKeys.imageSize: imageSize.trim(),
+    if (size != null && size.trim().isNotEmpty)
+      ImageLandingPageRequestKeys.size: size.trim(),
     if (background != null && background.trim().isNotEmpty)
       ImageLandingPageRequestKeys.background: background.trim(),
     if (loadProductImage != null)

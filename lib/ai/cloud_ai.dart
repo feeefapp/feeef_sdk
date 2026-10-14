@@ -4,6 +4,8 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:feeef/attachments/attachment.dart';
 
+import 'landing_page_studio.dart';
+
 Map<String, dynamic> _map(dynamic value) =>
     value is Map ? Map<String, dynamic>.from(value) : {};
 List<String> _strings(dynamic value) =>
@@ -190,6 +192,9 @@ class CloudAiStream {
 class CloudAiApi {
   CloudAiApi({required this.client});
   final Dio client;
+
+  /// Image landing-page studio: quality ladder and wizard questions.
+  LandingPageStudioApi get landingPages => LandingPageStudioApi(client);
   void _validateKey(String key) {
     if (!RegExp(r'^[\x21-\x7e]{1,200}$').hasMatch(key)) {
       throw ArgumentError('Persist a stable Idempotency-Key before submission');

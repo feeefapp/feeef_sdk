@@ -1315,17 +1315,82 @@ Map<String, dynamic> _$WebhooksIntegrationToJson(
   'metadata': instance.metadata,
 };
 
+_CustomFieldOption _$CustomFieldOptionFromJson(Map<String, dynamic> json) =>
+    _CustomFieldOption(
+      value: json['value'] as String,
+      label: json['label'] as String,
+    );
+
+Map<String, dynamic> _$CustomFieldOptionToJson(_CustomFieldOption instance) =>
+    <String, dynamic>{'value': instance.value, 'label': instance.label};
+
+_CustomFieldCondition _$CustomFieldConditionFromJson(
+  Map<String, dynamic> json,
+) => _CustomFieldCondition(
+  source: json['source'] as String? ?? 'field',
+  fieldId: json['fieldId'] as String?,
+  operator: json['operator'] as String? ?? 'filled',
+  value: json['value'],
+  values: (json['values'] as List<dynamic>?)?.map((e) => e as String).toList(),
+);
+
+Map<String, dynamic> _$CustomFieldConditionToJson(
+  _CustomFieldCondition instance,
+) => <String, dynamic>{
+  'source': instance.source,
+  'fieldId': instance.fieldId,
+  'operator': instance.operator,
+  'value': instance.value,
+  'values': instance.values,
+};
+
+_CustomFieldVisibility _$CustomFieldVisibilityFromJson(
+  Map<String, dynamic> json,
+) => _CustomFieldVisibility(
+  match: json['match'] as String? ?? 'all',
+  conditions:
+      (json['conditions'] as List<dynamic>?)
+          ?.map((e) => CustomFieldCondition.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+);
+
+Map<String, dynamic> _$CustomFieldVisibilityToJson(
+  _CustomFieldVisibility instance,
+) => <String, dynamic>{
+  'match': instance.match,
+  'conditions': instance.conditions.map((e) => e.toJson()).toList(),
+};
+
 _CustomField _$CustomFieldFromJson(Map<String, dynamic> json) => _CustomField(
   id: json['id'] as String,
   label: json['label'] as String,
-  type: $enumDecode(_$CustomFieldTypeEnumMap, json['type']),
+  type: $enumDecode(
+    _$CustomFieldTypeEnumMap,
+    json['type'],
+    unknownValue: CustomFieldType.text,
+  ),
   required: json['required'] as bool? ?? false,
   multiple: json['multiple'] as bool? ?? false,
   minCount: (json['minCount'] as num?)?.toInt(),
   maxCount: (json['maxCount'] as num?)?.toInt(),
   placeholder: json['placeholder'] as String?,
   helpText: json['helpText'] as String?,
+  minLength: (json['minLength'] as num?)?.toInt(),
+  maxLength: (json['maxLength'] as num?)?.toInt(),
   regexPattern: json['regexPattern'] as String?,
+  min: (json['min'] as num?)?.toDouble(),
+  max: (json['max'] as num?)?.toDouble(),
+  integer: json['integer'] as bool? ?? false,
+  options: (json['options'] as List<dynamic>?)
+      ?.map((e) => CustomFieldOption.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  accept: (json['accept'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  visibility: json['visibility'] == null
+      ? null
+      : CustomFieldVisibility.fromJson(
+          json['visibility'] as Map<String, dynamic>,
+        ),
   defaultValue: json['defaultValue'],
   order: (json['order'] as num?)?.toInt() ?? 0,
   active: json['active'] as bool? ?? true,
@@ -1343,7 +1408,15 @@ Map<String, dynamic> _$CustomFieldToJson(_CustomField instance) =>
       'maxCount': instance.maxCount,
       'placeholder': instance.placeholder,
       'helpText': instance.helpText,
+      'minLength': instance.minLength,
+      'maxLength': instance.maxLength,
       'regexPattern': instance.regexPattern,
+      'min': instance.min,
+      'max': instance.max,
+      'integer': instance.integer,
+      'options': instance.options?.map((e) => e.toJson()).toList(),
+      'accept': instance.accept,
+      'visibility': instance.visibility?.toJson(),
       'defaultValue': instance.defaultValue,
       'order': instance.order,
       'active': instance.active,
@@ -1352,8 +1425,12 @@ Map<String, dynamic> _$CustomFieldToJson(_CustomField instance) =>
 
 const _$CustomFieldTypeEnumMap = {
   CustomFieldType.text: 'text',
+  CustomFieldType.textarea: 'textarea',
+  CustomFieldType.number: 'number',
   CustomFieldType.phone: 'phone',
   CustomFieldType.email: 'email',
+  CustomFieldType.select: 'select',
+  CustomFieldType.checkbox: 'checkbox',
   CustomFieldType.image: 'image',
   CustomFieldType.file: 'file',
   CustomFieldType.date: 'date',

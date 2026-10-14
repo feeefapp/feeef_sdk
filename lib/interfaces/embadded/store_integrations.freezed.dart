@@ -15042,19 +15042,867 @@ as Map<String, dynamic>,
 
 
 /// @nodoc
+mixin _$CustomFieldOption {
+
+ String get value; String get label;
+/// Create a copy of CustomFieldOption
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CustomFieldOptionCopyWith<CustomFieldOption> get copyWith => _$CustomFieldOptionCopyWithImpl<CustomFieldOption>(this as CustomFieldOption, _$identity);
+
+  /// Serializes this CustomFieldOption to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as CustomFieldOption;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomFieldOption&&(identical(other.value, _this.value) || other.value == _this.value)&&(identical(other.label, _this.label) || other.label == _this.label));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as CustomFieldOption;
+  return Object.hash(runtimeType,_this.value,_this.label);
+}
+
+@override
+String toString() {
+  final _this = this as CustomFieldOption;
+  return 'CustomFieldOption(value: ${_this.value}, label: ${_this.label})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $CustomFieldOptionCopyWith<$Res>  {
+  factory $CustomFieldOptionCopyWith(CustomFieldOption value, $Res Function(CustomFieldOption) _then) = _$CustomFieldOptionCopyWithImpl;
+@useResult
+$Res call({
+ String value, String label
+});
+
+
+
+
+}
+/// @nodoc
+class _$CustomFieldOptionCopyWithImpl<$Res>
+    implements $CustomFieldOptionCopyWith<$Res> {
+  _$CustomFieldOptionCopyWithImpl(this._self, this._then);
+
+  final CustomFieldOption _self;
+  final $Res Function(CustomFieldOption) _then;
+
+/// Create a copy of CustomFieldOption
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? value = null,Object? label = null,}) {
+  return _then(CustomFieldOption(
+value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [CustomFieldOption].
+extension CustomFieldOptionPatterns on CustomFieldOption {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CustomFieldOption value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _CustomFieldOption() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CustomFieldOption value)  $default,){
+final _that = this;
+switch (_that) {
+case _CustomFieldOption():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CustomFieldOption value)?  $default,){
+final _that = this;
+switch (_that) {
+case _CustomFieldOption() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String value,  String label)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _CustomFieldOption() when $default != null:
+return $default(_that.value,_that.label);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String value,  String label)  $default,) {final _that = this;
+switch (_that) {
+case _CustomFieldOption():
+return $default(_that.value,_that.label);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String value,  String label)?  $default,) {final _that = this;
+switch (_that) {
+case _CustomFieldOption() when $default != null:
+return $default(_that.value,_that.label);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _CustomFieldOption implements CustomFieldOption {
+  const _CustomFieldOption({required this.value, required this.label});
+  factory _CustomFieldOption.fromJson(Map<String, dynamic> json) => _$CustomFieldOptionFromJson(json);
+
+@override final  String value;
+@override final  String label;
+
+/// Create a copy of CustomFieldOption
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CustomFieldOptionCopyWith<_CustomFieldOption> get copyWith => __$CustomFieldOptionCopyWithImpl<_CustomFieldOption>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$CustomFieldOptionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomFieldOption&&(identical(other.value, value) || other.value == value)&&(identical(other.label, label) || other.label == label));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,value,label);
+}
+
+@override
+String toString() {
+    return 'CustomFieldOption(value: $value, label: $label)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$CustomFieldOptionCopyWith<$Res> implements $CustomFieldOptionCopyWith<$Res> {
+  factory _$CustomFieldOptionCopyWith(_CustomFieldOption value, $Res Function(_CustomFieldOption) _then) = __$CustomFieldOptionCopyWithImpl;
+@override @useResult
+$Res call({
+ String value, String label
+});
+
+
+
+
+}
+/// @nodoc
+class __$CustomFieldOptionCopyWithImpl<$Res>
+    implements _$CustomFieldOptionCopyWith<$Res> {
+  __$CustomFieldOptionCopyWithImpl(this._self, this._then);
+
+  final _CustomFieldOption _self;
+  final $Res Function(_CustomFieldOption) _then;
+
+/// Create a copy of CustomFieldOption
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? value = null,Object? label = null,}) {
+  return _then(_CustomFieldOption(
+value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$CustomFieldCondition {
+
+ String get source; String? get fieldId; String get operator; dynamic get value; List<String>? get values;
+/// Create a copy of CustomFieldCondition
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CustomFieldConditionCopyWith<CustomFieldCondition> get copyWith => _$CustomFieldConditionCopyWithImpl<CustomFieldCondition>(this as CustomFieldCondition, _$identity);
+
+  /// Serializes this CustomFieldCondition to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as CustomFieldCondition;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomFieldCondition&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.fieldId, _this.fieldId) || other.fieldId == _this.fieldId)&&(identical(other.operator, _this.operator) || other.operator == _this.operator)&&const DeepCollectionEquality().equals(other.value, _this.value)&&const DeepCollectionEquality().equals(other.values, _this.values));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as CustomFieldCondition;
+  return Object.hash(runtimeType,_this.source,_this.fieldId,_this.operator,const DeepCollectionEquality().hash(_this.value),const DeepCollectionEquality().hash(_this.values));
+}
+
+@override
+String toString() {
+  final _this = this as CustomFieldCondition;
+  return 'CustomFieldCondition(source: ${_this.source}, fieldId: ${_this.fieldId}, operator: ${_this.operator}, value: ${_this.value}, values: ${_this.values})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $CustomFieldConditionCopyWith<$Res>  {
+  factory $CustomFieldConditionCopyWith(CustomFieldCondition value, $Res Function(CustomFieldCondition) _then) = _$CustomFieldConditionCopyWithImpl;
+@useResult
+$Res call({
+ String source, String? fieldId, String operator, dynamic value, List<String>? values
+});
+
+
+
+
+}
+/// @nodoc
+class _$CustomFieldConditionCopyWithImpl<$Res>
+    implements $CustomFieldConditionCopyWith<$Res> {
+  _$CustomFieldConditionCopyWithImpl(this._self, this._then);
+
+  final CustomFieldCondition _self;
+  final $Res Function(CustomFieldCondition) _then;
+
+/// Create a copy of CustomFieldCondition
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? source = null,Object? fieldId = freezed,Object? operator = null,Object? value = freezed,Object? values = freezed,}) {
+  return _then(CustomFieldCondition(
+source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as String,fieldId: freezed == fieldId ? _self.fieldId : fieldId // ignore: cast_nullable_to_non_nullable
+as String?,operator: null == operator ? _self.operator : operator // ignore: cast_nullable_to_non_nullable
+as String,value: freezed == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as dynamic,values: freezed == values ? _self.values : values // ignore: cast_nullable_to_non_nullable
+as List<String>?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [CustomFieldCondition].
+extension CustomFieldConditionPatterns on CustomFieldCondition {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CustomFieldCondition value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _CustomFieldCondition() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CustomFieldCondition value)  $default,){
+final _that = this;
+switch (_that) {
+case _CustomFieldCondition():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CustomFieldCondition value)?  $default,){
+final _that = this;
+switch (_that) {
+case _CustomFieldCondition() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String source,  String? fieldId,  String operator,  dynamic value,  List<String>? values)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _CustomFieldCondition() when $default != null:
+return $default(_that.source,_that.fieldId,_that.operator,_that.value,_that.values);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String source,  String? fieldId,  String operator,  dynamic value,  List<String>? values)  $default,) {final _that = this;
+switch (_that) {
+case _CustomFieldCondition():
+return $default(_that.source,_that.fieldId,_that.operator,_that.value,_that.values);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String source,  String? fieldId,  String operator,  dynamic value,  List<String>? values)?  $default,) {final _that = this;
+switch (_that) {
+case _CustomFieldCondition() when $default != null:
+return $default(_that.source,_that.fieldId,_that.operator,_that.value,_that.values);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _CustomFieldCondition implements CustomFieldCondition {
+  const _CustomFieldCondition({this.source = 'field', this.fieldId, this.operator = 'filled', this.value,  List<String>? values}): _values = values;
+  factory _CustomFieldCondition.fromJson(Map<String, dynamic> json) => _$CustomFieldConditionFromJson(json);
+
+@override@JsonKey() final  String source;
+@override final  String? fieldId;
+@override@JsonKey() final  String operator;
+@override final  dynamic value;
+ final  List<String>? _values;
+@override List<String>? get values {
+  final value = _values;
+  if (value == null) return null;
+  if (_values is EqualUnmodifiableListView) return _values;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+
+/// Create a copy of CustomFieldCondition
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CustomFieldConditionCopyWith<_CustomFieldCondition> get copyWith => __$CustomFieldConditionCopyWithImpl<_CustomFieldCondition>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$CustomFieldConditionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomFieldCondition&&(identical(other.source, source) || other.source == source)&&(identical(other.fieldId, fieldId) || other.fieldId == fieldId)&&(identical(other.operator, operator) || other.operator == operator)&&const DeepCollectionEquality().equals(other.value, value)&&const DeepCollectionEquality().equals(other.values, _values));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,source,fieldId,operator,const DeepCollectionEquality().hash(value),const DeepCollectionEquality().hash(_values));
+}
+
+@override
+String toString() {
+    return 'CustomFieldCondition(source: $source, fieldId: $fieldId, operator: $operator, value: $value, values: $values)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$CustomFieldConditionCopyWith<$Res> implements $CustomFieldConditionCopyWith<$Res> {
+  factory _$CustomFieldConditionCopyWith(_CustomFieldCondition value, $Res Function(_CustomFieldCondition) _then) = __$CustomFieldConditionCopyWithImpl;
+@override @useResult
+$Res call({
+ String source, String? fieldId, String operator, dynamic value, List<String>? values
+});
+
+
+
+
+}
+/// @nodoc
+class __$CustomFieldConditionCopyWithImpl<$Res>
+    implements _$CustomFieldConditionCopyWith<$Res> {
+  __$CustomFieldConditionCopyWithImpl(this._self, this._then);
+
+  final _CustomFieldCondition _self;
+  final $Res Function(_CustomFieldCondition) _then;
+
+/// Create a copy of CustomFieldCondition
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? source = null,Object? fieldId = freezed,Object? operator = null,Object? value = freezed,Object? values = freezed,}) {
+  return _then(_CustomFieldCondition(
+source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as String,fieldId: freezed == fieldId ? _self.fieldId : fieldId // ignore: cast_nullable_to_non_nullable
+as String?,operator: null == operator ? _self.operator : operator // ignore: cast_nullable_to_non_nullable
+as String,value: freezed == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as dynamic,values: freezed == values ? _self._values : values // ignore: cast_nullable_to_non_nullable
+as List<String>?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$CustomFieldVisibility {
+
+ String get match; List<CustomFieldCondition> get conditions;
+/// Create a copy of CustomFieldVisibility
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CustomFieldVisibilityCopyWith<CustomFieldVisibility> get copyWith => _$CustomFieldVisibilityCopyWithImpl<CustomFieldVisibility>(this as CustomFieldVisibility, _$identity);
+
+  /// Serializes this CustomFieldVisibility to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as CustomFieldVisibility;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomFieldVisibility&&(identical(other.match, _this.match) || other.match == _this.match)&&const DeepCollectionEquality().equals(other.conditions, _this.conditions));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as CustomFieldVisibility;
+  return Object.hash(runtimeType,_this.match,const DeepCollectionEquality().hash(_this.conditions));
+}
+
+@override
+String toString() {
+  final _this = this as CustomFieldVisibility;
+  return 'CustomFieldVisibility(match: ${_this.match}, conditions: ${_this.conditions})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $CustomFieldVisibilityCopyWith<$Res>  {
+  factory $CustomFieldVisibilityCopyWith(CustomFieldVisibility value, $Res Function(CustomFieldVisibility) _then) = _$CustomFieldVisibilityCopyWithImpl;
+@useResult
+$Res call({
+ String match, List<CustomFieldCondition> conditions
+});
+
+
+
+
+}
+/// @nodoc
+class _$CustomFieldVisibilityCopyWithImpl<$Res>
+    implements $CustomFieldVisibilityCopyWith<$Res> {
+  _$CustomFieldVisibilityCopyWithImpl(this._self, this._then);
+
+  final CustomFieldVisibility _self;
+  final $Res Function(CustomFieldVisibility) _then;
+
+/// Create a copy of CustomFieldVisibility
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? match = null,Object? conditions = null,}) {
+  return _then(CustomFieldVisibility(
+match: null == match ? _self.match : match // ignore: cast_nullable_to_non_nullable
+as String,conditions: null == conditions ? _self.conditions : conditions // ignore: cast_nullable_to_non_nullable
+as List<CustomFieldCondition>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [CustomFieldVisibility].
+extension CustomFieldVisibilityPatterns on CustomFieldVisibility {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CustomFieldVisibility value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _CustomFieldVisibility() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CustomFieldVisibility value)  $default,){
+final _that = this;
+switch (_that) {
+case _CustomFieldVisibility():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CustomFieldVisibility value)?  $default,){
+final _that = this;
+switch (_that) {
+case _CustomFieldVisibility() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String match,  List<CustomFieldCondition> conditions)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _CustomFieldVisibility() when $default != null:
+return $default(_that.match,_that.conditions);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String match,  List<CustomFieldCondition> conditions)  $default,) {final _that = this;
+switch (_that) {
+case _CustomFieldVisibility():
+return $default(_that.match,_that.conditions);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String match,  List<CustomFieldCondition> conditions)?  $default,) {final _that = this;
+switch (_that) {
+case _CustomFieldVisibility() when $default != null:
+return $default(_that.match,_that.conditions);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _CustomFieldVisibility implements CustomFieldVisibility {
+  const _CustomFieldVisibility({this.match = 'all',  List<CustomFieldCondition> conditions = const []}): _conditions = conditions;
+  factory _CustomFieldVisibility.fromJson(Map<String, dynamic> json) => _$CustomFieldVisibilityFromJson(json);
+
+@override@JsonKey() final  String match;
+ final  List<CustomFieldCondition> _conditions;
+@override@JsonKey() List<CustomFieldCondition> get conditions {
+  if (_conditions is EqualUnmodifiableListView) return _conditions;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_conditions);
+}
+
+
+/// Create a copy of CustomFieldVisibility
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CustomFieldVisibilityCopyWith<_CustomFieldVisibility> get copyWith => __$CustomFieldVisibilityCopyWithImpl<_CustomFieldVisibility>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$CustomFieldVisibilityToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomFieldVisibility&&(identical(other.match, match) || other.match == match)&&const DeepCollectionEquality().equals(other.conditions, _conditions));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,match,const DeepCollectionEquality().hash(_conditions));
+}
+
+@override
+String toString() {
+    return 'CustomFieldVisibility(match: $match, conditions: $conditions)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$CustomFieldVisibilityCopyWith<$Res> implements $CustomFieldVisibilityCopyWith<$Res> {
+  factory _$CustomFieldVisibilityCopyWith(_CustomFieldVisibility value, $Res Function(_CustomFieldVisibility) _then) = __$CustomFieldVisibilityCopyWithImpl;
+@override @useResult
+$Res call({
+ String match, List<CustomFieldCondition> conditions
+});
+
+
+
+
+}
+/// @nodoc
+class __$CustomFieldVisibilityCopyWithImpl<$Res>
+    implements _$CustomFieldVisibilityCopyWith<$Res> {
+  __$CustomFieldVisibilityCopyWithImpl(this._self, this._then);
+
+  final _CustomFieldVisibility _self;
+  final $Res Function(_CustomFieldVisibility) _then;
+
+/// Create a copy of CustomFieldVisibility
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? match = null,Object? conditions = null,}) {
+  return _then(_CustomFieldVisibility(
+match: null == match ? _self.match : match // ignore: cast_nullable_to_non_nullable
+as String,conditions: null == conditions ? _self._conditions : conditions // ignore: cast_nullable_to_non_nullable
+as List<CustomFieldCondition>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$CustomField {
 
-/// Unique identifier for the field
+/// Unique identifier for the field (`[A-Za-z0-9_-]{1,64}`)
  String get id;/// Display label for the field
  String get label;/// Field type (text, phone, email, etc.)
- CustomFieldType get type;/// Whether the field is required
+@JsonKey(unknownEnumValue: CustomFieldType.text) CustomFieldType get type;/// Whether the field is required (only while visible)
  bool get required;/// Whether the field supports multiple values (array)
  bool get multiple;/// Minimum number of values (for array fields)
  int? get minCount;/// Maximum number of values (for array fields)
  int? get maxCount;/// Placeholder text
  String? get placeholder;/// Help text/description
- String? get helpText;/// Regex pattern for validation (text fields only)
- String? get regexPattern;/// Default value
+ String? get helpText;/// Text length bounds (text, textarea, phone, email)
+ int? get minLength; int? get maxLength;/// Regex pattern for validation (text / phone only, safe patterns only)
+ String? get regexPattern;/// Number bounds (number)
+ double? get min; double? get max;/// Only whole numbers (number)
+ bool get integer;/// Choices (select)
+ List<CustomFieldOption>? get options;/// Allowed upload kinds (file): image, pdf, document, spreadsheet, archive, text
+ List<String>? get accept;/// Conditional display rule
+ CustomFieldVisibility? get visibility;/// Default value
  dynamic get defaultValue;/// Field order/position
  int get order;/// Whether the field is active/enabled
  bool get active;/// Additional metadata
@@ -15072,20 +15920,20 @@ $CustomFieldCopyWith<CustomField> get copyWith => _$CustomFieldCopyWithImpl<Cust
 @override
 bool operator ==(Object other) {
   final _this = this as CustomField;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomField&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.required, _this.required) || other.required == _this.required)&&(identical(other.multiple, _this.multiple) || other.multiple == _this.multiple)&&(identical(other.minCount, _this.minCount) || other.minCount == _this.minCount)&&(identical(other.maxCount, _this.maxCount) || other.maxCount == _this.maxCount)&&(identical(other.placeholder, _this.placeholder) || other.placeholder == _this.placeholder)&&(identical(other.helpText, _this.helpText) || other.helpText == _this.helpText)&&(identical(other.regexPattern, _this.regexPattern) || other.regexPattern == _this.regexPattern)&&const DeepCollectionEquality().equals(other.defaultValue, _this.defaultValue)&&(identical(other.order, _this.order) || other.order == _this.order)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomField&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.required, _this.required) || other.required == _this.required)&&(identical(other.multiple, _this.multiple) || other.multiple == _this.multiple)&&(identical(other.minCount, _this.minCount) || other.minCount == _this.minCount)&&(identical(other.maxCount, _this.maxCount) || other.maxCount == _this.maxCount)&&(identical(other.placeholder, _this.placeholder) || other.placeholder == _this.placeholder)&&(identical(other.helpText, _this.helpText) || other.helpText == _this.helpText)&&(identical(other.minLength, _this.minLength) || other.minLength == _this.minLength)&&(identical(other.maxLength, _this.maxLength) || other.maxLength == _this.maxLength)&&(identical(other.regexPattern, _this.regexPattern) || other.regexPattern == _this.regexPattern)&&(identical(other.min, _this.min) || other.min == _this.min)&&(identical(other.max, _this.max) || other.max == _this.max)&&(identical(other.integer, _this.integer) || other.integer == _this.integer)&&const DeepCollectionEquality().equals(other.options, _this.options)&&const DeepCollectionEquality().equals(other.accept, _this.accept)&&(identical(other.visibility, _this.visibility) || other.visibility == _this.visibility)&&const DeepCollectionEquality().equals(other.defaultValue, _this.defaultValue)&&(identical(other.order, _this.order) || other.order == _this.order)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as CustomField;
-  return Object.hash(runtimeType,_this.id,_this.label,_this.type,_this.required,_this.multiple,_this.minCount,_this.maxCount,_this.placeholder,_this.helpText,_this.regexPattern,const DeepCollectionEquality().hash(_this.defaultValue),_this.order,_this.active,const DeepCollectionEquality().hash(_this.metadata));
+  return Object.hashAll([runtimeType,_this.id,_this.label,_this.type,_this.required,_this.multiple,_this.minCount,_this.maxCount,_this.placeholder,_this.helpText,_this.minLength,_this.maxLength,_this.regexPattern,_this.min,_this.max,_this.integer,const DeepCollectionEquality().hash(_this.options),const DeepCollectionEquality().hash(_this.accept),_this.visibility,const DeepCollectionEquality().hash(_this.defaultValue),_this.order,_this.active,const DeepCollectionEquality().hash(_this.metadata)]);
 }
 
 @override
 String toString() {
   final _this = this as CustomField;
-  return 'CustomField(id: ${_this.id}, label: ${_this.label}, type: ${_this.type}, required: ${_this.required}, multiple: ${_this.multiple}, minCount: ${_this.minCount}, maxCount: ${_this.maxCount}, placeholder: ${_this.placeholder}, helpText: ${_this.helpText}, regexPattern: ${_this.regexPattern}, defaultValue: ${_this.defaultValue}, order: ${_this.order}, active: ${_this.active}, metadata: ${_this.metadata})';
+  return 'CustomField(id: ${_this.id}, label: ${_this.label}, type: ${_this.type}, required: ${_this.required}, multiple: ${_this.multiple}, minCount: ${_this.minCount}, maxCount: ${_this.maxCount}, placeholder: ${_this.placeholder}, helpText: ${_this.helpText}, minLength: ${_this.minLength}, maxLength: ${_this.maxLength}, regexPattern: ${_this.regexPattern}, min: ${_this.min}, max: ${_this.max}, integer: ${_this.integer}, options: ${_this.options}, accept: ${_this.accept}, visibility: ${_this.visibility}, defaultValue: ${_this.defaultValue}, order: ${_this.order}, active: ${_this.active}, metadata: ${_this.metadata})';
 }
 
 
@@ -15096,11 +15944,11 @@ abstract mixin class $CustomFieldCopyWith<$Res>  {
   factory $CustomFieldCopyWith(CustomField value, $Res Function(CustomField) _then) = _$CustomFieldCopyWithImpl;
 @useResult
 $Res call({
- String id, String label, CustomFieldType type, bool required, bool multiple, int? minCount, int? maxCount, String? placeholder, String? helpText, String? regexPattern, dynamic defaultValue, int order, bool active, Map<String, dynamic> metadata
+ String id, String label,@JsonKey(unknownEnumValue: CustomFieldType.text) CustomFieldType type, bool required, bool multiple, int? minCount, int? maxCount, String? placeholder, String? helpText, int? minLength, int? maxLength, String? regexPattern, double? min, double? max, bool integer, List<CustomFieldOption>? options, List<String>? accept, CustomFieldVisibility? visibility, dynamic defaultValue, int order, bool active, Map<String, dynamic> metadata
 });
 
 
-
+$CustomFieldVisibilityCopyWith<$Res>? get visibility;
 
 }
 /// @nodoc
@@ -15113,7 +15961,7 @@ class _$CustomFieldCopyWithImpl<$Res>
 
 /// Create a copy of CustomField
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? label = null,Object? type = null,Object? required = null,Object? multiple = null,Object? minCount = freezed,Object? maxCount = freezed,Object? placeholder = freezed,Object? helpText = freezed,Object? regexPattern = freezed,Object? defaultValue = freezed,Object? order = null,Object? active = null,Object? metadata = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? label = null,Object? type = null,Object? required = null,Object? multiple = null,Object? minCount = freezed,Object? maxCount = freezed,Object? placeholder = freezed,Object? helpText = freezed,Object? minLength = freezed,Object? maxLength = freezed,Object? regexPattern = freezed,Object? min = freezed,Object? max = freezed,Object? integer = null,Object? options = freezed,Object? accept = freezed,Object? visibility = freezed,Object? defaultValue = freezed,Object? order = null,Object? active = null,Object? metadata = null,}) {
   return _then(CustomField(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
@@ -15124,15 +15972,35 @@ as bool,minCount: freezed == minCount ? _self.minCount : minCount // ignore: cas
 as int?,maxCount: freezed == maxCount ? _self.maxCount : maxCount // ignore: cast_nullable_to_non_nullable
 as int?,placeholder: freezed == placeholder ? _self.placeholder : placeholder // ignore: cast_nullable_to_non_nullable
 as String?,helpText: freezed == helpText ? _self.helpText : helpText // ignore: cast_nullable_to_non_nullable
-as String?,regexPattern: freezed == regexPattern ? _self.regexPattern : regexPattern // ignore: cast_nullable_to_non_nullable
-as String?,defaultValue: freezed == defaultValue ? _self.defaultValue : defaultValue // ignore: cast_nullable_to_non_nullable
+as String?,minLength: freezed == minLength ? _self.minLength : minLength // ignore: cast_nullable_to_non_nullable
+as int?,maxLength: freezed == maxLength ? _self.maxLength : maxLength // ignore: cast_nullable_to_non_nullable
+as int?,regexPattern: freezed == regexPattern ? _self.regexPattern : regexPattern // ignore: cast_nullable_to_non_nullable
+as String?,min: freezed == min ? _self.min : min // ignore: cast_nullable_to_non_nullable
+as double?,max: freezed == max ? _self.max : max // ignore: cast_nullable_to_non_nullable
+as double?,integer: null == integer ? _self.integer : integer // ignore: cast_nullable_to_non_nullable
+as bool,options: freezed == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
+as List<CustomFieldOption>?,accept: freezed == accept ? _self.accept : accept // ignore: cast_nullable_to_non_nullable
+as List<String>?,visibility: freezed == visibility ? _self.visibility : visibility // ignore: cast_nullable_to_non_nullable
+as CustomFieldVisibility?,defaultValue: freezed == defaultValue ? _self.defaultValue : defaultValue // ignore: cast_nullable_to_non_nullable
 as dynamic,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
 as int,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));
 }
+/// Create a copy of CustomField
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CustomFieldVisibilityCopyWith<$Res>? get visibility {
+    if (_self.visibility == null) {
+    return null;
+  }
 
+  return $CustomFieldVisibilityCopyWith<$Res>(_self.visibility!, (value) {
+    return _then(_self.copyWith(visibility: value));
+  });
+}
 }
 
 
@@ -15214,10 +16082,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String label,  CustomFieldType type,  bool required,  bool multiple,  int? minCount,  int? maxCount,  String? placeholder,  String? helpText,  String? regexPattern,  dynamic defaultValue,  int order,  bool active,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String label, @JsonKey(unknownEnumValue: CustomFieldType.text)  CustomFieldType type,  bool required,  bool multiple,  int? minCount,  int? maxCount,  String? placeholder,  String? helpText,  int? minLength,  int? maxLength,  String? regexPattern,  double? min,  double? max,  bool integer,  List<CustomFieldOption>? options,  List<String>? accept,  CustomFieldVisibility? visibility,  dynamic defaultValue,  int order,  bool active,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CustomField() when $default != null:
-return $default(_that.id,_that.label,_that.type,_that.required,_that.multiple,_that.minCount,_that.maxCount,_that.placeholder,_that.helpText,_that.regexPattern,_that.defaultValue,_that.order,_that.active,_that.metadata);case _:
+return $default(_that.id,_that.label,_that.type,_that.required,_that.multiple,_that.minCount,_that.maxCount,_that.placeholder,_that.helpText,_that.minLength,_that.maxLength,_that.regexPattern,_that.min,_that.max,_that.integer,_that.options,_that.accept,_that.visibility,_that.defaultValue,_that.order,_that.active,_that.metadata);case _:
   return orElse();
 
 }
@@ -15235,10 +16103,10 @@ return $default(_that.id,_that.label,_that.type,_that.required,_that.multiple,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String label,  CustomFieldType type,  bool required,  bool multiple,  int? minCount,  int? maxCount,  String? placeholder,  String? helpText,  String? regexPattern,  dynamic defaultValue,  int order,  bool active,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String label, @JsonKey(unknownEnumValue: CustomFieldType.text)  CustomFieldType type,  bool required,  bool multiple,  int? minCount,  int? maxCount,  String? placeholder,  String? helpText,  int? minLength,  int? maxLength,  String? regexPattern,  double? min,  double? max,  bool integer,  List<CustomFieldOption>? options,  List<String>? accept,  CustomFieldVisibility? visibility,  dynamic defaultValue,  int order,  bool active,  Map<String, dynamic> metadata)  $default,) {final _that = this;
 switch (_that) {
 case _CustomField():
-return $default(_that.id,_that.label,_that.type,_that.required,_that.multiple,_that.minCount,_that.maxCount,_that.placeholder,_that.helpText,_that.regexPattern,_that.defaultValue,_that.order,_that.active,_that.metadata);case _:
+return $default(_that.id,_that.label,_that.type,_that.required,_that.multiple,_that.minCount,_that.maxCount,_that.placeholder,_that.helpText,_that.minLength,_that.maxLength,_that.regexPattern,_that.min,_that.max,_that.integer,_that.options,_that.accept,_that.visibility,_that.defaultValue,_that.order,_that.active,_that.metadata);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -15255,10 +16123,10 @@ return $default(_that.id,_that.label,_that.type,_that.required,_that.multiple,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String label,  CustomFieldType type,  bool required,  bool multiple,  int? minCount,  int? maxCount,  String? placeholder,  String? helpText,  String? regexPattern,  dynamic defaultValue,  int order,  bool active,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String label, @JsonKey(unknownEnumValue: CustomFieldType.text)  CustomFieldType type,  bool required,  bool multiple,  int? minCount,  int? maxCount,  String? placeholder,  String? helpText,  int? minLength,  int? maxLength,  String? regexPattern,  double? min,  double? max,  bool integer,  List<CustomFieldOption>? options,  List<String>? accept,  CustomFieldVisibility? visibility,  dynamic defaultValue,  int order,  bool active,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
 switch (_that) {
 case _CustomField() when $default != null:
-return $default(_that.id,_that.label,_that.type,_that.required,_that.multiple,_that.minCount,_that.maxCount,_that.placeholder,_that.helpText,_that.regexPattern,_that.defaultValue,_that.order,_that.active,_that.metadata);case _:
+return $default(_that.id,_that.label,_that.type,_that.required,_that.multiple,_that.minCount,_that.maxCount,_that.placeholder,_that.helpText,_that.minLength,_that.maxLength,_that.regexPattern,_that.min,_that.max,_that.integer,_that.options,_that.accept,_that.visibility,_that.defaultValue,_that.order,_that.active,_that.metadata);case _:
   return null;
 
 }
@@ -15270,16 +16138,16 @@ return $default(_that.id,_that.label,_that.type,_that.required,_that.multiple,_t
 @JsonSerializable()
 
 class _CustomField extends CustomField {
-  const _CustomField({required this.id, required this.label, required this.type, this.required = false, this.multiple = false, this.minCount, this.maxCount, this.placeholder, this.helpText, this.regexPattern, this.defaultValue, this.order = 0, this.active = true,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _CustomField({required this.id, required this.label, @JsonKey(unknownEnumValue: CustomFieldType.text) required this.type, this.required = false, this.multiple = false, this.minCount, this.maxCount, this.placeholder, this.helpText, this.minLength, this.maxLength, this.regexPattern, this.min, this.max, this.integer = false,  List<CustomFieldOption>? options,  List<String>? accept, this.visibility, this.defaultValue, this.order = 0, this.active = true,  Map<String, dynamic> metadata = const {}}): _options = options,_accept = accept,_metadata = metadata,super._();
   factory _CustomField.fromJson(Map<String, dynamic> json) => _$CustomFieldFromJson(json);
 
-/// Unique identifier for the field
+/// Unique identifier for the field (`[A-Za-z0-9_-]{1,64}`)
 @override final  String id;
 /// Display label for the field
 @override final  String label;
 /// Field type (text, phone, email, etc.)
-@override final  CustomFieldType type;
-/// Whether the field is required
+@override@JsonKey(unknownEnumValue: CustomFieldType.text) final  CustomFieldType type;
+/// Whether the field is required (only while visible)
 @override@JsonKey() final  bool required;
 /// Whether the field supports multiple values (array)
 @override@JsonKey() final  bool multiple;
@@ -15291,8 +16159,40 @@ class _CustomField extends CustomField {
 @override final  String? placeholder;
 /// Help text/description
 @override final  String? helpText;
-/// Regex pattern for validation (text fields only)
+/// Text length bounds (text, textarea, phone, email)
+@override final  int? minLength;
+@override final  int? maxLength;
+/// Regex pattern for validation (text / phone only, safe patterns only)
 @override final  String? regexPattern;
+/// Number bounds (number)
+@override final  double? min;
+@override final  double? max;
+/// Only whole numbers (number)
+@override@JsonKey() final  bool integer;
+/// Choices (select)
+ final  List<CustomFieldOption>? _options;
+/// Choices (select)
+@override List<CustomFieldOption>? get options {
+  final value = _options;
+  if (value == null) return null;
+  if (_options is EqualUnmodifiableListView) return _options;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+/// Allowed upload kinds (file): image, pdf, document, spreadsheet, archive, text
+ final  List<String>? _accept;
+/// Allowed upload kinds (file): image, pdf, document, spreadsheet, archive, text
+@override List<String>? get accept {
+  final value = _accept;
+  if (value == null) return null;
+  if (_accept is EqualUnmodifiableListView) return _accept;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+/// Conditional display rule
+@override final  CustomFieldVisibility? visibility;
 /// Default value
 @override final  dynamic defaultValue;
 /// Field order/position
@@ -15322,18 +16222,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomField&&(identical(other.id, id) || other.id == id)&&(identical(other.label, label) || other.label == label)&&(identical(other.type, type) || other.type == type)&&(identical(other.required, required) || other.required == required)&&(identical(other.multiple, multiple) || other.multiple == multiple)&&(identical(other.minCount, minCount) || other.minCount == minCount)&&(identical(other.maxCount, maxCount) || other.maxCount == maxCount)&&(identical(other.placeholder, placeholder) || other.placeholder == placeholder)&&(identical(other.helpText, helpText) || other.helpText == helpText)&&(identical(other.regexPattern, regexPattern) || other.regexPattern == regexPattern)&&const DeepCollectionEquality().equals(other.defaultValue, defaultValue)&&(identical(other.order, order) || other.order == order)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomField&&(identical(other.id, id) || other.id == id)&&(identical(other.label, label) || other.label == label)&&(identical(other.type, type) || other.type == type)&&(identical(other.required, required) || other.required == required)&&(identical(other.multiple, multiple) || other.multiple == multiple)&&(identical(other.minCount, minCount) || other.minCount == minCount)&&(identical(other.maxCount, maxCount) || other.maxCount == maxCount)&&(identical(other.placeholder, placeholder) || other.placeholder == placeholder)&&(identical(other.helpText, helpText) || other.helpText == helpText)&&(identical(other.minLength, minLength) || other.minLength == minLength)&&(identical(other.maxLength, maxLength) || other.maxLength == maxLength)&&(identical(other.regexPattern, regexPattern) || other.regexPattern == regexPattern)&&(identical(other.min, min) || other.min == min)&&(identical(other.max, max) || other.max == max)&&(identical(other.integer, integer) || other.integer == integer)&&const DeepCollectionEquality().equals(other.options, _options)&&const DeepCollectionEquality().equals(other.accept, _accept)&&(identical(other.visibility, visibility) || other.visibility == visibility)&&const DeepCollectionEquality().equals(other.defaultValue, defaultValue)&&(identical(other.order, order) || other.order == order)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,label,type,required,multiple,minCount,maxCount,placeholder,helpText,regexPattern,const DeepCollectionEquality().hash(defaultValue),order,active,const DeepCollectionEquality().hash(_metadata));
+    return Object.hashAll([runtimeType,id,label,type,required,multiple,minCount,maxCount,placeholder,helpText,minLength,maxLength,regexPattern,min,max,integer,const DeepCollectionEquality().hash(_options),const DeepCollectionEquality().hash(_accept),visibility,const DeepCollectionEquality().hash(defaultValue),order,active,const DeepCollectionEquality().hash(_metadata)]);
 }
 
 @override
 String toString() {
-    return 'CustomField(id: $id, label: $label, type: $type, required: $required, multiple: $multiple, minCount: $minCount, maxCount: $maxCount, placeholder: $placeholder, helpText: $helpText, regexPattern: $regexPattern, defaultValue: $defaultValue, order: $order, active: $active, metadata: $metadata)';
+    return 'CustomField(id: $id, label: $label, type: $type, required: $required, multiple: $multiple, minCount: $minCount, maxCount: $maxCount, placeholder: $placeholder, helpText: $helpText, minLength: $minLength, maxLength: $maxLength, regexPattern: $regexPattern, min: $min, max: $max, integer: $integer, options: $options, accept: $accept, visibility: $visibility, defaultValue: $defaultValue, order: $order, active: $active, metadata: $metadata)';
 }
 
 
@@ -15344,11 +16244,11 @@ abstract mixin class _$CustomFieldCopyWith<$Res> implements $CustomFieldCopyWith
   factory _$CustomFieldCopyWith(_CustomField value, $Res Function(_CustomField) _then) = __$CustomFieldCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String label, CustomFieldType type, bool required, bool multiple, int? minCount, int? maxCount, String? placeholder, String? helpText, String? regexPattern, dynamic defaultValue, int order, bool active, Map<String, dynamic> metadata
+ String id, String label,@JsonKey(unknownEnumValue: CustomFieldType.text) CustomFieldType type, bool required, bool multiple, int? minCount, int? maxCount, String? placeholder, String? helpText, int? minLength, int? maxLength, String? regexPattern, double? min, double? max, bool integer, List<CustomFieldOption>? options, List<String>? accept, CustomFieldVisibility? visibility, dynamic defaultValue, int order, bool active, Map<String, dynamic> metadata
 });
 
 
-
+@override $CustomFieldVisibilityCopyWith<$Res>? get visibility;
 
 }
 /// @nodoc
@@ -15361,7 +16261,7 @@ class __$CustomFieldCopyWithImpl<$Res>
 
 /// Create a copy of CustomField
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? label = null,Object? type = null,Object? required = null,Object? multiple = null,Object? minCount = freezed,Object? maxCount = freezed,Object? placeholder = freezed,Object? helpText = freezed,Object? regexPattern = freezed,Object? defaultValue = freezed,Object? order = null,Object? active = null,Object? metadata = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? label = null,Object? type = null,Object? required = null,Object? multiple = null,Object? minCount = freezed,Object? maxCount = freezed,Object? placeholder = freezed,Object? helpText = freezed,Object? minLength = freezed,Object? maxLength = freezed,Object? regexPattern = freezed,Object? min = freezed,Object? max = freezed,Object? integer = null,Object? options = freezed,Object? accept = freezed,Object? visibility = freezed,Object? defaultValue = freezed,Object? order = null,Object? active = null,Object? metadata = null,}) {
   return _then(_CustomField(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
@@ -15372,8 +16272,16 @@ as bool,minCount: freezed == minCount ? _self.minCount : minCount // ignore: cas
 as int?,maxCount: freezed == maxCount ? _self.maxCount : maxCount // ignore: cast_nullable_to_non_nullable
 as int?,placeholder: freezed == placeholder ? _self.placeholder : placeholder // ignore: cast_nullable_to_non_nullable
 as String?,helpText: freezed == helpText ? _self.helpText : helpText // ignore: cast_nullable_to_non_nullable
-as String?,regexPattern: freezed == regexPattern ? _self.regexPattern : regexPattern // ignore: cast_nullable_to_non_nullable
-as String?,defaultValue: freezed == defaultValue ? _self.defaultValue : defaultValue // ignore: cast_nullable_to_non_nullable
+as String?,minLength: freezed == minLength ? _self.minLength : minLength // ignore: cast_nullable_to_non_nullable
+as int?,maxLength: freezed == maxLength ? _self.maxLength : maxLength // ignore: cast_nullable_to_non_nullable
+as int?,regexPattern: freezed == regexPattern ? _self.regexPattern : regexPattern // ignore: cast_nullable_to_non_nullable
+as String?,min: freezed == min ? _self.min : min // ignore: cast_nullable_to_non_nullable
+as double?,max: freezed == max ? _self.max : max // ignore: cast_nullable_to_non_nullable
+as double?,integer: null == integer ? _self.integer : integer // ignore: cast_nullable_to_non_nullable
+as bool,options: freezed == options ? _self._options : options // ignore: cast_nullable_to_non_nullable
+as List<CustomFieldOption>?,accept: freezed == accept ? _self._accept : accept // ignore: cast_nullable_to_non_nullable
+as List<String>?,visibility: freezed == visibility ? _self.visibility : visibility // ignore: cast_nullable_to_non_nullable
+as CustomFieldVisibility?,defaultValue: freezed == defaultValue ? _self.defaultValue : defaultValue // ignore: cast_nullable_to_non_nullable
 as dynamic,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
 as int,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
@@ -15381,7 +16289,19 @@ as Map<String, dynamic>,
   ));
 }
 
+/// Create a copy of CustomField
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CustomFieldVisibilityCopyWith<$Res>? get visibility {
+    if (_self.visibility == null) {
+    return null;
+  }
 
+  return $CustomFieldVisibilityCopyWith<$Res>(_self.visibility!, (value) {
+    return _then(_self.copyWith(visibility: value));
+  });
+}
 }
 
 

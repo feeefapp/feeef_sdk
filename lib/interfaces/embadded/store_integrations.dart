@@ -1467,11 +1467,16 @@ abstract class WebhooksIntegration with _$WebhooksIntegration {
 
 // ===================== CUSTOM FIELDS INTEGRATION =====================
 
-/// Supported custom field types for order forms
+/// Supported custom field types for order forms (contract v2:
+/// feeef.all `docs/custom-fields.md`). Unknown values decode as [text].
 enum CustomFieldType {
   text,
+  textarea,
+  number,
   phone,
   email,
+  select,
+  checkbox,
   image,
   file,
   date,
@@ -1482,21 +1487,66 @@ enum CustomFieldType {
   datetimerange,
 }
 
+/// One choice of a `select` field.
+@freezed
+abstract class CustomFieldOption with _$CustomFieldOption {
+  const factory CustomFieldOption({
+    required String value,
+    required String label,
+  }) = _CustomFieldOption;
+
+  factory CustomFieldOption.fromJson(Map<String, dynamic> json) =>
+      _$CustomFieldOptionFromJson(json);
+}
+
+/// A display rule condition.
+///
+/// [source] `field` → compares the value of [fieldId] (an earlier field) with
+/// [operator]: equals, notEquals, in, notIn, filled, empty, gt, lt, checked,
+/// unchecked. [source] `product` → [operator] in / notIn over cart product
+/// ids in [values]. Strings (not enums) so newer operators never break parsing.
+@freezed
+abstract class CustomFieldCondition with _$CustomFieldCondition {
+  const factory CustomFieldCondition({
+    @Default('field') String source,
+    String? fieldId,
+    @Default('filled') String operator,
+    dynamic value,
+    List<String>? values,
+  }) = _CustomFieldCondition;
+
+  factory CustomFieldCondition.fromJson(Map<String, dynamic> json) =>
+      _$CustomFieldConditionFromJson(json);
+}
+
+/// Show a field only when its conditions match (`all` = AND, `any` = OR).
+@freezed
+abstract class CustomFieldVisibility with _$CustomFieldVisibility {
+  const factory CustomFieldVisibility({
+    @Default('all') String match,
+    @Default([]) List<CustomFieldCondition> conditions,
+  }) = _CustomFieldVisibility;
+
+  factory CustomFieldVisibility.fromJson(Map<String, dynamic> json) =>
+      _$CustomFieldVisibilityFromJson(json);
+}
+
 /// Custom field configuration for order forms
 @freezed
 abstract class CustomField with _$CustomField {
   const CustomField._();
   const factory CustomField({
-    /// Unique identifier for the field
+    /// Unique identifier for the field (`[A-Za-z0-9_-]{1,64}`)
     required String id,
 
     /// Display label for the field
     required String label,
 
     /// Field type (text, phone, email, etc.)
+    @JsonKey(unknownEnumValue: CustomFieldType.text)
     required CustomFieldType type,
 
-    /// Whether the field is required
+    /// Whether the field is required (only while visible)
     @Default(false) bool required,
 
     /// Whether the field supports multiple values (array)
@@ -1514,8 +1564,28 @@ abstract class CustomField with _$CustomField {
     /// Help text/description
     String? helpText,
 
-    /// Regex pattern for validation (text fields only)
+    /// Text length bounds (text, textarea, phone, email)
+    int? minLength,
+    int? maxLength,
+
+    /// Regex pattern for validation (text / phone only, safe patterns only)
     String? regexPattern,
+
+    /// Number bounds (number)
+    double? min,
+    double? max,
+
+    /// Only whole numbers (number)
+    @Default(false) bool integer,
+
+    /// Choices (select)
+    List<CustomFieldOption>? options,
+
+    /// Allowed upload kinds (file): image, pdf, document, spreadsheet, archive, text
+    List<String>? accept,
+
+    /// Conditional display rule
+    CustomFieldVisibility? visibility,
 
     /// Default value
     dynamic defaultValue,

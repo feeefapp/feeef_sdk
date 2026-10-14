@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:feeef/attachments/attachment.dart';
+import 'package:feeef/core/list_response.dart';
+import 'package:feeef/core/resource_repository.dart';
+import 'package:feeef/interfaces/helpers.dart';
 
 
 Map<String, dynamic> _map(dynamic value) =>
@@ -77,7 +80,7 @@ class ImageLandingQuestions {
 }
 
 /// Image landing page template stored in Feeef Cloud: platform-wide or owned by a store.
-class ImageLandingTemplate {
+class ImageLandingTemplate implements Model {
   const ImageLandingTemplate({
     required this.id,
     required this.name,
@@ -109,8 +112,51 @@ class ImageLandingTemplate {
   final String? previewImageUrl;
   final List<StudioFormField> fields;
 
-  /// Body for create/update; ids and scope are owned by Cloud.
-  Map<String, dynamic> toInput() => {
+}
+
+/// Create/update body for a template. Ids and scope are owned by Cloud.
+class ImageLandingTemplateInput implements ModelCreate, ModelUpdate {
+  const ImageLandingTemplateInput({
+    required this.name,
+    this.description = '',
+    this.requirements = '',
+    this.prompt = '',
+    this.previewImageUrl,
+    this.fields = const [],
+  });
+
+  factory ImageLandingTemplateInput.fromJson(Map<String, dynamic> json) =>
+      ImageLandingTemplateInput(
+        name: json['name'] as String? ?? '',
+        description: json['description'] as String? ?? '',
+        requirements: json['requirements'] as String? ?? '',
+        prompt: json['prompt'] as String? ?? '',
+        previewImageUrl: json['preview_image_url'] as String?,
+        fields: StudioFormField.listFrom(json['fields']),
+      );
+
+  factory ImageLandingTemplateInput.of(ImageLandingTemplate template) =>
+      ImageLandingTemplateInput(
+        name: template.name,
+        description: template.description,
+        requirements: template.requirements,
+        prompt: template.prompt,
+        previewImageUrl: template.previewImageUrl,
+        fields: template.fields,
+      );
+
+  final String name;
+  final String description;
+  final String requirements;
+  final String prompt;
+  final String? previewImageUrl;
+  final List<StudioFormField> fields;
+
+  @override
+  List<String> get setToNull => const [];
+
+  @override
+  Map<String, dynamic> toJson() => {
     'name': name,
     'description': description,
     'requirements': requirements,
@@ -120,56 +166,70 @@ class ImageLandingTemplate {
   };
 }
 
+/// Templates as a resource: `ResourceController` + `ResourceControllerFilterBar`
+/// work on it like products. `q` searches name and description; `scope` is
+/// `platform` or `mine`. Both are applied to the list Cloud returns.
+class ImageLandingTemplateRepository
+    extends ResourceRepository<ImageLandingTemplate, ImageLandingTemplateInput, ImageLandingTemplateInput> {
+  ImageLandingTemplateRepository({required super.client})
+    : super(table: 'ai/image-landing-pages/templates');
+
+  @override
+  Future<ListResponse<ImageLandingTemplate>> list({
+    int? page,
+    int? offset,
+    int? limit,
+    Map<String, dynamic>? params,
+  }) async {
+    final response = await super.list(
+      page: page,
+      offset: offset,
+      limit: limit,
+      params: params,
+    );
+    final query = (params?['q'] as String? ?? '').trim().toLowerCase();
+    final scope = params?['scope'];
+    final data = response.data.where((template) {
+      if (scope == 'platform' && !template.isPlatform) return false;
+      if (scope == 'mine' && template.isPlatform) return false;
+      return query.isEmpty ||
+          '${template.name} ${template.description}'.toLowerCase().contains(query);
+    }).toList(growable: false);
+    return ListResponse(data: data, total: data.length);
+  }
+
+  @override
+  ImageLandingTemplateInput createFromJson(json) =>
+      ImageLandingTemplateInput.fromJson(json);
+
+  @override
+  Map<String, dynamic> createToJson(ImageLandingTemplateInput model) =>
+      model.toJson();
+
+  @override
+  ImageLandingTemplate modelFromJson(json) => ImageLandingTemplate.fromJson(json);
+
+  @override
+  Map<String, dynamic> modelToJson(ImageLandingTemplate model) => {
+    ...ImageLandingTemplateInput.of(model).toJson(),
+    'id': model.id,
+  };
+
+  @override
+  ImageLandingTemplateInput updateFromJson(json) =>
+      ImageLandingTemplateInput.fromJson(json);
+
+  @override
+  Map<String, dynamic> updateToJson(ImageLandingTemplateInput model) =>
+      model.toJson();
+}
+
 /// Image landing pages (one long poster image, not an HTML page). Usage: `ff.ai.imageLandingPages`.
 /// Pass [storeId] to work in that store's Cloud workspace (its own templates).
 class ImageLandingPagesApi {
   ImageLandingPagesApi(this.client);
   final Dio client;
 
-  /// Platform templates next to the store's own.
-  Future<List<ImageLandingTemplate>> templates({String? storeId}) async {
-    final response = await client.get(
-      '/ai/image-landing-pages/templates',
-      queryParameters: {'storeId': ?storeId},
-    );
-    return (response.data['data'] as List? ?? const [])
-        .whereType<Map>()
-        .map((row) => ImageLandingTemplate.fromJson(_map(row)))
-        .toList(growable: false);
-  }
-
-  Future<ImageLandingTemplate> createTemplate({
-    required String storeId,
-    required ImageLandingTemplate template,
-  }) async {
-    final response = await client.post(
-      '/ai/image-landing-pages/templates',
-      queryParameters: {'storeId': storeId},
-      data: template.toInput(),
-    );
-    return ImageLandingTemplate.fromJson(_map(response.data));
-  }
-
-  Future<ImageLandingTemplate> updateTemplate({
-    required String storeId,
-    required ImageLandingTemplate template,
-  }) async {
-    final response = await client.patch(
-      '/ai/image-landing-pages/templates/${template.id}',
-      queryParameters: {'storeId': storeId},
-      data: template.toInput(),
-    );
-    return ImageLandingTemplate.fromJson(_map(response.data));
-  }
-
-  Future<void> deleteTemplate({required String storeId, required String id}) =>
-      client.delete(
-        '/ai/image-landing-pages/templates/$id',
-        queryParameters: {'storeId': storeId},
-      );
-
-  /// Ask a text model for optional wizard questions. Reuse [idempotencyKey]
-  /// when retrying so the same request is never billed twice.
   Future<ImageLandingQuestions> questions({
     required String idempotencyKey,
     String? storeId,

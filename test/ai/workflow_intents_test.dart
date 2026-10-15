@@ -133,4 +133,66 @@ void main() {
       );
     },
   );
+
+  test('a finished failure releases the route for a different request', () async {
+    final storage = MemoryStorage();
+    final adapter = Adapter()
+      ..fail = false
+      ..response = {
+        'success': false,
+        'error':
+            'Cloud AI could not be reached. Recover the original request; do not start replacement work.',
+      };
+    final dio = client(storage, adapter);
+    await dio.post(
+      '/ai/image-landing-pages',
+      data: {'text': 'one', 'aspectRatio': '9:32'},
+    );
+    await dio.post(
+      '/ai/image-landing-pages',
+      data: {'text': 'two', 'aspectRatio': '1:1'},
+    );
+    expect(adapter.calls, hasLength(2));
+  });
+
+  test('a rejected request releases the route', () async {
+    final storage = MemoryStorage();
+    final adapter = Adapter()..fail = false;
+    adapter.response = {
+      'error': {'code': 'invalid_request', 'message': 'aspect ratio rejected'},
+    };
+    final dio = client(storage, adapter);
+    final rejected = Adapter()
+      ..fail = false
+      ..response = adapter.response;
+    dio.httpClientAdapter = _StatusAdapter(400, adapter.response);
+    await expectLater(
+      dio.post('/ai/image-landing-pages', data: {'text': 'one'}),
+      throwsA(isA<DioException>()),
+    );
+    dio.httpClientAdapter = rejected;
+    await dio.post('/ai/image-landing-pages', data: {'text': 'two'});
+    expect(rejected.calls, hasLength(1));
+  });
+}
+
+class _StatusAdapter extends Adapter {
+  _StatusAdapter(this.status, this.payload);
+  final int status;
+  final dynamic payload;
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? body,
+    Future<void>? cancelFuture,
+  ) async {
+    calls.add(options);
+    return ResponseBody.fromString(
+      jsonEncode(payload),
+      status,
+      headers: {
+        'content-type': ['application/json'],
+      },
+    );
+  }
 }

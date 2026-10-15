@@ -2398,13 +2398,17 @@ class Actions {
       );
     } on DioException catch (e) {
       developer.log('Network error during image landing page generation: ${e.message}');
+      final cause = e.error;
+      final blocked = cause is StateError ? cause.message?.toString() : null;
       return (
         success: false,
         imageUrl: null as String?,
         id: null as String?,
         message: 'Network error occurred',
         error:
-            'Failed to connect to the server. Please check your internet connection.'
+            (blocked != null && blocked.isNotEmpty
+                ? blocked
+                : 'Failed to connect to the server. Please check your internet connection.')
                 as String?,
         metadata: null as Map<String, dynamic>?,
       );

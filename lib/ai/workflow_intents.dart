@@ -98,7 +98,7 @@ class CloudAiWorkflowIntents extends QueuedInterceptor {
           .toString();
       final active = 'feeef.ai.unresolved.$route';
       final prior = await storage.get(active);
-      if (prior != null && prior != digest) {
+      if (prior != null && prior != digest && await _lockIsFresh(active)) {
         throw StateError(
           'An earlier AI request is unresolved. Retry it with its original input before starting replacement work.',
         );
@@ -106,6 +106,7 @@ class CloudAiWorkflowIntents extends QueuedInterceptor {
       final key = await storage.get(slot) ?? 'workflow-${cuid()}';
       await storage.set(slot, key);
       await storage.set(active, digest);
+      await storage.set('$active.at', DateTime.now().toUtc().toIso8601String());
       options.headers['Idempotency-Key'] = key;
       options.extra['feeefAiIntentSlot'] = slot;
       options.extra['feeefAiIntentKey'] = key;
@@ -133,6 +134,10 @@ class CloudAiWorkflowIntents extends QueuedInterceptor {
         ['pending', 'processing', 'queued'].contains(status) ||
         data['jobId'] != null ||
         data['jobIdx'] != null;
+    // A finished `{ success: false }` is terminal even when its message tells
+    // the caller to recover the original request. Holding the route lock there
+    // blocks every later generate.
+    final hold = data['success'] != false && _bodyHoldsLock(body);
     if (slot is String && key is String && pending && jobId is String) {
       await storage.set(
         'feeef.ai.result.${accountId()}.$jobId',
@@ -141,9 +146,7 @@ class CloudAiWorkflowIntents extends QueuedInterceptor {
     }
     if (slot is String &&
         !pending &&
-        !body.contains('reconcil') &&
-        !body.contains('original request') &&
-        !body.contains('ai_workflow_pending') &&
+        !hold &&
         await storage.get(slot) == key) {
       await storage.remove(slot);
     }
@@ -167,11 +170,52 @@ class CloudAiWorkflowIntents extends QueuedInterceptor {
         }
       }
     }
-    if (active is String &&
-        !body.contains('reconcil') &&
-        !body.contains('original request') &&
-        await storage.get(active) == digest)
+    if (active is String && !hold && await storage.get(active) == digest) {
       await storage.remove(active);
+      await storage.remove('$active.at');
+    }
     handler.next(response);
   }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) async {
+    final status = err.response?.statusCode;
+    final data = err.response?.data;
+    final code = data is Map && data['error'] is Map
+        ? (data['error'] as Map)['code']
+        : null;
+    final uncertain =
+        status == null ||
+        status >= 500 ||
+        code == 'ai_workflow_pending' ||
+        code == 'ai_recovery_required';
+    if (!uncertain) {
+      final active = err.requestOptions.extra['feeefAiActiveSlot'];
+      final digest = err.requestOptions.extra['feeefAiFingerprint'];
+      final slot = err.requestOptions.extra['feeefAiIntentSlot'];
+      final key = err.requestOptions.extra['feeefAiIntentKey'];
+      if (active is String && await storage.get(active) == digest) {
+        await storage.remove(active);
+        await storage.remove('$active.at');
+      }
+      if (slot is String && await storage.get(slot) == key) {
+        await storage.remove(slot);
+      }
+    }
+    handler.next(err);
+  }
+
+  /// A lock written by this build expires with the server lease. A lock from
+  /// an older build has no timestamp and must not block a new generate.
+  Future<bool> _lockIsFresh(String active) async {
+    final at = DateTime.tryParse(await storage.get('$active.at') ?? '');
+    if (at == null) return false;
+    return DateTime.now().toUtc().difference(at.toUtc()) <
+        const Duration(minutes: 20);
+  }
+
+  static bool _bodyHoldsLock(String body) =>
+      body.contains('reconcil') ||
+      body.contains('original request') ||
+      body.contains('ai_workflow_pending');
 }

@@ -1403,12 +1403,19 @@ class CloudDeliveryApi {
     return _unwrapMap(res);
   }
 
+  /// Detach one order from Cloud delivery (`POST .../unsend`).
+  ///
+  /// [force] (default true) detaches even when the courier cancel fails — wrong
+  /// tracking, or the parcel is already gone at the courier. With `false` the
+  /// courier error is thrown and the order stays linked.
   Future<Map<String, dynamic>> unsendOrder(
     String storeId,
-    String orderId,
-  ) async {
+    String orderId, {
+    bool force = true,
+  }) async {
     final res = await client.post(
       '/stores/$storeId/orders/$orderId/cloud-parcels/unsend',
+      data: {'force': force},
     );
     return _unwrapMap(res);
   }
@@ -1417,16 +1424,20 @@ class CloudDeliveryApi {
   ///
   /// One request per 200 ids. Parcel cancels are batched on the server.
   /// [CloudUnsendManyResult.failed] is keyed by order id.
+  ///
+  /// [force] has the same meaning as on [unsendOrder]; orders whose courier
+  /// cancel failed are listed in [CloudUnsendManyResult.failed] when it is false.
   Future<CloudUnsendManyResult> unsendOrders(
     String storeId,
-    List<String> orderIds,
-  ) async {
+    List<String> orderIds, {
+    bool force = true,
+  }) async {
     if (orderIds.isEmpty) {
       return const CloudUnsendManyResult(detachedIds: [], failed: {});
     }
     const chunkSize = 200;
     if (orderIds.length <= chunkSize) {
-      return _unsendOrdersOnce(storeId, orderIds);
+      return _unsendOrdersOnce(storeId, orderIds, force: force);
     }
     final detachedIds = <String>[];
     final failed = <String, String>{};
@@ -1434,7 +1445,11 @@ class CloudDeliveryApi {
       final end = start + chunkSize > orderIds.length
           ? orderIds.length
           : start + chunkSize;
-      final part = await _unsendOrdersOnce(storeId, orderIds.sublist(start, end));
+      final part = await _unsendOrdersOnce(
+        storeId,
+        orderIds.sublist(start, end),
+        force: force,
+      );
       detachedIds.addAll(part.detachedIds);
       failed.addAll(part.failed);
     }
@@ -1443,12 +1458,13 @@ class CloudDeliveryApi {
 
   Future<CloudUnsendManyResult> _unsendOrdersOnce(
     String storeId,
-    List<String> orderIds,
-  ) async {
+    List<String> orderIds, {
+    required bool force,
+  }) async {
     try {
       final res = await client.post(
         '/stores/$storeId/orders/cloud-parcels/unsendMany',
-        data: {'orderIds': orderIds},
+        data: {'orderIds': orderIds, 'force': force},
       );
       return CloudUnsendManyResult.fromJson(_unwrapMap(res));
     } on DioException catch (e) {

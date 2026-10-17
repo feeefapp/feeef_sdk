@@ -118,6 +118,9 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
       : CustomFieldsIntegration.fromJson(
           json['customFields'] as Map<String, dynamic>,
         ),
+  reviews: json['reviews'] == null
+      ? null
+      : ReviewsIntegration.fromJson(json['reviews'] as Map<String, dynamic>),
   payment: json['payment'] == null
       ? null
       : PaymentIntegration.fromJson(json['payment'] as Map<String, dynamic>),
@@ -172,6 +175,7 @@ Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
       'webhooks': instance.webhooks?.toJson(),
       'security': instance.security?.toJson(),
       'customFields': instance.customFields?.toJson(),
+      'reviews': instance.reviews?.toJson(),
       'payment': instance.payment?.toJson(),
       'dispatcher': instance.dispatcher?.toJson(),
       'inventory': instance.inventory?.toJson(),

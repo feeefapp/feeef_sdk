@@ -15,7 +15,7 @@ class CloudAiWorkflowIntents extends QueuedInterceptor {
   /// Paid `/ai/*` POSTs that run as durable Cloud workflows (mirror of the
   /// backend `workflow_routes.ts`).
   static final _paths = [
-    RegExp(r'^text/(product-draft|shipping-price-draft|order-draft|list-filter|date-preset|custom-fields-draft)$'),
+    RegExp(r'^text/(product-draft|shipping-price-draft|order-draft|list-filter|date-preset|custom-fields-draft|review-reply|review-summary)$'),
     RegExp(r'^code/(snippet|custom-component|template-page-edit|landing-page-template-data)$'),
     RegExp(r'^landing-pages$'),
     RegExp(r'^images/sync$'),

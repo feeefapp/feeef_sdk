@@ -39,6 +39,11 @@ _Product _$ProductFromJson(Map<String, dynamic> json) => _Product(
   sold: json['sold'] as num? ?? 0,
   views: json['views'] as num? ?? 0,
   likes: json['likes'] as num? ?? 0,
+  ratingAvg: json['ratingAvg'] as num? ?? 0,
+  ratingCount: (json['ratingCount'] as num?)?.toInt() ?? 0,
+  reviewSummary: json['reviewSummary'] == null
+      ? null
+      : ReviewAiSummary.fromJson(json['reviewSummary'] as Map<String, dynamic>),
   variant: json['variant'] == null
       ? null
       : ProductVariant.fromJson(json['variant'] as Map<String, dynamic>),
@@ -101,6 +106,9 @@ Map<String, dynamic> _$ProductToJson(_Product instance) => <String, dynamic>{
   'sold': instance.sold,
   'views': instance.views,
   'likes': instance.likes,
+  'ratingAvg': instance.ratingAvg,
+  'ratingCount': instance.ratingCount,
+  'reviewSummary': instance.reviewSummary?.toJson(),
   'variant': instance.variant?.toJson(),
   'offers': instance.offers?.map((e) => e.toJson()).toList(),
   'forceOffer': instance.forceOffer,
@@ -164,6 +172,11 @@ _IntegrationsData _$IntegrationsDataFromJson(Map<String, dynamic> json) =>
       ecotrackData: json['ecotrackData'] == null
           ? null
           : EcotrackData.fromJson(json['ecotrackData'] as Map<String, dynamic>),
+      reviewsData: json['reviewsData'] == null
+          ? null
+          : ProductReviewsData.fromJson(
+              json['reviewsData'] as Map<String, dynamic>,
+            ),
     );
 
 Map<String, dynamic> _$IntegrationsDataToJson(_IntegrationsData instance) =>
@@ -175,6 +188,7 @@ Map<String, dynamic> _$IntegrationsDataToJson(_IntegrationsData instance) =>
       'paymentMethodData': instance.paymentMethodData?.toJson(),
       'customFieldsData': instance.customFieldsData?.toJson(),
       'ecotrackData': instance.ecotrackData?.toJson(),
+      'reviewsData': instance.reviewsData?.toJson(),
     };
 
 _CustomFieldsIntegrationData _$CustomFieldsIntegrationDataFromJson(

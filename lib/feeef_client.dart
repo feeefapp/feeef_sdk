@@ -40,6 +40,8 @@ import 'package:feeef/products/product_repository.dart';
 import 'package:feeef/realtime/realtime.dart';
 import 'package:feeef/template_components/template_component_repository.dart';
 import 'package:feeef/store_templates/store_template_repository.dart';
+import 'package:feeef/store_pages/store_pages_repository.dart';
+import 'package:feeef/reviews/reviews_repository.dart';
 import 'package:feeef/shipping_methods/shipping_method_repository.dart';
 import 'package:feeef/shipping_prices/shipping_price_repository.dart';
 import 'package:feeef/states/state_repository.dart';
@@ -141,6 +143,10 @@ class Feeef {
   late final ImagePromptTemplateRepository imagePromptTemplates;
   late final TemplateComponentsRepository templateComponents;
   late final StoreTemplatesRepository storeTemplates;
+  late final StorePagesRepository storePages;
+
+  /// Customer product reviews, the review page and merchant moderation.
+  late final ReviewsRepository reviews;
   late final ShippingMethodRepository shippingMethods;
   late final ShippingPriceRepository shippingPrices;
   late final ShippingPriceResourceRepository shippingPricesResource;
@@ -212,6 +218,8 @@ class Feeef {
     imagePromptTemplates = ImagePromptTemplateRepository(client: client);
     templateComponents = TemplateComponentsRepository(client: client);
     storeTemplates = StoreTemplatesRepository(client: client);
+    storePages = StorePagesRepository(client: client);
+    reviews = ReviewsRepository(client: client);
     shippingMethods = ShippingMethodRepository(client: client);
     shippingPrices = ShippingPriceRepository(client: client);
     shippingPricesResource = ShippingPriceResourceRepository(client: client);

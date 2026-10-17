@@ -22,7 +22,9 @@ mixin _$Product {
 /// backends and products: use [courierAccountId], which falls back to a
 /// `ca_…` [shippingFeeId].
  String? get defaultCarrierAccountId;/// Product custom shipping fee (overrides the courier rate); null = none.
-@JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson) CustomShippingFee? get customShippingFee; String? get categoryId; EmbaddedCategory? get category; Category? get categoryRelation; String? get title; String? get description; String? get body; String? get sku; String? get barcode; num get price; num? get cost; num? get discount; num? get stock; num get sold; num get views; num get likes; ProductVariant? get variant; List<ProductOffer>? get offers;/// When true, customer must keep an offer selected. With a valid
+@JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson) CustomShippingFee? get customShippingFee; String? get categoryId; EmbaddedCategory? get category; Category? get categoryRelation; String? get title; String? get description; String? get body; String? get sku; String? get barcode; num get price; num? get cost; num? get discount; num? get stock; num get sold; num get views; num get likes;/// Verified-buyer stars only (docs/product-reviews.md). 0 with no verified reviews.
+ num get ratingAvg; int get ratingCount;/// AI "what customers say"; null until the merchant generates one.
+ ReviewAiSummary? get reviewSummary; ProductVariant? get variant; List<ProductOffer>? get offers;/// When true, customer must keep an offer selected. With a valid
 /// [defaultOfferCode], that offer is locked.
  bool? get forceOffer;/// Offer code to preselect; synced to null when missing from [offers].
  String? get defaultOfferCode; List<ProductAddon>? get addons; num get dislikes; ProductStatus get status; ProductType get type; IntegrationsData? get integrationsData; DateTime? get verifiedAt; DateTime? get blockedAt; Map<String, dynamic> get metadata;/// Present when list/show is called with `with[]=lor` and the user may view analytics.
@@ -40,20 +42,20 @@ $ProductCopyWith<Product> get copyWith => _$ProductCopyWithImpl<Product>(this as
 @override
 bool operator ==(Object other) {
   final _this = this as Product;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Product&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.slug, _this.slug) || other.slug == _this.slug)&&const DeepCollectionEquality().equals(other.decoration, _this.decoration)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.photoUrl, _this.photoUrl) || other.photoUrl == _this.photoUrl)&&const DeepCollectionEquality().equals(other.media, _this.media)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&(identical(other.shippingMethodId, _this.shippingMethodId) || other.shippingMethodId == _this.shippingMethodId)&&(identical(other.shippingFeeId, _this.shippingFeeId) || other.shippingFeeId == _this.shippingFeeId)&&(identical(other.defaultCarrierAccountId, _this.defaultCarrierAccountId) || other.defaultCarrierAccountId == _this.defaultCarrierAccountId)&&(identical(other.customShippingFee, _this.customShippingFee) || other.customShippingFee == _this.customShippingFee)&&(identical(other.categoryId, _this.categoryId) || other.categoryId == _this.categoryId)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.categoryRelation, _this.categoryRelation) || other.categoryRelation == _this.categoryRelation)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.body, _this.body) || other.body == _this.body)&&(identical(other.sku, _this.sku) || other.sku == _this.sku)&&(identical(other.barcode, _this.barcode) || other.barcode == _this.barcode)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.cost, _this.cost) || other.cost == _this.cost)&&(identical(other.discount, _this.discount) || other.discount == _this.discount)&&(identical(other.stock, _this.stock) || other.stock == _this.stock)&&(identical(other.sold, _this.sold) || other.sold == _this.sold)&&(identical(other.views, _this.views) || other.views == _this.views)&&(identical(other.likes, _this.likes) || other.likes == _this.likes)&&(identical(other.variant, _this.variant) || other.variant == _this.variant)&&const DeepCollectionEquality().equals(other.offers, _this.offers)&&(identical(other.forceOffer, _this.forceOffer) || other.forceOffer == _this.forceOffer)&&(identical(other.defaultOfferCode, _this.defaultOfferCode) || other.defaultOfferCode == _this.defaultOfferCode)&&const DeepCollectionEquality().equals(other.addons, _this.addons)&&(identical(other.dislikes, _this.dislikes) || other.dislikes == _this.dislikes)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.integrationsData, _this.integrationsData) || other.integrationsData == _this.integrationsData)&&(identical(other.verifiedAt, _this.verifiedAt) || other.verifiedAt == _this.verifiedAt)&&(identical(other.blockedAt, _this.blockedAt) || other.blockedAt == _this.blockedAt)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.lor, _this.lor) || other.lor == _this.lor));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Product&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.slug, _this.slug) || other.slug == _this.slug)&&const DeepCollectionEquality().equals(other.decoration, _this.decoration)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.photoUrl, _this.photoUrl) || other.photoUrl == _this.photoUrl)&&const DeepCollectionEquality().equals(other.media, _this.media)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&(identical(other.shippingMethodId, _this.shippingMethodId) || other.shippingMethodId == _this.shippingMethodId)&&(identical(other.shippingFeeId, _this.shippingFeeId) || other.shippingFeeId == _this.shippingFeeId)&&(identical(other.defaultCarrierAccountId, _this.defaultCarrierAccountId) || other.defaultCarrierAccountId == _this.defaultCarrierAccountId)&&(identical(other.customShippingFee, _this.customShippingFee) || other.customShippingFee == _this.customShippingFee)&&(identical(other.categoryId, _this.categoryId) || other.categoryId == _this.categoryId)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.categoryRelation, _this.categoryRelation) || other.categoryRelation == _this.categoryRelation)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.body, _this.body) || other.body == _this.body)&&(identical(other.sku, _this.sku) || other.sku == _this.sku)&&(identical(other.barcode, _this.barcode) || other.barcode == _this.barcode)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.cost, _this.cost) || other.cost == _this.cost)&&(identical(other.discount, _this.discount) || other.discount == _this.discount)&&(identical(other.stock, _this.stock) || other.stock == _this.stock)&&(identical(other.sold, _this.sold) || other.sold == _this.sold)&&(identical(other.views, _this.views) || other.views == _this.views)&&(identical(other.likes, _this.likes) || other.likes == _this.likes)&&(identical(other.ratingAvg, _this.ratingAvg) || other.ratingAvg == _this.ratingAvg)&&(identical(other.ratingCount, _this.ratingCount) || other.ratingCount == _this.ratingCount)&&(identical(other.reviewSummary, _this.reviewSummary) || other.reviewSummary == _this.reviewSummary)&&(identical(other.variant, _this.variant) || other.variant == _this.variant)&&const DeepCollectionEquality().equals(other.offers, _this.offers)&&(identical(other.forceOffer, _this.forceOffer) || other.forceOffer == _this.forceOffer)&&(identical(other.defaultOfferCode, _this.defaultOfferCode) || other.defaultOfferCode == _this.defaultOfferCode)&&const DeepCollectionEquality().equals(other.addons, _this.addons)&&(identical(other.dislikes, _this.dislikes) || other.dislikes == _this.dislikes)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.integrationsData, _this.integrationsData) || other.integrationsData == _this.integrationsData)&&(identical(other.verifiedAt, _this.verifiedAt) || other.verifiedAt == _this.verifiedAt)&&(identical(other.blockedAt, _this.blockedAt) || other.blockedAt == _this.blockedAt)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.lor, _this.lor) || other.lor == _this.lor));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as Product;
-  return Object.hashAll([runtimeType,_this.id,_this.createdAt,_this.updatedAt,_this.slug,const DeepCollectionEquality().hash(_this.decoration),_this.name,_this.photoUrl,const DeepCollectionEquality().hash(_this.media),_this.storeId,_this.shippingMethodId,_this.shippingFeeId,_this.defaultCarrierAccountId,_this.customShippingFee,_this.categoryId,_this.category,_this.categoryRelation,_this.title,_this.description,_this.body,_this.sku,_this.barcode,_this.price,_this.cost,_this.discount,_this.stock,_this.sold,_this.views,_this.likes,_this.variant,const DeepCollectionEquality().hash(_this.offers),_this.forceOffer,_this.defaultOfferCode,const DeepCollectionEquality().hash(_this.addons),_this.dislikes,_this.status,_this.type,_this.integrationsData,_this.verifiedAt,_this.blockedAt,const DeepCollectionEquality().hash(_this.metadata),_this.lor]);
+  return Object.hashAll([runtimeType,_this.id,_this.createdAt,_this.updatedAt,_this.slug,const DeepCollectionEquality().hash(_this.decoration),_this.name,_this.photoUrl,const DeepCollectionEquality().hash(_this.media),_this.storeId,_this.shippingMethodId,_this.shippingFeeId,_this.defaultCarrierAccountId,_this.customShippingFee,_this.categoryId,_this.category,_this.categoryRelation,_this.title,_this.description,_this.body,_this.sku,_this.barcode,_this.price,_this.cost,_this.discount,_this.stock,_this.sold,_this.views,_this.likes,_this.ratingAvg,_this.ratingCount,_this.reviewSummary,_this.variant,const DeepCollectionEquality().hash(_this.offers),_this.forceOffer,_this.defaultOfferCode,const DeepCollectionEquality().hash(_this.addons),_this.dislikes,_this.status,_this.type,_this.integrationsData,_this.verifiedAt,_this.blockedAt,const DeepCollectionEquality().hash(_this.metadata),_this.lor]);
 }
 
 @override
 String toString() {
   final _this = this as Product;
-  return 'Product(id: ${_this.id}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, slug: ${_this.slug}, decoration: ${_this.decoration}, name: ${_this.name}, photoUrl: ${_this.photoUrl}, media: ${_this.media}, storeId: ${_this.storeId}, shippingMethodId: ${_this.shippingMethodId}, shippingFeeId: ${_this.shippingFeeId}, defaultCarrierAccountId: ${_this.defaultCarrierAccountId}, customShippingFee: ${_this.customShippingFee}, categoryId: ${_this.categoryId}, category: ${_this.category}, categoryRelation: ${_this.categoryRelation}, title: ${_this.title}, description: ${_this.description}, body: ${_this.body}, sku: ${_this.sku}, barcode: ${_this.barcode}, price: ${_this.price}, cost: ${_this.cost}, discount: ${_this.discount}, stock: ${_this.stock}, sold: ${_this.sold}, views: ${_this.views}, likes: ${_this.likes}, variant: ${_this.variant}, offers: ${_this.offers}, forceOffer: ${_this.forceOffer}, defaultOfferCode: ${_this.defaultOfferCode}, addons: ${_this.addons}, dislikes: ${_this.dislikes}, status: ${_this.status}, type: ${_this.type}, integrationsData: ${_this.integrationsData}, verifiedAt: ${_this.verifiedAt}, blockedAt: ${_this.blockedAt}, metadata: ${_this.metadata}, lor: ${_this.lor})';
+  return 'Product(id: ${_this.id}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, slug: ${_this.slug}, decoration: ${_this.decoration}, name: ${_this.name}, photoUrl: ${_this.photoUrl}, media: ${_this.media}, storeId: ${_this.storeId}, shippingMethodId: ${_this.shippingMethodId}, shippingFeeId: ${_this.shippingFeeId}, defaultCarrierAccountId: ${_this.defaultCarrierAccountId}, customShippingFee: ${_this.customShippingFee}, categoryId: ${_this.categoryId}, category: ${_this.category}, categoryRelation: ${_this.categoryRelation}, title: ${_this.title}, description: ${_this.description}, body: ${_this.body}, sku: ${_this.sku}, barcode: ${_this.barcode}, price: ${_this.price}, cost: ${_this.cost}, discount: ${_this.discount}, stock: ${_this.stock}, sold: ${_this.sold}, views: ${_this.views}, likes: ${_this.likes}, ratingAvg: ${_this.ratingAvg}, ratingCount: ${_this.ratingCount}, reviewSummary: ${_this.reviewSummary}, variant: ${_this.variant}, offers: ${_this.offers}, forceOffer: ${_this.forceOffer}, defaultOfferCode: ${_this.defaultOfferCode}, addons: ${_this.addons}, dislikes: ${_this.dislikes}, status: ${_this.status}, type: ${_this.type}, integrationsData: ${_this.integrationsData}, verifiedAt: ${_this.verifiedAt}, blockedAt: ${_this.blockedAt}, metadata: ${_this.metadata}, lor: ${_this.lor})';
 }
 
 
@@ -64,11 +66,11 @@ abstract mixin class $ProductCopyWith<$Res>  {
   factory $ProductCopyWith(Product value, $Res Function(Product) _then) = _$ProductCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime createdAt, DateTime updatedAt, String slug, ProductDecoration decoration, String name, String? photoUrl, List<String> media, String storeId, String? shippingMethodId, String? shippingFeeId, String? defaultCarrierAccountId,@JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson) CustomShippingFee? customShippingFee, String? categoryId, EmbaddedCategory? category, Category? categoryRelation, String? title, String? description, String? body, String? sku, String? barcode, num price, num? cost, num? discount, num? stock, num sold, num views, num likes, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, num dislikes, ProductStatus status, ProductType type, IntegrationsData? integrationsData, DateTime? verifiedAt, DateTime? blockedAt, Map<String, dynamic> metadata,@JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) LiteOrdersReport? lor
+ String id, DateTime createdAt, DateTime updatedAt, String slug, ProductDecoration decoration, String name, String? photoUrl, List<String> media, String storeId, String? shippingMethodId, String? shippingFeeId, String? defaultCarrierAccountId,@JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson) CustomShippingFee? customShippingFee, String? categoryId, EmbaddedCategory? category, Category? categoryRelation, String? title, String? description, String? body, String? sku, String? barcode, num price, num? cost, num? discount, num? stock, num sold, num views, num likes, num ratingAvg, int ratingCount, ReviewAiSummary? reviewSummary, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, num dislikes, ProductStatus status, ProductType type, IntegrationsData? integrationsData, DateTime? verifiedAt, DateTime? blockedAt, Map<String, dynamic> metadata,@JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) LiteOrdersReport? lor
 });
 
 
-$EmbaddedCategoryCopyWith<$Res>? get category;$CategoryCopyWith<$Res>? get categoryRelation;$ProductVariantCopyWith<$Res>? get variant;$IntegrationsDataCopyWith<$Res>? get integrationsData;
+$EmbaddedCategoryCopyWith<$Res>? get category;$CategoryCopyWith<$Res>? get categoryRelation;$ReviewAiSummaryCopyWith<$Res>? get reviewSummary;$ProductVariantCopyWith<$Res>? get variant;$IntegrationsDataCopyWith<$Res>? get integrationsData;
 
 }
 /// @nodoc
@@ -81,7 +83,7 @@ class _$ProductCopyWithImpl<$Res>
 
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? slug = null,Object? decoration = freezed,Object? name = null,Object? photoUrl = freezed,Object? media = null,Object? storeId = null,Object? shippingMethodId = freezed,Object? shippingFeeId = freezed,Object? defaultCarrierAccountId = freezed,Object? customShippingFee = freezed,Object? categoryId = freezed,Object? category = freezed,Object? categoryRelation = freezed,Object? title = freezed,Object? description = freezed,Object? body = freezed,Object? sku = freezed,Object? barcode = freezed,Object? price = null,Object? cost = freezed,Object? discount = freezed,Object? stock = freezed,Object? sold = null,Object? views = null,Object? likes = null,Object? variant = freezed,Object? offers = freezed,Object? forceOffer = freezed,Object? defaultOfferCode = freezed,Object? addons = freezed,Object? dislikes = null,Object? status = null,Object? type = null,Object? integrationsData = freezed,Object? verifiedAt = freezed,Object? blockedAt = freezed,Object? metadata = null,Object? lor = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? slug = null,Object? decoration = freezed,Object? name = null,Object? photoUrl = freezed,Object? media = null,Object? storeId = null,Object? shippingMethodId = freezed,Object? shippingFeeId = freezed,Object? defaultCarrierAccountId = freezed,Object? customShippingFee = freezed,Object? categoryId = freezed,Object? category = freezed,Object? categoryRelation = freezed,Object? title = freezed,Object? description = freezed,Object? body = freezed,Object? sku = freezed,Object? barcode = freezed,Object? price = null,Object? cost = freezed,Object? discount = freezed,Object? stock = freezed,Object? sold = null,Object? views = null,Object? likes = null,Object? ratingAvg = null,Object? ratingCount = null,Object? reviewSummary = freezed,Object? variant = freezed,Object? offers = freezed,Object? forceOffer = freezed,Object? defaultOfferCode = freezed,Object? addons = freezed,Object? dislikes = null,Object? status = null,Object? type = null,Object? integrationsData = freezed,Object? verifiedAt = freezed,Object? blockedAt = freezed,Object? metadata = null,Object? lor = freezed,}) {
   return _then(Product(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
@@ -111,7 +113,10 @@ as num?,stock: freezed == stock ? _self.stock : stock // ignore: cast_nullable_t
 as num?,sold: null == sold ? _self.sold : sold // ignore: cast_nullable_to_non_nullable
 as num,views: null == views ? _self.views : views // ignore: cast_nullable_to_non_nullable
 as num,likes: null == likes ? _self.likes : likes // ignore: cast_nullable_to_non_nullable
-as num,variant: freezed == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
+as num,ratingAvg: null == ratingAvg ? _self.ratingAvg : ratingAvg // ignore: cast_nullable_to_non_nullable
+as num,ratingCount: null == ratingCount ? _self.ratingCount : ratingCount // ignore: cast_nullable_to_non_nullable
+as int,reviewSummary: freezed == reviewSummary ? _self.reviewSummary : reviewSummary // ignore: cast_nullable_to_non_nullable
+as ReviewAiSummary?,variant: freezed == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
 as ProductVariant?,offers: freezed == offers ? _self.offers : offers // ignore: cast_nullable_to_non_nullable
 as List<ProductOffer>?,forceOffer: freezed == forceOffer ? _self.forceOffer : forceOffer // ignore: cast_nullable_to_non_nullable
 as bool?,defaultOfferCode: freezed == defaultOfferCode ? _self.defaultOfferCode : defaultOfferCode // ignore: cast_nullable_to_non_nullable
@@ -150,6 +155,18 @@ $CategoryCopyWith<$Res>? get categoryRelation {
 
   return $CategoryCopyWith<$Res>(_self.categoryRelation!, (value) {
     return _then(_self.copyWith(categoryRelation: value));
+  });
+}/// Create a copy of Product
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ReviewAiSummaryCopyWith<$Res>? get reviewSummary {
+    if (_self.reviewSummary == null) {
+    return null;
+  }
+
+  return $ReviewAiSummaryCopyWith<$Res>(_self.reviewSummary!, (value) {
+    return _then(_self.copyWith(reviewSummary: value));
   });
 }/// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
@@ -257,10 +274,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  ProductDecoration decoration,  String name,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingFeeId,  String? defaultCarrierAccountId, @JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson)  CustomShippingFee? customShippingFee,  String? categoryId,  EmbaddedCategory? category,  Category? categoryRelation,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  num sold,  num views,  num likes,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  num dislikes,  ProductStatus status,  ProductType type,  IntegrationsData? integrationsData,  DateTime? verifiedAt,  DateTime? blockedAt,  Map<String, dynamic> metadata, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)  LiteOrdersReport? lor)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  ProductDecoration decoration,  String name,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingFeeId,  String? defaultCarrierAccountId, @JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson)  CustomShippingFee? customShippingFee,  String? categoryId,  EmbaddedCategory? category,  Category? categoryRelation,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  num sold,  num views,  num likes,  num ratingAvg,  int ratingCount,  ReviewAiSummary? reviewSummary,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  num dislikes,  ProductStatus status,  ProductType type,  IntegrationsData? integrationsData,  DateTime? verifiedAt,  DateTime? blockedAt,  Map<String, dynamic> metadata, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)  LiteOrdersReport? lor)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Product() when $default != null:
-return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decoration,_that.name,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingFeeId,_that.defaultCarrierAccountId,_that.customShippingFee,_that.categoryId,_that.category,_that.categoryRelation,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.views,_that.likes,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.dislikes,_that.status,_that.type,_that.integrationsData,_that.verifiedAt,_that.blockedAt,_that.metadata,_that.lor);case _:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decoration,_that.name,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingFeeId,_that.defaultCarrierAccountId,_that.customShippingFee,_that.categoryId,_that.category,_that.categoryRelation,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.views,_that.likes,_that.ratingAvg,_that.ratingCount,_that.reviewSummary,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.dislikes,_that.status,_that.type,_that.integrationsData,_that.verifiedAt,_that.blockedAt,_that.metadata,_that.lor);case _:
   return orElse();
 
 }
@@ -278,10 +295,10 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decora
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  ProductDecoration decoration,  String name,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingFeeId,  String? defaultCarrierAccountId, @JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson)  CustomShippingFee? customShippingFee,  String? categoryId,  EmbaddedCategory? category,  Category? categoryRelation,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  num sold,  num views,  num likes,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  num dislikes,  ProductStatus status,  ProductType type,  IntegrationsData? integrationsData,  DateTime? verifiedAt,  DateTime? blockedAt,  Map<String, dynamic> metadata, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)  LiteOrdersReport? lor)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  ProductDecoration decoration,  String name,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingFeeId,  String? defaultCarrierAccountId, @JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson)  CustomShippingFee? customShippingFee,  String? categoryId,  EmbaddedCategory? category,  Category? categoryRelation,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  num sold,  num views,  num likes,  num ratingAvg,  int ratingCount,  ReviewAiSummary? reviewSummary,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  num dislikes,  ProductStatus status,  ProductType type,  IntegrationsData? integrationsData,  DateTime? verifiedAt,  DateTime? blockedAt,  Map<String, dynamic> metadata, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)  LiteOrdersReport? lor)  $default,) {final _that = this;
 switch (_that) {
 case _Product():
-return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decoration,_that.name,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingFeeId,_that.defaultCarrierAccountId,_that.customShippingFee,_that.categoryId,_that.category,_that.categoryRelation,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.views,_that.likes,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.dislikes,_that.status,_that.type,_that.integrationsData,_that.verifiedAt,_that.blockedAt,_that.metadata,_that.lor);case _:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decoration,_that.name,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingFeeId,_that.defaultCarrierAccountId,_that.customShippingFee,_that.categoryId,_that.category,_that.categoryRelation,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.views,_that.likes,_that.ratingAvg,_that.ratingCount,_that.reviewSummary,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.dislikes,_that.status,_that.type,_that.integrationsData,_that.verifiedAt,_that.blockedAt,_that.metadata,_that.lor);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -298,10 +315,10 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decora
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  ProductDecoration decoration,  String name,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingFeeId,  String? defaultCarrierAccountId, @JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson)  CustomShippingFee? customShippingFee,  String? categoryId,  EmbaddedCategory? category,  Category? categoryRelation,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  num sold,  num views,  num likes,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  num dislikes,  ProductStatus status,  ProductType type,  IntegrationsData? integrationsData,  DateTime? verifiedAt,  DateTime? blockedAt,  Map<String, dynamic> metadata, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)  LiteOrdersReport? lor)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  DateTime updatedAt,  String slug,  ProductDecoration decoration,  String name,  String? photoUrl,  List<String> media,  String storeId,  String? shippingMethodId,  String? shippingFeeId,  String? defaultCarrierAccountId, @JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson)  CustomShippingFee? customShippingFee,  String? categoryId,  EmbaddedCategory? category,  Category? categoryRelation,  String? title,  String? description,  String? body,  String? sku,  String? barcode,  num price,  num? cost,  num? discount,  num? stock,  num sold,  num views,  num likes,  num ratingAvg,  int ratingCount,  ReviewAiSummary? reviewSummary,  ProductVariant? variant,  List<ProductOffer>? offers,  bool? forceOffer,  String? defaultOfferCode,  List<ProductAddon>? addons,  num dislikes,  ProductStatus status,  ProductType type,  IntegrationsData? integrationsData,  DateTime? verifiedAt,  DateTime? blockedAt,  Map<String, dynamic> metadata, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)  LiteOrdersReport? lor)?  $default,) {final _that = this;
 switch (_that) {
 case _Product() when $default != null:
-return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decoration,_that.name,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingFeeId,_that.defaultCarrierAccountId,_that.customShippingFee,_that.categoryId,_that.category,_that.categoryRelation,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.views,_that.likes,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.dislikes,_that.status,_that.type,_that.integrationsData,_that.verifiedAt,_that.blockedAt,_that.metadata,_that.lor);case _:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decoration,_that.name,_that.photoUrl,_that.media,_that.storeId,_that.shippingMethodId,_that.shippingFeeId,_that.defaultCarrierAccountId,_that.customShippingFee,_that.categoryId,_that.category,_that.categoryRelation,_that.title,_that.description,_that.body,_that.sku,_that.barcode,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.views,_that.likes,_that.ratingAvg,_that.ratingCount,_that.reviewSummary,_that.variant,_that.offers,_that.forceOffer,_that.defaultOfferCode,_that.addons,_that.dislikes,_that.status,_that.type,_that.integrationsData,_that.verifiedAt,_that.blockedAt,_that.metadata,_that.lor);case _:
   return null;
 
 }
@@ -313,7 +330,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt,_that.slug,_that.decora
 @JsonSerializable()
 
 class _Product extends Product {
-   _Product({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.decoration, required this.name, this.photoUrl, required  List<String> media, required this.storeId, this.shippingMethodId, this.shippingFeeId, this.defaultCarrierAccountId, @JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson) this.customShippingFee, this.categoryId, this.category, this.categoryRelation, this.title, this.description, this.body, this.sku, this.barcode, required this.price, this.cost, this.discount, this.stock, this.sold = 0, this.views = 0, this.likes = 0, this.variant,  List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode,  List<ProductAddon>? addons, this.dislikes = 0, this.status = ProductStatus.draft, this.type = ProductType.physical, this.integrationsData, this.verifiedAt, this.blockedAt,  Map<String, dynamic> metadata = const {}, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) this.lor}): _media = media,_offers = offers,_addons = addons,_metadata = metadata,super._();
+   _Product({required this.id, required this.createdAt, required this.updatedAt, required this.slug, this.decoration, required this.name, this.photoUrl, required  List<String> media, required this.storeId, this.shippingMethodId, this.shippingFeeId, this.defaultCarrierAccountId, @JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson) this.customShippingFee, this.categoryId, this.category, this.categoryRelation, this.title, this.description, this.body, this.sku, this.barcode, required this.price, this.cost, this.discount, this.stock, this.sold = 0, this.views = 0, this.likes = 0, this.ratingAvg = 0, this.ratingCount = 0, this.reviewSummary, this.variant,  List<ProductOffer>? offers, this.forceOffer, this.defaultOfferCode,  List<ProductAddon>? addons, this.dislikes = 0, this.status = ProductStatus.draft, this.type = ProductType.physical, this.integrationsData, this.verifiedAt, this.blockedAt,  Map<String, dynamic> metadata = const {}, @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) this.lor}): _media = media,_offers = offers,_addons = addons,_metadata = metadata,super._();
   factory _Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 
 @override final  String id;
@@ -356,6 +373,11 @@ class _Product extends Product {
 @override@JsonKey() final  num sold;
 @override@JsonKey() final  num views;
 @override@JsonKey() final  num likes;
+/// Verified-buyer stars only (docs/product-reviews.md). 0 with no verified reviews.
+@override@JsonKey() final  num ratingAvg;
+@override@JsonKey() final  int ratingCount;
+/// AI "what customers say"; null until the merchant generates one.
+@override final  ReviewAiSummary? reviewSummary;
 @override final  ProductVariant? variant;
  final  List<ProductOffer>? _offers;
 @override List<ProductOffer>? get offers {
@@ -409,18 +431,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Product&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.slug, slug) || other.slug == slug)&&const DeepCollectionEquality().equals(other.decoration, decoration)&&(identical(other.name, name) || other.name == name)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.media, _media)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.shippingFeeId, shippingFeeId) || other.shippingFeeId == shippingFeeId)&&(identical(other.defaultCarrierAccountId, defaultCarrierAccountId) || other.defaultCarrierAccountId == defaultCarrierAccountId)&&(identical(other.customShippingFee, customShippingFee) || other.customShippingFee == customShippingFee)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.category, category) || other.category == category)&&(identical(other.categoryRelation, categoryRelation) || other.categoryRelation == categoryRelation)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.body, body) || other.body == body)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.price, price) || other.price == price)&&(identical(other.cost, cost) || other.cost == cost)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.sold, sold) || other.sold == sold)&&(identical(other.views, views) || other.views == views)&&(identical(other.likes, likes) || other.likes == likes)&&(identical(other.variant, variant) || other.variant == variant)&&const DeepCollectionEquality().equals(other.offers, _offers)&&(identical(other.forceOffer, forceOffer) || other.forceOffer == forceOffer)&&(identical(other.defaultOfferCode, defaultOfferCode) || other.defaultOfferCode == defaultOfferCode)&&const DeepCollectionEquality().equals(other.addons, _addons)&&(identical(other.dislikes, dislikes) || other.dislikes == dislikes)&&(identical(other.status, status) || other.status == status)&&(identical(other.type, type) || other.type == type)&&(identical(other.integrationsData, integrationsData) || other.integrationsData == integrationsData)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.lor, lor) || other.lor == lor));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Product&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.slug, slug) || other.slug == slug)&&const DeepCollectionEquality().equals(other.decoration, decoration)&&(identical(other.name, name) || other.name == name)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&const DeepCollectionEquality().equals(other.media, _media)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.shippingFeeId, shippingFeeId) || other.shippingFeeId == shippingFeeId)&&(identical(other.defaultCarrierAccountId, defaultCarrierAccountId) || other.defaultCarrierAccountId == defaultCarrierAccountId)&&(identical(other.customShippingFee, customShippingFee) || other.customShippingFee == customShippingFee)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.category, category) || other.category == category)&&(identical(other.categoryRelation, categoryRelation) || other.categoryRelation == categoryRelation)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.body, body) || other.body == body)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.price, price) || other.price == price)&&(identical(other.cost, cost) || other.cost == cost)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.sold, sold) || other.sold == sold)&&(identical(other.views, views) || other.views == views)&&(identical(other.likes, likes) || other.likes == likes)&&(identical(other.ratingAvg, ratingAvg) || other.ratingAvg == ratingAvg)&&(identical(other.ratingCount, ratingCount) || other.ratingCount == ratingCount)&&(identical(other.reviewSummary, reviewSummary) || other.reviewSummary == reviewSummary)&&(identical(other.variant, variant) || other.variant == variant)&&const DeepCollectionEquality().equals(other.offers, _offers)&&(identical(other.forceOffer, forceOffer) || other.forceOffer == forceOffer)&&(identical(other.defaultOfferCode, defaultOfferCode) || other.defaultOfferCode == defaultOfferCode)&&const DeepCollectionEquality().equals(other.addons, _addons)&&(identical(other.dislikes, dislikes) || other.dislikes == dislikes)&&(identical(other.status, status) || other.status == status)&&(identical(other.type, type) || other.type == type)&&(identical(other.integrationsData, integrationsData) || other.integrationsData == integrationsData)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&(identical(other.blockedAt, blockedAt) || other.blockedAt == blockedAt)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.lor, lor) || other.lor == lor));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hashAll([runtimeType,id,createdAt,updatedAt,slug,const DeepCollectionEquality().hash(decoration),name,photoUrl,const DeepCollectionEquality().hash(_media),storeId,shippingMethodId,shippingFeeId,defaultCarrierAccountId,customShippingFee,categoryId,category,categoryRelation,title,description,body,sku,barcode,price,cost,discount,stock,sold,views,likes,variant,const DeepCollectionEquality().hash(_offers),forceOffer,defaultOfferCode,const DeepCollectionEquality().hash(_addons),dislikes,status,type,integrationsData,verifiedAt,blockedAt,const DeepCollectionEquality().hash(_metadata),lor]);
+    return Object.hashAll([runtimeType,id,createdAt,updatedAt,slug,const DeepCollectionEquality().hash(decoration),name,photoUrl,const DeepCollectionEquality().hash(_media),storeId,shippingMethodId,shippingFeeId,defaultCarrierAccountId,customShippingFee,categoryId,category,categoryRelation,title,description,body,sku,barcode,price,cost,discount,stock,sold,views,likes,ratingAvg,ratingCount,reviewSummary,variant,const DeepCollectionEquality().hash(_offers),forceOffer,defaultOfferCode,const DeepCollectionEquality().hash(_addons),dislikes,status,type,integrationsData,verifiedAt,blockedAt,const DeepCollectionEquality().hash(_metadata),lor]);
 }
 
 @override
 String toString() {
-    return 'Product(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, slug: $slug, decoration: $decoration, name: $name, photoUrl: $photoUrl, media: $media, storeId: $storeId, shippingMethodId: $shippingMethodId, shippingFeeId: $shippingFeeId, defaultCarrierAccountId: $defaultCarrierAccountId, customShippingFee: $customShippingFee, categoryId: $categoryId, category: $category, categoryRelation: $categoryRelation, title: $title, description: $description, body: $body, sku: $sku, barcode: $barcode, price: $price, cost: $cost, discount: $discount, stock: $stock, sold: $sold, views: $views, likes: $likes, variant: $variant, offers: $offers, forceOffer: $forceOffer, defaultOfferCode: $defaultOfferCode, addons: $addons, dislikes: $dislikes, status: $status, type: $type, integrationsData: $integrationsData, verifiedAt: $verifiedAt, blockedAt: $blockedAt, metadata: $metadata, lor: $lor)';
+    return 'Product(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, slug: $slug, decoration: $decoration, name: $name, photoUrl: $photoUrl, media: $media, storeId: $storeId, shippingMethodId: $shippingMethodId, shippingFeeId: $shippingFeeId, defaultCarrierAccountId: $defaultCarrierAccountId, customShippingFee: $customShippingFee, categoryId: $categoryId, category: $category, categoryRelation: $categoryRelation, title: $title, description: $description, body: $body, sku: $sku, barcode: $barcode, price: $price, cost: $cost, discount: $discount, stock: $stock, sold: $sold, views: $views, likes: $likes, ratingAvg: $ratingAvg, ratingCount: $ratingCount, reviewSummary: $reviewSummary, variant: $variant, offers: $offers, forceOffer: $forceOffer, defaultOfferCode: $defaultOfferCode, addons: $addons, dislikes: $dislikes, status: $status, type: $type, integrationsData: $integrationsData, verifiedAt: $verifiedAt, blockedAt: $blockedAt, metadata: $metadata, lor: $lor)';
 }
 
 
@@ -431,11 +453,11 @@ abstract mixin class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
   factory _$ProductCopyWith(_Product value, $Res Function(_Product) _then) = __$ProductCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime createdAt, DateTime updatedAt, String slug, ProductDecoration decoration, String name, String? photoUrl, List<String> media, String storeId, String? shippingMethodId, String? shippingFeeId, String? defaultCarrierAccountId,@JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson) CustomShippingFee? customShippingFee, String? categoryId, EmbaddedCategory? category, Category? categoryRelation, String? title, String? description, String? body, String? sku, String? barcode, num price, num? cost, num? discount, num? stock, num sold, num views, num likes, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, num dislikes, ProductStatus status, ProductType type, IntegrationsData? integrationsData, DateTime? verifiedAt, DateTime? blockedAt, Map<String, dynamic> metadata,@JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) LiteOrdersReport? lor
+ String id, DateTime createdAt, DateTime updatedAt, String slug, ProductDecoration decoration, String name, String? photoUrl, List<String> media, String storeId, String? shippingMethodId, String? shippingFeeId, String? defaultCarrierAccountId,@JsonKey(fromJson: customShippingFeeFromJson, toJson: customShippingFeeToJson) CustomShippingFee? customShippingFee, String? categoryId, EmbaddedCategory? category, Category? categoryRelation, String? title, String? description, String? body, String? sku, String? barcode, num price, num? cost, num? discount, num? stock, num sold, num views, num likes, num ratingAvg, int ratingCount, ReviewAiSummary? reviewSummary, ProductVariant? variant, List<ProductOffer>? offers, bool? forceOffer, String? defaultOfferCode, List<ProductAddon>? addons, num dislikes, ProductStatus status, ProductType type, IntegrationsData? integrationsData, DateTime? verifiedAt, DateTime? blockedAt, Map<String, dynamic> metadata,@JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson) LiteOrdersReport? lor
 });
 
 
-@override $EmbaddedCategoryCopyWith<$Res>? get category;@override $CategoryCopyWith<$Res>? get categoryRelation;@override $ProductVariantCopyWith<$Res>? get variant;@override $IntegrationsDataCopyWith<$Res>? get integrationsData;
+@override $EmbaddedCategoryCopyWith<$Res>? get category;@override $CategoryCopyWith<$Res>? get categoryRelation;@override $ReviewAiSummaryCopyWith<$Res>? get reviewSummary;@override $ProductVariantCopyWith<$Res>? get variant;@override $IntegrationsDataCopyWith<$Res>? get integrationsData;
 
 }
 /// @nodoc
@@ -448,7 +470,7 @@ class __$ProductCopyWithImpl<$Res>
 
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? slug = null,Object? decoration = freezed,Object? name = null,Object? photoUrl = freezed,Object? media = null,Object? storeId = null,Object? shippingMethodId = freezed,Object? shippingFeeId = freezed,Object? defaultCarrierAccountId = freezed,Object? customShippingFee = freezed,Object? categoryId = freezed,Object? category = freezed,Object? categoryRelation = freezed,Object? title = freezed,Object? description = freezed,Object? body = freezed,Object? sku = freezed,Object? barcode = freezed,Object? price = null,Object? cost = freezed,Object? discount = freezed,Object? stock = freezed,Object? sold = null,Object? views = null,Object? likes = null,Object? variant = freezed,Object? offers = freezed,Object? forceOffer = freezed,Object? defaultOfferCode = freezed,Object? addons = freezed,Object? dislikes = null,Object? status = null,Object? type = null,Object? integrationsData = freezed,Object? verifiedAt = freezed,Object? blockedAt = freezed,Object? metadata = null,Object? lor = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? slug = null,Object? decoration = freezed,Object? name = null,Object? photoUrl = freezed,Object? media = null,Object? storeId = null,Object? shippingMethodId = freezed,Object? shippingFeeId = freezed,Object? defaultCarrierAccountId = freezed,Object? customShippingFee = freezed,Object? categoryId = freezed,Object? category = freezed,Object? categoryRelation = freezed,Object? title = freezed,Object? description = freezed,Object? body = freezed,Object? sku = freezed,Object? barcode = freezed,Object? price = null,Object? cost = freezed,Object? discount = freezed,Object? stock = freezed,Object? sold = null,Object? views = null,Object? likes = null,Object? ratingAvg = null,Object? ratingCount = null,Object? reviewSummary = freezed,Object? variant = freezed,Object? offers = freezed,Object? forceOffer = freezed,Object? defaultOfferCode = freezed,Object? addons = freezed,Object? dislikes = null,Object? status = null,Object? type = null,Object? integrationsData = freezed,Object? verifiedAt = freezed,Object? blockedAt = freezed,Object? metadata = null,Object? lor = freezed,}) {
   return _then(_Product(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
@@ -478,7 +500,10 @@ as num?,stock: freezed == stock ? _self.stock : stock // ignore: cast_nullable_t
 as num?,sold: null == sold ? _self.sold : sold // ignore: cast_nullable_to_non_nullable
 as num,views: null == views ? _self.views : views // ignore: cast_nullable_to_non_nullable
 as num,likes: null == likes ? _self.likes : likes // ignore: cast_nullable_to_non_nullable
-as num,variant: freezed == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
+as num,ratingAvg: null == ratingAvg ? _self.ratingAvg : ratingAvg // ignore: cast_nullable_to_non_nullable
+as num,ratingCount: null == ratingCount ? _self.ratingCount : ratingCount // ignore: cast_nullable_to_non_nullable
+as int,reviewSummary: freezed == reviewSummary ? _self.reviewSummary : reviewSummary // ignore: cast_nullable_to_non_nullable
+as ReviewAiSummary?,variant: freezed == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
 as ProductVariant?,offers: freezed == offers ? _self._offers : offers // ignore: cast_nullable_to_non_nullable
 as List<ProductOffer>?,forceOffer: freezed == forceOffer ? _self.forceOffer : forceOffer // ignore: cast_nullable_to_non_nullable
 as bool?,defaultOfferCode: freezed == defaultOfferCode ? _self.defaultOfferCode : defaultOfferCode // ignore: cast_nullable_to_non_nullable
@@ -523,6 +548,18 @@ $CategoryCopyWith<$Res>? get categoryRelation {
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
+$ReviewAiSummaryCopyWith<$Res>? get reviewSummary {
+    if (_self.reviewSummary == null) {
+    return null;
+  }
+
+  return $ReviewAiSummaryCopyWith<$Res>(_self.reviewSummary!, (value) {
+    return _then(_self.copyWith(reviewSummary: value));
+  });
+}/// Create a copy of Product
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
 $ProductVariantCopyWith<$Res>? get variant {
     if (_self.variant == null) {
     return null;
@@ -551,7 +588,8 @@ $IntegrationsDataCopyWith<$Res>? get integrationsData {
 mixin _$IntegrationsData {
 
  MetaPixelData? get metaPixelData; TiktokPixelData? get tiktokPixelData; SnapchatPixelData? get snapchatPixelData; GoogleSheetsData? get googleSheetsData; PaymentMethodData? get paymentMethodData; CustomFieldsIntegrationData? get customFieldsData;/// Per-product Ecotrack warehouse stock mapping (merchant-only).
- EcotrackData? get ecotrackData;
+ EcotrackData? get ecotrackData;/// Per-product review settings (inherit the store unless `useProductSettings`).
+ ProductReviewsData? get reviewsData;
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -565,20 +603,20 @@ $IntegrationsDataCopyWith<IntegrationsData> get copyWith => _$IntegrationsDataCo
 @override
 bool operator ==(Object other) {
   final _this = this as IntegrationsData;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IntegrationsData&&(identical(other.metaPixelData, _this.metaPixelData) || other.metaPixelData == _this.metaPixelData)&&(identical(other.tiktokPixelData, _this.tiktokPixelData) || other.tiktokPixelData == _this.tiktokPixelData)&&(identical(other.snapchatPixelData, _this.snapchatPixelData) || other.snapchatPixelData == _this.snapchatPixelData)&&(identical(other.googleSheetsData, _this.googleSheetsData) || other.googleSheetsData == _this.googleSheetsData)&&(identical(other.paymentMethodData, _this.paymentMethodData) || other.paymentMethodData == _this.paymentMethodData)&&(identical(other.customFieldsData, _this.customFieldsData) || other.customFieldsData == _this.customFieldsData)&&(identical(other.ecotrackData, _this.ecotrackData) || other.ecotrackData == _this.ecotrackData));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IntegrationsData&&(identical(other.metaPixelData, _this.metaPixelData) || other.metaPixelData == _this.metaPixelData)&&(identical(other.tiktokPixelData, _this.tiktokPixelData) || other.tiktokPixelData == _this.tiktokPixelData)&&(identical(other.snapchatPixelData, _this.snapchatPixelData) || other.snapchatPixelData == _this.snapchatPixelData)&&(identical(other.googleSheetsData, _this.googleSheetsData) || other.googleSheetsData == _this.googleSheetsData)&&(identical(other.paymentMethodData, _this.paymentMethodData) || other.paymentMethodData == _this.paymentMethodData)&&(identical(other.customFieldsData, _this.customFieldsData) || other.customFieldsData == _this.customFieldsData)&&(identical(other.ecotrackData, _this.ecotrackData) || other.ecotrackData == _this.ecotrackData)&&(identical(other.reviewsData, _this.reviewsData) || other.reviewsData == _this.reviewsData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as IntegrationsData;
-  return Object.hash(runtimeType,_this.metaPixelData,_this.tiktokPixelData,_this.snapchatPixelData,_this.googleSheetsData,_this.paymentMethodData,_this.customFieldsData,_this.ecotrackData);
+  return Object.hash(runtimeType,_this.metaPixelData,_this.tiktokPixelData,_this.snapchatPixelData,_this.googleSheetsData,_this.paymentMethodData,_this.customFieldsData,_this.ecotrackData,_this.reviewsData);
 }
 
 @override
 String toString() {
   final _this = this as IntegrationsData;
-  return 'IntegrationsData(metaPixelData: ${_this.metaPixelData}, tiktokPixelData: ${_this.tiktokPixelData}, snapchatPixelData: ${_this.snapchatPixelData}, googleSheetsData: ${_this.googleSheetsData}, paymentMethodData: ${_this.paymentMethodData}, customFieldsData: ${_this.customFieldsData}, ecotrackData: ${_this.ecotrackData})';
+  return 'IntegrationsData(metaPixelData: ${_this.metaPixelData}, tiktokPixelData: ${_this.tiktokPixelData}, snapchatPixelData: ${_this.snapchatPixelData}, googleSheetsData: ${_this.googleSheetsData}, paymentMethodData: ${_this.paymentMethodData}, customFieldsData: ${_this.customFieldsData}, ecotrackData: ${_this.ecotrackData}, reviewsData: ${_this.reviewsData})';
 }
 
 
@@ -589,11 +627,11 @@ abstract mixin class $IntegrationsDataCopyWith<$Res>  {
   factory $IntegrationsDataCopyWith(IntegrationsData value, $Res Function(IntegrationsData) _then) = _$IntegrationsDataCopyWithImpl;
 @useResult
 $Res call({
- MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, SnapchatPixelData? snapchatPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData
+ MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, SnapchatPixelData? snapchatPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData, ProductReviewsData? reviewsData
 });
 
 
-$MetaPixelDataCopyWith<$Res>? get metaPixelData;$TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;$SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData;$GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;$PaymentMethodDataCopyWith<$Res>? get paymentMethodData;$CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;$EcotrackDataCopyWith<$Res>? get ecotrackData;
+$MetaPixelDataCopyWith<$Res>? get metaPixelData;$TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;$SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData;$GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;$PaymentMethodDataCopyWith<$Res>? get paymentMethodData;$CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;$EcotrackDataCopyWith<$Res>? get ecotrackData;$ProductReviewsDataCopyWith<$Res>? get reviewsData;
 
 }
 /// @nodoc
@@ -606,7 +644,7 @@ class _$IntegrationsDataCopyWithImpl<$Res>
 
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? snapchatPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? snapchatPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,Object? reviewsData = freezed,}) {
   return _then(IntegrationsData(
 metaPixelData: freezed == metaPixelData ? _self.metaPixelData : metaPixelData // ignore: cast_nullable_to_non_nullable
 as MetaPixelData?,tiktokPixelData: freezed == tiktokPixelData ? _self.tiktokPixelData : tiktokPixelData // ignore: cast_nullable_to_non_nullable
@@ -615,7 +653,8 @@ as SnapchatPixelData?,googleSheetsData: freezed == googleSheetsData ? _self.goog
 as GoogleSheetsData?,paymentMethodData: freezed == paymentMethodData ? _self.paymentMethodData : paymentMethodData // ignore: cast_nullable_to_non_nullable
 as PaymentMethodData?,customFieldsData: freezed == customFieldsData ? _self.customFieldsData : customFieldsData // ignore: cast_nullable_to_non_nullable
 as CustomFieldsIntegrationData?,ecotrackData: freezed == ecotrackData ? _self.ecotrackData : ecotrackData // ignore: cast_nullable_to_non_nullable
-as EcotrackData?,
+as EcotrackData?,reviewsData: freezed == reviewsData ? _self.reviewsData : reviewsData // ignore: cast_nullable_to_non_nullable
+as ProductReviewsData?,
   ));
 }
 /// Create a copy of IntegrationsData
@@ -701,6 +740,18 @@ $EcotrackDataCopyWith<$Res>? get ecotrackData {
 
   return $EcotrackDataCopyWith<$Res>(_self.ecotrackData!, (value) {
     return _then(_self.copyWith(ecotrackData: value));
+  });
+}/// Create a copy of IntegrationsData
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ProductReviewsDataCopyWith<$Res>? get reviewsData {
+    if (_self.reviewsData == null) {
+    return null;
+  }
+
+  return $ProductReviewsDataCopyWith<$Res>(_self.reviewsData!, (value) {
+    return _then(_self.copyWith(reviewsData: value));
   });
 }
 }
@@ -784,10 +835,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData,  ProductReviewsData? reviewsData)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _IntegrationsData() when $default != null:
-return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData);case _:
+return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData,_that.reviewsData);case _:
   return orElse();
 
 }
@@ -805,10 +856,10 @@ return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelDat
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData,  ProductReviewsData? reviewsData)  $default,) {final _that = this;
 switch (_that) {
 case _IntegrationsData():
-return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData);case _:
+return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData,_that.reviewsData);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -825,10 +876,10 @@ return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelDat
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData,  ProductReviewsData? reviewsData)?  $default,) {final _that = this;
 switch (_that) {
 case _IntegrationsData() when $default != null:
-return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData);case _:
+return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData,_that.reviewsData);case _:
   return null;
 
 }
@@ -840,7 +891,7 @@ return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelDat
 @JsonSerializable()
 
 class _IntegrationsData extends IntegrationsData {
-   _IntegrationsData({this.metaPixelData, this.tiktokPixelData, this.snapchatPixelData, this.googleSheetsData, this.paymentMethodData, this.customFieldsData, this.ecotrackData}): super._();
+   _IntegrationsData({this.metaPixelData, this.tiktokPixelData, this.snapchatPixelData, this.googleSheetsData, this.paymentMethodData, this.customFieldsData, this.ecotrackData, this.reviewsData}): super._();
   factory _IntegrationsData.fromJson(Map<String, dynamic> json) => _$IntegrationsDataFromJson(json);
 
 @override final  MetaPixelData? metaPixelData;
@@ -851,6 +902,8 @@ class _IntegrationsData extends IntegrationsData {
 @override final  CustomFieldsIntegrationData? customFieldsData;
 /// Per-product Ecotrack warehouse stock mapping (merchant-only).
 @override final  EcotrackData? ecotrackData;
+/// Per-product review settings (inherit the store unless `useProductSettings`).
+@override final  ProductReviewsData? reviewsData;
 
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
@@ -865,18 +918,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _IntegrationsData&&(identical(other.metaPixelData, metaPixelData) || other.metaPixelData == metaPixelData)&&(identical(other.tiktokPixelData, tiktokPixelData) || other.tiktokPixelData == tiktokPixelData)&&(identical(other.snapchatPixelData, snapchatPixelData) || other.snapchatPixelData == snapchatPixelData)&&(identical(other.googleSheetsData, googleSheetsData) || other.googleSheetsData == googleSheetsData)&&(identical(other.paymentMethodData, paymentMethodData) || other.paymentMethodData == paymentMethodData)&&(identical(other.customFieldsData, customFieldsData) || other.customFieldsData == customFieldsData)&&(identical(other.ecotrackData, ecotrackData) || other.ecotrackData == ecotrackData));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _IntegrationsData&&(identical(other.metaPixelData, metaPixelData) || other.metaPixelData == metaPixelData)&&(identical(other.tiktokPixelData, tiktokPixelData) || other.tiktokPixelData == tiktokPixelData)&&(identical(other.snapchatPixelData, snapchatPixelData) || other.snapchatPixelData == snapchatPixelData)&&(identical(other.googleSheetsData, googleSheetsData) || other.googleSheetsData == googleSheetsData)&&(identical(other.paymentMethodData, paymentMethodData) || other.paymentMethodData == paymentMethodData)&&(identical(other.customFieldsData, customFieldsData) || other.customFieldsData == customFieldsData)&&(identical(other.ecotrackData, ecotrackData) || other.ecotrackData == ecotrackData)&&(identical(other.reviewsData, reviewsData) || other.reviewsData == reviewsData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,metaPixelData,tiktokPixelData,snapchatPixelData,googleSheetsData,paymentMethodData,customFieldsData,ecotrackData);
+    return Object.hash(runtimeType,metaPixelData,tiktokPixelData,snapchatPixelData,googleSheetsData,paymentMethodData,customFieldsData,ecotrackData,reviewsData);
 }
 
 @override
 String toString() {
-    return 'IntegrationsData(metaPixelData: $metaPixelData, tiktokPixelData: $tiktokPixelData, snapchatPixelData: $snapchatPixelData, googleSheetsData: $googleSheetsData, paymentMethodData: $paymentMethodData, customFieldsData: $customFieldsData, ecotrackData: $ecotrackData)';
+    return 'IntegrationsData(metaPixelData: $metaPixelData, tiktokPixelData: $tiktokPixelData, snapchatPixelData: $snapchatPixelData, googleSheetsData: $googleSheetsData, paymentMethodData: $paymentMethodData, customFieldsData: $customFieldsData, ecotrackData: $ecotrackData, reviewsData: $reviewsData)';
 }
 
 
@@ -887,11 +940,11 @@ abstract mixin class _$IntegrationsDataCopyWith<$Res> implements $IntegrationsDa
   factory _$IntegrationsDataCopyWith(_IntegrationsData value, $Res Function(_IntegrationsData) _then) = __$IntegrationsDataCopyWithImpl;
 @override @useResult
 $Res call({
- MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, SnapchatPixelData? snapchatPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData
+ MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, SnapchatPixelData? snapchatPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData, ProductReviewsData? reviewsData
 });
 
 
-@override $MetaPixelDataCopyWith<$Res>? get metaPixelData;@override $TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;@override $SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData;@override $GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;@override $PaymentMethodDataCopyWith<$Res>? get paymentMethodData;@override $CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;@override $EcotrackDataCopyWith<$Res>? get ecotrackData;
+@override $MetaPixelDataCopyWith<$Res>? get metaPixelData;@override $TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;@override $SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData;@override $GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;@override $PaymentMethodDataCopyWith<$Res>? get paymentMethodData;@override $CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;@override $EcotrackDataCopyWith<$Res>? get ecotrackData;@override $ProductReviewsDataCopyWith<$Res>? get reviewsData;
 
 }
 /// @nodoc
@@ -904,7 +957,7 @@ class __$IntegrationsDataCopyWithImpl<$Res>
 
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? snapchatPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? snapchatPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,Object? reviewsData = freezed,}) {
   return _then(_IntegrationsData(
 metaPixelData: freezed == metaPixelData ? _self.metaPixelData : metaPixelData // ignore: cast_nullable_to_non_nullable
 as MetaPixelData?,tiktokPixelData: freezed == tiktokPixelData ? _self.tiktokPixelData : tiktokPixelData // ignore: cast_nullable_to_non_nullable
@@ -913,7 +966,8 @@ as SnapchatPixelData?,googleSheetsData: freezed == googleSheetsData ? _self.goog
 as GoogleSheetsData?,paymentMethodData: freezed == paymentMethodData ? _self.paymentMethodData : paymentMethodData // ignore: cast_nullable_to_non_nullable
 as PaymentMethodData?,customFieldsData: freezed == customFieldsData ? _self.customFieldsData : customFieldsData // ignore: cast_nullable_to_non_nullable
 as CustomFieldsIntegrationData?,ecotrackData: freezed == ecotrackData ? _self.ecotrackData : ecotrackData // ignore: cast_nullable_to_non_nullable
-as EcotrackData?,
+as EcotrackData?,reviewsData: freezed == reviewsData ? _self.reviewsData : reviewsData // ignore: cast_nullable_to_non_nullable
+as ProductReviewsData?,
   ));
 }
 
@@ -1000,6 +1054,18 @@ $EcotrackDataCopyWith<$Res>? get ecotrackData {
 
   return $EcotrackDataCopyWith<$Res>(_self.ecotrackData!, (value) {
     return _then(_self.copyWith(ecotrackData: value));
+  });
+}/// Create a copy of IntegrationsData
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ProductReviewsDataCopyWith<$Res>? get reviewsData {
+    if (_self.reviewsData == null) {
+    return null;
+  }
+
+  return $ProductReviewsDataCopyWith<$Res>(_self.reviewsData!, (value) {
+    return _then(_self.copyWith(reviewsData: value));
   });
 }
 }

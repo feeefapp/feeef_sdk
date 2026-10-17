@@ -7,6 +7,7 @@ library;
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../product.dart';
+import '../../reviews/models/review.dart';
 import 'orders_dispatch_strategy.dart';
 import 'security_geo_json.dart';
 
@@ -57,6 +58,8 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     SecurityIntegration? security,
     // Custom Fields Integration
     CustomFieldsIntegration? customFields,
+    // Product reviews: free, on by default (docs/product-reviews.md §5)
+    ReviewsIntegration? reviews,
     // Payment Integration
     PaymentIntegration? payment,
     // Dispatcher Integration (order assignment to confirmers)

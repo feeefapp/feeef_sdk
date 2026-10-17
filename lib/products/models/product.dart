@@ -3,6 +3,7 @@ import 'package:feeef/interfaces/embadded/product_addon.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
 import 'package:feeef/interfaces/product.dart';
 import 'package:feeef/categories/models/category.dart';
+import 'package:feeef/reviews/models/review.dart';
 import 'package:feeef/orders/models/lite_orders_report.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -67,6 +68,11 @@ abstract class Product extends ProductEntity
     @Default(0) num sold,
     @Default(0) num views,
     @Default(0) num likes,
+    /// Verified-buyer stars only (docs/product-reviews.md). 0 with no verified reviews.
+    @Default(0) num ratingAvg,
+    @Default(0) int ratingCount,
+    /// AI "what customers say"; null until the merchant generates one.
+    ReviewAiSummary? reviewSummary,
     ProductVariant? variant,
     List<ProductOffer>? offers,
     /// When true, customer must keep an offer selected. With a valid
@@ -117,6 +123,8 @@ abstract class IntegrationsData extends IntegrationsDataEntity
     CustomFieldsIntegrationData? customFieldsData,
     /// Per-product Ecotrack warehouse stock mapping (merchant-only).
     EcotrackData? ecotrackData,
+    /// Per-product review settings (inherit the store unless `useProductSettings`).
+    ProductReviewsData? reviewsData,
   }) = _IntegrationsData;
 
   factory IntegrationsData.fromJson(Map<String, dynamic> json) =>

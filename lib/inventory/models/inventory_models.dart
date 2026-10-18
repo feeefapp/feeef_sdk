@@ -551,11 +551,20 @@ class InventorySummary {
   final List<InventoryRecentMovement> recent;
   final InventoryPosToday? pos;
 
+  /// Stock engine state: `ok`, `unavailable` (Cloud failed, figures are not
+  /// real stock) or `off` (Cloud inventory disabled for the store). Older
+  /// backends omit it; treat null as `ok`.
+  final String? engine;
+
+  bool get engineUnavailable => engine == 'unavailable';
+  bool get engineOff => engine == 'off';
+
   const InventorySummary({
     required this.stock,
     this.lowStock = const [],
     this.recent = const [],
     this.pos,
+    this.engine,
   });
 
   factory InventorySummary.fromJson(Map<String, dynamic> json) =>
@@ -579,6 +588,7 @@ class InventorySummary {
             ? InventoryPosToday.fromJson(
                 Map<String, dynamic>.from(json['pos'] as Map))
             : null,
+        engine: json['engine'] as String?,
       );
 }
 

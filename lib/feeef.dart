@@ -76,6 +76,7 @@ export 'template_components/template_component_repository.dart';
 export 'interfaces/store_template.dart';
 export 'store_templates/store_template.dart';
 export 'store_templates/store_template_repository.dart';
+export 'store_templates/installed_theme.dart';
 export 'reviews/models/review.dart';
 export 'reviews/reviews_repository.dart';
 export 'store_pages/store_page.dart';

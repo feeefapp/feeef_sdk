@@ -3,13 +3,18 @@ import 'package:dio/dio.dart';
 import 'package:feeef/core/list_response.dart';
 import 'package:feeef/core/resource_repository.dart';
 import 'package:feeef/store_templates/store_template.dart';
+import 'package:feeef/store_templates/installed_theme.dart';
 
 /// CRUD + fork + install for full-site `store_templates`.
-class StoreTemplatesRepository extends ResourceRepository<
-    StoreTemplate,
-    StoreTemplateCreate,
-    StoreTemplateUpdate> {
-  StoreTemplatesRepository({required super.client}) : super(table: 'store_templates');
+class StoreTemplatesRepository
+    extends
+        ResourceRepository<
+          StoreTemplate,
+          StoreTemplateCreate,
+          StoreTemplateUpdate
+        > {
+  StoreTemplatesRepository({required super.client})
+    : super(table: 'store_templates');
 
   @override
   StoreTemplate modelFromJson(json) =>
@@ -50,7 +55,8 @@ class StoreTemplatesRepository extends ResourceRepository<
   }
 
   @override
-  Map<String, dynamic> createToJson(StoreTemplateCreate model) => model.toJson();
+  Map<String, dynamic> createToJson(StoreTemplateCreate model) =>
+      model.toJson();
 
   @override
   StoreTemplateUpdate updateFromJson(json) {
@@ -90,7 +96,8 @@ class StoreTemplatesRepository extends ResourceRepository<
   }
 
   @override
-  Map<String, dynamic> updateToJson(StoreTemplateUpdate model) => model.toJson();
+  Map<String, dynamic> updateToJson(StoreTemplateUpdate model) =>
+      model.toJson();
 
   @override
   Future<ListResponse<StoreTemplate>> list({
@@ -137,7 +144,10 @@ class StoreTemplatesRepository extends ResourceRepository<
       'version': body['version'] ?? 1,
       'policy': body['policy'] ?? 'public',
       'price': body['price'] ?? 0,
-      'createdAt': body['createdAt'] ?? body['created_at'] ?? DateTime.now().toIso8601String(),
+      'createdAt':
+          body['createdAt'] ??
+          body['created_at'] ??
+          DateTime.now().toIso8601String(),
       'updatedAt': body['updatedAt'] ?? body['updated_at'],
     });
   }
@@ -156,6 +166,19 @@ class StoreTemplatesRepository extends ResourceRepository<
   }
 
   /// Ownership / version metadata without downloading `data`/`schema`.
+  Future<Map<String, dynamic>> quote({
+    required String id,
+    required String storeId,
+    CancelToken? cancelToken,
+  }) async => Map<String, dynamic>.from(
+    (await client.get(
+          '/$table/$id/quote',
+          queryParameters: {'storeId': storeId},
+          cancelToken: cancelToken,
+        )).data
+        as Map,
+  );
+
   Future<StoreTemplate> findMeta({
     required String id,
     CancelToken? cancelToken,
@@ -172,7 +195,9 @@ class StoreTemplatesRepository extends ResourceRepository<
       'data': body['data'] ?? const {},
       'title': body['title'] ?? '',
       'createdAt':
-          body['createdAt'] ?? body['created_at'] ?? DateTime.now().toIso8601String(),
+          body['createdAt'] ??
+          body['created_at'] ??
+          DateTime.now().toIso8601String(),
     });
   }
 
@@ -187,17 +212,11 @@ class StoreTemplatesRepository extends ResourceRepository<
   }) async {
     await client.put(
       '/$table/$id',
-      data: {
-        'data': data,
-        if (schema != null) 'schema': schema,
-      },
+      data: {'data': data, if (schema != null) 'schema': schema},
       queryParameters: const {'meta': '1'},
       cancelToken: cancelToken,
     );
-    addToUpdateStream(
-      id,
-      StoreTemplateUpdate(data: data, schema: schema),
-    );
+    addToUpdateStream(id, StoreTemplateUpdate(data: data, schema: schema));
   }
 
   /// Fork a template into [targetStoreId].
@@ -209,13 +228,12 @@ class StoreTemplatesRepository extends ResourceRepository<
   }) async {
     final response = await client.post(
       '/$table/$id/fork',
-      data: {
-        'storeId': targetStoreId,
-        'title': ?title,
-      },
+      data: {'storeId': targetStoreId, 'title': ?title},
       cancelToken: cancelToken,
     );
-    return StoreTemplate.fromJson(Map<String, dynamic>.from(response.data as Map));
+    return StoreTemplate.fromJson(
+      Map<String, dynamic>.from(response.data as Map),
+    );
   }
 
   /// Set this store’s `templateId` to [id] and copy template `data` to
@@ -224,6 +242,8 @@ class StoreTemplatesRepository extends ResourceRepository<
     required String id,
     required String storeId,
     String? releaseId,
+    String? expectedThemeRevision,
+    bool confirmReplace = false,
     CancelToken? cancelToken,
   }) async {
     final response = await client.post(
@@ -231,6 +251,8 @@ class StoreTemplatesRepository extends ResourceRepository<
       data: {
         'storeId': storeId,
         'releaseId': ?releaseId,
+        'expectedThemeRevision': ?expectedThemeRevision,
+        'confirmReplace': confirmReplace,
       },
       cancelToken: cancelToken,
     );
@@ -243,11 +265,17 @@ class StoreTemplatesRepository extends ResourceRepository<
   Future<StoreTemplatePurchaseResult> purchase({
     required String id,
     required String storeId,
+    num? expectedPrice,
+    String? expectedCurrency,
     CancelToken? cancelToken,
   }) async {
     final response = await client.post(
       '/$table/$id/purchase',
-      data: {'storeId': storeId},
+      data: {
+        'storeId': storeId,
+        'expectedPrice': ?expectedPrice,
+        'expectedCurrency': ?expectedCurrency,
+      },
       cancelToken: cancelToken,
     );
     return StoreTemplatePurchaseResult.fromJson(
@@ -256,6 +284,79 @@ class StoreTemplatesRepository extends ResourceRepository<
   }
 
   /// Immutable release history (newest first).
+  Future<InstalledTheme> installedTheme({
+    required String storeId,
+    CancelToken? cancelToken,
+  }) async => InstalledTheme.fromJson(
+    Map<String, dynamic>.from(
+      (await client.get(
+            '/stores/$storeId/theme',
+            cancelToken: cancelToken,
+          )).data
+          as Map,
+    ),
+  );
+
+  Future<InstalledTheme> saveInstalledTheme({
+    required String storeId,
+    required String expectedRevision,
+    required Map<String, dynamic> data,
+    CancelToken? cancelToken,
+  }) async => InstalledTheme.fromJson(
+    Map<String, dynamic>.from(
+      (await client.put(
+            '/stores/$storeId/theme',
+            data: {'expectedRevision': expectedRevision, 'data': data},
+            cancelToken: cancelToken,
+          )).data
+          as Map,
+    ),
+  );
+
+  Future<Map<String, dynamic>> exportInstalledTheme({
+    required String storeId,
+    CancelToken? cancelToken,
+  }) async => Map<String, dynamic>.from(
+    (await client.get(
+          '/stores/$storeId/theme/export',
+          cancelToken: cancelToken,
+        )).data
+        as Map,
+  );
+
+  Future<List<StoreThemeBackup>> themeBackups({
+    required String storeId,
+    CancelToken? cancelToken,
+  }) async {
+    final response = await client.get(
+      '/stores/$storeId/theme/backups',
+      cancelToken: cancelToken,
+    );
+    return ((response.data as Map)['data'] as List)
+        .map(
+          (value) => StoreThemeBackup.fromJson(
+            Map<String, dynamic>.from(value as Map),
+          ),
+        )
+        .toList();
+  }
+
+  Future<InstalledTheme> restoreTheme({
+    required String storeId,
+    required String backupId,
+    required String expectedRevision,
+    CancelToken? cancelToken,
+  }) async => InstalledTheme.fromJson(
+    Map<String, dynamic>.from(
+      (await client.post(
+            '/stores/$storeId/theme/backups/$backupId/restore',
+            data: {'expectedRevision': expectedRevision},
+            cancelToken: cancelToken,
+          )).data
+          as Map,
+    ),
+  );
+
   Future<List<StoreTemplateReleaseSummary>> listReleases({
     required String id,
     String? storeId,
@@ -263,17 +364,15 @@ class StoreTemplatesRepository extends ResourceRepository<
   }) async {
     final response = await client.get(
       '/$table/$id/releases',
-      queryParameters: {
-        'storeId': ?storeId,
-      },
+      queryParameters: {'storeId': ?storeId},
       cancelToken: cancelToken,
     );
     final body = response.data;
     final list = body is Map && body['data'] is List
         ? body['data'] as List
         : body is List
-            ? body
-            : const [];
+        ? body
+        : const [];
     return list
         .whereType<Map>()
         .map(
@@ -292,10 +391,7 @@ class StoreTemplatesRepository extends ResourceRepository<
   }) async {
     final response = await client.get(
       '/$table/$id/reviews',
-      queryParameters: {
-        'page': ?page,
-        'limit': ?limit,
-      },
+      queryParameters: {'page': ?page, 'limit': ?limit},
       cancelToken: cancelToken,
     );
     return StoreTemplateReviewListResult.fromJson(
@@ -312,11 +408,7 @@ class StoreTemplatesRepository extends ResourceRepository<
   }) async {
     final response = await client.post(
       '/$table/$id/reviews',
-      data: {
-        'storeId': storeId,
-        'rating': rating,
-        'body': ?body,
-      },
+      data: {'storeId': storeId, 'rating': rating, 'body': ?body},
       cancelToken: cancelToken,
     );
     return StoreTemplateReviewUpsertResult.fromJson(
@@ -356,9 +448,7 @@ class StoreTemplatesRepository extends ResourceRepository<
   }) async {
     final response = await client.put(
       '/$table/$templateId/locales',
-      data: {
-        'locales': locales.map((e) => e.toJson()).toList(growable: false),
-      },
+      data: {'locales': locales.map((e) => e.toJson()).toList(growable: false)},
       cancelToken: cancelToken,
     );
     return StoreTemplateLocalesBundle.fromJson(

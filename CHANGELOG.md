@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.1
+
+- Store page drafts, revision guards, publication, preview, recovery, export and reusable page templates.
+- Reviewed template purchases and installs; atomic theme edits, exports and backup restoration.
+- Explicit library publication and published-version metadata; runtime-aware storefront URLs.
+
 ## 1.5.3
 
 - Keep unresolved AI intent keys across restarts and block changed input until the original request is recovered.

@@ -401,7 +401,9 @@ extension StoreExtensions on Store {
     } else {
       // Assuming the Store class has a property `id` or `slug` to generate the public URL
       // Replace `id` with the appropriate property if necessary
-      url = "$url$slug.alpha.feeef.store";
+      final data = metadata['templateData'];
+      final helium = data is Map && data['runtime'] == 'helium' && data['schemaVersion'] == 2;
+      url = helium ? "$url$slug.h.feeef.store" : "$url$slug.alpha.feeef.store";
     }
     return url + path;
   }

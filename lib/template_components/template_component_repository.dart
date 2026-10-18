@@ -100,6 +100,8 @@ class TemplateComponentsRepository
   TemplateComponentUpdate updateFromJson(json) {
     final m = json as Map<String, dynamic>;
     return TemplateComponentUpdate(
+      expectedVersion: (m['expectedVersion'] as num?)?.toInt(),
+      publish: m['publish'] as bool?,
       title: m['title'] as String?,
       subtitle: m['subtitle'] as String?,
       body: m['body'] as String?,

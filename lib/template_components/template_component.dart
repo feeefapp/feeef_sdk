@@ -42,6 +42,7 @@ class TemplateComponent extends TemplateComponentEntity implements Model {
     this.policy = TemplateComponentPolicy.private,
     this.parentId,
     this.version = 1,
+    this.publishedVersion,
     required this.createdAt,
     this.updatedAt,
     this.deletedAt,
@@ -97,6 +98,7 @@ class TemplateComponent extends TemplateComponentEntity implements Model {
   final String? parentId;
   @override
   final int version;
+  final int? publishedVersion;
 
   @override
   final DateTime createdAt;
@@ -138,8 +140,11 @@ class TemplateComponent extends TemplateComponentEntity implements Model {
       policy: TemplateComponentPolicy.fromWire(json['policy'] as String?),
       parentId: (json['parentId'] ?? json['parent_id']) as String?,
       version: (json['version'] as num?)?.toInt() ?? 1,
-      createdAt: _parseDate(json['createdAt'] ?? json['created_at']) ??
-          DateTime.now(),
+      publishedVersion:
+          ((json['publishedVersion'] ?? json['published_version']) as num?)
+              ?.toInt(),
+      createdAt:
+          _parseDate(json['createdAt'] ?? json['created_at']) ?? DateTime.now(),
       updatedAt: _parseDate(json['updatedAt'] ?? json['updated_at']),
       deletedAt: _parseDate(json['deletedAt'] ?? json['deleted_at']),
     );
@@ -149,33 +154,34 @@ class TemplateComponent extends TemplateComponentEntity implements Model {
   /// are intentionally NOT emitted on the way out — the canonical wire
   /// is camelCase across the stack.
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'storeId': storeId,
-        'userId': userId,
-        'title': title,
-        'subtitle': subtitle,
-        'body': body,
-        'category': category,
-        'tags': tags,
-        'imageUrl': imageUrl,
-        'screenshots': screenshots,
-        'demoUrl': demoUrl,
-        'price': price,
-        'discount': discount,
-        'license': license,
-        'code': code,
-        'propsSchema': propsSchema,
-        'slotsSchema': slotsSchema,
-        'propsDefault': propsDefault,
-        'slotsDefault': slotsDefault,
-        'slotsLayout': slotsLayout,
-        'policy': policy.wire,
-        'parentId': parentId,
-        'version': version,
-        'createdAt': createdAt.toIso8601String(),
-        'updatedAt': updatedAt?.toIso8601String(),
-        'deletedAt': deletedAt?.toIso8601String(),
-      };
+    'id': id,
+    'storeId': storeId,
+    'userId': userId,
+    'title': title,
+    'subtitle': subtitle,
+    'body': body,
+    'category': category,
+    'tags': tags,
+    'imageUrl': imageUrl,
+    'screenshots': screenshots,
+    'demoUrl': demoUrl,
+    'price': price,
+    'discount': discount,
+    'license': license,
+    'code': code,
+    'propsSchema': propsSchema,
+    'slotsSchema': slotsSchema,
+    'propsDefault': propsDefault,
+    'slotsDefault': slotsDefault,
+    'slotsLayout': slotsLayout,
+    'policy': policy.wire,
+    'parentId': parentId,
+    'version': version,
+    'publishedVersion': publishedVersion,
+    'createdAt': createdAt.toIso8601String(),
+    'updatedAt': updatedAt?.toIso8601String(),
+    'deletedAt': deletedAt?.toIso8601String(),
+  };
 
   /// Convenience for editor flows: produce a copy with selected fields
   /// replaced. `version` is intentionally not exposed — that field is
@@ -224,6 +230,7 @@ class TemplateComponent extends TemplateComponentEntity implements Model {
       policy: policy ?? this.policy,
       parentId: parentId,
       version: version,
+      publishedVersion: publishedVersion,
       createdAt: createdAt,
       updatedAt: updatedAt,
       deletedAt: deletedAt,
@@ -283,27 +290,27 @@ class TemplateComponentCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'storeId': storeId,
-        'title': title,
-        'code': code,
-        'subtitle': subtitle,
-        'body': body,
-        'category': category,
-        'tags': tags,
-        'imageUrl': imageUrl,
-        'screenshots': screenshots,
-        'demoUrl': demoUrl,
-        'price': price,
-        'discount': discount,
-        'license': license,
-        'propsSchema': propsSchema,
-        'slotsSchema': slotsSchema,
-        'propsDefault': propsDefault,
-        'slotsDefault': slotsDefault,
-        'slotsLayout': slotsLayout,
-        if (policy != null) 'policy': policy!.wire,
-        'parentId': parentId,
-      };
+    'storeId': storeId,
+    'title': title,
+    'code': code,
+    'subtitle': subtitle,
+    'body': body,
+    'category': category,
+    'tags': tags,
+    'imageUrl': imageUrl,
+    'screenshots': screenshots,
+    'demoUrl': demoUrl,
+    'price': price,
+    'discount': discount,
+    'license': license,
+    'propsSchema': propsSchema,
+    'slotsSchema': slotsSchema,
+    'propsDefault': propsDefault,
+    'slotsDefault': slotsDefault,
+    'slotsLayout': slotsLayout,
+    if (policy != null) 'policy': policy!.wire,
+    'parentId': parentId,
+  };
 }
 
 /// Payload accepted by `PUT /template_components/:id`.
@@ -317,6 +324,8 @@ class TemplateComponentCreate implements ModelCreate {
 /// meaningful changes.
 class TemplateComponentUpdate implements ModelUpdate {
   const TemplateComponentUpdate({
+    this.expectedVersion,
+    this.publish,
     this.title,
     this.subtitle,
     this.body,
@@ -337,6 +346,9 @@ class TemplateComponentUpdate implements ModelUpdate {
     this.policy,
     this.setToNull = const [],
   });
+
+  final int? expectedVersion;
+  final bool? publish;
 
   final String? title;
   final String? subtitle;
@@ -362,25 +374,27 @@ class TemplateComponentUpdate implements ModelUpdate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'title': title,
-        'subtitle': subtitle,
-        'body': body,
-        'category': category,
-        'tags': tags,
-        'imageUrl': imageUrl,
-        'screenshots': screenshots,
-        'demoUrl': demoUrl,
-        'price': price,
-        'discount': discount,
-        'license': license,
-        'code': code,
-        'propsSchema': propsSchema,
-        'slotsSchema': slotsSchema,
-        'propsDefault': propsDefault,
-        'slotsDefault': slotsDefault,
-        'slotsLayout': slotsLayout,
-        'policy': policy?.wire,
-      };
+    if (expectedVersion != null) 'expectedVersion': expectedVersion,
+    if (publish != null) 'publish': publish,
+    'title': title,
+    'subtitle': subtitle,
+    'body': body,
+    'category': category,
+    'tags': tags,
+    'imageUrl': imageUrl,
+    'screenshots': screenshots,
+    'demoUrl': demoUrl,
+    'price': price,
+    'discount': discount,
+    'license': license,
+    'code': code,
+    'propsSchema': propsSchema,
+    'slotsSchema': slotsSchema,
+    'propsDefault': propsDefault,
+    'slotsDefault': slotsDefault,
+    'slotsLayout': slotsLayout,
+    'policy': policy?.wire,
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────

@@ -93,14 +93,66 @@ enum PixelReportMode {
 /// Which order field to watch for [PixelStatusRule] (server-side CAPI on status transition).
 @JsonEnum(alwaysCreate: true)
 enum PixelStatusDimension {
-  @JsonValue('orderStatus')
-  orderStatus,
-  @JsonValue('deliveryStatus')
-  deliveryStatus,
+  /// Rooms-model phase: draft | open | pack | ship | done | fail.
+  @JsonValue('phase')
+  phase,
+
+  /// Status catalog kind (or custom status slug).
+  @JsonValue('kind')
+  kind,
   @JsonValue('paymentStatus')
   paymentStatus,
+
+  /// Legacy — parsed from old saved rules only. The API rejects it on save;
+  /// convert with [migratePixelStatusRule].
+  @Deprecated('Use phase')
+  @JsonValue('orderStatus')
+  orderStatus,
+  @Deprecated('Use phase / kind')
+  @JsonValue('deliveryStatus')
+  deliveryStatus,
+  @Deprecated('Use kind')
   @JsonValue('customStatus')
   customStatus,
+}
+
+/// Rooms equivalent of a legacy `orderStatus` / `deliveryStatus` value
+/// (mirrors the backend `resolveStatusRule`). Null when there is none.
+({PixelStatusDimension dimension, String equals})? roomsStatusTarget(
+  PixelStatusDimension dimension,
+  String equals,
+) {
+  const order = {
+    'draft': 'draft',
+    'pending': 'open',
+    'review': 'open',
+    'followup': 'open',
+    'accepted': 'pack',
+    'processing': 'pack',
+    'completed': 'done',
+    'cancelled': 'fail',
+  };
+  const delivery = {'delivering': 'ship', 'delivered': 'done'};
+  final value = equals.trim();
+  // ignore: deprecated_member_use_from_same_package
+  switch (dimension) {
+    case PixelStatusDimension.phase:
+    case PixelStatusDimension.kind:
+    case PixelStatusDimension.paymentStatus:
+      return (dimension: dimension, equals: value);
+    // ignore: deprecated_member_use_from_same_package
+    case PixelStatusDimension.customStatus:
+      return (dimension: PixelStatusDimension.kind, equals: value);
+    // ignore: deprecated_member_use_from_same_package
+    case PixelStatusDimension.orderStatus:
+      final phase = order[value];
+      return phase == null ? null : (dimension: PixelStatusDimension.phase, equals: phase);
+    // ignore: deprecated_member_use_from_same_package
+    case PixelStatusDimension.deliveryStatus:
+      if (value == 'returned') return (dimension: PixelStatusDimension.kind, equals: 'returned');
+      final phase = delivery[value];
+      return phase == null ? null : (dimension: PixelStatusDimension.phase, equals: phase);
+  }
 }
 
 /// When the order transitions so [dimension] becomes [equals], send the configured pixel events (server).

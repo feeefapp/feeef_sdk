@@ -221,9 +221,11 @@ Map<String, dynamic> _$PixelStatusRuleToJson(_PixelStatusRule instance) =>
     };
 
 const _$PixelStatusDimensionEnumMap = {
+  PixelStatusDimension.phase: 'phase',
+  PixelStatusDimension.kind: 'kind',
+  PixelStatusDimension.paymentStatus: 'paymentStatus',
   PixelStatusDimension.orderStatus: 'orderStatus',
   PixelStatusDimension.deliveryStatus: 'deliveryStatus',
-  PixelStatusDimension.paymentStatus: 'paymentStatus',
   PixelStatusDimension.customStatus: 'customStatus',
 };
 

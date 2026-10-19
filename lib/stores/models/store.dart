@@ -652,28 +652,39 @@ enum MissingInventoryBucketPolicy {
   reject,
 }
 
-/// When an order field equals [equals], apply reserve / release / consume (inventory sync).
-@freezed
-abstract class InventoryLifecycleRule with _$InventoryLifecycleRule {
-  const factory InventoryLifecycleRule({
-    required String id,
-    required PixelStatusDimension dimension,
-    required String equals,
-  }) = _InventoryLifecycleRule;
+/// First rooms phase that holds stock for an order.
+enum InventoryReservePhase {
+  /// As soon as the order is placed (open desk). Default.
+  @JsonValue('open')
+  open,
 
-  factory InventoryLifecycleRule.fromJson(Map<String, dynamic> json) =>
-      _$InventoryLifecycleRuleFromJson(json);
+  /// When the order is confirmed (pack desk).
+  @JsonValue('pack')
+  pack,
+
+  /// When the order is handed to the courier (ship desk).
+  @JsonValue('ship')
+  ship,
+}
+
+/// Rooms phase that turns the hold into a sale (stock leaves).
+enum InventoryConsumePhase {
+  /// When handed to the courier.
+  @JsonValue('ship')
+  ship,
+
+  /// When closed as done (delivered). Default.
+  @JsonValue('done')
+  done,
 }
 
 @freezed
 abstract class InventoryIntegration with _$InventoryIntegration {
   const factory InventoryIntegration({
-    @Default([]) List<OrderStatus> reserve_on,
-    @Default([]) List<OrderStatus> unreserve_on,
-    @Default([]) List<OrderStatus> consume_on,
-    @Default([]) List<InventoryLifecycleRule> reserve_rules,
-    @Default([]) List<InventoryLifecycleRule> unreserve_rules,
-    @Default([]) List<InventoryLifecycleRule> consume_rules,
+    /// Rooms lifecycle. Draft and failed orders (cancelled, returned, …)
+    /// never hold stock; a failed order after consumption is restocked.
+    @Default(InventoryReservePhase.open) InventoryReservePhase reserve_from,
+    @Default(InventoryConsumePhase.done) InventoryConsumePhase consume_at,
     @Default(MissingInventoryBucketPolicy.ignore)
     MissingInventoryBucketPolicy missing_bucket_policy,
     @Default(true) bool allow_backorder,
@@ -726,11 +737,11 @@ abstract class FinancePdfSettings with _$FinancePdfSettings {
       _$FinancePdfSettingsFromJson(json);
 }
 
-/// Order → finance behavior: when revenue/COGS are recognized for an order.
+/// Order → finance settings. Revenue is recognized when an order is closed
+/// as done in the rooms model (not configurable).
 @freezed
 abstract class FinanceIntegration with _$FinanceIntegration {
   const factory FinanceIntegration({
-    @Default([]) List<OrderStatus> recognize_on,
     @Default(FinancePdfSettings()) FinancePdfSettings pdf,
     /// Cash-basis metrics ignore payments/expenses before this UTC timestamp.
     String? activated_at,

@@ -426,68 +426,18 @@ Map<String, dynamic> _$StoreConfigsToJson(_StoreConfigs instance) =>
       'finance_integration': instance.finance_integration?.toJson(),
     };
 
-_InventoryLifecycleRule _$InventoryLifecycleRuleFromJson(
-  Map<String, dynamic> json,
-) => _InventoryLifecycleRule(
-  id: json['id'] as String,
-  dimension: $enumDecode(_$PixelStatusDimensionEnumMap, json['dimension']),
-  equals: json['equals'] as String,
-);
-
-Map<String, dynamic> _$InventoryLifecycleRuleToJson(
-  _InventoryLifecycleRule instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'dimension': _$PixelStatusDimensionEnumMap[instance.dimension]!,
-  'equals': instance.equals,
-};
-
-const _$PixelStatusDimensionEnumMap = {
-  PixelStatusDimension.orderStatus: 'orderStatus',
-  PixelStatusDimension.deliveryStatus: 'deliveryStatus',
-  PixelStatusDimension.paymentStatus: 'paymentStatus',
-  PixelStatusDimension.customStatus: 'customStatus',
-};
-
 _InventoryIntegration _$InventoryIntegrationFromJson(
   Map<String, dynamic> json,
 ) => _InventoryIntegration(
-  reserve_on:
-      (json['reserve_on'] as List<dynamic>?)
-          ?.map((e) => $enumDecode(_$OrderStatusEnumMap, e))
-          .toList() ??
-      const [],
-  unreserve_on:
-      (json['unreserve_on'] as List<dynamic>?)
-          ?.map((e) => $enumDecode(_$OrderStatusEnumMap, e))
-          .toList() ??
-      const [],
-  consume_on:
-      (json['consume_on'] as List<dynamic>?)
-          ?.map((e) => $enumDecode(_$OrderStatusEnumMap, e))
-          .toList() ??
-      const [],
-  reserve_rules:
-      (json['reserve_rules'] as List<dynamic>?)
-          ?.map(
-            (e) => InventoryLifecycleRule.fromJson(e as Map<String, dynamic>),
-          )
-          .toList() ??
-      const [],
-  unreserve_rules:
-      (json['unreserve_rules'] as List<dynamic>?)
-          ?.map(
-            (e) => InventoryLifecycleRule.fromJson(e as Map<String, dynamic>),
-          )
-          .toList() ??
-      const [],
-  consume_rules:
-      (json['consume_rules'] as List<dynamic>?)
-          ?.map(
-            (e) => InventoryLifecycleRule.fromJson(e as Map<String, dynamic>),
-          )
-          .toList() ??
-      const [],
+  reserve_from:
+      $enumDecodeNullable(
+        _$InventoryReservePhaseEnumMap,
+        json['reserve_from'],
+      ) ??
+      InventoryReservePhase.open,
+  consume_at:
+      $enumDecodeNullable(_$InventoryConsumePhaseEnumMap, json['consume_at']) ??
+      InventoryConsumePhase.done,
   missing_bucket_policy:
       $enumDecodeNullable(
         _$MissingInventoryBucketPolicyEnumMap,
@@ -502,33 +452,23 @@ _InventoryIntegration _$InventoryIntegrationFromJson(
 Map<String, dynamic> _$InventoryIntegrationToJson(
   _InventoryIntegration instance,
 ) => <String, dynamic>{
-  'reserve_on': instance.reserve_on
-      .map((e) => _$OrderStatusEnumMap[e]!)
-      .toList(),
-  'unreserve_on': instance.unreserve_on
-      .map((e) => _$OrderStatusEnumMap[e]!)
-      .toList(),
-  'consume_on': instance.consume_on
-      .map((e) => _$OrderStatusEnumMap[e]!)
-      .toList(),
-  'reserve_rules': instance.reserve_rules.map((e) => e.toJson()).toList(),
-  'unreserve_rules': instance.unreserve_rules.map((e) => e.toJson()).toList(),
-  'consume_rules': instance.consume_rules.map((e) => e.toJson()).toList(),
+  'reserve_from': _$InventoryReservePhaseEnumMap[instance.reserve_from]!,
+  'consume_at': _$InventoryConsumePhaseEnumMap[instance.consume_at]!,
   'missing_bucket_policy':
       _$MissingInventoryBucketPolicyEnumMap[instance.missing_bucket_policy]!,
   'allow_backorder': instance.allow_backorder,
   'show_unavailable_on_frontend': instance.show_unavailable_on_frontend,
 };
 
-const _$OrderStatusEnumMap = {
-  OrderStatus.draft: 'draft',
-  OrderStatus.pending: 'pending',
-  OrderStatus.review: 'review',
-  OrderStatus.accepted: 'accepted',
-  OrderStatus.followup: 'followup',
-  OrderStatus.processing: 'processing',
-  OrderStatus.completed: 'completed',
-  OrderStatus.cancelled: 'cancelled',
+const _$InventoryReservePhaseEnumMap = {
+  InventoryReservePhase.open: 'open',
+  InventoryReservePhase.pack: 'pack',
+  InventoryReservePhase.ship: 'ship',
+};
+
+const _$InventoryConsumePhaseEnumMap = {
+  InventoryConsumePhase.ship: 'ship',
+  InventoryConsumePhase.done: 'done',
 };
 
 const _$MissingInventoryBucketPolicyEnumMap = {
@@ -583,11 +523,6 @@ const _$FinancePdfPaperSizeEnumMap = {
 
 _FinanceIntegration _$FinanceIntegrationFromJson(Map<String, dynamic> json) =>
     _FinanceIntegration(
-      recognize_on:
-          (json['recognize_on'] as List<dynamic>?)
-              ?.map((e) => $enumDecode(_$OrderStatusEnumMap, e))
-              .toList() ??
-          const [],
       pdf: json['pdf'] == null
           ? const FinancePdfSettings()
           : FinancePdfSettings.fromJson(json['pdf'] as Map<String, dynamic>),
@@ -596,9 +531,6 @@ _FinanceIntegration _$FinanceIntegrationFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$FinanceIntegrationToJson(_FinanceIntegration instance) =>
     <String, dynamic>{
-      'recognize_on': instance.recognize_on
-          .map((e) => _$OrderStatusEnumMap[e]!)
-          .toList(),
       'pdf': instance.pdf.toJson(),
       'activated_at': instance.activated_at,
     };
@@ -666,6 +598,17 @@ Map<String, dynamic> _$CustomStatusMappingToJson(
   'allowOtherReason': instance.allowOtherReason,
   'requiresReason': instance.requiresReason,
   'queueEligible': instance.queueEligible,
+};
+
+const _$OrderStatusEnumMap = {
+  OrderStatus.draft: 'draft',
+  OrderStatus.pending: 'pending',
+  OrderStatus.review: 'review',
+  OrderStatus.accepted: 'accepted',
+  OrderStatus.followup: 'followup',
+  OrderStatus.processing: 'processing',
+  OrderStatus.completed: 'completed',
+  OrderStatus.cancelled: 'cancelled',
 };
 
 const _$DeliveryStatusEnumMap = {

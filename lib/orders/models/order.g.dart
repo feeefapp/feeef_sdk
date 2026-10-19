@@ -59,7 +59,9 @@ _Order _$OrderFromJson(Map<String, dynamic> json) => _Order(
   storeId: json['storeId'] as String,
   source: json['source'] as String?,
   confirmerId: json['confirmerId'] as String?,
-  status: $enumDecode(_$OrderStatusEnumMap, json['status']),
+  status:
+      $enumDecodeNullable(_$OrderStatusEnumMap, json['status']) ??
+      OrderStatus.pending,
   paymentStatus:
       $enumDecodeNullable(_$PaymentStatusEnumMap, json['paymentStatus']) ??
       PaymentStatus.unpaid,
@@ -189,14 +191,11 @@ _OrderCreate _$OrderCreateFromJson(Map<String, dynamic> json) => _OrderCreate(
   coupon: json['coupon'] as String?,
   storeId: json['storeId'] as String,
   source: json['source'] as String?,
-  status: $enumDecodeNullable(_$OrderStatusEnumMap, json['status']),
+  statusId: json['statusId'] as String?,
+  statusSlug: json['statusSlug'] as String?,
   paymentStatus: $enumDecodeNullable(
     _$PaymentStatusEnumMap,
     json['paymentStatus'],
-  ),
-  deliveryStatus: $enumDecodeNullable(
-    _$DeliveryStatusEnumMap,
-    json['deliveryStatus'],
   ),
   customFields: json['customFields'] as Map<String, dynamic>?,
   metadata: json['metadata'] as Map<String, dynamic>?,
@@ -236,9 +235,9 @@ Map<String, dynamic> _$OrderCreateToJson(_OrderCreate instance) =>
       'coupon': instance.coupon,
       'storeId': instance.storeId,
       'source': instance.source,
-      'status': _$OrderStatusEnumMap[instance.status],
+      'statusId': instance.statusId,
+      'statusSlug': instance.statusSlug,
       'paymentStatus': _$PaymentStatusEnumMap[instance.paymentStatus],
-      'deliveryStatus': _$DeliveryStatusEnumMap[instance.deliveryStatus],
       'customFields': instance.customFields,
       'metadata': instance.metadata,
       'references': instance.references,
@@ -273,16 +272,10 @@ _OrderUpdate _$OrderUpdateFromJson(Map<String, dynamic> json) => _OrderUpdate(
   internalNote: json['internalNote'] as String?,
   tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
   storeId: json['storeId'] as String,
-  status: $enumDecodeNullable(_$OrderStatusEnumMap, json['status']),
   paymentStatus: $enumDecodeNullable(
     _$PaymentStatusEnumMap,
     json['paymentStatus'],
   ),
-  deliveryStatus: $enumDecodeNullable(
-    _$DeliveryStatusEnumMap,
-    json['deliveryStatus'],
-  ),
-  customStatus: json['customStatus'] as String?,
   cancelReason: json['cancelReason'] as String?,
   customFields: json['customFields'] as Map<String, dynamic>?,
   metadata: json['metadata'] as Map<String, dynamic>?,
@@ -321,10 +314,7 @@ Map<String, dynamic> _$OrderUpdateToJson(_OrderUpdate instance) =>
       'internalNote': instance.internalNote,
       'tags': instance.tags,
       'storeId': instance.storeId,
-      'status': _$OrderStatusEnumMap[instance.status],
       'paymentStatus': _$PaymentStatusEnumMap[instance.paymentStatus],
-      'deliveryStatus': _$DeliveryStatusEnumMap[instance.deliveryStatus],
-      'customStatus': instance.customStatus,
       'cancelReason': instance.cancelReason,
       'customFields': instance.customFields,
       'metadata': instance.metadata,
@@ -335,20 +325,36 @@ Map<String, dynamic> _$OrderUpdateToJson(_OrderUpdate instance) =>
 _OrderHistoryEvent _$OrderHistoryEventFromJson(Map<String, dynamic> json) =>
     _OrderHistoryEvent(
       createdAt: DateTime.parse(json['createdAt'] as String),
-      status: $enumDecode(_$OrderStatusEnumMap, json['status']),
-      deliveryStatus: $enumDecode(
-        _$DeliveryStatusEnumMap,
-        json['deliveryStatus'],
-      ),
-      paymentStatus: $enumDecode(_$PaymentStatusEnumMap, json['paymentStatus']),
-      message: json['message'] as String,
-      code: json['code'] as String,
-      userId: json['userId'] as String,
+      phase: json['phase'] as String?,
+      room: json['room'] as String?,
+      kind: json['kind'] as String?,
+      statusId: json['statusId'] as String?,
+      closeAs: json['closeAs'] as String?,
+      status:
+          $enumDecodeNullable(_$OrderStatusEnumMap, json['status']) ??
+          OrderStatus.pending,
+      deliveryStatus:
+          $enumDecodeNullable(
+            _$DeliveryStatusEnumMap,
+            json['deliveryStatus'],
+          ) ??
+          DeliveryStatus.pending,
+      paymentStatus:
+          $enumDecodeNullable(_$PaymentStatusEnumMap, json['paymentStatus']) ??
+          PaymentStatus.unpaid,
+      message: json['message'] as String? ?? '',
+      code: json['code'] as String? ?? '',
+      userId: json['userId'] as String? ?? '',
     );
 
 Map<String, dynamic> _$OrderHistoryEventToJson(_OrderHistoryEvent instance) =>
     <String, dynamic>{
       'createdAt': instance.createdAt.toIso8601String(),
+      'phase': instance.phase,
+      'room': instance.room,
+      'kind': instance.kind,
+      'statusId': instance.statusId,
+      'closeAs': instance.closeAs,
       'status': _$OrderStatusEnumMap[instance.status]!,
       'deliveryStatus': _$DeliveryStatusEnumMap[instance.deliveryStatus]!,
       'paymentStatus': _$PaymentStatusEnumMap[instance.paymentStatus]!,

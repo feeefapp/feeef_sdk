@@ -1,126 +1,55 @@
 import 'package:feeef/interfaces/embadded/store_summary.dart';
-import 'package:feeef/interfaces/order.dart';
 
-/// Operational all-time order status counts for the orders tab.
+/// All-time order counts for a store: by rooms phase and by catalog status.
 class StoreOrderStatusCounts {
   const StoreOrderStatusCounts({
     required this.counts,
-    this.customCounts = const {},
+    this.byStatus = const {},
     required this.total,
     required this.computedAt,
   });
 
+  /// Counts by phase (draft / open / pack / ship / done / fail).
   final StoreOrdersSummary counts;
-  final Map<String, int> customCounts;
+
+  /// Counts keyed by status catalog row id.
+  final Map<String, int> byStatus;
   final int total;
   final DateTime computedAt;
 
   factory StoreOrderStatusCounts.fromJson(Map<String, dynamic> json) {
-    final countsJson = Map<String, dynamic>.from(json['counts'] as Map);
-    final total = json['total'] as int? ?? 0;
+    final countsJson = Map<String, dynamic>.from((json['counts'] as Map?) ?? const {});
+    final total = (json['total'] as num?)?.toInt() ?? 0;
+    int n(String key) => (countsJson[key] as num?)?.toInt() ?? 0;
     return StoreOrderStatusCounts(
       counts: StoreOrdersSummary(
-        draft: countsJson['draft'] as int? ?? 0,
-        pending: countsJson['pending'] as int? ?? 0,
-        review: countsJson['review'] as int? ?? 0,
-        processing: countsJson['processing'] as int? ?? 0,
-        accepted: countsJson['accepted'] as int? ?? 0,
-        followup: countsJson['followup'] as int? ?? 0,
-        completed: countsJson['completed'] as int? ?? 0,
-        cancelled: countsJson['cancelled'] as int? ?? 0,
         total: total,
+        draft: n('draft'),
+        open: n('open'),
+        pack: n('pack'),
+        ship: n('ship'),
+        done: n('done'),
+        fail: n('fail'),
       ),
-      customCounts: Map<String, int>.from(
-        (json['customCounts'] as Map?)?.map(
+      byStatus: Map<String, int>.from(
+        (json['byStatus'] as Map?)?.map(
               (key, value) => MapEntry(key.toString(), (value as num).toInt()),
             ) ??
-            {},
+            const {},
       ),
       total: total,
-      computedAt: DateTime.parse(json['computedAt'] as String),
+      computedAt: DateTime.tryParse(json['computedAt'] as String? ?? '') ?? DateTime.now(),
     );
   }
 
-  /// Count for a standard [OrderStatus] tab badge.
-  int countFor(OrderStatus status) {
-    return switch (status) {
-      OrderStatus.draft => counts.draft,
-      OrderStatus.pending => counts.pending,
-      OrderStatus.review => counts.review,
-      OrderStatus.accepted => counts.accepted,
-      OrderStatus.followup => counts.followup,
-      OrderStatus.processing => counts.processing,
-      OrderStatus.completed => counts.completed,
-      OrderStatus.cancelled => counts.cancelled,
-    };
-  }
-
-  /// Returns a copy with adjusted status/custom counts (optimistic UI).
-  StoreOrderStatusCounts applyDelta({
-    OrderStatus? fromStatus,
-    OrderStatus? toStatus,
-    String? fromCustomStatus,
-    String? toCustomStatus,
-    int delta = 1,
-  }) {
-    var next = Map<String, int>.from(customCounts);
-    var summary = counts;
-
-    int adjust(OrderStatus status, int by) {
-      return switch (status) {
-        OrderStatus.draft => summary.draft + by,
-        OrderStatus.pending => summary.pending + by,
-        OrderStatus.review => summary.review + by,
-        OrderStatus.accepted => summary.accepted + by,
-        OrderStatus.followup => summary.followup + by,
-        OrderStatus.processing => summary.processing + by,
-        OrderStatus.completed => summary.completed + by,
-        OrderStatus.cancelled => summary.cancelled + by,
+  /// Count for a phase name (`open`, `done`, …).
+  int countForPhase(String phase) => switch (phase) {
+        'draft' => counts.draft,
+        'open' => counts.open,
+        'pack' => counts.pack,
+        'ship' => counts.ship,
+        'done' => counts.done,
+        'fail' => counts.fail,
+        _ => 0,
       };
-    }
-
-    StoreOrdersSummary patch(OrderStatus status, int value) {
-      return switch (status) {
-        OrderStatus.draft => summary.copyWith(draft: value),
-        OrderStatus.pending => summary.copyWith(pending: value),
-        OrderStatus.review => summary.copyWith(review: value),
-        OrderStatus.accepted => summary.copyWith(accepted: value),
-        OrderStatus.followup => summary.copyWith(followup: value),
-        OrderStatus.processing => summary.copyWith(processing: value),
-        OrderStatus.completed => summary.copyWith(completed: value),
-        OrderStatus.cancelled => summary.copyWith(cancelled: value),
-      };
-    }
-
-    var totalDelta = 0;
-
-    if (fromStatus != null) {
-      summary = patch(fromStatus, adjust(fromStatus, -delta));
-      totalDelta -= delta;
-    }
-    if (toStatus != null) {
-      summary = patch(toStatus, adjust(toStatus, delta));
-      totalDelta += delta;
-    }
-
-    if (fromCustomStatus != null && fromCustomStatus.isNotEmpty) {
-      final current = next[fromCustomStatus] ?? 0;
-      final updated = current - delta;
-      if (updated <= 0) {
-        next.remove(fromCustomStatus);
-      } else {
-        next[fromCustomStatus] = updated;
-      }
-    }
-    if (toCustomStatus != null && toCustomStatus.isNotEmpty) {
-      next[toCustomStatus] = (next[toCustomStatus] ?? 0) + delta;
-    }
-
-    return StoreOrderStatusCounts(
-      counts: summary.copyWith(total: summary.total + totalDelta),
-      customCounts: next,
-      total: total + totalDelta,
-      computedAt: computedAt,
-    );
-  }
 }

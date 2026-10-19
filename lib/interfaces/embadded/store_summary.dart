@@ -11,20 +11,17 @@ abstract class StoreSummary with _$StoreSummary {
       _$StoreSummaryFromJson(json);
 }
 
+/// Order counts by rooms phase (see backend `orders_v1/order_phase.ts`).
 @freezed
 abstract class StoreOrdersSummary with _$StoreOrdersSummary {
   factory StoreOrdersSummary({
-    required int total,
-    required int draft,
-    required int pending,
-    required int review,
-    required int processing,
-    required int accepted,
-    /// Confirmed orders that still need merchant action. Defaults to 0 for
-    /// older API payloads that omit the key.
-    @Default(0) int followup,
-    required int completed,
-    required int cancelled,
+    @Default(0) int total,
+    @Default(0) int draft,
+    @Default(0) int open,
+    @Default(0) int pack,
+    @Default(0) int ship,
+    @Default(0) int done,
+    @Default(0) int fail,
   }) = _StoreOrdersSummary;
 
   factory StoreOrdersSummary.fromJson(Map<String, dynamic> json) =>

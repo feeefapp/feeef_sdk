@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 
 import 'package:feeef/feeef_client.dart';
-import 'package:feeef/interfaces/order.dart';
 import 'package:feeef/orders/models/order.dart';
 
 abstract class DeliveryService<T> {
@@ -22,7 +21,6 @@ abstract class DeliveryService<T> {
       id: order.id,
       data: OrderUpdate(
         storeId: order.storeId,
-        deliveryStatus: DeliveryStatus.pending,
         metadata: {
           ...order.metadata,
           'delivery': {
@@ -32,8 +30,10 @@ abstract class DeliveryService<T> {
           },
           'history': [
             {
-              'status': order.status.name,
-              'deliveryStatus': order.deliveryStatus.name,
+              'room': order.room,
+              'kind': order.kind,
+              'statusId': order.statusId,
+              'closeAs': order.closeAs,
               'paymentStatus': order.paymentStatus.name,
               'createdAt': DateTime.now().toIso8601String(),
               'message': 'order sent to delivery service $name',
@@ -58,8 +58,10 @@ abstract class DeliveryService<T> {
           'delivery': null,
           'history': [
             {
-              'status': order.status.name,
-              'deliveryStatus': order.deliveryStatus.name,
+              'room': order.room,
+              'kind': order.kind,
+              'statusId': order.statusId,
+              'closeAs': order.closeAs,
               'paymentStatus': order.paymentStatus.name,
               'createdAt': DateTime.now().toIso8601String(),
               'message': 'order detached from delivery service $name',

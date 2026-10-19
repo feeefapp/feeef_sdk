@@ -18,26 +18,22 @@ Map<String, dynamic> _$StoreSummaryToJson(_StoreSummary instance) =>
 
 _StoreOrdersSummary _$StoreOrdersSummaryFromJson(Map<String, dynamic> json) =>
     _StoreOrdersSummary(
-      total: (json['total'] as num).toInt(),
-      draft: (json['draft'] as num).toInt(),
-      pending: (json['pending'] as num).toInt(),
-      review: (json['review'] as num).toInt(),
-      processing: (json['processing'] as num).toInt(),
-      accepted: (json['accepted'] as num).toInt(),
-      followup: (json['followup'] as num?)?.toInt() ?? 0,
-      completed: (json['completed'] as num).toInt(),
-      cancelled: (json['cancelled'] as num).toInt(),
+      total: (json['total'] as num?)?.toInt() ?? 0,
+      draft: (json['draft'] as num?)?.toInt() ?? 0,
+      open: (json['open'] as num?)?.toInt() ?? 0,
+      pack: (json['pack'] as num?)?.toInt() ?? 0,
+      ship: (json['ship'] as num?)?.toInt() ?? 0,
+      done: (json['done'] as num?)?.toInt() ?? 0,
+      fail: (json['fail'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$StoreOrdersSummaryToJson(_StoreOrdersSummary instance) =>
     <String, dynamic>{
       'total': instance.total,
       'draft': instance.draft,
-      'pending': instance.pending,
-      'review': instance.review,
-      'processing': instance.processing,
-      'accepted': instance.accepted,
-      'followup': instance.followup,
-      'completed': instance.completed,
-      'cancelled': instance.cancelled,
+      'open': instance.open,
+      'pack': instance.pack,
+      'ship': instance.ship,
+      'done': instance.done,
+      'fail': instance.fail,
     };

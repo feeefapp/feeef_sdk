@@ -976,8 +976,12 @@ class Receivable implements Model {
   final double total;
   final double paid;
   final double balanceDue;
-  final String status;
-  final String deliveryStatus;
+
+  /// Rooms phase of the order (`done` for a recognized receivable).
+  final String phase;
+  final String? room;
+  final String? kind;
+  final String? closeAs;
   final bool codInTransit;
 
   const Receivable({
@@ -986,8 +990,10 @@ class Receivable implements Model {
     required this.total,
     required this.paid,
     required this.balanceDue,
-    required this.status,
-    required this.deliveryStatus,
+    this.phase = 'done',
+    this.room,
+    this.kind,
+    this.closeAs,
     required this.codInTransit,
   });
 
@@ -1000,8 +1006,10 @@ class Receivable implements Model {
         total: _toDouble(json['total']),
         paid: _toDouble(json['paid']),
         balanceDue: _toDouble(json['balanceDue']),
-        status: json['status'] as String? ?? '',
-        deliveryStatus: json['deliveryStatus'] as String? ?? '',
+        phase: json['phase'] as String? ?? 'done',
+        room: json['room'] as String?,
+        kind: json['kind'] as String?,
+        closeAs: json['closeAs'] as String?,
         codInTransit: json['codInTransit'] == true,
       );
 }

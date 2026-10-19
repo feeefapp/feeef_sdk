@@ -82,9 +82,16 @@ abstract class Order extends OrderEntity
     required String storeId,
     String? source,
     String? confirmerId,
-    required OrderStatus status,
+    /// Legacy, still sent by the API until the 2027-01-15 hard cut. Read the
+    /// rooms fields ([room], [kind], [statusId], [closeAs]) instead.
+    @Deprecated('Use room / kind / statusId / closeAs')
+    @Default(OrderStatus.pending)
+    OrderStatus status,
     @Default(PaymentStatus.unpaid) PaymentStatus paymentStatus,
-    @Default(DeliveryStatus.pending) DeliveryStatus deliveryStatus,
+    @Deprecated('Use room / kind / closeAs')
+    @Default(DeliveryStatus.pending)
+    DeliveryStatus deliveryStatus,
+    @Deprecated('Use statusId / kind')
     String? customStatus,
 
     /// Why the order was lost, recorded when it moves to a cancelling status.
@@ -145,9 +152,11 @@ abstract class OrderCreate with _$OrderCreate implements ModelCreate {
     String? coupon,
     required String storeId,
     String? source,
-    OrderStatus? status,
+    /// Catalog status the order is created on (rooms model).
+    String? statusId,
+    /// Catalog slug / kind (e.g. `draft`, `new`, `confirmed`) when no id is known.
+    String? statusSlug,
     PaymentStatus? paymentStatus,
-    DeliveryStatus? deliveryStatus,
     Map<String, dynamic>? customFields,
     // metadata
     Map<String, dynamic>? metadata,
@@ -196,14 +205,8 @@ abstract class OrderUpdate with _$OrderUpdate implements ModelUpdate {
     // tags
     List<String>? tags,
     required String storeId,
-    OrderStatus? status,
+    // Status changes go through `ordersV1.apply` (catalog status + reason).
     PaymentStatus? paymentStatus,
-    DeliveryStatus? deliveryStatus,
-    String? customStatus,
-
-    /// Why the order was lost. Required by the server when the resulting status
-    /// is [OrderStatus.cancelled]; a 422 with field `cancelReason` is returned
-    /// when it is missing.
     String? cancelReason,
     Map<String, dynamic>? customFields,
     // metadata
@@ -224,12 +227,22 @@ abstract class OrderUpdate with _$OrderUpdate implements ModelUpdate {
 abstract class OrderHistoryEvent with _$OrderHistoryEvent {
   const factory OrderHistoryEvent({
     required DateTime createdAt,
-    required OrderStatus status,
-    required DeliveryStatus deliveryStatus,
-    required PaymentStatus paymentStatus,
-    required String message,
-    required String code,
-    required String userId,
+    /// Rooms snapshot of this event.
+    String? phase,
+    String? room,
+    String? kind,
+    String? statusId,
+    String? closeAs,
+    @Deprecated('Use phase / statusId')
+    @Default(OrderStatus.pending)
+    OrderStatus status,
+    @Deprecated('Use phase')
+    @Default(DeliveryStatus.pending)
+    DeliveryStatus deliveryStatus,
+    @Default(PaymentStatus.unpaid) PaymentStatus paymentStatus,
+    @Default('') String message,
+    @Default('') String code,
+    @Default('') String userId,
   }) = _OrderHistoryEvent;
 
   factory OrderHistoryEvent.fromJson(Map<String, dynamic> json) =>

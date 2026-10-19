@@ -74,6 +74,7 @@ class FinancialTotals {
 /// Orders timeline response structure
 class OrdersTimelineData {
   final Map<String, Map<String, int>> timeline;
+  /// Counts keyed by the timeline's group (phase by default, or status id).
   final Map<String, int> statusCounts;
   final int totalOrders;
   final String from;
@@ -236,7 +237,7 @@ class Analytics {
   ///   to: DateTime.now(),
   ///   step: 86400, // 1 day
   ///   productId: "product123", // Optional filter
-  ///   status: "completed", // Optional filter
+  ///   phase: "done", // Optional filter (or statusId)
   ///   tags: "urgent", // Optional filter
   ///   confirmerId: "user123", // Optional filter
   /// );
@@ -247,7 +248,10 @@ class Analytics {
     required DateTime to,
     int step = 86400, // Default: 1 day in seconds
     String? productId,
-    String? status,
+    /// Rooms phase filter: draft | open | pack | ship | done | fail.
+    String? phase,
+    /// Status catalog row id filter.
+    String? statusId,
     String? tags,
     String? confirmerId,
   }) async {
@@ -260,7 +264,8 @@ class Analytics {
           'to': to.toIso8601String(),
           'step': step,
           if (productId != null) 'productId': productId,
-          if (status != null) 'status': status,
+          if (phase != null) 'phase': phase,
+          if (statusId != null) 'statusId': statusId,
           if (tags != null) 'tags': tags,
           if (confirmerId != null) 'confirmerId': confirmerId,
         },
@@ -281,9 +286,9 @@ class Analytics {
   ///   storeId: "store123",
   ///   from: DateTime.now().subtract(Duration(days: 30)),
   ///   to: DateTime.now(),
-  ///   groupBy: 'status',
+  ///   groupBy: 'phase', // or 'status_id', 'room', 'kind'
   ///   productId: "product123", // Optional filter
-  ///   status: "completed", // Optional filter
+  ///   phase: "done", // Optional filter (or statusId)
   ///   tags: "urgent", // Optional filter
   ///   confirmerId: "user123", // Optional filter
   /// );
@@ -293,9 +298,12 @@ class Analytics {
     required DateTime from,
     required DateTime to,
     int step = 86400,
-    String groupBy = 'status',
+    String groupBy = 'phase',
     String? productId,
-    String? status,
+    /// Rooms phase filter: draft | open | pack | ship | done | fail.
+    String? phase,
+    /// Status catalog row id filter.
+    String? statusId,
     String? tags,
     String? confirmerId,
   }) async {
@@ -309,7 +317,8 @@ class Analytics {
           'step': step,
           'groupBy': groupBy,
           if (productId != null) 'productId': productId,
-          if (status != null) 'status': status,
+          if (phase != null) 'phase': phase,
+          if (statusId != null) 'statusId': statusId,
           if (tags != null) 'tags': tags,
           if (confirmerId != null) 'confirmerId': confirmerId,
         },
@@ -332,7 +341,7 @@ class Analytics {
   ///   from: DateTime.now().subtract(Duration(days: 30)),
   ///   to: DateTime.now(),
   ///   productId: "product123", // Optional filter
-  ///   status: "completed", // Optional filter
+  ///   phase: "done", // Optional filter (or statusId)
   ///   tags: "urgent", // Optional filter
   ///   confirmerId: "user123", // Optional filter
   /// );
@@ -340,12 +349,15 @@ class Analytics {
   Future<StoreOrdersCountByFieldType> getStoreOrdersCountByField({
     required String storeId,
     required String
-    field, // 'status', 'payment_status', 'delivery_status', 'shipping_method', 'shipping_state'
+    field, // 'phase', 'status_id', 'room', 'kind', 'payment_status', 'shipping_method', 'shipping_state'
     DateTime? from,
     DateTime? to,
     int limit = 60,
     String? productId,
-    String? status,
+    /// Rooms phase filter: draft | open | pack | ship | done | fail.
+    String? phase,
+    /// Status catalog row id filter.
+    String? statusId,
     String? tags,
     String? confirmerId,
   }) async {
@@ -359,7 +371,8 @@ class Analytics {
           if (to != null) 'to': to.toIso8601String(),
           'limit': limit,
           if (productId != null) 'productId': productId,
-          if (status != null) 'status': status,
+          if (phase != null) 'phase': phase,
+          if (statusId != null) 'statusId': statusId,
           if (tags != null) 'tags': tags,
           if (confirmerId != null) 'confirmerId': confirmerId,
         },

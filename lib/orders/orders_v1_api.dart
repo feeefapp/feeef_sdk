@@ -250,6 +250,8 @@ class OrdersV1Api {
     String? statusId,
     String? kind,
     bool allowCrossRoom = false,
+    String? reason,
+    DateTime? scheduledAt,
   }) async {
     final res = await client.post(
       '/stores/$storeId/orders/$orderId/apply',
@@ -257,6 +259,9 @@ class OrdersV1Api {
         if (statusId != null) 'statusId': statusId,
         if (kind != null) 'kind': kind,
         if (allowCrossRoom) 'allowCrossRoom': true,
+        if (reason != null && reason.isNotEmpty) 'reason': reason,
+        if (scheduledAt != null)
+          'scheduledAt': scheduledAt.toUtc().toIso8601String(),
       },
     );
     return Map<String, dynamic>.from(res.data['data'] as Map? ?? res.data as Map);

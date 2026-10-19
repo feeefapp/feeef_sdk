@@ -633,8 +633,14 @@ abstract class StoreConfigs with _$StoreConfigs {
     String? defaultLanguage,
     @Default([]) List<StoreCountryConfig> countries,
     String? selectedCountry,
-    @Default([]) List<CustomStatusMapping> customStatusMappings,
-    @Default(false) bool customStatusEnabled,
+    /// Legacy — read-only from old configs; the API no longer accepts or
+    /// reads it. Statuses live in the orders-v1 catalog (`listStatuses`).
+    @Deprecated('Use the orders-v1 status catalog')
+    @Default([])
+    List<CustomStatusMapping> customStatusMappings,
+    @Deprecated('Use the orders-v1 status catalog')
+    @Default(false)
+    bool customStatusEnabled,
     ConfirmationQueueConfig? confirmationQueue,
     InventoryIntegration? inventory_integration,
     FinanceIntegration? finance_integration,

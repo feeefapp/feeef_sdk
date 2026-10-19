@@ -2299,7 +2299,9 @@ as Map<String, StoreIntegrationSubscription>,
 /// @nodoc
 mixin _$StoreConfigs {
 
- List<StoreCurrencyConfig> get currencies; String? get selectedCurrency; List<StoreLanguageConfig> get languages; String? get defaultLanguage; List<StoreCountryConfig> get countries; String? get selectedCountry; List<CustomStatusMapping> get customStatusMappings; bool get customStatusEnabled; ConfirmationQueueConfig? get confirmationQueue; InventoryIntegration? get inventory_integration; FinanceIntegration? get finance_integration;
+ List<StoreCurrencyConfig> get currencies; String? get selectedCurrency; List<StoreLanguageConfig> get languages; String? get defaultLanguage; List<StoreCountryConfig> get countries; String? get selectedCountry;/// Legacy — read-only from old configs; the API no longer accepts or
+/// reads it. Statuses live in the orders-v1 catalog (`listStatuses`).
+@Deprecated('Use the orders-v1 status catalog') List<CustomStatusMapping> get customStatusMappings;@Deprecated('Use the orders-v1 status catalog') bool get customStatusEnabled; ConfirmationQueueConfig? get confirmationQueue; InventoryIntegration? get inventory_integration; FinanceIntegration? get finance_integration;
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2337,7 +2339,7 @@ abstract mixin class $StoreConfigsCopyWith<$Res>  {
   factory $StoreConfigsCopyWith(StoreConfigs value, $Res Function(StoreConfigs) _then) = _$StoreConfigsCopyWithImpl;
 @useResult
 $Res call({
- List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, ConfirmationQueueConfig? confirmationQueue, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration
+ List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry,@Deprecated('Use the orders-v1 status catalog') List<CustomStatusMapping> customStatusMappings,@Deprecated('Use the orders-v1 status catalog') bool customStatusEnabled, ConfirmationQueueConfig? confirmationQueue, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration
 });
 
 
@@ -2488,7 +2490,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry, @Deprecated('Use the orders-v1 status catalog')  List<CustomStatusMapping> customStatusMappings, @Deprecated('Use the orders-v1 status catalog')  bool customStatusEnabled,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreConfigs() when $default != null:
 return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.confirmationQueue,_that.inventory_integration,_that.finance_integration);case _:
@@ -2509,7 +2511,7 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry, @Deprecated('Use the orders-v1 status catalog')  List<CustomStatusMapping> customStatusMappings, @Deprecated('Use the orders-v1 status catalog')  bool customStatusEnabled,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)  $default,) {final _that = this;
 switch (_that) {
 case _StoreConfigs():
 return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.confirmationQueue,_that.inventory_integration,_that.finance_integration);case _:
@@ -2529,7 +2531,7 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  List<CustomStatusMapping> customStatusMappings,  bool customStatusEnabled,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry, @Deprecated('Use the orders-v1 status catalog')  List<CustomStatusMapping> customStatusMappings, @Deprecated('Use the orders-v1 status catalog')  bool customStatusEnabled,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreConfigs() when $default != null:
 return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.customStatusMappings,_that.customStatusEnabled,_that.confirmationQueue,_that.inventory_integration,_that.finance_integration);case _:
@@ -2544,7 +2546,7 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 @JsonSerializable()
 
 class _StoreConfigs implements StoreConfigs {
-  const _StoreConfigs({required  List<StoreCurrencyConfig> currencies, this.selectedCurrency,  List<StoreLanguageConfig> languages = const [], this.defaultLanguage,  List<StoreCountryConfig> countries = const [], this.selectedCountry,  List<CustomStatusMapping> customStatusMappings = const [], this.customStatusEnabled = false, this.confirmationQueue, this.inventory_integration, this.finance_integration}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
+  const _StoreConfigs({required  List<StoreCurrencyConfig> currencies, this.selectedCurrency,  List<StoreLanguageConfig> languages = const [], this.defaultLanguage,  List<StoreCountryConfig> countries = const [], this.selectedCountry, @Deprecated('Use the orders-v1 status catalog')  List<CustomStatusMapping> customStatusMappings = const [], @Deprecated('Use the orders-v1 status catalog') this.customStatusEnabled = false, this.confirmationQueue, this.inventory_integration, this.finance_integration}): _currencies = currencies,_languages = languages,_countries = countries,_customStatusMappings = customStatusMappings;
   factory _StoreConfigs.fromJson(Map<String, dynamic> json) => _$StoreConfigsFromJson(json);
 
  final  List<StoreCurrencyConfig> _currencies;
@@ -2571,14 +2573,18 @@ class _StoreConfigs implements StoreConfigs {
 }
 
 @override final  String? selectedCountry;
+/// Legacy — read-only from old configs; the API no longer accepts or
+/// reads it. Statuses live in the orders-v1 catalog (`listStatuses`).
  final  List<CustomStatusMapping> _customStatusMappings;
-@override@JsonKey() List<CustomStatusMapping> get customStatusMappings {
+/// Legacy — read-only from old configs; the API no longer accepts or
+/// reads it. Statuses live in the orders-v1 catalog (`listStatuses`).
+@override@JsonKey()@Deprecated('Use the orders-v1 status catalog') List<CustomStatusMapping> get customStatusMappings {
   if (_customStatusMappings is EqualUnmodifiableListView) return _customStatusMappings;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_customStatusMappings);
 }
 
-@override@JsonKey() final  bool customStatusEnabled;
+@override@JsonKey()@Deprecated('Use the orders-v1 status catalog') final  bool customStatusEnabled;
 @override final  ConfirmationQueueConfig? confirmationQueue;
 @override final  InventoryIntegration? inventory_integration;
 @override final  FinanceIntegration? finance_integration;
@@ -2618,7 +2624,7 @@ abstract mixin class _$StoreConfigsCopyWith<$Res> implements $StoreConfigsCopyWi
   factory _$StoreConfigsCopyWith(_StoreConfigs value, $Res Function(_StoreConfigs) _then) = __$StoreConfigsCopyWithImpl;
 @override @useResult
 $Res call({
- List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, List<CustomStatusMapping> customStatusMappings, bool customStatusEnabled, ConfirmationQueueConfig? confirmationQueue, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration
+ List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry,@Deprecated('Use the orders-v1 status catalog') List<CustomStatusMapping> customStatusMappings,@Deprecated('Use the orders-v1 status catalog') bool customStatusEnabled, ConfirmationQueueConfig? confirmationQueue, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration
 });
 
 

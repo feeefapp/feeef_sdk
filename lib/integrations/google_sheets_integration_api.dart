@@ -31,23 +31,6 @@ class GoogleSheetIntegrationApi {
       rethrow;
     }
   }
-
-  Future<void> createSpreadsheet({required String name}) async {
-    try {
-      await client.post(
-        '/stores/$storeId/integrations/google-sheets/create-spreadsheet',
-        data: {'name': name},
-      );
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 422) {
-        var errors = FeeefValidationException.fromJson(e.response?.data);
-        throw errors;
-      }
-      rethrow;
-    } catch (e) {
-      rethrow;
-    }
-  }
 }
 
 /// Blank strings are omitted. The API would otherwise store `""`.

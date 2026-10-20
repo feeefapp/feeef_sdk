@@ -340,7 +340,7 @@ class MaystroDeliveryService
     String format = 'A6',
   }) async {
     final response = await Feeef.instance.client.post(
-      '/stores/$storeId/integrations/maystroDelivery/labelIndividual',
+      '/stores/$storeId/integrations/maystroDelivery/label/individual',
       data: {'trackingNumbers': trackingNumbers, 'format': format},
     );
     final data = response.data is Map ? response.data as Map<String, dynamic> : <String, dynamic>{};

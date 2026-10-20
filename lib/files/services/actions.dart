@@ -1297,11 +1297,7 @@ class Actions {
     String? productId,
     String? mode, // optional override
     String? forceStatus,
-    /// Optional reference image URLs (legacy; prefer [attachments] with type 'image')
-    List<String>? referenceImageUrls,
-    /// Optional map of image URL to label (legacy; prefer [attachments])
-    Map<String, String>? referenceImageLabels,
-    /// Optional full attachments: image, url, audio, store, product. Backend supports all and merges with legacy refs.
+    /// Optional attachments: image, url, audio, store, product.
     /// - image: URLs fetched and sent as reference images (vision). url: page content fetched and appended to input.
     /// - audio: sent as inline audio. store/product: loaded server-side and added to context.
     List<Attachment>? attachments,
@@ -1323,10 +1319,6 @@ class Actions {
         if (productId != null) 'productId': productId,
         if (mode != null) 'mode': mode,
         if (forceStatus != null) 'forceStatus': forceStatus,
-        if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
-          'referenceImageUrls': referenceImageUrls,
-        if (referenceImageLabels != null && referenceImageLabels.isNotEmpty)
-          'referenceImageLabels': referenceImageLabels,
         if (attachmentMaps != null) 'attachments': attachmentMaps,
         if (useSearchGrounding == true) 'useSearchGrounding': true,
         if (trimmedCatalogModelId != null && trimmedCatalogModelId.isNotEmpty)
@@ -1406,8 +1398,6 @@ class Actions {
     String? shippingPriceId,
     String? mode,
     String? forceStatus,
-    List<String>? referenceImageUrls,
-    Map<String, String>? referenceImageLabels,
     List<Attachment>? attachments,
     bool? useSearchGrounding,
     String? modelId,
@@ -1425,10 +1415,6 @@ class Actions {
         if (shippingPriceId != null) 'shippingPriceId': shippingPriceId,
         if (mode != null) 'mode': mode,
         if (forceStatus != null) 'forceStatus': forceStatus,
-        if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
-          'referenceImageUrls': referenceImageUrls,
-        if (referenceImageLabels != null && referenceImageLabels.isNotEmpty)
-          'referenceImageLabels': referenceImageLabels,
         if (attachmentMaps != null) 'attachments': attachmentMaps,
         if (useSearchGrounding == true) 'useSearchGrounding': true,
         if (trimmedCatalogModelId != null && trimmedCatalogModelId.isNotEmpty)
@@ -1511,8 +1497,6 @@ class Actions {
     String? orderId,
     String? mode,
     Map<String, dynamic>? order,
-    List<String>? referenceImageUrls,
-    Map<String, String>? referenceImageLabels,
     List<Attachment>? attachments,
     bool? useSearchGrounding,
     String? modelId,
@@ -1536,10 +1520,6 @@ class Actions {
         if (orderId != null) 'orderId': orderId,
         if (mode != null) 'mode': mode,
         if (order != null) 'order': order,
-        if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
-          'referenceImageUrls': referenceImageUrls,
-        if (referenceImageLabels != null && referenceImageLabels.isNotEmpty)
-          'referenceImageLabels': referenceImageLabels,
         if (attachmentMaps != null) 'attachments': attachmentMaps,
         if (useSearchGrounding == true) 'useSearchGrounding': true,
         if (trimmedCatalogModelId != null && trimmedCatalogModelId.isNotEmpty)
@@ -1960,10 +1940,12 @@ class Actions {
     String? imageSize,
     String resolution = 'MEDIA_RESOLUTION_HIGH',
     String? systemInstructions,
-    List<String>? referenceImageUrls,
-    Map<String, String>? referenceImageLabels,
+    List<Attachment>? attachments,
     String? model,
   }) async {
+    final attachmentMaps = attachments != null && attachments.isNotEmpty
+        ? attachments.map((a) => a.toJson()).toList()
+        : null;
     final formData = FormData.fromMap({
       'storeId': storeId,
       if (title != null && title.trim().isNotEmpty) 'title': title.trim(),
@@ -1973,10 +1955,7 @@ class Actions {
       'resolution': resolution,
       if (systemInstructions != null && systemInstructions.trim().isNotEmpty)
         'systemInstructions': systemInstructions.trim(),
-      if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
-        'referenceImageUrls': jsonEncode(referenceImageUrls),
-      if (referenceImageLabels != null && referenceImageLabels.isNotEmpty)
-        'referenceImageLabels': jsonEncode(referenceImageLabels),
+      if (attachmentMaps != null) 'attachments': jsonEncode(attachmentMaps),
       if (model != null && model.trim().isNotEmpty) 'model': model.trim(),
       if (imageBytes != null)
         'imageFile': MultipartFile.fromBytes(
@@ -2433,20 +2412,15 @@ class Actions {
   /// [assetKind] `identity` produces an opaque brand-kit board. Other kinds are
   /// isolated transparent PNGs. Pass [inputImageUrl] to edit/extract from a board.
   ///
-  /// [colors] is optional (empty = model invents a palette). Legacy [color1]+[color2]
-  /// still work when [colors] is omitted.
+  /// [colors] is optional (empty = model invents a palette).
   ///
   /// [imageModel]: optional catalog model id (server resolves like landing-page image step).
   /// [attachments]: optional image/store/product references.
-  ///
-  /// Returns both [brandStudioId] and deprecated [identityStudioId] (same value)
-  /// for one release of merchant compatibility.
   Future<
     ({
       bool success,
       String? id,
       String? brandStudioId,
-      String? identityStudioId,
       String message,
       String? error,
       Map<String, dynamic>? metadata,
@@ -2455,8 +2429,6 @@ class Actions {
   generateBrandAsset({
     required String logoName,
     required String description,
-    int? color1,
-    int? color2,
     List<int>? colors,
     String? aspectRatio,
     String? imageModel,
@@ -2465,8 +2437,6 @@ class Actions {
     String? brandStudioId,
     bool createStudio = false,
     List<Attachment>? attachments,
-    List<String>? referenceImageUrls,
-    Map<String, String>? referenceImageLabels,
   }) async {
     try {
       final hasPalette = colors != null && colors.isNotEmpty;
@@ -2487,16 +2457,9 @@ class Actions {
           'brandStudioId': brandStudioId.trim(),
         if (createStudio) 'createStudio': true,
         if (attachmentMaps != null) 'attachments': attachmentMaps,
-        if (referenceImageUrls != null && referenceImageUrls.isNotEmpty)
-          'referenceImageUrls': referenceImageUrls,
-        if (referenceImageLabels != null && referenceImageLabels.isNotEmpty)
-          'referenceImageLabels': referenceImageLabels,
       };
       if (hasPalette) {
         requestData['colors'] = colors;
-      } else if (color1 != null && color2 != null) {
-        requestData['color1'] = color1;
-        requestData['color2'] = color2;
       }
 
       final response = await client.post(
@@ -2510,15 +2473,12 @@ class Actions {
           : null;
       final returnedStudioId =
           responseData['brandStudioId']?.toString() ??
-          metadata?['brandStudioId']?.toString() ??
-          responseData['identityStudioId']?.toString() ??
-          metadata?['identityStudioId']?.toString();
+          metadata?['brandStudioId']?.toString();
 
       return (
         success: responseData['success'] as bool? ?? false,
         id: responseData['id'] as String?,
         brandStudioId: returnedStudioId,
-        identityStudioId: returnedStudioId,
         message: responseData['message'] as String? ?? 'Unknown response',
         error: responseData['error'] as String?,
         metadata: metadata,
@@ -2529,7 +2489,6 @@ class Actions {
         success: false,
         id: null as String?,
         brandStudioId: null as String?,
-        identityStudioId: null as String?,
         message: 'Network error occurred',
         error:
             'Failed to connect to the server. Please check your internet connection.'
@@ -2545,7 +2504,6 @@ class Actions {
         success: false,
         id: null as String?,
         brandStudioId: null as String?,
-        identityStudioId: null as String?,
         message: 'Failed to generate brand asset',
         error: errorMessage as String?,
         metadata: null as Map<String, dynamic>?,

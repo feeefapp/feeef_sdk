@@ -18,15 +18,17 @@ void main() {
       expect(parcel.status, 'submitted');
     });
 
-    test('falls back to tracking then reference', () {
-      expect(
-        CloudParcel.fromJson({'id': 'pcl_2', 'tracking': 'TRK'}).tracking,
-        'TRK',
-      );
-      expect(
-        CloudParcel.fromJson({'id': 'pcl_3', 'reference': 'ord_9'}).tracking,
-        'ord_9',
-      );
+    test('keeps tracking and reference apart; title falls back tracking, reference, id', () {
+      final tracked = CloudParcel.fromJson({'id': 'pcl_2', 'tracking': 'TRK'});
+      expect(tracked.tracking, 'TRK');
+      expect(tracked.title, 'TRK');
+
+      final referenced = CloudParcel.fromJson({'id': 'pcl_3', 'reference': 'ord_9'});
+      expect(referenced.tracking, isNull);
+      expect(referenced.reference, 'ord_9');
+      expect(referenced.title, 'ord_9');
+
+      expect(CloudParcel.fromJson({'id': 'pcl_5'}).title, 'pcl_5');
     });
 
     test('reads nested destination `to`', () {

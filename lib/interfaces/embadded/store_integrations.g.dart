@@ -139,6 +139,9 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
       : StoreFinanceIntegration.fromJson(
           json['finance'] as Map<String, dynamic>,
         ),
+  pages: json['pages'] == null
+      ? null
+      : StorePagesIntegration.fromJson(json['pages'] as Map<String, dynamic>),
   connectors: json['connectors'] == null
       ? null
       : ConnectorsIntegration.fromJson(
@@ -180,6 +183,7 @@ Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
       'dispatcher': instance.dispatcher?.toJson(),
       'inventory': instance.inventory?.toJson(),
       'finance': instance.finance?.toJson(),
+      'pages': instance.pages?.toJson(),
       'connectors': instance.connectors?.toJson(),
       'sms': instance.sms,
       'telegram': instance.telegram,
@@ -1609,5 +1613,19 @@ Map<String, dynamic> _$ConnectorsIntegrationToJson(
 ) => <String, dynamic>{
   'active': instance.active,
   'connectors': instance.connectors.map((e) => e.toJson()).toList(),
+  'metadata': instance.metadata,
+};
+
+_StorePagesIntegration _$StorePagesIntegrationFromJson(
+  Map<String, dynamic> json,
+) => _StorePagesIntegration(
+  active: json['active'] as bool? ?? false,
+  metadata: json['metadata'] as Map<String, dynamic>?,
+);
+
+Map<String, dynamic> _$StorePagesIntegrationToJson(
+  _StorePagesIntegration instance,
+) => <String, dynamic>{
+  'active': instance.active,
   'metadata': instance.metadata,
 };

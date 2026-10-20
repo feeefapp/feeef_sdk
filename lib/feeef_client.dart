@@ -1,3 +1,4 @@
+import 'package:feeef/template_projects/template_projects_api.dart';
 import 'dart:developer' as developer;
 import 'dart:typed_data';
 
@@ -143,6 +144,7 @@ class Feeef {
   late final ImagePromptTemplateRepository imagePromptTemplates;
   late final TemplateComponentsRepository templateComponents;
   late final StoreTemplatesRepository storeTemplates;
+  late final TemplateProjectsApi templateProjects;
   late final StorePagesRepository storePages;
 
   /// Customer product reviews, the review page and merchant moderation.
@@ -218,6 +220,7 @@ class Feeef {
     imagePromptTemplates = ImagePromptTemplateRepository(client: client);
     templateComponents = TemplateComponentsRepository(client: client);
     storeTemplates = StoreTemplatesRepository(client: client);
+    templateProjects = TemplateProjectsApi(client);
     storePages = StorePagesRepository(client: client);
     reviews = ReviewsRepository(client: client);
     shippingMethods = ShippingMethodRepository(client: client);

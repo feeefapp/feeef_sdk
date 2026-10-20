@@ -68,6 +68,8 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     StoreInventoryIntegration? inventory,
     /// Finance module (procurement, accounting).
     StoreFinanceIntegration? finance,
+    /// Store-owned website pages (monthly integration).
+    StorePagesIntegration? pages,
     /// Inbound platform connectors (Shopify, YouCan, Google Sheets, …).
     ConnectorsIntegration? connectors,
     // Communication Integrations
@@ -1784,4 +1786,17 @@ abstract class ConnectorsIntegration with _$ConnectorsIntegration {
 
   factory ConnectorsIntegration.fromJson(Map<String, dynamic> json) =>
       _$ConnectorsIntegrationFromJson(json);
+}
+
+
+/// Store-owned website pages: installed separately from the theme editor.
+@freezed
+abstract class StorePagesIntegration with _$StorePagesIntegration {
+  const StorePagesIntegration._();
+  const factory StorePagesIntegration({
+    @Default(false) bool active,
+    Map<String, dynamic>? metadata,
+  }) = _StorePagesIntegration;
+  factory StorePagesIntegration.fromJson(Map<String, dynamic> json) =>
+      _$StorePagesIntegrationFromJson(json);
 }

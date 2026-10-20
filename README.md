@@ -233,3 +233,13 @@ reach backend recovery even after its local price card expires. The backend stil
 validates the current catalog for new jobs. Charges (`chargeDzd`, `chargedMicros`)
 remain decimal strings; pending charges stay unknown. New Cloud AI billing is
 postpaid with no Feeef wallet reserve and can produce a negative balance.
+
+### Source-first template projects (local foundation integration)
+
+`Feeef.instance.templateProjects` is the typed workspace/build/publication API.
+Preserve the exact read workspace version and file hashes for patches; publication
+requires the reviewed successful build hashes and project/workspace/installation
+versions. Source, compiled output and optional activation commit atomically. The
+merchant source editor and MCP use this same SDK transport and explicit workspace ID.
+This local implementation does not change published SDK pins or run application
+migrations. Deployment/recovery gates: backend `docs/template-foundation/e.md`.

@@ -47,6 +47,15 @@ class InventoryObject implements Model {
   /// Derived — not stored in backend, computed client-side.
   int get quantityAvailable => quantityOnHand - quantityReserved;
 
+  /// True when this row totals several lots of one `(namespace, key)`
+  /// (objects page grouped view). Actions must expand it into its lots
+  /// instead of acting on the representative lot id.
+  bool get isGrouped => metadata?['grouped'] == true;
+
+  /// Number of lots behind a grouped row (1 for a plain lot row).
+  int get lotCount =>
+      (metadata?['lotCount'] as num?)?.toInt() ?? (isGrouped ? 0 : 1);
+
   InventoryObject({
     required this.id,
     required this.projectId,

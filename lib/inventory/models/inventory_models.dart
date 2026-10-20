@@ -107,6 +107,76 @@ class InventoryObject implements Model {
   };
 }
 
+/// One folder in a lazy SKU browse level (the next `/` segment).
+class InventoryBrowseFolder {
+  final String segment;
+  final String prefix;
+  final int quantityOnHand;
+  final int quantityReserved;
+  final int objectCount;
+
+  int get quantityAvailable => quantityOnHand - quantityReserved;
+
+  const InventoryBrowseFolder({
+    required this.segment,
+    required this.prefix,
+    required this.quantityOnHand,
+    required this.quantityReserved,
+    required this.objectCount,
+  });
+
+  factory InventoryBrowseFolder.fromJson(Map<String, dynamic> json) {
+    return InventoryBrowseFolder(
+      segment: json['segment'] as String? ?? '',
+      prefix: json['prefix'] as String? ?? '',
+      quantityOnHand: (json['quantityOnHand'] as num?)?.toInt() ?? 0,
+      quantityReserved: (json['quantityReserved'] as num?)?.toInt() ?? 0,
+      objectCount: (json['objectCount'] as num?)?.toInt() ?? 0,
+    );
+  }
+}
+
+/// One S3-style browse level: folders plus grouped SKUs that end at this path.
+class InventoryBrowseLevel {
+  final String prefix;
+  final List<InventoryBrowseFolder> folders;
+  final List<InventoryObject> objects;
+
+  const InventoryBrowseLevel({
+    required this.prefix,
+    required this.folders,
+    required this.objects,
+  });
+
+  factory InventoryBrowseLevel.fromJson(Map<String, dynamic> json) {
+    final foldersRaw = json['folders'];
+    final objectsRaw = json['objects'];
+    return InventoryBrowseLevel(
+      prefix: json['prefix'] as String? ?? '',
+      folders: foldersRaw is List
+          ? foldersRaw
+                .whereType<Map>()
+                .map(
+                  (row) => InventoryBrowseFolder.fromJson(
+                    Map<String, dynamic>.from(row),
+                  ),
+                )
+                .toList(growable: false)
+          : const [],
+      objects: objectsRaw is List
+          ? objectsRaw
+                .whereType<Map>()
+                .map(
+                  (row) => InventoryObject.fromJson(
+                    Map<String, dynamic>.from(row),
+                  ),
+                )
+                .toList(growable: false)
+          : const [],
+    );
+  }
+}
+
 class InventoryMovement implements Model {
   final String id;
   final String inventoryObjectId;

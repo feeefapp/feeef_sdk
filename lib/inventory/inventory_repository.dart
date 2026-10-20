@@ -298,6 +298,28 @@ class InventoryObjectResourceRepository
     return ListResponse<InventoryObject>.fromJson(response.data, modelFromJson);
   }
 
+  /// One lazy SKU-tree level. [prefix] is empty at the root and otherwise
+  /// ends with `/` (the previous folder's prefix).
+  Future<InventoryBrowseLevel> browse({
+    required String projectId,
+    String prefix = '',
+    String? namespace,
+  }) async {
+    final response = await client.get(
+      '/inventory/objects/browse',
+      queryParameters: {
+        'projectId': projectId,
+        'prefix': prefix,
+        if (namespace != null && namespace.isNotEmpty) 'namespace': namespace,
+      },
+    );
+    final raw = response.data;
+    final map = raw is Map && raw['data'] is Map
+        ? Map<String, dynamic>.from(raw['data'] as Map)
+        : Map<String, dynamic>.from(raw as Map);
+    return InventoryBrowseLevel.fromJson(map);
+  }
+
   @override
   Future<InventoryObject> create({
     required InventoryReceiveInput data,

@@ -23,6 +23,35 @@ class TemplateProjectsApi {
     return Map<String, dynamic>.from(r.data as Map);
   }
 
+  /// Explicit install/restore/reset of a complete authorized revision.
+  Future<Map<String, dynamic>> activate(
+    String store, {
+    required String revisionId,
+    required int expectedInstallationVersion,
+    required String idempotencyKey,
+    String operation = 'activate',
+  }) {
+    if (!['install', 'activate', 'restore', 'reset'].contains(operation)) {
+      throw ArgumentError('Invalid installation operation');
+    }
+    return _request(
+      'POST',
+      '/stores/${Uri.encodeComponent(store)}/template-installation',
+      {
+        'revisionId': revisionId,
+        'expectedInstallationVersion': expectedInstallationVersion,
+        'idempotencyKey': idempotencyKey,
+        'operation': operation,
+      },
+    );
+  }
+
+  /// Public selected identity; it does not grant source access.
+  Future<Map<String, dynamic>> installation(String store) => _request(
+    'GET',
+    '/stores/${Uri.encodeComponent(store)}/template-installation',
+  );
+
   Future<Map<String, dynamic>> installed(String store) =>
       _request('GET', '/stores/${Uri.encodeComponent(store)}/template-project');
   Future<Map<String, dynamic>> project(String project) =>

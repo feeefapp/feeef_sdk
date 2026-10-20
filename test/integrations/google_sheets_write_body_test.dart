@@ -9,7 +9,9 @@ void main() {
         id: '  ',
         name: ' Orders ',
         active: false,
-        oauth2: const {'tokens': {'access_token': 'secret'}},
+        oauth2: const {
+          'tokens': {'access_token': 'secret'},
+        },
         metadata: const {'keep': true},
         columns: [
           GoogleSheetsColumn(

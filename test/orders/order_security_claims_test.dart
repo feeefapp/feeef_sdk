@@ -5,18 +5,18 @@ import 'package:feeef/orders/models/order.dart';
 import 'package:test/test.dart';
 
 Map<String, dynamic> _orderJson({Object? claims}) => {
-      'id': 'ord_1',
-      'createdAt': '2026-10-09T10:00:00.000Z',
-      'updatedAt': '2026-10-09T10:00:00.000Z',
-      'items': <Object>[],
-      'subtotal': 1000,
-      'total': 1000,
-      'calculatedTotal': 1000,
-      'storeId': 'st_1',
-      'status': 'pending',
-      'shippingCountry': 'DZ',
-      'claims': ?claims,
-    };
+  'id': 'ord_1',
+  'createdAt': '2026-10-09T10:00:00.000Z',
+  'updatedAt': '2026-10-09T10:00:00.000Z',
+  'items': <Object>[],
+  'subtotal': 1000,
+  'total': 1000,
+  'calculatedTotal': 1000,
+  'storeId': 'st_1',
+  'status': 'pending',
+  'shippingCountry': 'DZ',
+  'claims': ?claims,
+};
 
 void main() {
   group('OrderSecurityGeo (claims.security.geo)', () {
@@ -82,8 +82,10 @@ void main() {
       expect(OrderSecurityGeo.tryParse(null), isNull);
       expect(OrderSecurityGeo.tryParse('DZ'), isNull);
       expect(OrderSecurityGeo.tryParse(const <String, dynamic>{}), isNull);
-      expect(OrderSecurityGeo.tryParse({'source': 'unknown'})!.source,
-          VisitorGeoSource.unknown);
+      expect(
+        OrderSecurityGeo.tryParse({'source': 'unknown'})!.source,
+        VisitorGeoSource.unknown,
+      );
       expect(OrderSecurityGeo.tryParse({'country': 'DZ'})!.source, isNull);
     });
   });
@@ -178,14 +180,20 @@ void main() {
 
   group('Order extension', () {
     test('order with geo claims', () {
-      final order = Order.fromJson(_orderJson(claims: {
-        'security': {
-          'geo': {'country': 'TN', 'region': 'Tunis', 'source': 'edge'},
-        },
-      }));
+      final order = Order.fromJson(
+        _orderJson(
+          claims: {
+            'security': {
+              'geo': {'country': 'TN', 'region': 'Tunis', 'source': 'edge'},
+            },
+          },
+        ),
+      );
       expect(order.securityGeo!.countryCode, 'TN');
-      expect(order.securityGeo!.countryDiffersFrom(order.shippingCountry),
-          isTrue);
+      expect(
+        order.securityGeo!.countryDiffersFrom(order.shippingCountry),
+        isTrue,
+      );
       expect(order.securityClaims!.isFlagged, isFalse);
     });
 

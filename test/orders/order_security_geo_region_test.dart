@@ -4,12 +4,18 @@ import 'package:test/test.dart';
 void main() {
   group('OrderSecurityGeo wilaya (DZ-xx) and unknown region', () {
     test('regionCode from ISO code, bare number or name', () {
-      expect(const OrderSecurityGeo(country: 'DZ', region: 'DZ-16').regionCode,
-          'DZ-16');
-      expect(const OrderSecurityGeo(country: 'DZ', region: '9').regionCode,
-          'DZ-09');
-      expect(const OrderSecurityGeo(country: 'DZ', region: 'Algiers').regionCode,
-          isNull);
+      expect(
+        const OrderSecurityGeo(country: 'DZ', region: 'DZ-16').regionCode,
+        'DZ-16',
+      );
+      expect(
+        const OrderSecurityGeo(country: 'DZ', region: '9').regionCode,
+        'DZ-09',
+      );
+      expect(
+        const OrderSecurityGeo(country: 'DZ', region: 'Algiers').regionCode,
+        isNull,
+      );
       expect(const OrderSecurityGeo(country: 'DZ').regionCode, isNull);
     });
 

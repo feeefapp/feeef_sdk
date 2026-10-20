@@ -386,12 +386,6 @@ _StoreConfigs _$StoreConfigsFromJson(
           .toList() ??
       const [],
   selectedCountry: json['selectedCountry'] as String?,
-  customStatusMappings:
-      (json['customStatusMappings'] as List<dynamic>?)
-          ?.map((e) => CustomStatusMapping.fromJson(e as Map<String, dynamic>))
-          .toList() ??
-      const [],
-  customStatusEnabled: json['customStatusEnabled'] as bool? ?? false,
   confirmationQueue: json['confirmationQueue'] == null
       ? null
       : ConfirmationQueueConfig.fromJson(
@@ -417,10 +411,6 @@ Map<String, dynamic> _$StoreConfigsToJson(_StoreConfigs instance) =>
       'defaultLanguage': instance.defaultLanguage,
       'countries': instance.countries.map((e) => e.toJson()).toList(),
       'selectedCountry': instance.selectedCountry,
-      'customStatusMappings': instance.customStatusMappings
-          .map((e) => e.toJson())
-          .toList(),
-      'customStatusEnabled': instance.customStatusEnabled,
       'confirmationQueue': instance.confirmationQueue?.toJson(),
       'inventory_integration': instance.inventory_integration?.toJson(),
       'finance_integration': instance.finance_integration?.toJson(),
@@ -551,77 +541,6 @@ Map<String, dynamic> _$ConfirmationQueueConfigToJson(
   'draftDelayMinutes': instance.draftDelayMinutes,
   'skipDeferMinutes': instance.skipDeferMinutes,
   'historyActionMinutes': instance.historyActionMinutes,
-};
-
-_CustomStatusMapping _$CustomStatusMappingFromJson(Map<String, dynamic> json) =>
-    _CustomStatusMapping(
-      name: json['name'] as String,
-      code: json['code'] as String?,
-      color: (json['color'] as num?)?.toInt(),
-      enabled: json['enabled'] as bool? ?? true,
-      status: $enumDecodeNullable(_$OrderStatusEnumMap, json['status']),
-      deliveryStatus: $enumDecodeNullable(
-        _$DeliveryStatusEnumMap,
-        json['deliveryStatus'],
-      ),
-      paymentStatus: $enumDecodeNullable(
-        _$PaymentStatusEnumMap,
-        json['paymentStatus'],
-      ),
-      next:
-          (json['next'] as List<dynamic>?)?.map((e) => e as String).toList() ??
-          const [],
-      snoozeMinutes: (json['snoozeMinutes'] as num?)?.toInt(),
-      reasons:
-          (json['reasons'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
-      allowOtherReason: json['allowOtherReason'] as bool? ?? true,
-      requiresReason: json['requiresReason'] as bool? ?? false,
-      queueEligible: json['queueEligible'] as bool? ?? true,
-    );
-
-Map<String, dynamic> _$CustomStatusMappingToJson(
-  _CustomStatusMapping instance,
-) => <String, dynamic>{
-  'name': instance.name,
-  'code': instance.code,
-  'color': instance.color,
-  'enabled': instance.enabled,
-  'status': _$OrderStatusEnumMap[instance.status],
-  'deliveryStatus': _$DeliveryStatusEnumMap[instance.deliveryStatus],
-  'paymentStatus': _$PaymentStatusEnumMap[instance.paymentStatus],
-  'next': instance.next,
-  'snoozeMinutes': instance.snoozeMinutes,
-  'reasons': instance.reasons,
-  'allowOtherReason': instance.allowOtherReason,
-  'requiresReason': instance.requiresReason,
-  'queueEligible': instance.queueEligible,
-};
-
-const _$OrderStatusEnumMap = {
-  OrderStatus.draft: 'draft',
-  OrderStatus.pending: 'pending',
-  OrderStatus.review: 'review',
-  OrderStatus.accepted: 'accepted',
-  OrderStatus.followup: 'followup',
-  OrderStatus.processing: 'processing',
-  OrderStatus.completed: 'completed',
-  OrderStatus.cancelled: 'cancelled',
-};
-
-const _$DeliveryStatusEnumMap = {
-  DeliveryStatus.pending: 'pending',
-  DeliveryStatus.delivering: 'delivering',
-  DeliveryStatus.delivered: 'delivered',
-  DeliveryStatus.returned: 'returned',
-};
-
-const _$PaymentStatusEnumMap = {
-  PaymentStatus.unpaid: 'unpaid',
-  PaymentStatus.paid: 'paid',
-  PaymentStatus.received: 'received',
 };
 
 _StoreCurrencyConfig _$StoreCurrencyConfigFromJson(Map<String, dynamic> json) =>

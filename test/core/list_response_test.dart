@@ -17,11 +17,7 @@ void main() {
     test('fromJson with meta object parses data and meta', () {
       final r = ListResponse.fromJson({
         'data': [10, 20],
-        'meta': {
-          'total': 100,
-          'currentPage': 2,
-          'perPage': 10,
-        },
+        'meta': {'total': 100, 'currentPage': 2, 'perPage': 10},
       }, fromJson);
       expect(r.data, [10, 20]);
       expect(r.total, 100);

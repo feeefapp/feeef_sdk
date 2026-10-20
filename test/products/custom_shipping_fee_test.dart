@@ -5,16 +5,16 @@ import 'package:feeef/products/models/product.dart';
 import 'package:test/test.dart';
 
 Map<String, dynamic> _product([Map<String, dynamic> extra = const {}]) => {
-      'id': 'p1',
-      'createdAt': '2026-10-09T00:00:00.000Z',
-      'updatedAt': '2026-10-09T00:00:00.000Z',
-      'slug': 'p1',
-      'name': 'P1',
-      'media': <String>[],
-      'storeId': 's1',
-      'price': 1000,
-      ...extra,
-    };
+  'id': 'p1',
+  'createdAt': '2026-10-09T00:00:00.000Z',
+  'updatedAt': '2026-10-09T00:00:00.000Z',
+  'slug': 'p1',
+  'name': 'P1',
+  'media': <String>[],
+  'storeId': 's1',
+  'price': 1000,
+  ...extra,
+};
 
 void main() {
   group('Product.defaultCarrierAccountId', () {
@@ -47,9 +47,9 @@ void main() {
       expect(cleared.containsKey('defaultCarrierAccountId'), isTrue);
       expect(cleared['defaultCarrierAccountId'], isNull);
       expect(
-        const ProductUpdate(name: 'x').toUpdateJson().containsKey(
-          'defaultCarrierAccountId',
-        ),
+        const ProductUpdate(name: 'x')
+            .toUpdateJson()
+            .containsKey('defaultCarrierAccountId'),
         isFalse,
       );
       expect(
@@ -80,17 +80,19 @@ void main() {
     });
 
     test('full shape', () {
-      final p = Product.fromJson(_product({
-        'shippingFeeId': 'ca_main1',
-        'customShippingFee': {
-          'home': 600,
-          'desk': 400,
-          'states': {
-            '16': {'home': 500, 'desk': 300},
-            '31': {'desk': 0},
+      final p = Product.fromJson(
+        _product({
+          'shippingFeeId': 'ca_main1',
+          'customShippingFee': {
+            'home': 600,
+            'desk': 400,
+            'states': {
+              '16': {'home': 500, 'desk': 300},
+              '31': {'desk': 0},
+            },
           },
-        },
-      }));
+        }),
+      );
       final fee = p.customShippingFee!;
       expect(fee.home, 600);
       expect(fee.desk, 400);
@@ -119,10 +121,7 @@ void main() {
     test('toJson omits empty sides, empty states and empty entries', () {
       const fee = CustomShippingFee(
         home: 600,
-        states: {
-          '16': ShippingFeePair(home: 500),
-          '31': ShippingFeePair(),
-        },
+        states: {'16': ShippingFeePair(home: 500), '31': ShippingFeePair()},
       );
       expect(fee.toJson(), {
         'home': 600,
@@ -136,8 +135,7 @@ void main() {
     test('normalized: nothing set is null', () {
       expect(const CustomShippingFee().normalized(), isNull);
       expect(
-        const CustomShippingFee(states: {'16': ShippingFeePair()})
-            .normalized(),
+        const CustomShippingFee(states: {'16': ShippingFeePair()}).normalized(),
         isNull,
       );
       expect(
@@ -161,20 +159,18 @@ void main() {
 
     test('ProductUpdate leaves the column alone unless asked to clear it', () {
       expect(
-        const ProductUpdate(name: 'x').toUpdateJson().containsKey(
-              'customShippingFee',
-            ),
+        const ProductUpdate(name: 'x')
+            .toUpdateJson()
+            .containsKey('customShippingFee'),
         isFalse,
       );
-      final cleared = const ProductUpdate(
-        setToNull: ['customShippingFee'],
-      ).toUpdateJson();
+      final cleared = const ProductUpdate(setToNull: ['customShippingFee'])
+          .toUpdateJson();
       expect(cleared.containsKey('customShippingFee'), isTrue);
       expect(cleared['customShippingFee'], isNull);
       expect(
-        const ProductUpdate(
-          customShippingFee: CustomShippingFee(home: 600),
-        ).toUpdateJson()['customShippingFee'],
+        const ProductUpdate(customShippingFee: CustomShippingFee(home: 600))
+            .toUpdateJson()['customShippingFee'],
         {'home': 600},
       );
     });
@@ -184,7 +180,10 @@ void main() {
     const fee = CustomShippingFee(
       home: 600,
       desk: 400,
-      states: {'16': ShippingFeePair(home: 500), '31': ShippingFeePair(desk: 0)},
+      states: {
+        '16': ShippingFeePair(home: 500),
+        '31': ShippingFeePair(desk: 0),
+      },
     );
     test('state entry wins per field', () {
       expect(fee.feeFor(home: true, stateCode: '16'), 500);
@@ -237,8 +236,10 @@ void main() {
     });
 
     test('other errors are null', () {
-      expect(mixedCourierAccountsFrom({'code': 'CARRIER_ACCOUNT_REQUIRED'}),
-          isNull);
+      expect(
+        mixedCourierAccountsFrom({'code': 'CARRIER_ACCOUNT_REQUIRED'}),
+        isNull,
+      );
       expect(mixedCourierAccountsFrom('boom'), isNull);
       expect(mixedCourierAccountsFrom(null), isNull);
     });

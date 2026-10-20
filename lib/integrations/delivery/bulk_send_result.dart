@@ -70,14 +70,6 @@ class DeliveryBulkSendApiResult {
   final List<Map<String, dynamic>> skipped;
   final Map<String, dynamic> summary;
 
-  /// Shape expected by older app code (`result['created']`, etc.).
-  Map<String, dynamic> get asLegacyMap => {
-        'created': created,
-        'failed': failed,
-        'skipped': skipped,
-        'summary': summary,
-      };
-
   /// Parse top-level JSON from Feeef API (e.g. `response.data`).
   factory DeliveryBulkSendApiResult.fromHttpBody(Map<String, dynamic> body) {
     final data = body['data'];

@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:feeef/core/list_response.dart';
 import 'package:feeef/core/resource_repository.dart';
 import 'package:feeef/store_templates/store_template.dart';
-import 'package:feeef/store_templates/installed_theme.dart';
+import 'package:feeef/store_templates/installed_template.dart';
 
 /// CRUD + fork + install for full-site `store_templates`.
 class StoreTemplatesRepository
@@ -125,7 +125,7 @@ class StoreTemplatesRepository
     return super.list(page: page, offset: offset, limit: limit, params: merged);
   }
 
-  /// Platform default Lithium theme (`GET /store_templates/default`).
+  /// Platform default Lithium template (`GET /store_templates/default`).
   ///
   /// Returns schema + data for the configured `templateMarketplace.defaultTemplateId`.
   Future<StoreTemplate> getDefault({CancelToken? cancelToken}) async {
@@ -242,7 +242,7 @@ class StoreTemplatesRepository
     required String id,
     required String storeId,
     String? releaseId,
-    String? expectedThemeRevision,
+    String? expectedTemplateRevision,
     bool confirmReplace = false,
     CancelToken? cancelToken,
   }) async {
@@ -251,7 +251,7 @@ class StoreTemplatesRepository
       data: {
         'storeId': storeId,
         'releaseId': ?releaseId,
-        'expectedThemeRevision': ?expectedThemeRevision,
+        'expectedTemplateRevision': ?expectedTemplateRevision,
         'confirmReplace': confirmReplace,
       },
       cancelToken: cancelToken,
@@ -283,29 +283,28 @@ class StoreTemplatesRepository
     );
   }
 
-  /// Immutable release history (newest first).
-  Future<InstalledTheme> installedTheme({
+  Future<InstalledTemplate> installedTemplate({
     required String storeId,
     CancelToken? cancelToken,
-  }) async => InstalledTheme.fromJson(
+  }) async => InstalledTemplate.fromJson(
     Map<String, dynamic>.from(
       (await client.get(
-            '/stores/$storeId/theme',
+            '/stores/$storeId/template',
             cancelToken: cancelToken,
           )).data
           as Map,
     ),
   );
 
-  Future<InstalledTheme> saveInstalledTheme({
+  Future<InstalledTemplate> saveInstalledTemplate({
     required String storeId,
     required String expectedRevision,
     required Map<String, dynamic> data,
     CancelToken? cancelToken,
-  }) async => InstalledTheme.fromJson(
+  }) async => InstalledTemplate.fromJson(
     Map<String, dynamic>.from(
       (await client.put(
-            '/stores/$storeId/theme',
+            '/stores/$storeId/template',
             data: {'expectedRevision': expectedRevision, 'data': data},
             cancelToken: cancelToken,
           )).data
@@ -313,43 +312,43 @@ class StoreTemplatesRepository
     ),
   );
 
-  Future<Map<String, dynamic>> exportInstalledTheme({
+  Future<Map<String, dynamic>> exportInstalledTemplate({
     required String storeId,
     CancelToken? cancelToken,
   }) async => Map<String, dynamic>.from(
     (await client.get(
-          '/stores/$storeId/theme/export',
+          '/stores/$storeId/template/export',
           cancelToken: cancelToken,
         )).data
         as Map,
   );
 
-  Future<List<StoreThemeBackup>> themeBackups({
+  Future<List<StoreTemplateBackup>> templateBackups({
     required String storeId,
     CancelToken? cancelToken,
   }) async {
     final response = await client.get(
-      '/stores/$storeId/theme/backups',
+      '/stores/$storeId/template/backups',
       cancelToken: cancelToken,
     );
     return ((response.data as Map)['data'] as List)
         .map(
-          (value) => StoreThemeBackup.fromJson(
+          (value) => StoreTemplateBackup.fromJson(
             Map<String, dynamic>.from(value as Map),
           ),
         )
         .toList();
   }
 
-  Future<InstalledTheme> restoreTheme({
+  Future<InstalledTemplate> restoreTemplate({
     required String storeId,
     required String backupId,
     required String expectedRevision,
     CancelToken? cancelToken,
-  }) async => InstalledTheme.fromJson(
+  }) async => InstalledTemplate.fromJson(
     Map<String, dynamic>.from(
       (await client.post(
-            '/stores/$storeId/theme/backups/$backupId/restore',
+            '/stores/$storeId/template/backups/$backupId/restore',
             data: {'expectedRevision': expectedRevision},
             cancelToken: cancelToken,
           )).data
@@ -426,7 +425,7 @@ class StoreTemplatesRepository
     );
   }
 
-  /// GET locales bundle for theme i18n hydrate.
+  /// GET locales bundle for template i18n hydrate.
   Future<StoreTemplateLocalesBundle> listLocales({
     required String templateId,
     CancelToken? cancelToken,

@@ -236,19 +236,3 @@ ParcelCreate parcelCreateFromEcotrackOrder(
     },
   );
 }
-
-/// @Deprecated — use [parcelCreateFromEcotrackOrder].
-@Deprecated('Use parcelCreateFromEcotrackOrder')
-ParcelCreate parcelCreateRequestFromEcotrackOrder(
-  EcotrackOrderCreateRequest request, {
-  required String storeId,
-  required String externalReference,
-  String? countryCode,
-}) {
-  return parcelCreateFromEcotrackOrder(
-    request,
-    storeId: storeId,
-    externalReference: externalReference,
-    country: countryCode,
-  );
-}

@@ -1131,27 +1131,6 @@ class CloudDeliveryApi {
     ];
   }
 
-  /// Unwraps [CloudQuotesResult.quotes].
-  ///
-  /// Prefer [quoteResult] — this helper drops `recommended` / destination.
-  @Deprecated('Use quoteResult — it keeps recommended + destination')
-  Future<List<Map<String, dynamic>>> quote(
-    String storeId, {
-    required String stateCode,
-    String? commune,
-    required String deliveryType,
-    String? carrierAccountId,
-  }) async {
-    final result = await quoteResult(
-      storeId,
-      state: stateCode,
-      city: commune,
-      deliveryType: deliveryType,
-      carrierAccountId: carrierAccountId,
-    );
-    return result.quotes;
-  }
-
   Future<CloudFeesMatrix> getFees(String storeId, String accountId) async {
     final res = await client.get(
       '/stores/$storeId/carrier-accounts/$accountId/fees',

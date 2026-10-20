@@ -66,7 +66,7 @@ class ZrexpressDeliveryService
       // Get SKU - use item.sku, fallback to productId
       final productSku = item.sku ?? item.productId;
 
-      return ZrexpressOrderedProduct(
+      return ParcelSendOrderedProduct(
         productName: fullProductName,
         quantity: item.quantity.toInt(),
         unitPrice: item.price.toDouble(),
@@ -126,7 +126,7 @@ class ZrexpressDeliveryService
 
     return ZrexpressParcelCreateRequest(
       externalId: order.id,
-      customer: ZrexpressCustomer(
+      customer: ParcelSendCustomer(
         name: order.customerName ?? 'Client',
         phone: ZrexpressPhone(number1: formatPhone(order.customerPhone)),
       ),

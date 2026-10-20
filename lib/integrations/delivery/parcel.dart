@@ -251,7 +251,3 @@ String parcelLineItemsQuantitiesJoin(List<ParcelLineItem> items) {
   if (items.isEmpty) return '';
   return items.map((i) => i.quantity.toString()).join(', ');
 }
-
-/// `@Deprecated` alias for [ParcelCreate] during SDK migration.
-@Deprecated('Use ParcelCreate')
-typedef ParcelCreateRequest = ParcelCreate;

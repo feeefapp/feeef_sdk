@@ -127,10 +127,7 @@ void main() {
 
   group('AppUpdate', () {
     test('toJson includes logoUrl and active fields', () {
-      const update = AppUpdate(
-        logoUrl: null,
-        active: false,
-      );
+      const update = AppUpdate(logoUrl: null, active: false);
       final json = update.toJson();
       expect(json['logoUrl'], isNull);
       expect(json['active'], false);

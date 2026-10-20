@@ -23,25 +23,24 @@ void main() {
       );
     });
 
-    test('maps canonical Feeef bulk created row (tracking + provider.parcelId)',
-        () {
-      final row = <String, dynamic>{
-        'reference': 'order-abc',
-        'success': true,
-        'tracking': 'TRK-9',
-        'provider': <String, dynamic>{
-          'parcelId': 'parcel-1',
-          'raw': 'x',
-        },
-      };
+    test(
+      'maps canonical Feeef bulk created row (tracking + provider.parcelId)',
+      () {
+        final row = <String, dynamic>{
+          'reference': 'order-abc',
+          'success': true,
+          'tracking': 'TRK-9',
+          'provider': <String, dynamic>{'parcelId': 'parcel-1', 'raw': 'x'},
+        };
 
-      final payload = zrexpressBulkCreatedRowToAttachPayload(row, order);
+        final payload = zrexpressBulkCreatedRowToAttachPayload(row, order);
 
-      expect(payload, isNotNull);
-      expect(payload!['parcelId'], 'parcel-1');
-      expect(payload['trackingNumber'], 'TRK-9');
-      expect(payload['externalId'], 'order-abc');
-    });
+        expect(payload, isNotNull);
+        expect(payload!['parcelId'], 'parcel-1');
+        expect(payload['trackingNumber'], 'TRK-9');
+        expect(payload['externalId'], 'order-abc');
+      },
+    );
 
     test('falls back to provider.id when parcelId missing', () {
       final row = <String, dynamic>{

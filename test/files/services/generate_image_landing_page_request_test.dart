@@ -20,7 +20,10 @@ void main() {
         background: '',
       );
       expect(body[ImageLandingPageRequestKeys.text], '');
-      expect(body.containsKey(ImageLandingPageRequestKeys.aspectRatio), isFalse);
+      expect(
+        body.containsKey(ImageLandingPageRequestKeys.aspectRatio),
+        isFalse,
+      );
       expect(body.containsKey(ImageLandingPageRequestKeys.imageModel), isFalse);
       expect(body.containsKey(ImageLandingPageRequestKeys.background), isFalse);
     });
@@ -29,14 +32,18 @@ void main() {
       final body = buildGenerateImageLandingPageRequestData(
         text: 'Premium serum landing page',
         attachments: [
-          const ProductAttachment(value: 'prod_1', label: 'Serum', prompt: 'hero'),
-          const ImageAttachment(url: 'https://cdn.example/a.jpg', label: 'pack'),
+          const ProductAttachment(
+            value: 'prod_1',
+            label: 'Serum',
+            prompt: 'hero',
+          ),
+          const ImageAttachment(
+            url: 'https://cdn.example/a.jpg',
+            label: 'pack',
+          ),
           const StoreAttachment(value: 'store_1', label: 'Feeef'),
         ],
-        templateData: {
-          'name': 'Luxury',
-          'prompt': 'Use gold accents',
-        },
+        templateData: {'name': 'Luxury', 'prompt': 'Use gold accents'},
         aspectRatio: '9:32',
         imageModel: 'gemini-3.1-flash-image-preview',
         textModel: 'gemini-3.1-flash-lite-preview',
@@ -47,11 +54,23 @@ void main() {
         sectionsCount: 7,
       );
 
-      expect(body[ImageLandingPageRequestKeys.text], 'Premium serum landing page');
+      expect(
+        body[ImageLandingPageRequestKeys.text],
+        'Premium serum landing page',
+      );
       expect(body[ImageLandingPageRequestKeys.aspectRatio], '9:32');
-      expect(body[ImageLandingPageRequestKeys.imageModel], 'gemini-3.1-flash-image-preview');
-      expect(body[ImageLandingPageRequestKeys.textModel], 'gemini-3.1-flash-lite-preview');
-      expect(body[ImageLandingPageRequestKeys.mediaResolution], 'MEDIA_RESOLUTION_HIGH');
+      expect(
+        body[ImageLandingPageRequestKeys.imageModel],
+        'gemini-3.1-flash-image-preview',
+      );
+      expect(
+        body[ImageLandingPageRequestKeys.textModel],
+        'gemini-3.1-flash-lite-preview',
+      );
+      expect(
+        body[ImageLandingPageRequestKeys.mediaResolution],
+        'MEDIA_RESOLUTION_HIGH',
+      );
       expect(body[ImageLandingPageRequestKeys.imageSize], '2K');
       expect(body[ImageLandingPageRequestKeys.background], 'opaque');
       expect(body[ImageLandingPageRequestKeys.loadProductImage], isFalse);
@@ -69,27 +88,33 @@ void main() {
       expect(attachments[2]['type'], 'store');
     });
 
-    test('attachments-only request still sends empty text (backend allows)', () {
-      final body = buildGenerateImageLandingPageRequestData(
-        text: '   ',
-        attachments: [
-          const ImageAttachment(url: 'https://cdn.example/p.png'),
-        ],
-        loadProductImage: true,
-        sectionsCount: 5,
-      );
-      expect(body[ImageLandingPageRequestKeys.text], '');
-      expect(body[ImageLandingPageRequestKeys.attachments], isNotEmpty);
-      expect(body[ImageLandingPageRequestKeys.loadProductImage], isTrue);
-      expect(body[ImageLandingPageRequestKeys.sectionsCount], 5);
-    });
+    test(
+      'attachments-only request still sends empty text (backend allows)',
+      () {
+        final body = buildGenerateImageLandingPageRequestData(
+          text: '   ',
+          attachments: [
+            const ImageAttachment(url: 'https://cdn.example/p.png'),
+          ],
+          loadProductImage: true,
+          sectionsCount: 5,
+        );
+        expect(body[ImageLandingPageRequestKeys.text], '');
+        expect(body[ImageLandingPageRequestKeys.attachments], isNotEmpty);
+        expect(body[ImageLandingPageRequestKeys.loadProductImage], isTrue);
+        expect(body[ImageLandingPageRequestKeys.sectionsCount], 5);
+      },
+    );
 
     test('aspect ratio contract list matches known backend set', () {
       expect(
         kImageLandingPageAspectRatios,
         containsAll(['1:8', '1:4', '9:32', '9:16', '1:1', '32:9']),
       );
-      expect(kImageLandingPageAspectRatios.toSet().length, kImageLandingPageAspectRatios.length);
+      expect(
+        kImageLandingPageAspectRatios.toSet().length,
+        kImageLandingPageAspectRatios.length,
+      );
     });
   });
 }

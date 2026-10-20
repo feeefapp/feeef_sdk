@@ -163,7 +163,7 @@ class Feeef {
 
   late final PostStudiosRepository postStudios;
   late final UiStudiosRepository uiStudios;
-  late final AiRepository ai;
+  late final ImageGenerationsRepository ai;
   late final Analytics analytics;
   late final DepositRepository deposits;
   late final TransferRepository transfers;

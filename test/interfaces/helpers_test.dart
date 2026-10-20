@@ -10,10 +10,7 @@ class _TestModelUpdate implements ModelUpdate {
   final List<String> setToNull;
 
   @override
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-      };
+  Map<String, dynamic> toJson() => {'id': id, 'name': name};
 }
 
 void main() {

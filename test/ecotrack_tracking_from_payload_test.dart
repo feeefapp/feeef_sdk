@@ -52,8 +52,14 @@ void main() {
     });
 
     test('returns null when empty / missing', () {
-      expect(EcotrackDeliveryService.trackingFromPayload({'success': true}), isNull);
-      expect(EcotrackDeliveryService.trackingFromPayload({'tracking': '  '}), isNull);
+      expect(
+        EcotrackDeliveryService.trackingFromPayload({'success': true}),
+        isNull,
+      );
+      expect(
+        EcotrackDeliveryService.trackingFromPayload({'tracking': '  '}),
+        isNull,
+      );
       expect(EcotrackDeliveryService.trackingFromPayload(null), isNull);
       expect(EcotrackDeliveryService.trackingFromPayload('x'), isNull);
     });
@@ -70,4 +76,3 @@ void main() {
     });
   });
 }
-

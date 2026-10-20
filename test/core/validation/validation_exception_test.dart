@@ -18,9 +18,9 @@ void main() {
     });
 
     test('toJson round-trip', () {
-      final e = FeeefValidationException(errors: [
-        FeeefViolation(message: 'err', field: 'f'),
-      ]);
+      final e = FeeefValidationException(
+        errors: [FeeefViolation(message: 'err', field: 'f')],
+      );
       final j = e.toJson();
       expect(j['errors'], isA<List>());
       final e2 = FeeefValidationException.fromJson(j);
@@ -32,28 +32,32 @@ void main() {
 
   group('GetField extension', () {
     test('getField returns first violation for field', () {
-      final e = FeeefValidationException(errors: [
-        FeeefViolation(message: 'a', field: 'x'),
-        FeeefViolation(message: 'b', field: 'y'),
-      ]);
+      final e = FeeefValidationException(
+        errors: [
+          FeeefViolation(message: 'a', field: 'x'),
+          FeeefViolation(message: 'b', field: 'y'),
+        ],
+      );
       expect(e.getField('x')?.message, 'a');
       expect(e.getField('y')?.message, 'b');
       expect(e.getField('z'), isNull);
     });
 
     test('getFieldMessage returns message or null', () {
-      final e = FeeefValidationException(errors: [
-        FeeefViolation(message: 'required', field: 'name'),
-      ]);
+      final e = FeeefValidationException(
+        errors: [FeeefViolation(message: 'required', field: 'name')],
+      );
       expect(e.getFieldMessage('name'), 'required');
       expect(e.getFieldMessage('other'), isNull);
     });
 
     test('messages returns list of all messages', () {
-      final e = FeeefValidationException(errors: [
-        FeeefViolation(message: 'one'),
-        FeeefViolation(message: 'two'),
-      ]);
+      final e = FeeefValidationException(
+        errors: [
+          FeeefViolation(message: 'one'),
+          FeeefViolation(message: 'two'),
+        ],
+      );
       expect(e.messages, ['one', 'two']);
     });
   });

@@ -22,50 +22,47 @@ void main() {
       ),
       total: 2500,
       declaredValue: 2500,
-      items: const [
-        ParcelLineItem(name: 'Tee', quantity: 1),
-      ],
+      items: const [ParcelLineItem(name: 'Tee', quantity: 1)],
       summary: 'Tee (x1)',
       notes: 'Fragile',
       shippingType: ShippingType.pickup,
       type: ParcelTypes.forward,
       fromStock: false,
       canOpen: false,
+
       /// Physical logistics live on [ParcelCreate.package]; commune label for Ecotrack UX.
-      package: const ParcelPackage(
-        weight: 1.5,
-        fragile: true,
-      ),
-      extensions: {
-        'ecotrackCommuneLabel': 'Alger Centre',
-      },
+      package: const ParcelPackage(weight: 1.5, fragile: true),
+      extensions: {'ecotrackCommuneLabel': 'Alger Centre'},
     );
 
-    test('ecotrackOrderFromParcelCreateRequest maps cityCode and commune label', () {
-      final e = ecotrackOrderFromParcelCreateRequest(
-        baseParcel,
-        boutique: 'My Shop',
-      );
+    test(
+      'ecotrackOrderFromParcelCreateRequest maps cityCode and commune label',
+      () {
+        final e = ecotrackOrderFromParcelCreateRequest(
+          baseParcel,
+          boutique: 'My Shop',
+        );
 
-      expect(e.reference, 'ord_1');
-      expect(e.nomClient, 'Ali Ben');
-      expect(e.telephone, '0555123456');
-      expect(e.telephone2, '0555987654');
-      expect(e.adresse, 'Rue 1');
-      expect(e.commune, 'Alger Centre');
-      expect(e.codeWilaya, 16);
-      expect(e.montant, 2500);
-      expect(e.remarque, 'Fragile');
-      expect(e.produit, 'Tee (x1)');
-      expect(e.quantite, '1');
-      expect(e.boutique, 'My Shop');
-      expect(e.stopDesk, 1);
-      expect(e.weight, 1.5);
-      expect(e.fragile, 1);
-      expect(e.canOpen, 0);
-      expect(e.type, 1);
-      expect(e.stock, 0);
-    });
+        expect(e.reference, 'ord_1');
+        expect(e.nomClient, 'Ali Ben');
+        expect(e.telephone, '0555123456');
+        expect(e.telephone2, '0555987654');
+        expect(e.adresse, 'Rue 1');
+        expect(e.commune, 'Alger Centre');
+        expect(e.codeWilaya, 16);
+        expect(e.montant, 2500);
+        expect(e.remarque, 'Fragile');
+        expect(e.produit, 'Tee (x1)');
+        expect(e.quantite, '1');
+        expect(e.boutique, 'My Shop');
+        expect(e.stopDesk, 1);
+        expect(e.weight, 1.5);
+        expect(e.fragile, 1);
+        expect(e.canOpen, 0);
+        expect(e.type, 1);
+        expect(e.stock, 0);
+      },
+    );
 
     test('fromStock true maps stock to 1', () {
       final p = ParcelCreate(

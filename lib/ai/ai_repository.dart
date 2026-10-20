@@ -196,7 +196,3 @@ class ImageGenerationsRepository extends CloudAiApi {
     return Map<String, dynamic>.from(response.data as Map);
   }
 }
-
-/// Backward-compat alias (temporary).
-/// Prefer `ff.imageGenerations`.
-typedef AiRepository = ImageGenerationsRepository;

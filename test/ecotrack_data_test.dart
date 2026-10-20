@@ -8,10 +8,7 @@ void main() {
       final data = EcotrackData(
         enabled: true,
         produit: 'DEFAULT-REF',
-        skuProduitMap: const {
-          'SKU-RED': 'REF-RED',
-          'SKU-BLUE': 'REF-BLUE',
-        },
+        skuProduitMap: const {'SKU-RED': 'REF-RED', 'SKU-BLUE': 'REF-BLUE'},
       );
 
       expect(data.resolveProduitForSku('SKU-RED'), 'REF-RED');

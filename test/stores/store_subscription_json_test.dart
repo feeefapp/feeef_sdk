@@ -44,7 +44,10 @@ void main() {
       expect(restored.integrations.length, 1);
       expect(restored.integrations['googleSheet']?.price, 500);
       expect(restored.integrations['googleSheet']?.startAt, integrationStart);
-      expect(restored.integrations['googleSheet']?.expiresAt, integrationExpires);
+      expect(
+        restored.integrations['googleSheet']?.expiresAt,
+        integrationExpires,
+      );
     });
 
     test('Store.fromJson accepts subscription from toJson round-trip', () {
@@ -63,10 +66,7 @@ void main() {
           consumed: 0,
           startedAt: now,
           integrations: {
-            'ai': StoreIntegrationSubscription(
-              startAt: now,
-              price: 1000,
-            ),
+            'ai': StoreIntegrationSubscription(startAt: now, price: 1000),
           },
         ),
       );

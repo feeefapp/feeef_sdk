@@ -2,7 +2,8 @@ import 'package:feeef/interfaces/helpers.dart';
 import 'package:feeef/interfaces/store_template.dart';
 import 'package:feeef/interfaces/template_component.dart';
 
-export 'package:feeef/interfaces/template_component.dart' show TemplateComponentPolicy;
+export 'package:feeef/interfaces/template_component.dart'
+    show TemplateComponentPolicy;
 
 /// Concrete model for a `store_templates` row.
 class StoreTemplate extends StoreTemplateEntity implements Model {
@@ -134,58 +135,59 @@ class StoreTemplate extends StoreTemplateEntity implements Model {
           _asNum(json['effectivePrice']) ?? _asNum(json['effective_price']),
       updateAvailable:
           json['updateAvailable'] as bool? ?? json['update_available'] as bool?,
-      installedReleaseId: (json['installedReleaseId'] ??
-          json['installed_release_id']) as String?,
+      installedReleaseId:
+          (json['installedReleaseId'] ?? json['installed_release_id'])
+              as String?,
       latestRelease: json['latestRelease'] is Map
           ? StoreTemplateReleaseSummary.fromJson(
               Map<String, dynamic>.from(json['latestRelease'] as Map),
             )
           : json['latest_release'] is Map
-              ? StoreTemplateReleaseSummary.fromJson(
-                  Map<String, dynamic>.from(json['latest_release'] as Map),
-                )
-              : null,
+          ? StoreTemplateReleaseSummary.fromJson(
+              Map<String, dynamic>.from(json['latest_release'] as Map),
+            )
+          : null,
       ratingAvg: _asNum(json['ratingAvg']) ?? _asNum(json['rating_avg']),
       ratingCount: _asInt(json['ratingCount'] ?? json['rating_count']),
       featured: json['featured'] as bool?,
       salesClosed:
           json['salesClosed'] as bool? ?? json['sales_closed'] as bool?,
-      createdAt: _parseDate(json['createdAt'] ?? json['created_at']) ??
-          DateTime.now(),
+      createdAt:
+          _parseDate(json['createdAt'] ?? json['created_at']) ?? DateTime.now(),
       updatedAt: _parseDate(json['updatedAt'] ?? json['updated_at']),
       deletedAt: _parseDate(json['deletedAt'] ?? json['deleted_at']),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'storeId': storeId,
-        'userId': userId,
-        'title': title,
-        'subtitle': subtitle,
-        'body': body,
-        'category': category,
-        'tags': tags,
-        'imageUrl': imageUrl,
-        'screenshots': screenshots,
-        'demoUrl': demoUrl,
-        'price': price,
-        'discount': discount,
-        'license': license,
-        'schema': schema,
-        'data': data,
-        'policy': policy.wire,
-        'parentId': parentId,
-        'version': version,
-        if (owned != null) 'owned': owned,
-        if (effectivePrice != null) 'effectivePrice': effectivePrice,
-        if (updateAvailable != null) 'updateAvailable': updateAvailable,
-        if (installedReleaseId != null) 'installedReleaseId': installedReleaseId,
-        if (latestRelease != null) 'latestRelease': latestRelease!.toJson(),
-        'createdAt': createdAt.toIso8601String(),
-        'updatedAt': updatedAt?.toIso8601String(),
-        'deletedAt': deletedAt?.toIso8601String(),
-      };
+    'id': id,
+    'storeId': storeId,
+    'userId': userId,
+    'title': title,
+    'subtitle': subtitle,
+    'body': body,
+    'category': category,
+    'tags': tags,
+    'imageUrl': imageUrl,
+    'screenshots': screenshots,
+    'demoUrl': demoUrl,
+    'price': price,
+    'discount': discount,
+    'license': license,
+    'schema': schema,
+    'data': data,
+    'policy': policy.wire,
+    'parentId': parentId,
+    'version': version,
+    if (owned != null) 'owned': owned,
+    if (effectivePrice != null) 'effectivePrice': effectivePrice,
+    if (updateAvailable != null) 'updateAvailable': updateAvailable,
+    if (installedReleaseId != null) 'installedReleaseId': installedReleaseId,
+    if (latestRelease != null) 'latestRelease': latestRelease!.toJson(),
+    'createdAt': createdAt.toIso8601String(),
+    'updatedAt': updatedAt?.toIso8601String(),
+    'deletedAt': deletedAt?.toIso8601String(),
+  };
 }
 
 class StoreTemplateCreate implements ModelCreate {
@@ -229,24 +231,24 @@ class StoreTemplateCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'storeId': storeId,
-        'title': title,
-        'subtitle': subtitle,
-        'body': body,
-        'category': category,
-        'tags': tags,
-        'imageUrl': imageUrl,
-        'screenshots': screenshots,
-        'demoUrl': demoUrl,
-        'price': price,
-        'discount': discount,
-        'license': license,
-        'schema': schema,
-        'data': data,
-        if (policy != null) 'policy': policy!.wire,
-        'parentId': parentId,
-        if (salesClosed != null) 'salesClosed': salesClosed,
-      };
+    'storeId': storeId,
+    'title': title,
+    'subtitle': subtitle,
+    'body': body,
+    'category': category,
+    'tags': tags,
+    'imageUrl': imageUrl,
+    'screenshots': screenshots,
+    'demoUrl': demoUrl,
+    'price': price,
+    'discount': discount,
+    'license': license,
+    'schema': schema,
+    'data': data,
+    if (policy != null) 'policy': policy!.wire,
+    'parentId': parentId,
+    if (salesClosed != null) 'salesClosed': salesClosed,
+  };
 }
 
 class StoreTemplateUpdate implements ModelUpdate {
@@ -407,7 +409,7 @@ class StoreTemplateReleaseSummary {
       id: json['id'] as String,
       storeTemplateId:
           (json['storeTemplateId'] ?? json['store_template_id']) as String? ??
-              '',
+          '',
       version: json['version'] as String? ?? '',
       versionCode: _asInt(json['versionCode'] ?? json['version_code']) ?? 0,
       changelog: json['changelog'] as String?,
@@ -416,13 +418,13 @@ class StoreTemplateReleaseSummary {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'storeTemplateId': storeTemplateId,
-        'version': version,
-        'versionCode': versionCode,
-        'changelog': changelog,
-        if (publishedAt != null) 'publishedAt': publishedAt!.toIso8601String(),
-      };
+    'id': id,
+    'storeTemplateId': storeTemplateId,
+    'version': version,
+    'versionCode': versionCode,
+    'changelog': changelog,
+    if (publishedAt != null) 'publishedAt': publishedAt!.toIso8601String(),
+  };
 }
 
 class StoreTemplateReviewListResult {
@@ -441,9 +443,9 @@ class StoreTemplateReviewListResult {
     return StoreTemplateReviewListResult(
       data: raw is List
           ? raw
-              .whereType<Map>()
-              .map((e) => Map<String, dynamic>.from(e))
-              .toList(growable: false)
+                .whereType<Map>()
+                .map((e) => Map<String, dynamic>.from(e))
+                .toList(growable: false)
           : const [],
       ratingAvg: _asNum(json['ratingAvg']) ?? 0,
       ratingCount: _asInt(json['ratingCount']) ?? 0,
@@ -492,13 +494,13 @@ class StoreTemplateEarnings {
       totalPlatformAmount: _asNum(json['totalPlatformAmount']) ?? 0,
       byTemplate: raw is List
           ? raw
-              .whereType<Map>()
-              .map(
-                (e) => StoreTemplateEarningRow.fromJson(
-                  Map<String, dynamic>.from(e),
-                ),
-              )
-              .toList(growable: false)
+                .whereType<Map>()
+                .map(
+                  (e) => StoreTemplateEarningRow.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
+                .toList(growable: false)
           : const [],
     );
   }
@@ -523,7 +525,7 @@ class StoreTemplateEarningRow {
     return StoreTemplateEarningRow(
       storeTemplateId:
           (json['storeTemplateId'] ?? json['store_template_id']) as String? ??
-              '',
+          '',
       title: json['title'] as String? ?? '',
       sales: _asInt(json['sales']) ?? 0,
       authorAmount: _asNum(json['authorAmount']) ?? 0,
@@ -589,14 +591,14 @@ class StoreTemplateLocale {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'storeTemplateId': storeTemplateId,
-        'locale': locale,
-        'messages': messages,
-        'isDefault': isDefault,
-        if (createdAt != null) 'createdAt': createdAt!.toIso8601String(),
-        if (updatedAt != null) 'updatedAt': updatedAt!.toIso8601String(),
-      };
+    'id': id,
+    'storeTemplateId': storeTemplateId,
+    'locale': locale,
+    'messages': messages,
+    'isDefault': isDefault,
+    if (createdAt != null) 'createdAt': createdAt!.toIso8601String(),
+    if (updatedAt != null) 'updatedAt': updatedAt!.toIso8601String(),
+  };
 }
 
 /// Input for create / replace locale rows.
@@ -612,10 +614,10 @@ class StoreTemplateLocaleInput {
   final bool isDefault;
 
   Map<String, dynamic> toJson() => {
-        'locale': locale,
-        'messages': messages,
-        'isDefault': isDefault,
-      };
+    'locale': locale,
+    'messages': messages,
+    'isDefault': isDefault,
+  };
 }
 
 /// Storefront-friendly i18n bundle from GET/PUT locales.
@@ -641,11 +643,12 @@ class StoreTemplateLocalesBundle {
       }
     }
     return StoreTemplateLocalesBundle(
-      defaultLocale: (json['defaultLocale'] ?? json['default_locale'] ?? 'en')
-          as String,
+      defaultLocale:
+          (json['defaultLocale'] ?? json['default_locale'] ?? 'en') as String,
       locales: _stringList(json['locales']),
       messages: messages,
-      rows: (json['rows'] as List?)
+      rows:
+          (json['rows'] as List?)
               ?.whereType<Map>()
               .map(
                 (m) =>

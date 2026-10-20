@@ -23,9 +23,7 @@ void main() {
         banner: StoreBanner(title: 'Old', enabled: true),
       );
       final updated = store.applyUpdate(
-        StoreUpdate(
-          banner: StoreBanner(title: 'New', enabled: false),
-        ),
+        StoreUpdate(banner: StoreBanner(title: 'New', enabled: false)),
       );
 
       expect(updated.banner?.title, 'New');
@@ -44,20 +42,22 @@ void main() {
       expect(updated.domain, isNull);
     });
 
-    test('fromJson merge with toJson works for nested banner (explicit_to_json)', () {
-      final store = _minimalStore(
-        banner: StoreBanner(title: 'Banner', enabled: true),
-      );
+    test(
+      'fromJson merge with toJson works for nested banner (explicit_to_json)',
+      () {
+        final store = _minimalStore(
+          banner: StoreBanner(title: 'Banner', enabled: true),
+        );
 
-      final merged = Store.fromJson({
-        ...store.toJson(),
-        ...StoreUpdate(
-          banner: StoreBanner(title: 'Patched', enabled: false),
-        ).toUpdateJson(),
-      });
-      expect(merged.banner?.title, 'Patched');
-      expect(merged.banner?.enabled, isFalse);
-      expect(merged.name, 'My Store');
-    });
+        final merged = Store.fromJson({
+          ...store.toJson(),
+          ...StoreUpdate(banner: StoreBanner(title: 'Patched', enabled: false))
+              .toUpdateJson(),
+        });
+        expect(merged.banner?.title, 'Patched');
+        expect(merged.banner?.enabled, isFalse);
+        expect(merged.name, 'My Store');
+      },
+    );
   });
 }

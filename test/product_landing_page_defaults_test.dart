@@ -7,8 +7,10 @@ void main() {
       const seed = 'hello modular';
       final m = buildAiPlusLandingPageDefaults(seedPrompt: seed);
 
-      final components = (((m['pages'] as Map)['landing_page'] as Map)['sections']
-          as Map)['main'] as Map;
+      final components =
+          (((m['pages'] as Map)['landing_page'] as Map)['sections']
+                  as Map)['main']
+              as Map;
       final list = components['components'] as List<dynamic>;
 
       expect(list.length, greaterThan(2));

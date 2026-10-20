@@ -57,27 +57,36 @@ AuthResponse<_TestUser> _auth(String userId) {
 }
 
 final _writePermissions = StorePermission.values
-    .where((p) =>
-        p.name.endsWith('Write') ||
-        p.name.endsWith('Delete') ||
-        p.name.endsWith('Assign'))
+    .where(
+      (p) =>
+          p.name.endsWith('Write') ||
+          p.name.endsWith('Delete') ||
+          p.name.endsWith('Assign'),
+    )
     .toList();
 
 void main() {
   group('roleAllowsPermission (matrix parity with API)', () {
     test('viewer never holds a write permission', () {
       for (final p in _writePermissions) {
-        expect(roleAllowsPermission(StoreMemberRole.viewer, p), isFalse,
-            reason: p.name);
+        expect(
+          roleAllowsPermission(StoreMemberRole.viewer, p),
+          isFalse,
+          reason: p.name,
+        );
       }
       expect(
         roleAllowsPermission(
-            StoreMemberRole.viewer, StorePermission.integrationsBilling),
+          StoreMemberRole.viewer,
+          StorePermission.integrationsBilling,
+        ),
         isFalse,
       );
       expect(
         roleAllowsPermission(
-            StoreMemberRole.viewer, StorePermission.integrationsDispatch),
+          StoreMemberRole.viewer,
+          StorePermission.integrationsDispatch,
+        ),
         isFalse,
       );
     });
@@ -85,11 +94,17 @@ void main() {
     test('editor holds everything except owner-only', () {
       for (final p in StorePermission.values) {
         if (p == StorePermission.storeDelete) continue;
-        expect(roleAllowsPermission(StoreMemberRole.editor, p), isTrue,
-            reason: p.name);
+        expect(
+          roleAllowsPermission(StoreMemberRole.editor, p),
+          isTrue,
+          reason: p.name,
+        );
       }
       expect(
-        roleAllowsPermission(StoreMemberRole.editor, StorePermission.storeDelete),
+        roleAllowsPermission(
+          StoreMemberRole.editor,
+          StorePermission.storeDelete,
+        ),
         isFalse,
       );
     });
@@ -99,15 +114,21 @@ void main() {
       expect(roleAllowsPermission(c, StorePermission.ordersRead), isTrue);
       expect(roleAllowsPermission(c, StorePermission.ordersWrite), isTrue);
       expect(
-          roleAllowsPermission(c, StorePermission.integrationsDispatch), isTrue);
+        roleAllowsPermission(c, StorePermission.integrationsDispatch),
+        isTrue,
+      );
       expect(roleAllowsPermission(c, StorePermission.storeEventsSend), isTrue);
 
       expect(roleAllowsPermission(c, StorePermission.ordersAssign), isFalse);
       expect(roleAllowsPermission(c, StorePermission.productsWrite), isFalse);
       expect(
-          roleAllowsPermission(c, StorePermission.productsAnalytics), isFalse);
+        roleAllowsPermission(c, StorePermission.productsAnalytics),
+        isFalse,
+      );
       expect(
-          roleAllowsPermission(c, StorePermission.integrationsWrite), isFalse);
+        roleAllowsPermission(c, StorePermission.integrationsWrite),
+        isFalse,
+      );
       expect(roleAllowsPermission(c, StorePermission.membersWrite), isFalse);
     });
   });
@@ -116,7 +137,9 @@ void main() {
     test('editor with legacy empty scopes has full working access', () {
       final m = _member(StoreMemberRole.editor, const []);
       expect(
-          memberAllowsPermission(m, StorePermission.integrationsWrite), isTrue);
+        memberAllowsPermission(m, StorePermission.integrationsWrite),
+        isTrue,
+      );
       expect(memberAllowsPermission(m, StorePermission.productsWrite), isTrue);
       expect(memberAllowsPermission(m, StorePermission.membersWrite), isTrue);
       expect(memberAllowsPermission(m, StorePermission.storeDelete), isFalse);
@@ -126,7 +149,9 @@ void main() {
       final m = _member(StoreMemberRole.viewer, const []);
       expect(memberAllowsPermission(m, StorePermission.ordersRead), isTrue);
       expect(
-          memberAllowsPermission(m, StorePermission.integrationsRead), isTrue);
+        memberAllowsPermission(m, StorePermission.integrationsRead),
+        isTrue,
+      );
       for (final p in _writePermissions) {
         expect(memberAllowsPermission(m, p), isFalse, reason: p.name);
       }
@@ -142,7 +167,9 @@ void main() {
     test('store.integrations implies pro modules (inventory/finance)', () {
       final m = _member(StoreMemberRole.editor, const ['store.integrations']);
       expect(
-          memberAllowsPermission(m, StorePermission.integrationsWrite), isTrue);
+        memberAllowsPermission(m, StorePermission.integrationsWrite),
+        isTrue,
+      );
       expect(memberAllowsPermission(m, StorePermission.inventoryWrite), isTrue);
       expect(memberAllowsPermission(m, StorePermission.financeRead), isTrue);
       expect(memberAllowsPermission(m, StorePermission.ordersRead), isFalse);
@@ -152,7 +179,9 @@ void main() {
       final inactive = _member(StoreMemberRole.editor, const [], active: false);
       expect(memberIsActive(inactive), isFalse);
       expect(
-          memberAllowsPermission(inactive, StorePermission.ordersRead), isFalse);
+        memberAllowsPermission(inactive, StorePermission.ordersRead),
+        isFalse,
+      );
 
       final expired = _member(
         StoreMemberRole.editor,
@@ -161,7 +190,9 @@ void main() {
       );
       expect(memberIsActive(expired), isFalse);
       expect(
-          memberAllowsPermission(expired, StorePermission.ordersRead), isFalse);
+        memberAllowsPermission(expired, StorePermission.ordersRead),
+        isFalse,
+      );
 
       final future = _member(
         StoreMemberRole.editor,
@@ -170,7 +201,9 @@ void main() {
       );
       expect(memberIsActive(future), isTrue);
       expect(
-          memberAllowsPermission(future, StorePermission.ordersRead), isTrue);
+        memberAllowsPermission(future, StorePermission.ordersRead),
+        isTrue,
+      );
     });
 
     test('null member denied', () {
@@ -184,13 +217,15 @@ void main() {
       final owner = _auth('owner-1');
       expect(owner.canOnStore(store, StorePermission.storeDelete), isTrue);
       expect(
-          owner.canOnStore(store, StorePermission.integrationsWrite), isTrue);
+        owner.canOnStore(store, StorePermission.integrationsWrite),
+        isTrue,
+      );
     });
 
     test('member goes through the matrix', () {
-      final store = _store(members: {
-        'member-1': _member(StoreMemberRole.viewer, const []),
-      });
+      final store = _store(
+        members: {'member-1': _member(StoreMemberRole.viewer, const [])},
+      );
       final viewer = _auth('member-1');
       expect(viewer.canOnStore(store, StorePermission.ordersRead), isTrue);
       expect(viewer.canOnStore(store, StorePermission.ordersWrite), isFalse);
@@ -214,9 +249,9 @@ void main() {
     });
 
     test('editor with empty scopes can use AI filters', () {
-      final store = _store(members: {
-        'member-1': _member(StoreMemberRole.editor, const []),
-      });
+      final store = _store(
+        members: {'member-1': _member(StoreMemberRole.editor, const [])},
+      );
       final editor = _auth('member-1');
       expect(editor.canUseAiFilter(store), isTrue);
     });

@@ -180,20 +180,6 @@ class FinanceRepository {
     );
   }
 
-  /// Open order receivables (derived, read-only).
-  @Deprecated('Use ReceivableResourceRepository.findDetail instead')
-  Future<List<Receivable>> listReceivables({required String projectId}) async {
-    final response = await client.get(
-      '/finance/receivables',
-      queryParameters: {'projectId': projectId},
-    );
-    final data = response.data['data'] ?? response.data;
-    return (data as List)
-        .whereType<Map>()
-        .map((e) => Receivable.fromJson(Map<String, dynamic>.from(e)))
-        .toList();
-  }
-
   /// Record a customer / COD payment against an order.
   Future<CustomerPayment> collectPayment({
     required String orderId,

@@ -14,10 +14,8 @@ part 'create_parcel_request.freezed.dart';
 part 'create_parcel_request.g.dart';
 
 /// Legacy type aliases for ZR Express callers; identical JSON to [ParcelSendRequest].
-typedef ZrexpressCustomer = ParcelSendCustomer;
 typedef ZrexpressPhone = ParcelSendPhone;
 typedef ZrexpressDeliveryAddress = ParcelSendDeliveryAddress;
-typedef ZrexpressOrderedProduct = ParcelSendOrderedProduct;
 typedef ZrexpressDeliveryType = ParcelSendDeliveryType;
 typedef ZrexpressParcelCreateRequest = ParcelSendRequest;
 

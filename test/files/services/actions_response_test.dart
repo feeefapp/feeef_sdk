@@ -25,11 +25,19 @@ void main() {
 
     test('hasError is true when !success and error non-null', () {
       expect(
-        AICodeGenerationResponse(success: false, message: '', error: 'err').hasError,
+        AICodeGenerationResponse(
+          success: false,
+          message: '',
+          error: 'err',
+        ).hasError,
         isTrue,
       );
       expect(
-        AICodeGenerationResponse(success: true, message: '', error: 'x').hasError,
+        AICodeGenerationResponse(
+          success: true,
+          message: '',
+          error: 'x',
+        ).hasError,
         isFalse,
       );
     });
@@ -87,16 +95,25 @@ void main() {
   group('Actions enums', () {
     test('SendEventToMetaPixelActionEvents values', () {
       expect(SendEventToMetaPixelActionEvents.values, isNotEmpty);
-      expect(SendEventToMetaPixelActionEvents.purchase, SendEventToMetaPixelActionEvents.purchase);
+      expect(
+        SendEventToMetaPixelActionEvents.purchase,
+        SendEventToMetaPixelActionEvents.purchase,
+      );
     });
     test('SendEventToTiktokPixelActionEvents values', () {
       expect(SendEventToTiktokPixelActionEvents.values.length, greaterThan(4));
     });
     test('GenerateSimpleCodeLanguage values', () {
-      expect(GenerateSimpleCodeLanguage.values, contains(GenerateSimpleCodeLanguage.markdown));
+      expect(
+        GenerateSimpleCodeLanguage.values,
+        contains(GenerateSimpleCodeLanguage.markdown),
+      );
     });
     test('AICodeGenerationMode values', () {
-      expect(AICodeGenerationMode.values, [AICodeGenerationMode.create, AICodeGenerationMode.edit]);
+      expect(AICodeGenerationMode.values, [
+        AICodeGenerationMode.create,
+        AICodeGenerationMode.edit,
+      ]);
     });
   });
 }

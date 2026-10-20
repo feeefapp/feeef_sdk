@@ -19,7 +19,10 @@ void main() {
         isTrue,
       );
       expect(
-        ConfermerWorkspace.isAllowedStorePath('/stores/store1/orders', 'store1'),
+        ConfermerWorkspace.isAllowedStorePath(
+          '/stores/store1/orders',
+          'store1',
+        ),
         isTrue,
       );
       expect(

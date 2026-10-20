@@ -39,9 +39,7 @@ void main() {
   group('scoreForOrder / withScoringMetadata', () {
     test('matches exact phone and writes banner metadata', () {
       final order = _order(phone: '0555123456');
-      final scoring = {
-        '0555123456': const EcotrackPhoneScore(level: 'high'),
-      };
+      final scoring = {'0555123456': const EcotrackPhoneScore(level: 'high')};
 
       final scored = service.withScoringMetadata(order, scoring);
       expect(scored.metadata['ecotrackScoringLevel'], 'high');
@@ -51,9 +49,7 @@ void main() {
 
     test('matches Algeria local vs international last-9 digits', () {
       final order = _order(phone: '0555123456');
-      final scoring = {
-        '213555123456': const EcotrackPhoneScore(level: 'low'),
-      };
+      final scoring = {'213555123456': const EcotrackPhoneScore(level: 'low')};
 
       expect(service.scoreForOrder(order, scoring)?.level, 'low');
     });
@@ -67,7 +63,9 @@ void main() {
 
       expect(service.scoreForOrder(order, scoring), isNull);
       expect(
-        service.withScoringMetadata(order, scoring).metadata['ecotrackScoringLevel'],
+        service
+            .withScoringMetadata(order, scoring)
+            .metadata['ecotrackScoringLevel'],
         isNull,
       );
     });

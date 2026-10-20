@@ -21,6 +21,8 @@
 
 ## Unreleased
 
+- **removed**: `AiRepository` typedef (`ff.ai` is an `ImageGenerationsRepository`), `ParcelCreateRequest`, `parcelCreateRequestFromEcotrackOrder`, `DeliveryBulkSendApiResult.asLegacyMap`, `ZrexpressCustomer`/`ZrexpressOrderedProduct` (use `ParcelSendCustomer`/`ParcelSendOrderedProduct`), `CloudDeliveryApi.quote` (use `quoteResult`), `FinanceRepository.listReceivables`, the `parcel_create_request.dart` re-export, `CustomStatusMapping` and `StoreConfigs.customStatusMappings`/`customStatusEnabled` (use the orders-v1 status catalog).
+
 - **cloud delivery**: `shipOrders` (`POST …/orders/cloud-parcels/sendMany`) waits up to 15 minutes. A selection of up to 500 orders is one request; Cloud splits it into the courier's 50–100 parcel calls and rests 1–5 seconds between chunks.
 
 ## 1.4.0

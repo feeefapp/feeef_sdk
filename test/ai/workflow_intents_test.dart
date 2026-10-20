@@ -74,15 +74,9 @@ void main() {
       final key = adapter.calls.single.headers['Idempotency-Key'];
       adapter.fail = false;
       final restarted = client(storage, adapter);
-      await restarted.post(
-        '/ai/code/snippet',
-        data: {'text': 'hello'},
-      );
+      await restarted.post('/ai/code/snippet', data: {'text': 'hello'});
       expect(adapter.calls.last.headers['Idempotency-Key'], key);
-      await restarted.post(
-        '/ai/code/snippet',
-        data: {'text': 'hello'},
-      );
+      await restarted.post('/ai/code/snippet', data: {'text': 'hello'});
       expect(adapter.calls.last.headers['Idempotency-Key'], isNot(key));
     },
   );
@@ -134,26 +128,28 @@ void main() {
     },
   );
 
-  test('a finished failure releases the route for a different request', () async {
-    final storage = MemoryStorage();
-    final adapter = Adapter()
-      ..fail = false
-      ..response = {
-        'success': false,
-        'error':
-            'Cloud AI could not be reached. Recover the original request; do not start replacement work.',
-      };
-    final dio = client(storage, adapter);
-    await dio.post(
-      '/ai/image-landing-pages',
-      data: {'text': 'one', 'aspectRatio': '9:32'},
-    );
-    await dio.post(
-      '/ai/image-landing-pages',
-      data: {'text': 'two', 'aspectRatio': '1:1'},
-    );
-    expect(adapter.calls, hasLength(2));
-  });
+  test(
+    'a finished failure releases the route for a different request',
+    () async {
+      final storage = MemoryStorage();
+      final adapter = Adapter()
+        ..fail = false
+        ..response = {
+          'success': false,
+          'error': 'Cloud AI could not be reached. Recover the original request; do not start replacement work.',
+        };
+      final dio = client(storage, adapter);
+      await dio.post(
+        '/ai/image-landing-pages',
+        data: {'text': 'one', 'aspectRatio': '9:32'},
+      );
+      await dio.post(
+        '/ai/image-landing-pages',
+        data: {'text': 'two', 'aspectRatio': '1:1'},
+      );
+      expect(adapter.calls, hasLength(2));
+    },
+  );
 
   test('a rejected request releases the route', () async {
     final storage = MemoryStorage();

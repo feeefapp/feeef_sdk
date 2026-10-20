@@ -12,24 +12,30 @@ void main() {
 
     test('legacy marketer is remapped; explicit agent is kept for editors', () {
       expect(
-        normalizeCreatePayoutType('marketer',
-            memberRole: 'confermer', hasPayeeUser: true),
+        normalizeCreatePayoutType(
+          'marketer',
+          memberRole: 'confermer',
+          hasPayeeUser: true,
+        ),
         'agent',
       );
       expect(
-        normalizeCreatePayoutType('marketer',
-            memberRole: 'editor', hasPayeeUser: true),
+        normalizeCreatePayoutType(
+          'marketer',
+          memberRole: 'editor',
+          hasPayeeUser: true,
+        ),
         'salary',
       );
       expect(
-        normalizeCreatePayoutType('agent',
-            memberRole: 'editor', hasPayeeUser: true),
+        normalizeCreatePayoutType(
+          'agent',
+          memberRole: 'editor',
+          hasPayeeUser: true,
+        ),
         'agent',
       );
-      expect(
-        normalizeCreatePayoutType(null, hasPayeeUser: false),
-        'provider',
-      );
+      expect(normalizeCreatePayoutType(null, hasPayeeUser: false), 'provider');
     });
 
     test('payee json infers defaultPayoutType from confermer role', () {

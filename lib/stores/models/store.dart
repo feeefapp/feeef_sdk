@@ -633,14 +633,6 @@ abstract class StoreConfigs with _$StoreConfigs {
     String? defaultLanguage,
     @Default([]) List<StoreCountryConfig> countries,
     String? selectedCountry,
-    /// Legacy — read-only from old configs; the API no longer accepts or
-    /// reads it. Statuses live in the orders-v1 catalog (`listStatuses`).
-    @Deprecated('Use the orders-v1 status catalog')
-    @Default([])
-    List<CustomStatusMapping> customStatusMappings,
-    @Deprecated('Use the orders-v1 status catalog')
-    @Default(false)
-    bool customStatusEnabled,
     ConfirmationQueueConfig? confirmationQueue,
     InventoryIntegration? inventory_integration,
     FinanceIntegration? finance_integration,
@@ -783,81 +775,6 @@ abstract class ConfirmationQueueConfig with _$ConfirmationQueueConfig {
 
   factory ConfirmationQueueConfig.fromJson(Map<String, dynamic> json) =>
       _$ConfirmationQueueConfigFromJson(json);
-}
-
-///
-/// CustomStatusMapping
-///
-@freezed
-abstract class CustomStatusMapping with _$CustomStatusMapping {
-  const factory CustomStatusMapping({
-    /// The custom status name (e.g., "not_respond", "phone_closed_1")
-    required String name,
-
-    /// Auto-generated code based on name if not provided (e.g., "not_respond" -> "not_respond")
-    String? code,
-
-    /// Optional color for UI display (hex color as number)
-    int? color,
-
-    /// Whether this custom status is enabled and should be shown in UI
-    @Default(true) bool enabled,
-
-    /// Status to map to (null means no change)
-    OrderStatus? status,
-
-    /// Delivery status to map to (null means no change)
-    DeliveryStatus? deliveryStatus,
-
-    /// Payment status to map to (null means no change)
-    PaymentStatus? paymentStatus,
-
-    /// Other mappings to suggest as the next step (`code` when set, otherwise `name`).
-    @Default([]) List<String> next,
-
-    /// Minutes to postpone the order when this status is set.
-    ///
-    /// The order's `scheduledAt` becomes `now + snoozeMinutes`, so it
-    /// leaves the confirmation queue and re-enters it once the delay elapses.
-    /// For example `not_respond_1` uses `180` to call the customer back in 3h.
-    int? snoozeMinutes,
-
-    /// Plain-text reason presets offered to the confirmer when this status is set.
-    @Default([]) List<String> reasons,
-
-    /// Whether the confirmer may type a reason that is not in [reasons].
-    @Default(true) bool allowOtherReason,
-
-    /// Whether a reason is mandatory.
-    ///
-    /// Prefer [reasonRequired], which also accounts for the implicit rule that
-    /// any mapping resolving to [OrderStatus.cancelled] always needs a reason.
-    @Default(false) bool requiresReason,
-
-    /// Whether orders carrying this status may be served by the confirmation queue.
-    @Default(true) bool queueEligible,
-  }) = _CustomStatusMapping;
-
-  factory CustomStatusMapping.fromJson(Map<String, dynamic> json) =>
-      _$CustomStatusMappingFromJson(json);
-}
-
-/// Reason-requirement and identity helpers for [CustomStatusMapping].
-extension CustomStatusMappingX on CustomStatusMapping {
-  /// The stable identifier used by [CustomStatusMapping.next] and by an
-  /// order's `customStatus`: the `code` when set, otherwise the `name`.
-  String get key => (code == null || code!.isEmpty) ? name : code!;
-
-  /// Whether the confirmer must supply a reason before this status can be set.
-  ///
-  /// Cancellation always requires a reason regardless of
-  /// [CustomStatusMapping.requiresReason], because a lost order without a
-  /// recorded cause is not actionable for the merchant.
-  bool get reasonRequired =>
-      requiresReason || status == OrderStatus.cancelled;
-
-  /// Whether setting this status should postpone the order.
-  bool get snoozes => (snoozeMinutes ?? 0) > 0;
 }
 
 ///

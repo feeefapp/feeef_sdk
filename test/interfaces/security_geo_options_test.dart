@@ -92,8 +92,10 @@ void main() {
       expect(o.allowed, isEmpty);
       expect(o.blocked, isEmpty);
       expect(SecurityGeoListOption.fromJson(const {}), o);
-      expect(SecurityCityListOption.fromJson(const {}),
-          const SecurityCityListOption());
+      expect(
+        SecurityCityListOption.fromJson(const {}),
+        const SecurityCityListOption(),
+      );
     });
   });
 
@@ -164,63 +166,76 @@ void main() {
     });
   });
 
-  group('fingerprint.missingTreatment (block | warning | null, provisional)', () {
-    test('absent: null, follows treatment, not written', () {
-      final f = SecurityOption.fromJson(
-          {'active': true, 'ttl': 3600, 'treatment': 'block'});
-      expect(f.missingTreatment, isNull);
-      expect(f.effectiveMissingTreatment, SecurityTreatment.block);
-      expect(f.toJson().containsKey('missingTreatment'), isFalse);
-    });
-
-    test('parsed leniently and round-tripped', () {
-      final o = SecurityOptions.fromJson({
-        'fingerprint': {
+  group(
+    'fingerprint.missingTreatment (block | warning | null, provisional)',
+    () {
+      test('absent: null, follows treatment, not written', () {
+        final f = SecurityOption.fromJson({
           'active': true,
-          'ttl': 86400,
+          'ttl': 3600,
           'treatment': 'block',
-          'missingTreatment': 'Warning',
-        },
+        });
+        expect(f.missingTreatment, isNull);
+        expect(f.effectiveMissingTreatment, SecurityTreatment.block);
+        expect(f.toJson().containsKey('missingTreatment'), isFalse);
       });
-      expect(o.fingerprint!.missingTreatment, SecurityTreatment.warning);
-      expect(o.fingerprint!.effectiveMissingTreatment,
-          SecurityTreatment.warning);
-      final out = _wire(o.toJson());
-      expect(out['fingerprint']['missingTreatment'], 'warning');
-      expect(SecurityOptions.fromJson(out), o);
-    });
 
-    test('explicit null -> null (follow treatment), not written', () {
-      final f = SecurityOption.fromJson(
-          {'active': true, 'treatment': 'warning', 'missingTreatment': null});
-      expect(f.missingTreatment, isNull);
-      expect(f.effectiveMissingTreatment, SecurityTreatment.warning);
-      expect(f.toJson().containsKey('missingTreatment'), isFalse);
-    });
+      test('parsed leniently and round-tripped', () {
+        final o = SecurityOptions.fromJson({
+          'fingerprint': {
+            'active': true,
+            'ttl': 86400,
+            'treatment': 'block',
+            'missingTreatment': 'Warning',
+          },
+        });
+        expect(o.fingerprint!.missingTreatment, SecurityTreatment.warning);
+        expect(
+          o.fingerprint!.effectiveMissingTreatment,
+          SecurityTreatment.warning,
+        );
+        final out = _wire(o.toJson());
+        expect(out['fingerprint']['missingTreatment'], 'warning');
+        expect(SecurityOptions.fromJson(out), o);
+      });
 
-    test('only block / warning accepted', () {
-      for (final v in ['block', 'BLOCK', 'warning', ' Warning ']) {
-        final f = SecurityOption.fromJson({'missingTreatment': v});
-        expect(f.missingTreatment, isNotNull, reason: v);
-        expect(f.toJson()['missingTreatment'], v.trim().toLowerCase());
-      }
-      final fake = SecurityOption.fromJson({'missingTreatment': 'fake'});
-      expect(fake.missingTreatment, isNull);
-    });
+      test('explicit null -> null (follow treatment), not written', () {
+        final f = SecurityOption.fromJson({
+          'active': true,
+          'treatment': 'warning',
+          'missingTreatment': null,
+        });
+        expect(f.missingTreatment, isNull);
+        expect(f.effectiveMissingTreatment, SecurityTreatment.warning);
+        expect(f.toJson().containsKey('missingTreatment'), isFalse);
+      });
 
-    test('an in-memory fake is never written', () {
-      const f = SecurityOption(
-          active: true, missingTreatment: SecurityTreatment.fake);
-      expect(f.toJson().containsKey('missingTreatment'), isFalse);
-    });
+      test('only block / warning accepted', () {
+        for (final v in ['block', 'BLOCK', 'warning', ' Warning ']) {
+          final f = SecurityOption.fromJson({'missingTreatment': v});
+          expect(f.missingTreatment, isNotNull, reason: v);
+          expect(f.toJson()['missingTreatment'], v.trim().toLowerCase());
+        }
+        final fake = SecurityOption.fromJson({'missingTreatment': 'fake'});
+        expect(fake.missingTreatment, isNull);
+      });
 
-    test('unknown or wrong-typed value -> null (never throws)', () {
-      for (final v in ['allow', 3, true, <String, dynamic>{}]) {
-        final f = SecurityOption.fromJson({'missingTreatment': v});
-        expect(f.missingTreatment, isNull, reason: '$v');
-      }
-    });
-  });
+      test('an in-memory fake is never written', () {
+        const f = SecurityOption(
+          active: true,
+          missingTreatment: SecurityTreatment.fake,
+        );
+        expect(f.toJson().containsKey('missingTreatment'), isFalse);
+      });
+
+      test('unknown or wrong-typed value -> null (never throws)', () {
+        for (final v in ['allow', 3, true, <String, dynamic>{}]) {
+          final f = SecurityOption.fromJson({'missingTreatment': v});
+          expect(f.missingTreatment, isNull, reason: '$v');
+        }
+      });
+    },
+  );
 
   group('security.geoStatus (read-only)', () {
     test('live / off / missing / unknown', () {
@@ -241,8 +256,7 @@ void main() {
         'geoStatus': 'live',
       });
       expect(s.toJson().containsKey('geoStatus'), isFalse);
-      final store =
-          StoreIntegrations.fromJson(const {}).copyWith(security: s);
+      final store = StoreIntegrations.fromJson(const {}).copyWith(security: s);
       final wire = _wire(store.toJson());
       expect((wire['security'] as Map).containsKey('geoStatus'), isFalse);
       // copyWith keeps it in memory.
@@ -266,11 +280,13 @@ void main() {
       expect(SecurityOptions.fromJson(_wire(out)), o);
     });
 
-    test('a stray unknownGeo key is ignored (no such setting, §9 decision 2)',
-        () {
-      final o = SecurityOptions.fromJson({'unknownGeo': 'allow'});
-      expect(o.toJson().containsKey('unknownGeo'), isFalse);
-    });
+    test(
+      'a stray unknownGeo key is ignored (no such setting, §9 decision 2)',
+      () {
+        final o = SecurityOptions.fromJson({'unknownGeo': 'allow'});
+        expect(o.toJson().containsKey('unknownGeo'), isFalse);
+      },
+    );
 
     test('explicit nulls', () {
       final o = SecurityOptions.fromJson({
@@ -291,7 +307,14 @@ void main() {
         'regions': {
           'active': 'true',
           'treatment': 'ALLOW', // not a SecurityTreatment
-          'allowed': [' DZ-31 ', null, '', 16, {'x': 1}, 'dz-31'],
+          'allowed': [
+            ' DZ-31 ',
+            null,
+            '',
+            16,
+            {'x': 1},
+            'dz-31',
+          ],
           'blocked': 'DZ-09, DZ-26 ,',
           'mode': 'allowlist', // unknown extra key
         },
@@ -362,8 +385,10 @@ void main() {
     });
 
     test('normalizeSecurityGeoName', () {
-      expect(normalizeSecurityGeoName('  Bordj  Bou-Arréridj '),
-          'bordj bou arreridj');
+      expect(
+        normalizeSecurityGeoName('  Bordj  Bou-Arréridj '),
+        'bordj bou arreridj',
+      );
       expect(normalizeSecurityGeoName("M'Sila"), 'm sila');
     });
   });

@@ -53,7 +53,12 @@ void main() {
     test('omitted capabilities stay null (must not look disconnected)', () {
       final page = MetaAdsPage.fromJson(const {
         'data': [
-          {'id': '1', 'name': 'C', 'status': 'ACTIVE', 'effectiveStatus': 'ACTIVE'},
+          {
+            'id': '1',
+            'name': 'C',
+            'status': 'ACTIVE',
+            'effectiveStatus': 'ACTIVE',
+          },
         ],
         'paging': {'after': 'cursor', 'hasMore': true},
       }, MetaCampaign.fromJson);

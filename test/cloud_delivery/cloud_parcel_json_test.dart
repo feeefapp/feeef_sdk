@@ -77,7 +77,10 @@ void main() {
     });
 
     test('defaults to empty suggestions', () {
-      final quote = CloudQuote.fromJson({'accountId': 'ca_1', 'available': true});
+      final quote = CloudQuote.fromJson({
+        'accountId': 'ca_1',
+        'available': true,
+      });
       expect(quote.suggestedDestinations, isEmpty);
     });
   });

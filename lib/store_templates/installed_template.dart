@@ -1,5 +1,5 @@
-class InstalledTheme {
-  const InstalledTheme({
+class InstalledTemplate {
+  const InstalledTemplate({
     required this.data,
     required this.schema,
     required this.revision,
@@ -13,21 +13,22 @@ class InstalledTheme {
   final String revision;
   final bool customized;
   final String? templateId, installedReleaseId;
-  factory InstalledTheme.fromJson(Map<String, dynamic> json) => InstalledTheme(
-    data: Map<String, dynamic>.from(json['data'] as Map? ?? {}),
-    schema: Map<String, dynamic>.from(json['schema'] as Map? ?? {}),
-    revision: json['revision'] as String,
-    customized: json['customized'] == true,
-    templateId: json['templateId'] as String?,
-    installedReleaseId: json['installedReleaseId'] as String?,
-    installation: json['installation'] is Map
-        ? Map<String, dynamic>.from(json['installation'] as Map)
-        : null,
-  );
+  factory InstalledTemplate.fromJson(Map<String, dynamic> json) =>
+      InstalledTemplate(
+        data: Map<String, dynamic>.from(json['data'] as Map? ?? {}),
+        schema: Map<String, dynamic>.from(json['schema'] as Map? ?? {}),
+        revision: json['revision'] as String,
+        customized: json['customized'] == true,
+        templateId: json['templateId'] as String?,
+        installedReleaseId: json['installedReleaseId'] as String?,
+        installation: json['installation'] is Map
+            ? Map<String, dynamic>.from(json['installation'] as Map)
+            : null,
+      );
 }
 
-class StoreThemeBackup {
-  const StoreThemeBackup({
+class StoreTemplateBackup {
+  const StoreTemplateBackup({
     required this.id,
     required this.reason,
     required this.createdAt,
@@ -35,8 +36,8 @@ class StoreThemeBackup {
   });
   final String id, reason;
   final DateTime createdAt, expiresAt;
-  factory StoreThemeBackup.fromJson(Map<String, dynamic> json) =>
-      StoreThemeBackup(
+  factory StoreTemplateBackup.fromJson(Map<String, dynamic> json) =>
+      StoreTemplateBackup(
         id: json['id'] as String,
         reason: json['reason'] as String,
         createdAt: DateTime.parse(

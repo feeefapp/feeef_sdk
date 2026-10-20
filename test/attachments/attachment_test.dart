@@ -67,16 +67,31 @@ void main() {
     });
 
     test('parses image type', () {
-      final a = Attachment.fromJson({'type': 'image', 'value': 'https://x.com'});
+      final a = Attachment.fromJson({
+        'type': 'image',
+        'value': 'https://x.com',
+      });
       expect(a, isA<ImageAttachment>());
       expect(a!.value, 'https://x.com');
     });
 
     test('parses store, product, url, audio', () {
-      expect(Attachment.fromJson({'type': 'store', 'value': 's1'}), isA<StoreAttachment>());
-      expect(Attachment.fromJson({'type': 'product', 'value': 'p1'}), isA<ProductAttachment>());
-      expect(Attachment.fromJson({'type': 'url', 'value': 'https://u'}), isA<UrlAttachment>());
-      expect(Attachment.fromJson({'type': 'audio', 'value': 'https://a'}), isA<AudioAttachment>());
+      expect(
+        Attachment.fromJson({'type': 'store', 'value': 's1'}),
+        isA<StoreAttachment>(),
+      );
+      expect(
+        Attachment.fromJson({'type': 'product', 'value': 'p1'}),
+        isA<ProductAttachment>(),
+      );
+      expect(
+        Attachment.fromJson({'type': 'url', 'value': 'https://u'}),
+        isA<UrlAttachment>(),
+      );
+      expect(
+        Attachment.fromJson({'type': 'audio', 'value': 'https://a'}),
+        isA<AudioAttachment>(),
+      );
     });
 
     test('returns null for unknown type', () {

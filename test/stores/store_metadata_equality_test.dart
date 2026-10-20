@@ -46,28 +46,38 @@ void main() {
     test('identical metadata maps are equal', () {
       final meta = {
         'foo': 1,
-        kStoreMetadataTemplateDataKey: _hugeTemplateData(pages: 2, codeChars: 100),
+        kStoreMetadataTemplateDataKey: _hugeTemplateData(
+          pages: 2,
+          codeChars: 100,
+        ),
       };
       expect(storeMetadataEquals(meta, meta), isTrue);
       expect(_store(metadata: meta), equals(_store(metadata: meta)));
     });
 
-    test('templateData compared by identity only (same content, different map)',
-        () {
-      final tree = _hugeTemplateData(pages: 5, codeChars: 2000);
-      final a = {
-        'flag': true,
-        kStoreMetadataTemplateDataKey: Map<String, dynamic>.from(tree),
-      };
-      final b = {
-        'flag': true,
-        kStoreMetadataTemplateDataKey: Map<String, dynamic>.from(tree),
-      };
-      // Deep content matches, but templateData maps are different instances.
-      expect(identical(a[kStoreMetadataTemplateDataKey],
-          b[kStoreMetadataTemplateDataKey]), isFalse);
-      expect(storeMetadataEquals(a, b), isFalse);
-    });
+    test(
+      'templateData compared by identity only (same content, different map)',
+      () {
+        final tree = _hugeTemplateData(pages: 5, codeChars: 2000);
+        final a = {
+          'flag': true,
+          kStoreMetadataTemplateDataKey: Map<String, dynamic>.from(tree),
+        };
+        final b = {
+          'flag': true,
+          kStoreMetadataTemplateDataKey: Map<String, dynamic>.from(tree),
+        };
+        // Deep content matches, but templateData maps are different instances.
+        expect(
+          identical(
+            a[kStoreMetadataTemplateDataKey],
+            b[kStoreMetadataTemplateDataKey],
+          ),
+          isFalse,
+        );
+        expect(storeMetadataEquals(a, b), isFalse);
+      },
+    );
 
     test('shared templateData reference + other keys deep-equal', () {
       final templateData = _hugeTemplateData(pages: 5, codeChars: 2000);
@@ -113,16 +123,18 @@ void main() {
       // Deep-walking the fixture via DeepCollectionEquality routinely takes
       // seconds for 500 compares; identity-aware path should stay well under
       // a few hundred ms even on slow CI.
-      expect(sw.elapsedMilliseconds, lessThan(500),
-          reason: 'Store.== must not deep-walk templateData '
-              '(took ${sw.elapsedMilliseconds}ms)');
+      expect(
+        sw.elapsedMilliseconds,
+        lessThan(500),
+        reason:
+            'Store.== must not deep-walk templateData '
+            '(took ${sw.elapsedMilliseconds}ms)',
+      );
     });
 
     test('toString does not embed templateData body', () {
       final templateData = _hugeTemplateData(pages: 2, codeChars: 5000);
-      final s = _store(metadata: {
-        kStoreMetadataTemplateDataKey: templateData,
-      });
+      final s = _store(metadata: {kStoreMetadataTemplateDataKey: templateData});
       final text = s.toString();
       expect(text.contains('xxxxx'), isFalse);
       expect(text.contains('templateData: present'), isTrue);

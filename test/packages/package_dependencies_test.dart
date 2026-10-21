@@ -82,7 +82,9 @@ void main() {
     final edit = model.customizeDependency('reviews', reviews);
     files = {...files, ...edit.changes};
     model = PackageModel.parse(files);
-    expect(model.dependencies, isEmpty);
+    // The pin stays: store pages may still place `reviews/list`.
+    expect(edit.changes.keys, isNot(contains(PackageModel.manifestPath)));
+    expect(model.dependencies['reviews'], (package: 'pkg_reviews', version: 2));
     expect(
       model.localComponents['reviews-list']!.entry,
       'components/reviews-list.tsx',
@@ -102,5 +104,84 @@ void main() {
       (pageId: 'index', nodeId: 'r1'),
     ]);
     expect(model.placementsOf('reviews/list'), isEmpty);
+  });
+
+  test('customize moves every components/ file with its siblings', () {
+    var files = template();
+    files = {
+      ...files,
+      ...PackageModel.parse(files)
+          .pinDependency('reviews', 'pkg_reviews', 2)
+          .changes,
+      // Differs only in case from the Hero copy's first name: paths must not collide.
+      'components/Reviews-Hero.css': '.taken {}',
+    };
+    final dependency = {
+      ...reviews,
+      'README.md': '# Reviews',
+      'locales/en.json': '{"reviews": {"title": "Reviews"}}',
+      'components/list.tsx':
+          "import './list.module.css'\nimport './Hero.css'\nimport Card from './card'\nimport { stars } from '../lib/stars'\n"
+          "export const config = { title: 'Review list' }\nexport default function List(){return <ul>{stars()}<Card/></ul>}",
+      'components/list.module.css': '.list {}',
+      'components/Hero.css': '.hero {}',
+      'components/card/index.tsx': "import { label } from './parts'\nimport '../../styles/list.css'\nexport const config = { title: 'Card' }\nexport default function Card(){return <b>{label}</b>}",
+      'components/card/parts.ts': "export const label = 'card'",
+    };
+    final model = PackageModel.parse(files);
+    final edit = model.customizeDependency('reviews', dependency);
+    expect(edit.changes.keys.toSet(), {
+      'components/reviews-Hero-2.css',
+      'components/reviews-card/index.tsx',
+      'components/reviews-card/parts.ts',
+      'components/reviews-list.module.css',
+      'components/reviews-list.tsx',
+      'lib/reviews/stars.ts',
+      'styles/reviews/list.css',
+    });
+    final list = edit.changes['components/reviews-list.tsx']!;
+    expect(list, contains("import './reviews-list.module.css'"));
+    expect(list, contains("import './reviews-Hero-2.css'"));
+    expect(list, contains("import Card from './reviews-card'"));
+    expect(list, contains("from '../lib/reviews/stars'"));
+    final card = edit.changes['components/reviews-card/index.tsx']!;
+    expect(card, contains("from './parts'"));
+    expect(card, contains("import '../../styles/reviews/list.css'"));
+
+    // A second copy gets fresh names instead of colliding with the first.
+    final next = PackageModel.parse({...files, ...edit.changes});
+    final again = next.customizeDependency('reviews', dependency);
+    expect(
+      again.changes.keys,
+      containsAll([
+        'components/reviews-list-2.tsx',
+        'components/reviews-list-2.module.css',
+        'components/reviews-card-2/index.tsx',
+        'lib/reviews-2/stars.ts',
+        'styles/reviews-2/list.css',
+      ]),
+    );
+    expect(
+      again.changes['components/reviews-list-2.tsx'],
+      contains("from '../lib/reviews-2/stars'"),
+    );
+
+    expect(
+      () => model.customizeDependency('reviews', {
+        ...dependency,
+        'app/page.tsx': 'export default function P() { return null }',
+      }),
+      throwsA(
+        isA<StateError>().having(
+          (e) => e.message,
+          'message',
+          'DEPENDENCY_FILE_UNSUPPORTED: app/page.tsx',
+        ),
+      ),
+    );
+    expect(
+      () => model.customizeDependency('missing', dependency),
+      throwsStateError,
+    );
   });
 }

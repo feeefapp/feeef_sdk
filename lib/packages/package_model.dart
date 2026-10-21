@@ -678,9 +678,29 @@ class RouteInfo {
           : id);
 }
 
+/// A problem the server build (`@feeef/engine`) reports for a package file. The model skips what
+/// it flags, so editors never offer something the build rejects.
+class PackageIssue {
+  const PackageIssue(this.code, this.path, this.message);
+
+  /// Engine diagnostic code (`ROUTE_SEGMENT`, `ROUTE_RESERVED`, `CONTENT_STORE_PAGE`, …).
+  final String code;
+  final String path;
+  final String message;
+
+  @override
+  String toString() => '$code $path: $message';
+}
+
 /// A template or component package (SPEC §1).
 class PackageModel {
-  PackageModel._(this.files, this._manifest, this._routes, this._components);
+  PackageModel._(
+    this.files,
+    this._manifest,
+    this._routes,
+    this._components,
+    this.issues,
+  );
 
   static const manifestPath = 'feeef.json';
   static const themePath = 'content/theme.json';
@@ -689,16 +709,54 @@ class PackageModel {
   /// The layout's view id in [pageIds].
   static const layoutId = '@layout';
 
+  /// The store-page frame (`app/pages/[slug]/page.tsx`). Its slots hold each store page's own
+  /// content, so it is not an editable view of the template ([route] still reads it).
+  static const storePageRoute = 'pages/[slug]';
+
+  /// Routes with fixed URLs and data (SPEC §3); only these may use [reservedSegments].
+  static const boundRoutes = {
+    'index',
+    'products',
+    'products/[slug]',
+    'categories/[slug]',
+    'cart',
+    'checkout',
+    'thanks',
+    storePageRoute,
+    'not-found',
+  };
+
+  /// First URL segments the storefront serves itself: free routes cannot start with them.
+  static const reservedSegments = {
+    '_h',
+    'api',
+    'p',
+    'pages',
+    'products',
+    'categories',
+    'cart',
+    'checkout',
+    'thanks',
+    'sitemap.xml',
+    'sitemaps',
+    'robots.txt',
+    'favicon.ico',
+  };
+
   final Map<String, String> files;
   final Map<String, dynamic> _manifest;
   final Map<String, RouteInfo> _routes;
   final Map<String, ComponentInfo> _components;
+
+  /// What the engine would reject in the route files (skipped by the model).
+  final List<PackageIssue> issues;
 
   /// Parse `feeef.json`, discover routes and components. Throws [FormatException] naming the file.
   factory PackageModel.parse(Map<String, String> files) {
     final manifest = _decode(files, manifestPath);
     final routes = <String, RouteInfo>{};
     final components = <String, ComponentInfo>{};
+    final issues = <PackageIssue>[];
     final keys = files.keys.toList()..sort();
     for (final path in keys) {
       final component = _componentPath.firstMatch(path);
@@ -712,11 +770,28 @@ class PackageModel {
         );
         continue;
       }
-      final route = routeOf(path);
+      final issue = routeIssueOf(path);
+      if (issue != null) {
+        issues.add(issue);
+        continue;
+      }
+      final route = _routeKey(path);
       if (route == null) continue;
+      final isLayout = route == layoutId;
+      if (routes.containsKey(route)) {
+        issues.add(
+          PackageIssue(
+            isLayout ? 'LAYOUT_DUPLICATE' : 'ROUTE_DUPLICATE',
+            path,
+            isLayout
+                ? 'Only one app/layout file'
+                : 'Two files define route $route',
+          ),
+        );
+        continue;
+      }
       final text = files[path]!;
       final metadata = _map(staticExport(text, 'metadata'));
-      final isLayout = route == layoutId;
       routes[route] = RouteInfo(
         id: route,
         source: path,
@@ -726,11 +801,32 @@ class PackageModel {
         path: isLayout ? null : pathOf(route),
       );
     }
+    final frame = routes[storePageRoute];
+    if (frame != null && !frame.slots.containsKey('main')) {
+      issues.add(
+        PackageIssue(
+          'STORE_PAGE_SLOT',
+          frame.source,
+          'The store page frame must declare <Slot name="main" />: every store page fills it',
+        ),
+      );
+    }
+    final frameContent = contentPathOf(storePageRoute);
+    if (files.containsKey(frameContent)) {
+      issues.add(
+        PackageIssue(
+          'CONTENT_STORE_PAGE',
+          frameContent,
+          'Store pages own the slots of the pages/[slug] frame; edit their content in the store, not in the template',
+        ),
+      );
+    }
     return PackageModel._(
       Map.unmodifiable(files),
       manifest,
       routes,
       components,
+      List.unmodifiable(issues),
     );
   }
 
@@ -738,9 +834,16 @@ class PackageModel {
     r'^components/([a-z][a-z0-9-]*)(?:/index)?\.(?:tsx|ts|jsx|js)$',
   );
   static final _routePath = RegExp(r'^app/(?:(.+)/)?page\.(?:tsx|ts|jsx|js)$');
+  static final _routeSegment = RegExp(
+    r'^(?:[a-z0-9][a-z0-9-]*|\[[a-z][A-Za-z0-9]*\])$',
+  );
 
-  /// Route key of an `app/` file, [layoutId] for the layout, null for other files.
-  static String? routeOf(String path) {
+  /// Route key of an `app/` file, [layoutId] for the layout, null for other files and for route
+  /// files the engine rejects ([routeIssueOf]).
+  static String? routeOf(String path) =>
+      routeIssueOf(path) == null ? _routeKey(path) : null;
+
+  static String? _routeKey(String path) {
     if (RegExp(r'^app/layout\.(?:tsx|ts|jsx|js)$').hasMatch(path)) {
       return layoutId;
     }
@@ -749,6 +852,53 @@ class PackageModel {
     }
     final m = _routePath.firstMatch(path);
     return m == null ? null : (m.group(1) ?? 'index');
+  }
+
+  /// Why the engine rejects the route file [path] (SPEC §3), or null. Folders are lowercase
+  /// letters, digits and dashes or `[name]` (the content path alphabet); free routes cannot start
+  /// with a segment the storefront serves itself ([reservedSegments]); only commerce routes are
+  /// dynamic.
+  static PackageIssue? routeIssueOf(String path) {
+    final route = _routePath.firstMatch(path)?.group(1);
+    if (route == null) return null;
+    final segments = route.split('/');
+    if (!segments.every(_routeSegment.hasMatch)) {
+      return PackageIssue(
+        'ROUTE_SEGMENT',
+        path,
+        'Route folders are lowercase letters, digits and dashes ([name] for the dynamic segment of a commerce route)',
+      );
+    }
+    if (route == 'index') {
+      return PackageIssue(
+        'ROUTE_RESERVED',
+        path,
+        'Use app/page.tsx for the home page',
+      );
+    }
+    if (route == 'not-found') {
+      return PackageIssue(
+        'ROUTE_RESERVED',
+        path,
+        'Use app/not-found.tsx for the 404 page',
+      );
+    }
+    if (boundRoutes.contains(route)) return null;
+    if (reservedSegments.contains(segments.first)) {
+      return PackageIssue(
+        'ROUTE_RESERVED',
+        path,
+        '/${segments.first} is served by the storefront; choose another folder name',
+      );
+    }
+    if (route.contains('[')) {
+      return PackageIssue(
+        'ROUTE_DYNAMIC',
+        path,
+        'Only the commerce routes have dynamic segments; free pages have static paths',
+      );
+    }
+    return null;
   }
 
   static String contentPathOf(String route) => 'content/pages/$route.json';
@@ -763,10 +913,13 @@ class PackageModel {
   String get kind => _manifest['kind'] as String? ?? 'template';
   String get title => _manifest['title'] as String? ?? '';
 
-  /// Routes then the layout.
+  /// Editable views: routes, then the layout. The store-page frame is not one ([storePageFrame]).
   List<RouteInfo> get routes {
-    final list = _routes.values.where((r) => !r.isLayout).toList()
-      ..sort((a, b) => _routeOrder(a.id).compareTo(_routeOrder(b.id)));
+    final list =
+        _routes.values
+            .where((r) => !r.isLayout && r.id != storePageRoute)
+            .toList()
+          ..sort((a, b) => _routeOrder(a.id).compareTo(_routeOrder(b.id)));
     return [...list, ?_routes[layoutId]];
   }
 
@@ -779,14 +932,17 @@ class PackageModel {
       'cart',
       'checkout',
       'thanks',
-      'pages/[slug]',
     ];
     final i = order.indexOf(id);
     return i >= 0 ? i : (id == 'not-found' ? 999 : 100);
   }
 
+  /// Any route by id, the store-page frame included.
   RouteInfo? route(String id) => _routes[id];
   RouteInfo? get layout => _routes[layoutId];
+
+  /// `app/pages/[slug]/page.tsx`: frames merchant store pages, whose own content fills its slots.
+  RouteInfo? get storePageFrame => _routes[storePageRoute];
 
   /// Editable views (route ids and [layoutId]).
   List<String> get pageIds => [for (final r in routes) r.id];
@@ -859,9 +1015,7 @@ class PackageModel {
     final r = _routes[pageId];
     if (r == null) throw StateError('PAGE_NOT_FOUND: $pageId');
     final taken = <String>{};
-    final others = r.isLayout
-        ? _routes.values.where((v) => !v.isLayout)
-        : [?layout];
+    final others = r.isLayout ? routes.where((v) => !v.isLayout) : [?layout];
     for (final other in others) {
       if (other.id == pageId) continue;
       PageTree.walkContent(
@@ -987,9 +1141,12 @@ class PackageModel {
   }
 
   /// "Customize" dependency [key]: copy its code ([dependencyFiles], the pinned version's files)
-  /// into this template — `components/<id>` → `components/<key>-<id>`, `lib/**` → `lib/<key>/**`,
-  /// `styles/**` → `styles/<key>/**`, relative imports rewritten — and point every placement
-  /// (`<key>/<id>`) at the local copies. The pin is removed.
+  /// into this template and point the template's own placements (`<key>/<id>` in routes and the
+  /// layout) at the copies. Every `components/` file moves by its name: `components/<name>…` →
+  /// `components/<key>-<name>…`, so a component's folder, `.css` and `.module.css` siblings stay
+  /// together; `lib/**` → `lib/<key>/**`, `styles/**` → `styles/<key>/**` (`<key>-2`, … for a
+  /// second copy); relative imports are rewritten. The pin stays (store pages may still place `<key>/<id>`, and its locales keep
+  /// reaching the build). Throws `DEPENDENCY_FILE_UNSUPPORTED` for a file it cannot place.
   PackageEdit customizeDependency(
     String key,
     Map<String, String> dependencyFiles,
@@ -997,40 +1154,46 @@ class PackageModel {
     if (!dependencies.containsKey(key)) {
       throw StateError('DEPENDENCY_NOT_FOUND: $key');
     }
+    final existing = {for (final path in files.keys) path.toLowerCase()};
+
+    // Component names already used by this template (case-insensitively: paths must not collide).
+    final taken = <String>{
+      for (final id in localComponents.keys) id.toLowerCase(),
+      for (final path in files.keys)
+        if (_componentName(path) case final name?) name.$1.toLowerCase(),
+    };
     final renamed = <String, String>{};
-    final taken = {...localComponents.keys};
-    String? target(String path) {
-      final c = RegExp(r'^components/([a-z][a-z0-9-]*)(/.*|\.\w+)$')
-          .firstMatch(path);
-      if (c != null) {
-        final id = c.group(1)!;
-        var local = renamed['$key/$id'];
-        if (local == null) {
-          local = '$key-$id';
-          for (var i = 2; taken.contains(local); i++) {
-            local = '$key-$id-$i';
-          }
-          taken.add(local!);
-          renamed['$key/$id'] = local;
-        }
-        return 'components/$local${c.group(2)}';
+    String local(String name) => renamed.putIfAbsent(name, () {
+      var candidate = '$key-$name';
+      for (var i = 2; taken.contains(candidate.toLowerCase()); i++) {
+        candidate = '$key-$name-$i';
       }
-      for (final dir in const ['lib/', 'styles/']) {
-        if (path.startsWith(dir)) {
-          return '$dir$key/${path.substring(dir.length)}';
-        }
-      }
-      return null;
+      taken.add(candidate.toLowerCase());
+      return candidate;
+    });
+
+    // One folder for this copy's lib/ and styles/ files.
+    var folder = key;
+    for (var i = 2; existing.any((p) => _inFolder(p, folder)); i++) {
+      folder = '$key-$i';
     }
 
     final moves = <String, String>{};
     for (final path in dependencyFiles.keys.toList()..sort()) {
-      final to = target(path);
-      if (to != null) moves[path] = to;
+      final component = _componentName(path);
+      if (component != null) {
+        moves[path] = 'components/${local(component.$1)}${component.$2}';
+      } else if (path.startsWith('lib/') || path.startsWith('styles/')) {
+        final slash = path.indexOf('/');
+        moves[path] =
+            '${path.substring(0, slash)}/$folder${path.substring(slash)}';
+      } else if (!_carriedByPin(path)) {
+        throw StateError('DEPENDENCY_FILE_UNSUPPORTED: $path');
+      }
     }
     final changes = <String, String>{};
     for (final e in moves.entries) {
-      if (files.containsKey(e.value)) {
+      if (existing.contains(e.value.toLowerCase())) {
         throw StateError('FILE_EXISTS: ${e.value}');
       }
       changes[e.value] = _rewriteImports(
@@ -1041,17 +1204,12 @@ class PackageModel {
         dependencyFiles,
       );
     }
-    final manifest = _deepCopy(_manifest) as Map<String, dynamic>;
-    (manifest['dependencies'] as Map).remove(key);
-    if ((manifest['dependencies'] as Map).isEmpty) {
-      manifest.remove('dependencies');
-    }
-    changes[manifestPath] = encodePackageJson(manifest);
+    final uses = {for (final e in renamed.entries) '$key/${e.key}': e.value};
     for (final r in routes) {
       final json = content(r.id);
       var touched = false;
       PageTree.walkContent(json, (n) {
-        final to = renamed[n['use']];
+        final to = uses[n['use']];
         if (to != null) {
           n['use'] = to;
           touched = true;
@@ -1061,6 +1219,37 @@ class PackageModel {
     }
     return PackageEdit(changes);
   }
+
+  /// `components/<name>…` → (name, rest): the top-level folder, or the file name before its first
+  /// dot (`list.module.css` → `list`, `.module.css`).
+  static (String, String)? _componentName(String path) {
+    if (!path.startsWith('components/')) return null;
+    final rest = path.substring('components/'.length);
+    final slash = rest.indexOf('/');
+    final first = slash < 0 ? rest : rest.substring(0, slash);
+    final dot = first.indexOf('.');
+    final end = dot < 0 ? first.length : dot;
+    if (end == 0) return null;
+    return (rest.substring(0, end), rest.substring(end));
+  }
+
+  static bool _inFolder(String lowerPath, String folder) {
+    final f = folder.toLowerCase();
+    return lowerPath.startsWith('lib/$f/') ||
+        lowerPath.startsWith('styles/$f/');
+  }
+
+  /// Dependency files that stay with the pin: manifest, docs, npm tooling, typings, locales.
+  static bool _carriedByPin(String path) =>
+      const {
+        manifestPath,
+        'README.md',
+        'AGENTS.md',
+        'package.json',
+        'tsconfig.json',
+      }.contains(path) ||
+      path.startsWith('locales/') ||
+      path.startsWith('types/');
 
   /// A component id derived from [base] that is still free.
   String freeComponentId(String base) {
@@ -1130,7 +1319,9 @@ class PackageModel {
   }
 }
 
-/// Relative imports of a file moved from [from] to [to], following the other moved files.
+/// Relative imports (`from '…'`, `import '…'`, `import('…')`, CSS `@import '…'`) of a file moved
+/// from [from] to [to], following the other moved files. The specifier keeps its form: whatever
+/// resolution added (an extension, `/index.tsx`) stays implicit.
 String _rewriteImports(
   String from,
   String to,
@@ -1138,39 +1329,35 @@ String _rewriteImports(
   Map<String, String> moves,
   Map<String, String> sourceFiles,
 ) {
+  const suffixes = [
+    '',
+    '.tsx',
+    '.ts',
+    '.jsx',
+    '.js',
+    '.json',
+    '.css',
+    '/index.tsx',
+    '/index.ts',
+    '/index.jsx',
+    '/index.js',
+  ];
   return source.replaceAllMapped(
-    RegExp(r'''((?:from|import)\s+)(['"])(\.{1,2}/[^'"]+)\2'''),
+    RegExp(r'''(\b(?:from|import)\s*\(?\s*)(['"])(\.{1,2}/[^'"\n]*)\2'''),
     (m) {
       final base = _normalize(_join(_dirname(from), m[3]!));
-      String? hit;
-      for (final candidate in [
-        base,
-        for (final ext in const ['.tsx', '.ts', '.jsx', '.js', '.json', '.css'])
-          '$base$ext',
-        for (final ext in const ['.tsx', '.ts', '.jsx', '.js'])
-          '$base/index$ext',
-      ]) {
-        if (sourceFiles.containsKey(candidate)) {
-          hit = candidate;
-          break;
-        }
+      for (final suffix in suffixes) {
+        if (!sourceFiles.containsKey('$base$suffix')) continue;
+        final moved = moves['$base$suffix'];
+        if (moved == null || !moved.endsWith(suffix)) return m[0]!;
+        var rel = _relative(
+          _dirname(to),
+          moved.substring(0, moved.length - suffix.length),
+        );
+        if (!rel.startsWith('.')) rel = './$rel';
+        return '${m[1]}${m[2]}$rel${m[2]}';
       }
-      final moved = hit == null ? null : moves[hit];
-      if (moved == null) return m[0]!;
-      final keepExtension =
-          RegExp(r'\.\w+$').hasMatch(m[3]!) && !m[3]!.endsWith('/index');
-      var target = moved;
-      if (!keepExtension) {
-        target = target.replaceFirst(RegExp(r'\.(tsx|ts|jsx|js)$'), '');
-      }
-      if (!keepExtension &&
-          hit!.contains('/index.') &&
-          !m[3]!.endsWith('index')) {
-        target = target.replaceFirst(RegExp(r'/index$'), '');
-      }
-      var rel = _relative(_dirname(to), target);
-      if (!rel.startsWith('.')) rel = './$rel';
-      return '${m[1]}${m[2]}$rel${m[2]}';
+      return m[0]!;
     },
   );
 }
@@ -1205,31 +1392,69 @@ String _relative(String fromDir, String to) {
   return [for (var j = i; j < a.length; j++) '..', ...b.sublist(i)].join('/');
 }
 
-/// `<Slot name="main" title="Content" />` areas of a route or layout source, in order.
+/// `<Slot name="main" title="Content" />` areas of a route or layout source, in source order,
+/// read like the engine (SPEC §3): only real JSX counts (not comments or strings), the name and
+/// title must be string attributes (`name={'main'}` declares nothing), the first of a repeated
+/// name wins.
 Map<String, String> slotsInSource(String source) {
+  final scanner = _SourceScanner(source)..scan();
   final out = <String, String>{};
-  final attr = RegExp(r'''(\w+)\s*=\s*(?:\{\s*)?(['"])((?:\\.|(?!\2).)*)\2''');
-  for (final m in RegExp(r'<Slot\b([^>]*)>').allMatches(source)) {
-    String? name;
-    String? title;
-    for (final a in attr.allMatches(m[1]!)) {
-      if (a[1] == 'name') name = a[3];
-      if (a[1] == 'title') title = a[3];
+  for (final slot in scanner.slots) {
+    if (slot != null && !out.containsKey(slot.name)) {
+      out[slot.name] = slot.title ?? slot.name;
     }
-    if (name != null && !out.containsKey(name)) out[name] = title ?? name;
   }
   return out;
 }
 
-/// The value of `export const <name> = <literal>` in a source file, or null when the file has no
-/// such export or it is not a plain literal.
+/// The value of top-level `export const <name> = <literal>` in a source file, or null when the
+/// file has no such export or its value is not a static literal (the engine's CONFIG_NOT_STATIC).
 Object? staticExport(String source, String name) {
-  final m = RegExp('export\\s+const\\s+$name\\s*(?::[^=]+)?=')
-      .firstMatch(source);
-  if (m == null) return null;
+  int? at;
+  _SourceScanner(source)
+    ..onTopLevelWord = (start, end) {
+      if (end - start != 6 || !source.startsWith('export', start)) return false;
+      at = _exportedConstValue(source, end, name);
+      return at != null;
+    }
+    ..scan();
+  final start = at;
+  if (start == null) return null;
   try {
-    final parser = _LiteralParser(source, m.end);
-    return parser.value();
+    final parser = _LiteralParser(source, start);
+    final value = parser.expression();
+    parser.endOfDeclarator();
+    return value;
+  } on FormatException {
+    return null;
+  }
+}
+
+/// After `export` at [i]: where [name]'s initializer starts in `export const a = …, name = …`.
+int? _exportedConstValue(String source, int i, String name) {
+  final p = _LiteralParser(source, i);
+  try {
+    p.ws();
+    if (!p.keyword('const')) return null;
+    while (true) {
+      p.ws();
+      final id = p.identifier();
+      if (id == null) return null;
+      p.ws();
+      if (p.char == _Ch.colon) {
+        p.i++;
+        p.skipType();
+        p.ws();
+      }
+      if (p.char != _Ch.eq ||
+          p.charAt(p.i + 1) == _Ch.eq ||
+          p.charAt(p.i + 1) == _Ch.gt) {
+        return null;
+      }
+      p.i++;
+      if (id == name) return p.i;
+      if (!p.skipToNextDeclarator()) return null;
+    }
   } on FormatException {
     return null;
   }
@@ -1260,110 +1485,741 @@ String jsLiteral(Object? value, [String indent = '']) {
   return jsonEncode(value);
 }
 
-/// Tolerant parser for static JavaScript literals: objects, arrays, strings (' " `), numbers,
-/// booleans, null, comments, trailing commas, `as const` / `satisfies T`.
+/// UTF-16 code units the source scanners compare against.
+abstract final class _Ch {
+  static const tab = 0x09, lf = 0x0A, cr = 0x0D;
+  static const space = 0x20, bang = 0x21, dquote = 0x22, dollar = 0x24;
+  static const percent = 0x25, amp = 0x26, squote = 0x27, lparen = 0x28;
+  static const rparen = 0x29, star = 0x2A, plus = 0x2B, comma = 0x2C;
+  static const minus = 0x2D, dot = 0x2E, slash = 0x2F, zero = 0x30;
+  static const nine = 0x39, colon = 0x3A, semicolon = 0x3B, lt = 0x3C;
+  static const eq = 0x3D, gt = 0x3E, question = 0x3F, lbracket = 0x5B;
+  static const backslash = 0x5C, rbracket = 0x5D, caret = 0x5E;
+  static const underscore = 0x5F, backtick = 0x60, lbrace = 0x7B;
+  static const pipe = 0x7C, rbrace = 0x7D;
+}
+
+bool _isLineBreak(int c) =>
+    c == _Ch.lf || c == _Ch.cr || c == 0x2028 || c == 0x2029;
+
+bool _isSpace(int c) =>
+    c == _Ch.space ||
+    (c >= _Ch.tab && c <= _Ch.cr) ||
+    c == 0xA0 ||
+    c == 0x1680 ||
+    (c >= 0x2000 && c <= 0x200A) ||
+    c == 0x2028 ||
+    c == 0x2029 ||
+    c == 0x202F ||
+    c == 0x205F ||
+    c == 0x3000 ||
+    c == 0xFEFF;
+
+bool _isDigit(int c) => c >= _Ch.zero && c <= _Ch.nine;
+
+bool _isIdStart(int c) =>
+    (c >= 0x61 && c <= 0x7A) ||
+    (c >= 0x41 && c <= 0x5A) ||
+    c == _Ch.underscore ||
+    c == _Ch.dollar ||
+    (c > 0x7F && !_isSpace(c));
+
+bool _isIdPart(int c) => _isIdStart(c) || _isDigit(c);
+
+/// Value of a hex digit, -1 for anything else.
+int _digitValue(int c) {
+  if (_isDigit(c)) return c - _Ch.zero;
+  final lower = c | 0x20;
+  return lower >= 0x61 && lower <= 0x66 ? lower - 0x61 + 10 : -1;
+}
+
+/// Index after the whitespace and comments at [i]; -1 for an unterminated block comment.
+int _skipTrivia(String s, int i) {
+  while (i < s.length) {
+    final c = s.codeUnitAt(i);
+    if (_isSpace(c)) {
+      i++;
+    } else if (c == _Ch.slash && i + 1 < s.length) {
+      final next = s.codeUnitAt(i + 1);
+      if (next == _Ch.slash) {
+        while (i < s.length && !_isLineBreak(s.codeUnitAt(i))) {
+          i++;
+        }
+      } else if (next == _Ch.star) {
+        final end = s.indexOf('*/', i + 2);
+        if (end < 0) return -1;
+        i = end + 2;
+      } else {
+        break;
+      }
+    } else {
+      break;
+    }
+  }
+  return i;
+}
+
+/// HTML entities in a JSX attribute string, as Babel decodes them.
+String _decodeEntities(String text) {
+  if (!text.contains('&')) return text;
+  return text.replaceAllMapped(
+    RegExp(r'&(?:#(\d+)|#[xX]([0-9a-fA-F]+)|(amp|lt|gt|quot|apos|nbsp));'),
+    (m) {
+      final named = m[3];
+      if (named != null) {
+        return const {
+          'amp': '&',
+          'lt': '<',
+          'gt': '>',
+          'quot': '"',
+          'apos': "'",
+          'nbsp': ' ',
+        }[named]!;
+      }
+      final code = int.tryParse(m[1] ?? m[2]!, radix: m[1] != null ? 10 : 16);
+      return code == null || code > 0x10FFFF
+          ? m[0]!
+          : String.fromCharCode(code);
+    },
+  );
+}
+
+/// A small JavaScript/TSX scanner. It steps over comments, strings, template literals, regular
+/// expressions and JSX text the way a parser does, so searches only see real code: `<Slot>`
+/// elements ([slots]) and top-level words ([onTopLevelWord]).
+class _SourceScanner {
+  _SourceScanner(this.s);
+  final String s;
+  int i = 0;
+
+  /// `<Slot>` opening elements in source order; null when the name is not a string attribute.
+  final slots = <({String name, String? title})?>[];
+
+  /// Called for each word at brace depth 0 outside JSX; returning true stops the scan.
+  bool Function(int start, int end)? onTopLevelWord;
+  bool _stopped = false;
+
+  /// Words after which an expression starts (so `<` opens JSX and `/` a regex).
+  static const _expressionWords = {
+    'return',
+    'typeof',
+    'instanceof',
+    'in',
+    'of',
+    'new',
+    'delete',
+    'void',
+    'throw',
+    'case',
+    'do',
+    'else',
+    'yield',
+    'await',
+    'default',
+    'extends',
+  };
+
+  int _at(int j) => j < s.length ? s.codeUnitAt(j) : -1;
+
+  void scan() => _js(nested: false);
+
+  void _trivia() {
+    final j = _skipTrivia(s, i);
+    i = j < 0 ? s.length : j;
+  }
+
+  /// JavaScript up to the `}` that closes an expression container ([nested]) or the end.
+  void _js({required bool nested}) {
+    var depth = 0;
+    var expression = true;
+    while (!_stopped) {
+      _trivia();
+      if (i >= s.length) return;
+      final c = s.codeUnitAt(i);
+      if (c == _Ch.squote || c == _Ch.dquote) {
+        _skipString(c);
+        expression = false;
+      } else if (c == _Ch.backtick) {
+        _skipTemplate();
+        expression = false;
+      } else if (_isIdStart(c)) {
+        final start = i++;
+        while (i < s.length && _isIdPart(s.codeUnitAt(i))) {
+          i++;
+        }
+        if (!nested &&
+            depth == 0 &&
+            (onTopLevelWord?.call(start, i) ?? false)) {
+          _stopped = true;
+          return;
+        }
+        expression =
+            i - start <= 10 && _expressionWords.contains(s.substring(start, i));
+      } else if (_isDigit(c) || (c == _Ch.dot && _isDigit(_at(i + 1)))) {
+        i++;
+        while (i < s.length &&
+            (_isIdPart(s.codeUnitAt(i)) || s.codeUnitAt(i) == _Ch.dot)) {
+          i++;
+        }
+        expression = false;
+      } else if (c == _Ch.slash && expression && _skipRegex()) {
+        expression = false;
+      } else if (c == _Ch.lt && expression && _element()) {
+        expression = false;
+      } else if (c == _Ch.lbrace || c == _Ch.lparen || c == _Ch.lbracket) {
+        depth++;
+        i++;
+        expression = true;
+      } else if (c == _Ch.rbrace || c == _Ch.rparen || c == _Ch.rbracket) {
+        i++;
+        if (depth > 0) {
+          depth--;
+        } else if (nested && c == _Ch.rbrace) {
+          return;
+        }
+        expression = false;
+      } else {
+        i++;
+        expression = true;
+      }
+    }
+  }
+
+  void _skipString(int quote) {
+    i++;
+    while (i < s.length) {
+      final c = s.codeUnitAt(i);
+      if (c == quote) {
+        i++;
+        return;
+      }
+      // An unterminated string stops at the line end.
+      if (c == _Ch.lf || c == _Ch.cr) return;
+      i += c == _Ch.backslash ? 2 : 1;
+    }
+  }
+
+  void _skipTemplate() {
+    i++;
+    while (i < s.length) {
+      final c = s.codeUnitAt(i);
+      if (c == _Ch.backtick) {
+        i++;
+        return;
+      }
+      if (c == _Ch.dollar && _at(i + 1) == _Ch.lbrace) {
+        i += 2;
+        _js(nested: true);
+      } else {
+        i += c == _Ch.backslash ? 2 : 1;
+      }
+    }
+  }
+
+  /// A regular expression literal at `/` (on one line); false when it is a division.
+  bool _skipRegex() {
+    var j = i + 1;
+    var inClass = false;
+    while (j < s.length) {
+      final c = s.codeUnitAt(j);
+      if (_isLineBreak(c)) return false;
+      if (c == _Ch.backslash) {
+        j += 2;
+        continue;
+      }
+      if (inClass) {
+        if (c == _Ch.rbracket) inClass = false;
+      } else if (c == _Ch.lbracket) {
+        inClass = true;
+      } else if (c == _Ch.slash) {
+        j++;
+        while (j < s.length && _isIdPart(s.codeUnitAt(j))) {
+          j++;
+        }
+        i = j;
+        return true;
+      }
+      j++;
+    }
+    return false;
+  }
+
+  /// A JSX element or fragment at `<`. Restores the position and returns false when the text
+  /// there is not one (a comparison, a type argument).
+  bool _element() {
+    final start = i;
+    final mark = slots.length;
+    if (_elementBody()) return true;
+    i = start;
+    slots.length = mark;
+    return false;
+  }
+
+  bool _elementBody() {
+    i++; // <
+    if (_at(i) == _Ch.gt) {
+      i++;
+      return _children('');
+    }
+    final name = _jsxName();
+    if (name == null) return false;
+    final slot = name == 'Slot' ? slots.length : -1;
+    if (slot >= 0) slots.add(null);
+    final literals = <String, String?>{};
+    while (true) {
+      _trivia();
+      final c = _at(i);
+      if (c == _Ch.gt || c == _Ch.slash) {
+        if (literals['name'] case final slotName? when slot >= 0) {
+          slots[slot] = (name: slotName, title: literals['title']);
+        }
+        if (c == _Ch.gt) {
+          i++;
+          return _children(name);
+        }
+        if (_at(i + 1) != _Ch.gt) return false;
+        i += 2;
+        return true;
+      }
+      if (c == _Ch.lbrace) {
+        i++; // {...spread}
+        _js(nested: true);
+        continue;
+      }
+      final attribute = _jsxName();
+      if (attribute == null) return false;
+      _trivia();
+      String? literal;
+      if (_at(i) == _Ch.eq) {
+        i++;
+        _trivia();
+        final v = _at(i);
+        if (v == _Ch.dquote || v == _Ch.squote) {
+          final end = s.indexOf(String.fromCharCode(v), i + 1);
+          if (end < 0) return false;
+          literal = _decodeEntities(s.substring(i + 1, end));
+          i = end + 1;
+        } else if (v == _Ch.lbrace) {
+          i++;
+          _js(nested: true);
+        } else if (v != _Ch.lt || !_element()) {
+          return false;
+        }
+      }
+      literals.putIfAbsent(attribute, () => literal);
+    }
+  }
+
+  /// JSX children up to the closing tag of [name] (`''` for a fragment). Text is not code.
+  bool _children(String name) {
+    while (i < s.length) {
+      final c = s.codeUnitAt(i);
+      if (c == _Ch.lbrace) {
+        i++;
+        _js(nested: true);
+      } else if (c == _Ch.lt) {
+        final start = i++;
+        _trivia();
+        if (_at(i) == _Ch.slash) {
+          i++;
+          _trivia();
+          final close = _at(i) == _Ch.gt ? '' : _jsxName();
+          _trivia();
+          if (close != name || _at(i) != _Ch.gt) return false;
+          i++;
+          return true;
+        }
+        i = start;
+        if (!_element()) return false;
+      } else {
+        i++;
+      }
+    }
+    return false;
+  }
+
+  /// A JSX tag or attribute name (`Slot`, `data-x`, `xlink:href`, `UI.Card`).
+  String? _jsxName() {
+    if (!_isIdStart(_at(i))) return null;
+    final start = i++;
+    while (i < s.length) {
+      final c = s.codeUnitAt(i);
+      if (!_isIdPart(c) && c != _Ch.minus && c != _Ch.colon && c != _Ch.dot) {
+        break;
+      }
+      i++;
+    }
+    return s.substring(start, i);
+  }
+}
+
+/// Parser for the static literals the engine reads at build time (`config`, `metadata`): the
+/// subset `@feeef/engine` `literal()` accepts — objects with identifier or string keys, arrays,
+/// strings and template literals without `${}` (every escape), numbers (decimal, hex, octal,
+/// binary, separators, a leading `-`), booleans, null, parentheses, comments, trailing commas and
+/// TypeScript `as` / `satisfies` / `!`. Anything dynamic, `+1`, numeric or computed keys, holes,
+/// spreads and non-finite numbers throw [FormatException].
 class _LiteralParser {
   _LiteralParser(this.s, this.i);
   final String s;
   int i;
 
-  Object? value() {
-    final v = _value();
-    _ws();
-    return v;
-  }
-
   Never _fail() => throw const FormatException('not a static literal');
 
-  void _ws() {
-    while (i < s.length) {
-      final c = s[i];
-      if (c == ' ' || c == '\n' || c == '\t' || c == '\r') {
+  int get char => i < s.length ? s.codeUnitAt(i) : -1;
+  int charAt(int j) => j < s.length ? s.codeUnitAt(j) : -1;
+
+  /// Skip whitespace and comments; true when a line break was crossed.
+  bool ws() {
+    final start = i;
+    final end = _skipTrivia(s, i);
+    if (end < 0) _fail();
+    i = end;
+    for (var j = start; j < end; j++) {
+      if (_isLineBreak(s.codeUnitAt(j))) return true;
+    }
+    return false;
+  }
+
+  bool keyword(String word) {
+    if (!s.startsWith(word, i) || _isIdPart(charAt(i + word.length))) {
+      return false;
+    }
+    i += word.length;
+    return true;
+  }
+
+  String? identifier() {
+    if (!_isIdStart(char)) return null;
+    final start = i++;
+    while (_isIdPart(char)) {
+      i++;
+    }
+    return s.substring(start, i);
+  }
+
+  /// One literal with its TypeScript wrappers.
+  Object? expression() {
+    ws();
+    final value = _primary();
+    _postfix();
+    return value;
+  }
+
+  /// What may follow an exported literal: the end, `;`, the next declarator, or a statement on
+  /// the next line. Anything else (`|| x`, `.foo`, a call) makes the value dynamic.
+  void endOfDeclarator() {
+    final lineBreak = ws();
+    final c = char;
+    if (c < 0 || c == _Ch.semicolon || c == _Ch.comma) return;
+    if (lineBreak && !_continuesExpression()) return;
+    _fail();
+  }
+
+  /// Whether the token at [i], after a line break, continues the expression before it (so no
+  /// semicolon is inserted).
+  bool _continuesExpression() {
+    final c = char;
+    if (const [
+      _Ch.lparen,
+      _Ch.lbracket,
+      _Ch.dot,
+      _Ch.backtick,
+      _Ch.plus,
+      _Ch.minus,
+      _Ch.star,
+      _Ch.slash,
+      _Ch.percent,
+      _Ch.amp,
+      _Ch.pipe,
+      _Ch.caret,
+      _Ch.lt,
+      _Ch.gt,
+      _Ch.eq,
+      _Ch.question,
+      _Ch.comma,
+    ].contains(c)) {
+      return true;
+    }
+    if (c == _Ch.bang && charAt(i + 1) == _Ch.eq) return true;
+    final save = i;
+    final word = keyword('as') || keyword('satisfies');
+    i = save;
+    return word;
+  }
+
+  /// Skip an initializer that is not the export being read (any expression) up to the `,` before
+  /// the next declarator; false when the statement ends first.
+  bool skipToNextDeclarator() {
+    final closers = <int>[];
+    while (true) {
+      final c = char;
+      if (c < 0) return false;
+      if (c == _Ch.slash &&
+              (charAt(i + 1) == _Ch.slash || charAt(i + 1) == _Ch.star) ||
+          _isSpace(c)) {
+        if (ws() && closers.isEmpty && !_continuesExpression()) return false;
+      } else if (c == _Ch.squote || c == _Ch.dquote) {
+        _string();
+      } else if (c == _Ch.backtick) {
+        _skipTemplateType();
+      } else if (c == _Ch.lparen || c == _Ch.lbracket || c == _Ch.lbrace) {
+        closers.add(switch (c) {
+          _Ch.lparen => _Ch.rparen,
+          _Ch.lbracket => _Ch.rbracket,
+          _ => _Ch.rbrace,
+        });
         i++;
-      } else if (s.startsWith('//', i)) {
-        final end = s.indexOf('\n', i);
-        i = end < 0 ? s.length : end;
-      } else if (s.startsWith('/*', i)) {
-        final end = s.indexOf('*/', i + 2);
-        if (end < 0) _fail();
-        i = end + 2;
+      } else if (c == _Ch.rparen || c == _Ch.rbracket || c == _Ch.rbrace) {
+        if (closers.isEmpty || closers.removeLast() != c) _fail();
+        i++;
+      } else if (closers.isEmpty && c == _Ch.comma) {
+        i++;
+        return true;
+      } else if (closers.isEmpty && c == _Ch.semicolon) {
+        return false;
       } else {
-        break;
-      }
-    }
-  }
-
-  Object? _value() {
-    _ws();
-    if (i >= s.length) _fail();
-    final c = s[i];
-    Object? out;
-    if (c == '{') {
-      out = _object();
-    } else if (c == '[') {
-      out = _array();
-    } else if (c == "'" || c == '"' || c == '`') {
-      out = _string();
-    } else if (c == '-' || c == '+' || c == '.' || _digit(c)) {
-      out = _number();
-    } else if (s.startsWith('true', i) && !_ident(i + 4)) {
-      i += 4;
-      out = true;
-    } else if (s.startsWith('false', i) && !_ident(i + 5)) {
-      i += 5;
-      out = false;
-    } else if (s.startsWith('null', i) && !_ident(i + 4)) {
-      i += 4;
-      out = null;
-    } else {
-      _fail();
-    }
-    _ws();
-    // `as const`, `as Foo`, `satisfies Foo`.
-    while (s.startsWith('as ', i) || s.startsWith('satisfies ', i)) {
-      i = s.indexOf(' ', i) + 1;
-      _ws();
-      while (i < s.length && RegExp(r'[\w$.<>\[\]]').hasMatch(s[i])) {
         i++;
       }
-      _ws();
     }
-    return out;
   }
 
-  bool _digit(String c) => c.codeUnitAt(0) >= 48 && c.codeUnitAt(0) <= 57;
-  bool _ident(int at) => at < s.length && RegExp(r'[\w$]').hasMatch(s[at]);
+  Object? _primary() {
+    final c = char;
+    if (c == _Ch.lbrace) return _object();
+    if (c == _Ch.lbracket) return _array();
+    if (c == _Ch.squote || c == _Ch.dquote) return _string();
+    if (c == _Ch.backtick) return _template();
+    if (c == _Ch.lparen) {
+      i++;
+      final value = expression();
+      ws();
+      if (char != _Ch.rparen) _fail();
+      i++;
+      return value;
+    }
+    if (c == _Ch.minus) {
+      i++;
+      return _negative();
+    }
+    if (_numberAhead()) return _number();
+    if (keyword('true')) return true;
+    if (keyword('false')) return false;
+    if (keyword('null')) return null;
+    _fail();
+  }
+
+  /// `!`, `as T`, `satisfies T` on the same line (TypeScript reads none after a line break).
+  void _postfix() {
+    while (true) {
+      final save = i;
+      if (!ws()) {
+        if (char == _Ch.bang && charAt(i + 1) != _Ch.eq) {
+          i++;
+          continue;
+        }
+        if (keyword('as') || keyword('satisfies')) {
+          skipType();
+          continue;
+        }
+      }
+      i = save;
+      return;
+    }
+  }
+
+  bool _numberAhead() =>
+      _isDigit(char) || (char == _Ch.dot && _isDigit(charAt(i + 1)));
+
+  /// `-1`, `- 1`, `-(1)`: the engine negates numeric literals only.
+  num _negative() {
+    ws();
+    var parens = 0;
+    while (char == _Ch.lparen) {
+      i++;
+      parens++;
+      ws();
+    }
+    if (!_numberAhead()) _fail();
+    final value = _number();
+    for (var k = 0; k < parens; k++) {
+      ws();
+      if (char != _Ch.rparen) _fail();
+      i++;
+    }
+    final save = i;
+    if (!ws() && char == _Ch.bang && charAt(i + 1) != _Ch.eq) {
+      _fail(); // `-(1)!` negates a non-null expression, not a literal
+    }
+    i = save;
+    return _whole(-value);
+  }
+
+  static final _decimal = RegExp(
+    r'(?:(?:0|[1-9](?:_?[0-9])*)(?:\.(?:[0-9](?:_?[0-9])*)?)?|\.[0-9](?:_?[0-9])*)(?:[eE][+-]?[0-9](?:_?[0-9])*)?',
+  );
+
+  num _number() {
+    final num value;
+    final marker = charAt(i + 1) | 0x20;
+    if (char == _Ch.zero &&
+        (marker == 0x78 || marker == 0x6F || marker == 0x62)) {
+      final radix = marker == 0x78
+          ? 16
+          : marker == 0x6F
+          ? 8
+          : 2;
+      i += 2;
+      final start = i;
+      while (true) {
+        final d = _digitValue(char);
+        if (d >= 0 && d < radix) {
+          i++;
+        } else if (char == _Ch.underscore && i > start) {
+          final next = _digitValue(charAt(i + 1));
+          if (next < 0 || next >= radix) break;
+          i++;
+        } else {
+          break;
+        }
+      }
+      if (i == start) _fail();
+      final digits = s.substring(start, i).replaceAll('_', '');
+      value = BigInt.parse(digits, radix: radix).toDouble();
+    } else {
+      final m = _decimal.matchAsPrefix(s, i);
+      if (m == null || m.end == i) _fail();
+      i = m.end;
+      // A double, as in JavaScript (integers above 2^53 round).
+      value = double.parse(m[0]!.replaceAll('_', ''));
+    }
+    if (_isIdPart(char)) _fail(); // 1n, 08, 1px
+    if (!value.isFinite) _fail();
+    return _whole(value);
+  }
+
+  /// JavaScript has one number type: integral values read as `int`, as JSON does.
+  static num _whole(num v) =>
+      v is double && v == v.truncateToDouble() && v.abs() <= 9007199254740992
+      ? v.toInt()
+      : v;
+
+  String _string() {
+    final quote = s.codeUnitAt(i++);
+    final buffer = StringBuffer();
+    while (true) {
+      final c = char;
+      if (c < 0 || c == _Ch.lf || c == _Ch.cr) _fail();
+      i++;
+      if (c == quote) return buffer.toString();
+      if (c == _Ch.backslash) {
+        _escape(buffer);
+      } else {
+        buffer.writeCharCode(c);
+      }
+    }
+  }
+
+  String _template() {
+    i++;
+    final buffer = StringBuffer();
+    while (true) {
+      final c = char;
+      if (c < 0) _fail();
+      i++;
+      if (c == _Ch.backtick) return buffer.toString();
+      if (c == _Ch.dollar && char == _Ch.lbrace) _fail(); // `${…}` is dynamic
+      if (c == _Ch.backslash) {
+        _escape(buffer);
+      } else if (c == _Ch.cr) {
+        if (char == _Ch.lf) i++;
+        buffer.write('\n');
+      } else {
+        buffer.writeCharCode(c);
+      }
+    }
+  }
+
+  /// The escape after a backslash (strict mode: no octal escapes, no `\8` / `\9`).
+  void _escape(StringBuffer buffer) {
+    final c = char;
+    if (c < 0) _fail();
+    i++;
+    switch (c) {
+      case 0x6E:
+        buffer.write('\n');
+      case 0x74:
+        buffer.write('\t');
+      case 0x72:
+        buffer.write('\r');
+      case 0x62:
+        buffer.write('\b');
+      case 0x66:
+        buffer.write('\f');
+      case 0x76:
+        buffer.write('\v');
+      case _Ch.zero:
+        if (_isDigit(char)) _fail();
+        buffer.writeCharCode(0);
+      case 0x78:
+        buffer.writeCharCode(_hex(2));
+      case 0x75:
+        if (char == _Ch.lbrace) {
+          i++;
+          final start = i;
+          while (_digitValue(char) >= 0) {
+            i++;
+          }
+          if (i == start || char != _Ch.rbrace) _fail();
+          final code = int.tryParse(s.substring(start, i), radix: 16);
+          if (code == null || code > 0x10FFFF) _fail();
+          i++;
+          buffer.writeCharCode(code);
+        } else {
+          buffer.writeCharCode(_hex(4));
+        }
+      case _Ch.cr:
+        if (char == _Ch.lf) i++; // line continuation
+      case _Ch.lf || 0x2028 || 0x2029:
+        break; // line continuation
+      default:
+        if (_isDigit(c)) _fail();
+        buffer.writeCharCode(c);
+    }
+  }
+
+  int _hex(int count) {
+    var value = 0;
+    for (var k = 0; k < count; k++) {
+      final d = _digitValue(char);
+      if (d < 0) _fail();
+      value = value * 16 + d;
+      i++;
+    }
+    return value;
+  }
 
   Map<String, dynamic> _object() {
     i++;
     final out = <String, dynamic>{};
     while (true) {
-      _ws();
-      if (i >= s.length) _fail();
-      if (s[i] == '}') {
+      ws();
+      if (char == _Ch.rbrace) {
         i++;
         return out;
       }
-      String key;
-      final c = s[i];
-      if (c == "'" || c == '"') {
-        key = _string();
-      } else {
-        final start = i;
-        while (_ident(i)) {
-          i++;
-        }
-        if (start == i) _fail();
-        key = s.substring(start, i);
-      }
-      _ws();
-      if (i >= s.length || s[i] != ':') _fail();
+      final key = char == _Ch.squote || char == _Ch.dquote
+          ? _string()
+          : identifier() ?? _fail();
+      if (key == '__proto__') _fail();
+      ws();
+      if (char != _Ch.colon) _fail();
       i++;
-      out[key] = _value();
-      _ws();
-      if (i < s.length && s[i] == ',') {
+      out[key] = expression();
+      ws();
+      if (char == _Ch.comma) {
         i++;
-      } else if (i < s.length && s[i] == '}') {
+      } else if (char == _Ch.rbrace) {
         i++;
         return out;
       } else {
@@ -1376,17 +2232,17 @@ class _LiteralParser {
     i++;
     final out = <dynamic>[];
     while (true) {
-      _ws();
-      if (i >= s.length) _fail();
-      if (s[i] == ']') {
+      ws();
+      if (char == _Ch.rbracket) {
         i++;
         return out;
       }
-      out.add(_value());
-      _ws();
-      if (i < s.length && s[i] == ',') {
+      if (char == _Ch.comma) _fail(); // hole
+      out.add(expression());
+      ws();
+      if (char == _Ch.comma) {
         i++;
-      } else if (i < s.length && s[i] == ']') {
+      } else if (char == _Ch.rbracket) {
         i++;
         return out;
       } else {
@@ -1395,35 +2251,136 @@ class _LiteralParser {
     }
   }
 
-  String _string() {
-    final quote = s[i++];
-    final buffer = StringBuffer();
-    while (i < s.length && s[i] != quote) {
-      if (quote == '`' && s.startsWith(r'${', i)) _fail();
-      if (s[i] == r'\' && i + 1 < s.length) {
-        final next = s[i + 1];
-        buffer.write(switch (next) {
-          'n' => '\n',
-          't' => '\t',
-          'r' => '\r',
-          _ => next,
-        });
-        i += 2;
-      } else {
-        buffer.write(s[i++]);
+  /// Skip a TypeScript type (after `:`, `as`, `satisfies`): names with type arguments, literal
+  /// types, `( )`, `[ ]`, `{ }` groups, `keyof` / `typeof` / `readonly`, unions, intersections and
+  /// function types.
+  void skipType() {
+    while (true) {
+      ws();
+      if (keyword('keyof') ||
+          keyword('typeof') ||
+          keyword('readonly') ||
+          keyword('unique') ||
+          keyword('infer') ||
+          keyword('new') ||
+          keyword('asserts') ||
+          keyword('abstract')) {
+        continue;
       }
+      final c = char;
+      if (c == _Ch.pipe || c == _Ch.amp) {
+        i++;
+        continue;
+      }
+      if (c == _Ch.lt) {
+        _group(); // type parameters of a function type
+        continue;
+      }
+      if (_isIdStart(c)) {
+        identifier();
+      } else if (c == _Ch.squote || c == _Ch.dquote) {
+        _string();
+      } else if (c == _Ch.backtick) {
+        _skipTemplateType();
+      } else if (c == _Ch.minus) {
+        i++;
+        ws();
+        _number();
+      } else if (_numberAhead()) {
+        _number();
+      } else if (c == _Ch.lparen || c == _Ch.lbracket || c == _Ch.lbrace) {
+        _group();
+      } else {
+        _fail();
+      }
+      // T<…>, T[…], T.U on the same line.
+      while (true) {
+        final save = i;
+        if (!ws()) {
+          if (char == _Ch.lt || char == _Ch.lbracket) {
+            _group();
+            continue;
+          }
+          if (char == _Ch.dot && _isIdStart(charAt(i + 1))) {
+            i++;
+            identifier();
+            continue;
+          }
+        }
+        i = save;
+        break;
+      }
+      final save = i;
+      ws();
+      if (char == _Ch.pipe || char == _Ch.amp) {
+        i++;
+        continue;
+      }
+      if (char == _Ch.eq && charAt(i + 1) == _Ch.gt) {
+        i += 2;
+        continue;
+      }
+      i = save;
+      return;
     }
-    if (i >= s.length) _fail();
-    i++;
-    return buffer.toString();
   }
 
-  num _number() {
-    final m = RegExp(r'[-+]?(?:\d[\d_]*)?(?:\.\d+)?(?:[eE][-+]?\d+)?')
-        .matchAsPrefix(s, i);
-    if (m == null || m.end == i) _fail();
-    i = m.end;
-    return num.parse(m[0]!.replaceAll('_', ''));
+  /// A balanced `( )`, `[ ]`, `{ }` or `< >` group at its opener.
+  void _group() {
+    final closers = <int>[];
+    while (true) {
+      final c = char;
+      if (c < 0) _fail();
+      if (c == _Ch.slash &&
+          (charAt(i + 1) == _Ch.slash || charAt(i + 1) == _Ch.star)) {
+        ws();
+      } else if (c == _Ch.squote || c == _Ch.dquote) {
+        _string();
+      } else if (c == _Ch.backtick) {
+        _skipTemplateType();
+      } else if (c == _Ch.eq && charAt(i + 1) == _Ch.gt) {
+        i += 2;
+      } else if (c == _Ch.lparen ||
+          c == _Ch.lbracket ||
+          c == _Ch.lbrace ||
+          c == _Ch.lt) {
+        closers.add(switch (c) {
+          _Ch.lparen => _Ch.rparen,
+          _Ch.lbracket => _Ch.rbracket,
+          _Ch.lbrace => _Ch.rbrace,
+          _ => _Ch.gt,
+        });
+        i++;
+      } else if (c == _Ch.rparen ||
+          c == _Ch.rbracket ||
+          c == _Ch.rbrace ||
+          c == _Ch.gt) {
+        if (closers.isEmpty || closers.removeLast() != c) _fail();
+        i++;
+        if (closers.isEmpty) return;
+      } else {
+        i++;
+      }
+    }
+  }
+
+  /// A template literal type (`` `id-${string}` ``).
+  void _skipTemplateType() {
+    i++;
+    while (true) {
+      final c = char;
+      if (c < 0) _fail();
+      if (c == _Ch.backtick) {
+        i++;
+        return;
+      }
+      if (c == _Ch.dollar && charAt(i + 1) == _Ch.lbrace) {
+        i++;
+        _group();
+      } else {
+        i += c == _Ch.backslash ? 2 : 1;
+      }
+    }
   }
 }
 

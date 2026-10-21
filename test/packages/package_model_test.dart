@@ -202,6 +202,298 @@ void main() {
     );
   });
 
+  group('static literals read like the engine', () {
+    Object? config(String value) =>
+        staticExport('export const config = $value\n', 'config');
+
+    test('escapes in strings and template literals', () {
+      expect(
+        config(
+          r"{ a: 'Caf\u00e9', b: '\x41', c: '\u{1F600}', d: 'x\'y', e: 'line\"
+          '\n'
+          r"cont', f: '\v\b\f\0' }",
+        ),
+        {
+          'a': 'Caf\u00e9',
+          'b': 'A',
+          'c': '😀',
+          'd': "x'y",
+          'e': 'linecont',
+          'f': '\v\b\f\u0000',
+        },
+      );
+      expect(config('{ a: `one\ntwo \\u0041` }'), {'a': 'one\ntwo A'});
+    });
+
+    test('numbers: hex, octal, binary, separators, exponents, minus', () {
+      expect(
+        config(
+          '{ a: 0x10, b: 0o17, c: 0b101, d: 1_000, e: 1e3, f: .5, g: 5., h: -0x10, i: - 1, j: -(2), k: 2.0 }',
+        ),
+        {
+          'a': 16,
+          'b': 15,
+          'c': 5,
+          'd': 1000,
+          'e': 1000,
+          'f': 0.5,
+          'g': 5,
+          'h': -16,
+          'i': -1,
+          'j': -2,
+          'k': 2,
+        },
+      );
+    });
+
+    test(
+      'parentheses, TypeScript wrappers, quoted keys, nesting, comments',
+      () {
+        expect(config("({ title: 'Paren' }) as const"), {'title': 'Paren'});
+        expect(
+          config(
+            "{ a: 1 as number, b: [2 as const], c: 'x'!, d: 'y' as 'y' | 'z' } satisfies Record<string, unknown>",
+          ),
+          {
+            'a': 1,
+            'b': [2],
+            'c': 'x',
+            'd': 'y',
+          },
+        );
+        expect(
+          config(
+            "{ 'quoted-key': 1, \"dq\": 2, default: 3, /* c */ e /* c */ : // c\n [[1, [2, {f: [3]}]], {g: {h: null}},], }",
+          ),
+          {
+            'quoted-key': 1,
+            'dq': 2,
+            'default': 3,
+            'e': [
+              [
+                1,
+                [
+                  2,
+                  {
+                    'f': [3],
+                  },
+                ],
+              ],
+              {
+                'g': {'h': null},
+              },
+            ],
+          },
+        );
+        expect(
+          staticExport(
+            'export const config: Record<string, unknown> = { a: 1 }',
+            'config',
+          ),
+          {'a': 1},
+        );
+        expect(
+          staticExport(
+            "export const metadata = foo(), config = { title: 'second' }",
+            'config',
+          ),
+          {'title': 'second'},
+        );
+      },
+    );
+
+    test('dynamic or invalid values are rejected', () {
+      for (final value in [
+        '{ a: +1 }',
+        "{ 1: 'x' }",
+        '{ [k]: 1 }',
+        '{ ...x }',
+        '{ a: [1,,2] }',
+        '{ a: [...x] }',
+        r'{ a: `x ${y}` }',
+        '{ a: undefined }',
+        '{ a: 1e999 }',
+        '{ a: 10n }',
+        '{ a: 08 }',
+        r"{ a: '\1' }",
+        '{ __proto__: 1 }',
+        '{ a() { return 1 } }',
+        '{ a: -(1 as number) }',
+        "{ a: -'1' }",
+        '{ a: (1, 2) }',
+        '{ a: 1 + 2 }',
+        '{ a: 1 } || {}',
+        '{ a: 1 }.a',
+        '{ a: 1 }\n(foo)',
+      ]) {
+        expect(config(value), isNull, reason: value);
+      }
+      expect(
+        staticExport("export let config = { title: 'let' }", 'config'),
+        isNull,
+      );
+      expect(
+        staticExport(
+          "function f() { export const config = { a: 1 } }",
+          'config',
+        ),
+        isNull,
+      );
+    });
+
+    test('only real top-level exports count', () {
+      expect(
+        staticExport(
+          "// export const config = { title: 'commented' }\n"
+              "const s = \"export const config = { title: 'string' }\"\n"
+              "export default function A() { return <p>Don't</p> }\n"
+              "export const config = { title: 'real' }\n",
+          'config',
+        ),
+        {'title': 'real'},
+      );
+    });
+  });
+
+  group('slots in source read like the engine', () {
+    test('comments and strings are not slots', () {
+      expect(
+        slotsInSource(
+          '// <Slot name="old" />\n'
+          'const s = \'<Slot name="fake" />\'\n'
+          'const t = `<Slot name="tpl" />`\n'
+          'export default function A() {\n'
+          '  return <main>{/* <Slot name="aside" /> */}<Slot name="main" /></main>\n'
+          '}\n',
+        ),
+        {'main': 'main'},
+      );
+    });
+
+    test('JSX text is not code; ">" may sit inside attribute values', () {
+      expect(
+        slotsInSource(
+          'export default function A() {\n'
+          '  return <><p title="it\'s">Don\'t // miss</p>'
+          '<Slot title="Deals > all" name="main" />'
+          '<Slot name="a&amp;b" title=\'&quot;Hi&quot;\' /></>\n'
+          '}\n',
+        ),
+        {'main': 'Deals > all', 'a&b': '"Hi"'},
+      );
+    });
+
+    test('names must be string literals; the first repeated name wins', () {
+      expect(
+        slotsInSource(
+          "export default function A() { return <><Slot name={'main'} /><Slot name=\"x\" title={'T'} />"
+          '<Slot name="dup" title="First" /><Slot name="dup" title="Second" /><SlotX name="no" /></> }\n',
+        ),
+        {'x': 'x', 'dup': 'First'},
+      );
+    });
+
+    test('generics, comparisons and regexes do not confuse the scan', () {
+      expect(
+        slotsInSource(
+          'const f = <T,>(x: T) => x\n'
+          'export default function A({ items }: { items: Array<string> }) {\n'
+          '  const re = /[\'"<]/g\n'
+          '  const half = items.length / 2\n'
+          '  if (half < 3) {}\n'
+          '  return <ul>{items.map((i) => <li key={i}>{i}</li>)}<Slot name="main" title="List" /></ul>\n'
+          '}\n',
+        ),
+        {'main': 'List'},
+      );
+    });
+  });
+
+  group('route rules match the engine', () {
+    test('invalid, reserved and dynamic free routes are not views', () {
+      const rejected = {
+        'app/about_us/page.tsx': 'ROUTE_SEGMENT',
+        'app/FAQ/page.tsx': 'ROUTE_SEGMENT',
+        'app/(shop)/page.tsx': 'ROUTE_SEGMENT',
+        'app/products/sale/page.tsx': 'ROUTE_RESERVED',
+        'app/categories/all/page.tsx': 'ROUTE_RESERVED',
+        'app/pages/about/page.tsx': 'ROUTE_RESERVED',
+        'app/p/x/page.tsx': 'ROUTE_RESERVED',
+        'app/api/page.tsx': 'ROUTE_RESERVED',
+        'app/sitemaps/page.tsx': 'ROUTE_RESERVED',
+        'app/cart/extra/page.tsx': 'ROUTE_RESERVED',
+        'app/not-found/page.tsx': 'ROUTE_RESERVED',
+        'app/index/page.tsx': 'ROUTE_RESERVED',
+        'app/blog/[slug]/page.tsx': 'ROUTE_DYNAMIC',
+      };
+      const accepted = {
+        'app/contact/page.tsx': 'contact',
+        'app/about/team-2/page.tsx': 'about/team-2',
+        'app/products/page.tsx': 'products',
+        'app/categories/[slug]/page.tsx': 'categories/[slug]',
+        'app/pages/[slug]/page.tsx': 'pages/[slug]',
+      };
+      for (final e in rejected.entries) {
+        expect(PackageModel.routeIssueOf(e.key)?.code, e.value, reason: e.key);
+        expect(PackageModel.routeOf(e.key), isNull, reason: e.key);
+      }
+      for (final e in accepted.entries) {
+        expect(PackageModel.routeIssueOf(e.key), isNull, reason: e.key);
+        expect(PackageModel.routeOf(e.key), e.value, reason: e.key);
+      }
+
+      final next = PackageModel.parse({
+        ...files,
+        'app/about_us/page.tsx': route,
+        'app/products/sale/page.tsx': route,
+        'app/about/page.jsx': route,
+      });
+      expect(next.pageIds, model.pageIds);
+      expect(next.issues.map((i) => '${i.code} ${i.path}'), [
+        'ROUTE_DUPLICATE app/about/page.tsx',
+        'ROUTE_SEGMENT app/about_us/page.tsx',
+        'ROUTE_RESERVED app/products/sale/page.tsx',
+      ]);
+      expect(next.route('about')!.source, 'app/about/page.jsx');
+      expect(model.issues, isEmpty);
+    });
+
+    test('the store page frame is not an editable view', () {
+      final next = PackageModel.parse({
+        ...files,
+        'app/pages/[slug]/page.tsx': "import { Slot } from '@feeef/template'\nexport default function Frame() { return <article><Slot name=\"main\" /></article> }\n",
+      });
+      expect(next.pageIds, model.pageIds);
+      expect(next.routes.map((r) => r.id), isNot(contains('pages/[slug]')));
+      expect(next.storePageFrame!.slots, {'main': 'main'});
+      expect(next.issues, isEmpty);
+      // The store page editor still edits a store page's content through the frame.
+      final tree = next.page(PackageModel.storePageRoute);
+      tree.insert('header', tree.defaultLocation());
+      expect(next.savePage(PackageModel.storePageRoute, tree).changes.keys, [
+        'content/pages/pages/[slug].json',
+      ]);
+
+      final broken = PackageModel.parse({
+        ...files,
+        'app/pages/[slug]/page.tsx':
+            'export default function Frame() { return <Slot name="body" /> }\n',
+        'content/pages/pages/[slug].json': enc({
+          'slots': {
+            'body': [
+              {'id': 'header-frame', 'use': 'header'},
+            ],
+          },
+        }),
+      });
+      expect(broken.issues.map((i) => '${i.code} ${i.path}'), [
+        'STORE_PAGE_SLOT app/pages/[slug]/page.tsx',
+        'CONTENT_STORE_PAGE content/pages/pages/[slug].json',
+      ]);
+      expect(broken.placementsOf('header').length, 3);
+    });
+  });
+
   group('content operations', () {
     test('move keeps ids; only the content file changes', () {
       final tree = model.page('index');

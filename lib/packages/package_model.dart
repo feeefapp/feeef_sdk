@@ -46,58 +46,87 @@ class CoreBlock {
   String get use => 'core/$id';
 }
 
-const coreBlocks = <CoreBlock>[
+Map<String, Object?> _slider(String title, int min, int max, int def) =>
+    {'type': 'integer', 'title': title, 'minimum': min, 'maximum': max, 'ui': 'slider', 'default': def};
+Map<String, Object?> _choice(String title, List<String> values, String def) =>
+    {'type': 'string', 'title': title, 'enum': values, 'default': def};
+const Map<String, Object?> _label = {'type': 'string', 'title': 'Label'};
+const Map<String, Object?> _placeholder = {'type': 'string', 'title': 'Placeholder'};
+Map<String, Object?> _required(bool def) => {'type': 'boolean', 'title': 'Required', 'default': def};
+
+/// An order form field block (`core/order-<field>`); runtime `OrderField({field})`.
+CoreBlock _field(String field, String title, String icon, {bool text = false, bool? required}) => CoreBlock(
+      'order-$field',
+      title,
+      icon: icon,
+      category: 'Order form',
+      props: {
+        'label': _label,
+        if (text) 'placeholder': _placeholder,
+        if (required != null) 'required': _required(required),
+      },
+    );
+
+/// Mirror of `@feeef/engine` CORE_COMPONENTS (blocks contract: ids, titles, props, slots).
+final coreBlocks = <CoreBlock>[
   CoreBlock(
     'box',
     'Box',
-    slots: {'main': 'Content'},
+    slots: const {'main': 'Content'},
     layout: true,
     icon: 'layout',
     category: 'Layout',
     props: {
-      'direction': {
-        'type': 'string',
-        'title': 'Direction',
-        'enum': ['column', 'row'],
-        'default': 'column',
-      },
-      'columns': {
-        'type': 'integer',
-        'title': 'Columns',
-        'minimum': 0,
-        'maximum': 12,
-        'ui': 'slider',
-        'default': 0,
-      },
-      'gap': {
-        'type': 'integer',
-        'title': 'Gap',
-        'minimum': 0,
-        'maximum': 200,
-        'ui': 'slider',
-        'default': 16,
-      },
-      'maxWidth': {
-        'type': 'integer',
-        'title': 'Max width',
-        'minimum': 0,
-        'maximum': 4000,
-        'default': 0,
-      },
+      'direction': _choice('Direction', const ['row', 'column'], 'column'),
+      'phoneDirection': _choice('On phones', const ['same', 'row', 'column'], 'column'),
+      'columns': _slider('Columns', 0, 12, 0),
+      'phoneColumns': _slider('Columns on phones', 0, 12, 1),
+      'gap': _slider('Gap', 0, 200, 16),
+      'phoneGap': _slider('Gap on phones', 0, 200, 12),
+      'align': _choice('Align', const ['stretch', 'start', 'center', 'end'], 'stretch'),
+      'justify': _choice('Justify', const ['start', 'center', 'end', 'between'], 'start'),
+      'padding': _slider('Padding', 0, 200, 0),
+      'maxWidth': _slider('Max width', 0, 4000, 0),
     },
   ),
-  CoreBlock(
+  const CoreBlock(
     'product',
     'Product',
     slots: {'main': 'Content'},
     icon: 'package',
+    category: 'Product',
     props: {
       'productId': {'type': 'string', 'title': 'Product', 'ui': 'product'},
     },
   ),
-  CoreBlock('product-gallery', 'Product gallery', icon: 'photo'),
-  CoreBlock('order-form', 'Order form', icon: 'forms'),
-  CoreBlock('order-button', 'Floating order button', icon: 'shopping-cart'),
+  CoreBlock('product-title', 'Product title', icon: 'text-t', category: 'Product', props: {'tag': _choice('Heading', const ['h1', 'h2', 'h3'], 'h1')}),
+  const CoreBlock(
+    'product-price',
+    'Product price',
+    icon: 'currency-dollar',
+    category: 'Product',
+    props: {
+      'showCompare': {'type': 'boolean', 'title': 'Show the old price', 'default': true},
+    },
+  ),
+  const CoreBlock('product-description', 'Product description', icon: 'article', category: 'Product'),
+  const CoreBlock('product-gallery', 'Product gallery', icon: 'images', category: 'Product'),
+  const CoreBlock('product-variants', 'Product variants', icon: 'sliders', category: 'Product'),
+  const CoreBlock('product-offers', 'Product offers', icon: 'tag', category: 'Product'),
+  const CoreBlock('order-form', 'Order form', slots: {'main': 'Fields'}, icon: 'list-checks', category: 'Order form'),
+  _field('name', 'Customer name', 'user', text: true, required: true),
+  _field('phone', 'Phone number', 'phone', text: true),
+  _field('email', 'Email', 'envelope', text: true, required: false),
+  _field('location', 'State and city', 'map-pin'),
+  _field('address', 'Address', 'house', text: true, required: false),
+  _field('note', 'Note', 'note', text: true, required: false),
+  _field('quantity', 'Quantity', 'hash'),
+  _field('shipping', 'Shipping', 'truck'),
+  _field('addons', 'Add-ons', 'plus-circle'),
+  _field('custom-fields', 'Custom fields', 'list'),
+  _field('summary', 'Order summary', 'receipt'),
+  _field('submit', 'Order button', 'paper-plane-tilt'),
+  const CoreBlock('order-button', 'Floating order button', icon: 'shopping-cart', category: 'Order form'),
 ];
 
 CoreBlock? coreBlock(String use) {

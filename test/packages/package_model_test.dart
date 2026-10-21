@@ -769,4 +769,13 @@ void main() {
       'core/product',
     );
   });
+  test('the core catalog mirrors the composable commerce blocks', () {
+    final ids = coreBlocks.map((b) => b.use).toSet();
+    expect(ids, containsAll(['core/box', 'core/product-title', 'core/product-price', 'core/product-description', 'core/product-gallery', 'core/product-variants', 'core/product-offers', 'core/order-form', 'core/order-name', 'core/order-phone', 'core/order-location', 'core/order-submit']));
+    final box = coreBlock('core/box')!;
+    expect(box.props.keys, containsAll(['direction', 'phoneDirection', 'columns', 'phoneColumns', 'gap', 'phoneGap', 'align', 'justify', 'padding', 'maxWidth']));
+    expect((box.props['phoneColumns'] as Map)['default'], 1);
+    expect(coreBlock('core/order-form')!.slots, {'main': 'Fields'});
+    expect(coreBlock('core/order-name')!.category, 'Order form');
+  });
 }

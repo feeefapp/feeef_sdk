@@ -6,7 +6,8 @@ import 'package:dio/dio.dart';
 /// live template, store pages, marketplace, licences and reviews. Errors surface as
 /// [DioException]s whose `response.data` is `{code, message, ...}`.
 class PackagesApi {
-  PackagesApi(this.client, {Dio? artifactClient}) : artifactClient = artifactClient ?? Dio();
+  PackagesApi(this.client, {Dio? artifactClient})
+    : artifactClient = artifactClient ?? Dio();
   final Dio client;
 
   /// Unauthenticated client for public artifacts (never sends the store token to the CDN).
@@ -240,7 +241,7 @@ class PackagesApi {
     String storeId, {
     required String path,
     String? title,
-    Map<String, dynamic>? root,
+    Map<String, dynamic>? content,
     String? productId,
   }) => _call(
     'POST',
@@ -248,12 +249,13 @@ class PackagesApi {
     body: {
       'path': path,
       'title': ?title,
-      'root': ?root,
+      'content': ?content,
       'productId': ?productId,
     },
   );
 
-  /// Version-checked edit of any of `path, title, root, seo, data, productId`.
+  /// Version-checked edit of any of `path, title, content, seo, productId`.
+  /// `content` is `{slots: {main: [Node]}}` (docs/template-system/SPEC.md §5).
   Future<Map<String, dynamic>> updatePage(
     String storeId,
     String pageId, {

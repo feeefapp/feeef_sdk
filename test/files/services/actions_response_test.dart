@@ -54,44 +54,6 @@ void main() {
     });
   });
 
-  group('AICustomComponentResponse', () {
-    test('fromJson parses all fields', () {
-      final r = AICustomComponentResponse.fromJson({
-        'success': true,
-        'code': 'const X = () => null;',
-        'propsSchema': {'type': 'object'},
-        'props': {'a': 1},
-        'message': 'OK',
-        'title': 'MyComponent',
-      });
-      expect(r.success, isTrue);
-      expect(r.code, 'const X = () => null;');
-      expect(r.propsSchema, {'type': 'object'});
-      expect(r.props, {'a': 1});
-      expect(r.title, 'MyComponent');
-    });
-
-    test('hasError and hasPayload', () {
-      final err = AICustomComponentResponse(
-        success: false,
-        message: '',
-        error: 'fail',
-      );
-      expect(err.hasError, isTrue);
-      expect(err.hasPayload, isFalse);
-
-      final ok = AICustomComponentResponse(
-        success: true,
-        message: '',
-        code: 'x',
-        propsSchema: {},
-        props: {},
-      );
-      expect(ok.hasError, isFalse);
-      expect(ok.hasPayload, isTrue);
-    });
-  });
-
   group('Actions enums', () {
     test('SendEventToMetaPixelActionEvents values', () {
       expect(SendEventToMetaPixelActionEvents.values, isNotEmpty);

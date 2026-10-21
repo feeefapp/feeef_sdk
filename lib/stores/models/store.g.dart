@@ -74,7 +74,6 @@ _Store _$StoreFromJson(Map<String, dynamic> json) => _Store(
       ? null
       : StoreConfigs.fromJson(json['configs'] as Map<String, dynamic>),
   shippingFeeId: json['shippingFeeId'] as String?,
-  templateId: json['templateId'] as String?,
   projectId: json['projectId'] as String?,
   metaPixelIds: (json['metaPixelIds'] as List<dynamic>?)
       ?.map((e) => e as String)
@@ -85,7 +84,7 @@ _Store _$StoreFromJson(Map<String, dynamic> json) => _Store(
       ) ??
       const {},
   lor: _storeLorFromJson(json['lor']),
-  template: _storeTemplateFromJson(json['template']),
+  templateVersionId: json['templateVersionId'] as String?,
 );
 
 Map<String, dynamic> _$StoreToJson(_Store instance) => <String, dynamic>{
@@ -120,12 +119,11 @@ Map<String, dynamic> _$StoreToJson(_Store instance) => <String, dynamic>{
   'due': instance.due,
   'configs': instance.configs?.toJson(),
   'shippingFeeId': instance.shippingFeeId,
-  'templateId': instance.templateId,
   'projectId': instance.projectId,
   'metaPixelIds': instance.metaPixelIds,
   'members': instance.members.map((k, e) => MapEntry(k, e.toJson())),
   'lor': _storeLorToJson(instance.lor),
-  'template': _storeTemplateToJson(instance.template),
+  'templateVersionId': instance.templateVersionId,
 };
 
 _StoreCreate _$StoreCreateFromJson(Map<String, dynamic> json) => _StoreCreate(
@@ -254,7 +252,6 @@ _StoreUpdate _$StoreUpdateFromJson(Map<String, dynamic> json) => _StoreUpdate(
       ? null
       : StoreConfigs.fromJson(json['configs'] as Map<String, dynamic>),
   shippingFeeId: json['shippingFeeId'] as String?,
-  templateId: json['templateId'] as String?,
   projectId: json['projectId'] as String?,
 );
 
@@ -282,7 +279,6 @@ Map<String, dynamic> _$StoreUpdateToJson(_StoreUpdate instance) =>
       'due': instance.due,
       'configs': instance.configs?.toJson(),
       'shippingFeeId': instance.shippingFeeId,
-      'templateId': instance.templateId,
       'projectId': instance.projectId,
     };
 

@@ -64,17 +64,12 @@ enum StorePermission {
   pagesRead(MemberScope.pagesRead, _editorViewer),
   pagesWrite(MemberScope.pages, _editorOnly),
 
-  productLandingPagesRead(MemberScope.productLandingPagesRead, _editorViewer),
-  productLandingPagesWrite(MemberScope.productLandingPages, _editorOnly),
 
   shippingPricesRead(MemberScope.shippingPricesRead, _readRoles),
   shippingPricesWrite(MemberScope.shippingPrices, _editorOnly),
 
-  templateComponentsRead(MemberScope.templateComponentsRead, _readRoles),
-  templateComponentsWrite(MemberScope.templateComponents, _editorOnly),
-
-  storeTemplatesRead(MemberScope.storeTemplatesRead, _readRoles),
-  storeTemplatesWrite(MemberScope.storeTemplates, _editorOnly),
+  packagesRead(MemberScope.packagesRead, _readRoles),
+  packagesWrite(MemberScope.packages, _editorOnly),
 
   financeRead(MemberScope.financeRead, _readRoles),
   financeWrite(MemberScope.finance, _editorOnly),
@@ -156,7 +151,7 @@ extension StorePermissionAccess<T extends Model> on AuthResponse<T> {
       StorePermission.shippingPricesRead,
       StorePermission.inventoryRead,
       StorePermission.financeRead,
-      StorePermission.productLandingPagesRead,
+      StorePermission.pagesRead,
       StorePermission.categoriesRead,
       StorePermission.storeRead,
     ]);

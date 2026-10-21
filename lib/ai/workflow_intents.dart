@@ -16,8 +16,7 @@ class CloudAiWorkflowIntents extends QueuedInterceptor {
   /// backend `workflow_routes.ts`).
   static final _paths = [
     RegExp(r'^text/(product-draft|shipping-price-draft|order-draft|list-filter|date-preset|custom-fields-draft|review-reply|review-summary)$'),
-    RegExp(r'^code/(snippet|custom-component|template-page-edit|landing-page-template-data)$'),
-    RegExp(r'^landing-pages$'),
+    RegExp(r'^code/(snippet|package-edit)$'),
     RegExp(r'^images/sync$'),
     RegExp(r'^image-generations(?:/[^/]+/regenerate)?$'),
     RegExp(r'^image-landing-pages$'),

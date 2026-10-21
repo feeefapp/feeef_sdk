@@ -1,7 +1,7 @@
 import 'package:feeef/interfaces/embadded/store.dart';
 
 /// Canonical member RBAC scope strings (aligned with API `StoreMember.scopes`).
-/// Names follow API resources (e.g. `product_landing_pages`, `shipping_prices`).
+/// Names follow API resources (e.g. `packages`, `shipping_prices`).
 abstract final class MemberScope {
   static const store = 'store';
   static const storeRead = 'store.read';
@@ -22,18 +22,12 @@ abstract final class MemberScope {
   static const pages = 'pages';
   static const pagesRead = 'pages.read';
 
-  /// Product landing pages (resource `product_landing_pages`).
-  static const productLandingPages = 'product_landing_pages';
-  static const productLandingPagesRead = 'product_landing_pages.read';
-
   static const shippingPrices = 'shipping_prices';
   static const shippingPricesRead = 'shipping_prices.read';
 
-  static const templateComponents = 'template_components';
-  static const templateComponentsRead = 'template_components.read';
-
-  static const storeTemplates = 'store_templates';
-  static const storeTemplatesRead = 'store_templates.read';
+  /// Templates, components and pages packages (resource `packages`).
+  static const packages = 'packages';
+  static const packagesRead = 'packages.read';
 
   static const inventory = 'inventory';
   static const inventoryRead = 'inventory.read';
@@ -57,14 +51,10 @@ abstract final class MemberScope {
     categoriesRead,
     pages,
     pagesRead,
-    productLandingPages,
-    productLandingPagesRead,
     shippingPrices,
     shippingPricesRead,
-    templateComponents,
-    templateComponentsRead,
-    storeTemplates,
-    storeTemplatesRead,
+    packages,
+    packagesRead,
     inventory,
     inventoryRead,
     finance,

@@ -43,7 +43,7 @@ void main() {
           ),
           const StoreAttachment(value: 'store_1', label: 'Feeef'),
         ],
-        templateData: {'name': 'Luxury', 'prompt': 'Use gold accents'},
+        inlineTemplate: {'name': 'Luxury', 'prompt': 'Use gold accents'},
         aspectRatio: '9:32',
         imageModel: 'gemini-3.1-flash-image-preview',
         textModel: 'gemini-3.1-flash-lite-preview',
@@ -75,7 +75,7 @@ void main() {
       expect(body[ImageLandingPageRequestKeys.background], 'opaque');
       expect(body[ImageLandingPageRequestKeys.loadProductImage], isFalse);
       expect(body[ImageLandingPageRequestKeys.sectionsCount], 7);
-      expect(body[ImageLandingPageRequestKeys.templateData], {
+      expect(body[ImageLandingPageRequestKeys.inlineTemplate], {
         'name': 'Luxury',
         'prompt': 'Use gold accents',
       });

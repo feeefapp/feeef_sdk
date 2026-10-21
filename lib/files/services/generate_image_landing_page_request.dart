@@ -26,7 +26,7 @@ const List<String> kImageLandingPageAspectRatios = [
 abstract final class ImageLandingPageRequestKeys {
   static const text = 'text';
   static const attachments = 'attachments';
-  static const templateData = 'templateData';
+  static const inlineTemplate = 'inlineTemplate';
   static const templateId = 'templateId';
   static const answers = 'answers';
   static const storeId = 'storeId';
@@ -49,7 +49,7 @@ abstract final class ImageLandingPageRequestKeys {
 Map<String, dynamic> buildGenerateImageLandingPageRequestData({
   required String text,
   List<Attachment>? attachments,
-  Map<String, dynamic>? templateData,
+  Map<String, dynamic>? inlineTemplate,
   String? templateId,
   Map<String, Object>? answers,
   String? storeId,
@@ -75,8 +75,8 @@ Map<String, dynamic> buildGenerateImageLandingPageRequestData({
     // serialized (Dio would send `"loadProductImage": null` otherwise).
     if (attachmentMaps != null)
       ImageLandingPageRequestKeys.attachments: attachmentMaps,
-    if (templateData != null)
-      ImageLandingPageRequestKeys.templateData: templateData,
+    if (inlineTemplate != null)
+      ImageLandingPageRequestKeys.inlineTemplate: inlineTemplate,
     if (templateId != null && templateId.trim().isNotEmpty)
       ImageLandingPageRequestKeys.templateId: templateId.trim(),
     if (answers != null && answers.isNotEmpty)

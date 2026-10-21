@@ -27,8 +27,8 @@ abstract class StoreEntity {
   // metaPixelIds
   List<String>? get metaPixelIds;
 
-  /// Active full-site template id (`store_templates.id`), if any.
-  String? get templateId;
+  /// Live template version (`package_versions.id`), if any.
+  String? get templateVersionId;
 
   /// Linked inventory project ID.
   String? get projectId;

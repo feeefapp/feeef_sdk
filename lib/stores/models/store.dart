@@ -11,7 +11,6 @@ import '../../interfaces/embadded/store_integrations.dart';
 import '../../interfaces/helpers.dart';
 import '../../interfaces/store.dart';
 import 'package:feeef/orders/models/lite_orders_report.dart';
-import 'package:feeef/store_templates/store_template.dart';
 
 part 'store.freezed.dart';
 part 'store.g.dart';
@@ -25,61 +24,13 @@ LiteOrdersReport? _storeLorFromJson(Object? o) {
 
 Object? _storeLorToJson(LiteOrdersReport? v) => v?.toJson();
 
-StoreTemplate? _storeTemplateFromJson(Object? o) {
-  if (o == null) return null;
-  if (o is Map<String, dynamic>) return StoreTemplate.fromJson(o);
-  if (o is Map) return StoreTemplate.fromJson(Map<String, dynamic>.from(o));
-  return null;
-}
-
-Object? _storeTemplateToJson(StoreTemplate? v) => v?.toJson();
 
 /// Shared deep equality for small nested collections (categories, contacts, …).
 const _storeDeepEq = DeepCollectionEquality();
 
-/// Metadata key holding the full Lithium template document (pages / JSX code).
-///
-/// Often multi‑MB. Freezed's default [DeepCollectionEquality] on [Store.metadata]
-/// walks every leaf on every `==` / `hashCode` — catastrophic for Bloc
-/// `buildWhen`, `context.select`, and state hashing. Compare this key by
-/// [identical] only (never deep-equal / deep-hash the tree).
-const kStoreMetadataTemplateDataKey = 'templateData';
-
-/// Cheap [Store.metadata] equality: deep-compare small keys; [templateData] by
-/// identity only.
-bool storeMetadataEquals(Map<String, dynamic> a, Map<String, dynamic> b) {
-  if (identical(a, b)) return true;
-  if (a.length != b.length) return false;
-  for (final entry in a.entries) {
-    if (!b.containsKey(entry.key)) return false;
-    final other = b[entry.key];
-    if (entry.key == kStoreMetadataTemplateDataKey) {
-      if (!identical(entry.value, other)) return false;
-      continue;
-    }
-    if (!_storeDeepEq.equals(entry.value, other)) return false;
-  }
-  return true;
-}
-
-/// Hash for [Store.metadata] that never deep-hashes [templateData].
-int storeMetadataHash(Map<String, dynamic> metadata) {
-  var hash = metadata.length;
-  for (final entry in metadata.entries) {
-    final valueHash = entry.key == kStoreMetadataTemplateDataKey
-        ? identityHashCode(entry.value)
-        : _storeDeepEq.hash(entry.value);
-    hash = Object.hash(hash, entry.key, valueHash);
-  }
-  return hash;
-}
-
 /// Normalizes API aliases before passing to generated `_$StoreFromJson`.
 Map<String, dynamic> _normalizedStoreJson(Map<String, dynamic> json) {
   final m = Map<String, dynamic>.from(json);
-  if (m['templateId'] == null && m['template_id'] != null) {
-    m['templateId'] = m['template_id'];
-  }
   if (m['projectId'] == null && m['project_id'] != null) {
     m['projectId'] = m['project_id'];
   }
@@ -156,9 +107,8 @@ Map<String, dynamic>? _storeIntegrationsToJson(StoreIntegrations? object) {
 
 // // StoreConfigs
 // configs?: StoreConfigs
-/// [equal]/false] / [toStringOverride]:false — default Freezed deep-equality and
-/// `toString` walk [metadata] (incl. huge [templateData]). We implement cheap
-/// versions below; see [storeMetadataEquals].
+/// [equal]/false] / [toStringOverride]:false — cheap equality and `toString`
+/// that never dump [metadata].
 @Freezed(equal: false, toStringOverride: false)
 abstract class Store extends StoreEntity
     with _$Store
@@ -200,7 +150,6 @@ abstract class Store extends StoreEntity
     StoreConfigs? configs,
     /// Cloud shipping fee: `ca_…` (account) or `unassigned` (project fees).
     String? shippingFeeId,
-    String? templateId,
     String? projectId,
     // metaPixelIds
     List<String>? metaPixelIds,
@@ -208,9 +157,8 @@ abstract class Store extends StoreEntity
     /// Present when list/show is called with `with[]=lor` and the user may view analytics.
     @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson)
     LiteOrdersReport? lor,
-    /// Present when `with[]=template` — active [StoreTemplate] row (usually the store fork).
-    @JsonKey(fromJson: _storeTemplateFromJson, toJson: _storeTemplateToJson)
-    StoreTemplate? template,
+    /// Live template version (packages system).
+    String? templateVersionId,
   }) = _Store;
 
   factory Store.fromJson(Map<String, dynamic> json) =>
@@ -240,7 +188,7 @@ abstract class Store extends StoreEntity
             other.description == description &&
             _storeDeepEq.equals(other.addresses, addresses) &&
             other.address == address &&
-            storeMetadataEquals(other.metadata, metadata) &&
+            _storeDeepEq.equals(other.metadata, metadata) &&
             _storeDeepEq.equals(other.contacts, contacts) &&
             other.integrations == integrations &&
             _storeDeepEq.equals(
@@ -251,12 +199,11 @@ abstract class Store extends StoreEntity
             other.due == due &&
             other.configs == configs &&
             other.shippingFeeId == shippingFeeId &&
-            other.templateId == templateId &&
             other.projectId == projectId &&
             _storeDeepEq.equals(other.metaPixelIds, metaPixelIds) &&
             _storeDeepEq.equals(other.members, members) &&
             other.lor == lor &&
-            other.template == template);
+            other.templateVersionId == templateVersionId);
   }
 
   @override
@@ -281,7 +228,7 @@ abstract class Store extends StoreEntity
         description,
         _storeDeepEq.hash(addresses),
         address,
-        storeMetadataHash(metadata),
+        _storeDeepEq.hash(metadata),
         _storeDeepEq.hash(contacts),
         integrations,
         _storeDeepEq.hash(defaultShippingRates),
@@ -291,25 +238,18 @@ abstract class Store extends StoreEntity
         due,
         configs,
         shippingFeeId,
-        templateId,
         projectId,
         _storeDeepEq.hash(metaPixelIds),
         _storeDeepEq.hash(members),
         lor,
-        template,
+        templateVersionId,
       ]);
 
-  /// Omits [metadata] / [template] payloads — dumping them freezes the UI.
+  /// Omits [metadata] values — dumping them freezes the UI.
   @override
-  String toString() {
-    final templateData = metadata[kStoreMetadataTemplateDataKey];
-    final templateHint = templateData == null
-        ? 'null'
-        : 'present(identity=${identityHashCode(templateData)})';
-    return 'Store(id: $id, slug: $slug, name: $name, updatedAt: $updatedAt, '
-        'templateId: $templateId, metadataKeys: ${metadata.keys.toList()}, '
-        'templateData: $templateHint)';
-  }
+  String toString() =>
+      'Store(id: $id, slug: $slug, name: $name, updatedAt: $updatedAt, '
+      'templateVersionId: $templateVersionId, metadataKeys: ${metadata.keys.toList()})';
 }
 
 // StoreCreate
@@ -383,7 +323,6 @@ abstract class StoreUpdate with _$StoreUpdate implements ModelUpdate {
     // StoreConfigs
     StoreConfigs? configs,
     String? shippingFeeId,
-    String? templateId,
     String? projectId,
   }) = _StoreUpdate;
 
@@ -399,11 +338,7 @@ extension StoreExtensions on Store {
     ) {
       url = "$url${domain!.name}";
     } else {
-      // Assuming the Store class has a property `id` or `slug` to generate the public URL
-      // Replace `id` with the appropriate property if necessary
-      final data = metadata['templateData'];
-      final helium = data is Map && data['runtime'] == 'helium' && data['schemaVersion'] == 2;
-      url = helium ? "$url$slug.h.feeef.store" : "$url$slug.alpha.feeef.store";
+      url = "$url$slug.h.feeef.store";
     }
     return url + path;
   }
@@ -489,7 +424,6 @@ extension StoreExtensions on Store {
       configs: patch.containsKey('configs') ? update.configs : configs,
       shippingFeeId:
           patch.containsKey('shippingFeeId') ? update.shippingFeeId : shippingFeeId,
-      templateId: patch.containsKey('templateId') ? update.templateId : templateId,
       projectId: patch.containsKey('projectId') ? update.projectId : projectId,
     );
   }

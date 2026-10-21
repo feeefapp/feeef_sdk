@@ -89,4 +89,5 @@ export 'geo/geo_api.dart';
 export 'stores/store_invites_repository.dart';
 export 'users/user_repository.dart';
 
+export 'template_projects/project_model.dart';
 export 'template_projects/template_projects_api.dart';

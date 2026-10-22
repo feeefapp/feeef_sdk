@@ -110,6 +110,34 @@ void main() {
       PackageModel.parse({...files, ...edit.changes});
 
   group('reading', () {
+    test('a component skeleton is read from its config literal and from an artifact', () {
+      final withSkeleton = PackageModel.parse({
+        ...files,
+        'components/rail.tsx':
+            "export const config = { title: 'Rail', skeleton: [{ text: { width: 0.4, size: 'lg' } }, { grid: { columns: 4, phone: 2, item: [{ image: { aspect: 1 } }, 'price'] } }] }\nexport default function Rail() { return null }\n",
+      });
+      expect(withSkeleton.localComponents['rail']!.skeleton, [
+        {'text': {'width': 0.4, 'size': 'lg'}},
+        {
+          'grid': {
+            'columns': 4,
+            'phone': 2,
+            'item': [
+              {'image': {'aspect': 1}},
+              'price',
+            ],
+          },
+        },
+      ]);
+      expect(withSkeleton.localComponents['header']!.skeleton, isNull);
+      final fromArtifact = ComponentInfo.fromArtifact('reviews/list', {
+        'title': 'Reviews',
+        'skeleton': ['stars', 'text'],
+      });
+      expect(fromArtifact.skeleton, ['stars', 'text']);
+      expect(fromArtifact.renamed('list').skeleton, ['stars', 'text']);
+    });
+
     test('routes, layout, components, catalog, placements', () {
       expect(model.pageIds, [
         'index',

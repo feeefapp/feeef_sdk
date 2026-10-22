@@ -167,6 +167,7 @@ class ComponentInfo {
     this.icon,
     this.category,
     this.description,
+    this.skeleton,
   });
   final String use;
   final String title;
@@ -181,6 +182,10 @@ class ComponentInfo {
   final String? icon;
   final String? category;
   final String? description;
+
+  /// How the editor's layout view draws the component (`config.skeleton`, SPEC §4): a list of
+  /// shape elements, or null to let the editor guess from the title.
+  final List<dynamic>? skeleton;
 
   bool get isCore => use.startsWith('core/');
   bool get isLayout => coreBlock(use)?.layout ?? false;
@@ -216,6 +221,7 @@ class ComponentInfo {
       icon: config['icon'] as String?,
       category: config['category'] as String?,
       description: config['description'] as String?,
+      skeleton: config['skeleton'] is List ? config['skeleton'] as List : null,
     );
   }
 
@@ -231,6 +237,7 @@ class ComponentInfo {
       icon: json['icon'] as String?,
       category: json['category'] as String?,
       description: json['description'] as String?,
+      skeleton: json['skeleton'] is List ? json['skeleton'] as List : null,
     );
   }
 
@@ -243,6 +250,7 @@ class ComponentInfo {
     icon: icon,
     category: category,
     description: description,
+    skeleton: skeleton,
   );
 }
 

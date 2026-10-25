@@ -1906,8 +1906,8 @@ return $default(_that.startAt,_that.expiresAt,_that.status,_that.price,_that.aut
 /// @nodoc
 @JsonSerializable()
 
-class _StoreIntegrationSubscription implements StoreIntegrationSubscription {
-  const _StoreIntegrationSubscription({required this.startAt, this.expiresAt, this.status = IntegrationBillingStatus.active, this.price = 0, this.autoRenew = true, this.failedAttempts = 0, this.nextRetryAt});
+class _StoreIntegrationSubscription extends StoreIntegrationSubscription {
+  const _StoreIntegrationSubscription({required this.startAt, this.expiresAt, this.status = IntegrationBillingStatus.active, this.price = 0, this.autoRenew = true, this.failedAttempts = 0, this.nextRetryAt}): super._();
   factory _StoreIntegrationSubscription.fromJson(Map<String, dynamic> json) => _$StoreIntegrationSubscriptionFromJson(json);
 
 @override final  DateTime startAt;

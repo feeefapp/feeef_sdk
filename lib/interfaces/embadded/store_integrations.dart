@@ -876,14 +876,12 @@ abstract class SecurityOption with _$SecurityOption {
     @Default(SecurityTreatment.block) SecurityTreatment treatment,
 
     /// Fingerprint rule only (`options.fingerprint.missingTreatment`):
-    /// treatment when the device fingerprint is missing (ad-blocker, private
-    /// mode, form sent before the fingerprint loaded). `block | warning`;
-    /// null = follow [treatment] (today's backend behavior).
-    ///
-    /// Confirmed by the team lead as `'block' | 'warning' | null`;
-    /// PROVISIONAL until the backend sends the final shape. Only block /
-    /// warning are accepted (`fake` and unknown values -> null) and the key is
-    /// omitted from JSON when null, so existing payloads round-trip unchanged.
+    /// treatment when the storefront sends no device fingerprint (ad-blocker,
+    /// private mode, form sent before the fingerprint loaded, or a storefront
+    /// that doesn't identify devices). `block | warning`; null = accept the
+    /// order (the backend default since 2026-10-25). Only block / warning are
+    /// accepted (`fake` and unknown values -> null) and the key is omitted from
+    /// JSON when null.
     @JsonKey(
       name: SecurityGeoJsonKeys.missingTreatment,
       fromJson: securityMissingTreatmentFromJson,
@@ -893,9 +891,6 @@ abstract class SecurityOption with _$SecurityOption {
     SecurityTreatment? missingTreatment,
   }) = _SecurityOption;
 
-  /// Treatment applied when the fingerprint is missing.
-  SecurityTreatment get effectiveMissingTreatment =>
-      missingTreatment ?? treatment;
 
   factory SecurityOption.fromJson(Map<String, dynamic> json) =>
       _$SecurityOptionFromJson(json);

@@ -167,16 +167,15 @@ void main() {
   });
 
   group(
-    'fingerprint.missingTreatment (block | warning | null, provisional)',
+    'fingerprint.missingTreatment (block | warning | null = accept)',
     () {
-      test('absent: null, follows treatment, not written', () {
+      test('absent: null (accept), not written', () {
         final f = SecurityOption.fromJson({
           'active': true,
           'ttl': 3600,
           'treatment': 'block',
         });
         expect(f.missingTreatment, isNull);
-        expect(f.effectiveMissingTreatment, SecurityTreatment.block);
         expect(f.toJson().containsKey('missingTreatment'), isFalse);
       });
 
@@ -190,23 +189,18 @@ void main() {
           },
         });
         expect(o.fingerprint!.missingTreatment, SecurityTreatment.warning);
-        expect(
-          o.fingerprint!.effectiveMissingTreatment,
-          SecurityTreatment.warning,
-        );
         final out = _wire(o.toJson());
         expect(out['fingerprint']['missingTreatment'], 'warning');
         expect(SecurityOptions.fromJson(out), o);
       });
 
-      test('explicit null -> null (follow treatment), not written', () {
+      test('explicit null -> null (accept), not written', () {
         final f = SecurityOption.fromJson({
           'active': true,
           'treatment': 'warning',
           'missingTreatment': null,
         });
         expect(f.missingTreatment, isNull);
-        expect(f.effectiveMissingTreatment, SecurityTreatment.warning);
         expect(f.toJson().containsKey('missingTreatment'), isFalse);
       });
 

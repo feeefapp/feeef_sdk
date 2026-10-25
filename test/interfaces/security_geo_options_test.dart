@@ -166,76 +166,43 @@ void main() {
     });
   });
 
-  group(
-    'fingerprint.missingTreatment (block | warning | null, provisional)',
-    () {
-      test('absent: null, follows treatment, not written', () {
-        final f = SecurityOption.fromJson({
-          'active': true,
-          'ttl': 3600,
-          'treatment': 'block',
-        });
-        expect(f.missingTreatment, isNull);
-        expect(f.effectiveMissingTreatment, SecurityTreatment.block);
-        expect(f.toJson().containsKey('missingTreatment'), isFalse);
-      });
-
-      test('parsed leniently and round-tripped', () {
-        final o = SecurityOptions.fromJson({
-          'fingerprint': {
-            'active': true,
-            'ttl': 86400,
-            'treatment': 'block',
-            'missingTreatment': 'Warning',
-          },
-        });
-        expect(o.fingerprint!.missingTreatment, SecurityTreatment.warning);
-        expect(
-          o.fingerprint!.effectiveMissingTreatment,
-          SecurityTreatment.warning,
-        );
-        final out = _wire(o.toJson());
-        expect(out['fingerprint']['missingTreatment'], 'warning');
-        expect(SecurityOptions.fromJson(out), o);
-      });
-
-      test('explicit null -> null (follow treatment), not written', () {
-        final f = SecurityOption.fromJson({
+  group('unified rules (match, unverified, history)', () {
+    test('match round-trips and is omitted when unset', () {
+      final o = SecurityOptions.fromJson({
+        'phone': {
           'active': true,
           'treatment': 'warning',
-          'missingTreatment': null,
-        });
-        expect(f.missingTreatment, isNull);
-        expect(f.effectiveMissingTreatment, SecurityTreatment.warning);
-        expect(f.toJson().containsKey('missingTreatment'), isFalse);
+          'match': 'sameProducts',
+        },
+        'fingerprint': {'active': true, 'ttl': 3600, 'treatment': 'block'},
+        'unverified': {'active': true, 'treatment': 'fake'},
+        'history': {'active': true, 'treatment': 'warning'},
       });
+      expect(o.phone!.match, SecurityMatch.sameProducts);
+      expect(o.fingerprint!.match, isNull);
+      expect(o.unverified!.treatment, SecurityTreatment.fake);
+      expect(o.history!.active, isTrue);
+      final out = _wire(o.toJson());
+      expect(out['phone']['match'], 'sameProducts');
+      expect((out['fingerprint'] as Map).containsKey('match'), isFalse);
+      expect((out['phone'] as Map).containsKey('ttl'), isFalse);
+      expect(SecurityOptions.fromJson(out), o);
+    });
 
-      test('only block / warning accepted', () {
-        for (final v in ['block', 'BLOCK', 'warning', ' Warning ']) {
-          final f = SecurityOption.fromJson({'missingTreatment': v});
-          expect(f.missingTreatment, isNotNull, reason: v);
-          expect(f.toJson()['missingTreatment'], v.trim().toLowerCase());
-        }
-        final fake = SecurityOption.fromJson({'missingTreatment': 'fake'});
-        expect(fake.missingTreatment, isNull);
-      });
+    test('an unknown match reads as any order', () {
+      final f = SecurityOption.fromJson({'match': 'someday'});
+      expect(f.match, SecurityMatch.anyProduct);
+    });
 
-      test('an in-memory fake is never written', () {
-        const f = SecurityOption(
-          active: true,
-          missingTreatment: SecurityTreatment.fake,
-        );
-        expect(f.toJson().containsKey('missingTreatment'), isFalse);
+    test('removed rules are ignored when read', () {
+      final o = SecurityOptions.fromJson({
+        'doubleSend': {'active': true},
+        'frontend': {'active': true},
+        'ads': {'active': true},
       });
-
-      test('unknown or wrong-typed value -> null (never throws)', () {
-        for (final v in ['allow', 3, true, <String, dynamic>{}]) {
-          final f = SecurityOption.fromJson({'missingTreatment': v});
-          expect(f.missingTreatment, isNull, reason: '$v');
-        }
-      });
-    },
-  );
+      expect(_wire(o.toJson()).keys, isNot(contains('doubleSend')));
+    });
+  });
 
   group('security.geoStatus (read-only)', () {
     test('live / off / missing / unknown', () {
@@ -398,7 +365,6 @@ void main() {
     expect(SecurityGeoJsonKeys.cities, 'cities');
     expect(SecurityGeoJsonKeys.claimsGeo, 'geo');
     expect(SecurityGeoJsonKeys.geoStatus, 'geoStatus');
-    expect(SecurityGeoJsonKeys.missingTreatment, 'missingTreatment');
     expect(SecurityGeoJsonKeys.cityName, 'name');
     expect(SecurityGeoJsonKeys.cityId, 'id');
   });

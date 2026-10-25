@@ -3,7 +3,6 @@
 /// `claims.security.geo`).
 ///
 /// Shapes follow `docs/security-ui-redesign.md` §4 / §7 (FINAL, 2026-10-09).
-/// Backend support for `fingerprint.missingTreatment` is not confirmed yet.
 /// Every wire key used by the new models lives in [SecurityGeoJsonKeys], so a
 /// rename on the backend is a one-line change here followed by
 /// `dart run build_runner build`.
@@ -32,11 +31,6 @@ abstract final class SecurityGeoJsonKeys {
   /// Read-only visitor-location status written by the backend
   /// (`'live' | 'off'`). Parsed, never written back.
   static const String geoStatus = 'geoStatus';
-
-  /// `options.fingerprint.missingTreatment`: treatment when the device
-  /// fingerprint is missing (`block | warning`; null = follow `treatment`).
-  /// NOT CONFIRMED by the backend yet.
-  static const String missingTreatment = 'missingTreatment';
 
   // ---- fields of a geo rule group ----
   static const String active = 'active';
@@ -112,23 +106,6 @@ SecurityTreatment? securityTreatmentOrNull(Object? value) {
   }
   return null;
 }
-
-/// `fingerprint.missingTreatment`: only `block` or `warning` (case
-/// insensitive). `fake`, unknown values, wrong types and null -> null, which
-/// means "follow the rule's treatment". PROVISIONAL until the backend ships the
-/// final shape.
-SecurityTreatment? securityMissingTreatmentFromJson(Object? value) {
-  final t = securityTreatmentOrNull(value);
-  return t == SecurityTreatment.block || t == SecurityTreatment.warning
-      ? t
-      : null;
-}
-
-/// Writes only `block` / `warning`; anything else is omitted (null).
-String? securityMissingTreatmentToJson(SecurityTreatment? value) =>
-    value == SecurityTreatment.block || value == SecurityTreatment.warning
-        ? value!.name
-        : null;
 
 /// Lenient treatment: unknown, null or wrong type -> [SecurityTreatment.block]
 /// (same default as the backend validator and the existing options).

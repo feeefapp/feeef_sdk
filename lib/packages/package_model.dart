@@ -103,13 +103,16 @@ final coreBlocks = <CoreBlock>[
     },
   ),
   CoreBlock('product-title', 'Product title', icon: 'text-t', category: 'Product', props: {'tag': _choice('Heading', const ['h1', 'h2', 'h3'], 'h1')}),
-  const CoreBlock(
+  CoreBlock(
     'product-price',
     'Product price',
     icon: 'currency-dollar',
     category: 'Product',
     props: {
-      'showCompare': {'type': 'boolean', 'title': 'Show the old price', 'default': true},
+      'showCompare': const {'type': 'boolean', 'title': 'Show the old price', 'default': true},
+      'size': _slider('Size', 16, 64, 32),
+      'weight': _choice('Weight', const ['500', '600', '700', '800', '900'], '800'),
+      'color': {..._color, 'title': 'Color'},
     },
   ),
   const CoreBlock('product-description', 'Product description', icon: 'article', category: 'Product'),

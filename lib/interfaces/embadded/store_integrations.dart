@@ -32,6 +32,7 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     SnapchatPixelIntegration? snapchatPixel,
     GoogleAnalyticsIntegration? googleAnalytics,
     GoogleTagsIntegration? googleTags,
+
     /// Microsoft Clarity (trackingCode public in storefront; apiKey never in public JSON).
     ClarityIntegration? clarity,
     AiIntegration? ai,
@@ -45,9 +46,11 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     ZimouExpressDeliveryIntegration? zimou,
     ZrexpressDeliveryIntegration? zrexpress,
     MdmExpressDeliveryIntegration? mdmExpress,
+
     /// Feeef Delivery (Near Delivery white-label) — merchants never hold Near API keys.
     FeeefDeliveryIntegration? feeefDelivery,
     MaystroDeliveryIntegration? maystroDelivery,
+
     /// Codpilot mini-ERP (order confirmation / COD ops) — not a carrier.
     CodpilotIntegration? codpilot,
     // Google Sheets Integration
@@ -64,12 +67,16 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     PaymentIntegration? payment,
     // Dispatcher Integration (order assignment to confirmers)
     DispatcherIntegration? dispatcher,
+
     /// Inventory module (warehouses, stock, order reserve/consume).
     StoreInventoryIntegration? inventory,
+
     /// Finance module (procurement, accounting).
     StoreFinanceIntegration? finance,
+
     /// Store-owned website pages (monthly integration).
     StorePagesIntegration? pages,
+
     /// Inbound platform connectors (Shopify, YouCan, Google Sheets, …).
     ConnectorsIntegration? connectors,
     // Communication Integrations
@@ -86,11 +93,7 @@ abstract class StoreIntegrations with _$StoreIntegrations {
 
 /// Controls where pixel conversion events are sent: server-only (CAPI), client-only (store frontend), or both.
 /// When null (auto), server is used if an API key is configured; otherwise client-only.
-enum PixelReportMode {
-  server,
-  client,
-  both,
-}
+enum PixelReportMode { server, client, both }
 
 /// Which order field to watch for [PixelStatusRule] (server-side CAPI on status transition).
 @JsonEnum(alwaysCreate: true)
@@ -148,12 +151,17 @@ enum PixelStatusDimension {
     // ignore: deprecated_member_use_from_same_package
     case PixelStatusDimension.orderStatus:
       final phase = order[value];
-      return phase == null ? null : (dimension: PixelStatusDimension.phase, equals: phase);
+      return phase == null
+          ? null
+          : (dimension: PixelStatusDimension.phase, equals: phase);
     // ignore: deprecated_member_use_from_same_package
     case PixelStatusDimension.deliveryStatus:
-      if (value == 'returned') return (dimension: PixelStatusDimension.kind, equals: 'returned');
+      if (value == 'returned')
+        return (dimension: PixelStatusDimension.kind, equals: 'returned');
       final phase = delivery[value];
-      return phase == null ? null : (dimension: PixelStatusDimension.phase, equals: phase);
+      return phase == null
+          ? null
+          : (dimension: PixelStatusDimension.phase, equals: phase);
   }
 }
 
@@ -167,9 +175,11 @@ abstract class PixelStatusRule with _$PixelStatusRule {
     MetaPixelEvent? metaEvent,
     TiktokPixelEvent? tiktokEvent,
     SnapchatPixelEvent? snapchatEvent,
+
     /// When set, takes precedence over [metaEvent] (Meta CAPI custom name).
     String? metaCustomEvent,
     String? tiktokCustomEvent,
+
     /// Overrides [snapchatEvent]. Snap name such as `CUSTOM_EVENT_1`.
     String? snapchatCustomEvent,
   }) = _PixelStatusRule;
@@ -357,7 +367,8 @@ abstract class SnapchatPixelIntegration with _$SnapchatPixelIntegration {
     @Default('default') String id,
     @Default([]) List<SnapchatPixel> pixels,
     @Default(SnapchatPixelEvent.purchase) SnapchatPixelEvent objective,
-    @Default(SnapchatPixelEvent.startCheckout) SnapchatPixelEvent draftObjective,
+    @Default(SnapchatPixelEvent.startCheckout)
+    SnapchatPixelEvent draftObjective,
     @Default(true) bool active,
     @Default({}) Map<String, dynamic> metadata,
 
@@ -424,6 +435,7 @@ abstract class ClarityIntegration with _$ClarityIntegration {
   const ClarityIntegration._();
   const factory ClarityIntegration({
     @Default(true) bool active,
+
     /// Clarity project id. Never null after parse — use empty when unset.
     @Default('') String trackingCode,
     String? apiKey,
@@ -486,6 +498,7 @@ abstract class EcotrackDeliveryIntegration with _$EcotrackDeliveryIntegration {
     required String baseUrl,
     required String token,
     @Default(true) bool active,
+
     /// Carrier-specific options. Use `parcelStock: false` to hide the stock / from-stock UI
     /// when this Ecotrack profile does not use the `stock` field (see backend
     /// `DeliveryCapabilities.parcelStock`).
@@ -531,7 +544,10 @@ abstract class EcotrackDeliveryIntegration with _$EcotrackDeliveryIntegration {
     final v = metadata['labelSize'];
     if (v is! String) return 'a6';
     final code = v.trim().toLowerCase();
-    if (code == '100x100' || code == 'mm100x100' || code == 'square100' || code == 'square') {
+    if (code == '100x100' ||
+        code == 'mm100x100' ||
+        code == 'square100' ||
+        code == 'square') {
       return '100x100';
     }
     return 'a6';
@@ -712,7 +728,10 @@ abstract class ZrexpressDeliveryIntegration
     final v = metadata['labelSize'];
     if (v is! String) return 'a6';
     final code = v.trim().toLowerCase();
-    if (code == '100x100' || code == 'mm100x100' || code == 'square100' || code == 'square') {
+    if (code == '100x100' ||
+        code == 'mm100x100' ||
+        code == 'square100' ||
+        code == 'square') {
       return '100x100';
     }
     return 'a6';
@@ -733,16 +752,21 @@ abstract class ZrexpressDeliveryIntegration
 
 /// MDM Express delivery integration (OpenAPI v2 at api.mdm.express).
 @freezed
-abstract class MdmExpressDeliveryIntegration with _$MdmExpressDeliveryIntegration {
+abstract class MdmExpressDeliveryIntegration
+    with _$MdmExpressDeliveryIntegration {
   const MdmExpressDeliveryIntegration._();
   const factory MdmExpressDeliveryIntegration({
     required String id,
+
     /// MDM `x-api-key` when not using JWT.
     String? apiKey,
+
     /// Optional JWT (`Authorization: Bearer`); takes precedence over [apiKey].
     String? bearerToken,
+
     /// MDM store tracking id (e.g. `STR-…`) — `CreateOrderRequest.storeId`.
     required String mdmStoreId,
+
     /// MDM seller id (e.g. `SLR-…`) — service fees: `GET /api/sellers/{id}/service-fees`.
     String? mdmSellerId,
     String? webhookSecret,
@@ -778,17 +802,21 @@ abstract class FeeefDeliveryIntegration with _$FeeefDeliveryIntegration {
     required String id,
     @Default(true) bool active,
     @Default(false) bool autoSend,
+
     /// Near sender user id returned by provision — required for parcel ops.
     required int nearSenderUserId,
     String? nearSenderUsername,
     String? nearSenderEmail,
     FeeefDeliveryNearAccountType? nearAccountType,
+
     /// `0` = address pickup, `1` = center pickup (Near `pickup_location_type`).
     int? pickupLocationType,
     String? pickupAddress,
     int? senderCenterId,
+
     /// Optional default buralist when auto-resolve fails.
     int? defaultBuralistId,
+
     /// Prefer Feeef-branded PDF labels (default true).
     @Default(true) bool useFeeefLabel,
     String? webhookSecret,
@@ -847,50 +875,60 @@ abstract class CodpilotIntegration with _$CodpilotIntegration {
 
   /// Default auto-sync rule: any order that becomes (or is created as) pending.
   static List<PixelStatusRule> get defaultStatusRules => const [
-        PixelStatusRule(
-          id: 'default-pending',
-          dimension: PixelStatusDimension.orderStatus,
-          equals: 'pending',
-        ),
-      ];
+    PixelStatusRule(
+      id: 'default-pending',
+      dimension: PixelStatusDimension.orderStatus,
+      equals: 'pending',
+    ),
+  ];
 }
 
 // ===================== SECURITY INTEGRATION =====================
 
-/// Treatment applied when a security violation is detected.
+/// What happens to an order a checkout protection rule catches
+/// (contract: feeef.all `docs/checkout-protection.md`).
 enum SecurityTreatment {
-  block, // Reject order immediately (HTTP error)
-  warning, // Accept order but tag it; no pixel events sent
-  fake, // Pretend success but don't persist order (honeypot)
+  /// Refused; the shopper is told to contact the store.
+  block,
+
+  /// Flag: accepted with a tag so the merchant calls first; not sent to ad
+  /// pixels.
+  warning,
+
+  /// Fake success: the visitor sees "order received", nothing is saved. Only
+  /// the bot rules ([SecurityOptions.minTimeInPage], [SecurityOptions.unverified])
+  /// accept it; elsewhere the backend applies it as [block].
+  fake,
 }
 
-/// Base security option with TTL and treatment.
+/// Which earlier orders a duplicate rule compares with.
+enum SecurityMatch {
+  /// Only orders with the same products.
+  sameProducts,
+
+  /// Any order.
+  anyProduct,
+}
+
+/// One checkout protection rule: switch, treatment and, depending on the
+/// rule, a window ([ttl], seconds; null = backend default) and what to
+/// compare ([match]).
 ///
-/// [ttl] is optional in API payloads (seconds). When null, the backend applies its own default per check.
+/// - `phone` ("Same phone number"): [match]; no window (an order still in
+///   progress is the test).
+/// - `fingerprint` ("Same browser"): [ttl] + [match].
+/// - `ip` ("Same connection"): [ttl].
+/// - `unverified`, `history`: switch and treatment only.
 @freezed
 abstract class SecurityOption with _$SecurityOption {
   const SecurityOption._();
   const factory SecurityOption({
     @Default(false) bool active,
-    int? ttl,
+    @JsonKey(includeIfNull: false) int? ttl,
     @Default(SecurityTreatment.block) SecurityTreatment treatment,
-
-    /// Fingerprint rule only (`options.fingerprint.missingTreatment`):
-    /// treatment when the storefront sends no device fingerprint (ad-blocker,
-    /// private mode, form sent before the fingerprint loaded, or a storefront
-    /// that doesn't identify devices). `block | warning`; null = accept the
-    /// order (the backend default since 2026-10-25). Only block / warning are
-    /// accepted (`fake` and unknown values -> null) and the key is omitted from
-    /// JSON when null.
-    @JsonKey(
-      name: SecurityGeoJsonKeys.missingTreatment,
-      fromJson: securityMissingTreatmentFromJson,
-      toJson: securityMissingTreatmentToJson,
-      includeIfNull: false,
-    )
-    SecurityTreatment? missingTreatment,
+    @JsonKey(includeIfNull: false, unknownEnumValue: SecurityMatch.anyProduct)
+    SecurityMatch? match,
   }) = _SecurityOption;
-
 
   factory SecurityOption.fromJson(Map<String, dynamic> json) =>
       _$SecurityOptionFromJson(json);
@@ -1034,15 +1072,14 @@ abstract class SecurityGeoListOption with _$SecurityGeoListOption {
 
   /// Client-side preview of the rule for one visitor region (see
   /// [SecurityGeoRuleDecision]).
-  SecurityGeoRuleDecision evaluate(String? value) =>
-      _evaluateGeoList(
-        active: active,
-        hasAllowlist: hasAllowlist,
-        hasEntries: hasEntries,
-        value: securityGeoValueFromJson(value),
-        isBlocked: isBlocked,
-        isAllowed: isAllowed,
-      );
+  SecurityGeoRuleDecision evaluate(String? value) => _evaluateGeoList(
+    active: active,
+    hasAllowlist: hasAllowlist,
+    hasEntries: hasEntries,
+    value: securityGeoValueFromJson(value),
+    isBlocked: isBlocked,
+    isAllowed: isAllowed,
+  );
 
   static bool _contains(List<String> list, String value) {
     final key = securityRegionMatchKey(value);
@@ -1139,8 +1176,9 @@ List<SecurityCityRef> securityCityListFromJson(Object? value) {
   return out;
 }
 
-List<Map<String, dynamic>> _cityListToJson(List<SecurityCityRef> value) =>
-    [for (final c in value) c.toJson()];
+List<Map<String, dynamic>> _cityListToJson(List<SecurityCityRef> value) => [
+  for (final c in value) c.toJson(),
+];
 
 List<Map<String, dynamic>>? _cityAllowedToJson(List<SecurityCityRef> value) =>
     value.isEmpty ? null : _cityListToJson(value);
@@ -1193,13 +1231,13 @@ abstract class SecurityCityListOption with _$SecurityCityListOption {
 
   /// Client-side preview for one visitor city name.
   SecurityGeoRuleDecision evaluate(String? cityName) => _evaluateGeoList(
-        active: active,
-        hasAllowlist: hasAllowlist,
-        hasEntries: hasEntries,
-        value: securityGeoValueFromJson(cityName),
-        isBlocked: isBlocked,
-        isAllowed: isAllowed,
-      );
+    active: active,
+    hasAllowlist: hasAllowlist,
+    hasEntries: hasEntries,
+    value: securityGeoValueFromJson(cityName),
+    isBlocked: isBlocked,
+    isAllowed: isAllowed,
+  );
 
   static bool _contains(List<SecurityCityRef> list, String name) {
     final key = normalizeSecurityGeoName(name);
@@ -1215,18 +1253,21 @@ SecurityCityListOption? securityCityListOptionFromJson(Object? value) {
   return SecurityCityListOption.fromJson(map);
 }
 
-/// All security options (private - merchant app). Keys are optional/nullable like the API.
+/// Checkout protection rules (merchant app). Keys are optional like the API.
 @freezed
 abstract class SecurityOptions with _$SecurityOptions {
   const SecurityOptions._();
   const factory SecurityOptions({
+    // Duplicates
+    SecurityOption? phone,
     SecurityOption? fingerprint,
     SecurityOption? ip,
-    SecurityOption? phone,
-    SecurityOption? ads,
-    SecurityOption? frontend,
-    SecurityOption? doubleSend,
+    // Bots
     SecurityMinTimeOption? minTimeInPage,
+    SecurityOption? unverified,
+    // Customer history
+    SecurityOption? history,
+    // Location and traffic
     SecurityCountriesOption? countries,
     SecuritySourcesOption? sources,
 
@@ -1252,11 +1293,11 @@ abstract class SecurityOptions with _$SecurityOptions {
       _$SecurityOptionsFromJson(json);
 }
 
-/// Checkout fraud / abuse protection for public order create (not account 2FA).
+/// Checkout protection for public orders (not account 2FA).
 ///
-/// Merchants configure per-rule treatments (`block` / `warning` / `fake`) and
-/// cooldowns. Enforcement lives in backend `evaluateCheckoutSecurity` on
-/// `POST .../orders/send`; storefront may also apply `frontend` / `doubleSend`.
+/// Merchants pick a treatment per rule. Enforcement lives only in the backend
+/// (`evaluateCheckoutSecurity` on `POST .../orders/send`); storefronts never
+/// see these settings.
 @freezed
 abstract class SecurityIntegration with _$SecurityIntegration {
   const SecurityIntegration._();
@@ -1300,8 +1341,8 @@ enum SecurityGeoStatus {
 /// Lenient `geoStatus`: case-insensitive `live`, anything else -> off.
 SecurityGeoStatus securityGeoStatusFromJson(Object? value) =>
     value is String && value.trim().toLowerCase() == SecurityGeoStatus.live.name
-        ? SecurityGeoStatus.live
-        : SecurityGeoStatus.off;
+    ? SecurityGeoStatus.live
+    : SecurityGeoStatus.off;
 
 // ===================== INVENTORY INTEGRATION =====================
 
@@ -1331,50 +1372,6 @@ abstract class StoreFinanceIntegration with _$StoreFinanceIntegration {
 
   factory StoreFinanceIntegration.fromJson(Map<String, dynamic> json) =>
       _$StoreFinanceIntegrationFromJson(json);
-}
-
-// ===================== PUBLIC SECURITY (Storefront) =====================
-
-/// Public security option - only active, ttl, and treatment (storefront duplicate rule).
-@freezed
-abstract class PublicSecurityOption with _$PublicSecurityOption {
-  const factory PublicSecurityOption({
-    @Default(false) bool active,
-    @Default(0) int ttl,
-    @Default(SecurityTreatment.block) SecurityTreatment treatment,
-  }) = _PublicSecurityOption;
-
-  factory PublicSecurityOption.fromJson(Map<String, dynamic> json) =>
-      _$PublicSecurityOptionFromJson(json);
-}
-
-/// Public security options for storefronts (rules the client may apply or display).
-///
-/// [fingerprint], [ip], [phone], and [ads] stay server-only.
-@freezed
-abstract class PublicSecurityOptions with _$PublicSecurityOptions {
-  const factory PublicSecurityOptions({
-    PublicSecurityOption? frontend,
-    PublicSecurityOption? doubleSend,
-    SecurityMinTimeOption? minTimeInPage,
-    SecurityCountriesOption? countries,
-    SecuritySourcesOption? sources,
-  }) = _PublicSecurityOptions;
-
-  factory PublicSecurityOptions.fromJson(Map<String, dynamic> json) =>
-      _$PublicSecurityOptionsFromJson(json);
-}
-
-/// Public security integration - minimal data for storefronts.
-@freezed
-abstract class PublicSecurityIntegration with _$PublicSecurityIntegration {
-  const factory PublicSecurityIntegration({
-    @Default(false) bool active,
-    @Default(PublicSecurityOptions()) PublicSecurityOptions options,
-  }) = _PublicSecurityIntegration;
-
-  factory PublicSecurityIntegration.fromJson(Map<String, dynamic> json) =>
-      _$PublicSecurityIntegrationFromJson(json);
 }
 
 // ===================== GOOGLE SHEETS INTEGRATION =====================
@@ -1782,7 +1779,6 @@ abstract class ConnectorsIntegration with _$ConnectorsIntegration {
   factory ConnectorsIntegration.fromJson(Map<String, dynamic> json) =>
       _$ConnectorsIntegrationFromJson(json);
 }
-
 
 /// Store-owned website pages: installed separately from the theme editor.
 @freezed

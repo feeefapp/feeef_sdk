@@ -5,7 +5,8 @@ import 'dart:convert';
 ///
 /// A package is a folder: `feeef.json`, routes in `app/` (Next.js app-router style), components in
 /// `components/`, editor-owned JSON in `content/`. What a merchant edits visually is slot content:
-/// `content/layout.json` and `content/pages/<route>.json`, each `{slots: {name: [Node]}}`. A node
+/// `content/layout.json`, `content/layouts/<name>.json` and `content/pages/<route>.json`, each
+/// `{layout?, slots: {name: [Node]}}` (`layout`: the layout a page renders in). A node
 /// is `{id, use, props?, slots?, hydrate?}` where `use` is a local component id, `dep/component`
 /// or `core/<block>`.
 ///
@@ -403,7 +404,20 @@ class PageTree {
 
   TreeNode get root => TreeNode(_root, catalog, rootSlots: _slotDecls);
 
-  /// The content JSON `{slots}` (a copy).
+  /// The layout this page renders in (`content.layout`): `blank`, a named layout, or null for the
+  /// default layout (SPEC §3 Layouts). Layout views never set it.
+  String? get layout => _content['layout'] as String?;
+
+  /// Pick the page's layout; null = the default layout (the key is removed).
+  void setLayout(String? name) {
+    if (name == null || name == LayoutChoice.defaultId) {
+      _content.remove('layout');
+    } else {
+      _content['layout'] = name;
+    }
+  }
+
+  /// The content JSON `{layout?, slots}` (a copy).
   Map<String, dynamic> get content => {
     ..._deepCopy(_content) as Map<String, dynamic>,
     'slots': _deepCopy(_root['slots']),
@@ -673,7 +687,8 @@ class PageTree {
   }
 }
 
-/// One editable view of a template: a route (`app/**/page.tsx`) or the layout.
+/// One editable view of a template: a route (`app/**/page.tsx`) or a layout (`app/layout.tsx`,
+/// `app/layouts/<name>.tsx`).
 class RouteInfo {
   const RouteInfo({
     required this.id,
@@ -681,38 +696,79 @@ class RouteInfo {
     required this.contentPath,
     required this.slots,
     this.title,
+    this.description,
     this.path,
   });
 
-  /// Route key (`index`, `products/[slug]`, `contact`, `not-found`) or [PackageModel.layoutId].
+  /// Route key (`index`, `products/[slug]`, `contact`, `not-found`), [PackageModel.layoutId] or
+  /// `@layout:<name>` ([PackageModel.layoutViewId]).
   final String id;
 
-  /// `app/…/page.tsx`, `app/not-found.tsx` or `app/layout.tsx`.
+  /// `app/…/page.tsx`, `app/not-found.tsx`, `app/layout.tsx` or `app/layouts/<name>.tsx`.
   final String source;
 
-  /// `content/pages/<route>.json` or `content/layout.json`.
+  /// `content/pages/<route>.json`, `content/layout.json` or `content/layouts/<name>.json`.
   final String contentPath;
 
   /// `<Slot name title>` areas, in source order.
   final Map<String, String> slots;
 
-  /// `metadata.title`.
+  /// `metadata.title` (routes) or `config.title` (layouts).
   final String? title;
 
-  /// URL pattern (`/`, `/products/:slug`); null for the layout and the 404 page.
+  /// `config.description` (layouts only).
+  final String? description;
+
+  /// URL pattern (`/`, `/products/:slug`); null for layouts and the 404 page.
   final String? path;
 
-  bool get isLayout => id == PackageModel.layoutId;
+  bool get isLayout => PackageModel.layoutNameOf(id) != null;
+
+  /// `default` or the named layout's name; null for routes.
+  String? get layoutName => PackageModel.layoutNameOf(id);
   bool get isDynamic => path?.contains(':') ?? false;
   String get label =>
       title ??
       (isLayout
-          ? 'Layout'
+          ? (layoutName == LayoutChoice.defaultId
+                ? 'Layout'
+                : 'Layout · $layoutName')
           : id == 'index'
           ? 'Home'
           : id == 'not-found'
           ? 'Page not found'
           : id);
+}
+
+/// A layout a page can render in (SPEC §3 Layouts): the default (`app/layout.tsx`), the built-in
+/// `blank` (the default layout with its slots empty: template CSS and theme stay, header and footer
+/// go) or a named `app/layouts/<name>.tsx`. [title]/[description] come from the layout's `config`.
+class LayoutChoice {
+  const LayoutChoice({required this.id, this.title, this.description});
+
+  static const defaultId = 'default';
+  static const blankId = 'blank';
+
+  /// `default`, `blank` or the layout's name; `content.layout` stores it (default = absent).
+  final String id;
+  final String? title;
+  final String? description;
+
+  bool get isDefault => id == defaultId;
+  bool get isBlank => id == blankId;
+
+  @override
+  bool operator ==(Object other) =>
+      other is LayoutChoice &&
+      other.id == id &&
+      other.title == title &&
+      other.description == description;
+
+  @override
+  int get hashCode => Object.hash(id, title, description);
+
+  @override
+  String toString() => 'LayoutChoice($id)';
 }
 
 /// A problem the server build (`@feeef/engine`) reports for a package file. The model skips what
@@ -743,8 +799,25 @@ class PackageModel {
   static const themePath = 'content/theme.json';
   static const layoutContentPath = 'content/layout.json';
 
-  /// The layout's view id in [pageIds].
+  /// The default layout's view id in [pageIds]; named layouts are `@layout:<name>` ([layoutViewId]).
   static const layoutId = '@layout';
+
+  /// View id of a layout (`default` → [layoutId]).
+  static String layoutViewId(String name) =>
+      name == LayoutChoice.defaultId ? layoutId : '$layoutId:$name';
+
+  /// Layout name of a view id (`@layout` → `default`, `@layout:landing` → `landing`), null for routes.
+  static String? layoutNameOf(String viewId) => viewId == layoutId
+      ? LayoutChoice.defaultId
+      : viewId.startsWith('$layoutId:')
+      ? viewId.substring(layoutId.length + 1)
+      : null;
+
+  /// Content file of a layout (`default` → `content/layout.json`).
+  static String layoutContentPathOf(String name) =>
+      name == LayoutChoice.defaultId
+      ? layoutContentPath
+      : 'content/layouts/$name.json';
 
   /// The store-page frame (`app/pages/[slug]/page.tsx`). Its slots hold each store page's own
   /// content, so it is not an editable view of the template ([route] still reads it).
@@ -814,27 +887,33 @@ class PackageModel {
       }
       final route = _routeKey(path);
       if (route == null) continue;
-      final isLayout = route == layoutId;
+      final layoutName = layoutNameOf(route);
+      final isLayout = layoutName != null;
       if (routes.containsKey(route)) {
         issues.add(
           PackageIssue(
             isLayout ? 'LAYOUT_DUPLICATE' : 'ROUTE_DUPLICATE',
             path,
             isLayout
-                ? 'Only one app/layout file'
+                ? 'Two files define layout $layoutName'
                 : 'Two files define route $route',
           ),
         );
         continue;
       }
       final text = files[path]!;
-      final metadata = _map(staticExport(text, 'metadata'));
+      final described = _map(
+        staticExport(text, isLayout ? 'config' : 'metadata'),
+      );
       routes[route] = RouteInfo(
         id: route,
         source: path,
-        contentPath: isLayout ? layoutContentPath : contentPathOf(route),
+        contentPath: isLayout
+            ? layoutContentPathOf(layoutName)
+            : contentPathOf(route),
         slots: slotsInSource(text),
-        title: metadata['title'] as String?,
+        title: described['title'] as String?,
+        description: isLayout ? described['description'] as String? : null,
         path: isLayout ? null : pathOf(route),
       );
     }
@@ -871,11 +950,15 @@ class PackageModel {
     r'^components/([a-z][a-z0-9-]*)(?:/index)?\.(?:tsx|ts|jsx|js)$',
   );
   static final _routePath = RegExp(r'^app/(?:(.+)/)?page\.(?:tsx|ts|jsx|js)$');
+  static final _layoutPath = RegExp(
+    r'^app/layouts/([^/]+)\.(?:tsx|ts|jsx|js)$',
+  );
+  static final _layoutName = RegExp(r'^[a-z][a-z0-9-]{0,39}$');
   static final _routeSegment = RegExp(
     r'^(?:[a-z0-9][a-z0-9-]*|\[[a-z][A-Za-z0-9]*\])$',
   );
 
-  /// Route key of an `app/` file, [layoutId] for the layout, null for other files and for route
+  /// Route key of an `app/` file, a layout view id for layouts ([layoutViewId]), null for other files and for route
   /// files the engine rejects ([routeIssueOf]).
   static String? routeOf(String path) =>
       routeIssueOf(path) == null ? _routeKey(path) : null;
@@ -884,6 +967,8 @@ class PackageModel {
     if (RegExp(r'^app/layout\.(?:tsx|ts|jsx|js)$').hasMatch(path)) {
       return layoutId;
     }
+    final named = _layoutPath.firstMatch(path);
+    if (named != null) return layoutViewId(named.group(1)!);
     if (RegExp(r'^app/not-found\.(?:tsx|ts|jsx|js)$').hasMatch(path)) {
       return 'not-found';
     }
@@ -896,6 +981,24 @@ class PackageModel {
   /// with a segment the storefront serves itself ([reservedSegments]); only commerce routes are
   /// dynamic.
   static PackageIssue? routeIssueOf(String path) {
+    final layout = _layoutPath.firstMatch(path)?.group(1);
+    if (layout != null) {
+      if (!_layoutName.hasMatch(layout)) {
+        return PackageIssue(
+          'LAYOUT_NAME',
+          path,
+          'Layout file names are lowercase letters, digits and dashes',
+        );
+      }
+      if (layout == LayoutChoice.defaultId) {
+        return PackageIssue(
+          'LAYOUT_RESERVED',
+          path,
+          'app/layout.tsx is the default layout; name this one differently',
+        );
+      }
+      return null;
+    }
     final route = _routePath.firstMatch(path)?.group(1);
     if (route == null) return null;
     final segments = route.split('/');
@@ -918,6 +1021,13 @@ class PackageModel {
         'ROUTE_RESERVED',
         path,
         'Use app/not-found.tsx for the 404 page',
+      );
+    }
+    if (segments.first == 'layouts') {
+      return PackageIssue(
+        'ROUTE_RESERVED',
+        path,
+        'app/layouts/ holds the named layouts (app/layouts/<name>.tsx); choose another folder name',
       );
     }
     if (boundRoutes.contains(route)) return null;
@@ -950,14 +1060,77 @@ class PackageModel {
   String get kind => _manifest['kind'] as String? ?? 'template';
   String get title => _manifest['title'] as String? ?? '';
 
-  /// Editable views: routes, then the layout. The store-page frame is not one ([storePageFrame]).
+  /// Editable views: routes, then the layouts (default first). The store-page frame is not one
+  /// ([storePageFrame]).
   List<RouteInfo> get routes {
     final list =
         _routes.values
             .where((r) => !r.isLayout && r.id != storePageRoute)
             .toList()
           ..sort((a, b) => _routeOrder(a.id).compareTo(_routeOrder(b.id)));
-    return [...list, ?_routes[layoutId]];
+    return [...list, ...layouts];
+  }
+
+  /// The layout views: `app/layout.tsx`, then `app/layouts/<name>.tsx` by name.
+  List<RouteInfo> get layouts {
+    final named =
+        _routes.values.where((r) => r.isLayout && r.id != layoutId).toList()
+          ..sort((a, b) => a.id.compareTo(b.id));
+    return [?_routes[layoutId], ...named];
+  }
+
+  /// What a page can render in (SPEC §3 Layouts): the default layout, `blank` and every named
+  /// layout (a template's own `blank` replaces the built-in one).
+  List<LayoutChoice> get layoutChoices {
+    final byName = {for (final l in layouts) l.layoutName!: l};
+    final named = byName.keys
+        .where((n) => n != LayoutChoice.defaultId && n != LayoutChoice.blankId)
+        .toList();
+    LayoutChoice of(String id) => LayoutChoice(
+      id: id,
+      title: byName[id]?.title,
+      description: byName[id]?.description,
+    );
+    return [
+      of(LayoutChoice.defaultId),
+      of(LayoutChoice.blankId),
+      for (final n in named) of(n),
+    ];
+  }
+
+  /// The layout [pageId] renders in (`default`, `blank` or a named layout); null for layout views.
+  /// A name the template does not have renders in the default, like the storefront does.
+  String? pageLayout(String pageId) {
+    final r = _routes[pageId];
+    if (r == null || r.isLayout) return null;
+    final name = content(pageId)['layout'];
+    return name is String && layoutChoices.any((c) => c.id == name)
+        ? name
+        : LayoutChoice.defaultId;
+  }
+
+  /// Make [pageId] render in [layout] (`default` removes the choice).
+  PackageEdit setPageLayout(String pageId, String layout) {
+    final r = _routes[pageId];
+    if (r == null || r.isLayout) throw StateError('PAGE_NOT_FOUND: $pageId');
+    if (!layoutChoices.any((c) => c.id == layout)) {
+      throw StateError('LAYOUT_UNKNOWN: $layout');
+    }
+    final next = Map<String, dynamic>.from(content(pageId));
+    if (layout == LayoutChoice.defaultId) {
+      next.remove('layout');
+    } else {
+      next['layout'] = layout;
+    }
+    return PackageEdit({pagePath(pageId): encodePackageJson(next)});
+  }
+
+  /// The layout view [pageId] renders inside (null for blank without a template `blank`, and for
+  /// layout views).
+  RouteInfo? _frameOf(String pageId) {
+    final name = pageLayout(pageId);
+    if (name == null) return null;
+    return _routes[layoutViewId(name)];
   }
 
   static int _routeOrder(String id) {
@@ -976,12 +1149,14 @@ class PackageModel {
 
   /// Any route by id, the store-page frame included.
   RouteInfo? route(String id) => _routes[id];
+
+  /// The default layout (`app/layout.tsx`).
   RouteInfo? get layout => _routes[layoutId];
 
   /// `app/pages/[slug]/page.tsx`: frames merchant store pages, whose own content fills its slots.
   RouteInfo? get storePageFrame => _routes[storePageRoute];
 
-  /// Editable views (route ids and [layoutId]).
+  /// Editable views (route ids, then layout view ids).
   List<String> get pageIds => [for (final r in routes) r.id];
 
   /// Content file of a view.
@@ -1043,8 +1218,8 @@ class PackageModel {
         : {'slots': <String, dynamic>{}};
   }
 
-  /// A view's content to edit; write it back with [savePage]. Ids stay unique across the view
-  /// and the layout (they render together).
+  /// A view's content to edit; write it back with [savePage]. Ids stay unique across a page and
+  /// the layout it renders in (they render together).
   PageTree page(
     String pageId, [
     Map<String, ComponentInfo> dependencyComponents = const {},
@@ -1052,7 +1227,9 @@ class PackageModel {
     final r = _routes[pageId];
     if (r == null) throw StateError('PAGE_NOT_FOUND: $pageId');
     final taken = <String>{};
-    final others = r.isLayout ? routes.where((v) => !v.isLayout) : [?layout];
+    final others = r.isLayout
+        ? routes.where((v) => !v.isLayout && _frameOf(v.id)?.id == pageId)
+        : [?_frameOf(pageId)];
     for (final other in others) {
       if (other.id == pageId) continue;
       PageTree.walkContent(
@@ -2430,6 +2607,26 @@ Map<String, String> artifactRouteSlots(
   Map<String, dynamic> artifact,
   String pageId,
 ) => _slotTitles(_map(_map(_map(artifact['code'])['routes'])[pageId])['slots']);
+
+/// Layouts a store page of an installed artifact can pick: default, blank, then
+/// `artifact.code.layouts` (a template's own `blank` only lends its title).
+List<LayoutChoice> artifactLayoutChoices(Map<String, dynamic> artifact) {
+  final code = _map(artifact['code']);
+  final own = _map(code['layouts']);
+  final main = _map(code['layout']);
+  LayoutChoice of(String id, Map<String, dynamic> layout) => LayoutChoice(
+    id: id,
+    title: layout['title'] as String?,
+    description: layout['description'] as String?,
+  );
+  return [
+    of(LayoutChoice.defaultId, main),
+    of(LayoutChoice.blankId, _map(own[LayoutChoice.blankId])),
+    for (final e in own.entries)
+      if (e.key != LayoutChoice.blankId && e.key != LayoutChoice.defaultId)
+        of(e.key, _map(e.value)),
+  ];
+}
 
 /// Catalog of an installed artifact (`artifact.code.components`), for editing store pages.
 Map<String, ComponentInfo> catalogFromArtifactComponents(

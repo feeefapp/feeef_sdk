@@ -904,25 +904,30 @@ _SecurityOption _$SecurityOptionFromJson(Map<String, dynamic> json) =>
       treatment:
           $enumDecodeNullable(_$SecurityTreatmentEnumMap, json['treatment']) ??
           SecurityTreatment.block,
-      missingTreatment: securityMissingTreatmentFromJson(
-        json['missingTreatment'],
+      match: $enumDecodeNullable(
+        _$SecurityMatchEnumMap,
+        json['match'],
+        unknownValue: SecurityMatch.anyProduct,
       ),
     );
 
 Map<String, dynamic> _$SecurityOptionToJson(_SecurityOption instance) =>
     <String, dynamic>{
       'active': instance.active,
-      'ttl': instance.ttl,
+      'ttl': ?instance.ttl,
       'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
-      'missingTreatment': ?securityMissingTreatmentToJson(
-        instance.missingTreatment,
-      ),
+      'match': ?_$SecurityMatchEnumMap[instance.match],
     };
 
 const _$SecurityTreatmentEnumMap = {
   SecurityTreatment.block: 'block',
   SecurityTreatment.warning: 'warning',
   SecurityTreatment.fake: 'fake',
+};
+
+const _$SecurityMatchEnumMap = {
+  SecurityMatch.sameProducts: 'sameProducts',
+  SecurityMatch.anyProduct: 'anyProduct',
 };
 
 _SecurityMinTimeOption _$SecurityMinTimeOptionFromJson(
@@ -1051,29 +1056,26 @@ Map<String, dynamic> _$SecurityCityListOptionToJson(
 _SecurityOptions _$SecurityOptionsFromJson(
   Map<String, dynamic> json,
 ) => _SecurityOptions(
+  phone: json['phone'] == null
+      ? null
+      : SecurityOption.fromJson(json['phone'] as Map<String, dynamic>),
   fingerprint: json['fingerprint'] == null
       ? null
       : SecurityOption.fromJson(json['fingerprint'] as Map<String, dynamic>),
   ip: json['ip'] == null
       ? null
       : SecurityOption.fromJson(json['ip'] as Map<String, dynamic>),
-  phone: json['phone'] == null
-      ? null
-      : SecurityOption.fromJson(json['phone'] as Map<String, dynamic>),
-  ads: json['ads'] == null
-      ? null
-      : SecurityOption.fromJson(json['ads'] as Map<String, dynamic>),
-  frontend: json['frontend'] == null
-      ? null
-      : SecurityOption.fromJson(json['frontend'] as Map<String, dynamic>),
-  doubleSend: json['doubleSend'] == null
-      ? null
-      : SecurityOption.fromJson(json['doubleSend'] as Map<String, dynamic>),
   minTimeInPage: json['minTimeInPage'] == null
       ? null
       : SecurityMinTimeOption.fromJson(
           json['minTimeInPage'] as Map<String, dynamic>,
         ),
+  unverified: json['unverified'] == null
+      ? null
+      : SecurityOption.fromJson(json['unverified'] as Map<String, dynamic>),
+  history: json['history'] == null
+      ? null
+      : SecurityOption.fromJson(json['history'] as Map<String, dynamic>),
   countries: json['countries'] == null
       ? null
       : SecurityCountriesOption.fromJson(
@@ -1088,13 +1090,12 @@ _SecurityOptions _$SecurityOptionsFromJson(
 
 Map<String, dynamic> _$SecurityOptionsToJson(_SecurityOptions instance) =>
     <String, dynamic>{
+      'phone': instance.phone?.toJson(),
       'fingerprint': instance.fingerprint?.toJson(),
       'ip': instance.ip?.toJson(),
-      'phone': instance.phone?.toJson(),
-      'ads': instance.ads?.toJson(),
-      'frontend': instance.frontend?.toJson(),
-      'doubleSend': instance.doubleSend?.toJson(),
       'minTimeInPage': instance.minTimeInPage?.toJson(),
+      'unverified': instance.unverified?.toJson(),
+      'history': instance.history?.toJson(),
       'countries': instance.countries?.toJson(),
       'sources': instance.sources?.toJson(),
       'regions': ?instance.regions?.toJson(),
@@ -1147,76 +1148,6 @@ Map<String, dynamic> _$StoreFinanceIntegrationToJson(
 ) => <String, dynamic>{
   'active': instance.active,
   'metadata': instance.metadata,
-};
-
-_PublicSecurityOption _$PublicSecurityOptionFromJson(
-  Map<String, dynamic> json,
-) => _PublicSecurityOption(
-  active: json['active'] as bool? ?? false,
-  ttl: (json['ttl'] as num?)?.toInt() ?? 0,
-  treatment:
-      $enumDecodeNullable(_$SecurityTreatmentEnumMap, json['treatment']) ??
-      SecurityTreatment.block,
-);
-
-Map<String, dynamic> _$PublicSecurityOptionToJson(
-  _PublicSecurityOption instance,
-) => <String, dynamic>{
-  'active': instance.active,
-  'ttl': instance.ttl,
-  'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
-};
-
-_PublicSecurityOptions _$PublicSecurityOptionsFromJson(
-  Map<String, dynamic> json,
-) => _PublicSecurityOptions(
-  frontend: json['frontend'] == null
-      ? null
-      : PublicSecurityOption.fromJson(json['frontend'] as Map<String, dynamic>),
-  doubleSend: json['doubleSend'] == null
-      ? null
-      : PublicSecurityOption.fromJson(
-          json['doubleSend'] as Map<String, dynamic>,
-        ),
-  minTimeInPage: json['minTimeInPage'] == null
-      ? null
-      : SecurityMinTimeOption.fromJson(
-          json['minTimeInPage'] as Map<String, dynamic>,
-        ),
-  countries: json['countries'] == null
-      ? null
-      : SecurityCountriesOption.fromJson(
-          json['countries'] as Map<String, dynamic>,
-        ),
-  sources: json['sources'] == null
-      ? null
-      : SecuritySourcesOption.fromJson(json['sources'] as Map<String, dynamic>),
-);
-
-Map<String, dynamic> _$PublicSecurityOptionsToJson(
-  _PublicSecurityOptions instance,
-) => <String, dynamic>{
-  'frontend': instance.frontend?.toJson(),
-  'doubleSend': instance.doubleSend?.toJson(),
-  'minTimeInPage': instance.minTimeInPage?.toJson(),
-  'countries': instance.countries?.toJson(),
-  'sources': instance.sources?.toJson(),
-};
-
-_PublicSecurityIntegration _$PublicSecurityIntegrationFromJson(
-  Map<String, dynamic> json,
-) => _PublicSecurityIntegration(
-  active: json['active'] as bool? ?? false,
-  options: json['options'] == null
-      ? const PublicSecurityOptions()
-      : PublicSecurityOptions.fromJson(json['options'] as Map<String, dynamic>),
-);
-
-Map<String, dynamic> _$PublicSecurityIntegrationToJson(
-  _PublicSecurityIntegration instance,
-) => <String, dynamic>{
-  'active': instance.active,
-  'options': instance.options.toJson(),
 };
 
 _GoogleSheetsColumn _$GoogleSheetsColumnFromJson(Map<String, dynamic> json) =>

@@ -28,6 +28,9 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
       : SnapchatPixelIntegration.fromJson(
           json['snapchatPixel'] as Map<String, dynamic>,
         ),
+  pixelEvents: json['pixelEvents'] == null
+      ? null
+      : PixelEvents.fromJson(json['pixelEvents'] as Map<String, dynamic>),
   googleAnalytics: json['googleAnalytics'] == null
       ? null
       : GoogleAnalyticsIntegration.fromJson(
@@ -158,6 +161,7 @@ Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
       'metaPixel': instance.metaPixel?.toJson(),
       'tiktokPixel': instance.tiktokPixel?.toJson(),
       'snapchatPixel': instance.snapchatPixel?.toJson(),
+      'pixelEvents': instance.pixelEvents?.toJson(),
       'googleAnalytics': instance.googleAnalytics?.toJson(),
       'googleTags': instance.googleTags?.toJson(),
       'clarity': instance.clarity?.toJson(),
@@ -372,23 +376,12 @@ _MetaPixelIntegration _$MetaPixelIntegrationFromJson(
           ?.map((e) => MetaPixel.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
-  objective:
-      $enumDecodeNullable(_$MetaPixelEventEnumMap, json['objective']) ??
-      MetaPixelEvent.purchase,
-  draftObjective:
-      $enumDecodeNullable(_$MetaPixelEventEnumMap, json['draftObjective']) ??
-      MetaPixelEvent.lead,
   active: json['active'] as bool? ?? true,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
   oauth2: json['oauth2'] == null
       ? null
       : FacebookMarketingOAuth.fromJson(json['oauth2'] as Map<String, dynamic>),
   mode: $enumDecodeNullable(_$PixelReportModeEnumMap, json['mode']),
-  statusRules:
-      (json['statusRules'] as List<dynamic>?)
-          ?.map((e) => PixelStatusRule.fromJson(e as Map<String, dynamic>))
-          .toList() ??
-      const [],
 );
 
 Map<String, dynamic> _$MetaPixelIntegrationToJson(
@@ -396,13 +389,10 @@ Map<String, dynamic> _$MetaPixelIntegrationToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'pixels': instance.pixels.map((e) => e.toJson()).toList(),
-  'objective': _$MetaPixelEventEnumMap[instance.objective]!,
-  'draftObjective': _$MetaPixelEventEnumMap[instance.draftObjective]!,
   'active': instance.active,
   'metadata': instance.metadata,
   'oauth2': instance.oauth2?.toJson(),
   'mode': _$PixelReportModeEnumMap[instance.mode],
-  'statusRules': instance.statusRules.map((e) => e.toJson()).toList(),
 };
 
 const _$PixelReportModeEnumMap = {
@@ -433,20 +423,9 @@ _TiktokPixelIntegration _$TiktokPixelIntegrationFromJson(
           ?.map((e) => TiktokPixel.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
-  objective:
-      $enumDecodeNullable(_$TiktokPixelEventEnumMap, json['objective']) ??
-      TiktokPixelEvent.purchase,
-  draftObjective:
-      $enumDecodeNullable(_$TiktokPixelEventEnumMap, json['draftObjective']) ??
-      TiktokPixelEvent.purchase,
   active: json['active'] as bool? ?? true,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
   mode: $enumDecodeNullable(_$PixelReportModeEnumMap, json['mode']),
-  statusRules:
-      (json['statusRules'] as List<dynamic>?)
-          ?.map((e) => PixelStatusRule.fromJson(e as Map<String, dynamic>))
-          .toList() ??
-      const [],
 );
 
 Map<String, dynamic> _$TiktokPixelIntegrationToJson(
@@ -454,12 +433,9 @@ Map<String, dynamic> _$TiktokPixelIntegrationToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'pixels': instance.pixels.map((e) => e.toJson()).toList(),
-  'objective': _$TiktokPixelEventEnumMap[instance.objective]!,
-  'draftObjective': _$TiktokPixelEventEnumMap[instance.draftObjective]!,
   'active': instance.active,
   'metadata': instance.metadata,
   'mode': _$PixelReportModeEnumMap[instance.mode],
-  'statusRules': instance.statusRules.map((e) => e.toJson()).toList(),
 };
 
 _TiktokPixel _$TiktokPixelFromJson(Map<String, dynamic> json) => _TiktokPixel(
@@ -484,23 +460,9 @@ _SnapchatPixelIntegration _$SnapchatPixelIntegrationFromJson(
           ?.map((e) => SnapchatPixel.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
-  objective:
-      $enumDecodeNullable(_$SnapchatPixelEventEnumMap, json['objective']) ??
-      SnapchatPixelEvent.purchase,
-  draftObjective:
-      $enumDecodeNullable(
-        _$SnapchatPixelEventEnumMap,
-        json['draftObjective'],
-      ) ??
-      SnapchatPixelEvent.startCheckout,
   active: json['active'] as bool? ?? true,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
   mode: $enumDecodeNullable(_$PixelReportModeEnumMap, json['mode']),
-  statusRules:
-      (json['statusRules'] as List<dynamic>?)
-          ?.map((e) => PixelStatusRule.fromJson(e as Map<String, dynamic>))
-          .toList() ??
-      const [],
 );
 
 Map<String, dynamic> _$SnapchatPixelIntegrationToJson(
@@ -508,12 +470,9 @@ Map<String, dynamic> _$SnapchatPixelIntegrationToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'pixels': instance.pixels.map((e) => e.toJson()).toList(),
-  'objective': _$SnapchatPixelEventEnumMap[instance.objective]!,
-  'draftObjective': _$SnapchatPixelEventEnumMap[instance.draftObjective]!,
   'active': instance.active,
   'metadata': instance.metadata,
   'mode': _$PixelReportModeEnumMap[instance.mode],
-  'statusRules': instance.statusRules.map((e) => e.toJson()).toList(),
 };
 
 _SnapchatPixel _$SnapchatPixelFromJson(Map<String, dynamic> json) =>

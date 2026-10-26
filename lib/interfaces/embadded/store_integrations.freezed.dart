@@ -18,7 +18,9 @@ mixin _$StoreIntegrations {
 
  Map<String, dynamic>? get metadata;/// Global Meta integration — credentials shared by every Meta feature.
 /// Ads live here today; pixels may move over from [metaPixel] later.
- MetaIntegration? get meta; MetaPixelIntegration? get metaPixel; TiktokPixelIntegration? get tiktokPixel; SnapchatPixelIntegration? get snapchatPixel; GoogleAnalyticsIntegration? get googleAnalytics; GoogleTagsIntegration? get googleTags;/// Microsoft Clarity (trackingCode public in storefront; apiKey never in public JSON).
+ MetaIntegration? get meta; MetaPixelIntegration? get metaPixel; TiktokPixelIntegration? get tiktokPixel; SnapchatPixelIntegration? get snapchatPixel;/// Ad pixel event rules for Meta, TikTok and Snapchat (null = the defaults,
+/// [kDefaultPixelEventRules]).
+ PixelEvents? get pixelEvents; GoogleAnalyticsIntegration? get googleAnalytics; GoogleTagsIntegration? get googleTags;/// Microsoft Clarity (trackingCode public in storefront; apiKey never in public JSON).
  ClarityIntegration? get clarity; AiIntegration? get ai; YalidineDeliveryIntegration? get yalidine; EcotrackDeliveryIntegration? get ecotrack; EcomanagerDeliveryIntegration? get ecomanager; ProcolisDeliveryIntegration? get procolis; NoestDeliveryIntegration? get noest; OrderdzDeliveryIntegration? get orderdz; ZimouExpressDeliveryIntegration? get zimou; ZrexpressDeliveryIntegration? get zrexpress; MdmExpressDeliveryIntegration? get mdmExpress;/// Feeef Delivery (Near Delivery white-label) — merchants never hold Near API keys.
  FeeefDeliveryIntegration? get feeefDelivery; MaystroDeliveryIntegration? get maystroDelivery;/// Codpilot mini-ERP (order confirmation / COD ops) — not a carrier.
  CodpilotIntegration? get codpilot; GoogleSheetsIntegration? get googleSheet; WebhooksIntegration? get webhooks; SecurityIntegration? get security; CustomFieldsIntegration? get customFields; ReviewsIntegration? get reviews; PaymentIntegration? get payment; DispatcherIntegration? get dispatcher;/// Inventory module (warehouses, stock, order reserve/consume).
@@ -39,20 +41,20 @@ $StoreIntegrationsCopyWith<StoreIntegrations> get copyWith => _$StoreIntegration
 @override
 bool operator ==(Object other) {
   final _this = this as StoreIntegrations;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.meta, _this.meta) || other.meta == _this.meta)&&(identical(other.metaPixel, _this.metaPixel) || other.metaPixel == _this.metaPixel)&&(identical(other.tiktokPixel, _this.tiktokPixel) || other.tiktokPixel == _this.tiktokPixel)&&(identical(other.snapchatPixel, _this.snapchatPixel) || other.snapchatPixel == _this.snapchatPixel)&&(identical(other.googleAnalytics, _this.googleAnalytics) || other.googleAnalytics == _this.googleAnalytics)&&(identical(other.googleTags, _this.googleTags) || other.googleTags == _this.googleTags)&&(identical(other.clarity, _this.clarity) || other.clarity == _this.clarity)&&(identical(other.ai, _this.ai) || other.ai == _this.ai)&&(identical(other.yalidine, _this.yalidine) || other.yalidine == _this.yalidine)&&(identical(other.ecotrack, _this.ecotrack) || other.ecotrack == _this.ecotrack)&&(identical(other.ecomanager, _this.ecomanager) || other.ecomanager == _this.ecomanager)&&(identical(other.procolis, _this.procolis) || other.procolis == _this.procolis)&&(identical(other.noest, _this.noest) || other.noest == _this.noest)&&(identical(other.orderdz, _this.orderdz) || other.orderdz == _this.orderdz)&&(identical(other.zimou, _this.zimou) || other.zimou == _this.zimou)&&(identical(other.zrexpress, _this.zrexpress) || other.zrexpress == _this.zrexpress)&&(identical(other.mdmExpress, _this.mdmExpress) || other.mdmExpress == _this.mdmExpress)&&(identical(other.feeefDelivery, _this.feeefDelivery) || other.feeefDelivery == _this.feeefDelivery)&&(identical(other.maystroDelivery, _this.maystroDelivery) || other.maystroDelivery == _this.maystroDelivery)&&(identical(other.codpilot, _this.codpilot) || other.codpilot == _this.codpilot)&&(identical(other.googleSheet, _this.googleSheet) || other.googleSheet == _this.googleSheet)&&(identical(other.webhooks, _this.webhooks) || other.webhooks == _this.webhooks)&&(identical(other.security, _this.security) || other.security == _this.security)&&(identical(other.customFields, _this.customFields) || other.customFields == _this.customFields)&&(identical(other.reviews, _this.reviews) || other.reviews == _this.reviews)&&(identical(other.payment, _this.payment) || other.payment == _this.payment)&&(identical(other.dispatcher, _this.dispatcher) || other.dispatcher == _this.dispatcher)&&(identical(other.inventory, _this.inventory) || other.inventory == _this.inventory)&&(identical(other.finance, _this.finance) || other.finance == _this.finance)&&(identical(other.pages, _this.pages) || other.pages == _this.pages)&&(identical(other.connectors, _this.connectors) || other.connectors == _this.connectors)&&const DeepCollectionEquality().equals(other.sms, _this.sms)&&const DeepCollectionEquality().equals(other.telegram, _this.telegram));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.meta, _this.meta) || other.meta == _this.meta)&&(identical(other.metaPixel, _this.metaPixel) || other.metaPixel == _this.metaPixel)&&(identical(other.tiktokPixel, _this.tiktokPixel) || other.tiktokPixel == _this.tiktokPixel)&&(identical(other.snapchatPixel, _this.snapchatPixel) || other.snapchatPixel == _this.snapchatPixel)&&(identical(other.pixelEvents, _this.pixelEvents) || other.pixelEvents == _this.pixelEvents)&&(identical(other.googleAnalytics, _this.googleAnalytics) || other.googleAnalytics == _this.googleAnalytics)&&(identical(other.googleTags, _this.googleTags) || other.googleTags == _this.googleTags)&&(identical(other.clarity, _this.clarity) || other.clarity == _this.clarity)&&(identical(other.ai, _this.ai) || other.ai == _this.ai)&&(identical(other.yalidine, _this.yalidine) || other.yalidine == _this.yalidine)&&(identical(other.ecotrack, _this.ecotrack) || other.ecotrack == _this.ecotrack)&&(identical(other.ecomanager, _this.ecomanager) || other.ecomanager == _this.ecomanager)&&(identical(other.procolis, _this.procolis) || other.procolis == _this.procolis)&&(identical(other.noest, _this.noest) || other.noest == _this.noest)&&(identical(other.orderdz, _this.orderdz) || other.orderdz == _this.orderdz)&&(identical(other.zimou, _this.zimou) || other.zimou == _this.zimou)&&(identical(other.zrexpress, _this.zrexpress) || other.zrexpress == _this.zrexpress)&&(identical(other.mdmExpress, _this.mdmExpress) || other.mdmExpress == _this.mdmExpress)&&(identical(other.feeefDelivery, _this.feeefDelivery) || other.feeefDelivery == _this.feeefDelivery)&&(identical(other.maystroDelivery, _this.maystroDelivery) || other.maystroDelivery == _this.maystroDelivery)&&(identical(other.codpilot, _this.codpilot) || other.codpilot == _this.codpilot)&&(identical(other.googleSheet, _this.googleSheet) || other.googleSheet == _this.googleSheet)&&(identical(other.webhooks, _this.webhooks) || other.webhooks == _this.webhooks)&&(identical(other.security, _this.security) || other.security == _this.security)&&(identical(other.customFields, _this.customFields) || other.customFields == _this.customFields)&&(identical(other.reviews, _this.reviews) || other.reviews == _this.reviews)&&(identical(other.payment, _this.payment) || other.payment == _this.payment)&&(identical(other.dispatcher, _this.dispatcher) || other.dispatcher == _this.dispatcher)&&(identical(other.inventory, _this.inventory) || other.inventory == _this.inventory)&&(identical(other.finance, _this.finance) || other.finance == _this.finance)&&(identical(other.pages, _this.pages) || other.pages == _this.pages)&&(identical(other.connectors, _this.connectors) || other.connectors == _this.connectors)&&const DeepCollectionEquality().equals(other.sms, _this.sms)&&const DeepCollectionEquality().equals(other.telegram, _this.telegram));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as StoreIntegrations;
-  return Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_this.metadata),_this.meta,_this.metaPixel,_this.tiktokPixel,_this.snapchatPixel,_this.googleAnalytics,_this.googleTags,_this.clarity,_this.ai,_this.yalidine,_this.ecotrack,_this.ecomanager,_this.procolis,_this.noest,_this.orderdz,_this.zimou,_this.zrexpress,_this.mdmExpress,_this.feeefDelivery,_this.maystroDelivery,_this.codpilot,_this.googleSheet,_this.webhooks,_this.security,_this.customFields,_this.reviews,_this.payment,_this.dispatcher,_this.inventory,_this.finance,_this.pages,_this.connectors,const DeepCollectionEquality().hash(_this.sms),const DeepCollectionEquality().hash(_this.telegram)]);
+  return Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_this.metadata),_this.meta,_this.metaPixel,_this.tiktokPixel,_this.snapchatPixel,_this.pixelEvents,_this.googleAnalytics,_this.googleTags,_this.clarity,_this.ai,_this.yalidine,_this.ecotrack,_this.ecomanager,_this.procolis,_this.noest,_this.orderdz,_this.zimou,_this.zrexpress,_this.mdmExpress,_this.feeefDelivery,_this.maystroDelivery,_this.codpilot,_this.googleSheet,_this.webhooks,_this.security,_this.customFields,_this.reviews,_this.payment,_this.dispatcher,_this.inventory,_this.finance,_this.pages,_this.connectors,const DeepCollectionEquality().hash(_this.sms),const DeepCollectionEquality().hash(_this.telegram)]);
 }
 
 @override
 String toString() {
   final _this = this as StoreIntegrations;
-  return 'StoreIntegrations(metadata: ${_this.metadata}, meta: ${_this.meta}, metaPixel: ${_this.metaPixel}, tiktokPixel: ${_this.tiktokPixel}, snapchatPixel: ${_this.snapchatPixel}, googleAnalytics: ${_this.googleAnalytics}, googleTags: ${_this.googleTags}, clarity: ${_this.clarity}, ai: ${_this.ai}, yalidine: ${_this.yalidine}, ecotrack: ${_this.ecotrack}, ecomanager: ${_this.ecomanager}, procolis: ${_this.procolis}, noest: ${_this.noest}, orderdz: ${_this.orderdz}, zimou: ${_this.zimou}, zrexpress: ${_this.zrexpress}, mdmExpress: ${_this.mdmExpress}, feeefDelivery: ${_this.feeefDelivery}, maystroDelivery: ${_this.maystroDelivery}, codpilot: ${_this.codpilot}, googleSheet: ${_this.googleSheet}, webhooks: ${_this.webhooks}, security: ${_this.security}, customFields: ${_this.customFields}, reviews: ${_this.reviews}, payment: ${_this.payment}, dispatcher: ${_this.dispatcher}, inventory: ${_this.inventory}, finance: ${_this.finance}, pages: ${_this.pages}, connectors: ${_this.connectors}, sms: ${_this.sms}, telegram: ${_this.telegram})';
+  return 'StoreIntegrations(metadata: ${_this.metadata}, meta: ${_this.meta}, metaPixel: ${_this.metaPixel}, tiktokPixel: ${_this.tiktokPixel}, snapchatPixel: ${_this.snapchatPixel}, pixelEvents: ${_this.pixelEvents}, googleAnalytics: ${_this.googleAnalytics}, googleTags: ${_this.googleTags}, clarity: ${_this.clarity}, ai: ${_this.ai}, yalidine: ${_this.yalidine}, ecotrack: ${_this.ecotrack}, ecomanager: ${_this.ecomanager}, procolis: ${_this.procolis}, noest: ${_this.noest}, orderdz: ${_this.orderdz}, zimou: ${_this.zimou}, zrexpress: ${_this.zrexpress}, mdmExpress: ${_this.mdmExpress}, feeefDelivery: ${_this.feeefDelivery}, maystroDelivery: ${_this.maystroDelivery}, codpilot: ${_this.codpilot}, googleSheet: ${_this.googleSheet}, webhooks: ${_this.webhooks}, security: ${_this.security}, customFields: ${_this.customFields}, reviews: ${_this.reviews}, payment: ${_this.payment}, dispatcher: ${_this.dispatcher}, inventory: ${_this.inventory}, finance: ${_this.finance}, pages: ${_this.pages}, connectors: ${_this.connectors}, sms: ${_this.sms}, telegram: ${_this.telegram})';
 }
 
 
@@ -63,11 +65,11 @@ abstract mixin class $StoreIntegrationsCopyWith<$Res>  {
   factory $StoreIntegrationsCopyWith(StoreIntegrations value, $Res Function(StoreIntegrations) _then) = _$StoreIntegrationsCopyWithImpl;
 @useResult
 $Res call({
- Map<String, dynamic>? metadata, MetaIntegration? meta, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, SnapchatPixelIntegration? snapchatPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, FeeefDeliveryIntegration? feeefDelivery, MaystroDeliveryIntegration? maystroDelivery, CodpilotIntegration? codpilot, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, ReviewsIntegration? reviews, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, StorePagesIntegration? pages, ConnectorsIntegration? connectors, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
+ Map<String, dynamic>? metadata, MetaIntegration? meta, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, SnapchatPixelIntegration? snapchatPixel, PixelEvents? pixelEvents, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, FeeefDeliveryIntegration? feeefDelivery, MaystroDeliveryIntegration? maystroDelivery, CodpilotIntegration? codpilot, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, ReviewsIntegration? reviews, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, StorePagesIntegration? pages, ConnectorsIntegration? connectors, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
 });
 
 
-$MetaIntegrationCopyWith<$Res>? get meta;$MetaPixelIntegrationCopyWith<$Res>? get metaPixel;$TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;$SnapchatPixelIntegrationCopyWith<$Res>? get snapchatPixel;$GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;$GoogleTagsIntegrationCopyWith<$Res>? get googleTags;$ClarityIntegrationCopyWith<$Res>? get clarity;$AiIntegrationCopyWith<$Res>? get ai;$YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;$EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;$EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;$ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;$NoestDeliveryIntegrationCopyWith<$Res>? get noest;$OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;$ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;$ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;$MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;$FeeefDeliveryIntegrationCopyWith<$Res>? get feeefDelivery;$MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;$CodpilotIntegrationCopyWith<$Res>? get codpilot;$GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;$WebhooksIntegrationCopyWith<$Res>? get webhooks;$SecurityIntegrationCopyWith<$Res>? get security;$CustomFieldsIntegrationCopyWith<$Res>? get customFields;$ReviewsIntegrationCopyWith<$Res>? get reviews;$PaymentIntegrationCopyWith<$Res>? get payment;$DispatcherIntegrationCopyWith<$Res>? get dispatcher;$StoreInventoryIntegrationCopyWith<$Res>? get inventory;$StoreFinanceIntegrationCopyWith<$Res>? get finance;$StorePagesIntegrationCopyWith<$Res>? get pages;$ConnectorsIntegrationCopyWith<$Res>? get connectors;
+$MetaIntegrationCopyWith<$Res>? get meta;$MetaPixelIntegrationCopyWith<$Res>? get metaPixel;$TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;$SnapchatPixelIntegrationCopyWith<$Res>? get snapchatPixel;$PixelEventsCopyWith<$Res>? get pixelEvents;$GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;$GoogleTagsIntegrationCopyWith<$Res>? get googleTags;$ClarityIntegrationCopyWith<$Res>? get clarity;$AiIntegrationCopyWith<$Res>? get ai;$YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;$EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;$EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;$ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;$NoestDeliveryIntegrationCopyWith<$Res>? get noest;$OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;$ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;$ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;$MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;$FeeefDeliveryIntegrationCopyWith<$Res>? get feeefDelivery;$MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;$CodpilotIntegrationCopyWith<$Res>? get codpilot;$GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;$WebhooksIntegrationCopyWith<$Res>? get webhooks;$SecurityIntegrationCopyWith<$Res>? get security;$CustomFieldsIntegrationCopyWith<$Res>? get customFields;$ReviewsIntegrationCopyWith<$Res>? get reviews;$PaymentIntegrationCopyWith<$Res>? get payment;$DispatcherIntegrationCopyWith<$Res>? get dispatcher;$StoreInventoryIntegrationCopyWith<$Res>? get inventory;$StoreFinanceIntegrationCopyWith<$Res>? get finance;$StorePagesIntegrationCopyWith<$Res>? get pages;$ConnectorsIntegrationCopyWith<$Res>? get connectors;
 
 }
 /// @nodoc
@@ -80,14 +82,15 @@ class _$StoreIntegrationsCopyWithImpl<$Res>
 
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? metadata = freezed,Object? meta = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? snapchatPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? feeefDelivery = freezed,Object? maystroDelivery = freezed,Object? codpilot = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? reviews = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? pages = freezed,Object? connectors = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? metadata = freezed,Object? meta = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? snapchatPixel = freezed,Object? pixelEvents = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? feeefDelivery = freezed,Object? maystroDelivery = freezed,Object? codpilot = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? reviews = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? pages = freezed,Object? connectors = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
   return _then(StoreIntegrations(
 metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
 as MetaIntegration?,metaPixel: freezed == metaPixel ? _self.metaPixel : metaPixel // ignore: cast_nullable_to_non_nullable
 as MetaPixelIntegration?,tiktokPixel: freezed == tiktokPixel ? _self.tiktokPixel : tiktokPixel // ignore: cast_nullable_to_non_nullable
 as TiktokPixelIntegration?,snapchatPixel: freezed == snapchatPixel ? _self.snapchatPixel : snapchatPixel // ignore: cast_nullable_to_non_nullable
-as SnapchatPixelIntegration?,googleAnalytics: freezed == googleAnalytics ? _self.googleAnalytics : googleAnalytics // ignore: cast_nullable_to_non_nullable
+as SnapchatPixelIntegration?,pixelEvents: freezed == pixelEvents ? _self.pixelEvents : pixelEvents // ignore: cast_nullable_to_non_nullable
+as PixelEvents?,googleAnalytics: freezed == googleAnalytics ? _self.googleAnalytics : googleAnalytics // ignore: cast_nullable_to_non_nullable
 as GoogleAnalyticsIntegration?,googleTags: freezed == googleTags ? _self.googleTags : googleTags // ignore: cast_nullable_to_non_nullable
 as GoogleTagsIntegration?,clarity: freezed == clarity ? _self.clarity : clarity // ignore: cast_nullable_to_non_nullable
 as ClarityIntegration?,ai: freezed == ai ? _self.ai : ai // ignore: cast_nullable_to_non_nullable
@@ -166,6 +169,18 @@ $SnapchatPixelIntegrationCopyWith<$Res>? get snapchatPixel {
 
   return $SnapchatPixelIntegrationCopyWith<$Res>(_self.snapchatPixel!, (value) {
     return _then(_self.copyWith(snapchatPixel: value));
+  });
+}/// Create a copy of StoreIntegrations
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PixelEventsCopyWith<$Res>? get pixelEvents {
+    if (_self.pixelEvents == null) {
+    return null;
+  }
+
+  return $PixelEventsCopyWith<$Res>(_self.pixelEvents!, (value) {
+    return _then(_self.copyWith(pixelEvents: value));
   });
 }/// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
@@ -573,10 +588,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaIntegration? meta,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  SnapchatPixelIntegration? snapchatPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  ReviewsIntegration? reviews,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  StorePagesIntegration? pages,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaIntegration? meta,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  SnapchatPixelIntegration? snapchatPixel,  PixelEvents? pixelEvents,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  ReviewsIntegration? reviews,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  StorePagesIntegration? pages,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreIntegrations() when $default != null:
-return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_that.snapchatPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.reviews,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.pages,_that.connectors,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_that.snapchatPixel,_that.pixelEvents,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.reviews,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.pages,_that.connectors,_that.sms,_that.telegram);case _:
   return orElse();
 
 }
@@ -594,10 +609,10 @@ return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaIntegration? meta,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  SnapchatPixelIntegration? snapchatPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  ReviewsIntegration? reviews,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  StorePagesIntegration? pages,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaIntegration? meta,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  SnapchatPixelIntegration? snapchatPixel,  PixelEvents? pixelEvents,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  ReviewsIntegration? reviews,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  StorePagesIntegration? pages,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)  $default,) {final _that = this;
 switch (_that) {
 case _StoreIntegrations():
-return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_that.snapchatPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.reviews,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.pages,_that.connectors,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_that.snapchatPixel,_that.pixelEvents,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.reviews,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.pages,_that.connectors,_that.sms,_that.telegram);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -614,10 +629,10 @@ return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Map<String, dynamic>? metadata,  MetaIntegration? meta,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  SnapchatPixelIntegration? snapchatPixel,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  ReviewsIntegration? reviews,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  StorePagesIntegration? pages,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Map<String, dynamic>? metadata,  MetaIntegration? meta,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  SnapchatPixelIntegration? snapchatPixel,  PixelEvents? pixelEvents,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  ReviewsIntegration? reviews,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  StorePagesIntegration? pages,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreIntegrations() when $default != null:
-return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_that.snapchatPixel,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.reviews,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.pages,_that.connectors,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_that.snapchatPixel,_that.pixelEvents,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.reviews,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.pages,_that.connectors,_that.sms,_that.telegram);case _:
   return null;
 
 }
@@ -629,7 +644,7 @@ return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_tha
 @JsonSerializable()
 
 class _StoreIntegrations extends StoreIntegrations {
-  const _StoreIntegrations({ Map<String, dynamic>? metadata = const {}, this.meta, this.metaPixel, this.tiktokPixel, this.snapchatPixel, this.googleAnalytics, this.googleTags, this.clarity, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.mdmExpress, this.feeefDelivery, this.maystroDelivery, this.codpilot, this.googleSheet, this.webhooks, this.security, this.customFields, this.reviews, this.payment, this.dispatcher, this.inventory, this.finance, this.pages, this.connectors,  Map<String, dynamic>? sms = const {},  Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
+  const _StoreIntegrations({ Map<String, dynamic>? metadata = const {}, this.meta, this.metaPixel, this.tiktokPixel, this.snapchatPixel, this.pixelEvents, this.googleAnalytics, this.googleTags, this.clarity, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.mdmExpress, this.feeefDelivery, this.maystroDelivery, this.codpilot, this.googleSheet, this.webhooks, this.security, this.customFields, this.reviews, this.payment, this.dispatcher, this.inventory, this.finance, this.pages, this.connectors,  Map<String, dynamic>? sms = const {},  Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
   factory _StoreIntegrations.fromJson(Map<String, dynamic> json) => _$StoreIntegrationsFromJson(json);
 
  final  Map<String, dynamic>? _metadata;
@@ -647,6 +662,9 @@ class _StoreIntegrations extends StoreIntegrations {
 @override final  MetaPixelIntegration? metaPixel;
 @override final  TiktokPixelIntegration? tiktokPixel;
 @override final  SnapchatPixelIntegration? snapchatPixel;
+/// Ad pixel event rules for Meta, TikTok and Snapchat (null = the defaults,
+/// [kDefaultPixelEventRules]).
+@override final  PixelEvents? pixelEvents;
 @override final  GoogleAnalyticsIntegration? googleAnalytics;
 @override final  GoogleTagsIntegration? googleTags;
 /// Microsoft Clarity (trackingCode public in storefront; apiKey never in public JSON).
@@ -713,18 +731,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.snapchatPixel, snapchatPixel) || other.snapchatPixel == snapchatPixel)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.feeefDelivery, feeefDelivery) || other.feeefDelivery == feeefDelivery)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.codpilot, codpilot) || other.codpilot == codpilot)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.reviews, reviews) || other.reviews == reviews)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&(identical(other.pages, pages) || other.pages == pages)&&(identical(other.connectors, connectors) || other.connectors == connectors)&&const DeepCollectionEquality().equals(other.sms, _sms)&&const DeepCollectionEquality().equals(other.telegram, _telegram));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.snapchatPixel, snapchatPixel) || other.snapchatPixel == snapchatPixel)&&(identical(other.pixelEvents, pixelEvents) || other.pixelEvents == pixelEvents)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.feeefDelivery, feeefDelivery) || other.feeefDelivery == feeefDelivery)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.codpilot, codpilot) || other.codpilot == codpilot)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.reviews, reviews) || other.reviews == reviews)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&(identical(other.pages, pages) || other.pages == pages)&&(identical(other.connectors, connectors) || other.connectors == connectors)&&const DeepCollectionEquality().equals(other.sms, _sms)&&const DeepCollectionEquality().equals(other.telegram, _telegram));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_metadata),meta,metaPixel,tiktokPixel,snapchatPixel,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,feeefDelivery,maystroDelivery,codpilot,googleSheet,webhooks,security,customFields,reviews,payment,dispatcher,inventory,finance,pages,connectors,const DeepCollectionEquality().hash(_sms),const DeepCollectionEquality().hash(_telegram)]);
+    return Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_metadata),meta,metaPixel,tiktokPixel,snapchatPixel,pixelEvents,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,feeefDelivery,maystroDelivery,codpilot,googleSheet,webhooks,security,customFields,reviews,payment,dispatcher,inventory,finance,pages,connectors,const DeepCollectionEquality().hash(_sms),const DeepCollectionEquality().hash(_telegram)]);
 }
 
 @override
 String toString() {
-    return 'StoreIntegrations(metadata: $metadata, meta: $meta, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, snapchatPixel: $snapchatPixel, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, feeefDelivery: $feeefDelivery, maystroDelivery: $maystroDelivery, codpilot: $codpilot, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, reviews: $reviews, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, pages: $pages, connectors: $connectors, sms: $sms, telegram: $telegram)';
+    return 'StoreIntegrations(metadata: $metadata, meta: $meta, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, snapchatPixel: $snapchatPixel, pixelEvents: $pixelEvents, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, feeefDelivery: $feeefDelivery, maystroDelivery: $maystroDelivery, codpilot: $codpilot, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, reviews: $reviews, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, pages: $pages, connectors: $connectors, sms: $sms, telegram: $telegram)';
 }
 
 
@@ -735,11 +753,11 @@ abstract mixin class _$StoreIntegrationsCopyWith<$Res> implements $StoreIntegrat
   factory _$StoreIntegrationsCopyWith(_StoreIntegrations value, $Res Function(_StoreIntegrations) _then) = __$StoreIntegrationsCopyWithImpl;
 @override @useResult
 $Res call({
- Map<String, dynamic>? metadata, MetaIntegration? meta, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, SnapchatPixelIntegration? snapchatPixel, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, FeeefDeliveryIntegration? feeefDelivery, MaystroDeliveryIntegration? maystroDelivery, CodpilotIntegration? codpilot, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, ReviewsIntegration? reviews, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, StorePagesIntegration? pages, ConnectorsIntegration? connectors, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
+ Map<String, dynamic>? metadata, MetaIntegration? meta, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, SnapchatPixelIntegration? snapchatPixel, PixelEvents? pixelEvents, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, FeeefDeliveryIntegration? feeefDelivery, MaystroDeliveryIntegration? maystroDelivery, CodpilotIntegration? codpilot, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, ReviewsIntegration? reviews, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, StorePagesIntegration? pages, ConnectorsIntegration? connectors, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
 });
 
 
-@override $MetaIntegrationCopyWith<$Res>? get meta;@override $MetaPixelIntegrationCopyWith<$Res>? get metaPixel;@override $TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;@override $SnapchatPixelIntegrationCopyWith<$Res>? get snapchatPixel;@override $GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;@override $GoogleTagsIntegrationCopyWith<$Res>? get googleTags;@override $ClarityIntegrationCopyWith<$Res>? get clarity;@override $AiIntegrationCopyWith<$Res>? get ai;@override $YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;@override $EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;@override $EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;@override $ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;@override $NoestDeliveryIntegrationCopyWith<$Res>? get noest;@override $OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;@override $ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;@override $ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;@override $MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;@override $FeeefDeliveryIntegrationCopyWith<$Res>? get feeefDelivery;@override $MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;@override $CodpilotIntegrationCopyWith<$Res>? get codpilot;@override $GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;@override $WebhooksIntegrationCopyWith<$Res>? get webhooks;@override $SecurityIntegrationCopyWith<$Res>? get security;@override $CustomFieldsIntegrationCopyWith<$Res>? get customFields;@override $ReviewsIntegrationCopyWith<$Res>? get reviews;@override $PaymentIntegrationCopyWith<$Res>? get payment;@override $DispatcherIntegrationCopyWith<$Res>? get dispatcher;@override $StoreInventoryIntegrationCopyWith<$Res>? get inventory;@override $StoreFinanceIntegrationCopyWith<$Res>? get finance;@override $StorePagesIntegrationCopyWith<$Res>? get pages;@override $ConnectorsIntegrationCopyWith<$Res>? get connectors;
+@override $MetaIntegrationCopyWith<$Res>? get meta;@override $MetaPixelIntegrationCopyWith<$Res>? get metaPixel;@override $TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;@override $SnapchatPixelIntegrationCopyWith<$Res>? get snapchatPixel;@override $PixelEventsCopyWith<$Res>? get pixelEvents;@override $GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;@override $GoogleTagsIntegrationCopyWith<$Res>? get googleTags;@override $ClarityIntegrationCopyWith<$Res>? get clarity;@override $AiIntegrationCopyWith<$Res>? get ai;@override $YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;@override $EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;@override $EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;@override $ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;@override $NoestDeliveryIntegrationCopyWith<$Res>? get noest;@override $OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;@override $ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;@override $ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;@override $MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;@override $FeeefDeliveryIntegrationCopyWith<$Res>? get feeefDelivery;@override $MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;@override $CodpilotIntegrationCopyWith<$Res>? get codpilot;@override $GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;@override $WebhooksIntegrationCopyWith<$Res>? get webhooks;@override $SecurityIntegrationCopyWith<$Res>? get security;@override $CustomFieldsIntegrationCopyWith<$Res>? get customFields;@override $ReviewsIntegrationCopyWith<$Res>? get reviews;@override $PaymentIntegrationCopyWith<$Res>? get payment;@override $DispatcherIntegrationCopyWith<$Res>? get dispatcher;@override $StoreInventoryIntegrationCopyWith<$Res>? get inventory;@override $StoreFinanceIntegrationCopyWith<$Res>? get finance;@override $StorePagesIntegrationCopyWith<$Res>? get pages;@override $ConnectorsIntegrationCopyWith<$Res>? get connectors;
 
 }
 /// @nodoc
@@ -752,14 +770,15 @@ class __$StoreIntegrationsCopyWithImpl<$Res>
 
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? metadata = freezed,Object? meta = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? snapchatPixel = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? feeefDelivery = freezed,Object? maystroDelivery = freezed,Object? codpilot = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? reviews = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? pages = freezed,Object? connectors = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? metadata = freezed,Object? meta = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? snapchatPixel = freezed,Object? pixelEvents = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? feeefDelivery = freezed,Object? maystroDelivery = freezed,Object? codpilot = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? reviews = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? pages = freezed,Object? connectors = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
   return _then(_StoreIntegrations(
 metadata: freezed == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
 as MetaIntegration?,metaPixel: freezed == metaPixel ? _self.metaPixel : metaPixel // ignore: cast_nullable_to_non_nullable
 as MetaPixelIntegration?,tiktokPixel: freezed == tiktokPixel ? _self.tiktokPixel : tiktokPixel // ignore: cast_nullable_to_non_nullable
 as TiktokPixelIntegration?,snapchatPixel: freezed == snapchatPixel ? _self.snapchatPixel : snapchatPixel // ignore: cast_nullable_to_non_nullable
-as SnapchatPixelIntegration?,googleAnalytics: freezed == googleAnalytics ? _self.googleAnalytics : googleAnalytics // ignore: cast_nullable_to_non_nullable
+as SnapchatPixelIntegration?,pixelEvents: freezed == pixelEvents ? _self.pixelEvents : pixelEvents // ignore: cast_nullable_to_non_nullable
+as PixelEvents?,googleAnalytics: freezed == googleAnalytics ? _self.googleAnalytics : googleAnalytics // ignore: cast_nullable_to_non_nullable
 as GoogleAnalyticsIntegration?,googleTags: freezed == googleTags ? _self.googleTags : googleTags // ignore: cast_nullable_to_non_nullable
 as GoogleTagsIntegration?,clarity: freezed == clarity ? _self.clarity : clarity // ignore: cast_nullable_to_non_nullable
 as ClarityIntegration?,ai: freezed == ai ? _self.ai : ai // ignore: cast_nullable_to_non_nullable
@@ -839,6 +858,18 @@ $SnapchatPixelIntegrationCopyWith<$Res>? get snapchatPixel {
 
   return $SnapchatPixelIntegrationCopyWith<$Res>(_self.snapchatPixel!, (value) {
     return _then(_self.copyWith(snapchatPixel: value));
+  });
+}/// Create a copy of StoreIntegrations
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PixelEventsCopyWith<$Res>? get pixelEvents {
+    if (_self.pixelEvents == null) {
+    return null;
+  }
+
+  return $PixelEventsCopyWith<$Res>(_self.pixelEvents!, (value) {
+    return _then(_self.copyWith(pixelEvents: value));
   });
 }/// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
@@ -2962,10 +2993,9 @@ $MetaAdsConfigCopyWith<$Res>? get ads {
 /// @nodoc
 mixin _$MetaPixelIntegration {
 
- String get id; List<MetaPixel> get pixels; MetaPixelEvent get objective; MetaPixelEvent get draftObjective; bool get active; Map<String, dynamic> get metadata;/// Facebook Marketing OAuth data - for accessing pixels via API
+ String get id; List<MetaPixel> get pixels; bool get active; Map<String, dynamic> get metadata;/// Facebook Marketing OAuth data - for accessing pixels via API
  FacebookMarketingOAuth? get oauth2;/// Where to send events: server (CAPI), client (store frontend), or both. Null = auto.
- PixelReportMode? get mode;/// Server-only: fire CAPI when order/delivery/payment/custom status transitions into [equals].
- List<PixelStatusRule> get statusRules;
+ PixelReportMode? get mode;
 /// Create a copy of MetaPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2979,20 +3009,20 @@ $MetaPixelIntegrationCopyWith<MetaPixelIntegration> get copyWith => _$MetaPixelI
 @override
 bool operator ==(Object other) {
   final _this = this as MetaPixelIntegration;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.objective, _this.objective) || other.objective == _this.objective)&&(identical(other.draftObjective, _this.draftObjective) || other.draftObjective == _this.draftObjective)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.oauth2, _this.oauth2) || other.oauth2 == _this.oauth2)&&(identical(other.mode, _this.mode) || other.mode == _this.mode)&&const DeepCollectionEquality().equals(other.statusRules, _this.statusRules));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.oauth2, _this.oauth2) || other.oauth2 == _this.oauth2)&&(identical(other.mode, _this.mode) || other.mode == _this.mode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as MetaPixelIntegration;
-  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.objective,_this.draftObjective,_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.oauth2,_this.mode,const DeepCollectionEquality().hash(_this.statusRules));
+  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.oauth2,_this.mode);
 }
 
 @override
 String toString() {
   final _this = this as MetaPixelIntegration;
-  return 'MetaPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, objective: ${_this.objective}, draftObjective: ${_this.draftObjective}, active: ${_this.active}, metadata: ${_this.metadata}, oauth2: ${_this.oauth2}, mode: ${_this.mode}, statusRules: ${_this.statusRules})';
+  return 'MetaPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, active: ${_this.active}, metadata: ${_this.metadata}, oauth2: ${_this.oauth2}, mode: ${_this.mode})';
 }
 
 
@@ -3003,7 +3033,7 @@ abstract mixin class $MetaPixelIntegrationCopyWith<$Res>  {
   factory $MetaPixelIntegrationCopyWith(MetaPixelIntegration value, $Res Function(MetaPixelIntegration) _then) = _$MetaPixelIntegrationCopyWithImpl;
 @useResult
 $Res call({
- String id, List<MetaPixel> pixels, MetaPixelEvent objective, MetaPixelEvent draftObjective, bool active, Map<String, dynamic> metadata, FacebookMarketingOAuth? oauth2, PixelReportMode? mode, List<PixelStatusRule> statusRules
+ String id, List<MetaPixel> pixels, bool active, Map<String, dynamic> metadata, FacebookMarketingOAuth? oauth2, PixelReportMode? mode
 });
 
 
@@ -3020,18 +3050,15 @@ class _$MetaPixelIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of MetaPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? objective = null,Object? draftObjective = null,Object? active = null,Object? metadata = null,Object? oauth2 = freezed,Object? mode = freezed,Object? statusRules = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? oauth2 = freezed,Object? mode = freezed,}) {
   return _then(MetaPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self.pixels : pixels // ignore: cast_nullable_to_non_nullable
-as List<MetaPixel>,objective: null == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
-as MetaPixelEvent,draftObjective: null == draftObjective ? _self.draftObjective : draftObjective // ignore: cast_nullable_to_non_nullable
-as MetaPixelEvent,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as List<MetaPixel>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,oauth2: freezed == oauth2 ? _self.oauth2 : oauth2 // ignore: cast_nullable_to_non_nullable
 as FacebookMarketingOAuth?,mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as PixelReportMode?,statusRules: null == statusRules ? _self.statusRules : statusRules // ignore: cast_nullable_to_non_nullable
-as List<PixelStatusRule>,
+as PixelReportMode?,
   ));
 }
 /// Create a copy of MetaPixelIntegration
@@ -3128,10 +3155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<MetaPixel> pixels,  MetaPixelEvent objective,  MetaPixelEvent draftObjective,  bool active,  Map<String, dynamic> metadata,  FacebookMarketingOAuth? oauth2,  PixelReportMode? mode,  List<PixelStatusRule> statusRules)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<MetaPixel> pixels,  bool active,  Map<String, dynamic> metadata,  FacebookMarketingOAuth? oauth2,  PixelReportMode? mode)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MetaPixelIntegration() when $default != null:
-return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that.active,_that.metadata,_that.oauth2,_that.mode,_that.statusRules);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.oauth2,_that.mode);case _:
   return orElse();
 
 }
@@ -3149,10 +3176,10 @@ return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<MetaPixel> pixels,  MetaPixelEvent objective,  MetaPixelEvent draftObjective,  bool active,  Map<String, dynamic> metadata,  FacebookMarketingOAuth? oauth2,  PixelReportMode? mode,  List<PixelStatusRule> statusRules)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<MetaPixel> pixels,  bool active,  Map<String, dynamic> metadata,  FacebookMarketingOAuth? oauth2,  PixelReportMode? mode)  $default,) {final _that = this;
 switch (_that) {
 case _MetaPixelIntegration():
-return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that.active,_that.metadata,_that.oauth2,_that.mode,_that.statusRules);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.oauth2,_that.mode);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -3169,10 +3196,10 @@ return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<MetaPixel> pixels,  MetaPixelEvent objective,  MetaPixelEvent draftObjective,  bool active,  Map<String, dynamic> metadata,  FacebookMarketingOAuth? oauth2,  PixelReportMode? mode,  List<PixelStatusRule> statusRules)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<MetaPixel> pixels,  bool active,  Map<String, dynamic> metadata,  FacebookMarketingOAuth? oauth2,  PixelReportMode? mode)?  $default,) {final _that = this;
 switch (_that) {
 case _MetaPixelIntegration() when $default != null:
-return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that.active,_that.metadata,_that.oauth2,_that.mode,_that.statusRules);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.oauth2,_that.mode);case _:
   return null;
 
 }
@@ -3184,7 +3211,7 @@ return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that
 @JsonSerializable()
 
 class _MetaPixelIntegration extends MetaPixelIntegration {
-  const _MetaPixelIntegration({this.id = 'default',  List<MetaPixel> pixels = const [], this.objective = MetaPixelEvent.purchase, this.draftObjective = MetaPixelEvent.lead, this.active = true,  Map<String, dynamic> metadata = const {}, this.oauth2, this.mode,  List<PixelStatusRule> statusRules = const []}): _pixels = pixels,_metadata = metadata,_statusRules = statusRules,super._();
+  const _MetaPixelIntegration({this.id = 'default',  List<MetaPixel> pixels = const [], this.active = true,  Map<String, dynamic> metadata = const {}, this.oauth2, this.mode}): _pixels = pixels,_metadata = metadata,super._();
   factory _MetaPixelIntegration.fromJson(Map<String, dynamic> json) => _$MetaPixelIntegrationFromJson(json);
 
 @override@JsonKey() final  String id;
@@ -3195,8 +3222,6 @@ class _MetaPixelIntegration extends MetaPixelIntegration {
   return EqualUnmodifiableListView(_pixels);
 }
 
-@override@JsonKey() final  MetaPixelEvent objective;
-@override@JsonKey() final  MetaPixelEvent draftObjective;
 @override@JsonKey() final  bool active;
  final  Map<String, dynamic> _metadata;
 @override@JsonKey() Map<String, dynamic> get metadata {
@@ -3209,15 +3234,6 @@ class _MetaPixelIntegration extends MetaPixelIntegration {
 @override final  FacebookMarketingOAuth? oauth2;
 /// Where to send events: server (CAPI), client (store frontend), or both. Null = auto.
 @override final  PixelReportMode? mode;
-/// Server-only: fire CAPI when order/delivery/payment/custom status transitions into [equals].
- final  List<PixelStatusRule> _statusRules;
-/// Server-only: fire CAPI when order/delivery/payment/custom status transitions into [equals].
-@override@JsonKey() List<PixelStatusRule> get statusRules {
-  if (_statusRules is EqualUnmodifiableListView) return _statusRules;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_statusRules);
-}
-
 
 /// Create a copy of MetaPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
@@ -3232,18 +3248,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.oauth2, oauth2) || other.oauth2 == oauth2)&&(identical(other.mode, mode) || other.mode == mode)&&const DeepCollectionEquality().equals(other.statusRules, _statusRules));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.oauth2, oauth2) || other.oauth2 == oauth2)&&(identical(other.mode, mode) || other.mode == mode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),objective,draftObjective,active,const DeepCollectionEquality().hash(_metadata),oauth2,mode,const DeepCollectionEquality().hash(_statusRules));
+    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),active,const DeepCollectionEquality().hash(_metadata),oauth2,mode);
 }
 
 @override
 String toString() {
-    return 'MetaPixelIntegration(id: $id, pixels: $pixels, objective: $objective, draftObjective: $draftObjective, active: $active, metadata: $metadata, oauth2: $oauth2, mode: $mode, statusRules: $statusRules)';
+    return 'MetaPixelIntegration(id: $id, pixels: $pixels, active: $active, metadata: $metadata, oauth2: $oauth2, mode: $mode)';
 }
 
 
@@ -3254,7 +3270,7 @@ abstract mixin class _$MetaPixelIntegrationCopyWith<$Res> implements $MetaPixelI
   factory _$MetaPixelIntegrationCopyWith(_MetaPixelIntegration value, $Res Function(_MetaPixelIntegration) _then) = __$MetaPixelIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- String id, List<MetaPixel> pixels, MetaPixelEvent objective, MetaPixelEvent draftObjective, bool active, Map<String, dynamic> metadata, FacebookMarketingOAuth? oauth2, PixelReportMode? mode, List<PixelStatusRule> statusRules
+ String id, List<MetaPixel> pixels, bool active, Map<String, dynamic> metadata, FacebookMarketingOAuth? oauth2, PixelReportMode? mode
 });
 
 
@@ -3271,18 +3287,15 @@ class __$MetaPixelIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of MetaPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pixels = null,Object? objective = null,Object? draftObjective = null,Object? active = null,Object? metadata = null,Object? oauth2 = freezed,Object? mode = freezed,Object? statusRules = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? oauth2 = freezed,Object? mode = freezed,}) {
   return _then(_MetaPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self._pixels : pixels // ignore: cast_nullable_to_non_nullable
-as List<MetaPixel>,objective: null == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
-as MetaPixelEvent,draftObjective: null == draftObjective ? _self.draftObjective : draftObjective // ignore: cast_nullable_to_non_nullable
-as MetaPixelEvent,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as List<MetaPixel>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,oauth2: freezed == oauth2 ? _self.oauth2 : oauth2 // ignore: cast_nullable_to_non_nullable
 as FacebookMarketingOAuth?,mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as PixelReportMode?,statusRules: null == statusRules ? _self._statusRules : statusRules // ignore: cast_nullable_to_non_nullable
-as List<PixelStatusRule>,
+as PixelReportMode?,
   ));
 }
 
@@ -3581,9 +3594,8 @@ as String?,
 /// @nodoc
 mixin _$TiktokPixelIntegration {
 
- String get id; List<TiktokPixel> get pixels; TiktokPixelEvent get objective; TiktokPixelEvent get draftObjective; bool get active; Map<String, dynamic> get metadata;/// Where to send events: server, client, or both. Null = auto.
- PixelReportMode? get mode;/// Server-only: fire Events API when order/delivery/payment/custom status transitions into [equals].
- List<PixelStatusRule> get statusRules;
+ String get id; List<TiktokPixel> get pixels; bool get active; Map<String, dynamic> get metadata;/// Where to send events: server, client, or both. Null = auto.
+ PixelReportMode? get mode;
 /// Create a copy of TiktokPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -3597,20 +3609,20 @@ $TiktokPixelIntegrationCopyWith<TiktokPixelIntegration> get copyWith => _$Tiktok
 @override
 bool operator ==(Object other) {
   final _this = this as TiktokPixelIntegration;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TiktokPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.objective, _this.objective) || other.objective == _this.objective)&&(identical(other.draftObjective, _this.draftObjective) || other.draftObjective == _this.draftObjective)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.mode, _this.mode) || other.mode == _this.mode)&&const DeepCollectionEquality().equals(other.statusRules, _this.statusRules));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TiktokPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.mode, _this.mode) || other.mode == _this.mode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as TiktokPixelIntegration;
-  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.objective,_this.draftObjective,_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.mode,const DeepCollectionEquality().hash(_this.statusRules));
+  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.mode);
 }
 
 @override
 String toString() {
   final _this = this as TiktokPixelIntegration;
-  return 'TiktokPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, objective: ${_this.objective}, draftObjective: ${_this.draftObjective}, active: ${_this.active}, metadata: ${_this.metadata}, mode: ${_this.mode}, statusRules: ${_this.statusRules})';
+  return 'TiktokPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, active: ${_this.active}, metadata: ${_this.metadata}, mode: ${_this.mode})';
 }
 
 
@@ -3621,7 +3633,7 @@ abstract mixin class $TiktokPixelIntegrationCopyWith<$Res>  {
   factory $TiktokPixelIntegrationCopyWith(TiktokPixelIntegration value, $Res Function(TiktokPixelIntegration) _then) = _$TiktokPixelIntegrationCopyWithImpl;
 @useResult
 $Res call({
- String id, List<TiktokPixel> pixels, TiktokPixelEvent objective, TiktokPixelEvent draftObjective, bool active, Map<String, dynamic> metadata, PixelReportMode? mode, List<PixelStatusRule> statusRules
+ String id, List<TiktokPixel> pixels, bool active, Map<String, dynamic> metadata, PixelReportMode? mode
 });
 
 
@@ -3638,17 +3650,14 @@ class _$TiktokPixelIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of TiktokPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? objective = null,Object? draftObjective = null,Object? active = null,Object? metadata = null,Object? mode = freezed,Object? statusRules = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? mode = freezed,}) {
   return _then(TiktokPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self.pixels : pixels // ignore: cast_nullable_to_non_nullable
-as List<TiktokPixel>,objective: null == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
-as TiktokPixelEvent,draftObjective: null == draftObjective ? _self.draftObjective : draftObjective // ignore: cast_nullable_to_non_nullable
-as TiktokPixelEvent,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as List<TiktokPixel>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as PixelReportMode?,statusRules: null == statusRules ? _self.statusRules : statusRules // ignore: cast_nullable_to_non_nullable
-as List<PixelStatusRule>,
+as PixelReportMode?,
   ));
 }
 
@@ -3733,10 +3742,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<TiktokPixel> pixels,  TiktokPixelEvent objective,  TiktokPixelEvent draftObjective,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode,  List<PixelStatusRule> statusRules)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<TiktokPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TiktokPixelIntegration() when $default != null:
-return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that.active,_that.metadata,_that.mode,_that.statusRules);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);case _:
   return orElse();
 
 }
@@ -3754,10 +3763,10 @@ return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<TiktokPixel> pixels,  TiktokPixelEvent objective,  TiktokPixelEvent draftObjective,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode,  List<PixelStatusRule> statusRules)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<TiktokPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode)  $default,) {final _that = this;
 switch (_that) {
 case _TiktokPixelIntegration():
-return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that.active,_that.metadata,_that.mode,_that.statusRules);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -3774,10 +3783,10 @@ return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<TiktokPixel> pixels,  TiktokPixelEvent objective,  TiktokPixelEvent draftObjective,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode,  List<PixelStatusRule> statusRules)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<TiktokPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode)?  $default,) {final _that = this;
 switch (_that) {
 case _TiktokPixelIntegration() when $default != null:
-return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that.active,_that.metadata,_that.mode,_that.statusRules);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);case _:
   return null;
 
 }
@@ -3789,7 +3798,7 @@ return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that
 @JsonSerializable()
 
 class _TiktokPixelIntegration extends TiktokPixelIntegration {
-  const _TiktokPixelIntegration({this.id = 'default',  List<TiktokPixel> pixels = const [], this.objective = TiktokPixelEvent.purchase, this.draftObjective = TiktokPixelEvent.purchase, this.active = true,  Map<String, dynamic> metadata = const {}, this.mode,  List<PixelStatusRule> statusRules = const []}): _pixels = pixels,_metadata = metadata,_statusRules = statusRules,super._();
+  const _TiktokPixelIntegration({this.id = 'default',  List<TiktokPixel> pixels = const [], this.active = true,  Map<String, dynamic> metadata = const {}, this.mode}): _pixels = pixels,_metadata = metadata,super._();
   factory _TiktokPixelIntegration.fromJson(Map<String, dynamic> json) => _$TiktokPixelIntegrationFromJson(json);
 
 @override@JsonKey() final  String id;
@@ -3800,8 +3809,6 @@ class _TiktokPixelIntegration extends TiktokPixelIntegration {
   return EqualUnmodifiableListView(_pixels);
 }
 
-@override@JsonKey() final  TiktokPixelEvent objective;
-@override@JsonKey() final  TiktokPixelEvent draftObjective;
 @override@JsonKey() final  bool active;
  final  Map<String, dynamic> _metadata;
 @override@JsonKey() Map<String, dynamic> get metadata {
@@ -3812,15 +3819,6 @@ class _TiktokPixelIntegration extends TiktokPixelIntegration {
 
 /// Where to send events: server, client, or both. Null = auto.
 @override final  PixelReportMode? mode;
-/// Server-only: fire Events API when order/delivery/payment/custom status transitions into [equals].
- final  List<PixelStatusRule> _statusRules;
-/// Server-only: fire Events API when order/delivery/payment/custom status transitions into [equals].
-@override@JsonKey() List<PixelStatusRule> get statusRules {
-  if (_statusRules is EqualUnmodifiableListView) return _statusRules;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_statusRules);
-}
-
 
 /// Create a copy of TiktokPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
@@ -3835,18 +3833,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TiktokPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.mode, mode) || other.mode == mode)&&const DeepCollectionEquality().equals(other.statusRules, _statusRules));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TiktokPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.mode, mode) || other.mode == mode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),objective,draftObjective,active,const DeepCollectionEquality().hash(_metadata),mode,const DeepCollectionEquality().hash(_statusRules));
+    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),active,const DeepCollectionEquality().hash(_metadata),mode);
 }
 
 @override
 String toString() {
-    return 'TiktokPixelIntegration(id: $id, pixels: $pixels, objective: $objective, draftObjective: $draftObjective, active: $active, metadata: $metadata, mode: $mode, statusRules: $statusRules)';
+    return 'TiktokPixelIntegration(id: $id, pixels: $pixels, active: $active, metadata: $metadata, mode: $mode)';
 }
 
 
@@ -3857,7 +3855,7 @@ abstract mixin class _$TiktokPixelIntegrationCopyWith<$Res> implements $TiktokPi
   factory _$TiktokPixelIntegrationCopyWith(_TiktokPixelIntegration value, $Res Function(_TiktokPixelIntegration) _then) = __$TiktokPixelIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- String id, List<TiktokPixel> pixels, TiktokPixelEvent objective, TiktokPixelEvent draftObjective, bool active, Map<String, dynamic> metadata, PixelReportMode? mode, List<PixelStatusRule> statusRules
+ String id, List<TiktokPixel> pixels, bool active, Map<String, dynamic> metadata, PixelReportMode? mode
 });
 
 
@@ -3874,17 +3872,14 @@ class __$TiktokPixelIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of TiktokPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pixels = null,Object? objective = null,Object? draftObjective = null,Object? active = null,Object? metadata = null,Object? mode = freezed,Object? statusRules = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? mode = freezed,}) {
   return _then(_TiktokPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self._pixels : pixels // ignore: cast_nullable_to_non_nullable
-as List<TiktokPixel>,objective: null == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
-as TiktokPixelEvent,draftObjective: null == draftObjective ? _self.draftObjective : draftObjective // ignore: cast_nullable_to_non_nullable
-as TiktokPixelEvent,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as List<TiktokPixel>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as PixelReportMode?,statusRules: null == statusRules ? _self._statusRules : statusRules // ignore: cast_nullable_to_non_nullable
-as List<PixelStatusRule>,
+as PixelReportMode?,
   ));
 }
 
@@ -4171,9 +4166,8 @@ as String?,
 /// @nodoc
 mixin _$SnapchatPixelIntegration {
 
- String get id; List<SnapchatPixel> get pixels; SnapchatPixelEvent get objective; SnapchatPixelEvent get draftObjective; bool get active; Map<String, dynamic> get metadata;/// Where to send events: server (CAPI), client (`snaptr`), or both. Null = auto.
- PixelReportMode? get mode;/// Server-only: fire CAPI when a status transitions into [PixelStatusRule.equals].
- List<PixelStatusRule> get statusRules;
+ String get id; List<SnapchatPixel> get pixels; bool get active; Map<String, dynamic> get metadata;/// Where to send events: server (CAPI), client (`snaptr`), or both. Null = auto.
+ PixelReportMode? get mode;
 /// Create a copy of SnapchatPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -4187,20 +4181,20 @@ $SnapchatPixelIntegrationCopyWith<SnapchatPixelIntegration> get copyWith => _$Sn
 @override
 bool operator ==(Object other) {
   final _this = this as SnapchatPixelIntegration;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SnapchatPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.objective, _this.objective) || other.objective == _this.objective)&&(identical(other.draftObjective, _this.draftObjective) || other.draftObjective == _this.draftObjective)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.mode, _this.mode) || other.mode == _this.mode)&&const DeepCollectionEquality().equals(other.statusRules, _this.statusRules));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SnapchatPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.mode, _this.mode) || other.mode == _this.mode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as SnapchatPixelIntegration;
-  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.objective,_this.draftObjective,_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.mode,const DeepCollectionEquality().hash(_this.statusRules));
+  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.mode);
 }
 
 @override
 String toString() {
   final _this = this as SnapchatPixelIntegration;
-  return 'SnapchatPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, objective: ${_this.objective}, draftObjective: ${_this.draftObjective}, active: ${_this.active}, metadata: ${_this.metadata}, mode: ${_this.mode}, statusRules: ${_this.statusRules})';
+  return 'SnapchatPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, active: ${_this.active}, metadata: ${_this.metadata}, mode: ${_this.mode})';
 }
 
 
@@ -4211,7 +4205,7 @@ abstract mixin class $SnapchatPixelIntegrationCopyWith<$Res>  {
   factory $SnapchatPixelIntegrationCopyWith(SnapchatPixelIntegration value, $Res Function(SnapchatPixelIntegration) _then) = _$SnapchatPixelIntegrationCopyWithImpl;
 @useResult
 $Res call({
- String id, List<SnapchatPixel> pixels, SnapchatPixelEvent objective, SnapchatPixelEvent draftObjective, bool active, Map<String, dynamic> metadata, PixelReportMode? mode, List<PixelStatusRule> statusRules
+ String id, List<SnapchatPixel> pixels, bool active, Map<String, dynamic> metadata, PixelReportMode? mode
 });
 
 
@@ -4228,17 +4222,14 @@ class _$SnapchatPixelIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of SnapchatPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? objective = null,Object? draftObjective = null,Object? active = null,Object? metadata = null,Object? mode = freezed,Object? statusRules = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? mode = freezed,}) {
   return _then(SnapchatPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self.pixels : pixels // ignore: cast_nullable_to_non_nullable
-as List<SnapchatPixel>,objective: null == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
-as SnapchatPixelEvent,draftObjective: null == draftObjective ? _self.draftObjective : draftObjective // ignore: cast_nullable_to_non_nullable
-as SnapchatPixelEvent,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as List<SnapchatPixel>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as PixelReportMode?,statusRules: null == statusRules ? _self.statusRules : statusRules // ignore: cast_nullable_to_non_nullable
-as List<PixelStatusRule>,
+as PixelReportMode?,
   ));
 }
 
@@ -4323,10 +4314,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<SnapchatPixel> pixels,  SnapchatPixelEvent objective,  SnapchatPixelEvent draftObjective,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode,  List<PixelStatusRule> statusRules)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<SnapchatPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SnapchatPixelIntegration() when $default != null:
-return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that.active,_that.metadata,_that.mode,_that.statusRules);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);case _:
   return orElse();
 
 }
@@ -4344,10 +4335,10 @@ return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<SnapchatPixel> pixels,  SnapchatPixelEvent objective,  SnapchatPixelEvent draftObjective,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode,  List<PixelStatusRule> statusRules)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<SnapchatPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode)  $default,) {final _that = this;
 switch (_that) {
 case _SnapchatPixelIntegration():
-return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that.active,_that.metadata,_that.mode,_that.statusRules);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -4364,10 +4355,10 @@ return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<SnapchatPixel> pixels,  SnapchatPixelEvent objective,  SnapchatPixelEvent draftObjective,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode,  List<PixelStatusRule> statusRules)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<SnapchatPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode)?  $default,) {final _that = this;
 switch (_that) {
 case _SnapchatPixelIntegration() when $default != null:
-return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that.active,_that.metadata,_that.mode,_that.statusRules);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);case _:
   return null;
 
 }
@@ -4379,7 +4370,7 @@ return $default(_that.id,_that.pixels,_that.objective,_that.draftObjective,_that
 @JsonSerializable()
 
 class _SnapchatPixelIntegration extends SnapchatPixelIntegration {
-  const _SnapchatPixelIntegration({this.id = 'default',  List<SnapchatPixel> pixels = const [], this.objective = SnapchatPixelEvent.purchase, this.draftObjective = SnapchatPixelEvent.startCheckout, this.active = true,  Map<String, dynamic> metadata = const {}, this.mode,  List<PixelStatusRule> statusRules = const []}): _pixels = pixels,_metadata = metadata,_statusRules = statusRules,super._();
+  const _SnapchatPixelIntegration({this.id = 'default',  List<SnapchatPixel> pixels = const [], this.active = true,  Map<String, dynamic> metadata = const {}, this.mode}): _pixels = pixels,_metadata = metadata,super._();
   factory _SnapchatPixelIntegration.fromJson(Map<String, dynamic> json) => _$SnapchatPixelIntegrationFromJson(json);
 
 @override@JsonKey() final  String id;
@@ -4390,8 +4381,6 @@ class _SnapchatPixelIntegration extends SnapchatPixelIntegration {
   return EqualUnmodifiableListView(_pixels);
 }
 
-@override@JsonKey() final  SnapchatPixelEvent objective;
-@override@JsonKey() final  SnapchatPixelEvent draftObjective;
 @override@JsonKey() final  bool active;
  final  Map<String, dynamic> _metadata;
 @override@JsonKey() Map<String, dynamic> get metadata {
@@ -4402,15 +4391,6 @@ class _SnapchatPixelIntegration extends SnapchatPixelIntegration {
 
 /// Where to send events: server (CAPI), client (`snaptr`), or both. Null = auto.
 @override final  PixelReportMode? mode;
-/// Server-only: fire CAPI when a status transitions into [PixelStatusRule.equals].
- final  List<PixelStatusRule> _statusRules;
-/// Server-only: fire CAPI when a status transitions into [PixelStatusRule.equals].
-@override@JsonKey() List<PixelStatusRule> get statusRules {
-  if (_statusRules is EqualUnmodifiableListView) return _statusRules;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_statusRules);
-}
-
 
 /// Create a copy of SnapchatPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
@@ -4425,18 +4405,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SnapchatPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.objective, objective) || other.objective == objective)&&(identical(other.draftObjective, draftObjective) || other.draftObjective == draftObjective)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.mode, mode) || other.mode == mode)&&const DeepCollectionEquality().equals(other.statusRules, _statusRules));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SnapchatPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.mode, mode) || other.mode == mode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),objective,draftObjective,active,const DeepCollectionEquality().hash(_metadata),mode,const DeepCollectionEquality().hash(_statusRules));
+    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),active,const DeepCollectionEquality().hash(_metadata),mode);
 }
 
 @override
 String toString() {
-    return 'SnapchatPixelIntegration(id: $id, pixels: $pixels, objective: $objective, draftObjective: $draftObjective, active: $active, metadata: $metadata, mode: $mode, statusRules: $statusRules)';
+    return 'SnapchatPixelIntegration(id: $id, pixels: $pixels, active: $active, metadata: $metadata, mode: $mode)';
 }
 
 
@@ -4447,7 +4427,7 @@ abstract mixin class _$SnapchatPixelIntegrationCopyWith<$Res> implements $Snapch
   factory _$SnapchatPixelIntegrationCopyWith(_SnapchatPixelIntegration value, $Res Function(_SnapchatPixelIntegration) _then) = __$SnapchatPixelIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- String id, List<SnapchatPixel> pixels, SnapchatPixelEvent objective, SnapchatPixelEvent draftObjective, bool active, Map<String, dynamic> metadata, PixelReportMode? mode, List<PixelStatusRule> statusRules
+ String id, List<SnapchatPixel> pixels, bool active, Map<String, dynamic> metadata, PixelReportMode? mode
 });
 
 
@@ -4464,17 +4444,14 @@ class __$SnapchatPixelIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of SnapchatPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pixels = null,Object? objective = null,Object? draftObjective = null,Object? active = null,Object? metadata = null,Object? mode = freezed,Object? statusRules = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? mode = freezed,}) {
   return _then(_SnapchatPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self._pixels : pixels // ignore: cast_nullable_to_non_nullable
-as List<SnapchatPixel>,objective: null == objective ? _self.objective : objective // ignore: cast_nullable_to_non_nullable
-as SnapchatPixelEvent,draftObjective: null == draftObjective ? _self.draftObjective : draftObjective // ignore: cast_nullable_to_non_nullable
-as SnapchatPixelEvent,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as List<SnapchatPixel>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as PixelReportMode?,statusRules: null == statusRules ? _self._statusRules : statusRules // ignore: cast_nullable_to_non_nullable
-as List<PixelStatusRule>,
+as PixelReportMode?,
   ));
 }
 

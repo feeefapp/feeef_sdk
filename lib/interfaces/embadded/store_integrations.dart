@@ -291,8 +291,6 @@ abstract class MetaPixelIntegration with _$MetaPixelIntegration {
   const factory MetaPixelIntegration({
     @Default('default') String id,
     @Default([]) List<MetaPixel> pixels,
-    @Default(MetaPixelEvent.purchase) MetaPixelEvent objective,
-    @Default(MetaPixelEvent.lead) MetaPixelEvent draftObjective,
     @Default(true) bool active,
     @Default({}) Map<String, dynamic> metadata,
 
@@ -301,9 +299,6 @@ abstract class MetaPixelIntegration with _$MetaPixelIntegration {
 
     /// Where to send events: server (CAPI), client (store frontend), or both. Null = auto.
     PixelReportMode? mode,
-
-    /// Server-only: fire CAPI when order/delivery/payment/custom status transitions into [equals].
-    @Default([]) List<PixelStatusRule> statusRules,
   }) = _MetaPixelIntegration;
 
   factory MetaPixelIntegration.fromJson(Map<String, dynamic> json) =>
@@ -331,16 +326,11 @@ abstract class TiktokPixelIntegration with _$TiktokPixelIntegration {
   const factory TiktokPixelIntegration({
     @Default('default') String id,
     @Default([]) List<TiktokPixel> pixels,
-    @Default(TiktokPixelEvent.purchase) TiktokPixelEvent objective,
-    @Default(TiktokPixelEvent.purchase) TiktokPixelEvent draftObjective,
     @Default(true) bool active,
     @Default({}) Map<String, dynamic> metadata,
 
     /// Where to send events: server, client, or both. Null = auto.
     PixelReportMode? mode,
-
-    /// Server-only: fire Events API when order/delivery/payment/custom status transitions into [equals].
-    @Default([]) List<PixelStatusRule> statusRules,
   }) = _TiktokPixelIntegration;
 
   factory TiktokPixelIntegration.fromJson(Map<String, dynamic> json) =>
@@ -371,17 +361,11 @@ abstract class SnapchatPixelIntegration with _$SnapchatPixelIntegration {
   const factory SnapchatPixelIntegration({
     @Default('default') String id,
     @Default([]) List<SnapchatPixel> pixels,
-    @Default(SnapchatPixelEvent.purchase) SnapchatPixelEvent objective,
-    @Default(SnapchatPixelEvent.startCheckout)
-    SnapchatPixelEvent draftObjective,
     @Default(true) bool active,
     @Default({}) Map<String, dynamic> metadata,
 
     /// Where to send events: server (CAPI), client (`snaptr`), or both. Null = auto.
     PixelReportMode? mode,
-
-    /// Server-only: fire CAPI when a status transitions into [PixelStatusRule.equals].
-    @Default([]) List<PixelStatusRule> statusRules,
   }) = _SnapchatPixelIntegration;
 
   factory SnapchatPixelIntegration.fromJson(Map<String, dynamic> json) =>

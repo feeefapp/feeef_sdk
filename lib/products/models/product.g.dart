@@ -217,119 +217,28 @@ _MetaPixelData _$MetaPixelDataFromJson(Map<String, dynamic> json) =>
     _MetaPixelData(
       enabled: json['enabled'] as bool? ?? true,
       ids: (json['ids'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      objective: $enumDecodeNullable(
-        _$MetaPixelEventEnumMap,
-        json['objective'],
-      ),
-      draftObjective: $enumDecodeNullable(
-        _$MetaPixelEventEnumMap,
-        json['draftObjective'],
-      ),
-      statusRules:
-          (json['statusRules'] as List<dynamic>?)
-              ?.map((e) => PixelStatusRule.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
     );
 
 Map<String, dynamic> _$MetaPixelDataToJson(_MetaPixelData instance) =>
-    <String, dynamic>{
-      'enabled': instance.enabled,
-      'ids': instance.ids,
-      'objective': _$MetaPixelEventEnumMap[instance.objective],
-      'draftObjective': _$MetaPixelEventEnumMap[instance.draftObjective],
-      'statusRules': instance.statusRules.map((e) => e.toJson()).toList(),
-    };
-
-const _$MetaPixelEventEnumMap = {
-  MetaPixelEvent.none: 'none',
-  MetaPixelEvent.lead: 'lead',
-  MetaPixelEvent.purchase: 'purchase',
-  MetaPixelEvent.viewContent: 'viewContent',
-  MetaPixelEvent.addToCart: 'addToCart',
-  MetaPixelEvent.initiateCheckout: 'initiateCheckout',
-};
+    <String, dynamic>{'enabled': instance.enabled, 'ids': instance.ids};
 
 _TiktokPixelData _$TiktokPixelDataFromJson(Map<String, dynamic> json) =>
     _TiktokPixelData(
       enabled: json['enabled'] as bool? ?? true,
       ids: (json['ids'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      objective: $enumDecodeNullable(
-        _$TiktokPixelEventEnumMap,
-        json['objective'],
-      ),
-      draftObjective: $enumDecodeNullable(
-        _$TiktokPixelEventEnumMap,
-        json['draftObjective'],
-      ),
-      statusRules:
-          (json['statusRules'] as List<dynamic>?)
-              ?.map((e) => PixelStatusRule.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
     );
 
 Map<String, dynamic> _$TiktokPixelDataToJson(_TiktokPixelData instance) =>
-    <String, dynamic>{
-      'enabled': instance.enabled,
-      'ids': instance.ids,
-      'objective': _$TiktokPixelEventEnumMap[instance.objective],
-      'draftObjective': _$TiktokPixelEventEnumMap[instance.draftObjective],
-      'statusRules': instance.statusRules.map((e) => e.toJson()).toList(),
-    };
-
-const _$TiktokPixelEventEnumMap = {
-  TiktokPixelEvent.none: 'none',
-  TiktokPixelEvent.viewContent: 'viewContent',
-  TiktokPixelEvent.addToWishlist: 'addToWishlist',
-  TiktokPixelEvent.search: 'search',
-  TiktokPixelEvent.addPaymentInfo: 'addPaymentInfo',
-  TiktokPixelEvent.addToCart: 'addToCart',
-  TiktokPixelEvent.initiateCheckout: 'initiateCheckout',
-  TiktokPixelEvent.placeAnOrder: 'placeAnOrder',
-  TiktokPixelEvent.completeRegistration: 'completeRegistration',
-  TiktokPixelEvent.purchase: 'purchase',
-};
+    <String, dynamic>{'enabled': instance.enabled, 'ids': instance.ids};
 
 _SnapchatPixelData _$SnapchatPixelDataFromJson(Map<String, dynamic> json) =>
     _SnapchatPixelData(
       enabled: json['enabled'] as bool? ?? true,
       ids: (json['ids'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      objective: $enumDecodeNullable(
-        _$SnapchatPixelEventEnumMap,
-        json['objective'],
-      ),
-      draftObjective: $enumDecodeNullable(
-        _$SnapchatPixelEventEnumMap,
-        json['draftObjective'],
-      ),
-      statusRules:
-          (json['statusRules'] as List<dynamic>?)
-              ?.map((e) => PixelStatusRule.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
     );
 
 Map<String, dynamic> _$SnapchatPixelDataToJson(_SnapchatPixelData instance) =>
-    <String, dynamic>{
-      'enabled': instance.enabled,
-      'ids': instance.ids,
-      'objective': _$SnapchatPixelEventEnumMap[instance.objective],
-      'draftObjective': _$SnapchatPixelEventEnumMap[instance.draftObjective],
-      'statusRules': instance.statusRules.map((e) => e.toJson()).toList(),
-    };
-
-const _$SnapchatPixelEventEnumMap = {
-  SnapchatPixelEvent.none: 'none',
-  SnapchatPixelEvent.pageView: 'pageView',
-  SnapchatPixelEvent.viewContent: 'viewContent',
-  SnapchatPixelEvent.addCart: 'addCart',
-  SnapchatPixelEvent.startCheckout: 'startCheckout',
-  SnapchatPixelEvent.signUp: 'signUp',
-  SnapchatPixelEvent.addToWishlist: 'addToWishlist',
-  SnapchatPixelEvent.search: 'search',
-  SnapchatPixelEvent.purchase: 'purchase',
-};
+    <String, dynamic>{'enabled': instance.enabled, 'ids': instance.ids};
 
 _GoogleSheetsData _$GoogleSheetsDataFromJson(Map<String, dynamic> json) =>
     _GoogleSheetsData(

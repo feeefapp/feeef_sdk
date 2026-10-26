@@ -158,12 +158,11 @@ abstract class CustomFieldsIntegrationData with _$CustomFieldsIntegrationData {
 abstract class MetaPixelData extends MetaPixelDataEntity with _$MetaPixelData {
   MetaPixelData._();
   factory MetaPixelData({
+    /// False: this product's orders go to none of the store's Meta pixels.
     @Default(true) bool enabled,
+
+    /// Only these store pixels (null/empty = all).
     List<String>? ids,
-    MetaPixelEvent? objective,
-    MetaPixelEvent? draftObjective,
-    /// Product-level status rules; empty → inherit store rules on `order:updated`.
-    @Default([]) List<PixelStatusRule> statusRules,
   }) = _MetaPixelData;
 
   factory MetaPixelData.fromJson(Map<String, dynamic> json) =>
@@ -178,17 +177,13 @@ abstract class TiktokPixelData extends TiktokPixelDataEntity
   factory TiktokPixelData({
     @Default(true) bool enabled,
     List<String>? ids,
-    TiktokPixelEvent? objective,
-    TiktokPixelEvent? draftObjective,
-    /// Product-level status rules; empty → inherit store rules on `order:updated`.
-    @Default([]) List<PixelStatusRule> statusRules,
   }) = _TiktokPixelData;
 
   factory TiktokPixelData.fromJson(Map<String, dynamic> json) =>
       _$TiktokPixelDataFromJson(json);
 }
 
-/// Per-product Snap Pixel override (ids, objectives, status rules).
+/// A product's Snapchat pixels: off, or only some of the store's.
 @freezed
 abstract class SnapchatPixelData extends SnapchatPixelDataEntity
     with _$SnapchatPixelData {
@@ -196,10 +191,6 @@ abstract class SnapchatPixelData extends SnapchatPixelDataEntity
   factory SnapchatPixelData({
     @Default(true) bool enabled,
     List<String>? ids,
-    SnapchatPixelEvent? objective,
-    SnapchatPixelEvent? draftObjective,
-    /// Product-level status rules; empty → inherit store rules on `order:updated`.
-    @Default([]) List<PixelStatusRule> statusRules,
   }) = _SnapchatPixelData;
 
   factory SnapchatPixelData.fromJson(Map<String, dynamic> json) =>

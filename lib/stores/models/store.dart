@@ -513,8 +513,20 @@ abstract class StoreIntegrationSubscription with _$StoreIntegrationSubscription 
     DateTime? nextRetryAt,
   }) = _StoreIntegrationSubscription;
 
+  const StoreIntegrationSubscription._();
+
   factory StoreIntegrationSubscription.fromJson(Map<String, dynamic> json) =>
       _$StoreIntegrationSubscriptionFromJson(json);
+
+  /// Whether this billing row grants access right now (see backend
+  /// `isBillingEntryEntitled`): `grace` always, `active` until [expiresAt].
+  bool get isEntitled {
+    if (status == IntegrationBillingStatus.grace) return true;
+    if (status != IntegrationBillingStatus.active) return false;
+    final exp = expiresAt;
+    if (exp != null && exp.isBefore(DateTime.now())) return false;
+    return true;
+  }
 }
 
 @freezed
@@ -781,18 +793,15 @@ extension StoreSubscriptionExtensions on StoreSubscription {
     return integrations[integrationId];
   }
 
-  /// True when per-integration billing allows usage (active/grace and not expired).
+  /// True when per-integration billing allows usage.
+  ///
+  /// `grace` keeps access on the status alone: the period has already ended
+  /// (the renewal charge failed) and the backend bounds the window with its
+  /// dunning retries. Mirrors backend `isBillingEntryEntitled`.
   bool isIntegrationBillingEntitled(String integrationId) {
     final entry = integrations[integrationId];
     if (entry == null) return false;
-    if (entry.status == IntegrationBillingStatus.canceled) return false;
-    if (entry.status != IntegrationBillingStatus.active &&
-        entry.status != IntegrationBillingStatus.grace) {
-      return false;
-    }
-    final exp = entry.expiresAt;
-    if (exp != null && exp.isBefore(DateTime.now())) return false;
-    return true;
+    return entry.isEntitled;
   }
 }
 

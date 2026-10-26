@@ -799,11 +799,16 @@ void main() {
   });
   test('the core catalog mirrors the composable commerce blocks', () {
     final ids = coreBlocks.map((b) => b.use).toSet();
-    expect(ids, containsAll(['core/box', 'core/product-title', 'core/product-price', 'core/product-description', 'core/product-gallery', 'core/product-variants', 'core/product-offers', 'core/order-form', 'core/order-name', 'core/order-phone', 'core/order-location', 'core/order-submit']));
+    expect(ids, containsAll(['core/box', 'core/product-title', 'core/product-price', 'core/product-description', 'core/product-gallery', 'core/product-variants', 'core/product-offers', 'core/order-form', 'core/order-name', 'core/order-phone', 'core/order-country', 'core/order-state', 'core/order-city', 'core/order-gps', 'core/order-submit']));
     final box = coreBlock('core/box')!;
     expect(box.props.keys, containsAll(['direction', 'phoneDirection', 'columns', 'phoneColumns', 'gap', 'phoneGap', 'align', 'justify', 'padding', 'maxWidth']));
     expect((box.props['phoneColumns'] as Map)['default'], 1);
     expect(coreBlock('core/order-form')!.slots, {'main': 'Fields'});
+    expect(coreBlock('core/order-form')!.props.keys, containsAll(['title', 'gap', 'padding', 'border', 'borderColor', 'radius', 'background', 'maxWidth']));
+    expect(coreBlock('core/order-location'), isNull);
+    expect((coreBlock('core/order-country')!.props['hidden'] as Map)['default'], true);
+    expect((coreBlock('core/order-state')!.props['sort'] as Map)['enum'], ['code', 'name']);
+    expect((coreBlock('core/order-gps')!.props['style'] as Map)['enum'], ['icon', 'button']);
     expect(coreBlock('core/order-name')!.category, 'Order form');
   });
 }

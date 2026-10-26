@@ -56,7 +56,7 @@ const Map<String, Object?> _placeholder = {'type': 'string', 'title': 'Placehold
 Map<String, Object?> _required(bool def) => {'type': 'boolean', 'title': 'Required', 'default': def};
 
 /// An order form field block (`core/order-<field>`); runtime `OrderField({field})`.
-CoreBlock _field(String field, String title, String icon, {bool text = false, bool? required}) => CoreBlock(
+CoreBlock _field(String field, String title, String icon, {bool text = false, bool? required, Map<String, Object?> extra = const {}}) => CoreBlock(
       'order-$field',
       title,
       icon: icon,
@@ -65,8 +65,10 @@ CoreBlock _field(String field, String title, String icon, {bool text = false, bo
         'label': _label,
         if (text) 'placeholder': _placeholder,
         if (required != null) 'required': _required(required),
+        ...extra,
       },
     );
+const Map<String, Object?> _color = {'type': 'string', 'ui': 'color', 'default': ''};
 
 /// Mirror of `@feeef/engine` CORE_COMPONENTS (blocks contract: ids, titles, props, slots).
 final coreBlocks = <CoreBlock>[
@@ -114,11 +116,35 @@ final coreBlocks = <CoreBlock>[
   const CoreBlock('product-gallery', 'Product gallery', icon: 'images', category: 'Product'),
   const CoreBlock('product-variants', 'Product variants', icon: 'sliders', category: 'Product'),
   const CoreBlock('product-offers', 'Product offers', icon: 'tag', category: 'Product'),
-  const CoreBlock('order-form', 'Order form', slots: {'main': 'Fields'}, icon: 'list-checks', category: 'Order form'),
+  CoreBlock(
+    'order-form',
+    'Order form',
+    slots: const {'main': 'Fields'},
+    icon: 'list-checks',
+    category: 'Order form',
+    props: {
+      'title': const {'type': 'string', 'title': 'Title', 'maxLength': 80, 'default': ''},
+      'gap': _slider('Space between fields', 0, 64, 16),
+      'padding': _slider('Padding', 0, 64, 0),
+      'border': _slider('Border width', 0, 8, 0),
+      'borderColor': {..._color, 'title': 'Border color'},
+      'radius': _slider('Corner radius', 0, 48, 16),
+      'background': {..._color, 'title': 'Background'},
+      'maxWidth': const {'type': 'integer', 'title': 'Max width', 'minimum': 0, 'maximum': 4000, 'default': 0},
+    },
+  ),
   _field('name', 'Customer name', 'user', text: true, required: true),
   _field('phone', 'Phone number', 'phone', text: true),
   _field('email', 'Email', 'envelope', text: true, required: false),
-  _field('location', 'State and city', 'map-pin'),
+  _field('country', 'Country', 'globe', extra: const {
+    'hidden': {'type': 'boolean', 'title': 'Hide the country', 'default': true},
+  }),
+  _field('state', 'State', 'map-trifold', extra: {
+    'showCode': const {'type': 'boolean', 'title': 'Show the state number', 'default': true},
+    'sort': _choice('Order', const ['code', 'name'], 'code'),
+  }),
+  _field('city', 'City', 'buildings'),
+  _field('gps', 'Use my location', 'crosshair', extra: {'style': _choice('Style', const ['icon', 'button'], 'icon')}),
   _field('address', 'Address', 'house', text: true, required: false),
   _field('note', 'Note', 'note', text: true, required: false),
   _field('quantity', 'Quantity', 'hash'),

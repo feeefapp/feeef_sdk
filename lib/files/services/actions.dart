@@ -548,8 +548,8 @@ class Actions {
 
   /// Sends a test event to one Meta pixel of [storeId].
   ///
-  /// The server resolves the pixel credentials from the store by [MetaPixel.id], so the
-  /// event can only reach that store's pixel. `id`/`key` are kept for older servers.
+  /// The server reads the pixel's key from the store by [MetaPixel.id], so the event can only
+  /// reach that store's pixel and the key never travels.
   Future<Map<String, dynamic>> sendMetaPixelTestEvent({
     required String storeId,
     required MetaPixel pixel,
@@ -561,8 +561,6 @@ class Actions {
         data: {
           "storeId": storeId,
           "pixelId": pixel.id,
-          "id": pixel.id,
-          "key": pixel.key,
           "code": testCode ?? 'FEEEF_TEST_CODE',
         },
       );
@@ -574,19 +572,16 @@ class Actions {
     }
   }
 
-  /// Validate a Snap CAPI token via `/events/validate` (not a live conversion).
+  /// Checks one Snap pixel of [storeId] with a sample event through Snap's `/events/validate`
+  /// (not a live conversion). The server reads the token from the store.
   Future<Map<String, dynamic>> sendSnapchatPixelTestEvent({
+    required String storeId,
     required SnapchatPixel pixel,
-    String? testCode,
   }) async {
     try {
       final response = await client.post(
         '/actions/sendSnapchatPixelTestEvent',
-        data: {
-          'id': pixel.id,
-          'accessToken': pixel.accessToken,
-          'testCode': testCode ?? 'FEEEF_TEST_CODE',
-        },
+        data: {'storeId': storeId, 'pixelId': pixel.id},
       );
       return response.data;
     } catch (e) {
@@ -607,8 +602,6 @@ class Actions {
         data: {
           "storeId": storeId,
           "pixelId": pixel.id,
-          "id": pixel.id,
-          "accessToken": pixel.accessToken,
           "testCode": testCode ?? 'FEEEF_TEST_CODE',
         },
       );

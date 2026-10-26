@@ -116,6 +116,9 @@ abstract class IntegrationsData extends IntegrationsDataEntity
     MetaPixelData? metaPixelData,
     TiktokPixelData? tiktokPixelData,
     SnapchatPixelData? snapchatPixelData,
+
+    /// This product's own ad pixel event rules (its single-product orders); null = the store's.
+    PixelEvents? pixelEvents,
     // GoogleAnalyticsData? googleAnalyticsData;
     // GoogleTagData? googleTagsData;
     GoogleSheetsData? googleSheetsData,

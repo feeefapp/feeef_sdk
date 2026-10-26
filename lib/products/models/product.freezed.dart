@@ -587,7 +587,8 @@ $IntegrationsDataCopyWith<$Res>? get integrationsData {
 /// @nodoc
 mixin _$IntegrationsData {
 
- MetaPixelData? get metaPixelData; TiktokPixelData? get tiktokPixelData; SnapchatPixelData? get snapchatPixelData; GoogleSheetsData? get googleSheetsData; PaymentMethodData? get paymentMethodData; CustomFieldsIntegrationData? get customFieldsData;/// Per-product Ecotrack warehouse stock mapping (merchant-only).
+ MetaPixelData? get metaPixelData; TiktokPixelData? get tiktokPixelData; SnapchatPixelData? get snapchatPixelData;/// This product's own ad pixel event rules (its single-product orders); null = the store's.
+ PixelEvents? get pixelEvents; GoogleSheetsData? get googleSheetsData; PaymentMethodData? get paymentMethodData; CustomFieldsIntegrationData? get customFieldsData;/// Per-product Ecotrack warehouse stock mapping (merchant-only).
  EcotrackData? get ecotrackData;/// Per-product review settings (inherit the store unless `useProductSettings`).
  ProductReviewsData? get reviewsData;
 /// Create a copy of IntegrationsData
@@ -603,20 +604,20 @@ $IntegrationsDataCopyWith<IntegrationsData> get copyWith => _$IntegrationsDataCo
 @override
 bool operator ==(Object other) {
   final _this = this as IntegrationsData;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IntegrationsData&&(identical(other.metaPixelData, _this.metaPixelData) || other.metaPixelData == _this.metaPixelData)&&(identical(other.tiktokPixelData, _this.tiktokPixelData) || other.tiktokPixelData == _this.tiktokPixelData)&&(identical(other.snapchatPixelData, _this.snapchatPixelData) || other.snapchatPixelData == _this.snapchatPixelData)&&(identical(other.googleSheetsData, _this.googleSheetsData) || other.googleSheetsData == _this.googleSheetsData)&&(identical(other.paymentMethodData, _this.paymentMethodData) || other.paymentMethodData == _this.paymentMethodData)&&(identical(other.customFieldsData, _this.customFieldsData) || other.customFieldsData == _this.customFieldsData)&&(identical(other.ecotrackData, _this.ecotrackData) || other.ecotrackData == _this.ecotrackData)&&(identical(other.reviewsData, _this.reviewsData) || other.reviewsData == _this.reviewsData));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IntegrationsData&&(identical(other.metaPixelData, _this.metaPixelData) || other.metaPixelData == _this.metaPixelData)&&(identical(other.tiktokPixelData, _this.tiktokPixelData) || other.tiktokPixelData == _this.tiktokPixelData)&&(identical(other.snapchatPixelData, _this.snapchatPixelData) || other.snapchatPixelData == _this.snapchatPixelData)&&(identical(other.pixelEvents, _this.pixelEvents) || other.pixelEvents == _this.pixelEvents)&&(identical(other.googleSheetsData, _this.googleSheetsData) || other.googleSheetsData == _this.googleSheetsData)&&(identical(other.paymentMethodData, _this.paymentMethodData) || other.paymentMethodData == _this.paymentMethodData)&&(identical(other.customFieldsData, _this.customFieldsData) || other.customFieldsData == _this.customFieldsData)&&(identical(other.ecotrackData, _this.ecotrackData) || other.ecotrackData == _this.ecotrackData)&&(identical(other.reviewsData, _this.reviewsData) || other.reviewsData == _this.reviewsData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as IntegrationsData;
-  return Object.hash(runtimeType,_this.metaPixelData,_this.tiktokPixelData,_this.snapchatPixelData,_this.googleSheetsData,_this.paymentMethodData,_this.customFieldsData,_this.ecotrackData,_this.reviewsData);
+  return Object.hash(runtimeType,_this.metaPixelData,_this.tiktokPixelData,_this.snapchatPixelData,_this.pixelEvents,_this.googleSheetsData,_this.paymentMethodData,_this.customFieldsData,_this.ecotrackData,_this.reviewsData);
 }
 
 @override
 String toString() {
   final _this = this as IntegrationsData;
-  return 'IntegrationsData(metaPixelData: ${_this.metaPixelData}, tiktokPixelData: ${_this.tiktokPixelData}, snapchatPixelData: ${_this.snapchatPixelData}, googleSheetsData: ${_this.googleSheetsData}, paymentMethodData: ${_this.paymentMethodData}, customFieldsData: ${_this.customFieldsData}, ecotrackData: ${_this.ecotrackData}, reviewsData: ${_this.reviewsData})';
+  return 'IntegrationsData(metaPixelData: ${_this.metaPixelData}, tiktokPixelData: ${_this.tiktokPixelData}, snapchatPixelData: ${_this.snapchatPixelData}, pixelEvents: ${_this.pixelEvents}, googleSheetsData: ${_this.googleSheetsData}, paymentMethodData: ${_this.paymentMethodData}, customFieldsData: ${_this.customFieldsData}, ecotrackData: ${_this.ecotrackData}, reviewsData: ${_this.reviewsData})';
 }
 
 
@@ -627,11 +628,11 @@ abstract mixin class $IntegrationsDataCopyWith<$Res>  {
   factory $IntegrationsDataCopyWith(IntegrationsData value, $Res Function(IntegrationsData) _then) = _$IntegrationsDataCopyWithImpl;
 @useResult
 $Res call({
- MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, SnapchatPixelData? snapchatPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData, ProductReviewsData? reviewsData
+ MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, SnapchatPixelData? snapchatPixelData, PixelEvents? pixelEvents, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData, ProductReviewsData? reviewsData
 });
 
 
-$MetaPixelDataCopyWith<$Res>? get metaPixelData;$TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;$SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData;$GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;$PaymentMethodDataCopyWith<$Res>? get paymentMethodData;$CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;$EcotrackDataCopyWith<$Res>? get ecotrackData;$ProductReviewsDataCopyWith<$Res>? get reviewsData;
+$MetaPixelDataCopyWith<$Res>? get metaPixelData;$TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;$SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData;$PixelEventsCopyWith<$Res>? get pixelEvents;$GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;$PaymentMethodDataCopyWith<$Res>? get paymentMethodData;$CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;$EcotrackDataCopyWith<$Res>? get ecotrackData;$ProductReviewsDataCopyWith<$Res>? get reviewsData;
 
 }
 /// @nodoc
@@ -644,12 +645,13 @@ class _$IntegrationsDataCopyWithImpl<$Res>
 
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? snapchatPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,Object? reviewsData = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? snapchatPixelData = freezed,Object? pixelEvents = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,Object? reviewsData = freezed,}) {
   return _then(IntegrationsData(
 metaPixelData: freezed == metaPixelData ? _self.metaPixelData : metaPixelData // ignore: cast_nullable_to_non_nullable
 as MetaPixelData?,tiktokPixelData: freezed == tiktokPixelData ? _self.tiktokPixelData : tiktokPixelData // ignore: cast_nullable_to_non_nullable
 as TiktokPixelData?,snapchatPixelData: freezed == snapchatPixelData ? _self.snapchatPixelData : snapchatPixelData // ignore: cast_nullable_to_non_nullable
-as SnapchatPixelData?,googleSheetsData: freezed == googleSheetsData ? _self.googleSheetsData : googleSheetsData // ignore: cast_nullable_to_non_nullable
+as SnapchatPixelData?,pixelEvents: freezed == pixelEvents ? _self.pixelEvents : pixelEvents // ignore: cast_nullable_to_non_nullable
+as PixelEvents?,googleSheetsData: freezed == googleSheetsData ? _self.googleSheetsData : googleSheetsData // ignore: cast_nullable_to_non_nullable
 as GoogleSheetsData?,paymentMethodData: freezed == paymentMethodData ? _self.paymentMethodData : paymentMethodData // ignore: cast_nullable_to_non_nullable
 as PaymentMethodData?,customFieldsData: freezed == customFieldsData ? _self.customFieldsData : customFieldsData // ignore: cast_nullable_to_non_nullable
 as CustomFieldsIntegrationData?,ecotrackData: freezed == ecotrackData ? _self.ecotrackData : ecotrackData // ignore: cast_nullable_to_non_nullable
@@ -692,6 +694,18 @@ $SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData {
 
   return $SnapchatPixelDataCopyWith<$Res>(_self.snapchatPixelData!, (value) {
     return _then(_self.copyWith(snapchatPixelData: value));
+  });
+}/// Create a copy of IntegrationsData
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PixelEventsCopyWith<$Res>? get pixelEvents {
+    if (_self.pixelEvents == null) {
+    return null;
+  }
+
+  return $PixelEventsCopyWith<$Res>(_self.pixelEvents!, (value) {
+    return _then(_self.copyWith(pixelEvents: value));
   });
 }/// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
@@ -835,10 +849,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData,  ProductReviewsData? reviewsData)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  PixelEvents? pixelEvents,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData,  ProductReviewsData? reviewsData)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _IntegrationsData() when $default != null:
-return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData,_that.reviewsData);case _:
+return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.pixelEvents,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData,_that.reviewsData);case _:
   return orElse();
 
 }
@@ -856,10 +870,10 @@ return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelDat
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData,  ProductReviewsData? reviewsData)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  PixelEvents? pixelEvents,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData,  ProductReviewsData? reviewsData)  $default,) {final _that = this;
 switch (_that) {
 case _IntegrationsData():
-return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData,_that.reviewsData);case _:
+return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.pixelEvents,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData,_that.reviewsData);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -876,10 +890,10 @@ return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelDat
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData,  ProductReviewsData? reviewsData)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MetaPixelData? metaPixelData,  TiktokPixelData? tiktokPixelData,  SnapchatPixelData? snapchatPixelData,  PixelEvents? pixelEvents,  GoogleSheetsData? googleSheetsData,  PaymentMethodData? paymentMethodData,  CustomFieldsIntegrationData? customFieldsData,  EcotrackData? ecotrackData,  ProductReviewsData? reviewsData)?  $default,) {final _that = this;
 switch (_that) {
 case _IntegrationsData() when $default != null:
-return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData,_that.reviewsData);case _:
+return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelData,_that.pixelEvents,_that.googleSheetsData,_that.paymentMethodData,_that.customFieldsData,_that.ecotrackData,_that.reviewsData);case _:
   return null;
 
 }
@@ -891,12 +905,14 @@ return $default(_that.metaPixelData,_that.tiktokPixelData,_that.snapchatPixelDat
 @JsonSerializable()
 
 class _IntegrationsData extends IntegrationsData {
-   _IntegrationsData({this.metaPixelData, this.tiktokPixelData, this.snapchatPixelData, this.googleSheetsData, this.paymentMethodData, this.customFieldsData, this.ecotrackData, this.reviewsData}): super._();
+   _IntegrationsData({this.metaPixelData, this.tiktokPixelData, this.snapchatPixelData, this.pixelEvents, this.googleSheetsData, this.paymentMethodData, this.customFieldsData, this.ecotrackData, this.reviewsData}): super._();
   factory _IntegrationsData.fromJson(Map<String, dynamic> json) => _$IntegrationsDataFromJson(json);
 
 @override final  MetaPixelData? metaPixelData;
 @override final  TiktokPixelData? tiktokPixelData;
 @override final  SnapchatPixelData? snapchatPixelData;
+/// This product's own ad pixel event rules (its single-product orders); null = the store's.
+@override final  PixelEvents? pixelEvents;
 @override final  GoogleSheetsData? googleSheetsData;
 @override final  PaymentMethodData? paymentMethodData;
 @override final  CustomFieldsIntegrationData? customFieldsData;
@@ -918,18 +934,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _IntegrationsData&&(identical(other.metaPixelData, metaPixelData) || other.metaPixelData == metaPixelData)&&(identical(other.tiktokPixelData, tiktokPixelData) || other.tiktokPixelData == tiktokPixelData)&&(identical(other.snapchatPixelData, snapchatPixelData) || other.snapchatPixelData == snapchatPixelData)&&(identical(other.googleSheetsData, googleSheetsData) || other.googleSheetsData == googleSheetsData)&&(identical(other.paymentMethodData, paymentMethodData) || other.paymentMethodData == paymentMethodData)&&(identical(other.customFieldsData, customFieldsData) || other.customFieldsData == customFieldsData)&&(identical(other.ecotrackData, ecotrackData) || other.ecotrackData == ecotrackData)&&(identical(other.reviewsData, reviewsData) || other.reviewsData == reviewsData));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _IntegrationsData&&(identical(other.metaPixelData, metaPixelData) || other.metaPixelData == metaPixelData)&&(identical(other.tiktokPixelData, tiktokPixelData) || other.tiktokPixelData == tiktokPixelData)&&(identical(other.snapchatPixelData, snapchatPixelData) || other.snapchatPixelData == snapchatPixelData)&&(identical(other.pixelEvents, pixelEvents) || other.pixelEvents == pixelEvents)&&(identical(other.googleSheetsData, googleSheetsData) || other.googleSheetsData == googleSheetsData)&&(identical(other.paymentMethodData, paymentMethodData) || other.paymentMethodData == paymentMethodData)&&(identical(other.customFieldsData, customFieldsData) || other.customFieldsData == customFieldsData)&&(identical(other.ecotrackData, ecotrackData) || other.ecotrackData == ecotrackData)&&(identical(other.reviewsData, reviewsData) || other.reviewsData == reviewsData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,metaPixelData,tiktokPixelData,snapchatPixelData,googleSheetsData,paymentMethodData,customFieldsData,ecotrackData,reviewsData);
+    return Object.hash(runtimeType,metaPixelData,tiktokPixelData,snapchatPixelData,pixelEvents,googleSheetsData,paymentMethodData,customFieldsData,ecotrackData,reviewsData);
 }
 
 @override
 String toString() {
-    return 'IntegrationsData(metaPixelData: $metaPixelData, tiktokPixelData: $tiktokPixelData, snapchatPixelData: $snapchatPixelData, googleSheetsData: $googleSheetsData, paymentMethodData: $paymentMethodData, customFieldsData: $customFieldsData, ecotrackData: $ecotrackData, reviewsData: $reviewsData)';
+    return 'IntegrationsData(metaPixelData: $metaPixelData, tiktokPixelData: $tiktokPixelData, snapchatPixelData: $snapchatPixelData, pixelEvents: $pixelEvents, googleSheetsData: $googleSheetsData, paymentMethodData: $paymentMethodData, customFieldsData: $customFieldsData, ecotrackData: $ecotrackData, reviewsData: $reviewsData)';
 }
 
 
@@ -940,11 +956,11 @@ abstract mixin class _$IntegrationsDataCopyWith<$Res> implements $IntegrationsDa
   factory _$IntegrationsDataCopyWith(_IntegrationsData value, $Res Function(_IntegrationsData) _then) = __$IntegrationsDataCopyWithImpl;
 @override @useResult
 $Res call({
- MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, SnapchatPixelData? snapchatPixelData, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData, ProductReviewsData? reviewsData
+ MetaPixelData? metaPixelData, TiktokPixelData? tiktokPixelData, SnapchatPixelData? snapchatPixelData, PixelEvents? pixelEvents, GoogleSheetsData? googleSheetsData, PaymentMethodData? paymentMethodData, CustomFieldsIntegrationData? customFieldsData, EcotrackData? ecotrackData, ProductReviewsData? reviewsData
 });
 
 
-@override $MetaPixelDataCopyWith<$Res>? get metaPixelData;@override $TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;@override $SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData;@override $GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;@override $PaymentMethodDataCopyWith<$Res>? get paymentMethodData;@override $CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;@override $EcotrackDataCopyWith<$Res>? get ecotrackData;@override $ProductReviewsDataCopyWith<$Res>? get reviewsData;
+@override $MetaPixelDataCopyWith<$Res>? get metaPixelData;@override $TiktokPixelDataCopyWith<$Res>? get tiktokPixelData;@override $SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData;@override $PixelEventsCopyWith<$Res>? get pixelEvents;@override $GoogleSheetsDataCopyWith<$Res>? get googleSheetsData;@override $PaymentMethodDataCopyWith<$Res>? get paymentMethodData;@override $CustomFieldsIntegrationDataCopyWith<$Res>? get customFieldsData;@override $EcotrackDataCopyWith<$Res>? get ecotrackData;@override $ProductReviewsDataCopyWith<$Res>? get reviewsData;
 
 }
 /// @nodoc
@@ -957,12 +973,13 @@ class __$IntegrationsDataCopyWithImpl<$Res>
 
 /// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? snapchatPixelData = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,Object? reviewsData = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? metaPixelData = freezed,Object? tiktokPixelData = freezed,Object? snapchatPixelData = freezed,Object? pixelEvents = freezed,Object? googleSheetsData = freezed,Object? paymentMethodData = freezed,Object? customFieldsData = freezed,Object? ecotrackData = freezed,Object? reviewsData = freezed,}) {
   return _then(_IntegrationsData(
 metaPixelData: freezed == metaPixelData ? _self.metaPixelData : metaPixelData // ignore: cast_nullable_to_non_nullable
 as MetaPixelData?,tiktokPixelData: freezed == tiktokPixelData ? _self.tiktokPixelData : tiktokPixelData // ignore: cast_nullable_to_non_nullable
 as TiktokPixelData?,snapchatPixelData: freezed == snapchatPixelData ? _self.snapchatPixelData : snapchatPixelData // ignore: cast_nullable_to_non_nullable
-as SnapchatPixelData?,googleSheetsData: freezed == googleSheetsData ? _self.googleSheetsData : googleSheetsData // ignore: cast_nullable_to_non_nullable
+as SnapchatPixelData?,pixelEvents: freezed == pixelEvents ? _self.pixelEvents : pixelEvents // ignore: cast_nullable_to_non_nullable
+as PixelEvents?,googleSheetsData: freezed == googleSheetsData ? _self.googleSheetsData : googleSheetsData // ignore: cast_nullable_to_non_nullable
 as GoogleSheetsData?,paymentMethodData: freezed == paymentMethodData ? _self.paymentMethodData : paymentMethodData // ignore: cast_nullable_to_non_nullable
 as PaymentMethodData?,customFieldsData: freezed == customFieldsData ? _self.customFieldsData : customFieldsData // ignore: cast_nullable_to_non_nullable
 as CustomFieldsIntegrationData?,ecotrackData: freezed == ecotrackData ? _self.ecotrackData : ecotrackData // ignore: cast_nullable_to_non_nullable
@@ -1006,6 +1023,18 @@ $SnapchatPixelDataCopyWith<$Res>? get snapchatPixelData {
 
   return $SnapchatPixelDataCopyWith<$Res>(_self.snapchatPixelData!, (value) {
     return _then(_self.copyWith(snapchatPixelData: value));
+  });
+}/// Create a copy of IntegrationsData
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PixelEventsCopyWith<$Res>? get pixelEvents {
+    if (_self.pixelEvents == null) {
+    return null;
+  }
+
+  return $PixelEventsCopyWith<$Res>(_self.pixelEvents!, (value) {
+    return _then(_self.copyWith(pixelEvents: value));
   });
 }/// Create a copy of IntegrationsData
 /// with the given fields replaced by the non-null parameter values.

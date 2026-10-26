@@ -154,6 +154,9 @@ _IntegrationsData _$IntegrationsDataFromJson(Map<String, dynamic> json) =>
           : SnapchatPixelData.fromJson(
               json['snapchatPixelData'] as Map<String, dynamic>,
             ),
+      pixelEvents: json['pixelEvents'] == null
+          ? null
+          : PixelEvents.fromJson(json['pixelEvents'] as Map<String, dynamic>),
       googleSheetsData: json['googleSheetsData'] == null
           ? null
           : GoogleSheetsData.fromJson(
@@ -184,6 +187,7 @@ Map<String, dynamic> _$IntegrationsDataToJson(_IntegrationsData instance) =>
       'metaPixelData': instance.metaPixelData?.toJson(),
       'tiktokPixelData': instance.tiktokPixelData?.toJson(),
       'snapchatPixelData': instance.snapchatPixelData?.toJson(),
+      'pixelEvents': instance.pixelEvents?.toJson(),
       'googleSheetsData': instance.googleSheetsData?.toJson(),
       'paymentMethodData': instance.paymentMethodData?.toJson(),
       'customFieldsData': instance.customFieldsData?.toJson(),

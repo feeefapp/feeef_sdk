@@ -28,6 +28,9 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
       : SnapchatPixelIntegration.fromJson(
           json['snapchatPixel'] as Map<String, dynamic>,
         ),
+  pixelEvents: json['pixelEvents'] == null
+      ? null
+      : PixelEvents.fromJson(json['pixelEvents'] as Map<String, dynamic>),
   googleAnalytics: json['googleAnalytics'] == null
       ? null
       : GoogleAnalyticsIntegration.fromJson(
@@ -158,6 +161,7 @@ Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
       'metaPixel': instance.metaPixel?.toJson(),
       'tiktokPixel': instance.tiktokPixel?.toJson(),
       'snapchatPixel': instance.snapchatPixel?.toJson(),
+      'pixelEvents': instance.pixelEvents?.toJson(),
       'googleAnalytics': instance.googleAnalytics?.toJson(),
       'googleTags': instance.googleTags?.toJson(),
       'clarity': instance.clarity?.toJson(),

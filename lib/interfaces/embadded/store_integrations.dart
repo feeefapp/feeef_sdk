@@ -9,8 +9,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../product.dart';
 import '../../reviews/models/review.dart';
 import 'orders_dispatch_strategy.dart';
+import 'pixel_events.dart';
 import 'security_geo_json.dart';
 
+export 'pixel_events.dart';
 export 'security_geo_json.dart';
 
 part 'store_integrations.freezed.dart';
@@ -30,6 +32,9 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     MetaPixelIntegration? metaPixel,
     TiktokPixelIntegration? tiktokPixel,
     SnapchatPixelIntegration? snapchatPixel,
+
+    /// Ad pixel event rules for Meta, TikTok and Snapchat (null = the defaults).
+    PixelEvents? pixelEvents,
     GoogleAnalyticsIntegration? googleAnalytics,
     GoogleTagsIntegration? googleTags,
 

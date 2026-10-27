@@ -120,6 +120,12 @@ class CloudAiWorkflowIntents extends QueuedInterceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
+    // Streams (agent replies, downloads) and bytes are never workflow answers, and encoding one
+    // would fail the request.
+    if (response.data is ResponseBody || response.data is List<int>) {
+      handler.next(response);
+      return;
+    }
     final slot = response.requestOptions.extra['feeefAiIntentSlot'];
     final key = response.requestOptions.extra['feeefAiIntentKey'];
     final active = response.requestOptions.extra['feeefAiActiveSlot'];

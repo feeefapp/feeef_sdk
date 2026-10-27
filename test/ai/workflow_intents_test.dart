@@ -170,6 +170,28 @@ void main() {
     await dio.post('/ai/image-landing-pages', data: {'text': 'two'});
     expect(rejected.calls, hasLength(1));
   });
+
+  test('streamed responses pass through untouched', () async {
+    final storage = MemoryStorage();
+    final dio = client(storage, Adapter()..fail = false);
+    dio.httpClientAdapter = _StreamAdapter();
+    for (final send in [
+      () => dio.post<ResponseBody>(
+        '/ai/agents/template/conversations/cnv_1/messages',
+        data: {'text': 'hi'},
+        options: Options(responseType: ResponseType.stream),
+      ),
+      () => dio.get<ResponseBody>(
+        '/ai/agents/template/conversations/cnv_1/runs/run_1/events',
+        options: Options(responseType: ResponseType.stream),
+      ),
+    ]) {
+      final response = await send();
+      final text = await utf8.decodeStream(response.data!.stream);
+      expect(text, 'data: {"type":"start"}\n\n');
+    }
+    expect(storage.values, isEmpty);
+  });
 }
 
 class _StatusAdapter extends Adapter {
@@ -188,6 +210,24 @@ class _StatusAdapter extends Adapter {
       status,
       headers: {
         'content-type': ['application/json'],
+      },
+    );
+  }
+}
+
+class _StreamAdapter extends Adapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? body,
+    Future<void>? cancelFuture,
+  ) async {
+    calls.add(options);
+    return ResponseBody(
+      Stream.value(utf8.encode('data: {"type":"start"}\n\n')),
+      200,
+      headers: {
+        'content-type': ['text/event-stream'],
       },
     );
   }

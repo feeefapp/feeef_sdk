@@ -4,4 +4,4 @@
 /// for feature rules and config. No Flutter dependency.
 library;
 
-export 'platforms_io.dart' if (dart.library.html) 'platforms_web.dart';
+export 'platforms_io.dart' if (dart.library.js_interop) 'platforms_web.dart';

@@ -1,4 +1,5 @@
 import 'package:feeef/template_projects/template_projects_api.dart';
+
 import 'dart:developer' as developer;
 import 'dart:typed_data';
 
@@ -199,7 +200,11 @@ class Feeef {
       client.transformer = BackgroundTransformer();
     }
     client.options.headers['Accept'] = 'application/json';
-    client.options.headers['X-Requested-With'] = 'XMLHttpRequest';
+    // Not on the web: a non-safelisted header makes the browser send a CORS preflight (one more
+    // round trip) before every call, the startup GET /configs included.
+    if (!Platforms.isWeb) {
+      client.options.headers['X-Requested-With'] = 'XMLHttpRequest';
+    }
 
     actions = Actions(client: client);
     imageGenerations = ImageGenerationsRepository(client: client);
@@ -271,7 +276,11 @@ class Feeef {
     Feeef.debugMode = config?.debugMode ?? false;
     client.options.baseUrl = baseUrl;
     client.options.headers['Accept'] = 'application/json';
-    client.options.headers['X-Requested-With'] = 'XMLHttpRequest';
+    // Not on the web: a non-safelisted header makes the browser send a CORS preflight (one more
+    // round trip) before every call, the startup GET /configs included.
+    if (!Platforms.isWeb) {
+      client.options.headers['X-Requested-With'] = 'XMLHttpRequest';
+    }
 
     if (Feeef.debugMode) {
       _installPerfTraceInterceptor(client);

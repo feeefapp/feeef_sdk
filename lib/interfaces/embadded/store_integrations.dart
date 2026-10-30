@@ -405,7 +405,9 @@ abstract class GoogleAnalyticsIntegration with _$GoogleAnalyticsIntegration {
 abstract class GoogleTagsIntegration with _$GoogleTagsIntegration {
   const GoogleTagsIntegration._();
   const factory GoogleTagsIntegration({
-    required String key,
+    /// Google tag id (`G-…`, `AW-…` or `GTM-…`). The backend, feeef.js and the storefront call it
+    /// `id`; empty when not set (an inactive row may have none).
+    @Default('') String id,
     @Default(true) bool active,
     @Default({}) Map<String, dynamic> metadata,
   }) = _GoogleTagsIntegration;
@@ -864,10 +866,11 @@ abstract class CodpilotIntegration with _$CodpilotIntegration {
 
   /// Default auto-sync rule: any order that becomes (or is created as) pending.
   static List<PixelStatusRule> get defaultStatusRules => const [
+    // Rooms model: the backend refuses the legacy `orderStatus` dimension on save.
     PixelStatusRule(
-      id: 'default-pending',
-      dimension: PixelStatusDimension.orderStatus,
-      equals: 'pending',
+      id: 'default-open',
+      dimension: PixelStatusDimension.phase,
+      equals: 'open',
     ),
   ];
 }

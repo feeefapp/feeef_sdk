@@ -508,7 +508,7 @@ Map<String, dynamic> _$GoogleAnalyticsIntegrationToJson(
 _GoogleTagsIntegration _$GoogleTagsIntegrationFromJson(
   Map<String, dynamic> json,
 ) => _GoogleTagsIntegration(
-  key: json['key'] as String,
+  id: json['id'] as String? ?? '',
   active: json['active'] as bool? ?? true,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
 );
@@ -516,7 +516,7 @@ _GoogleTagsIntegration _$GoogleTagsIntegrationFromJson(
 Map<String, dynamic> _$GoogleTagsIntegrationToJson(
   _GoogleTagsIntegration instance,
 ) => <String, dynamic>{
-  'key': instance.key,
+  'id': instance.id,
   'active': instance.active,
   'metadata': instance.metadata,
 };

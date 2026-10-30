@@ -5020,7 +5020,9 @@ as Map<String, dynamic>,
 /// @nodoc
 mixin _$GoogleTagsIntegration {
 
- String get key; bool get active; Map<String, dynamic> get metadata;
+/// Google tag id (`G-…`, `AW-…` or `GTM-…`). The backend, feeef.js and the storefront call it
+/// `id`; empty when not set (an inactive row may have none).
+ String get id; bool get active; Map<String, dynamic> get metadata;
 /// Create a copy of GoogleTagsIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -5034,20 +5036,20 @@ $GoogleTagsIntegrationCopyWith<GoogleTagsIntegration> get copyWith => _$GoogleTa
 @override
 bool operator ==(Object other) {
   final _this = this as GoogleTagsIntegration;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleTagsIntegration&&(identical(other.key, _this.key) || other.key == _this.key)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoogleTagsIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as GoogleTagsIntegration;
-  return Object.hash(runtimeType,_this.key,_this.active,const DeepCollectionEquality().hash(_this.metadata));
+  return Object.hash(runtimeType,_this.id,_this.active,const DeepCollectionEquality().hash(_this.metadata));
 }
 
 @override
 String toString() {
   final _this = this as GoogleTagsIntegration;
-  return 'GoogleTagsIntegration(key: ${_this.key}, active: ${_this.active}, metadata: ${_this.metadata})';
+  return 'GoogleTagsIntegration(id: ${_this.id}, active: ${_this.active}, metadata: ${_this.metadata})';
 }
 
 
@@ -5058,7 +5060,7 @@ abstract mixin class $GoogleTagsIntegrationCopyWith<$Res>  {
   factory $GoogleTagsIntegrationCopyWith(GoogleTagsIntegration value, $Res Function(GoogleTagsIntegration) _then) = _$GoogleTagsIntegrationCopyWithImpl;
 @useResult
 $Res call({
- String key, bool active, Map<String, dynamic> metadata
+ String id, bool active, Map<String, dynamic> metadata
 });
 
 
@@ -5075,9 +5077,9 @@ class _$GoogleTagsIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of GoogleTagsIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? key = null,Object? active = null,Object? metadata = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? active = null,Object? metadata = null,}) {
   return _then(GoogleTagsIntegration(
-key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
@@ -5165,10 +5167,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String key,  bool active,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  bool active,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GoogleTagsIntegration() when $default != null:
-return $default(_that.key,_that.active,_that.metadata);case _:
+return $default(_that.id,_that.active,_that.metadata);case _:
   return orElse();
 
 }
@@ -5186,10 +5188,10 @@ return $default(_that.key,_that.active,_that.metadata);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String key,  bool active,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  bool active,  Map<String, dynamic> metadata)  $default,) {final _that = this;
 switch (_that) {
 case _GoogleTagsIntegration():
-return $default(_that.key,_that.active,_that.metadata);case _:
+return $default(_that.id,_that.active,_that.metadata);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -5206,10 +5208,10 @@ return $default(_that.key,_that.active,_that.metadata);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String key,  bool active,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  bool active,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
 switch (_that) {
 case _GoogleTagsIntegration() when $default != null:
-return $default(_that.key,_that.active,_that.metadata);case _:
+return $default(_that.id,_that.active,_that.metadata);case _:
   return null;
 
 }
@@ -5221,10 +5223,12 @@ return $default(_that.key,_that.active,_that.metadata);case _:
 @JsonSerializable()
 
 class _GoogleTagsIntegration extends GoogleTagsIntegration {
-  const _GoogleTagsIntegration({required this.key, this.active = true,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _GoogleTagsIntegration({this.id = '', this.active = true,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _GoogleTagsIntegration.fromJson(Map<String, dynamic> json) => _$GoogleTagsIntegrationFromJson(json);
 
-@override final  String key;
+/// Google tag id (`G-…`, `AW-…` or `GTM-…`). The backend, feeef.js and the storefront call it
+/// `id`; empty when not set (an inactive row may have none).
+@override@JsonKey() final  String id;
 @override@JsonKey() final  bool active;
  final  Map<String, dynamic> _metadata;
 @override@JsonKey() Map<String, dynamic> get metadata {
@@ -5247,18 +5251,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleTagsIntegration&&(identical(other.key, key) || other.key == key)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoogleTagsIntegration&&(identical(other.id, id) || other.id == id)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,key,active,const DeepCollectionEquality().hash(_metadata));
+    return Object.hash(runtimeType,id,active,const DeepCollectionEquality().hash(_metadata));
 }
 
 @override
 String toString() {
-    return 'GoogleTagsIntegration(key: $key, active: $active, metadata: $metadata)';
+    return 'GoogleTagsIntegration(id: $id, active: $active, metadata: $metadata)';
 }
 
 
@@ -5269,7 +5273,7 @@ abstract mixin class _$GoogleTagsIntegrationCopyWith<$Res> implements $GoogleTag
   factory _$GoogleTagsIntegrationCopyWith(_GoogleTagsIntegration value, $Res Function(_GoogleTagsIntegration) _then) = __$GoogleTagsIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- String key, bool active, Map<String, dynamic> metadata
+ String id, bool active, Map<String, dynamic> metadata
 });
 
 
@@ -5286,9 +5290,9 @@ class __$GoogleTagsIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of GoogleTagsIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? key = null,Object? active = null,Object? metadata = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? active = null,Object? metadata = null,}) {
   return _then(_GoogleTagsIntegration(
-key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,

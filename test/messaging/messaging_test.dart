@@ -343,4 +343,209 @@ void main() {
       },
     );
   });
+
+  group('templates you create', () {
+    final presetJson = {
+      'key': 'order_confirmation',
+      'title': 'Order confirmation',
+      'description': 'Asks the customer to confirm.',
+      'category': 'utility',
+      'use': 'confirmation',
+      'on': 'phase:open',
+      'template': {
+        'name': 'order_confirmation',
+        'locale': 'en',
+        'category': 'utility',
+        'header': {'text': 'Confirm your order'},
+        'body': 'Hello {{customer_name}}, order {{order_id}}.',
+        'buttons': [
+          {'type': 'quick_reply', 'text': 'Confirm order'},
+          {'type': 'quick_reply', 'text': 'Cancel order'},
+        ],
+        'examples': {'customer_name': 'Amine', 'order_id': 'a7k2'},
+      },
+    };
+    final row = {
+      'id': 'mtp_1',
+      'sender': 'snd_own',
+      'name': 'order_confirmation',
+      'locale': 'en',
+      'category': 'utility',
+      'status': 'rejected',
+      'rejectionReason': 'INVALID_FORMAT',
+      'updatedAt': '2026-10-31T10:00:00Z',
+      'mediaHeader': false,
+      'slots': ['customer_name', 'order_id'],
+      'slotInfo': [
+        {'key': 'customer_name', 'part': 'body', 'example': 'Amine'},
+      ],
+      'buttons': [
+        {'id': 'q0', 'title': 'Confirm order'},
+      ],
+      'body': 'Hello {{customer_name}}, order {{order_id}}.',
+      'draft': presetJson['template'],
+    };
+
+    test(
+      'presets, list all, create, edit and delete hit their routes',
+      () async {
+        final r = _Recorder((o) {
+          if (o.path.endsWith('/template-presets')) {
+            return (
+              200,
+              {
+                'data': [presetJson],
+                'locale': 'en',
+              },
+            );
+          }
+          if (o.path.endsWith('/templates') && o.method == 'GET') {
+            return (
+              200,
+              {
+                'data': [row],
+                'sender': 'snd_own',
+                'variables': ['customer_name'],
+              },
+            );
+          }
+          if (o.method == 'DELETE') return (204, null);
+          return (
+            o.method == 'POST' ? 201 : 200,
+            {
+              'data': {...row, 'status': 'pending'},
+            },
+          );
+        });
+        final presets = await r.messaging.templatePresets('s1', locale: 'en');
+        expect(presets.single.key, 'order_confirmation');
+        expect(presets.single.on, 'phase:open');
+        expect(presets.single.template.buttons.map((b) => b.text), [
+          'Confirm order',
+          'Cancel order',
+        ]);
+        expect(r.calls.last.queryParameters, {'locale': 'en'});
+
+        final all = await r.messaging.templates('s1', all: true);
+        expect(r.calls.last.queryParameters, {'all': '1'});
+        expect(all.sender, 'snd_own');
+        final t = all.data.single;
+        expect(t.status, MessagingTemplateStatus.rejected);
+        expect(t.isApproved, isFalse);
+        expect(t.rejectionReason, 'INVALID_FORMAT');
+        expect(t.draft!.header, 'Confirm your order');
+        expect(t.draft!.examples['order_id'], 'a7k2');
+
+        final created = await r.messaging.createTemplate(
+          's1',
+          presets.single.template,
+          idempotencyKey: 'k-1',
+        );
+        expect(created.status, MessagingTemplateStatus.pending);
+        final post = r.calls.last;
+        expect(post.method, 'POST');
+        expect(post.path, '/stores/s1/messaging/templates');
+        expect(post.headers['Idempotency-Key'], 'k-1');
+        final body = post.data as Map;
+        expect(body.containsKey('sender'), isFalse);
+        expect(jsonDecode(jsonEncode(body)), presetJson['template']);
+
+        await r.messaging.updateTemplate(
+          's1',
+          'mtp_1',
+          t.draft!.copyWith(body: 'Hi {{customer_name}}.'),
+        );
+        final patch = r.calls.last;
+        expect(patch.method, 'PATCH');
+        expect(patch.path, '/stores/s1/messaging/templates/mtp_1');
+        expect((patch.data as Map).containsKey('name'), isFalse);
+        expect((patch.data as Map).containsKey('locale'), isFalse);
+        expect((patch.data as Map)['body'], 'Hi {{customer_name}}.');
+        expect(patch.headers['Idempotency-Key'], startsWith('ff-tpl-'));
+
+        await r.messaging.deleteTemplate('s1', 'mtp_1');
+        expect(r.calls.last.method, 'DELETE');
+        expect(r.calls.last.path, '/stores/s1/messaging/templates/mtp_1');
+      },
+    );
+
+    test('verification drafts send only their code options', () {
+      const draft = MessagingTemplateDraft(
+        name: 'verification_code',
+        locale: 'ar',
+        category: MessagingTemplateCategory.authentication,
+        body: 'ignored',
+        authentication: MessagingTemplateAuthentication(
+          codeExpirationMinutes: 10,
+          button: MessagingOtpButton(text: 'نسخ الرمز'),
+        ),
+      );
+      expect(draft.toJson(), {
+        'name': 'verification_code',
+        'locale': 'ar',
+        'category': 'authentication',
+        'authentication': {
+          'security_recommendation': true,
+          'code_expiration_minutes': 10,
+          'button': {'type': 'copy_code', 'text': 'نسخ الرمز'},
+        },
+      });
+    });
+
+    test('errors keep Meta’s words and field paths', () async {
+      var n = 0;
+      final r = _Recorder((o) {
+        n++;
+        if (n == 1) {
+          return (
+            422,
+            {
+              'code': 'validation_failed',
+              'message': 'body: …',
+              'details': {
+                'fields': [
+                  {'path': 'body', 'message': 'Write the message.'},
+                  {'path': 'buttons.1.text', 'message': 'Too long.'},
+                ],
+              },
+            },
+          );
+        }
+        if (n == 2) {
+          return (
+            422,
+            {
+              'code': 'messaging_template_rejected',
+              'message': 'WhatsApp refused this template.',
+              'details': {'provider_message': 'Looks like marketing.'},
+            },
+          );
+        }
+        return (409, {'code': 'messaging_template_exists', 'message': 'Taken'});
+      });
+      const draft = MessagingTemplateDraft(
+        name: 'x',
+        locale: 'en',
+        category: 'utility',
+      );
+      Future<MessagingError> failure() async {
+        try {
+          await r.messaging.createTemplate('s1', draft);
+        } catch (e) {
+          return MessagingError.of(e);
+        }
+        fail('expected an error');
+      }
+
+      final invalid = await failure();
+      expect(invalid.fieldErrors, {
+        'body': 'Write the message.',
+        'buttons.1.text': 'Too long.',
+      });
+      final rejected = await failure();
+      expect(rejected.templateRejected, isTrue);
+      expect(rejected.providerMessage, 'Looks like marketing.');
+      expect((await failure()).templateExists, isTrue);
+    });
+  });
 }

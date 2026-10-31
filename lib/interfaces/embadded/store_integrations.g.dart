@@ -150,6 +150,11 @@ _StoreIntegrations _$StoreIntegrationsFromJson(
       : ConnectorsIntegration.fromJson(
           json['connectors'] as Map<String, dynamic>,
         ),
+  messaging: json['messaging'] == null
+      ? null
+      : MessagingIntegration.fromJson(
+          json['messaging'] as Map<String, dynamic>,
+        ),
   sms: json['sms'] as Map<String, dynamic>? ?? const {},
   telegram: json['telegram'] as Map<String, dynamic>? ?? const {},
 );
@@ -189,6 +194,7 @@ Map<String, dynamic> _$StoreIntegrationsToJson(_StoreIntegrations instance) =>
       'finance': instance.finance?.toJson(),
       'pages': instance.pages?.toJson(),
       'connectors': instance.connectors?.toJson(),
+      'messaging': instance.messaging?.toJson(),
       'sms': instance.sms,
       'telegram': instance.telegram,
     };

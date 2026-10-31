@@ -78,6 +78,7 @@ export 'store_templates/store_template_repository.dart';
 export 'store_templates/installed_template.dart';
 export 'reviews/models/review.dart';
 export 'reviews/reviews_repository.dart';
+export 'messaging/messaging_repository.dart';
 export 'store_pages/store_page.dart';
 export 'store_pages/store_pages_repository.dart';
 export 'promos/promo_repository.dart';

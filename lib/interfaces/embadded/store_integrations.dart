@@ -8,10 +8,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../product.dart';
 import '../../reviews/models/review.dart';
+import 'messaging_integration.dart';
 import 'orders_dispatch_strategy.dart';
 import 'pixel_events.dart';
 import 'security_geo_json.dart';
 
+export 'messaging_integration.dart';
 export 'pixel_events.dart';
 export 'security_geo_json.dart';
 
@@ -85,6 +87,10 @@ abstract class StoreIntegrations with _$StoreIntegrations {
 
     /// Inbound platform connectors (Shopify, YouCan, Google Sheets, …).
     ConnectorsIntegration? connectors,
+
+    /// WhatsApp & SMS order messages (Feeef Cloud Messaging): rules and the confirmation
+    /// question.
+    MessagingIntegration? messaging,
     // Communication Integrations
     @Default({}) Map<String, dynamic>? sms,
     @Default({}) Map<String, dynamic>? telegram,

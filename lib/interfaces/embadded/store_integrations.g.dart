@@ -913,6 +913,38 @@ Map<String, dynamic> _$SecurityMinTimeOptionToJson(
   'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
 };
 
+_SecurityBotScoreOption _$SecurityBotScoreOptionFromJson(
+  Map<String, dynamic> json,
+) => _SecurityBotScoreOption(
+  active: json['active'] as bool? ?? false,
+  treatment:
+      $enumDecodeNullable(_$SecurityTreatmentEnumMap, json['treatment']) ??
+      SecurityTreatment.block,
+  min: (json['min'] as num?)?.toInt() ?? 70,
+);
+
+Map<String, dynamic> _$SecurityBotScoreOptionToJson(
+  _SecurityBotScoreOption instance,
+) => <String, dynamic>{
+  'active': instance.active,
+  'treatment': _$SecurityTreatmentEnumMap[instance.treatment]!,
+  'min': instance.min,
+};
+
+_SecurityChallengeOption _$SecurityChallengeOptionFromJson(
+  Map<String, dynamic> json,
+) => _SecurityChallengeOption(
+  active: json['active'] as bool? ?? false,
+  minScore: (json['minScore'] as num?)?.toInt() ?? 40,
+);
+
+Map<String, dynamic> _$SecurityChallengeOptionToJson(
+  _SecurityChallengeOption instance,
+) => <String, dynamic>{
+  'active': instance.active,
+  'minScore': instance.minScore,
+};
+
 _SecurityCountriesOption _$SecurityCountriesOptionFromJson(
   Map<String, dynamic> json,
 ) => _SecurityCountriesOption(
@@ -1038,6 +1070,22 @@ _SecurityOptions _$SecurityOptionsFromJson(
   unverified: json['unverified'] == null
       ? null
       : SecurityOption.fromJson(json['unverified'] as Map<String, dynamic>),
+  bots: json['bots'] == null
+      ? null
+      : SecurityOption.fromJson(json['bots'] as Map<String, dynamic>),
+  botScore: json['botScore'] == null
+      ? null
+      : SecurityBotScoreOption.fromJson(
+          json['botScore'] as Map<String, dynamic>,
+        ),
+  hostingNetwork: json['hostingNetwork'] == null
+      ? null
+      : SecurityOption.fromJson(json['hostingNetwork'] as Map<String, dynamic>),
+  challenge: json['challenge'] == null
+      ? null
+      : SecurityChallengeOption.fromJson(
+          json['challenge'] as Map<String, dynamic>,
+        ),
   history: json['history'] == null
       ? null
       : SecurityOption.fromJson(json['history'] as Map<String, dynamic>),
@@ -1060,6 +1108,10 @@ Map<String, dynamic> _$SecurityOptionsToJson(_SecurityOptions instance) =>
       'ip': instance.ip?.toJson(),
       'minTimeInPage': instance.minTimeInPage?.toJson(),
       'unverified': instance.unverified?.toJson(),
+      'bots': ?instance.bots?.toJson(),
+      'botScore': ?instance.botScore?.toJson(),
+      'hostingNetwork': ?instance.hostingNetwork?.toJson(),
+      'challenge': ?instance.challenge?.toJson(),
       'history': instance.history?.toJson(),
       'countries': instance.countries?.toJson(),
       'sources': instance.sources?.toJson(),

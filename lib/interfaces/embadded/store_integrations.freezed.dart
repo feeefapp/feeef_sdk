@@ -10028,6 +10028,555 @@ as SecurityTreatment,
 
 
 /// @nodoc
+mixin _$SecurityBotScoreOption {
+
+ bool get active; SecurityTreatment get treatment; int get min;
+/// Create a copy of SecurityBotScoreOption
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SecurityBotScoreOptionCopyWith<SecurityBotScoreOption> get copyWith => _$SecurityBotScoreOptionCopyWithImpl<SecurityBotScoreOption>(this as SecurityBotScoreOption, _$identity);
+
+  /// Serializes this SecurityBotScoreOption to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as SecurityBotScoreOption;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityBotScoreOption&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.treatment, _this.treatment) || other.treatment == _this.treatment)&&(identical(other.min, _this.min) || other.min == _this.min));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as SecurityBotScoreOption;
+  return Object.hash(runtimeType,_this.active,_this.treatment,_this.min);
+}
+
+@override
+String toString() {
+  final _this = this as SecurityBotScoreOption;
+  return 'SecurityBotScoreOption(active: ${_this.active}, treatment: ${_this.treatment}, min: ${_this.min})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SecurityBotScoreOptionCopyWith<$Res>  {
+  factory $SecurityBotScoreOptionCopyWith(SecurityBotScoreOption value, $Res Function(SecurityBotScoreOption) _then) = _$SecurityBotScoreOptionCopyWithImpl;
+@useResult
+$Res call({
+ bool active, SecurityTreatment treatment, int min
+});
+
+
+
+
+}
+/// @nodoc
+class _$SecurityBotScoreOptionCopyWithImpl<$Res>
+    implements $SecurityBotScoreOptionCopyWith<$Res> {
+  _$SecurityBotScoreOptionCopyWithImpl(this._self, this._then);
+
+  final SecurityBotScoreOption _self;
+  final $Res Function(SecurityBotScoreOption) _then;
+
+/// Create a copy of SecurityBotScoreOption
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? treatment = null,Object? min = null,}) {
+  return _then(SecurityBotScoreOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,min: null == min ? _self.min : min // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SecurityBotScoreOption].
+extension SecurityBotScoreOptionPatterns on SecurityBotScoreOption {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SecurityBotScoreOption value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SecurityBotScoreOption() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SecurityBotScoreOption value)  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityBotScoreOption():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SecurityBotScoreOption value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityBotScoreOption() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  SecurityTreatment treatment,  int min)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SecurityBotScoreOption() when $default != null:
+return $default(_that.active,_that.treatment,_that.min);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  SecurityTreatment treatment,  int min)  $default,) {final _that = this;
+switch (_that) {
+case _SecurityBotScoreOption():
+return $default(_that.active,_that.treatment,_that.min);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  SecurityTreatment treatment,  int min)?  $default,) {final _that = this;
+switch (_that) {
+case _SecurityBotScoreOption() when $default != null:
+return $default(_that.active,_that.treatment,_that.min);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SecurityBotScoreOption implements SecurityBotScoreOption {
+  const _SecurityBotScoreOption({this.active = false, this.treatment = SecurityTreatment.block, this.min = 70});
+  factory _SecurityBotScoreOption.fromJson(Map<String, dynamic> json) => _$SecurityBotScoreOptionFromJson(json);
+
+@override@JsonKey() final  bool active;
+@override@JsonKey() final  SecurityTreatment treatment;
+@override@JsonKey() final  int min;
+
+/// Create a copy of SecurityBotScoreOption
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SecurityBotScoreOptionCopyWith<_SecurityBotScoreOption> get copyWith => __$SecurityBotScoreOptionCopyWithImpl<_SecurityBotScoreOption>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SecurityBotScoreOptionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityBotScoreOption&&(identical(other.active, active) || other.active == active)&&(identical(other.treatment, treatment) || other.treatment == treatment)&&(identical(other.min, min) || other.min == min));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,active,treatment,min);
+}
+
+@override
+String toString() {
+    return 'SecurityBotScoreOption(active: $active, treatment: $treatment, min: $min)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SecurityBotScoreOptionCopyWith<$Res> implements $SecurityBotScoreOptionCopyWith<$Res> {
+  factory _$SecurityBotScoreOptionCopyWith(_SecurityBotScoreOption value, $Res Function(_SecurityBotScoreOption) _then) = __$SecurityBotScoreOptionCopyWithImpl;
+@override @useResult
+$Res call({
+ bool active, SecurityTreatment treatment, int min
+});
+
+
+
+
+}
+/// @nodoc
+class __$SecurityBotScoreOptionCopyWithImpl<$Res>
+    implements _$SecurityBotScoreOptionCopyWith<$Res> {
+  __$SecurityBotScoreOptionCopyWithImpl(this._self, this._then);
+
+  final _SecurityBotScoreOption _self;
+  final $Res Function(_SecurityBotScoreOption) _then;
+
+/// Create a copy of SecurityBotScoreOption
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? treatment = null,Object? min = null,}) {
+  return _then(_SecurityBotScoreOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,min: null == min ? _self.min : min // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$SecurityChallengeOption {
+
+ bool get active; int get minScore;
+/// Create a copy of SecurityChallengeOption
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SecurityChallengeOptionCopyWith<SecurityChallengeOption> get copyWith => _$SecurityChallengeOptionCopyWithImpl<SecurityChallengeOption>(this as SecurityChallengeOption, _$identity);
+
+  /// Serializes this SecurityChallengeOption to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as SecurityChallengeOption;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityChallengeOption&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.minScore, _this.minScore) || other.minScore == _this.minScore));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as SecurityChallengeOption;
+  return Object.hash(runtimeType,_this.active,_this.minScore);
+}
+
+@override
+String toString() {
+  final _this = this as SecurityChallengeOption;
+  return 'SecurityChallengeOption(active: ${_this.active}, minScore: ${_this.minScore})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SecurityChallengeOptionCopyWith<$Res>  {
+  factory $SecurityChallengeOptionCopyWith(SecurityChallengeOption value, $Res Function(SecurityChallengeOption) _then) = _$SecurityChallengeOptionCopyWithImpl;
+@useResult
+$Res call({
+ bool active, int minScore
+});
+
+
+
+
+}
+/// @nodoc
+class _$SecurityChallengeOptionCopyWithImpl<$Res>
+    implements $SecurityChallengeOptionCopyWith<$Res> {
+  _$SecurityChallengeOptionCopyWithImpl(this._self, this._then);
+
+  final SecurityChallengeOption _self;
+  final $Res Function(SecurityChallengeOption) _then;
+
+/// Create a copy of SecurityChallengeOption
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? minScore = null,}) {
+  return _then(SecurityChallengeOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,minScore: null == minScore ? _self.minScore : minScore // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SecurityChallengeOption].
+extension SecurityChallengeOptionPatterns on SecurityChallengeOption {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SecurityChallengeOption value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SecurityChallengeOption() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SecurityChallengeOption value)  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityChallengeOption():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SecurityChallengeOption value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityChallengeOption() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  int minScore)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SecurityChallengeOption() when $default != null:
+return $default(_that.active,_that.minScore);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  int minScore)  $default,) {final _that = this;
+switch (_that) {
+case _SecurityChallengeOption():
+return $default(_that.active,_that.minScore);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  int minScore)?  $default,) {final _that = this;
+switch (_that) {
+case _SecurityChallengeOption() when $default != null:
+return $default(_that.active,_that.minScore);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SecurityChallengeOption implements SecurityChallengeOption {
+  const _SecurityChallengeOption({this.active = false, this.minScore = 40});
+  factory _SecurityChallengeOption.fromJson(Map<String, dynamic> json) => _$SecurityChallengeOptionFromJson(json);
+
+@override@JsonKey() final  bool active;
+@override@JsonKey() final  int minScore;
+
+/// Create a copy of SecurityChallengeOption
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SecurityChallengeOptionCopyWith<_SecurityChallengeOption> get copyWith => __$SecurityChallengeOptionCopyWithImpl<_SecurityChallengeOption>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SecurityChallengeOptionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityChallengeOption&&(identical(other.active, active) || other.active == active)&&(identical(other.minScore, minScore) || other.minScore == minScore));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,active,minScore);
+}
+
+@override
+String toString() {
+    return 'SecurityChallengeOption(active: $active, minScore: $minScore)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SecurityChallengeOptionCopyWith<$Res> implements $SecurityChallengeOptionCopyWith<$Res> {
+  factory _$SecurityChallengeOptionCopyWith(_SecurityChallengeOption value, $Res Function(_SecurityChallengeOption) _then) = __$SecurityChallengeOptionCopyWithImpl;
+@override @useResult
+$Res call({
+ bool active, int minScore
+});
+
+
+
+
+}
+/// @nodoc
+class __$SecurityChallengeOptionCopyWithImpl<$Res>
+    implements _$SecurityChallengeOptionCopyWith<$Res> {
+  __$SecurityChallengeOptionCopyWithImpl(this._self, this._then);
+
+  final _SecurityChallengeOption _self;
+  final $Res Function(_SecurityChallengeOption) _then;
+
+/// Create a copy of SecurityChallengeOption
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? minScore = null,}) {
+  return _then(_SecurityChallengeOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,minScore: null == minScore ? _self.minScore : minScore // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$SecurityCountriesOption {
 
  bool get active; SecurityTreatment get treatment; List<String>? get allowed; List<String> get blocked;
@@ -11477,7 +12026,7 @@ as List<SecurityCityRef>,
 /// @nodoc
 mixin _$SecurityOptions {
 
- SecurityOption? get phone; SecurityOption? get fingerprint; SecurityOption? get ip; SecurityMinTimeOption? get minTimeInPage; SecurityOption? get unverified; SecurityOption? get history; SecurityCountriesOption? get countries; SecuritySourcesOption? get sources;/// Visitor wilaya rule (ISO 3166-2 codes). Omitted from JSON when null;
+ SecurityOption? get phone; SecurityOption? get fingerprint; SecurityOption? get ip; SecurityMinTimeOption? get minTimeInPage; SecurityOption? get unverified;@JsonKey(includeIfNull: false) SecurityOption? get bots;@JsonKey(includeIfNull: false) SecurityBotScoreOption? get botScore;@JsonKey(includeIfNull: false) SecurityOption? get hostingNetwork;@JsonKey(includeIfNull: false) SecurityChallengeOption? get challenge; SecurityOption? get history; SecurityCountriesOption? get countries; SecuritySourcesOption? get sources;/// Visitor wilaya rule (ISO 3166-2 codes). Omitted from JSON when null;
 /// a non-object value parses as null.
 @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? get regions;/// Visitor city rule (`{name, id?}` entries). Omitted from JSON when null.
 @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) SecurityCityListOption? get cities;
@@ -11494,20 +12043,20 @@ $SecurityOptionsCopyWith<SecurityOptions> get copyWith => _$SecurityOptionsCopyW
 @override
 bool operator ==(Object other) {
   final _this = this as SecurityOptions;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityOptions&&(identical(other.phone, _this.phone) || other.phone == _this.phone)&&(identical(other.fingerprint, _this.fingerprint) || other.fingerprint == _this.fingerprint)&&(identical(other.ip, _this.ip) || other.ip == _this.ip)&&(identical(other.minTimeInPage, _this.minTimeInPage) || other.minTimeInPage == _this.minTimeInPage)&&(identical(other.unverified, _this.unverified) || other.unverified == _this.unverified)&&(identical(other.history, _this.history) || other.history == _this.history)&&(identical(other.countries, _this.countries) || other.countries == _this.countries)&&(identical(other.sources, _this.sources) || other.sources == _this.sources)&&(identical(other.regions, _this.regions) || other.regions == _this.regions)&&(identical(other.cities, _this.cities) || other.cities == _this.cities));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityOptions&&(identical(other.phone, _this.phone) || other.phone == _this.phone)&&(identical(other.fingerprint, _this.fingerprint) || other.fingerprint == _this.fingerprint)&&(identical(other.ip, _this.ip) || other.ip == _this.ip)&&(identical(other.minTimeInPage, _this.minTimeInPage) || other.minTimeInPage == _this.minTimeInPage)&&(identical(other.unverified, _this.unverified) || other.unverified == _this.unverified)&&(identical(other.bots, _this.bots) || other.bots == _this.bots)&&(identical(other.botScore, _this.botScore) || other.botScore == _this.botScore)&&(identical(other.hostingNetwork, _this.hostingNetwork) || other.hostingNetwork == _this.hostingNetwork)&&(identical(other.challenge, _this.challenge) || other.challenge == _this.challenge)&&(identical(other.history, _this.history) || other.history == _this.history)&&(identical(other.countries, _this.countries) || other.countries == _this.countries)&&(identical(other.sources, _this.sources) || other.sources == _this.sources)&&(identical(other.regions, _this.regions) || other.regions == _this.regions)&&(identical(other.cities, _this.cities) || other.cities == _this.cities));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as SecurityOptions;
-  return Object.hash(runtimeType,_this.phone,_this.fingerprint,_this.ip,_this.minTimeInPage,_this.unverified,_this.history,_this.countries,_this.sources,_this.regions,_this.cities);
+  return Object.hash(runtimeType,_this.phone,_this.fingerprint,_this.ip,_this.minTimeInPage,_this.unverified,_this.bots,_this.botScore,_this.hostingNetwork,_this.challenge,_this.history,_this.countries,_this.sources,_this.regions,_this.cities);
 }
 
 @override
 String toString() {
   final _this = this as SecurityOptions;
-  return 'SecurityOptions(phone: ${_this.phone}, fingerprint: ${_this.fingerprint}, ip: ${_this.ip}, minTimeInPage: ${_this.minTimeInPage}, unverified: ${_this.unverified}, history: ${_this.history}, countries: ${_this.countries}, sources: ${_this.sources}, regions: ${_this.regions}, cities: ${_this.cities})';
+  return 'SecurityOptions(phone: ${_this.phone}, fingerprint: ${_this.fingerprint}, ip: ${_this.ip}, minTimeInPage: ${_this.minTimeInPage}, unverified: ${_this.unverified}, bots: ${_this.bots}, botScore: ${_this.botScore}, hostingNetwork: ${_this.hostingNetwork}, challenge: ${_this.challenge}, history: ${_this.history}, countries: ${_this.countries}, sources: ${_this.sources}, regions: ${_this.regions}, cities: ${_this.cities})';
 }
 
 
@@ -11518,11 +12067,11 @@ abstract mixin class $SecurityOptionsCopyWith<$Res>  {
   factory $SecurityOptionsCopyWith(SecurityOptions value, $Res Function(SecurityOptions) _then) = _$SecurityOptionsCopyWithImpl;
 @useResult
 $Res call({
- SecurityOption? phone, SecurityOption? fingerprint, SecurityOption? ip, SecurityMinTimeOption? minTimeInPage, SecurityOption? unverified, SecurityOption? history, SecurityCountriesOption? countries, SecuritySourcesOption? sources,@JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? regions,@JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) SecurityCityListOption? cities
+ SecurityOption? phone, SecurityOption? fingerprint, SecurityOption? ip, SecurityMinTimeOption? minTimeInPage, SecurityOption? unverified,@JsonKey(includeIfNull: false) SecurityOption? bots,@JsonKey(includeIfNull: false) SecurityBotScoreOption? botScore,@JsonKey(includeIfNull: false) SecurityOption? hostingNetwork,@JsonKey(includeIfNull: false) SecurityChallengeOption? challenge, SecurityOption? history, SecurityCountriesOption? countries, SecuritySourcesOption? sources,@JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? regions,@JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) SecurityCityListOption? cities
 });
 
 
-$SecurityOptionCopyWith<$Res>? get phone;$SecurityOptionCopyWith<$Res>? get fingerprint;$SecurityOptionCopyWith<$Res>? get ip;$SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;$SecurityOptionCopyWith<$Res>? get unverified;$SecurityOptionCopyWith<$Res>? get history;$SecurityCountriesOptionCopyWith<$Res>? get countries;$SecuritySourcesOptionCopyWith<$Res>? get sources;$SecurityGeoListOptionCopyWith<$Res>? get regions;$SecurityCityListOptionCopyWith<$Res>? get cities;
+$SecurityOptionCopyWith<$Res>? get phone;$SecurityOptionCopyWith<$Res>? get fingerprint;$SecurityOptionCopyWith<$Res>? get ip;$SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;$SecurityOptionCopyWith<$Res>? get unverified;$SecurityOptionCopyWith<$Res>? get bots;$SecurityBotScoreOptionCopyWith<$Res>? get botScore;$SecurityOptionCopyWith<$Res>? get hostingNetwork;$SecurityChallengeOptionCopyWith<$Res>? get challenge;$SecurityOptionCopyWith<$Res>? get history;$SecurityCountriesOptionCopyWith<$Res>? get countries;$SecuritySourcesOptionCopyWith<$Res>? get sources;$SecurityGeoListOptionCopyWith<$Res>? get regions;$SecurityCityListOptionCopyWith<$Res>? get cities;
 
 }
 /// @nodoc
@@ -11535,14 +12084,18 @@ class _$SecurityOptionsCopyWithImpl<$Res>
 
 /// Create a copy of SecurityOptions
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? phone = freezed,Object? fingerprint = freezed,Object? ip = freezed,Object? minTimeInPage = freezed,Object? unverified = freezed,Object? history = freezed,Object? countries = freezed,Object? sources = freezed,Object? regions = freezed,Object? cities = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? phone = freezed,Object? fingerprint = freezed,Object? ip = freezed,Object? minTimeInPage = freezed,Object? unverified = freezed,Object? bots = freezed,Object? botScore = freezed,Object? hostingNetwork = freezed,Object? challenge = freezed,Object? history = freezed,Object? countries = freezed,Object? sources = freezed,Object? regions = freezed,Object? cities = freezed,}) {
   return _then(SecurityOptions(
 phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,fingerprint: freezed == fingerprint ? _self.fingerprint : fingerprint // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,ip: freezed == ip ? _self.ip : ip // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,minTimeInPage: freezed == minTimeInPage ? _self.minTimeInPage : minTimeInPage // ignore: cast_nullable_to_non_nullable
 as SecurityMinTimeOption?,unverified: freezed == unverified ? _self.unverified : unverified // ignore: cast_nullable_to_non_nullable
-as SecurityOption?,history: freezed == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,bots: freezed == bots ? _self.bots : bots // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,botScore: freezed == botScore ? _self.botScore : botScore // ignore: cast_nullable_to_non_nullable
+as SecurityBotScoreOption?,hostingNetwork: freezed == hostingNetwork ? _self.hostingNetwork : hostingNetwork // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,challenge: freezed == challenge ? _self.challenge : challenge // ignore: cast_nullable_to_non_nullable
+as SecurityChallengeOption?,history: freezed == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,countries: freezed == countries ? _self.countries : countries // ignore: cast_nullable_to_non_nullable
 as SecurityCountriesOption?,sources: freezed == sources ? _self.sources : sources // ignore: cast_nullable_to_non_nullable
 as SecuritySourcesOption?,regions: freezed == regions ? _self.regions : regions // ignore: cast_nullable_to_non_nullable
@@ -11609,6 +12162,54 @@ $SecurityOptionCopyWith<$Res>? get unverified {
 
   return $SecurityOptionCopyWith<$Res>(_self.unverified!, (value) {
     return _then(_self.copyWith(unverified: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get bots {
+    if (_self.bots == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.bots!, (value) {
+    return _then(_self.copyWith(bots: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityBotScoreOptionCopyWith<$Res>? get botScore {
+    if (_self.botScore == null) {
+    return null;
+  }
+
+  return $SecurityBotScoreOptionCopyWith<$Res>(_self.botScore!, (value) {
+    return _then(_self.copyWith(botScore: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get hostingNetwork {
+    if (_self.hostingNetwork == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.hostingNetwork!, (value) {
+    return _then(_self.copyWith(hostingNetwork: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityChallengeOptionCopyWith<$Res>? get challenge {
+    if (_self.challenge == null) {
+    return null;
+  }
+
+  return $SecurityChallengeOptionCopyWith<$Res>(_self.challenge!, (value) {
+    return _then(_self.copyWith(challenge: value));
   });
 }/// Create a copy of SecurityOptions
 /// with the given fields replaced by the non-null parameter values.
@@ -11752,10 +12353,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SecurityOption? phone,  SecurityOption? fingerprint,  SecurityOption? ip,  SecurityMinTimeOption? minTimeInPage,  SecurityOption? unverified,  SecurityOption? history,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false)  SecurityCityListOption? cities)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SecurityOption? phone,  SecurityOption? fingerprint,  SecurityOption? ip,  SecurityMinTimeOption? minTimeInPage,  SecurityOption? unverified, @JsonKey(includeIfNull: false)  SecurityOption? bots, @JsonKey(includeIfNull: false)  SecurityBotScoreOption? botScore, @JsonKey(includeIfNull: false)  SecurityOption? hostingNetwork, @JsonKey(includeIfNull: false)  SecurityChallengeOption? challenge,  SecurityOption? history,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false)  SecurityCityListOption? cities)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SecurityOptions() when $default != null:
-return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that.unverified,_that.history,_that.countries,_that.sources,_that.regions,_that.cities);case _:
+return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that.unverified,_that.bots,_that.botScore,_that.hostingNetwork,_that.challenge,_that.history,_that.countries,_that.sources,_that.regions,_that.cities);case _:
   return orElse();
 
 }
@@ -11773,10 +12374,10 @@ return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SecurityOption? phone,  SecurityOption? fingerprint,  SecurityOption? ip,  SecurityMinTimeOption? minTimeInPage,  SecurityOption? unverified,  SecurityOption? history,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false)  SecurityCityListOption? cities)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SecurityOption? phone,  SecurityOption? fingerprint,  SecurityOption? ip,  SecurityMinTimeOption? minTimeInPage,  SecurityOption? unverified, @JsonKey(includeIfNull: false)  SecurityOption? bots, @JsonKey(includeIfNull: false)  SecurityBotScoreOption? botScore, @JsonKey(includeIfNull: false)  SecurityOption? hostingNetwork, @JsonKey(includeIfNull: false)  SecurityChallengeOption? challenge,  SecurityOption? history,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false)  SecurityCityListOption? cities)  $default,) {final _that = this;
 switch (_that) {
 case _SecurityOptions():
-return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that.unverified,_that.history,_that.countries,_that.sources,_that.regions,_that.cities);case _:
+return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that.unverified,_that.bots,_that.botScore,_that.hostingNetwork,_that.challenge,_that.history,_that.countries,_that.sources,_that.regions,_that.cities);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -11793,10 +12394,10 @@ return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SecurityOption? phone,  SecurityOption? fingerprint,  SecurityOption? ip,  SecurityMinTimeOption? minTimeInPage,  SecurityOption? unverified,  SecurityOption? history,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false)  SecurityCityListOption? cities)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SecurityOption? phone,  SecurityOption? fingerprint,  SecurityOption? ip,  SecurityMinTimeOption? minTimeInPage,  SecurityOption? unverified, @JsonKey(includeIfNull: false)  SecurityOption? bots, @JsonKey(includeIfNull: false)  SecurityBotScoreOption? botScore, @JsonKey(includeIfNull: false)  SecurityOption? hostingNetwork, @JsonKey(includeIfNull: false)  SecurityChallengeOption? challenge,  SecurityOption? history,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false)  SecurityCityListOption? cities)?  $default,) {final _that = this;
 switch (_that) {
 case _SecurityOptions() when $default != null:
-return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that.unverified,_that.history,_that.countries,_that.sources,_that.regions,_that.cities);case _:
+return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that.unverified,_that.bots,_that.botScore,_that.hostingNetwork,_that.challenge,_that.history,_that.countries,_that.sources,_that.regions,_that.cities);case _:
   return null;
 
 }
@@ -11808,7 +12409,7 @@ return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that
 @JsonSerializable()
 
 class _SecurityOptions extends SecurityOptions {
-  const _SecurityOptions({this.phone, this.fingerprint, this.ip, this.minTimeInPage, this.unverified, this.history, this.countries, this.sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) this.regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) this.cities}): super._();
+  const _SecurityOptions({this.phone, this.fingerprint, this.ip, this.minTimeInPage, this.unverified, @JsonKey(includeIfNull: false) this.bots, @JsonKey(includeIfNull: false) this.botScore, @JsonKey(includeIfNull: false) this.hostingNetwork, @JsonKey(includeIfNull: false) this.challenge, this.history, this.countries, this.sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) this.regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) this.cities}): super._();
   factory _SecurityOptions.fromJson(Map<String, dynamic> json) => _$SecurityOptionsFromJson(json);
 
 @override final  SecurityOption? phone;
@@ -11816,6 +12417,10 @@ class _SecurityOptions extends SecurityOptions {
 @override final  SecurityOption? ip;
 @override final  SecurityMinTimeOption? minTimeInPage;
 @override final  SecurityOption? unverified;
+@override@JsonKey(includeIfNull: false) final  SecurityOption? bots;
+@override@JsonKey(includeIfNull: false) final  SecurityBotScoreOption? botScore;
+@override@JsonKey(includeIfNull: false) final  SecurityOption? hostingNetwork;
+@override@JsonKey(includeIfNull: false) final  SecurityChallengeOption? challenge;
 @override final  SecurityOption? history;
 @override final  SecurityCountriesOption? countries;
 @override final  SecuritySourcesOption? sources;
@@ -11838,18 +12443,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityOptions&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.fingerprint, fingerprint) || other.fingerprint == fingerprint)&&(identical(other.ip, ip) || other.ip == ip)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.unverified, unverified) || other.unverified == unverified)&&(identical(other.history, history) || other.history == history)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources)&&(identical(other.regions, regions) || other.regions == regions)&&(identical(other.cities, cities) || other.cities == cities));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityOptions&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.fingerprint, fingerprint) || other.fingerprint == fingerprint)&&(identical(other.ip, ip) || other.ip == ip)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.unverified, unverified) || other.unverified == unverified)&&(identical(other.bots, bots) || other.bots == bots)&&(identical(other.botScore, botScore) || other.botScore == botScore)&&(identical(other.hostingNetwork, hostingNetwork) || other.hostingNetwork == hostingNetwork)&&(identical(other.challenge, challenge) || other.challenge == challenge)&&(identical(other.history, history) || other.history == history)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources)&&(identical(other.regions, regions) || other.regions == regions)&&(identical(other.cities, cities) || other.cities == cities));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,phone,fingerprint,ip,minTimeInPage,unverified,history,countries,sources,regions,cities);
+    return Object.hash(runtimeType,phone,fingerprint,ip,minTimeInPage,unverified,bots,botScore,hostingNetwork,challenge,history,countries,sources,regions,cities);
 }
 
 @override
 String toString() {
-    return 'SecurityOptions(phone: $phone, fingerprint: $fingerprint, ip: $ip, minTimeInPage: $minTimeInPage, unverified: $unverified, history: $history, countries: $countries, sources: $sources, regions: $regions, cities: $cities)';
+    return 'SecurityOptions(phone: $phone, fingerprint: $fingerprint, ip: $ip, minTimeInPage: $minTimeInPage, unverified: $unverified, bots: $bots, botScore: $botScore, hostingNetwork: $hostingNetwork, challenge: $challenge, history: $history, countries: $countries, sources: $sources, regions: $regions, cities: $cities)';
 }
 
 
@@ -11860,11 +12465,11 @@ abstract mixin class _$SecurityOptionsCopyWith<$Res> implements $SecurityOptions
   factory _$SecurityOptionsCopyWith(_SecurityOptions value, $Res Function(_SecurityOptions) _then) = __$SecurityOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- SecurityOption? phone, SecurityOption? fingerprint, SecurityOption? ip, SecurityMinTimeOption? minTimeInPage, SecurityOption? unverified, SecurityOption? history, SecurityCountriesOption? countries, SecuritySourcesOption? sources,@JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? regions,@JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) SecurityCityListOption? cities
+ SecurityOption? phone, SecurityOption? fingerprint, SecurityOption? ip, SecurityMinTimeOption? minTimeInPage, SecurityOption? unverified,@JsonKey(includeIfNull: false) SecurityOption? bots,@JsonKey(includeIfNull: false) SecurityBotScoreOption? botScore,@JsonKey(includeIfNull: false) SecurityOption? hostingNetwork,@JsonKey(includeIfNull: false) SecurityChallengeOption? challenge, SecurityOption? history, SecurityCountriesOption? countries, SecuritySourcesOption? sources,@JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? regions,@JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) SecurityCityListOption? cities
 });
 
 
-@override $SecurityOptionCopyWith<$Res>? get phone;@override $SecurityOptionCopyWith<$Res>? get fingerprint;@override $SecurityOptionCopyWith<$Res>? get ip;@override $SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;@override $SecurityOptionCopyWith<$Res>? get unverified;@override $SecurityOptionCopyWith<$Res>? get history;@override $SecurityCountriesOptionCopyWith<$Res>? get countries;@override $SecuritySourcesOptionCopyWith<$Res>? get sources;@override $SecurityGeoListOptionCopyWith<$Res>? get regions;@override $SecurityCityListOptionCopyWith<$Res>? get cities;
+@override $SecurityOptionCopyWith<$Res>? get phone;@override $SecurityOptionCopyWith<$Res>? get fingerprint;@override $SecurityOptionCopyWith<$Res>? get ip;@override $SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;@override $SecurityOptionCopyWith<$Res>? get unverified;@override $SecurityOptionCopyWith<$Res>? get bots;@override $SecurityBotScoreOptionCopyWith<$Res>? get botScore;@override $SecurityOptionCopyWith<$Res>? get hostingNetwork;@override $SecurityChallengeOptionCopyWith<$Res>? get challenge;@override $SecurityOptionCopyWith<$Res>? get history;@override $SecurityCountriesOptionCopyWith<$Res>? get countries;@override $SecuritySourcesOptionCopyWith<$Res>? get sources;@override $SecurityGeoListOptionCopyWith<$Res>? get regions;@override $SecurityCityListOptionCopyWith<$Res>? get cities;
 
 }
 /// @nodoc
@@ -11877,14 +12482,18 @@ class __$SecurityOptionsCopyWithImpl<$Res>
 
 /// Create a copy of SecurityOptions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? phone = freezed,Object? fingerprint = freezed,Object? ip = freezed,Object? minTimeInPage = freezed,Object? unverified = freezed,Object? history = freezed,Object? countries = freezed,Object? sources = freezed,Object? regions = freezed,Object? cities = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? phone = freezed,Object? fingerprint = freezed,Object? ip = freezed,Object? minTimeInPage = freezed,Object? unverified = freezed,Object? bots = freezed,Object? botScore = freezed,Object? hostingNetwork = freezed,Object? challenge = freezed,Object? history = freezed,Object? countries = freezed,Object? sources = freezed,Object? regions = freezed,Object? cities = freezed,}) {
   return _then(_SecurityOptions(
 phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,fingerprint: freezed == fingerprint ? _self.fingerprint : fingerprint // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,ip: freezed == ip ? _self.ip : ip // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,minTimeInPage: freezed == minTimeInPage ? _self.minTimeInPage : minTimeInPage // ignore: cast_nullable_to_non_nullable
 as SecurityMinTimeOption?,unverified: freezed == unverified ? _self.unverified : unverified // ignore: cast_nullable_to_non_nullable
-as SecurityOption?,history: freezed == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,bots: freezed == bots ? _self.bots : bots // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,botScore: freezed == botScore ? _self.botScore : botScore // ignore: cast_nullable_to_non_nullable
+as SecurityBotScoreOption?,hostingNetwork: freezed == hostingNetwork ? _self.hostingNetwork : hostingNetwork // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,challenge: freezed == challenge ? _self.challenge : challenge // ignore: cast_nullable_to_non_nullable
+as SecurityChallengeOption?,history: freezed == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,countries: freezed == countries ? _self.countries : countries // ignore: cast_nullable_to_non_nullable
 as SecurityCountriesOption?,sources: freezed == sources ? _self.sources : sources // ignore: cast_nullable_to_non_nullable
 as SecuritySourcesOption?,regions: freezed == regions ? _self.regions : regions // ignore: cast_nullable_to_non_nullable
@@ -11952,6 +12561,54 @@ $SecurityOptionCopyWith<$Res>? get unverified {
 
   return $SecurityOptionCopyWith<$Res>(_self.unverified!, (value) {
     return _then(_self.copyWith(unverified: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get bots {
+    if (_self.bots == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.bots!, (value) {
+    return _then(_self.copyWith(bots: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityBotScoreOptionCopyWith<$Res>? get botScore {
+    if (_self.botScore == null) {
+    return null;
+  }
+
+  return $SecurityBotScoreOptionCopyWith<$Res>(_self.botScore!, (value) {
+    return _then(_self.copyWith(botScore: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get hostingNetwork {
+    if (_self.hostingNetwork == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.hostingNetwork!, (value) {
+    return _then(_self.copyWith(hostingNetwork: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityChallengeOptionCopyWith<$Res>? get challenge {
+    if (_self.challenge == null) {
+    return null;
+  }
+
+  return $SecurityChallengeOptionCopyWith<$Res>(_self.challenge!, (value) {
+    return _then(_self.copyWith(challenge: value));
   });
 }/// Create a copy of SecurityOptions
 /// with the given fields replaced by the non-null parameter values.

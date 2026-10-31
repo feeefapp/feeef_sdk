@@ -38,6 +38,7 @@ import 'package:feeef/cloud_delivery/cloud_delivery_api.dart';
 import 'package:feeef/products/product_repository.dart';
 import 'package:feeef/realtime/realtime.dart';
 import 'package:feeef/reviews/reviews_repository.dart';
+import 'package:feeef/messaging/messaging_repository.dart';
 import 'package:feeef/shipping_methods/shipping_method_repository.dart';
 import 'package:feeef/shipping_prices/shipping_price_repository.dart';
 import 'package:feeef/states/state_repository.dart';
@@ -140,6 +141,9 @@ class Feeef {
 
   /// Customer product reviews, the review page and merchant moderation.
   late final ReviewsRepository reviews;
+
+  /// WhatsApp & SMS order messages: senders, templates and test sends of a store.
+  late final MessagingRepository messaging;
   late final ShippingMethodRepository shippingMethods;
   late final ShippingPriceRepository shippingPrices;
   late final ShippingPriceResourceRepository shippingPricesResource;
@@ -190,7 +194,11 @@ class Feeef {
       client.transformer = BackgroundTransformer();
     }
     client.options.headers['Accept'] = 'application/json';
-    client.options.headers['X-Requested-With'] = 'XMLHttpRequest';
+    // Not on the web: a non-safelisted header makes the browser send a CORS preflight (one more
+    // round trip) before every call, the startup GET /configs included.
+    if (!Platforms.isWeb) {
+      client.options.headers['X-Requested-With'] = 'XMLHttpRequest';
+    }
 
     actions = Actions(client: client);
     imageGenerations = ImageGenerationsRepository(client: client);
@@ -207,6 +215,7 @@ class Feeef {
     imagePromptTemplates = ImagePromptTemplateRepository(client: client);
     packages = PackagesApi(client);
     reviews = ReviewsRepository(client: client);
+    messaging = MessagingRepository(client: client);
     shippingMethods = ShippingMethodRepository(client: client);
     shippingPrices = ShippingPriceRepository(client: client);
     shippingPricesResource = ShippingPriceResourceRepository(client: client);
@@ -255,7 +264,11 @@ class Feeef {
     Feeef.debugMode = config?.debugMode ?? false;
     client.options.baseUrl = baseUrl;
     client.options.headers['Accept'] = 'application/json';
-    client.options.headers['X-Requested-With'] = 'XMLHttpRequest';
+    // Not on the web: a non-safelisted header makes the browser send a CORS preflight (one more
+    // round trip) before every call, the startup GET /configs included.
+    if (!Platforms.isWeb) {
+      client.options.headers['X-Requested-With'] = 'XMLHttpRequest';
+    }
 
     if (Feeef.debugMode) {
       _installPerfTraceInterceptor(client);

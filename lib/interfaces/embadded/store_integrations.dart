@@ -8,10 +8,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../product.dart';
 import '../../reviews/models/review.dart';
+import 'messaging_integration.dart';
 import 'orders_dispatch_strategy.dart';
 import 'pixel_events.dart';
 import 'security_geo_json.dart';
 
+export 'messaging_integration.dart';
 export 'pixel_events.dart';
 export 'security_geo_json.dart';
 
@@ -33,7 +35,8 @@ abstract class StoreIntegrations with _$StoreIntegrations {
     TiktokPixelIntegration? tiktokPixel,
     SnapchatPixelIntegration? snapchatPixel,
 
-    /// Ad pixel event rules for Meta, TikTok and Snapchat (null = the defaults).
+    /// Ad pixel event rules for Meta, TikTok and Snapchat (null = the defaults,
+    /// [kDefaultPixelEventRules]).
     PixelEvents? pixelEvents,
     GoogleAnalyticsIntegration? googleAnalytics,
     GoogleTagsIntegration? googleTags,
@@ -84,6 +87,10 @@ abstract class StoreIntegrations with _$StoreIntegrations {
 
     /// Inbound platform connectors (Shopify, YouCan, Google Sheets, …).
     ConnectorsIntegration? connectors,
+
+    /// WhatsApp & SMS order messages (Feeef Cloud Messaging): rules and the confirmation
+    /// question.
+    MessagingIntegration? messaging,
     // Communication Integrations
     @Default({}) Map<String, dynamic>? sms,
     @Default({}) Map<String, dynamic>? telegram,
@@ -888,8 +895,8 @@ enum SecurityTreatment {
   warning,
 
   /// Fake success: the visitor sees "order received", nothing is saved. Only
-  /// the bot rules ([SecurityOptions.minTimeInPage], [SecurityOptions.unverified])
-  /// accept it; elsewhere the backend applies it as [block].
+  /// the bot rules ([SecurityOptions.minTimeInPage], [SecurityOptions.unverified],
+  /// [SecurityOptions.bots]) accept it; elsewhere the backend applies it as [block].
   fake,
 }
 
@@ -911,6 +918,8 @@ enum SecurityMatch {
 /// - `fingerprint` ("Same browser"): [ttl] + [match].
 /// - `ip` ("Same connection"): [ttl].
 /// - `unverified`, `history`: switch and treatment only.
+/// - `bots`, `hostingNetwork` (Feeef Cloud Guard only): switch and treatment
+///   only; `hostingNetwork` takes warning|block.
 @freezed
 abstract class SecurityOption with _$SecurityOption {
   const SecurityOption._();
@@ -937,6 +946,34 @@ abstract class SecurityMinTimeOption with _$SecurityMinTimeOption {
 
   factory SecurityMinTimeOption.fromJson(Map<String, dynamic> json) =>
       _$SecurityMinTimeOptionFromJson(json);
+}
+
+/// "Suspicious behaviour" (Feeef Cloud Guard only): the visitor's bot score is
+/// at least [min] (10–100). Treatment warning|block.
+@freezed
+abstract class SecurityBotScoreOption with _$SecurityBotScoreOption {
+  const factory SecurityBotScoreOption({
+    @Default(false) bool active,
+    @Default(SecurityTreatment.block) SecurityTreatment treatment,
+    @Default(70) int min,
+  }) = _SecurityBotScoreOption;
+
+  factory SecurityBotScoreOption.fromJson(Map<String, dynamic> json) =>
+      _$SecurityBotScoreOptionFromJson(json);
+}
+
+/// "Human check" (Feeef Cloud Guard only): visitors without a valid browser
+/// check, or with a bot score of at least [minScore] (0–100), pass a short
+/// automatic proof-of-work check before ordering. No treatment.
+@freezed
+abstract class SecurityChallengeOption with _$SecurityChallengeOption {
+  const factory SecurityChallengeOption({
+    @Default(false) bool active,
+    @Default(40) int minScore,
+  }) = _SecurityChallengeOption;
+
+  factory SecurityChallengeOption.fromJson(Map<String, dynamic> json) =>
+      _$SecurityChallengeOptionFromJson(json);
 }
 
 /// Country filtering option with allowed/blocked lists.
@@ -1257,6 +1294,11 @@ abstract class SecurityOptions with _$SecurityOptions {
     // Bots
     SecurityMinTimeOption? minTimeInPage,
     SecurityOption? unverified,
+    // Bots, Feeef Cloud Guard only (the backend engine ignores them)
+    @JsonKey(includeIfNull: false) SecurityOption? bots,
+    @JsonKey(includeIfNull: false) SecurityBotScoreOption? botScore,
+    @JsonKey(includeIfNull: false) SecurityOption? hostingNetwork,
+    @JsonKey(includeIfNull: false) SecurityChallengeOption? challenge,
     // Customer history
     SecurityOption? history,
     // Location and traffic

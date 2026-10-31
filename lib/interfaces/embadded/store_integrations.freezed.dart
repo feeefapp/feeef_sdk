@@ -18,7 +18,8 @@ mixin _$StoreIntegrations {
 
  Map<String, dynamic>? get metadata;/// Global Meta integration — credentials shared by every Meta feature.
 /// Ads live here today; pixels may move over from [metaPixel] later.
- MetaIntegration? get meta; MetaPixelIntegration? get metaPixel; TiktokPixelIntegration? get tiktokPixel; SnapchatPixelIntegration? get snapchatPixel;/// Ad pixel event rules for Meta, TikTok and Snapchat (null = the defaults).
+ MetaIntegration? get meta; MetaPixelIntegration? get metaPixel; TiktokPixelIntegration? get tiktokPixel; SnapchatPixelIntegration? get snapchatPixel;/// Ad pixel event rules for Meta, TikTok and Snapchat (null = the defaults,
+/// [kDefaultPixelEventRules]).
  PixelEvents? get pixelEvents; GoogleAnalyticsIntegration? get googleAnalytics; GoogleTagsIntegration? get googleTags;/// Microsoft Clarity (trackingCode public in storefront; apiKey never in public JSON).
  ClarityIntegration? get clarity; AiIntegration? get ai; YalidineDeliveryIntegration? get yalidine; EcotrackDeliveryIntegration? get ecotrack; EcomanagerDeliveryIntegration? get ecomanager; ProcolisDeliveryIntegration? get procolis; NoestDeliveryIntegration? get noest; OrderdzDeliveryIntegration? get orderdz; ZimouExpressDeliveryIntegration? get zimou; ZrexpressDeliveryIntegration? get zrexpress; MdmExpressDeliveryIntegration? get mdmExpress;/// Feeef Delivery (Near Delivery white-label) — merchants never hold Near API keys.
  FeeefDeliveryIntegration? get feeefDelivery; MaystroDeliveryIntegration? get maystroDelivery;/// Codpilot mini-ERP (order confirmation / COD ops) — not a carrier.
@@ -26,7 +27,9 @@ mixin _$StoreIntegrations {
  StoreInventoryIntegration? get inventory;/// Finance module (procurement, accounting).
  StoreFinanceIntegration? get finance;/// Store-owned website pages (monthly integration).
  StorePagesIntegration? get pages;/// Inbound platform connectors (Shopify, YouCan, Google Sheets, …).
- ConnectorsIntegration? get connectors; Map<String, dynamic>? get sms; Map<String, dynamic>? get telegram;
+ ConnectorsIntegration? get connectors;/// WhatsApp & SMS order messages (Feeef Cloud Messaging): rules and the confirmation
+/// question.
+ MessagingIntegration? get messaging; Map<String, dynamic>? get sms; Map<String, dynamic>? get telegram;
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -40,20 +43,20 @@ $StoreIntegrationsCopyWith<StoreIntegrations> get copyWith => _$StoreIntegration
 @override
 bool operator ==(Object other) {
   final _this = this as StoreIntegrations;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.meta, _this.meta) || other.meta == _this.meta)&&(identical(other.metaPixel, _this.metaPixel) || other.metaPixel == _this.metaPixel)&&(identical(other.tiktokPixel, _this.tiktokPixel) || other.tiktokPixel == _this.tiktokPixel)&&(identical(other.snapchatPixel, _this.snapchatPixel) || other.snapchatPixel == _this.snapchatPixel)&&(identical(other.pixelEvents, _this.pixelEvents) || other.pixelEvents == _this.pixelEvents)&&(identical(other.googleAnalytics, _this.googleAnalytics) || other.googleAnalytics == _this.googleAnalytics)&&(identical(other.googleTags, _this.googleTags) || other.googleTags == _this.googleTags)&&(identical(other.clarity, _this.clarity) || other.clarity == _this.clarity)&&(identical(other.ai, _this.ai) || other.ai == _this.ai)&&(identical(other.yalidine, _this.yalidine) || other.yalidine == _this.yalidine)&&(identical(other.ecotrack, _this.ecotrack) || other.ecotrack == _this.ecotrack)&&(identical(other.ecomanager, _this.ecomanager) || other.ecomanager == _this.ecomanager)&&(identical(other.procolis, _this.procolis) || other.procolis == _this.procolis)&&(identical(other.noest, _this.noest) || other.noest == _this.noest)&&(identical(other.orderdz, _this.orderdz) || other.orderdz == _this.orderdz)&&(identical(other.zimou, _this.zimou) || other.zimou == _this.zimou)&&(identical(other.zrexpress, _this.zrexpress) || other.zrexpress == _this.zrexpress)&&(identical(other.mdmExpress, _this.mdmExpress) || other.mdmExpress == _this.mdmExpress)&&(identical(other.feeefDelivery, _this.feeefDelivery) || other.feeefDelivery == _this.feeefDelivery)&&(identical(other.maystroDelivery, _this.maystroDelivery) || other.maystroDelivery == _this.maystroDelivery)&&(identical(other.codpilot, _this.codpilot) || other.codpilot == _this.codpilot)&&(identical(other.googleSheet, _this.googleSheet) || other.googleSheet == _this.googleSheet)&&(identical(other.webhooks, _this.webhooks) || other.webhooks == _this.webhooks)&&(identical(other.security, _this.security) || other.security == _this.security)&&(identical(other.customFields, _this.customFields) || other.customFields == _this.customFields)&&(identical(other.reviews, _this.reviews) || other.reviews == _this.reviews)&&(identical(other.payment, _this.payment) || other.payment == _this.payment)&&(identical(other.dispatcher, _this.dispatcher) || other.dispatcher == _this.dispatcher)&&(identical(other.inventory, _this.inventory) || other.inventory == _this.inventory)&&(identical(other.finance, _this.finance) || other.finance == _this.finance)&&(identical(other.pages, _this.pages) || other.pages == _this.pages)&&(identical(other.connectors, _this.connectors) || other.connectors == _this.connectors)&&const DeepCollectionEquality().equals(other.sms, _this.sms)&&const DeepCollectionEquality().equals(other.telegram, _this.telegram));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.meta, _this.meta) || other.meta == _this.meta)&&(identical(other.metaPixel, _this.metaPixel) || other.metaPixel == _this.metaPixel)&&(identical(other.tiktokPixel, _this.tiktokPixel) || other.tiktokPixel == _this.tiktokPixel)&&(identical(other.snapchatPixel, _this.snapchatPixel) || other.snapchatPixel == _this.snapchatPixel)&&(identical(other.pixelEvents, _this.pixelEvents) || other.pixelEvents == _this.pixelEvents)&&(identical(other.googleAnalytics, _this.googleAnalytics) || other.googleAnalytics == _this.googleAnalytics)&&(identical(other.googleTags, _this.googleTags) || other.googleTags == _this.googleTags)&&(identical(other.clarity, _this.clarity) || other.clarity == _this.clarity)&&(identical(other.ai, _this.ai) || other.ai == _this.ai)&&(identical(other.yalidine, _this.yalidine) || other.yalidine == _this.yalidine)&&(identical(other.ecotrack, _this.ecotrack) || other.ecotrack == _this.ecotrack)&&(identical(other.ecomanager, _this.ecomanager) || other.ecomanager == _this.ecomanager)&&(identical(other.procolis, _this.procolis) || other.procolis == _this.procolis)&&(identical(other.noest, _this.noest) || other.noest == _this.noest)&&(identical(other.orderdz, _this.orderdz) || other.orderdz == _this.orderdz)&&(identical(other.zimou, _this.zimou) || other.zimou == _this.zimou)&&(identical(other.zrexpress, _this.zrexpress) || other.zrexpress == _this.zrexpress)&&(identical(other.mdmExpress, _this.mdmExpress) || other.mdmExpress == _this.mdmExpress)&&(identical(other.feeefDelivery, _this.feeefDelivery) || other.feeefDelivery == _this.feeefDelivery)&&(identical(other.maystroDelivery, _this.maystroDelivery) || other.maystroDelivery == _this.maystroDelivery)&&(identical(other.codpilot, _this.codpilot) || other.codpilot == _this.codpilot)&&(identical(other.googleSheet, _this.googleSheet) || other.googleSheet == _this.googleSheet)&&(identical(other.webhooks, _this.webhooks) || other.webhooks == _this.webhooks)&&(identical(other.security, _this.security) || other.security == _this.security)&&(identical(other.customFields, _this.customFields) || other.customFields == _this.customFields)&&(identical(other.reviews, _this.reviews) || other.reviews == _this.reviews)&&(identical(other.payment, _this.payment) || other.payment == _this.payment)&&(identical(other.dispatcher, _this.dispatcher) || other.dispatcher == _this.dispatcher)&&(identical(other.inventory, _this.inventory) || other.inventory == _this.inventory)&&(identical(other.finance, _this.finance) || other.finance == _this.finance)&&(identical(other.pages, _this.pages) || other.pages == _this.pages)&&(identical(other.connectors, _this.connectors) || other.connectors == _this.connectors)&&(identical(other.messaging, _this.messaging) || other.messaging == _this.messaging)&&const DeepCollectionEquality().equals(other.sms, _this.sms)&&const DeepCollectionEquality().equals(other.telegram, _this.telegram));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as StoreIntegrations;
-  return Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_this.metadata),_this.meta,_this.metaPixel,_this.tiktokPixel,_this.snapchatPixel,_this.pixelEvents,_this.googleAnalytics,_this.googleTags,_this.clarity,_this.ai,_this.yalidine,_this.ecotrack,_this.ecomanager,_this.procolis,_this.noest,_this.orderdz,_this.zimou,_this.zrexpress,_this.mdmExpress,_this.feeefDelivery,_this.maystroDelivery,_this.codpilot,_this.googleSheet,_this.webhooks,_this.security,_this.customFields,_this.reviews,_this.payment,_this.dispatcher,_this.inventory,_this.finance,_this.pages,_this.connectors,const DeepCollectionEquality().hash(_this.sms),const DeepCollectionEquality().hash(_this.telegram)]);
+  return Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_this.metadata),_this.meta,_this.metaPixel,_this.tiktokPixel,_this.snapchatPixel,_this.pixelEvents,_this.googleAnalytics,_this.googleTags,_this.clarity,_this.ai,_this.yalidine,_this.ecotrack,_this.ecomanager,_this.procolis,_this.noest,_this.orderdz,_this.zimou,_this.zrexpress,_this.mdmExpress,_this.feeefDelivery,_this.maystroDelivery,_this.codpilot,_this.googleSheet,_this.webhooks,_this.security,_this.customFields,_this.reviews,_this.payment,_this.dispatcher,_this.inventory,_this.finance,_this.pages,_this.connectors,_this.messaging,const DeepCollectionEquality().hash(_this.sms),const DeepCollectionEquality().hash(_this.telegram)]);
 }
 
 @override
 String toString() {
   final _this = this as StoreIntegrations;
-  return 'StoreIntegrations(metadata: ${_this.metadata}, meta: ${_this.meta}, metaPixel: ${_this.metaPixel}, tiktokPixel: ${_this.tiktokPixel}, snapchatPixel: ${_this.snapchatPixel}, pixelEvents: ${_this.pixelEvents}, googleAnalytics: ${_this.googleAnalytics}, googleTags: ${_this.googleTags}, clarity: ${_this.clarity}, ai: ${_this.ai}, yalidine: ${_this.yalidine}, ecotrack: ${_this.ecotrack}, ecomanager: ${_this.ecomanager}, procolis: ${_this.procolis}, noest: ${_this.noest}, orderdz: ${_this.orderdz}, zimou: ${_this.zimou}, zrexpress: ${_this.zrexpress}, mdmExpress: ${_this.mdmExpress}, feeefDelivery: ${_this.feeefDelivery}, maystroDelivery: ${_this.maystroDelivery}, codpilot: ${_this.codpilot}, googleSheet: ${_this.googleSheet}, webhooks: ${_this.webhooks}, security: ${_this.security}, customFields: ${_this.customFields}, reviews: ${_this.reviews}, payment: ${_this.payment}, dispatcher: ${_this.dispatcher}, inventory: ${_this.inventory}, finance: ${_this.finance}, pages: ${_this.pages}, connectors: ${_this.connectors}, sms: ${_this.sms}, telegram: ${_this.telegram})';
+  return 'StoreIntegrations(metadata: ${_this.metadata}, meta: ${_this.meta}, metaPixel: ${_this.metaPixel}, tiktokPixel: ${_this.tiktokPixel}, snapchatPixel: ${_this.snapchatPixel}, pixelEvents: ${_this.pixelEvents}, googleAnalytics: ${_this.googleAnalytics}, googleTags: ${_this.googleTags}, clarity: ${_this.clarity}, ai: ${_this.ai}, yalidine: ${_this.yalidine}, ecotrack: ${_this.ecotrack}, ecomanager: ${_this.ecomanager}, procolis: ${_this.procolis}, noest: ${_this.noest}, orderdz: ${_this.orderdz}, zimou: ${_this.zimou}, zrexpress: ${_this.zrexpress}, mdmExpress: ${_this.mdmExpress}, feeefDelivery: ${_this.feeefDelivery}, maystroDelivery: ${_this.maystroDelivery}, codpilot: ${_this.codpilot}, googleSheet: ${_this.googleSheet}, webhooks: ${_this.webhooks}, security: ${_this.security}, customFields: ${_this.customFields}, reviews: ${_this.reviews}, payment: ${_this.payment}, dispatcher: ${_this.dispatcher}, inventory: ${_this.inventory}, finance: ${_this.finance}, pages: ${_this.pages}, connectors: ${_this.connectors}, messaging: ${_this.messaging}, sms: ${_this.sms}, telegram: ${_this.telegram})';
 }
 
 
@@ -64,11 +67,11 @@ abstract mixin class $StoreIntegrationsCopyWith<$Res>  {
   factory $StoreIntegrationsCopyWith(StoreIntegrations value, $Res Function(StoreIntegrations) _then) = _$StoreIntegrationsCopyWithImpl;
 @useResult
 $Res call({
- Map<String, dynamic>? metadata, MetaIntegration? meta, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, SnapchatPixelIntegration? snapchatPixel, PixelEvents? pixelEvents, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, FeeefDeliveryIntegration? feeefDelivery, MaystroDeliveryIntegration? maystroDelivery, CodpilotIntegration? codpilot, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, ReviewsIntegration? reviews, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, StorePagesIntegration? pages, ConnectorsIntegration? connectors, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
+ Map<String, dynamic>? metadata, MetaIntegration? meta, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, SnapchatPixelIntegration? snapchatPixel, PixelEvents? pixelEvents, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, FeeefDeliveryIntegration? feeefDelivery, MaystroDeliveryIntegration? maystroDelivery, CodpilotIntegration? codpilot, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, ReviewsIntegration? reviews, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, StorePagesIntegration? pages, ConnectorsIntegration? connectors, MessagingIntegration? messaging, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
 });
 
 
-$MetaIntegrationCopyWith<$Res>? get meta;$MetaPixelIntegrationCopyWith<$Res>? get metaPixel;$TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;$SnapchatPixelIntegrationCopyWith<$Res>? get snapchatPixel;$PixelEventsCopyWith<$Res>? get pixelEvents;$GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;$GoogleTagsIntegrationCopyWith<$Res>? get googleTags;$ClarityIntegrationCopyWith<$Res>? get clarity;$AiIntegrationCopyWith<$Res>? get ai;$YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;$EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;$EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;$ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;$NoestDeliveryIntegrationCopyWith<$Res>? get noest;$OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;$ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;$ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;$MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;$FeeefDeliveryIntegrationCopyWith<$Res>? get feeefDelivery;$MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;$CodpilotIntegrationCopyWith<$Res>? get codpilot;$GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;$WebhooksIntegrationCopyWith<$Res>? get webhooks;$SecurityIntegrationCopyWith<$Res>? get security;$CustomFieldsIntegrationCopyWith<$Res>? get customFields;$ReviewsIntegrationCopyWith<$Res>? get reviews;$PaymentIntegrationCopyWith<$Res>? get payment;$DispatcherIntegrationCopyWith<$Res>? get dispatcher;$StoreInventoryIntegrationCopyWith<$Res>? get inventory;$StoreFinanceIntegrationCopyWith<$Res>? get finance;$StorePagesIntegrationCopyWith<$Res>? get pages;$ConnectorsIntegrationCopyWith<$Res>? get connectors;
+$MetaIntegrationCopyWith<$Res>? get meta;$MetaPixelIntegrationCopyWith<$Res>? get metaPixel;$TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;$SnapchatPixelIntegrationCopyWith<$Res>? get snapchatPixel;$PixelEventsCopyWith<$Res>? get pixelEvents;$GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;$GoogleTagsIntegrationCopyWith<$Res>? get googleTags;$ClarityIntegrationCopyWith<$Res>? get clarity;$AiIntegrationCopyWith<$Res>? get ai;$YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;$EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;$EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;$ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;$NoestDeliveryIntegrationCopyWith<$Res>? get noest;$OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;$ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;$ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;$MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;$FeeefDeliveryIntegrationCopyWith<$Res>? get feeefDelivery;$MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;$CodpilotIntegrationCopyWith<$Res>? get codpilot;$GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;$WebhooksIntegrationCopyWith<$Res>? get webhooks;$SecurityIntegrationCopyWith<$Res>? get security;$CustomFieldsIntegrationCopyWith<$Res>? get customFields;$ReviewsIntegrationCopyWith<$Res>? get reviews;$PaymentIntegrationCopyWith<$Res>? get payment;$DispatcherIntegrationCopyWith<$Res>? get dispatcher;$StoreInventoryIntegrationCopyWith<$Res>? get inventory;$StoreFinanceIntegrationCopyWith<$Res>? get finance;$StorePagesIntegrationCopyWith<$Res>? get pages;$ConnectorsIntegrationCopyWith<$Res>? get connectors;$MessagingIntegrationCopyWith<$Res>? get messaging;
 
 }
 /// @nodoc
@@ -81,7 +84,7 @@ class _$StoreIntegrationsCopyWithImpl<$Res>
 
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? metadata = freezed,Object? meta = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? snapchatPixel = freezed,Object? pixelEvents = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? feeefDelivery = freezed,Object? maystroDelivery = freezed,Object? codpilot = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? reviews = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? pages = freezed,Object? connectors = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? metadata = freezed,Object? meta = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? snapchatPixel = freezed,Object? pixelEvents = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? feeefDelivery = freezed,Object? maystroDelivery = freezed,Object? codpilot = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? reviews = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? pages = freezed,Object? connectors = freezed,Object? messaging = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
   return _then(StoreIntegrations(
 metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
@@ -116,7 +119,8 @@ as DispatcherIntegration?,inventory: freezed == inventory ? _self.inventory : in
 as StoreInventoryIntegration?,finance: freezed == finance ? _self.finance : finance // ignore: cast_nullable_to_non_nullable
 as StoreFinanceIntegration?,pages: freezed == pages ? _self.pages : pages // ignore: cast_nullable_to_non_nullable
 as StorePagesIntegration?,connectors: freezed == connectors ? _self.connectors : connectors // ignore: cast_nullable_to_non_nullable
-as ConnectorsIntegration?,sms: freezed == sms ? _self.sms : sms // ignore: cast_nullable_to_non_nullable
+as ConnectorsIntegration?,messaging: freezed == messaging ? _self.messaging : messaging // ignore: cast_nullable_to_non_nullable
+as MessagingIntegration?,sms: freezed == sms ? _self.sms : sms // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,telegram: freezed == telegram ? _self.telegram : telegram // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,
   ));
@@ -505,6 +509,18 @@ $ConnectorsIntegrationCopyWith<$Res>? get connectors {
   return $ConnectorsIntegrationCopyWith<$Res>(_self.connectors!, (value) {
     return _then(_self.copyWith(connectors: value));
   });
+}/// Create a copy of StoreIntegrations
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MessagingIntegrationCopyWith<$Res>? get messaging {
+    if (_self.messaging == null) {
+    return null;
+  }
+
+  return $MessagingIntegrationCopyWith<$Res>(_self.messaging!, (value) {
+    return _then(_self.copyWith(messaging: value));
+  });
 }
 }
 
@@ -587,10 +603,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaIntegration? meta,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  SnapchatPixelIntegration? snapchatPixel,  PixelEvents? pixelEvents,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  ReviewsIntegration? reviews,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  StorePagesIntegration? pages,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaIntegration? meta,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  SnapchatPixelIntegration? snapchatPixel,  PixelEvents? pixelEvents,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  ReviewsIntegration? reviews,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  StorePagesIntegration? pages,  ConnectorsIntegration? connectors,  MessagingIntegration? messaging,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreIntegrations() when $default != null:
-return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_that.snapchatPixel,_that.pixelEvents,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.reviews,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.pages,_that.connectors,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_that.snapchatPixel,_that.pixelEvents,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.reviews,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.pages,_that.connectors,_that.messaging,_that.sms,_that.telegram);case _:
   return orElse();
 
 }
@@ -608,10 +624,10 @@ return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaIntegration? meta,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  SnapchatPixelIntegration? snapchatPixel,  PixelEvents? pixelEvents,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  ReviewsIntegration? reviews,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  StorePagesIntegration? pages,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Map<String, dynamic>? metadata,  MetaIntegration? meta,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  SnapchatPixelIntegration? snapchatPixel,  PixelEvents? pixelEvents,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  ReviewsIntegration? reviews,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  StorePagesIntegration? pages,  ConnectorsIntegration? connectors,  MessagingIntegration? messaging,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)  $default,) {final _that = this;
 switch (_that) {
 case _StoreIntegrations():
-return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_that.snapchatPixel,_that.pixelEvents,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.reviews,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.pages,_that.connectors,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_that.snapchatPixel,_that.pixelEvents,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.reviews,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.pages,_that.connectors,_that.messaging,_that.sms,_that.telegram);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -628,10 +644,10 @@ return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Map<String, dynamic>? metadata,  MetaIntegration? meta,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  SnapchatPixelIntegration? snapchatPixel,  PixelEvents? pixelEvents,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  ReviewsIntegration? reviews,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  StorePagesIntegration? pages,  ConnectorsIntegration? connectors,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Map<String, dynamic>? metadata,  MetaIntegration? meta,  MetaPixelIntegration? metaPixel,  TiktokPixelIntegration? tiktokPixel,  SnapchatPixelIntegration? snapchatPixel,  PixelEvents? pixelEvents,  GoogleAnalyticsIntegration? googleAnalytics,  GoogleTagsIntegration? googleTags,  ClarityIntegration? clarity,  AiIntegration? ai,  YalidineDeliveryIntegration? yalidine,  EcotrackDeliveryIntegration? ecotrack,  EcomanagerDeliveryIntegration? ecomanager,  ProcolisDeliveryIntegration? procolis,  NoestDeliveryIntegration? noest,  OrderdzDeliveryIntegration? orderdz,  ZimouExpressDeliveryIntegration? zimou,  ZrexpressDeliveryIntegration? zrexpress,  MdmExpressDeliveryIntegration? mdmExpress,  FeeefDeliveryIntegration? feeefDelivery,  MaystroDeliveryIntegration? maystroDelivery,  CodpilotIntegration? codpilot,  GoogleSheetsIntegration? googleSheet,  WebhooksIntegration? webhooks,  SecurityIntegration? security,  CustomFieldsIntegration? customFields,  ReviewsIntegration? reviews,  PaymentIntegration? payment,  DispatcherIntegration? dispatcher,  StoreInventoryIntegration? inventory,  StoreFinanceIntegration? finance,  StorePagesIntegration? pages,  ConnectorsIntegration? connectors,  MessagingIntegration? messaging,  Map<String, dynamic>? sms,  Map<String, dynamic>? telegram)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreIntegrations() when $default != null:
-return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_that.snapchatPixel,_that.pixelEvents,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.reviews,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.pages,_that.connectors,_that.sms,_that.telegram);case _:
+return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_that.snapchatPixel,_that.pixelEvents,_that.googleAnalytics,_that.googleTags,_that.clarity,_that.ai,_that.yalidine,_that.ecotrack,_that.ecomanager,_that.procolis,_that.noest,_that.orderdz,_that.zimou,_that.zrexpress,_that.mdmExpress,_that.feeefDelivery,_that.maystroDelivery,_that.codpilot,_that.googleSheet,_that.webhooks,_that.security,_that.customFields,_that.reviews,_that.payment,_that.dispatcher,_that.inventory,_that.finance,_that.pages,_that.connectors,_that.messaging,_that.sms,_that.telegram);case _:
   return null;
 
 }
@@ -643,7 +659,7 @@ return $default(_that.metadata,_that.meta,_that.metaPixel,_that.tiktokPixel,_tha
 @JsonSerializable()
 
 class _StoreIntegrations extends StoreIntegrations {
-  const _StoreIntegrations({ Map<String, dynamic>? metadata = const {}, this.meta, this.metaPixel, this.tiktokPixel, this.snapchatPixel, this.pixelEvents, this.googleAnalytics, this.googleTags, this.clarity, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.mdmExpress, this.feeefDelivery, this.maystroDelivery, this.codpilot, this.googleSheet, this.webhooks, this.security, this.customFields, this.reviews, this.payment, this.dispatcher, this.inventory, this.finance, this.pages, this.connectors,  Map<String, dynamic>? sms = const {},  Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
+  const _StoreIntegrations({ Map<String, dynamic>? metadata = const {}, this.meta, this.metaPixel, this.tiktokPixel, this.snapchatPixel, this.pixelEvents, this.googleAnalytics, this.googleTags, this.clarity, this.ai, this.yalidine, this.ecotrack, this.ecomanager, this.procolis, this.noest, this.orderdz, this.zimou, this.zrexpress, this.mdmExpress, this.feeefDelivery, this.maystroDelivery, this.codpilot, this.googleSheet, this.webhooks, this.security, this.customFields, this.reviews, this.payment, this.dispatcher, this.inventory, this.finance, this.pages, this.connectors, this.messaging,  Map<String, dynamic>? sms = const {},  Map<String, dynamic>? telegram = const {}}): _metadata = metadata,_sms = sms,_telegram = telegram,super._();
   factory _StoreIntegrations.fromJson(Map<String, dynamic> json) => _$StoreIntegrationsFromJson(json);
 
  final  Map<String, dynamic>? _metadata;
@@ -661,7 +677,8 @@ class _StoreIntegrations extends StoreIntegrations {
 @override final  MetaPixelIntegration? metaPixel;
 @override final  TiktokPixelIntegration? tiktokPixel;
 @override final  SnapchatPixelIntegration? snapchatPixel;
-/// Ad pixel event rules for Meta, TikTok and Snapchat (null = the defaults).
+/// Ad pixel event rules for Meta, TikTok and Snapchat (null = the defaults,
+/// [kDefaultPixelEventRules]).
 @override final  PixelEvents? pixelEvents;
 @override final  GoogleAnalyticsIntegration? googleAnalytics;
 @override final  GoogleTagsIntegration? googleTags;
@@ -697,6 +714,9 @@ class _StoreIntegrations extends StoreIntegrations {
 @override final  StorePagesIntegration? pages;
 /// Inbound platform connectors (Shopify, YouCan, Google Sheets, …).
 @override final  ConnectorsIntegration? connectors;
+/// WhatsApp & SMS order messages (Feeef Cloud Messaging): rules and the confirmation
+/// question.
+@override final  MessagingIntegration? messaging;
  final  Map<String, dynamic>? _sms;
 @override@JsonKey() Map<String, dynamic>? get sms {
   final value = _sms;
@@ -729,18 +749,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.snapchatPixel, snapchatPixel) || other.snapchatPixel == snapchatPixel)&&(identical(other.pixelEvents, pixelEvents) || other.pixelEvents == pixelEvents)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.feeefDelivery, feeefDelivery) || other.feeefDelivery == feeefDelivery)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.codpilot, codpilot) || other.codpilot == codpilot)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.reviews, reviews) || other.reviews == reviews)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&(identical(other.pages, pages) || other.pages == pages)&&(identical(other.connectors, connectors) || other.connectors == connectors)&&const DeepCollectionEquality().equals(other.sms, _sms)&&const DeepCollectionEquality().equals(other.telegram, _telegram));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreIntegrations&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.metaPixel, metaPixel) || other.metaPixel == metaPixel)&&(identical(other.tiktokPixel, tiktokPixel) || other.tiktokPixel == tiktokPixel)&&(identical(other.snapchatPixel, snapchatPixel) || other.snapchatPixel == snapchatPixel)&&(identical(other.pixelEvents, pixelEvents) || other.pixelEvents == pixelEvents)&&(identical(other.googleAnalytics, googleAnalytics) || other.googleAnalytics == googleAnalytics)&&(identical(other.googleTags, googleTags) || other.googleTags == googleTags)&&(identical(other.clarity, clarity) || other.clarity == clarity)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.yalidine, yalidine) || other.yalidine == yalidine)&&(identical(other.ecotrack, ecotrack) || other.ecotrack == ecotrack)&&(identical(other.ecomanager, ecomanager) || other.ecomanager == ecomanager)&&(identical(other.procolis, procolis) || other.procolis == procolis)&&(identical(other.noest, noest) || other.noest == noest)&&(identical(other.orderdz, orderdz) || other.orderdz == orderdz)&&(identical(other.zimou, zimou) || other.zimou == zimou)&&(identical(other.zrexpress, zrexpress) || other.zrexpress == zrexpress)&&(identical(other.mdmExpress, mdmExpress) || other.mdmExpress == mdmExpress)&&(identical(other.feeefDelivery, feeefDelivery) || other.feeefDelivery == feeefDelivery)&&(identical(other.maystroDelivery, maystroDelivery) || other.maystroDelivery == maystroDelivery)&&(identical(other.codpilot, codpilot) || other.codpilot == codpilot)&&(identical(other.googleSheet, googleSheet) || other.googleSheet == googleSheet)&&(identical(other.webhooks, webhooks) || other.webhooks == webhooks)&&(identical(other.security, security) || other.security == security)&&(identical(other.customFields, customFields) || other.customFields == customFields)&&(identical(other.reviews, reviews) || other.reviews == reviews)&&(identical(other.payment, payment) || other.payment == payment)&&(identical(other.dispatcher, dispatcher) || other.dispatcher == dispatcher)&&(identical(other.inventory, inventory) || other.inventory == inventory)&&(identical(other.finance, finance) || other.finance == finance)&&(identical(other.pages, pages) || other.pages == pages)&&(identical(other.connectors, connectors) || other.connectors == connectors)&&(identical(other.messaging, messaging) || other.messaging == messaging)&&const DeepCollectionEquality().equals(other.sms, _sms)&&const DeepCollectionEquality().equals(other.telegram, _telegram));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_metadata),meta,metaPixel,tiktokPixel,snapchatPixel,pixelEvents,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,feeefDelivery,maystroDelivery,codpilot,googleSheet,webhooks,security,customFields,reviews,payment,dispatcher,inventory,finance,pages,connectors,const DeepCollectionEquality().hash(_sms),const DeepCollectionEquality().hash(_telegram)]);
+    return Object.hashAll([runtimeType,const DeepCollectionEquality().hash(_metadata),meta,metaPixel,tiktokPixel,snapchatPixel,pixelEvents,googleAnalytics,googleTags,clarity,ai,yalidine,ecotrack,ecomanager,procolis,noest,orderdz,zimou,zrexpress,mdmExpress,feeefDelivery,maystroDelivery,codpilot,googleSheet,webhooks,security,customFields,reviews,payment,dispatcher,inventory,finance,pages,connectors,messaging,const DeepCollectionEquality().hash(_sms),const DeepCollectionEquality().hash(_telegram)]);
 }
 
 @override
 String toString() {
-    return 'StoreIntegrations(metadata: $metadata, meta: $meta, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, snapchatPixel: $snapchatPixel, pixelEvents: $pixelEvents, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, feeefDelivery: $feeefDelivery, maystroDelivery: $maystroDelivery, codpilot: $codpilot, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, reviews: $reviews, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, pages: $pages, connectors: $connectors, sms: $sms, telegram: $telegram)';
+    return 'StoreIntegrations(metadata: $metadata, meta: $meta, metaPixel: $metaPixel, tiktokPixel: $tiktokPixel, snapchatPixel: $snapchatPixel, pixelEvents: $pixelEvents, googleAnalytics: $googleAnalytics, googleTags: $googleTags, clarity: $clarity, ai: $ai, yalidine: $yalidine, ecotrack: $ecotrack, ecomanager: $ecomanager, procolis: $procolis, noest: $noest, orderdz: $orderdz, zimou: $zimou, zrexpress: $zrexpress, mdmExpress: $mdmExpress, feeefDelivery: $feeefDelivery, maystroDelivery: $maystroDelivery, codpilot: $codpilot, googleSheet: $googleSheet, webhooks: $webhooks, security: $security, customFields: $customFields, reviews: $reviews, payment: $payment, dispatcher: $dispatcher, inventory: $inventory, finance: $finance, pages: $pages, connectors: $connectors, messaging: $messaging, sms: $sms, telegram: $telegram)';
 }
 
 
@@ -751,11 +771,11 @@ abstract mixin class _$StoreIntegrationsCopyWith<$Res> implements $StoreIntegrat
   factory _$StoreIntegrationsCopyWith(_StoreIntegrations value, $Res Function(_StoreIntegrations) _then) = __$StoreIntegrationsCopyWithImpl;
 @override @useResult
 $Res call({
- Map<String, dynamic>? metadata, MetaIntegration? meta, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, SnapchatPixelIntegration? snapchatPixel, PixelEvents? pixelEvents, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, FeeefDeliveryIntegration? feeefDelivery, MaystroDeliveryIntegration? maystroDelivery, CodpilotIntegration? codpilot, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, ReviewsIntegration? reviews, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, StorePagesIntegration? pages, ConnectorsIntegration? connectors, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
+ Map<String, dynamic>? metadata, MetaIntegration? meta, MetaPixelIntegration? metaPixel, TiktokPixelIntegration? tiktokPixel, SnapchatPixelIntegration? snapchatPixel, PixelEvents? pixelEvents, GoogleAnalyticsIntegration? googleAnalytics, GoogleTagsIntegration? googleTags, ClarityIntegration? clarity, AiIntegration? ai, YalidineDeliveryIntegration? yalidine, EcotrackDeliveryIntegration? ecotrack, EcomanagerDeliveryIntegration? ecomanager, ProcolisDeliveryIntegration? procolis, NoestDeliveryIntegration? noest, OrderdzDeliveryIntegration? orderdz, ZimouExpressDeliveryIntegration? zimou, ZrexpressDeliveryIntegration? zrexpress, MdmExpressDeliveryIntegration? mdmExpress, FeeefDeliveryIntegration? feeefDelivery, MaystroDeliveryIntegration? maystroDelivery, CodpilotIntegration? codpilot, GoogleSheetsIntegration? googleSheet, WebhooksIntegration? webhooks, SecurityIntegration? security, CustomFieldsIntegration? customFields, ReviewsIntegration? reviews, PaymentIntegration? payment, DispatcherIntegration? dispatcher, StoreInventoryIntegration? inventory, StoreFinanceIntegration? finance, StorePagesIntegration? pages, ConnectorsIntegration? connectors, MessagingIntegration? messaging, Map<String, dynamic>? sms, Map<String, dynamic>? telegram
 });
 
 
-@override $MetaIntegrationCopyWith<$Res>? get meta;@override $MetaPixelIntegrationCopyWith<$Res>? get metaPixel;@override $TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;@override $SnapchatPixelIntegrationCopyWith<$Res>? get snapchatPixel;@override $PixelEventsCopyWith<$Res>? get pixelEvents;@override $GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;@override $GoogleTagsIntegrationCopyWith<$Res>? get googleTags;@override $ClarityIntegrationCopyWith<$Res>? get clarity;@override $AiIntegrationCopyWith<$Res>? get ai;@override $YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;@override $EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;@override $EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;@override $ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;@override $NoestDeliveryIntegrationCopyWith<$Res>? get noest;@override $OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;@override $ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;@override $ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;@override $MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;@override $FeeefDeliveryIntegrationCopyWith<$Res>? get feeefDelivery;@override $MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;@override $CodpilotIntegrationCopyWith<$Res>? get codpilot;@override $GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;@override $WebhooksIntegrationCopyWith<$Res>? get webhooks;@override $SecurityIntegrationCopyWith<$Res>? get security;@override $CustomFieldsIntegrationCopyWith<$Res>? get customFields;@override $ReviewsIntegrationCopyWith<$Res>? get reviews;@override $PaymentIntegrationCopyWith<$Res>? get payment;@override $DispatcherIntegrationCopyWith<$Res>? get dispatcher;@override $StoreInventoryIntegrationCopyWith<$Res>? get inventory;@override $StoreFinanceIntegrationCopyWith<$Res>? get finance;@override $StorePagesIntegrationCopyWith<$Res>? get pages;@override $ConnectorsIntegrationCopyWith<$Res>? get connectors;
+@override $MetaIntegrationCopyWith<$Res>? get meta;@override $MetaPixelIntegrationCopyWith<$Res>? get metaPixel;@override $TiktokPixelIntegrationCopyWith<$Res>? get tiktokPixel;@override $SnapchatPixelIntegrationCopyWith<$Res>? get snapchatPixel;@override $PixelEventsCopyWith<$Res>? get pixelEvents;@override $GoogleAnalyticsIntegrationCopyWith<$Res>? get googleAnalytics;@override $GoogleTagsIntegrationCopyWith<$Res>? get googleTags;@override $ClarityIntegrationCopyWith<$Res>? get clarity;@override $AiIntegrationCopyWith<$Res>? get ai;@override $YalidineDeliveryIntegrationCopyWith<$Res>? get yalidine;@override $EcotrackDeliveryIntegrationCopyWith<$Res>? get ecotrack;@override $EcomanagerDeliveryIntegrationCopyWith<$Res>? get ecomanager;@override $ProcolisDeliveryIntegrationCopyWith<$Res>? get procolis;@override $NoestDeliveryIntegrationCopyWith<$Res>? get noest;@override $OrderdzDeliveryIntegrationCopyWith<$Res>? get orderdz;@override $ZimouExpressDeliveryIntegrationCopyWith<$Res>? get zimou;@override $ZrexpressDeliveryIntegrationCopyWith<$Res>? get zrexpress;@override $MdmExpressDeliveryIntegrationCopyWith<$Res>? get mdmExpress;@override $FeeefDeliveryIntegrationCopyWith<$Res>? get feeefDelivery;@override $MaystroDeliveryIntegrationCopyWith<$Res>? get maystroDelivery;@override $CodpilotIntegrationCopyWith<$Res>? get codpilot;@override $GoogleSheetsIntegrationCopyWith<$Res>? get googleSheet;@override $WebhooksIntegrationCopyWith<$Res>? get webhooks;@override $SecurityIntegrationCopyWith<$Res>? get security;@override $CustomFieldsIntegrationCopyWith<$Res>? get customFields;@override $ReviewsIntegrationCopyWith<$Res>? get reviews;@override $PaymentIntegrationCopyWith<$Res>? get payment;@override $DispatcherIntegrationCopyWith<$Res>? get dispatcher;@override $StoreInventoryIntegrationCopyWith<$Res>? get inventory;@override $StoreFinanceIntegrationCopyWith<$Res>? get finance;@override $StorePagesIntegrationCopyWith<$Res>? get pages;@override $ConnectorsIntegrationCopyWith<$Res>? get connectors;@override $MessagingIntegrationCopyWith<$Res>? get messaging;
 
 }
 /// @nodoc
@@ -768,7 +788,7 @@ class __$StoreIntegrationsCopyWithImpl<$Res>
 
 /// Create a copy of StoreIntegrations
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? metadata = freezed,Object? meta = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? snapchatPixel = freezed,Object? pixelEvents = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? feeefDelivery = freezed,Object? maystroDelivery = freezed,Object? codpilot = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? reviews = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? pages = freezed,Object? connectors = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? metadata = freezed,Object? meta = freezed,Object? metaPixel = freezed,Object? tiktokPixel = freezed,Object? snapchatPixel = freezed,Object? pixelEvents = freezed,Object? googleAnalytics = freezed,Object? googleTags = freezed,Object? clarity = freezed,Object? ai = freezed,Object? yalidine = freezed,Object? ecotrack = freezed,Object? ecomanager = freezed,Object? procolis = freezed,Object? noest = freezed,Object? orderdz = freezed,Object? zimou = freezed,Object? zrexpress = freezed,Object? mdmExpress = freezed,Object? feeefDelivery = freezed,Object? maystroDelivery = freezed,Object? codpilot = freezed,Object? googleSheet = freezed,Object? webhooks = freezed,Object? security = freezed,Object? customFields = freezed,Object? reviews = freezed,Object? payment = freezed,Object? dispatcher = freezed,Object? inventory = freezed,Object? finance = freezed,Object? pages = freezed,Object? connectors = freezed,Object? messaging = freezed,Object? sms = freezed,Object? telegram = freezed,}) {
   return _then(_StoreIntegrations(
 metadata: freezed == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
@@ -803,7 +823,8 @@ as DispatcherIntegration?,inventory: freezed == inventory ? _self.inventory : in
 as StoreInventoryIntegration?,finance: freezed == finance ? _self.finance : finance // ignore: cast_nullable_to_non_nullable
 as StoreFinanceIntegration?,pages: freezed == pages ? _self.pages : pages // ignore: cast_nullable_to_non_nullable
 as StorePagesIntegration?,connectors: freezed == connectors ? _self.connectors : connectors // ignore: cast_nullable_to_non_nullable
-as ConnectorsIntegration?,sms: freezed == sms ? _self._sms : sms // ignore: cast_nullable_to_non_nullable
+as ConnectorsIntegration?,messaging: freezed == messaging ? _self.messaging : messaging // ignore: cast_nullable_to_non_nullable
+as MessagingIntegration?,sms: freezed == sms ? _self._sms : sms // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,telegram: freezed == telegram ? _self._telegram : telegram // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>?,
   ));
@@ -1192,6 +1213,18 @@ $ConnectorsIntegrationCopyWith<$Res>? get connectors {
 
   return $ConnectorsIntegrationCopyWith<$Res>(_self.connectors!, (value) {
     return _then(_self.copyWith(connectors: value));
+  });
+}/// Create a copy of StoreIntegrations
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MessagingIntegrationCopyWith<$Res>? get messaging {
+    if (_self.messaging == null) {
+    return null;
+  }
+
+  return $MessagingIntegrationCopyWith<$Res>(_self.messaging!, (value) {
+    return _then(_self.copyWith(messaging: value));
   });
 }
 }
@@ -9995,6 +10028,555 @@ as SecurityTreatment,
 
 
 /// @nodoc
+mixin _$SecurityBotScoreOption {
+
+ bool get active; SecurityTreatment get treatment; int get min;
+/// Create a copy of SecurityBotScoreOption
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SecurityBotScoreOptionCopyWith<SecurityBotScoreOption> get copyWith => _$SecurityBotScoreOptionCopyWithImpl<SecurityBotScoreOption>(this as SecurityBotScoreOption, _$identity);
+
+  /// Serializes this SecurityBotScoreOption to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as SecurityBotScoreOption;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityBotScoreOption&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.treatment, _this.treatment) || other.treatment == _this.treatment)&&(identical(other.min, _this.min) || other.min == _this.min));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as SecurityBotScoreOption;
+  return Object.hash(runtimeType,_this.active,_this.treatment,_this.min);
+}
+
+@override
+String toString() {
+  final _this = this as SecurityBotScoreOption;
+  return 'SecurityBotScoreOption(active: ${_this.active}, treatment: ${_this.treatment}, min: ${_this.min})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SecurityBotScoreOptionCopyWith<$Res>  {
+  factory $SecurityBotScoreOptionCopyWith(SecurityBotScoreOption value, $Res Function(SecurityBotScoreOption) _then) = _$SecurityBotScoreOptionCopyWithImpl;
+@useResult
+$Res call({
+ bool active, SecurityTreatment treatment, int min
+});
+
+
+
+
+}
+/// @nodoc
+class _$SecurityBotScoreOptionCopyWithImpl<$Res>
+    implements $SecurityBotScoreOptionCopyWith<$Res> {
+  _$SecurityBotScoreOptionCopyWithImpl(this._self, this._then);
+
+  final SecurityBotScoreOption _self;
+  final $Res Function(SecurityBotScoreOption) _then;
+
+/// Create a copy of SecurityBotScoreOption
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? treatment = null,Object? min = null,}) {
+  return _then(SecurityBotScoreOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,min: null == min ? _self.min : min // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SecurityBotScoreOption].
+extension SecurityBotScoreOptionPatterns on SecurityBotScoreOption {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SecurityBotScoreOption value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SecurityBotScoreOption() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SecurityBotScoreOption value)  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityBotScoreOption():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SecurityBotScoreOption value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityBotScoreOption() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  SecurityTreatment treatment,  int min)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SecurityBotScoreOption() when $default != null:
+return $default(_that.active,_that.treatment,_that.min);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  SecurityTreatment treatment,  int min)  $default,) {final _that = this;
+switch (_that) {
+case _SecurityBotScoreOption():
+return $default(_that.active,_that.treatment,_that.min);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  SecurityTreatment treatment,  int min)?  $default,) {final _that = this;
+switch (_that) {
+case _SecurityBotScoreOption() when $default != null:
+return $default(_that.active,_that.treatment,_that.min);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SecurityBotScoreOption implements SecurityBotScoreOption {
+  const _SecurityBotScoreOption({this.active = false, this.treatment = SecurityTreatment.block, this.min = 70});
+  factory _SecurityBotScoreOption.fromJson(Map<String, dynamic> json) => _$SecurityBotScoreOptionFromJson(json);
+
+@override@JsonKey() final  bool active;
+@override@JsonKey() final  SecurityTreatment treatment;
+@override@JsonKey() final  int min;
+
+/// Create a copy of SecurityBotScoreOption
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SecurityBotScoreOptionCopyWith<_SecurityBotScoreOption> get copyWith => __$SecurityBotScoreOptionCopyWithImpl<_SecurityBotScoreOption>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SecurityBotScoreOptionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityBotScoreOption&&(identical(other.active, active) || other.active == active)&&(identical(other.treatment, treatment) || other.treatment == treatment)&&(identical(other.min, min) || other.min == min));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,active,treatment,min);
+}
+
+@override
+String toString() {
+    return 'SecurityBotScoreOption(active: $active, treatment: $treatment, min: $min)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SecurityBotScoreOptionCopyWith<$Res> implements $SecurityBotScoreOptionCopyWith<$Res> {
+  factory _$SecurityBotScoreOptionCopyWith(_SecurityBotScoreOption value, $Res Function(_SecurityBotScoreOption) _then) = __$SecurityBotScoreOptionCopyWithImpl;
+@override @useResult
+$Res call({
+ bool active, SecurityTreatment treatment, int min
+});
+
+
+
+
+}
+/// @nodoc
+class __$SecurityBotScoreOptionCopyWithImpl<$Res>
+    implements _$SecurityBotScoreOptionCopyWith<$Res> {
+  __$SecurityBotScoreOptionCopyWithImpl(this._self, this._then);
+
+  final _SecurityBotScoreOption _self;
+  final $Res Function(_SecurityBotScoreOption) _then;
+
+/// Create a copy of SecurityBotScoreOption
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? treatment = null,Object? min = null,}) {
+  return _then(_SecurityBotScoreOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,treatment: null == treatment ? _self.treatment : treatment // ignore: cast_nullable_to_non_nullable
+as SecurityTreatment,min: null == min ? _self.min : min // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$SecurityChallengeOption {
+
+ bool get active; int get minScore;
+/// Create a copy of SecurityChallengeOption
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SecurityChallengeOptionCopyWith<SecurityChallengeOption> get copyWith => _$SecurityChallengeOptionCopyWithImpl<SecurityChallengeOption>(this as SecurityChallengeOption, _$identity);
+
+  /// Serializes this SecurityChallengeOption to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as SecurityChallengeOption;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityChallengeOption&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.minScore, _this.minScore) || other.minScore == _this.minScore));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as SecurityChallengeOption;
+  return Object.hash(runtimeType,_this.active,_this.minScore);
+}
+
+@override
+String toString() {
+  final _this = this as SecurityChallengeOption;
+  return 'SecurityChallengeOption(active: ${_this.active}, minScore: ${_this.minScore})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SecurityChallengeOptionCopyWith<$Res>  {
+  factory $SecurityChallengeOptionCopyWith(SecurityChallengeOption value, $Res Function(SecurityChallengeOption) _then) = _$SecurityChallengeOptionCopyWithImpl;
+@useResult
+$Res call({
+ bool active, int minScore
+});
+
+
+
+
+}
+/// @nodoc
+class _$SecurityChallengeOptionCopyWithImpl<$Res>
+    implements $SecurityChallengeOptionCopyWith<$Res> {
+  _$SecurityChallengeOptionCopyWithImpl(this._self, this._then);
+
+  final SecurityChallengeOption _self;
+  final $Res Function(SecurityChallengeOption) _then;
+
+/// Create a copy of SecurityChallengeOption
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? active = null,Object? minScore = null,}) {
+  return _then(SecurityChallengeOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,minScore: null == minScore ? _self.minScore : minScore // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SecurityChallengeOption].
+extension SecurityChallengeOptionPatterns on SecurityChallengeOption {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SecurityChallengeOption value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SecurityChallengeOption() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SecurityChallengeOption value)  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityChallengeOption():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SecurityChallengeOption value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SecurityChallengeOption() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool active,  int minScore)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SecurityChallengeOption() when $default != null:
+return $default(_that.active,_that.minScore);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool active,  int minScore)  $default,) {final _that = this;
+switch (_that) {
+case _SecurityChallengeOption():
+return $default(_that.active,_that.minScore);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool active,  int minScore)?  $default,) {final _that = this;
+switch (_that) {
+case _SecurityChallengeOption() when $default != null:
+return $default(_that.active,_that.minScore);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SecurityChallengeOption implements SecurityChallengeOption {
+  const _SecurityChallengeOption({this.active = false, this.minScore = 40});
+  factory _SecurityChallengeOption.fromJson(Map<String, dynamic> json) => _$SecurityChallengeOptionFromJson(json);
+
+@override@JsonKey() final  bool active;
+@override@JsonKey() final  int minScore;
+
+/// Create a copy of SecurityChallengeOption
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SecurityChallengeOptionCopyWith<_SecurityChallengeOption> get copyWith => __$SecurityChallengeOptionCopyWithImpl<_SecurityChallengeOption>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SecurityChallengeOptionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityChallengeOption&&(identical(other.active, active) || other.active == active)&&(identical(other.minScore, minScore) || other.minScore == minScore));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,active,minScore);
+}
+
+@override
+String toString() {
+    return 'SecurityChallengeOption(active: $active, minScore: $minScore)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SecurityChallengeOptionCopyWith<$Res> implements $SecurityChallengeOptionCopyWith<$Res> {
+  factory _$SecurityChallengeOptionCopyWith(_SecurityChallengeOption value, $Res Function(_SecurityChallengeOption) _then) = __$SecurityChallengeOptionCopyWithImpl;
+@override @useResult
+$Res call({
+ bool active, int minScore
+});
+
+
+
+
+}
+/// @nodoc
+class __$SecurityChallengeOptionCopyWithImpl<$Res>
+    implements _$SecurityChallengeOptionCopyWith<$Res> {
+  __$SecurityChallengeOptionCopyWithImpl(this._self, this._then);
+
+  final _SecurityChallengeOption _self;
+  final $Res Function(_SecurityChallengeOption) _then;
+
+/// Create a copy of SecurityChallengeOption
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? active = null,Object? minScore = null,}) {
+  return _then(_SecurityChallengeOption(
+active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
+as bool,minScore: null == minScore ? _self.minScore : minScore // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$SecurityCountriesOption {
 
  bool get active; SecurityTreatment get treatment; List<String>? get allowed; List<String> get blocked;
@@ -11444,7 +12026,7 @@ as List<SecurityCityRef>,
 /// @nodoc
 mixin _$SecurityOptions {
 
- SecurityOption? get phone; SecurityOption? get fingerprint; SecurityOption? get ip; SecurityMinTimeOption? get minTimeInPage; SecurityOption? get unverified; SecurityOption? get history; SecurityCountriesOption? get countries; SecuritySourcesOption? get sources;/// Visitor wilaya rule (ISO 3166-2 codes). Omitted from JSON when null;
+ SecurityOption? get phone; SecurityOption? get fingerprint; SecurityOption? get ip; SecurityMinTimeOption? get minTimeInPage; SecurityOption? get unverified;@JsonKey(includeIfNull: false) SecurityOption? get bots;@JsonKey(includeIfNull: false) SecurityBotScoreOption? get botScore;@JsonKey(includeIfNull: false) SecurityOption? get hostingNetwork;@JsonKey(includeIfNull: false) SecurityChallengeOption? get challenge; SecurityOption? get history; SecurityCountriesOption? get countries; SecuritySourcesOption? get sources;/// Visitor wilaya rule (ISO 3166-2 codes). Omitted from JSON when null;
 /// a non-object value parses as null.
 @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? get regions;/// Visitor city rule (`{name, id?}` entries). Omitted from JSON when null.
 @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) SecurityCityListOption? get cities;
@@ -11461,20 +12043,20 @@ $SecurityOptionsCopyWith<SecurityOptions> get copyWith => _$SecurityOptionsCopyW
 @override
 bool operator ==(Object other) {
   final _this = this as SecurityOptions;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityOptions&&(identical(other.phone, _this.phone) || other.phone == _this.phone)&&(identical(other.fingerprint, _this.fingerprint) || other.fingerprint == _this.fingerprint)&&(identical(other.ip, _this.ip) || other.ip == _this.ip)&&(identical(other.minTimeInPage, _this.minTimeInPage) || other.minTimeInPage == _this.minTimeInPage)&&(identical(other.unverified, _this.unverified) || other.unverified == _this.unverified)&&(identical(other.history, _this.history) || other.history == _this.history)&&(identical(other.countries, _this.countries) || other.countries == _this.countries)&&(identical(other.sources, _this.sources) || other.sources == _this.sources)&&(identical(other.regions, _this.regions) || other.regions == _this.regions)&&(identical(other.cities, _this.cities) || other.cities == _this.cities));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityOptions&&(identical(other.phone, _this.phone) || other.phone == _this.phone)&&(identical(other.fingerprint, _this.fingerprint) || other.fingerprint == _this.fingerprint)&&(identical(other.ip, _this.ip) || other.ip == _this.ip)&&(identical(other.minTimeInPage, _this.minTimeInPage) || other.minTimeInPage == _this.minTimeInPage)&&(identical(other.unverified, _this.unverified) || other.unverified == _this.unverified)&&(identical(other.bots, _this.bots) || other.bots == _this.bots)&&(identical(other.botScore, _this.botScore) || other.botScore == _this.botScore)&&(identical(other.hostingNetwork, _this.hostingNetwork) || other.hostingNetwork == _this.hostingNetwork)&&(identical(other.challenge, _this.challenge) || other.challenge == _this.challenge)&&(identical(other.history, _this.history) || other.history == _this.history)&&(identical(other.countries, _this.countries) || other.countries == _this.countries)&&(identical(other.sources, _this.sources) || other.sources == _this.sources)&&(identical(other.regions, _this.regions) || other.regions == _this.regions)&&(identical(other.cities, _this.cities) || other.cities == _this.cities));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as SecurityOptions;
-  return Object.hash(runtimeType,_this.phone,_this.fingerprint,_this.ip,_this.minTimeInPage,_this.unverified,_this.history,_this.countries,_this.sources,_this.regions,_this.cities);
+  return Object.hash(runtimeType,_this.phone,_this.fingerprint,_this.ip,_this.minTimeInPage,_this.unverified,_this.bots,_this.botScore,_this.hostingNetwork,_this.challenge,_this.history,_this.countries,_this.sources,_this.regions,_this.cities);
 }
 
 @override
 String toString() {
   final _this = this as SecurityOptions;
-  return 'SecurityOptions(phone: ${_this.phone}, fingerprint: ${_this.fingerprint}, ip: ${_this.ip}, minTimeInPage: ${_this.minTimeInPage}, unverified: ${_this.unverified}, history: ${_this.history}, countries: ${_this.countries}, sources: ${_this.sources}, regions: ${_this.regions}, cities: ${_this.cities})';
+  return 'SecurityOptions(phone: ${_this.phone}, fingerprint: ${_this.fingerprint}, ip: ${_this.ip}, minTimeInPage: ${_this.minTimeInPage}, unverified: ${_this.unverified}, bots: ${_this.bots}, botScore: ${_this.botScore}, hostingNetwork: ${_this.hostingNetwork}, challenge: ${_this.challenge}, history: ${_this.history}, countries: ${_this.countries}, sources: ${_this.sources}, regions: ${_this.regions}, cities: ${_this.cities})';
 }
 
 
@@ -11485,11 +12067,11 @@ abstract mixin class $SecurityOptionsCopyWith<$Res>  {
   factory $SecurityOptionsCopyWith(SecurityOptions value, $Res Function(SecurityOptions) _then) = _$SecurityOptionsCopyWithImpl;
 @useResult
 $Res call({
- SecurityOption? phone, SecurityOption? fingerprint, SecurityOption? ip, SecurityMinTimeOption? minTimeInPage, SecurityOption? unverified, SecurityOption? history, SecurityCountriesOption? countries, SecuritySourcesOption? sources,@JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? regions,@JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) SecurityCityListOption? cities
+ SecurityOption? phone, SecurityOption? fingerprint, SecurityOption? ip, SecurityMinTimeOption? minTimeInPage, SecurityOption? unverified,@JsonKey(includeIfNull: false) SecurityOption? bots,@JsonKey(includeIfNull: false) SecurityBotScoreOption? botScore,@JsonKey(includeIfNull: false) SecurityOption? hostingNetwork,@JsonKey(includeIfNull: false) SecurityChallengeOption? challenge, SecurityOption? history, SecurityCountriesOption? countries, SecuritySourcesOption? sources,@JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? regions,@JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) SecurityCityListOption? cities
 });
 
 
-$SecurityOptionCopyWith<$Res>? get phone;$SecurityOptionCopyWith<$Res>? get fingerprint;$SecurityOptionCopyWith<$Res>? get ip;$SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;$SecurityOptionCopyWith<$Res>? get unverified;$SecurityOptionCopyWith<$Res>? get history;$SecurityCountriesOptionCopyWith<$Res>? get countries;$SecuritySourcesOptionCopyWith<$Res>? get sources;$SecurityGeoListOptionCopyWith<$Res>? get regions;$SecurityCityListOptionCopyWith<$Res>? get cities;
+$SecurityOptionCopyWith<$Res>? get phone;$SecurityOptionCopyWith<$Res>? get fingerprint;$SecurityOptionCopyWith<$Res>? get ip;$SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;$SecurityOptionCopyWith<$Res>? get unverified;$SecurityOptionCopyWith<$Res>? get bots;$SecurityBotScoreOptionCopyWith<$Res>? get botScore;$SecurityOptionCopyWith<$Res>? get hostingNetwork;$SecurityChallengeOptionCopyWith<$Res>? get challenge;$SecurityOptionCopyWith<$Res>? get history;$SecurityCountriesOptionCopyWith<$Res>? get countries;$SecuritySourcesOptionCopyWith<$Res>? get sources;$SecurityGeoListOptionCopyWith<$Res>? get regions;$SecurityCityListOptionCopyWith<$Res>? get cities;
 
 }
 /// @nodoc
@@ -11502,14 +12084,18 @@ class _$SecurityOptionsCopyWithImpl<$Res>
 
 /// Create a copy of SecurityOptions
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? phone = freezed,Object? fingerprint = freezed,Object? ip = freezed,Object? minTimeInPage = freezed,Object? unverified = freezed,Object? history = freezed,Object? countries = freezed,Object? sources = freezed,Object? regions = freezed,Object? cities = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? phone = freezed,Object? fingerprint = freezed,Object? ip = freezed,Object? minTimeInPage = freezed,Object? unverified = freezed,Object? bots = freezed,Object? botScore = freezed,Object? hostingNetwork = freezed,Object? challenge = freezed,Object? history = freezed,Object? countries = freezed,Object? sources = freezed,Object? regions = freezed,Object? cities = freezed,}) {
   return _then(SecurityOptions(
 phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,fingerprint: freezed == fingerprint ? _self.fingerprint : fingerprint // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,ip: freezed == ip ? _self.ip : ip // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,minTimeInPage: freezed == minTimeInPage ? _self.minTimeInPage : minTimeInPage // ignore: cast_nullable_to_non_nullable
 as SecurityMinTimeOption?,unverified: freezed == unverified ? _self.unverified : unverified // ignore: cast_nullable_to_non_nullable
-as SecurityOption?,history: freezed == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,bots: freezed == bots ? _self.bots : bots // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,botScore: freezed == botScore ? _self.botScore : botScore // ignore: cast_nullable_to_non_nullable
+as SecurityBotScoreOption?,hostingNetwork: freezed == hostingNetwork ? _self.hostingNetwork : hostingNetwork // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,challenge: freezed == challenge ? _self.challenge : challenge // ignore: cast_nullable_to_non_nullable
+as SecurityChallengeOption?,history: freezed == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,countries: freezed == countries ? _self.countries : countries // ignore: cast_nullable_to_non_nullable
 as SecurityCountriesOption?,sources: freezed == sources ? _self.sources : sources // ignore: cast_nullable_to_non_nullable
 as SecuritySourcesOption?,regions: freezed == regions ? _self.regions : regions // ignore: cast_nullable_to_non_nullable
@@ -11576,6 +12162,54 @@ $SecurityOptionCopyWith<$Res>? get unverified {
 
   return $SecurityOptionCopyWith<$Res>(_self.unverified!, (value) {
     return _then(_self.copyWith(unverified: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get bots {
+    if (_self.bots == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.bots!, (value) {
+    return _then(_self.copyWith(bots: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityBotScoreOptionCopyWith<$Res>? get botScore {
+    if (_self.botScore == null) {
+    return null;
+  }
+
+  return $SecurityBotScoreOptionCopyWith<$Res>(_self.botScore!, (value) {
+    return _then(_self.copyWith(botScore: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get hostingNetwork {
+    if (_self.hostingNetwork == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.hostingNetwork!, (value) {
+    return _then(_self.copyWith(hostingNetwork: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityChallengeOptionCopyWith<$Res>? get challenge {
+    if (_self.challenge == null) {
+    return null;
+  }
+
+  return $SecurityChallengeOptionCopyWith<$Res>(_self.challenge!, (value) {
+    return _then(_self.copyWith(challenge: value));
   });
 }/// Create a copy of SecurityOptions
 /// with the given fields replaced by the non-null parameter values.
@@ -11719,10 +12353,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SecurityOption? phone,  SecurityOption? fingerprint,  SecurityOption? ip,  SecurityMinTimeOption? minTimeInPage,  SecurityOption? unverified,  SecurityOption? history,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false)  SecurityCityListOption? cities)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SecurityOption? phone,  SecurityOption? fingerprint,  SecurityOption? ip,  SecurityMinTimeOption? minTimeInPage,  SecurityOption? unverified, @JsonKey(includeIfNull: false)  SecurityOption? bots, @JsonKey(includeIfNull: false)  SecurityBotScoreOption? botScore, @JsonKey(includeIfNull: false)  SecurityOption? hostingNetwork, @JsonKey(includeIfNull: false)  SecurityChallengeOption? challenge,  SecurityOption? history,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false)  SecurityCityListOption? cities)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SecurityOptions() when $default != null:
-return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that.unverified,_that.history,_that.countries,_that.sources,_that.regions,_that.cities);case _:
+return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that.unverified,_that.bots,_that.botScore,_that.hostingNetwork,_that.challenge,_that.history,_that.countries,_that.sources,_that.regions,_that.cities);case _:
   return orElse();
 
 }
@@ -11740,10 +12374,10 @@ return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SecurityOption? phone,  SecurityOption? fingerprint,  SecurityOption? ip,  SecurityMinTimeOption? minTimeInPage,  SecurityOption? unverified,  SecurityOption? history,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false)  SecurityCityListOption? cities)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SecurityOption? phone,  SecurityOption? fingerprint,  SecurityOption? ip,  SecurityMinTimeOption? minTimeInPage,  SecurityOption? unverified, @JsonKey(includeIfNull: false)  SecurityOption? bots, @JsonKey(includeIfNull: false)  SecurityBotScoreOption? botScore, @JsonKey(includeIfNull: false)  SecurityOption? hostingNetwork, @JsonKey(includeIfNull: false)  SecurityChallengeOption? challenge,  SecurityOption? history,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false)  SecurityCityListOption? cities)  $default,) {final _that = this;
 switch (_that) {
 case _SecurityOptions():
-return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that.unverified,_that.history,_that.countries,_that.sources,_that.regions,_that.cities);case _:
+return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that.unverified,_that.bots,_that.botScore,_that.hostingNetwork,_that.challenge,_that.history,_that.countries,_that.sources,_that.regions,_that.cities);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -11760,10 +12394,10 @@ return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SecurityOption? phone,  SecurityOption? fingerprint,  SecurityOption? ip,  SecurityMinTimeOption? minTimeInPage,  SecurityOption? unverified,  SecurityOption? history,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false)  SecurityCityListOption? cities)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SecurityOption? phone,  SecurityOption? fingerprint,  SecurityOption? ip,  SecurityMinTimeOption? minTimeInPage,  SecurityOption? unverified, @JsonKey(includeIfNull: false)  SecurityOption? bots, @JsonKey(includeIfNull: false)  SecurityBotScoreOption? botScore, @JsonKey(includeIfNull: false)  SecurityOption? hostingNetwork, @JsonKey(includeIfNull: false)  SecurityChallengeOption? challenge,  SecurityOption? history,  SecurityCountriesOption? countries,  SecuritySourcesOption? sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false)  SecurityGeoListOption? regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false)  SecurityCityListOption? cities)?  $default,) {final _that = this;
 switch (_that) {
 case _SecurityOptions() when $default != null:
-return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that.unverified,_that.history,_that.countries,_that.sources,_that.regions,_that.cities);case _:
+return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that.unverified,_that.bots,_that.botScore,_that.hostingNetwork,_that.challenge,_that.history,_that.countries,_that.sources,_that.regions,_that.cities);case _:
   return null;
 
 }
@@ -11775,7 +12409,7 @@ return $default(_that.phone,_that.fingerprint,_that.ip,_that.minTimeInPage,_that
 @JsonSerializable()
 
 class _SecurityOptions extends SecurityOptions {
-  const _SecurityOptions({this.phone, this.fingerprint, this.ip, this.minTimeInPage, this.unverified, this.history, this.countries, this.sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) this.regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) this.cities}): super._();
+  const _SecurityOptions({this.phone, this.fingerprint, this.ip, this.minTimeInPage, this.unverified, @JsonKey(includeIfNull: false) this.bots, @JsonKey(includeIfNull: false) this.botScore, @JsonKey(includeIfNull: false) this.hostingNetwork, @JsonKey(includeIfNull: false) this.challenge, this.history, this.countries, this.sources, @JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) this.regions, @JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) this.cities}): super._();
   factory _SecurityOptions.fromJson(Map<String, dynamic> json) => _$SecurityOptionsFromJson(json);
 
 @override final  SecurityOption? phone;
@@ -11783,6 +12417,10 @@ class _SecurityOptions extends SecurityOptions {
 @override final  SecurityOption? ip;
 @override final  SecurityMinTimeOption? minTimeInPage;
 @override final  SecurityOption? unverified;
+@override@JsonKey(includeIfNull: false) final  SecurityOption? bots;
+@override@JsonKey(includeIfNull: false) final  SecurityBotScoreOption? botScore;
+@override@JsonKey(includeIfNull: false) final  SecurityOption? hostingNetwork;
+@override@JsonKey(includeIfNull: false) final  SecurityChallengeOption? challenge;
 @override final  SecurityOption? history;
 @override final  SecurityCountriesOption? countries;
 @override final  SecuritySourcesOption? sources;
@@ -11805,18 +12443,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityOptions&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.fingerprint, fingerprint) || other.fingerprint == fingerprint)&&(identical(other.ip, ip) || other.ip == ip)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.unverified, unverified) || other.unverified == unverified)&&(identical(other.history, history) || other.history == history)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources)&&(identical(other.regions, regions) || other.regions == regions)&&(identical(other.cities, cities) || other.cities == cities));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityOptions&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.fingerprint, fingerprint) || other.fingerprint == fingerprint)&&(identical(other.ip, ip) || other.ip == ip)&&(identical(other.minTimeInPage, minTimeInPage) || other.minTimeInPage == minTimeInPage)&&(identical(other.unverified, unverified) || other.unverified == unverified)&&(identical(other.bots, bots) || other.bots == bots)&&(identical(other.botScore, botScore) || other.botScore == botScore)&&(identical(other.hostingNetwork, hostingNetwork) || other.hostingNetwork == hostingNetwork)&&(identical(other.challenge, challenge) || other.challenge == challenge)&&(identical(other.history, history) || other.history == history)&&(identical(other.countries, countries) || other.countries == countries)&&(identical(other.sources, sources) || other.sources == sources)&&(identical(other.regions, regions) || other.regions == regions)&&(identical(other.cities, cities) || other.cities == cities));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,phone,fingerprint,ip,minTimeInPage,unverified,history,countries,sources,regions,cities);
+    return Object.hash(runtimeType,phone,fingerprint,ip,minTimeInPage,unverified,bots,botScore,hostingNetwork,challenge,history,countries,sources,regions,cities);
 }
 
 @override
 String toString() {
-    return 'SecurityOptions(phone: $phone, fingerprint: $fingerprint, ip: $ip, minTimeInPage: $minTimeInPage, unverified: $unverified, history: $history, countries: $countries, sources: $sources, regions: $regions, cities: $cities)';
+    return 'SecurityOptions(phone: $phone, fingerprint: $fingerprint, ip: $ip, minTimeInPage: $minTimeInPage, unverified: $unverified, bots: $bots, botScore: $botScore, hostingNetwork: $hostingNetwork, challenge: $challenge, history: $history, countries: $countries, sources: $sources, regions: $regions, cities: $cities)';
 }
 
 
@@ -11827,11 +12465,11 @@ abstract mixin class _$SecurityOptionsCopyWith<$Res> implements $SecurityOptions
   factory _$SecurityOptionsCopyWith(_SecurityOptions value, $Res Function(_SecurityOptions) _then) = __$SecurityOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- SecurityOption? phone, SecurityOption? fingerprint, SecurityOption? ip, SecurityMinTimeOption? minTimeInPage, SecurityOption? unverified, SecurityOption? history, SecurityCountriesOption? countries, SecuritySourcesOption? sources,@JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? regions,@JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) SecurityCityListOption? cities
+ SecurityOption? phone, SecurityOption? fingerprint, SecurityOption? ip, SecurityMinTimeOption? minTimeInPage, SecurityOption? unverified,@JsonKey(includeIfNull: false) SecurityOption? bots,@JsonKey(includeIfNull: false) SecurityBotScoreOption? botScore,@JsonKey(includeIfNull: false) SecurityOption? hostingNetwork,@JsonKey(includeIfNull: false) SecurityChallengeOption? challenge, SecurityOption? history, SecurityCountriesOption? countries, SecuritySourcesOption? sources,@JsonKey(name: SecurityGeoJsonKeys.regions, fromJson: securityGeoListOptionFromJson, includeIfNull: false) SecurityGeoListOption? regions,@JsonKey(name: SecurityGeoJsonKeys.cities, fromJson: securityCityListOptionFromJson, includeIfNull: false) SecurityCityListOption? cities
 });
 
 
-@override $SecurityOptionCopyWith<$Res>? get phone;@override $SecurityOptionCopyWith<$Res>? get fingerprint;@override $SecurityOptionCopyWith<$Res>? get ip;@override $SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;@override $SecurityOptionCopyWith<$Res>? get unverified;@override $SecurityOptionCopyWith<$Res>? get history;@override $SecurityCountriesOptionCopyWith<$Res>? get countries;@override $SecuritySourcesOptionCopyWith<$Res>? get sources;@override $SecurityGeoListOptionCopyWith<$Res>? get regions;@override $SecurityCityListOptionCopyWith<$Res>? get cities;
+@override $SecurityOptionCopyWith<$Res>? get phone;@override $SecurityOptionCopyWith<$Res>? get fingerprint;@override $SecurityOptionCopyWith<$Res>? get ip;@override $SecurityMinTimeOptionCopyWith<$Res>? get minTimeInPage;@override $SecurityOptionCopyWith<$Res>? get unverified;@override $SecurityOptionCopyWith<$Res>? get bots;@override $SecurityBotScoreOptionCopyWith<$Res>? get botScore;@override $SecurityOptionCopyWith<$Res>? get hostingNetwork;@override $SecurityChallengeOptionCopyWith<$Res>? get challenge;@override $SecurityOptionCopyWith<$Res>? get history;@override $SecurityCountriesOptionCopyWith<$Res>? get countries;@override $SecuritySourcesOptionCopyWith<$Res>? get sources;@override $SecurityGeoListOptionCopyWith<$Res>? get regions;@override $SecurityCityListOptionCopyWith<$Res>? get cities;
 
 }
 /// @nodoc
@@ -11844,14 +12482,18 @@ class __$SecurityOptionsCopyWithImpl<$Res>
 
 /// Create a copy of SecurityOptions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? phone = freezed,Object? fingerprint = freezed,Object? ip = freezed,Object? minTimeInPage = freezed,Object? unverified = freezed,Object? history = freezed,Object? countries = freezed,Object? sources = freezed,Object? regions = freezed,Object? cities = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? phone = freezed,Object? fingerprint = freezed,Object? ip = freezed,Object? minTimeInPage = freezed,Object? unverified = freezed,Object? bots = freezed,Object? botScore = freezed,Object? hostingNetwork = freezed,Object? challenge = freezed,Object? history = freezed,Object? countries = freezed,Object? sources = freezed,Object? regions = freezed,Object? cities = freezed,}) {
   return _then(_SecurityOptions(
 phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,fingerprint: freezed == fingerprint ? _self.fingerprint : fingerprint // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,ip: freezed == ip ? _self.ip : ip // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,minTimeInPage: freezed == minTimeInPage ? _self.minTimeInPage : minTimeInPage // ignore: cast_nullable_to_non_nullable
 as SecurityMinTimeOption?,unverified: freezed == unverified ? _self.unverified : unverified // ignore: cast_nullable_to_non_nullable
-as SecurityOption?,history: freezed == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,bots: freezed == bots ? _self.bots : bots // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,botScore: freezed == botScore ? _self.botScore : botScore // ignore: cast_nullable_to_non_nullable
+as SecurityBotScoreOption?,hostingNetwork: freezed == hostingNetwork ? _self.hostingNetwork : hostingNetwork // ignore: cast_nullable_to_non_nullable
+as SecurityOption?,challenge: freezed == challenge ? _self.challenge : challenge // ignore: cast_nullable_to_non_nullable
+as SecurityChallengeOption?,history: freezed == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
 as SecurityOption?,countries: freezed == countries ? _self.countries : countries // ignore: cast_nullable_to_non_nullable
 as SecurityCountriesOption?,sources: freezed == sources ? _self.sources : sources // ignore: cast_nullable_to_non_nullable
 as SecuritySourcesOption?,regions: freezed == regions ? _self.regions : regions // ignore: cast_nullable_to_non_nullable
@@ -11919,6 +12561,54 @@ $SecurityOptionCopyWith<$Res>? get unverified {
 
   return $SecurityOptionCopyWith<$Res>(_self.unverified!, (value) {
     return _then(_self.copyWith(unverified: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get bots {
+    if (_self.bots == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.bots!, (value) {
+    return _then(_self.copyWith(bots: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityBotScoreOptionCopyWith<$Res>? get botScore {
+    if (_self.botScore == null) {
+    return null;
+  }
+
+  return $SecurityBotScoreOptionCopyWith<$Res>(_self.botScore!, (value) {
+    return _then(_self.copyWith(botScore: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityOptionCopyWith<$Res>? get hostingNetwork {
+    if (_self.hostingNetwork == null) {
+    return null;
+  }
+
+  return $SecurityOptionCopyWith<$Res>(_self.hostingNetwork!, (value) {
+    return _then(_self.copyWith(hostingNetwork: value));
+  });
+}/// Create a copy of SecurityOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SecurityChallengeOptionCopyWith<$Res>? get challenge {
+    if (_self.challenge == null) {
+    return null;
+  }
+
+  return $SecurityChallengeOptionCopyWith<$Res>(_self.challenge!, (value) {
+    return _then(_self.copyWith(challenge: value));
   });
 }/// Create a copy of SecurityOptions
 /// with the given fields replaced by the non-null parameter values.

@@ -55,9 +55,6 @@ enum StorePermission {
   productsRead(MemberScope.productsRead, _readRoles),
   productsWrite(MemberScope.products, _editorOnly),
 
-  /// Sales/revenue/profit reports — read-level, not part of the confirmation job.
-  productsAnalytics(MemberScope.productsRead, _editorViewer),
-
   categoriesRead(MemberScope.categoriesRead, _readRoles),
   categoriesWrite(MemberScope.categories, _editorOnly),
 
@@ -75,7 +72,19 @@ enum StorePermission {
   financeWrite(MemberScope.finance, _editorOnly),
 
   inventoryRead(MemberScope.inventoryRead, _readRoles),
-  inventoryWrite(MemberScope.inventory, _editorOnly);
+  inventoryWrite(MemberScope.inventory, _editorOnly),
+
+  /// The member's own work: their queue, calls, confirmations. Counts only.
+  analyticsSelf(MemberScope.ordersRead, _editorConfermer),
+
+  /// Store-wide order counts and rates.
+  analyticsRead(MemberScope.analyticsRead, _editorViewer),
+
+  /// Every money value (sales, order value, costs, profit) and exports.
+  analyticsSales(MemberScope.analytics, _editorViewer),
+
+  /// Other members' performance (team tables, member breakdowns).
+  analyticsTeam(MemberScope.analytics, _editorOnly);
 
   const StorePermission(this.scope, this.roles);
 

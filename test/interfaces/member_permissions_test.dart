@@ -122,7 +122,7 @@ void main() {
       expect(roleAllowsPermission(c, StorePermission.ordersAssign), isFalse);
       expect(roleAllowsPermission(c, StorePermission.productsWrite), isFalse);
       expect(
-        roleAllowsPermission(c, StorePermission.productsAnalytics),
+        roleAllowsPermission(c, StorePermission.analyticsSales),
         isFalse,
       );
       expect(

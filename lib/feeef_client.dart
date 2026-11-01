@@ -38,6 +38,7 @@ import 'package:feeef/cloud_delivery/cloud_delivery_api.dart';
 import 'package:feeef/products/product_repository.dart';
 import 'package:feeef/realtime/realtime.dart';
 import 'package:feeef/reviews/reviews_repository.dart';
+import 'package:feeef/metrics/metrics_repository.dart';
 import 'package:feeef/messaging/messaging_repository.dart';
 import 'package:feeef/shipping_methods/shipping_method_repository.dart';
 import 'package:feeef/shipping_prices/shipping_price_repository.dart';
@@ -162,6 +163,9 @@ class Feeef {
   late final UiStudiosRepository uiStudios;
   late final ImageGenerationsRepository ai;
   late final Analytics analytics;
+
+  /// Analytics v2: overview, live counts and the metrics query API.
+  late final MetricsRepository metrics;
   late final DepositRepository deposits;
   late final TransferRepository transfers;
   late final ConfigRepository configs;
@@ -207,6 +211,7 @@ class Feeef {
     uiStudios = UiStudiosRepository(client: client);
     ai = imageGenerations;
     analytics = Analytics(client: client);
+    metrics = MetricsRepository(client: client);
     stores = StoreRepository(client: client);
     orders = OrderRepository(client: client);
     ordersV1 = OrdersV1Api(client: client);

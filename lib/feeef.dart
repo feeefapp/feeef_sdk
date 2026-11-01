@@ -69,6 +69,7 @@ export 'shipping_prices/shipping_price_repository.dart';
 export 'promos/promo.dart';
 export 'reviews/models/review.dart';
 export 'reviews/reviews_repository.dart';
+export 'metrics/metrics_repository.dart';
 export 'messaging/messaging_repository.dart';
 export 'promos/promo_repository.dart';
 export 'interfaces/embadded/member_scope.dart';

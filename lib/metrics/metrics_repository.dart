@@ -9,27 +9,39 @@ class MetricsRepository {
 
   final Dio client;
 
-  /// The whole overview screen in one call: live counts, KPIs for the period and the
-  /// previous one, the daily series and the ranked lists.
+  /// The whole overview screen in one call: live counts, status counters, KPIs for the period
+  /// and the previous one, the daily series and the ranked lists. [filters] (`dim:key`, dims
+  /// `wilaya`, `source`, `product`, `courier`) narrow every section.
   Future<StoreOverview> overview(
     String storeId, {
     String? from,
     String? to,
     MetricsCompare? compare,
+    List<String>? filters,
     CancelToken? cancelToken,
   }) async {
     final res = await client.get(
       '/stores/${Uri.encodeComponent(storeId)}/overview',
-      queryParameters: {'from': ?from, 'to': ?to, 'compare': ?compare?.name},
+      queryParameters: {
+        'from': ?from,
+        'to': ?to,
+        'compare': ?compare?.name,
+        if (filters != null && filters.isNotEmpty) 'f': filters,
+      },
       cancelToken: cancelToken,
     );
     return StoreOverview.fromJson(Map<String, dynamic>.from(res.data as Map));
   }
 
-  /// Live working-room counts (not cached on the server).
-  Future<MetricsNow> now(String storeId, {CancelToken? cancelToken}) async {
+  /// Live working-room counts (not cached on the server), narrowed by [filters] like [overview].
+  Future<MetricsNow> now(
+    String storeId, {
+    List<String>? filters,
+    CancelToken? cancelToken,
+  }) async {
     final res = await client.get(
       '/stores/${Uri.encodeComponent(storeId)}/metrics/now',
+      queryParameters: {if (filters != null && filters.isNotEmpty) 'f': filters},
       cancelToken: cancelToken,
     );
     return MetricsNow.fromJson(Map<String, dynamic>.from(res.data as Map));
@@ -172,9 +184,54 @@ class MetricsResult {
 class MetricsStatusCount {
   const MetricsStatusCount({required this.phase, required this.statusId, required this.count});
 
+  factory MetricsStatusCount.fromJson(Map<String, dynamic> j) => MetricsStatusCount(
+    phase: j['phase'] as String? ?? 'open',
+    statusId: j['statusId'] as String?,
+    count: (_num(j['count']) ?? 0).toInt(),
+  );
+
+  /// `open`, `pack`, `ship`, `done` or `fail`.
   final String phase;
   final String? statusId;
   final int count;
+}
+
+/// A catalog status as the overview labels it.
+class MetricsStatusLabel {
+  const MetricsStatusLabel({
+    required this.name,
+    this.slug,
+    this.room,
+    this.locales = const {},
+    this.color,
+    this.sortOrder = 0,
+    this.closeAs,
+  });
+
+  factory MetricsStatusLabel.fromJson(Map<String, dynamic> j) => MetricsStatusLabel(
+    name: j['name'] as String? ?? '',
+    slug: j['slug'] as String?,
+    room: j['room'] as String?,
+    locales: {for (final e in _map(j['locales']).entries) e.key: '${e.value}'},
+    color: j['color'] as String?,
+    sortOrder: (_num(j['sortOrder']) ?? 0).toInt(),
+    closeAs: j['closeAs'] as String?,
+  );
+
+  final String name;
+  final String? slug;
+  final String? room;
+  final Map<String, String> locales;
+
+  /// `#rrggbb`, or null for the room's default.
+  final String? color;
+  final int sortOrder;
+  final String? closeAs;
+
+  String localizedName(String languageCode) {
+    final v = locales[languageCode];
+    return v != null && v.trim().isNotEmpty ? v : name;
+  }
 }
 
 /// Live counts in the working rooms.
@@ -189,14 +246,7 @@ class MetricsNow {
   factory MetricsNow.fromJson(Map<String, dynamic> j) {
     final waiting = _map(j['waitingCall']);
     return MetricsNow(
-      byStatus: [
-        for (final r in _list(j['byStatus']))
-          MetricsStatusCount(
-            phase: _map(r)['phase'] as String? ?? 'open',
-            statusId: _map(r)['statusId'] as String?,
-            count: (_num(_map(r)['count']) ?? 0).toInt(),
-          ),
-      ],
+      byStatus: [for (final r in _list(j['byStatus'])) MetricsStatusCount.fromJson(_map(r))],
       waitingCall: (_num(waiting['count']) ?? 0).toInt(),
       oldestWaitingAt: DateTime.tryParse(waiting['oldestAt'] as String? ?? ''),
       stuck: (_num(j['stuck']) ?? 0).toInt(),
@@ -235,6 +285,9 @@ class StoreOverview {
     required this.seriesPrevious,
     required this.lists,
     required this.team,
+    this.filters = const [],
+    this.statuses = const [],
+    this.statusLabels = const {},
     this.productNames = const {},
     this.wilayaNames = const {},
   });
@@ -251,6 +304,15 @@ class StoreOverview {
       series: rows(j['series']),
       seriesPrevious: j['seriesPrevious'] == null ? null : rows(j['seriesPrevious']),
       lists: {for (final e in _map(j['lists']).entries) e.key: rows(e.value)},
+      filters: [
+        for (final f in _list(j['filters']))
+          if (_map(f)['dim'] != null) '${_map(f)['dim']}:${_map(f)['key']}',
+      ],
+      statuses: [for (final r in _list(j['statuses'])) MetricsStatusCount.fromJson(_map(r))],
+      statusLabels: {
+        for (final e in _map(_map(j['labels'])['statuses']).entries)
+          e.key: MetricsStatusLabel.fromJson(_map(e.value)),
+      },
       productNames: {
         for (final e in _map(_map(j['labels'])['products']).entries) e.key: '${e.value}',
       },
@@ -275,6 +337,15 @@ class StoreOverview {
   final MetricsRange range;
   final MetricsNow now;
 
+  /// The filters the answer applies (`dim:key`).
+  final List<String> filters;
+
+  /// Orders placed in the period by where they are now (phase and catalog status), largest first.
+  final List<MetricsStatusCount> statuses;
+
+  /// Status id → catalog label, for [statuses] and [now].
+  final Map<String, MetricsStatusLabel> statusLabels;
+
   /// Totals for the period. Keys present only when the member may see them
   /// (`delivered_sales` needs money).
   final Map<String, num?> kpis;
@@ -286,7 +357,7 @@ class StoreOverview {
   /// Per day of the comparison period: `cohort_placed`.
   final List<MetricsRow>? seriesPrevious;
 
-  /// `products`, `wilayas`, `sources` (top 5 each), only those the member may see.
+  /// `products`, `sources` (top 6) and `wilayas` (all), only those the member may see.
   final Map<String, List<MetricsRow>> lists;
 
   /// Per confirmer, when the member may see the team.
@@ -297,6 +368,24 @@ class StoreOverview {
 
   /// Wilaya code → name per language code (`ar`, `en`, `fr`, plus `default`).
   final Map<String, Map<String, String>> wilayaNames;
+
+  /// The same overview with fresh live counts.
+  StoreOverview withNow(MetricsNow now) => StoreOverview(
+    access: access,
+    range: range,
+    now: now,
+    kpis: kpis,
+    kpisPrevious: kpisPrevious,
+    series: series,
+    seriesPrevious: seriesPrevious,
+    lists: lists,
+    team: team,
+    filters: filters,
+    statuses: statuses,
+    statusLabels: statusLabels,
+    productNames: productNames,
+    wilayaNames: wilayaNames,
+  );
 
   /// Wilaya name in [languageCode], falling back to the stored name, then the code.
   String wilayaName(String code, String languageCode) {

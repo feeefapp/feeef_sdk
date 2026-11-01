@@ -21,6 +21,8 @@ abstract class ConfermerPermissions with _$ConfermerPermissions {
     @Default(false) bool canAssignOrder,
     /// Reassign already-assigned orders to another confirmer.
     @Default(false) bool canReAssignOrder,
+    /// Store-wide order counts and rates in analytics (never money).
+    @Default(false) bool canSeeStoreStats,
     @Default({}) Map<String, dynamic> metadata,
   }) = _ConfermerPermissions;
 

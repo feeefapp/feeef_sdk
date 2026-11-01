@@ -19,7 +19,8 @@ mixin _$ConfermerPermissions {
 /// See all orders (unassigned + others'), not just unassigned + own.
  bool get canSeeAllOrders;/// Assign unassigned orders to a confirmer.
  bool get canAssignOrder;/// Reassign already-assigned orders to another confirmer.
- bool get canReAssignOrder; Map<String, dynamic> get metadata;
+ bool get canReAssignOrder;/// Store-wide order counts and rates in analytics (never money).
+ bool get canSeeStoreStats; Map<String, dynamic> get metadata;
 /// Create a copy of ConfermerPermissions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -33,20 +34,20 @@ $ConfermerPermissionsCopyWith<ConfermerPermissions> get copyWith => _$ConfermerP
 @override
 bool operator ==(Object other) {
   final _this = this as ConfermerPermissions;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConfermerPermissions&&(identical(other.canSeeAllOrders, _this.canSeeAllOrders) || other.canSeeAllOrders == _this.canSeeAllOrders)&&(identical(other.canAssignOrder, _this.canAssignOrder) || other.canAssignOrder == _this.canAssignOrder)&&(identical(other.canReAssignOrder, _this.canReAssignOrder) || other.canReAssignOrder == _this.canReAssignOrder)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConfermerPermissions&&(identical(other.canSeeAllOrders, _this.canSeeAllOrders) || other.canSeeAllOrders == _this.canSeeAllOrders)&&(identical(other.canAssignOrder, _this.canAssignOrder) || other.canAssignOrder == _this.canAssignOrder)&&(identical(other.canReAssignOrder, _this.canReAssignOrder) || other.canReAssignOrder == _this.canReAssignOrder)&&(identical(other.canSeeStoreStats, _this.canSeeStoreStats) || other.canSeeStoreStats == _this.canSeeStoreStats)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as ConfermerPermissions;
-  return Object.hash(runtimeType,_this.canSeeAllOrders,_this.canAssignOrder,_this.canReAssignOrder,const DeepCollectionEquality().hash(_this.metadata));
+  return Object.hash(runtimeType,_this.canSeeAllOrders,_this.canAssignOrder,_this.canReAssignOrder,_this.canSeeStoreStats,const DeepCollectionEquality().hash(_this.metadata));
 }
 
 @override
 String toString() {
   final _this = this as ConfermerPermissions;
-  return 'ConfermerPermissions(canSeeAllOrders: ${_this.canSeeAllOrders}, canAssignOrder: ${_this.canAssignOrder}, canReAssignOrder: ${_this.canReAssignOrder}, metadata: ${_this.metadata})';
+  return 'ConfermerPermissions(canSeeAllOrders: ${_this.canSeeAllOrders}, canAssignOrder: ${_this.canAssignOrder}, canReAssignOrder: ${_this.canReAssignOrder}, canSeeStoreStats: ${_this.canSeeStoreStats}, metadata: ${_this.metadata})';
 }
 
 
@@ -57,7 +58,7 @@ abstract mixin class $ConfermerPermissionsCopyWith<$Res>  {
   factory $ConfermerPermissionsCopyWith(ConfermerPermissions value, $Res Function(ConfermerPermissions) _then) = _$ConfermerPermissionsCopyWithImpl;
 @useResult
 $Res call({
- bool canSeeAllOrders, bool canAssignOrder, bool canReAssignOrder, Map<String, dynamic> metadata
+ bool canSeeAllOrders, bool canAssignOrder, bool canReAssignOrder, bool canSeeStoreStats, Map<String, dynamic> metadata
 });
 
 
@@ -74,11 +75,12 @@ class _$ConfermerPermissionsCopyWithImpl<$Res>
 
 /// Create a copy of ConfermerPermissions
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? canSeeAllOrders = null,Object? canAssignOrder = null,Object? canReAssignOrder = null,Object? metadata = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? canSeeAllOrders = null,Object? canAssignOrder = null,Object? canReAssignOrder = null,Object? canSeeStoreStats = null,Object? metadata = null,}) {
   return _then(ConfermerPermissions(
 canSeeAllOrders: null == canSeeAllOrders ? _self.canSeeAllOrders : canSeeAllOrders // ignore: cast_nullable_to_non_nullable
 as bool,canAssignOrder: null == canAssignOrder ? _self.canAssignOrder : canAssignOrder // ignore: cast_nullable_to_non_nullable
 as bool,canReAssignOrder: null == canReAssignOrder ? _self.canReAssignOrder : canReAssignOrder // ignore: cast_nullable_to_non_nullable
+as bool,canSeeStoreStats: null == canSeeStoreStats ? _self.canSeeStoreStats : canSeeStoreStats // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));
@@ -165,10 +167,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool canSeeAllOrders,  bool canAssignOrder,  bool canReAssignOrder,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool canSeeAllOrders,  bool canAssignOrder,  bool canReAssignOrder,  bool canSeeStoreStats,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ConfermerPermissions() when $default != null:
-return $default(_that.canSeeAllOrders,_that.canAssignOrder,_that.canReAssignOrder,_that.metadata);case _:
+return $default(_that.canSeeAllOrders,_that.canAssignOrder,_that.canReAssignOrder,_that.canSeeStoreStats,_that.metadata);case _:
   return orElse();
 
 }
@@ -186,10 +188,10 @@ return $default(_that.canSeeAllOrders,_that.canAssignOrder,_that.canReAssignOrde
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool canSeeAllOrders,  bool canAssignOrder,  bool canReAssignOrder,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool canSeeAllOrders,  bool canAssignOrder,  bool canReAssignOrder,  bool canSeeStoreStats,  Map<String, dynamic> metadata)  $default,) {final _that = this;
 switch (_that) {
 case _ConfermerPermissions():
-return $default(_that.canSeeAllOrders,_that.canAssignOrder,_that.canReAssignOrder,_that.metadata);case _:
+return $default(_that.canSeeAllOrders,_that.canAssignOrder,_that.canReAssignOrder,_that.canSeeStoreStats,_that.metadata);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -206,10 +208,10 @@ return $default(_that.canSeeAllOrders,_that.canAssignOrder,_that.canReAssignOrde
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool canSeeAllOrders,  bool canAssignOrder,  bool canReAssignOrder,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool canSeeAllOrders,  bool canAssignOrder,  bool canReAssignOrder,  bool canSeeStoreStats,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
 switch (_that) {
 case _ConfermerPermissions() when $default != null:
-return $default(_that.canSeeAllOrders,_that.canAssignOrder,_that.canReAssignOrder,_that.metadata);case _:
+return $default(_that.canSeeAllOrders,_that.canAssignOrder,_that.canReAssignOrder,_that.canSeeStoreStats,_that.metadata);case _:
   return null;
 
 }
@@ -221,7 +223,7 @@ return $default(_that.canSeeAllOrders,_that.canAssignOrder,_that.canReAssignOrde
 @JsonSerializable()
 
 class _ConfermerPermissions implements ConfermerPermissions {
-  const _ConfermerPermissions({this.canSeeAllOrders = false, this.canAssignOrder = false, this.canReAssignOrder = false,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
+  const _ConfermerPermissions({this.canSeeAllOrders = false, this.canAssignOrder = false, this.canReAssignOrder = false, this.canSeeStoreStats = false,  Map<String, dynamic> metadata = const {}}): _metadata = metadata;
   factory _ConfermerPermissions.fromJson(Map<String, dynamic> json) => _$ConfermerPermissionsFromJson(json);
 
 /// See all orders (unassigned + others'), not just unassigned + own.
@@ -230,6 +232,8 @@ class _ConfermerPermissions implements ConfermerPermissions {
 @override@JsonKey() final  bool canAssignOrder;
 /// Reassign already-assigned orders to another confirmer.
 @override@JsonKey() final  bool canReAssignOrder;
+/// Store-wide order counts and rates in analytics (never money).
+@override@JsonKey() final  bool canSeeStoreStats;
  final  Map<String, dynamic> _metadata;
 @override@JsonKey() Map<String, dynamic> get metadata {
   if (_metadata is EqualUnmodifiableMapView) return _metadata;
@@ -251,18 +255,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConfermerPermissions&&(identical(other.canSeeAllOrders, canSeeAllOrders) || other.canSeeAllOrders == canSeeAllOrders)&&(identical(other.canAssignOrder, canAssignOrder) || other.canAssignOrder == canAssignOrder)&&(identical(other.canReAssignOrder, canReAssignOrder) || other.canReAssignOrder == canReAssignOrder)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConfermerPermissions&&(identical(other.canSeeAllOrders, canSeeAllOrders) || other.canSeeAllOrders == canSeeAllOrders)&&(identical(other.canAssignOrder, canAssignOrder) || other.canAssignOrder == canAssignOrder)&&(identical(other.canReAssignOrder, canReAssignOrder) || other.canReAssignOrder == canReAssignOrder)&&(identical(other.canSeeStoreStats, canSeeStoreStats) || other.canSeeStoreStats == canSeeStoreStats)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,canSeeAllOrders,canAssignOrder,canReAssignOrder,const DeepCollectionEquality().hash(_metadata));
+    return Object.hash(runtimeType,canSeeAllOrders,canAssignOrder,canReAssignOrder,canSeeStoreStats,const DeepCollectionEquality().hash(_metadata));
 }
 
 @override
 String toString() {
-    return 'ConfermerPermissions(canSeeAllOrders: $canSeeAllOrders, canAssignOrder: $canAssignOrder, canReAssignOrder: $canReAssignOrder, metadata: $metadata)';
+    return 'ConfermerPermissions(canSeeAllOrders: $canSeeAllOrders, canAssignOrder: $canAssignOrder, canReAssignOrder: $canReAssignOrder, canSeeStoreStats: $canSeeStoreStats, metadata: $metadata)';
 }
 
 
@@ -273,7 +277,7 @@ abstract mixin class _$ConfermerPermissionsCopyWith<$Res> implements $ConfermerP
   factory _$ConfermerPermissionsCopyWith(_ConfermerPermissions value, $Res Function(_ConfermerPermissions) _then) = __$ConfermerPermissionsCopyWithImpl;
 @override @useResult
 $Res call({
- bool canSeeAllOrders, bool canAssignOrder, bool canReAssignOrder, Map<String, dynamic> metadata
+ bool canSeeAllOrders, bool canAssignOrder, bool canReAssignOrder, bool canSeeStoreStats, Map<String, dynamic> metadata
 });
 
 
@@ -290,11 +294,12 @@ class __$ConfermerPermissionsCopyWithImpl<$Res>
 
 /// Create a copy of ConfermerPermissions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? canSeeAllOrders = null,Object? canAssignOrder = null,Object? canReAssignOrder = null,Object? metadata = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? canSeeAllOrders = null,Object? canAssignOrder = null,Object? canReAssignOrder = null,Object? canSeeStoreStats = null,Object? metadata = null,}) {
   return _then(_ConfermerPermissions(
 canSeeAllOrders: null == canSeeAllOrders ? _self.canSeeAllOrders : canSeeAllOrders // ignore: cast_nullable_to_non_nullable
 as bool,canAssignOrder: null == canAssignOrder ? _self.canAssignOrder : canAssignOrder // ignore: cast_nullable_to_non_nullable
 as bool,canReAssignOrder: null == canReAssignOrder ? _self.canReAssignOrder : canReAssignOrder // ignore: cast_nullable_to_non_nullable
+as bool,canSeeStoreStats: null == canSeeStoreStats ? _self.canSeeStoreStats : canSeeStoreStats // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));

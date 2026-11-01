@@ -1065,6 +1065,8 @@ class AppConfig {
   /// Multi-provider catalog (`models` option); optional until backend populates.
   final ModelsCatalogConfig? models;
   final IntegrationsConfig? integrations;
+  /// Host suffix of store addresses on this API's environment (`{slug}.{storefrontDomain}`).
+  final String? storefrontDomain;
 
   AppConfig({
     required this.update,
@@ -1079,6 +1081,7 @@ class AppConfig {
     this.aiModels,
     this.models,
     this.integrations,
+    this.storefrontDomain,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -1145,6 +1148,7 @@ class AppConfig {
               Map<String, dynamic>.from(json['integrations'] as Map),
             )
           : null,
+      storefrontDomain: (json['storefrontDomain'] as String?)?.trim(),
     );
   }
 

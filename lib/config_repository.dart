@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:feeef/core/app_config.dart';
 import 'package:feeef/core/feature_rules_parser.dart';
 import 'package:feeef/core/platforms.dart';
+import 'package:feeef/core/storefront.dart';
 
 export 'package:feeef/core/app_config.dart'
     show AIModel, AIModelsConfig, AIModelPricing;
@@ -22,6 +23,8 @@ class ConfigRepository {
     try {
       final response = await client.get('/configs');
       _cachedConfig = AppConfig.fromJson(response.data);
+      final domain = _cachedConfig!.storefrontDomain;
+      if (domain != null && domain.isNotEmpty) storefrontDomain = domain;
       return _cachedConfig!;
     } on DioException {
       // If cached, return it; else rethrow

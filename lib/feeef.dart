@@ -14,6 +14,7 @@ export 'ai/ui_studios_repository.dart';
 export 'attachments/attachment.dart';
 export 'core/errors.dart';
 export 'core/image_gen_caps.dart';
+export 'core/storefront.dart';
 export 'files/services/actions.dart';
 export 'files/services/generate_image_landing_page_request.dart';
 export 'core/feeef_config.dart';

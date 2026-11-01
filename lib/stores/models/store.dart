@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:feeef/core/storefront.dart';
 import 'package:feeef/core/string_extensions.dart';
 import 'package:feeef/interfaces/embadded/embadded_category.dart';
 import 'package:feeef/interfaces/order.dart';
@@ -338,7 +339,7 @@ extension StoreExtensions on Store {
     ) {
       url = "$url${domain!.name}";
     } else {
-      url = "$url$slug.h.feeef.store";
+      url = "$url$slug.$storefrontDomain";
     }
     return url + path;
   }

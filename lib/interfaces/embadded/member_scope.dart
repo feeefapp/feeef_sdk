@@ -41,6 +41,9 @@ abstract final class MemberScope {
   static const finance = 'finance';
   static const financeRead = 'finance.read';
 
+  static const analytics = 'analytics';
+  static const analyticsRead = 'analytics.read';
+
   static const wildcard = '*';
 
   static const List<String> all = [
@@ -69,6 +72,8 @@ abstract final class MemberScope {
     inventoryRead,
     finance,
     financeRead,
+    analytics,
+    analyticsRead,
     wildcard,
   ];
 }

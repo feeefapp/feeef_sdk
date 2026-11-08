@@ -306,6 +306,10 @@ abstract class MetaPixelIntegration with _$MetaPixelIntegration {
 
     /// Where to send events: server (CAPI), client (store frontend), or both. Null = auto.
     PixelReportMode? mode,
+
+    /// When true, Purchase value = sale − product/variant cost − shipping, and
+    /// events go server-only (CAPI). Off by default.
+    @Default(false) bool reportProfit,
   }) = _MetaPixelIntegration;
 
   factory MetaPixelIntegration.fromJson(Map<String, dynamic> json) =>
@@ -338,6 +342,10 @@ abstract class TiktokPixelIntegration with _$TiktokPixelIntegration {
 
     /// Where to send events: server, client, or both. Null = auto.
     PixelReportMode? mode,
+
+    /// When true, Purchase value = sale − product/variant cost − shipping, and
+    /// events go server-only. Off by default.
+    @Default(false) bool reportProfit,
   }) = _TiktokPixelIntegration;
 
   factory TiktokPixelIntegration.fromJson(Map<String, dynamic> json) =>
@@ -373,6 +381,10 @@ abstract class SnapchatPixelIntegration with _$SnapchatPixelIntegration {
 
     /// Where to send events: server (CAPI), client (`snaptr`), or both. Null = auto.
     PixelReportMode? mode,
+
+    /// When true, Purchase value = sale − product/variant cost − shipping, and
+    /// events go server-only. Off by default.
+    @Default(false) bool reportProfit,
   }) = _SnapchatPixelIntegration;
 
   factory SnapchatPixelIntegration.fromJson(Map<String, dynamic> json) =>

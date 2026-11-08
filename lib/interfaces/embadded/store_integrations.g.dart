@@ -388,6 +388,7 @@ _MetaPixelIntegration _$MetaPixelIntegrationFromJson(
       ? null
       : FacebookMarketingOAuth.fromJson(json['oauth2'] as Map<String, dynamic>),
   mode: $enumDecodeNullable(_$PixelReportModeEnumMap, json['mode']),
+  reportProfit: json['reportProfit'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$MetaPixelIntegrationToJson(
@@ -399,6 +400,7 @@ Map<String, dynamic> _$MetaPixelIntegrationToJson(
   'metadata': instance.metadata,
   'oauth2': instance.oauth2?.toJson(),
   'mode': _$PixelReportModeEnumMap[instance.mode],
+  'reportProfit': instance.reportProfit,
 };
 
 const _$PixelReportModeEnumMap = {
@@ -432,6 +434,7 @@ _TiktokPixelIntegration _$TiktokPixelIntegrationFromJson(
   active: json['active'] as bool? ?? true,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
   mode: $enumDecodeNullable(_$PixelReportModeEnumMap, json['mode']),
+  reportProfit: json['reportProfit'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$TiktokPixelIntegrationToJson(
@@ -442,6 +445,7 @@ Map<String, dynamic> _$TiktokPixelIntegrationToJson(
   'active': instance.active,
   'metadata': instance.metadata,
   'mode': _$PixelReportModeEnumMap[instance.mode],
+  'reportProfit': instance.reportProfit,
 };
 
 _TiktokPixel _$TiktokPixelFromJson(Map<String, dynamic> json) => _TiktokPixel(
@@ -469,6 +473,7 @@ _SnapchatPixelIntegration _$SnapchatPixelIntegrationFromJson(
   active: json['active'] as bool? ?? true,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
   mode: $enumDecodeNullable(_$PixelReportModeEnumMap, json['mode']),
+  reportProfit: json['reportProfit'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$SnapchatPixelIntegrationToJson(
@@ -479,6 +484,7 @@ Map<String, dynamic> _$SnapchatPixelIntegrationToJson(
   'active': instance.active,
   'metadata': instance.metadata,
   'mode': _$PixelReportModeEnumMap[instance.mode],
+  'reportProfit': instance.reportProfit,
 };
 
 _SnapchatPixel _$SnapchatPixelFromJson(Map<String, dynamic> json) =>

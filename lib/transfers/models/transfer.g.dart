@@ -12,7 +12,11 @@ _Transfer _$TransferFromJson(Map<String, dynamic> json) => _Transfer(
   debitAccountId: json['debitAccountId'] as String,
   creditAccountId: json['creditAccountId'] as String,
   amount: json['amount'] as num,
-  type: $enumDecode(_$TransferTypeEnumMap, json['type']),
+  type: $enumDecode(
+    _$TransferTypeEnumMap,
+    json['type'],
+    unknownValue: TransferType.unknown,
+  ),
   referenceId: json['referenceId'] as String?,
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
@@ -38,6 +42,9 @@ const _$TransferTypeEnumMap = {
   TransferType.userTransfer: 'user_transfer',
   TransferType.aiGeneration: 'ai_generation',
   TransferType.integrationSubscription: 'integration_subscription',
+  TransferType.memberSeats: 'member_seats',
+  TransferType.templatePurchase: 'template_purchase',
+  TransferType.unknown: 'unknown',
   TransferType.refund: 'refund',
   TransferType.adjustment: 'adjustment',
 };

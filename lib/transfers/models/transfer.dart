@@ -24,6 +24,15 @@ enum TransferType {
   @JsonValue('integration_subscription')
   integrationSubscription,
 
+  @JsonValue('member_seats')
+  memberSeats,
+
+  @JsonValue('template_purchase')
+  templatePurchase,
+
+  /// A future server type must not prevent reading the rest of the wallet.
+  unknown,
+
   refund,
   adjustment,
 }
@@ -39,7 +48,7 @@ abstract class Transfer extends TransferEntity
     required String debitAccountId,
     required String creditAccountId,
     required num amount,
-    required TransferType type,
+    @JsonKey(unknownEnumValue: TransferType.unknown) required TransferType type,
     String? referenceId,
     String? description,
     @Default({}) Map<String, dynamic> metadata,

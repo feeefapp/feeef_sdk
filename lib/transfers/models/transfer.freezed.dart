@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Transfer {
 
- String get id; DateTime get createdAt; String get debitAccountId; String get creditAccountId; num get amount; TransferType get type; String? get referenceId; String? get description; Map<String, dynamic> get metadata;
+ String get id; DateTime get createdAt; String get debitAccountId; String get creditAccountId; num get amount;@JsonKey(unknownEnumValue: TransferType.unknown) TransferType get type; String? get referenceId; String? get description; Map<String, dynamic> get metadata;
 /// Create a copy of Transfer
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -54,7 +54,7 @@ abstract mixin class $TransferCopyWith<$Res>  {
   factory $TransferCopyWith(Transfer value, $Res Function(Transfer) _then) = _$TransferCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime createdAt, String debitAccountId, String creditAccountId, num amount, TransferType type, String? referenceId, String? description, Map<String, dynamic> metadata
+ String id, DateTime createdAt, String debitAccountId, String creditAccountId, num amount,@JsonKey(unknownEnumValue: TransferType.unknown) TransferType type, String? referenceId, String? description, Map<String, dynamic> metadata
 });
 
 
@@ -167,7 +167,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  String debitAccountId,  String creditAccountId,  num amount,  TransferType type,  String? referenceId,  String? description,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  String debitAccountId,  String creditAccountId,  num amount, @JsonKey(unknownEnumValue: TransferType.unknown)  TransferType type,  String? referenceId,  String? description,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Transfer() when $default != null:
 return $default(_that.id,_that.createdAt,_that.debitAccountId,_that.creditAccountId,_that.amount,_that.type,_that.referenceId,_that.description,_that.metadata);case _:
@@ -188,7 +188,7 @@ return $default(_that.id,_that.createdAt,_that.debitAccountId,_that.creditAccoun
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  String debitAccountId,  String creditAccountId,  num amount,  TransferType type,  String? referenceId,  String? description,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  String debitAccountId,  String creditAccountId,  num amount, @JsonKey(unknownEnumValue: TransferType.unknown)  TransferType type,  String? referenceId,  String? description,  Map<String, dynamic> metadata)  $default,) {final _that = this;
 switch (_that) {
 case _Transfer():
 return $default(_that.id,_that.createdAt,_that.debitAccountId,_that.creditAccountId,_that.amount,_that.type,_that.referenceId,_that.description,_that.metadata);case _:
@@ -208,7 +208,7 @@ return $default(_that.id,_that.createdAt,_that.debitAccountId,_that.creditAccoun
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  String debitAccountId,  String creditAccountId,  num amount,  TransferType type,  String? referenceId,  String? description,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  String debitAccountId,  String creditAccountId,  num amount, @JsonKey(unknownEnumValue: TransferType.unknown)  TransferType type,  String? referenceId,  String? description,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
 switch (_that) {
 case _Transfer() when $default != null:
 return $default(_that.id,_that.createdAt,_that.debitAccountId,_that.creditAccountId,_that.amount,_that.type,_that.referenceId,_that.description,_that.metadata);case _:
@@ -223,7 +223,7 @@ return $default(_that.id,_that.createdAt,_that.debitAccountId,_that.creditAccoun
 @JsonSerializable()
 
 class _Transfer extends Transfer {
-   _Transfer({required this.id, required this.createdAt, required this.debitAccountId, required this.creditAccountId, required this.amount, required this.type, this.referenceId, this.description,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+   _Transfer({required this.id, required this.createdAt, required this.debitAccountId, required this.creditAccountId, required this.amount, @JsonKey(unknownEnumValue: TransferType.unknown) required this.type, this.referenceId, this.description,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _Transfer.fromJson(Map<String, dynamic> json) => _$TransferFromJson(json);
 
 @override final  String id;
@@ -231,7 +231,7 @@ class _Transfer extends Transfer {
 @override final  String debitAccountId;
 @override final  String creditAccountId;
 @override final  num amount;
-@override final  TransferType type;
+@override@JsonKey(unknownEnumValue: TransferType.unknown) final  TransferType type;
 @override final  String? referenceId;
 @override final  String? description;
  final  Map<String, dynamic> _metadata;
@@ -277,7 +277,7 @@ abstract mixin class _$TransferCopyWith<$Res> implements $TransferCopyWith<$Res>
   factory _$TransferCopyWith(_Transfer value, $Res Function(_Transfer) _then) = __$TransferCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime createdAt, String debitAccountId, String creditAccountId, num amount, TransferType type, String? referenceId, String? description, Map<String, dynamic> metadata
+ String id, DateTime createdAt, String debitAccountId, String creditAccountId, num amount,@JsonKey(unknownEnumValue: TransferType.unknown) TransferType type, String? referenceId, String? description, Map<String, dynamic> metadata
 });
 
 

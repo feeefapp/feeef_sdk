@@ -12,7 +12,17 @@ class DepositRepository extends ModelRepository<Deposit>
   DepositRepository({required super.client}) : super(table: 'deposits');
 
   Future<Deposit> send(DepositCreate data) async {
-    final response = await client.post('/$table/send', data: data.toJson());
+    // Freezed toJson keeps null optionals; Vine `.optional()` rejects null.
+    // Only send fields the create/send endpoint actually uses.
+    final payload = <String, dynamic>{
+      'paymentMethod': data.paymentMethod,
+      'amount': data.amount,
+      'currency': data.currency,
+      if (data.note != null) 'note': data.note,
+      if (data.attachment != null) 'attachment': data.attachment,
+      if (data.metadata.isNotEmpty) 'metadata': data.metadata,
+    };
+    final response = await client.post('/$table/send', data: payload);
     return modelFromJson(response.data);
   }
 

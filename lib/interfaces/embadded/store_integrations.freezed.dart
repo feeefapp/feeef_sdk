@@ -3026,7 +3026,9 @@ mixin _$MetaPixelIntegration {
 
  String get id; List<MetaPixel> get pixels; bool get active; Map<String, dynamic> get metadata;/// Facebook Marketing OAuth data - for accessing pixels via API
  FacebookMarketingOAuth? get oauth2;/// Where to send events: server (CAPI), client (store frontend), or both. Null = auto.
- PixelReportMode? get mode;
+ PixelReportMode? get mode;/// When true, Purchase value = sale − product/variant cost − shipping, and
+/// events go server-only (CAPI). Off by default.
+ bool get reportProfit;
 /// Create a copy of MetaPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -3040,20 +3042,20 @@ $MetaPixelIntegrationCopyWith<MetaPixelIntegration> get copyWith => _$MetaPixelI
 @override
 bool operator ==(Object other) {
   final _this = this as MetaPixelIntegration;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.oauth2, _this.oauth2) || other.oauth2 == _this.oauth2)&&(identical(other.mode, _this.mode) || other.mode == _this.mode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.oauth2, _this.oauth2) || other.oauth2 == _this.oauth2)&&(identical(other.mode, _this.mode) || other.mode == _this.mode)&&(identical(other.reportProfit, _this.reportProfit) || other.reportProfit == _this.reportProfit));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as MetaPixelIntegration;
-  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.oauth2,_this.mode);
+  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.oauth2,_this.mode,_this.reportProfit);
 }
 
 @override
 String toString() {
   final _this = this as MetaPixelIntegration;
-  return 'MetaPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, active: ${_this.active}, metadata: ${_this.metadata}, oauth2: ${_this.oauth2}, mode: ${_this.mode})';
+  return 'MetaPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, active: ${_this.active}, metadata: ${_this.metadata}, oauth2: ${_this.oauth2}, mode: ${_this.mode}, reportProfit: ${_this.reportProfit})';
 }
 
 
@@ -3064,7 +3066,7 @@ abstract mixin class $MetaPixelIntegrationCopyWith<$Res>  {
   factory $MetaPixelIntegrationCopyWith(MetaPixelIntegration value, $Res Function(MetaPixelIntegration) _then) = _$MetaPixelIntegrationCopyWithImpl;
 @useResult
 $Res call({
- String id, List<MetaPixel> pixels, bool active, Map<String, dynamic> metadata, FacebookMarketingOAuth? oauth2, PixelReportMode? mode
+ String id, List<MetaPixel> pixels, bool active, Map<String, dynamic> metadata, FacebookMarketingOAuth? oauth2, PixelReportMode? mode, bool reportProfit
 });
 
 
@@ -3081,7 +3083,7 @@ class _$MetaPixelIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of MetaPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? oauth2 = freezed,Object? mode = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? oauth2 = freezed,Object? mode = freezed,Object? reportProfit = null,}) {
   return _then(MetaPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self.pixels : pixels // ignore: cast_nullable_to_non_nullable
@@ -3089,7 +3091,8 @@ as List<MetaPixel>,active: null == active ? _self.active : active // ignore: cas
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,oauth2: freezed == oauth2 ? _self.oauth2 : oauth2 // ignore: cast_nullable_to_non_nullable
 as FacebookMarketingOAuth?,mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as PixelReportMode?,
+as PixelReportMode?,reportProfit: null == reportProfit ? _self.reportProfit : reportProfit // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 /// Create a copy of MetaPixelIntegration
@@ -3186,10 +3189,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<MetaPixel> pixels,  bool active,  Map<String, dynamic> metadata,  FacebookMarketingOAuth? oauth2,  PixelReportMode? mode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<MetaPixel> pixels,  bool active,  Map<String, dynamic> metadata,  FacebookMarketingOAuth? oauth2,  PixelReportMode? mode,  bool reportProfit)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MetaPixelIntegration() when $default != null:
-return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.oauth2,_that.mode);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.oauth2,_that.mode,_that.reportProfit);case _:
   return orElse();
 
 }
@@ -3207,10 +3210,10 @@ return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.oauth2,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<MetaPixel> pixels,  bool active,  Map<String, dynamic> metadata,  FacebookMarketingOAuth? oauth2,  PixelReportMode? mode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<MetaPixel> pixels,  bool active,  Map<String, dynamic> metadata,  FacebookMarketingOAuth? oauth2,  PixelReportMode? mode,  bool reportProfit)  $default,) {final _that = this;
 switch (_that) {
 case _MetaPixelIntegration():
-return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.oauth2,_that.mode);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.oauth2,_that.mode,_that.reportProfit);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -3227,10 +3230,10 @@ return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.oauth2,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<MetaPixel> pixels,  bool active,  Map<String, dynamic> metadata,  FacebookMarketingOAuth? oauth2,  PixelReportMode? mode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<MetaPixel> pixels,  bool active,  Map<String, dynamic> metadata,  FacebookMarketingOAuth? oauth2,  PixelReportMode? mode,  bool reportProfit)?  $default,) {final _that = this;
 switch (_that) {
 case _MetaPixelIntegration() when $default != null:
-return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.oauth2,_that.mode);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.oauth2,_that.mode,_that.reportProfit);case _:
   return null;
 
 }
@@ -3242,7 +3245,7 @@ return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.oauth2,_
 @JsonSerializable()
 
 class _MetaPixelIntegration extends MetaPixelIntegration {
-  const _MetaPixelIntegration({this.id = 'default',  List<MetaPixel> pixels = const [], this.active = true,  Map<String, dynamic> metadata = const {}, this.oauth2, this.mode}): _pixels = pixels,_metadata = metadata,super._();
+  const _MetaPixelIntegration({this.id = 'default',  List<MetaPixel> pixels = const [], this.active = true,  Map<String, dynamic> metadata = const {}, this.oauth2, this.mode, this.reportProfit = false}): _pixels = pixels,_metadata = metadata,super._();
   factory _MetaPixelIntegration.fromJson(Map<String, dynamic> json) => _$MetaPixelIntegrationFromJson(json);
 
 @override@JsonKey() final  String id;
@@ -3265,6 +3268,9 @@ class _MetaPixelIntegration extends MetaPixelIntegration {
 @override final  FacebookMarketingOAuth? oauth2;
 /// Where to send events: server (CAPI), client (store frontend), or both. Null = auto.
 @override final  PixelReportMode? mode;
+/// When true, Purchase value = sale − product/variant cost − shipping, and
+/// events go server-only (CAPI). Off by default.
+@override@JsonKey() final  bool reportProfit;
 
 /// Create a copy of MetaPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
@@ -3279,18 +3285,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.oauth2, oauth2) || other.oauth2 == oauth2)&&(identical(other.mode, mode) || other.mode == mode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.oauth2, oauth2) || other.oauth2 == oauth2)&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.reportProfit, reportProfit) || other.reportProfit == reportProfit));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),active,const DeepCollectionEquality().hash(_metadata),oauth2,mode);
+    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),active,const DeepCollectionEquality().hash(_metadata),oauth2,mode,reportProfit);
 }
 
 @override
 String toString() {
-    return 'MetaPixelIntegration(id: $id, pixels: $pixels, active: $active, metadata: $metadata, oauth2: $oauth2, mode: $mode)';
+    return 'MetaPixelIntegration(id: $id, pixels: $pixels, active: $active, metadata: $metadata, oauth2: $oauth2, mode: $mode, reportProfit: $reportProfit)';
 }
 
 
@@ -3301,7 +3307,7 @@ abstract mixin class _$MetaPixelIntegrationCopyWith<$Res> implements $MetaPixelI
   factory _$MetaPixelIntegrationCopyWith(_MetaPixelIntegration value, $Res Function(_MetaPixelIntegration) _then) = __$MetaPixelIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- String id, List<MetaPixel> pixels, bool active, Map<String, dynamic> metadata, FacebookMarketingOAuth? oauth2, PixelReportMode? mode
+ String id, List<MetaPixel> pixels, bool active, Map<String, dynamic> metadata, FacebookMarketingOAuth? oauth2, PixelReportMode? mode, bool reportProfit
 });
 
 
@@ -3318,7 +3324,7 @@ class __$MetaPixelIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of MetaPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? oauth2 = freezed,Object? mode = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? oauth2 = freezed,Object? mode = freezed,Object? reportProfit = null,}) {
   return _then(_MetaPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self._pixels : pixels // ignore: cast_nullable_to_non_nullable
@@ -3326,7 +3332,8 @@ as List<MetaPixel>,active: null == active ? _self.active : active // ignore: cas
 as bool,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,oauth2: freezed == oauth2 ? _self.oauth2 : oauth2 // ignore: cast_nullable_to_non_nullable
 as FacebookMarketingOAuth?,mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as PixelReportMode?,
+as PixelReportMode?,reportProfit: null == reportProfit ? _self.reportProfit : reportProfit // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -3626,7 +3633,9 @@ as String?,
 mixin _$TiktokPixelIntegration {
 
  String get id; List<TiktokPixel> get pixels; bool get active; Map<String, dynamic> get metadata;/// Where to send events: server, client, or both. Null = auto.
- PixelReportMode? get mode;
+ PixelReportMode? get mode;/// When true, Purchase value = sale − product/variant cost − shipping, and
+/// events go server-only. Off by default.
+ bool get reportProfit;
 /// Create a copy of TiktokPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -3640,20 +3649,20 @@ $TiktokPixelIntegrationCopyWith<TiktokPixelIntegration> get copyWith => _$Tiktok
 @override
 bool operator ==(Object other) {
   final _this = this as TiktokPixelIntegration;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TiktokPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.mode, _this.mode) || other.mode == _this.mode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TiktokPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.mode, _this.mode) || other.mode == _this.mode)&&(identical(other.reportProfit, _this.reportProfit) || other.reportProfit == _this.reportProfit));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as TiktokPixelIntegration;
-  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.mode);
+  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.mode,_this.reportProfit);
 }
 
 @override
 String toString() {
   final _this = this as TiktokPixelIntegration;
-  return 'TiktokPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, active: ${_this.active}, metadata: ${_this.metadata}, mode: ${_this.mode})';
+  return 'TiktokPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, active: ${_this.active}, metadata: ${_this.metadata}, mode: ${_this.mode}, reportProfit: ${_this.reportProfit})';
 }
 
 
@@ -3664,7 +3673,7 @@ abstract mixin class $TiktokPixelIntegrationCopyWith<$Res>  {
   factory $TiktokPixelIntegrationCopyWith(TiktokPixelIntegration value, $Res Function(TiktokPixelIntegration) _then) = _$TiktokPixelIntegrationCopyWithImpl;
 @useResult
 $Res call({
- String id, List<TiktokPixel> pixels, bool active, Map<String, dynamic> metadata, PixelReportMode? mode
+ String id, List<TiktokPixel> pixels, bool active, Map<String, dynamic> metadata, PixelReportMode? mode, bool reportProfit
 });
 
 
@@ -3681,14 +3690,15 @@ class _$TiktokPixelIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of TiktokPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? mode = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? mode = freezed,Object? reportProfit = null,}) {
   return _then(TiktokPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self.pixels : pixels // ignore: cast_nullable_to_non_nullable
 as List<TiktokPixel>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as PixelReportMode?,
+as PixelReportMode?,reportProfit: null == reportProfit ? _self.reportProfit : reportProfit // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -3773,10 +3783,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<TiktokPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<TiktokPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode,  bool reportProfit)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TiktokPixelIntegration() when $default != null:
-return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode,_that.reportProfit);case _:
   return orElse();
 
 }
@@ -3794,10 +3804,10 @@ return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<TiktokPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<TiktokPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode,  bool reportProfit)  $default,) {final _that = this;
 switch (_that) {
 case _TiktokPixelIntegration():
-return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode,_that.reportProfit);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -3814,10 +3824,10 @@ return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<TiktokPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<TiktokPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode,  bool reportProfit)?  $default,) {final _that = this;
 switch (_that) {
 case _TiktokPixelIntegration() when $default != null:
-return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode,_that.reportProfit);case _:
   return null;
 
 }
@@ -3829,7 +3839,7 @@ return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);ca
 @JsonSerializable()
 
 class _TiktokPixelIntegration extends TiktokPixelIntegration {
-  const _TiktokPixelIntegration({this.id = 'default',  List<TiktokPixel> pixels = const [], this.active = true,  Map<String, dynamic> metadata = const {}, this.mode}): _pixels = pixels,_metadata = metadata,super._();
+  const _TiktokPixelIntegration({this.id = 'default',  List<TiktokPixel> pixels = const [], this.active = true,  Map<String, dynamic> metadata = const {}, this.mode, this.reportProfit = false}): _pixels = pixels,_metadata = metadata,super._();
   factory _TiktokPixelIntegration.fromJson(Map<String, dynamic> json) => _$TiktokPixelIntegrationFromJson(json);
 
 @override@JsonKey() final  String id;
@@ -3850,6 +3860,9 @@ class _TiktokPixelIntegration extends TiktokPixelIntegration {
 
 /// Where to send events: server, client, or both. Null = auto.
 @override final  PixelReportMode? mode;
+/// When true, Purchase value = sale − product/variant cost − shipping, and
+/// events go server-only. Off by default.
+@override@JsonKey() final  bool reportProfit;
 
 /// Create a copy of TiktokPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
@@ -3864,18 +3877,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TiktokPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.mode, mode) || other.mode == mode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TiktokPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.reportProfit, reportProfit) || other.reportProfit == reportProfit));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),active,const DeepCollectionEquality().hash(_metadata),mode);
+    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),active,const DeepCollectionEquality().hash(_metadata),mode,reportProfit);
 }
 
 @override
 String toString() {
-    return 'TiktokPixelIntegration(id: $id, pixels: $pixels, active: $active, metadata: $metadata, mode: $mode)';
+    return 'TiktokPixelIntegration(id: $id, pixels: $pixels, active: $active, metadata: $metadata, mode: $mode, reportProfit: $reportProfit)';
 }
 
 
@@ -3886,7 +3899,7 @@ abstract mixin class _$TiktokPixelIntegrationCopyWith<$Res> implements $TiktokPi
   factory _$TiktokPixelIntegrationCopyWith(_TiktokPixelIntegration value, $Res Function(_TiktokPixelIntegration) _then) = __$TiktokPixelIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- String id, List<TiktokPixel> pixels, bool active, Map<String, dynamic> metadata, PixelReportMode? mode
+ String id, List<TiktokPixel> pixels, bool active, Map<String, dynamic> metadata, PixelReportMode? mode, bool reportProfit
 });
 
 
@@ -3903,14 +3916,15 @@ class __$TiktokPixelIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of TiktokPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? mode = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? mode = freezed,Object? reportProfit = null,}) {
   return _then(_TiktokPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self._pixels : pixels // ignore: cast_nullable_to_non_nullable
 as List<TiktokPixel>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as PixelReportMode?,
+as PixelReportMode?,reportProfit: null == reportProfit ? _self.reportProfit : reportProfit // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -4198,7 +4212,9 @@ as String?,
 mixin _$SnapchatPixelIntegration {
 
  String get id; List<SnapchatPixel> get pixels; bool get active; Map<String, dynamic> get metadata;/// Where to send events: server (CAPI), client (`snaptr`), or both. Null = auto.
- PixelReportMode? get mode;
+ PixelReportMode? get mode;/// When true, Purchase value = sale − product/variant cost − shipping, and
+/// events go server-only. Off by default.
+ bool get reportProfit;
 /// Create a copy of SnapchatPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -4212,20 +4228,20 @@ $SnapchatPixelIntegrationCopyWith<SnapchatPixelIntegration> get copyWith => _$Sn
 @override
 bool operator ==(Object other) {
   final _this = this as SnapchatPixelIntegration;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SnapchatPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.mode, _this.mode) || other.mode == _this.mode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SnapchatPixelIntegration&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.pixels, _this.pixels)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&(identical(other.mode, _this.mode) || other.mode == _this.mode)&&(identical(other.reportProfit, _this.reportProfit) || other.reportProfit == _this.reportProfit));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as SnapchatPixelIntegration;
-  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.mode);
+  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.pixels),_this.active,const DeepCollectionEquality().hash(_this.metadata),_this.mode,_this.reportProfit);
 }
 
 @override
 String toString() {
   final _this = this as SnapchatPixelIntegration;
-  return 'SnapchatPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, active: ${_this.active}, metadata: ${_this.metadata}, mode: ${_this.mode})';
+  return 'SnapchatPixelIntegration(id: ${_this.id}, pixels: ${_this.pixels}, active: ${_this.active}, metadata: ${_this.metadata}, mode: ${_this.mode}, reportProfit: ${_this.reportProfit})';
 }
 
 
@@ -4236,7 +4252,7 @@ abstract mixin class $SnapchatPixelIntegrationCopyWith<$Res>  {
   factory $SnapchatPixelIntegrationCopyWith(SnapchatPixelIntegration value, $Res Function(SnapchatPixelIntegration) _then) = _$SnapchatPixelIntegrationCopyWithImpl;
 @useResult
 $Res call({
- String id, List<SnapchatPixel> pixels, bool active, Map<String, dynamic> metadata, PixelReportMode? mode
+ String id, List<SnapchatPixel> pixels, bool active, Map<String, dynamic> metadata, PixelReportMode? mode, bool reportProfit
 });
 
 
@@ -4253,14 +4269,15 @@ class _$SnapchatPixelIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of SnapchatPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? mode = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? mode = freezed,Object? reportProfit = null,}) {
   return _then(SnapchatPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self.pixels : pixels // ignore: cast_nullable_to_non_nullable
 as List<SnapchatPixel>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as PixelReportMode?,
+as PixelReportMode?,reportProfit: null == reportProfit ? _self.reportProfit : reportProfit // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -4345,10 +4362,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<SnapchatPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<SnapchatPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode,  bool reportProfit)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SnapchatPixelIntegration() when $default != null:
-return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode,_that.reportProfit);case _:
   return orElse();
 
 }
@@ -4366,10 +4383,10 @@ return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<SnapchatPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<SnapchatPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode,  bool reportProfit)  $default,) {final _that = this;
 switch (_that) {
 case _SnapchatPixelIntegration():
-return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode,_that.reportProfit);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -4386,10 +4403,10 @@ return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<SnapchatPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<SnapchatPixel> pixels,  bool active,  Map<String, dynamic> metadata,  PixelReportMode? mode,  bool reportProfit)?  $default,) {final _that = this;
 switch (_that) {
 case _SnapchatPixelIntegration() when $default != null:
-return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);case _:
+return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode,_that.reportProfit);case _:
   return null;
 
 }
@@ -4401,7 +4418,7 @@ return $default(_that.id,_that.pixels,_that.active,_that.metadata,_that.mode);ca
 @JsonSerializable()
 
 class _SnapchatPixelIntegration extends SnapchatPixelIntegration {
-  const _SnapchatPixelIntegration({this.id = 'default',  List<SnapchatPixel> pixels = const [], this.active = true,  Map<String, dynamic> metadata = const {}, this.mode}): _pixels = pixels,_metadata = metadata,super._();
+  const _SnapchatPixelIntegration({this.id = 'default',  List<SnapchatPixel> pixels = const [], this.active = true,  Map<String, dynamic> metadata = const {}, this.mode, this.reportProfit = false}): _pixels = pixels,_metadata = metadata,super._();
   factory _SnapchatPixelIntegration.fromJson(Map<String, dynamic> json) => _$SnapchatPixelIntegrationFromJson(json);
 
 @override@JsonKey() final  String id;
@@ -4422,6 +4439,9 @@ class _SnapchatPixelIntegration extends SnapchatPixelIntegration {
 
 /// Where to send events: server (CAPI), client (`snaptr`), or both. Null = auto.
 @override final  PixelReportMode? mode;
+/// When true, Purchase value = sale − product/variant cost − shipping, and
+/// events go server-only. Off by default.
+@override@JsonKey() final  bool reportProfit;
 
 /// Create a copy of SnapchatPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
@@ -4436,18 +4456,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SnapchatPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.mode, mode) || other.mode == mode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SnapchatPixelIntegration&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pixels, _pixels)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.reportProfit, reportProfit) || other.reportProfit == reportProfit));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),active,const DeepCollectionEquality().hash(_metadata),mode);
+    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pixels),active,const DeepCollectionEquality().hash(_metadata),mode,reportProfit);
 }
 
 @override
 String toString() {
-    return 'SnapchatPixelIntegration(id: $id, pixels: $pixels, active: $active, metadata: $metadata, mode: $mode)';
+    return 'SnapchatPixelIntegration(id: $id, pixels: $pixels, active: $active, metadata: $metadata, mode: $mode, reportProfit: $reportProfit)';
 }
 
 
@@ -4458,7 +4478,7 @@ abstract mixin class _$SnapchatPixelIntegrationCopyWith<$Res> implements $Snapch
   factory _$SnapchatPixelIntegrationCopyWith(_SnapchatPixelIntegration value, $Res Function(_SnapchatPixelIntegration) _then) = __$SnapchatPixelIntegrationCopyWithImpl;
 @override @useResult
 $Res call({
- String id, List<SnapchatPixel> pixels, bool active, Map<String, dynamic> metadata, PixelReportMode? mode
+ String id, List<SnapchatPixel> pixels, bool active, Map<String, dynamic> metadata, PixelReportMode? mode, bool reportProfit
 });
 
 
@@ -4475,14 +4495,15 @@ class __$SnapchatPixelIntegrationCopyWithImpl<$Res>
 
 /// Create a copy of SnapchatPixelIntegration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? mode = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pixels = null,Object? active = null,Object? metadata = null,Object? mode = freezed,Object? reportProfit = null,}) {
   return _then(_SnapchatPixelIntegration(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pixels: null == pixels ? _self._pixels : pixels // ignore: cast_nullable_to_non_nullable
 as List<SnapchatPixel>,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as PixelReportMode?,
+as PixelReportMode?,reportProfit: null == reportProfit ? _self.reportProfit : reportProfit // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

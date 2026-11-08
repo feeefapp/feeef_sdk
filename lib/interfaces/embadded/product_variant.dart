@@ -42,6 +42,9 @@ abstract class ProductVariantOption with _$ProductVariantOption {
     //
     String? sku,
     num? price,
+
+    /// Unit cost for ads profit reporting; overrides product.cost when set.
+    num? cost,
     num? discount,
     num? stock,
     num? sold,

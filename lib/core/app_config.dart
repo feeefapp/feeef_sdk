@@ -218,6 +218,10 @@ class PaymentMethodConfig {
   final num? minAmount;
   final num? maxAmount;
 
+  /// Optional HTTPS image shown in the merchant deposit / checkout method list.
+  /// Set from admins.feeef.org → Payments. Falls back to a Material icon by key.
+  final String? iconUrl;
+
   PaymentMethodConfig({
     required this.name,
     required this.active,
@@ -227,6 +231,7 @@ class PaymentMethodConfig {
     this.exchangeRate,
     this.minAmount,
     this.maxAmount,
+    this.iconUrl,
   });
 
   factory PaymentMethodConfig.fromJson(Map<String, dynamic> json) {
@@ -241,6 +246,7 @@ class PaymentMethodConfig {
           : null,
       minAmount: json['minAmount'] != null ? (json['minAmount'] as num) : null,
       maxAmount: json['maxAmount'] != null ? (json['maxAmount'] as num) : null,
+      iconUrl: json['iconUrl'] as String?,
     );
   }
 
@@ -253,6 +259,7 @@ class PaymentMethodConfig {
     'exchangeRate': exchangeRate,
     'minAmount': minAmount,
     'maxAmount': maxAmount,
+    if (iconUrl != null) 'iconUrl': iconUrl,
   };
 }
 

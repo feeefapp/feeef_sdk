@@ -80,6 +80,9 @@ export 'stores/store_repository.dart';
 export 'geo/geo_api.dart';
 export 'stores/store_invites_repository.dart';
 export 'users/user_repository.dart';
+export 'users/account_phone.dart';
+export 'countries/models/country.dart';
+export 'countries/country_repository.dart';
 
 export 'packages/package_model.dart';
 export 'packages/packages_api.dart';

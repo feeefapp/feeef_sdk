@@ -1,0 +1,1689 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'order.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
+T _$identity<T>(T value) => value;
+
+/// @nodoc
+mixin _$Order {
+
+ String get id; DateTime get createdAt; DateTime get updatedAt;/// Optional schedule date. When set, the order appears on this date in lists.
+ DateTime? get scheduledAt;/// Server-computed COALESCE(scheduledAt, createdAt). Read-only.
+ DateTime? get effectiveAt; Map<String, dynamic> get metadata;/// Server-only fields (e.g. security treatment); not for client editing.
+ Map<String, dynamic>? get claims; List<String> get references; String? get customerName; String? get customerPhone; String? get customerEmail; String? get customerNote; String? get customerIp; String? get internalNote; String? get shippingAddress; String? get shippingCity; String? get shippingState; String? get shippingCountry; String? get shippingMethodId; String? get shippingNote; String? get trackingCode;/// Feeef Cloud carrier account (`ca_…`). Null until the order is shipped.
+/// Cleared when that Cloud parcel is deleted.
+ String? get carrierAccountId;/// Feeef Cloud parcel id (`pcl_…`). Null until the order is shipped.
+/// Cleared when that Cloud parcel is deleted.
+ String? get parcelId; String? get paymentMethodId;@JsonKey(fromJson: shippingTypeFromJson, toJson: shippingTypeToJson) ShippingType get shippingType; List<String> get tags; List<OrderItem> get items; num get subtotal; num? get shippingPrice;/// Per-parcel shipping stored at order time (one entry per courier
+/// account); null on older orders.
+@JsonKey(fromJson: shippingBreakdownFromJson, toJson: shippingBreakdownToJson) List<ShippingBreakdownEntry>? get shippingBreakdown; num get total; num get calculatedTotal; num? get manualTotal; num get discount; String? get coupon; String get storeId; String? get source; String? get confirmerId;/// Legacy, still sent by the API until the 2027-01-15 hard cut. Read the
+/// rooms fields ([room], [kind], [statusId], [closeAs]) instead.
+@Deprecated('Use room / kind / statusId / closeAs') OrderStatus get status; PaymentStatus get paymentStatus;@Deprecated('Use room / kind / closeAs') DeliveryStatus get deliveryStatus;@Deprecated('Use statusId / kind') String? get customStatus;/// Why the order was lost, recorded when it moves to a cancelling status.
+ String? get cancelReason;/// Opencod v1 fields (identical API names).
+ String? get statusId; String? get room; String? get kind; String? get closeAs; String? get cash; String? get stock; Map<String, dynamic>? get customFields;@JsonKey(fromJson: _storeFromJson, toJson: _storeToJson) Store? get store;@JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson) ShippingMethod? get shippingMethod;
+/// Create a copy of Order
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$OrderCopyWith<Order> get copyWith => _$OrderCopyWithImpl<Order>(this as Order, _$identity);
+
+  /// Serializes this Order to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as Order;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Order&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.scheduledAt, _this.scheduledAt) || other.scheduledAt == _this.scheduledAt)&&(identical(other.effectiveAt, _this.effectiveAt) || other.effectiveAt == _this.effectiveAt)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.claims, _this.claims)&&const DeepCollectionEquality().equals(other.references, _this.references)&&(identical(other.customerName, _this.customerName) || other.customerName == _this.customerName)&&(identical(other.customerPhone, _this.customerPhone) || other.customerPhone == _this.customerPhone)&&(identical(other.customerEmail, _this.customerEmail) || other.customerEmail == _this.customerEmail)&&(identical(other.customerNote, _this.customerNote) || other.customerNote == _this.customerNote)&&(identical(other.customerIp, _this.customerIp) || other.customerIp == _this.customerIp)&&(identical(other.internalNote, _this.internalNote) || other.internalNote == _this.internalNote)&&(identical(other.shippingAddress, _this.shippingAddress) || other.shippingAddress == _this.shippingAddress)&&(identical(other.shippingCity, _this.shippingCity) || other.shippingCity == _this.shippingCity)&&(identical(other.shippingState, _this.shippingState) || other.shippingState == _this.shippingState)&&(identical(other.shippingCountry, _this.shippingCountry) || other.shippingCountry == _this.shippingCountry)&&(identical(other.shippingMethodId, _this.shippingMethodId) || other.shippingMethodId == _this.shippingMethodId)&&(identical(other.shippingNote, _this.shippingNote) || other.shippingNote == _this.shippingNote)&&(identical(other.trackingCode, _this.trackingCode) || other.trackingCode == _this.trackingCode)&&(identical(other.carrierAccountId, _this.carrierAccountId) || other.carrierAccountId == _this.carrierAccountId)&&(identical(other.parcelId, _this.parcelId) || other.parcelId == _this.parcelId)&&(identical(other.paymentMethodId, _this.paymentMethodId) || other.paymentMethodId == _this.paymentMethodId)&&(identical(other.shippingType, _this.shippingType) || other.shippingType == _this.shippingType)&&const DeepCollectionEquality().equals(other.tags, _this.tags)&&const DeepCollectionEquality().equals(other.items, _this.items)&&(identical(other.subtotal, _this.subtotal) || other.subtotal == _this.subtotal)&&(identical(other.shippingPrice, _this.shippingPrice) || other.shippingPrice == _this.shippingPrice)&&const DeepCollectionEquality().equals(other.shippingBreakdown, _this.shippingBreakdown)&&(identical(other.total, _this.total) || other.total == _this.total)&&(identical(other.calculatedTotal, _this.calculatedTotal) || other.calculatedTotal == _this.calculatedTotal)&&(identical(other.manualTotal, _this.manualTotal) || other.manualTotal == _this.manualTotal)&&(identical(other.discount, _this.discount) || other.discount == _this.discount)&&(identical(other.coupon, _this.coupon) || other.coupon == _this.coupon)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.confirmerId, _this.confirmerId) || other.confirmerId == _this.confirmerId)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.paymentStatus, _this.paymentStatus) || other.paymentStatus == _this.paymentStatus)&&(identical(other.deliveryStatus, _this.deliveryStatus) || other.deliveryStatus == _this.deliveryStatus)&&(identical(other.customStatus, _this.customStatus) || other.customStatus == _this.customStatus)&&(identical(other.cancelReason, _this.cancelReason) || other.cancelReason == _this.cancelReason)&&(identical(other.statusId, _this.statusId) || other.statusId == _this.statusId)&&(identical(other.room, _this.room) || other.room == _this.room)&&(identical(other.kind, _this.kind) || other.kind == _this.kind)&&(identical(other.closeAs, _this.closeAs) || other.closeAs == _this.closeAs)&&(identical(other.cash, _this.cash) || other.cash == _this.cash)&&(identical(other.stock, _this.stock) || other.stock == _this.stock)&&const DeepCollectionEquality().equals(other.customFields, _this.customFields)&&(identical(other.store, _this.store) || other.store == _this.store)&&(identical(other.shippingMethod, _this.shippingMethod) || other.shippingMethod == _this.shippingMethod));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as Order;
+  return Object.hashAll([runtimeType,_this.id,_this.createdAt,_this.updatedAt,_this.scheduledAt,_this.effectiveAt,const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.claims),const DeepCollectionEquality().hash(_this.references),_this.customerName,_this.customerPhone,_this.customerEmail,_this.customerNote,_this.customerIp,_this.internalNote,_this.shippingAddress,_this.shippingCity,_this.shippingState,_this.shippingCountry,_this.shippingMethodId,_this.shippingNote,_this.trackingCode,_this.carrierAccountId,_this.parcelId,_this.paymentMethodId,_this.shippingType,const DeepCollectionEquality().hash(_this.tags),const DeepCollectionEquality().hash(_this.items),_this.subtotal,_this.shippingPrice,const DeepCollectionEquality().hash(_this.shippingBreakdown),_this.total,_this.calculatedTotal,_this.manualTotal,_this.discount,_this.coupon,_this.storeId,_this.source,_this.confirmerId,_this.status,_this.paymentStatus,_this.deliveryStatus,_this.customStatus,_this.cancelReason,_this.statusId,_this.room,_this.kind,_this.closeAs,_this.cash,_this.stock,const DeepCollectionEquality().hash(_this.customFields),_this.store,_this.shippingMethod]);
+}
+
+@override
+String toString() {
+  final _this = this as Order;
+  return 'Order(id: ${_this.id}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, scheduledAt: ${_this.scheduledAt}, effectiveAt: ${_this.effectiveAt}, metadata: ${_this.metadata}, claims: ${_this.claims}, references: ${_this.references}, customerName: ${_this.customerName}, customerPhone: ${_this.customerPhone}, customerEmail: ${_this.customerEmail}, customerNote: ${_this.customerNote}, customerIp: ${_this.customerIp}, internalNote: ${_this.internalNote}, shippingAddress: ${_this.shippingAddress}, shippingCity: ${_this.shippingCity}, shippingState: ${_this.shippingState}, shippingCountry: ${_this.shippingCountry}, shippingMethodId: ${_this.shippingMethodId}, shippingNote: ${_this.shippingNote}, trackingCode: ${_this.trackingCode}, carrierAccountId: ${_this.carrierAccountId}, parcelId: ${_this.parcelId}, paymentMethodId: ${_this.paymentMethodId}, shippingType: ${_this.shippingType}, tags: ${_this.tags}, items: ${_this.items}, subtotal: ${_this.subtotal}, shippingPrice: ${_this.shippingPrice}, shippingBreakdown: ${_this.shippingBreakdown}, total: ${_this.total}, calculatedTotal: ${_this.calculatedTotal}, manualTotal: ${_this.manualTotal}, discount: ${_this.discount}, coupon: ${_this.coupon}, storeId: ${_this.storeId}, source: ${_this.source}, confirmerId: ${_this.confirmerId}, status: ${_this.status}, paymentStatus: ${_this.paymentStatus}, deliveryStatus: ${_this.deliveryStatus}, customStatus: ${_this.customStatus}, cancelReason: ${_this.cancelReason}, statusId: ${_this.statusId}, room: ${_this.room}, kind: ${_this.kind}, closeAs: ${_this.closeAs}, cash: ${_this.cash}, stock: ${_this.stock}, customFields: ${_this.customFields}, store: ${_this.store}, shippingMethod: ${_this.shippingMethod})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $OrderCopyWith<$Res>  {
+  factory $OrderCopyWith(Order value, $Res Function(Order) _then) = _$OrderCopyWithImpl;
+@useResult
+$Res call({
+ String id, DateTime createdAt, DateTime updatedAt, DateTime? scheduledAt, DateTime? effectiveAt, Map<String, dynamic> metadata, Map<String, dynamic>? claims, List<String> references, String? customerName, String? customerPhone, String? customerEmail, String? customerNote, String? customerIp, String? internalNote, String? shippingAddress, String? shippingCity, String? shippingState, String? shippingCountry, String? shippingMethodId, String? shippingNote, String? trackingCode, String? carrierAccountId, String? parcelId, String? paymentMethodId,@JsonKey(fromJson: shippingTypeFromJson, toJson: shippingTypeToJson) ShippingType shippingType, List<String> tags, List<OrderItem> items, num subtotal, num? shippingPrice,@JsonKey(fromJson: shippingBreakdownFromJson, toJson: shippingBreakdownToJson) List<ShippingBreakdownEntry>? shippingBreakdown, num total, num calculatedTotal, num? manualTotal, num discount, String? coupon, String storeId, String? source, String? confirmerId,@Deprecated('Use room / kind / statusId / closeAs') OrderStatus status, PaymentStatus paymentStatus,@Deprecated('Use room / kind / closeAs') DeliveryStatus deliveryStatus,@Deprecated('Use statusId / kind') String? customStatus, String? cancelReason, String? statusId, String? room, String? kind, String? closeAs, String? cash, String? stock, Map<String, dynamic>? customFields,@JsonKey(fromJson: _storeFromJson, toJson: _storeToJson) Store? store,@JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson) ShippingMethod? shippingMethod
+});
+
+
+$StoreCopyWith<$Res>? get store;$ShippingMethodCopyWith<$Res>? get shippingMethod;
+
+}
+/// @nodoc
+class _$OrderCopyWithImpl<$Res>
+    implements $OrderCopyWith<$Res> {
+  _$OrderCopyWithImpl(this._self, this._then);
+
+  final Order _self;
+  final $Res Function(Order) _then;
+
+/// Create a copy of Order
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? scheduledAt = freezed,Object? effectiveAt = freezed,Object? metadata = null,Object? claims = freezed,Object? references = null,Object? customerName = freezed,Object? customerPhone = freezed,Object? customerEmail = freezed,Object? customerNote = freezed,Object? customerIp = freezed,Object? internalNote = freezed,Object? shippingAddress = freezed,Object? shippingCity = freezed,Object? shippingState = freezed,Object? shippingCountry = freezed,Object? shippingMethodId = freezed,Object? shippingNote = freezed,Object? trackingCode = freezed,Object? carrierAccountId = freezed,Object? parcelId = freezed,Object? paymentMethodId = freezed,Object? shippingType = null,Object? tags = null,Object? items = null,Object? subtotal = null,Object? shippingPrice = freezed,Object? shippingBreakdown = freezed,Object? total = null,Object? calculatedTotal = null,Object? manualTotal = freezed,Object? discount = null,Object? coupon = freezed,Object? storeId = null,Object? source = freezed,Object? confirmerId = freezed,Object? status = null,Object? paymentStatus = null,Object? deliveryStatus = null,Object? customStatus = freezed,Object? cancelReason = freezed,Object? statusId = freezed,Object? room = freezed,Object? kind = freezed,Object? closeAs = freezed,Object? cash = freezed,Object? stock = freezed,Object? customFields = freezed,Object? store = freezed,Object? shippingMethod = freezed,}) {
+  return _then(Order(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,scheduledAt: freezed == scheduledAt ? _self.scheduledAt : scheduledAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,effectiveAt: freezed == effectiveAt ? _self.effectiveAt : effectiveAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,claims: freezed == claims ? _self.claims : claims // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,references: null == references ? _self.references : references // ignore: cast_nullable_to_non_nullable
+as List<String>,customerName: freezed == customerName ? _self.customerName : customerName // ignore: cast_nullable_to_non_nullable
+as String?,customerPhone: freezed == customerPhone ? _self.customerPhone : customerPhone // ignore: cast_nullable_to_non_nullable
+as String?,customerEmail: freezed == customerEmail ? _self.customerEmail : customerEmail // ignore: cast_nullable_to_non_nullable
+as String?,customerNote: freezed == customerNote ? _self.customerNote : customerNote // ignore: cast_nullable_to_non_nullable
+as String?,customerIp: freezed == customerIp ? _self.customerIp : customerIp // ignore: cast_nullable_to_non_nullable
+as String?,internalNote: freezed == internalNote ? _self.internalNote : internalNote // ignore: cast_nullable_to_non_nullable
+as String?,shippingAddress: freezed == shippingAddress ? _self.shippingAddress : shippingAddress // ignore: cast_nullable_to_non_nullable
+as String?,shippingCity: freezed == shippingCity ? _self.shippingCity : shippingCity // ignore: cast_nullable_to_non_nullable
+as String?,shippingState: freezed == shippingState ? _self.shippingState : shippingState // ignore: cast_nullable_to_non_nullable
+as String?,shippingCountry: freezed == shippingCountry ? _self.shippingCountry : shippingCountry // ignore: cast_nullable_to_non_nullable
+as String?,shippingMethodId: freezed == shippingMethodId ? _self.shippingMethodId : shippingMethodId // ignore: cast_nullable_to_non_nullable
+as String?,shippingNote: freezed == shippingNote ? _self.shippingNote : shippingNote // ignore: cast_nullable_to_non_nullable
+as String?,trackingCode: freezed == trackingCode ? _self.trackingCode : trackingCode // ignore: cast_nullable_to_non_nullable
+as String?,carrierAccountId: freezed == carrierAccountId ? _self.carrierAccountId : carrierAccountId // ignore: cast_nullable_to_non_nullable
+as String?,parcelId: freezed == parcelId ? _self.parcelId : parcelId // ignore: cast_nullable_to_non_nullable
+as String?,paymentMethodId: freezed == paymentMethodId ? _self.paymentMethodId : paymentMethodId // ignore: cast_nullable_to_non_nullable
+as String?,shippingType: null == shippingType ? _self.shippingType : shippingType // ignore: cast_nullable_to_non_nullable
+as ShippingType,tags: null == tags ? _self.tags : tags // ignore: cast_nullable_to_non_nullable
+as List<String>,items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
+as List<OrderItem>,subtotal: null == subtotal ? _self.subtotal : subtotal // ignore: cast_nullable_to_non_nullable
+as num,shippingPrice: freezed == shippingPrice ? _self.shippingPrice : shippingPrice // ignore: cast_nullable_to_non_nullable
+as num?,shippingBreakdown: freezed == shippingBreakdown ? _self.shippingBreakdown : shippingBreakdown // ignore: cast_nullable_to_non_nullable
+as List<ShippingBreakdownEntry>?,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as num,calculatedTotal: null == calculatedTotal ? _self.calculatedTotal : calculatedTotal // ignore: cast_nullable_to_non_nullable
+as num,manualTotal: freezed == manualTotal ? _self.manualTotal : manualTotal // ignore: cast_nullable_to_non_nullable
+as num?,discount: null == discount ? _self.discount : discount // ignore: cast_nullable_to_non_nullable
+as num,coupon: freezed == coupon ? _self.coupon : coupon // ignore: cast_nullable_to_non_nullable
+as String?,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
+as String,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as String?,confirmerId: freezed == confirmerId ? _self.confirmerId : confirmerId // ignore: cast_nullable_to_non_nullable
+as String?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as OrderStatus,paymentStatus: null == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
+as PaymentStatus,deliveryStatus: null == deliveryStatus ? _self.deliveryStatus : deliveryStatus // ignore: cast_nullable_to_non_nullable
+as DeliveryStatus,customStatus: freezed == customStatus ? _self.customStatus : customStatus // ignore: cast_nullable_to_non_nullable
+as String?,cancelReason: freezed == cancelReason ? _self.cancelReason : cancelReason // ignore: cast_nullable_to_non_nullable
+as String?,statusId: freezed == statusId ? _self.statusId : statusId // ignore: cast_nullable_to_non_nullable
+as String?,room: freezed == room ? _self.room : room // ignore: cast_nullable_to_non_nullable
+as String?,kind: freezed == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
+as String?,closeAs: freezed == closeAs ? _self.closeAs : closeAs // ignore: cast_nullable_to_non_nullable
+as String?,cash: freezed == cash ? _self.cash : cash // ignore: cast_nullable_to_non_nullable
+as String?,stock: freezed == stock ? _self.stock : stock // ignore: cast_nullable_to_non_nullable
+as String?,customFields: freezed == customFields ? _self.customFields : customFields // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,store: freezed == store ? _self.store : store // ignore: cast_nullable_to_non_nullable
+as Store?,shippingMethod: freezed == shippingMethod ? _self.shippingMethod : shippingMethod // ignore: cast_nullable_to_non_nullable
+as ShippingMethod?,
+  ));
+}
+/// Create a copy of Order
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$StoreCopyWith<$Res>? get store {
+    if (_self.store == null) {
+    return null;
+  }
+
+  return $StoreCopyWith<$Res>(_self.store!, (value) {
+    return _then(_self.copyWith(store: value));
+  });
+}/// Create a copy of Order
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ShippingMethodCopyWith<$Res>? get shippingMethod {
+    if (_self.shippingMethod == null) {
+    return null;
+  }
+
+  return $ShippingMethodCopyWith<$Res>(_self.shippingMethod!, (value) {
+    return _then(_self.copyWith(shippingMethod: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [Order].
+extension OrderPatterns on Order {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Order value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Order() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Order value)  $default,){
+final _that = this;
+switch (_that) {
+case _Order():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Order value)?  $default,){
+final _that = this;
+switch (_that) {
+case _Order() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  DateTime? scheduledAt,  DateTime? effectiveAt,  Map<String, dynamic> metadata,  Map<String, dynamic>? claims,  List<String> references,  String? customerName,  String? customerPhone,  String? customerEmail,  String? customerNote,  String? customerIp,  String? internalNote,  String? shippingAddress,  String? shippingCity,  String? shippingState,  String? shippingCountry,  String? shippingMethodId,  String? shippingNote,  String? trackingCode,  String? carrierAccountId,  String? parcelId,  String? paymentMethodId, @JsonKey(fromJson: shippingTypeFromJson, toJson: shippingTypeToJson)  ShippingType shippingType,  List<String> tags,  List<OrderItem> items,  num subtotal,  num? shippingPrice, @JsonKey(fromJson: shippingBreakdownFromJson, toJson: shippingBreakdownToJson)  List<ShippingBreakdownEntry>? shippingBreakdown,  num total,  num calculatedTotal,  num? manualTotal,  num discount,  String? coupon,  String storeId,  String? source,  String? confirmerId, @Deprecated('Use room / kind / statusId / closeAs')  OrderStatus status,  PaymentStatus paymentStatus, @Deprecated('Use room / kind / closeAs')  DeliveryStatus deliveryStatus, @Deprecated('Use statusId / kind')  String? customStatus,  String? cancelReason,  String? statusId,  String? room,  String? kind,  String? closeAs,  String? cash,  String? stock,  Map<String, dynamic>? customFields, @JsonKey(fromJson: _storeFromJson, toJson: _storeToJson)  Store? store, @JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson)  ShippingMethod? shippingMethod)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Order() when $default != null:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.scheduledAt,_that.effectiveAt,_that.metadata,_that.claims,_that.references,_that.customerName,_that.customerPhone,_that.customerEmail,_that.customerNote,_that.customerIp,_that.internalNote,_that.shippingAddress,_that.shippingCity,_that.shippingState,_that.shippingCountry,_that.shippingMethodId,_that.shippingNote,_that.trackingCode,_that.carrierAccountId,_that.parcelId,_that.paymentMethodId,_that.shippingType,_that.tags,_that.items,_that.subtotal,_that.shippingPrice,_that.shippingBreakdown,_that.total,_that.calculatedTotal,_that.manualTotal,_that.discount,_that.coupon,_that.storeId,_that.source,_that.confirmerId,_that.status,_that.paymentStatus,_that.deliveryStatus,_that.customStatus,_that.cancelReason,_that.statusId,_that.room,_that.kind,_that.closeAs,_that.cash,_that.stock,_that.customFields,_that.store,_that.shippingMethod);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt,  DateTime updatedAt,  DateTime? scheduledAt,  DateTime? effectiveAt,  Map<String, dynamic> metadata,  Map<String, dynamic>? claims,  List<String> references,  String? customerName,  String? customerPhone,  String? customerEmail,  String? customerNote,  String? customerIp,  String? internalNote,  String? shippingAddress,  String? shippingCity,  String? shippingState,  String? shippingCountry,  String? shippingMethodId,  String? shippingNote,  String? trackingCode,  String? carrierAccountId,  String? parcelId,  String? paymentMethodId, @JsonKey(fromJson: shippingTypeFromJson, toJson: shippingTypeToJson)  ShippingType shippingType,  List<String> tags,  List<OrderItem> items,  num subtotal,  num? shippingPrice, @JsonKey(fromJson: shippingBreakdownFromJson, toJson: shippingBreakdownToJson)  List<ShippingBreakdownEntry>? shippingBreakdown,  num total,  num calculatedTotal,  num? manualTotal,  num discount,  String? coupon,  String storeId,  String? source,  String? confirmerId, @Deprecated('Use room / kind / statusId / closeAs')  OrderStatus status,  PaymentStatus paymentStatus, @Deprecated('Use room / kind / closeAs')  DeliveryStatus deliveryStatus, @Deprecated('Use statusId / kind')  String? customStatus,  String? cancelReason,  String? statusId,  String? room,  String? kind,  String? closeAs,  String? cash,  String? stock,  Map<String, dynamic>? customFields, @JsonKey(fromJson: _storeFromJson, toJson: _storeToJson)  Store? store, @JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson)  ShippingMethod? shippingMethod)  $default,) {final _that = this;
+switch (_that) {
+case _Order():
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.scheduledAt,_that.effectiveAt,_that.metadata,_that.claims,_that.references,_that.customerName,_that.customerPhone,_that.customerEmail,_that.customerNote,_that.customerIp,_that.internalNote,_that.shippingAddress,_that.shippingCity,_that.shippingState,_that.shippingCountry,_that.shippingMethodId,_that.shippingNote,_that.trackingCode,_that.carrierAccountId,_that.parcelId,_that.paymentMethodId,_that.shippingType,_that.tags,_that.items,_that.subtotal,_that.shippingPrice,_that.shippingBreakdown,_that.total,_that.calculatedTotal,_that.manualTotal,_that.discount,_that.coupon,_that.storeId,_that.source,_that.confirmerId,_that.status,_that.paymentStatus,_that.deliveryStatus,_that.customStatus,_that.cancelReason,_that.statusId,_that.room,_that.kind,_that.closeAs,_that.cash,_that.stock,_that.customFields,_that.store,_that.shippingMethod);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt,  DateTime updatedAt,  DateTime? scheduledAt,  DateTime? effectiveAt,  Map<String, dynamic> metadata,  Map<String, dynamic>? claims,  List<String> references,  String? customerName,  String? customerPhone,  String? customerEmail,  String? customerNote,  String? customerIp,  String? internalNote,  String? shippingAddress,  String? shippingCity,  String? shippingState,  String? shippingCountry,  String? shippingMethodId,  String? shippingNote,  String? trackingCode,  String? carrierAccountId,  String? parcelId,  String? paymentMethodId, @JsonKey(fromJson: shippingTypeFromJson, toJson: shippingTypeToJson)  ShippingType shippingType,  List<String> tags,  List<OrderItem> items,  num subtotal,  num? shippingPrice, @JsonKey(fromJson: shippingBreakdownFromJson, toJson: shippingBreakdownToJson)  List<ShippingBreakdownEntry>? shippingBreakdown,  num total,  num calculatedTotal,  num? manualTotal,  num discount,  String? coupon,  String storeId,  String? source,  String? confirmerId, @Deprecated('Use room / kind / statusId / closeAs')  OrderStatus status,  PaymentStatus paymentStatus, @Deprecated('Use room / kind / closeAs')  DeliveryStatus deliveryStatus, @Deprecated('Use statusId / kind')  String? customStatus,  String? cancelReason,  String? statusId,  String? room,  String? kind,  String? closeAs,  String? cash,  String? stock,  Map<String, dynamic>? customFields, @JsonKey(fromJson: _storeFromJson, toJson: _storeToJson)  Store? store, @JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson)  ShippingMethod? shippingMethod)?  $default,) {final _that = this;
+switch (_that) {
+case _Order() when $default != null:
+return $default(_that.id,_that.createdAt,_that.updatedAt,_that.scheduledAt,_that.effectiveAt,_that.metadata,_that.claims,_that.references,_that.customerName,_that.customerPhone,_that.customerEmail,_that.customerNote,_that.customerIp,_that.internalNote,_that.shippingAddress,_that.shippingCity,_that.shippingState,_that.shippingCountry,_that.shippingMethodId,_that.shippingNote,_that.trackingCode,_that.carrierAccountId,_that.parcelId,_that.paymentMethodId,_that.shippingType,_that.tags,_that.items,_that.subtotal,_that.shippingPrice,_that.shippingBreakdown,_that.total,_that.calculatedTotal,_that.manualTotal,_that.discount,_that.coupon,_that.storeId,_that.source,_that.confirmerId,_that.status,_that.paymentStatus,_that.deliveryStatus,_that.customStatus,_that.cancelReason,_that.statusId,_that.room,_that.kind,_that.closeAs,_that.cash,_that.stock,_that.customFields,_that.store,_that.shippingMethod);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _Order extends Order {
+   _Order({required this.id, required this.createdAt, required this.updatedAt, this.scheduledAt, this.effectiveAt,  Map<String, dynamic> metadata = const {},  Map<String, dynamic>? claims,  List<String> references = const [], this.customerName, this.customerPhone, this.customerEmail, this.customerNote, this.customerIp, this.internalNote, this.shippingAddress, this.shippingCity, this.shippingState, this.shippingCountry, this.shippingMethodId, this.shippingNote, this.trackingCode, this.carrierAccountId, this.parcelId, this.paymentMethodId, @JsonKey(fromJson: shippingTypeFromJson, toJson: shippingTypeToJson) this.shippingType = ShippingType.home,  List<String> tags = const [], required  List<OrderItem> items, required this.subtotal, this.shippingPrice, @JsonKey(fromJson: shippingBreakdownFromJson, toJson: shippingBreakdownToJson)  List<ShippingBreakdownEntry>? shippingBreakdown, required this.total, required this.calculatedTotal, this.manualTotal, this.discount = 0, this.coupon, required this.storeId, this.source, this.confirmerId, @Deprecated('Use room / kind / statusId / closeAs') this.status = OrderStatus.pending, this.paymentStatus = PaymentStatus.unpaid, @Deprecated('Use room / kind / closeAs') this.deliveryStatus = DeliveryStatus.pending, @Deprecated('Use statusId / kind') this.customStatus, this.cancelReason, this.statusId, this.room, this.kind, this.closeAs, this.cash, this.stock,  Map<String, dynamic>? customFields = const {}, @JsonKey(fromJson: _storeFromJson, toJson: _storeToJson) this.store, @JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson) this.shippingMethod}): _metadata = metadata,_claims = claims,_references = references,_tags = tags,_items = items,_shippingBreakdown = shippingBreakdown,_customFields = customFields,super._();
+  factory _Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
+
+@override final  String id;
+@override final  DateTime createdAt;
+@override final  DateTime updatedAt;
+/// Optional schedule date. When set, the order appears on this date in lists.
+@override final  DateTime? scheduledAt;
+/// Server-computed COALESCE(scheduledAt, createdAt). Read-only.
+@override final  DateTime? effectiveAt;
+ final  Map<String, dynamic> _metadata;
+@override@JsonKey() Map<String, dynamic> get metadata {
+  if (_metadata is EqualUnmodifiableMapView) return _metadata;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_metadata);
+}
+
+/// Server-only fields (e.g. security treatment); not for client editing.
+ final  Map<String, dynamic>? _claims;
+/// Server-only fields (e.g. security treatment); not for client editing.
+@override Map<String, dynamic>? get claims {
+  final value = _claims;
+  if (value == null) return null;
+  if (_claims is EqualUnmodifiableMapView) return _claims;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
+}
+
+ final  List<String> _references;
+@override@JsonKey() List<String> get references {
+  if (_references is EqualUnmodifiableListView) return _references;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_references);
+}
+
+@override final  String? customerName;
+@override final  String? customerPhone;
+@override final  String? customerEmail;
+@override final  String? customerNote;
+@override final  String? customerIp;
+@override final  String? internalNote;
+@override final  String? shippingAddress;
+@override final  String? shippingCity;
+@override final  String? shippingState;
+@override final  String? shippingCountry;
+@override final  String? shippingMethodId;
+@override final  String? shippingNote;
+@override final  String? trackingCode;
+/// Feeef Cloud carrier account (`ca_…`). Null until the order is shipped.
+/// Cleared when that Cloud parcel is deleted.
+@override final  String? carrierAccountId;
+/// Feeef Cloud parcel id (`pcl_…`). Null until the order is shipped.
+/// Cleared when that Cloud parcel is deleted.
+@override final  String? parcelId;
+@override final  String? paymentMethodId;
+@override@JsonKey(fromJson: shippingTypeFromJson, toJson: shippingTypeToJson) final  ShippingType shippingType;
+ final  List<String> _tags;
+@override@JsonKey() List<String> get tags {
+  if (_tags is EqualUnmodifiableListView) return _tags;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tags);
+}
+
+ final  List<OrderItem> _items;
+@override List<OrderItem> get items {
+  if (_items is EqualUnmodifiableListView) return _items;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_items);
+}
+
+@override final  num subtotal;
+@override final  num? shippingPrice;
+/// Per-parcel shipping stored at order time (one entry per courier
+/// account); null on older orders.
+ final  List<ShippingBreakdownEntry>? _shippingBreakdown;
+/// Per-parcel shipping stored at order time (one entry per courier
+/// account); null on older orders.
+@override@JsonKey(fromJson: shippingBreakdownFromJson, toJson: shippingBreakdownToJson) List<ShippingBreakdownEntry>? get shippingBreakdown {
+  final value = _shippingBreakdown;
+  if (value == null) return null;
+  if (_shippingBreakdown is EqualUnmodifiableListView) return _shippingBreakdown;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+@override final  num total;
+@override final  num calculatedTotal;
+@override final  num? manualTotal;
+@override@JsonKey() final  num discount;
+@override final  String? coupon;
+@override final  String storeId;
+@override final  String? source;
+@override final  String? confirmerId;
+/// Legacy, still sent by the API until the 2027-01-15 hard cut. Read the
+/// rooms fields ([room], [kind], [statusId], [closeAs]) instead.
+@override@JsonKey()@Deprecated('Use room / kind / statusId / closeAs') final  OrderStatus status;
+@override@JsonKey() final  PaymentStatus paymentStatus;
+@override@JsonKey()@Deprecated('Use room / kind / closeAs') final  DeliveryStatus deliveryStatus;
+@override@Deprecated('Use statusId / kind') final  String? customStatus;
+/// Why the order was lost, recorded when it moves to a cancelling status.
+@override final  String? cancelReason;
+/// Opencod v1 fields (identical API names).
+@override final  String? statusId;
+@override final  String? room;
+@override final  String? kind;
+@override final  String? closeAs;
+@override final  String? cash;
+@override final  String? stock;
+ final  Map<String, dynamic>? _customFields;
+@override@JsonKey() Map<String, dynamic>? get customFields {
+  final value = _customFields;
+  if (value == null) return null;
+  if (_customFields is EqualUnmodifiableMapView) return _customFields;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
+}
+
+@override@JsonKey(fromJson: _storeFromJson, toJson: _storeToJson) final  Store? store;
+@override@JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson) final  ShippingMethod? shippingMethod;
+
+/// Create a copy of Order
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$OrderCopyWith<_Order> get copyWith => __$OrderCopyWithImpl<_Order>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$OrderToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Order&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.scheduledAt, scheduledAt) || other.scheduledAt == scheduledAt)&&(identical(other.effectiveAt, effectiveAt) || other.effectiveAt == effectiveAt)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.claims, _claims)&&const DeepCollectionEquality().equals(other.references, _references)&&(identical(other.customerName, customerName) || other.customerName == customerName)&&(identical(other.customerPhone, customerPhone) || other.customerPhone == customerPhone)&&(identical(other.customerEmail, customerEmail) || other.customerEmail == customerEmail)&&(identical(other.customerNote, customerNote) || other.customerNote == customerNote)&&(identical(other.customerIp, customerIp) || other.customerIp == customerIp)&&(identical(other.internalNote, internalNote) || other.internalNote == internalNote)&&(identical(other.shippingAddress, shippingAddress) || other.shippingAddress == shippingAddress)&&(identical(other.shippingCity, shippingCity) || other.shippingCity == shippingCity)&&(identical(other.shippingState, shippingState) || other.shippingState == shippingState)&&(identical(other.shippingCountry, shippingCountry) || other.shippingCountry == shippingCountry)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.shippingNote, shippingNote) || other.shippingNote == shippingNote)&&(identical(other.trackingCode, trackingCode) || other.trackingCode == trackingCode)&&(identical(other.carrierAccountId, carrierAccountId) || other.carrierAccountId == carrierAccountId)&&(identical(other.parcelId, parcelId) || other.parcelId == parcelId)&&(identical(other.paymentMethodId, paymentMethodId) || other.paymentMethodId == paymentMethodId)&&(identical(other.shippingType, shippingType) || other.shippingType == shippingType)&&const DeepCollectionEquality().equals(other.tags, _tags)&&const DeepCollectionEquality().equals(other.items, _items)&&(identical(other.subtotal, subtotal) || other.subtotal == subtotal)&&(identical(other.shippingPrice, shippingPrice) || other.shippingPrice == shippingPrice)&&const DeepCollectionEquality().equals(other.shippingBreakdown, _shippingBreakdown)&&(identical(other.total, total) || other.total == total)&&(identical(other.calculatedTotal, calculatedTotal) || other.calculatedTotal == calculatedTotal)&&(identical(other.manualTotal, manualTotal) || other.manualTotal == manualTotal)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.coupon, coupon) || other.coupon == coupon)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.source, source) || other.source == source)&&(identical(other.confirmerId, confirmerId) || other.confirmerId == confirmerId)&&(identical(other.status, status) || other.status == status)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&(identical(other.deliveryStatus, deliveryStatus) || other.deliveryStatus == deliveryStatus)&&(identical(other.customStatus, customStatus) || other.customStatus == customStatus)&&(identical(other.cancelReason, cancelReason) || other.cancelReason == cancelReason)&&(identical(other.statusId, statusId) || other.statusId == statusId)&&(identical(other.room, room) || other.room == room)&&(identical(other.kind, kind) || other.kind == kind)&&(identical(other.closeAs, closeAs) || other.closeAs == closeAs)&&(identical(other.cash, cash) || other.cash == cash)&&(identical(other.stock, stock) || other.stock == stock)&&const DeepCollectionEquality().equals(other.customFields, _customFields)&&(identical(other.store, store) || other.store == store)&&(identical(other.shippingMethod, shippingMethod) || other.shippingMethod == shippingMethod));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hashAll([runtimeType,id,createdAt,updatedAt,scheduledAt,effectiveAt,const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_claims),const DeepCollectionEquality().hash(_references),customerName,customerPhone,customerEmail,customerNote,customerIp,internalNote,shippingAddress,shippingCity,shippingState,shippingCountry,shippingMethodId,shippingNote,trackingCode,carrierAccountId,parcelId,paymentMethodId,shippingType,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_items),subtotal,shippingPrice,const DeepCollectionEquality().hash(_shippingBreakdown),total,calculatedTotal,manualTotal,discount,coupon,storeId,source,confirmerId,status,paymentStatus,deliveryStatus,customStatus,cancelReason,statusId,room,kind,closeAs,cash,stock,const DeepCollectionEquality().hash(_customFields),store,shippingMethod]);
+}
+
+@override
+String toString() {
+    return 'Order(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, scheduledAt: $scheduledAt, effectiveAt: $effectiveAt, metadata: $metadata, claims: $claims, references: $references, customerName: $customerName, customerPhone: $customerPhone, customerEmail: $customerEmail, customerNote: $customerNote, customerIp: $customerIp, internalNote: $internalNote, shippingAddress: $shippingAddress, shippingCity: $shippingCity, shippingState: $shippingState, shippingCountry: $shippingCountry, shippingMethodId: $shippingMethodId, shippingNote: $shippingNote, trackingCode: $trackingCode, carrierAccountId: $carrierAccountId, parcelId: $parcelId, paymentMethodId: $paymentMethodId, shippingType: $shippingType, tags: $tags, items: $items, subtotal: $subtotal, shippingPrice: $shippingPrice, shippingBreakdown: $shippingBreakdown, total: $total, calculatedTotal: $calculatedTotal, manualTotal: $manualTotal, discount: $discount, coupon: $coupon, storeId: $storeId, source: $source, confirmerId: $confirmerId, status: $status, paymentStatus: $paymentStatus, deliveryStatus: $deliveryStatus, customStatus: $customStatus, cancelReason: $cancelReason, statusId: $statusId, room: $room, kind: $kind, closeAs: $closeAs, cash: $cash, stock: $stock, customFields: $customFields, store: $store, shippingMethod: $shippingMethod)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$OrderCopyWith<$Res> implements $OrderCopyWith<$Res> {
+  factory _$OrderCopyWith(_Order value, $Res Function(_Order) _then) = __$OrderCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, DateTime createdAt, DateTime updatedAt, DateTime? scheduledAt, DateTime? effectiveAt, Map<String, dynamic> metadata, Map<String, dynamic>? claims, List<String> references, String? customerName, String? customerPhone, String? customerEmail, String? customerNote, String? customerIp, String? internalNote, String? shippingAddress, String? shippingCity, String? shippingState, String? shippingCountry, String? shippingMethodId, String? shippingNote, String? trackingCode, String? carrierAccountId, String? parcelId, String? paymentMethodId,@JsonKey(fromJson: shippingTypeFromJson, toJson: shippingTypeToJson) ShippingType shippingType, List<String> tags, List<OrderItem> items, num subtotal, num? shippingPrice,@JsonKey(fromJson: shippingBreakdownFromJson, toJson: shippingBreakdownToJson) List<ShippingBreakdownEntry>? shippingBreakdown, num total, num calculatedTotal, num? manualTotal, num discount, String? coupon, String storeId, String? source, String? confirmerId,@Deprecated('Use room / kind / statusId / closeAs') OrderStatus status, PaymentStatus paymentStatus,@Deprecated('Use room / kind / closeAs') DeliveryStatus deliveryStatus,@Deprecated('Use statusId / kind') String? customStatus, String? cancelReason, String? statusId, String? room, String? kind, String? closeAs, String? cash, String? stock, Map<String, dynamic>? customFields,@JsonKey(fromJson: _storeFromJson, toJson: _storeToJson) Store? store,@JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson) ShippingMethod? shippingMethod
+});
+
+
+@override $StoreCopyWith<$Res>? get store;@override $ShippingMethodCopyWith<$Res>? get shippingMethod;
+
+}
+/// @nodoc
+class __$OrderCopyWithImpl<$Res>
+    implements _$OrderCopyWith<$Res> {
+  __$OrderCopyWithImpl(this._self, this._then);
+
+  final _Order _self;
+  final $Res Function(_Order) _then;
+
+/// Create a copy of Order
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? scheduledAt = freezed,Object? effectiveAt = freezed,Object? metadata = null,Object? claims = freezed,Object? references = null,Object? customerName = freezed,Object? customerPhone = freezed,Object? customerEmail = freezed,Object? customerNote = freezed,Object? customerIp = freezed,Object? internalNote = freezed,Object? shippingAddress = freezed,Object? shippingCity = freezed,Object? shippingState = freezed,Object? shippingCountry = freezed,Object? shippingMethodId = freezed,Object? shippingNote = freezed,Object? trackingCode = freezed,Object? carrierAccountId = freezed,Object? parcelId = freezed,Object? paymentMethodId = freezed,Object? shippingType = null,Object? tags = null,Object? items = null,Object? subtotal = null,Object? shippingPrice = freezed,Object? shippingBreakdown = freezed,Object? total = null,Object? calculatedTotal = null,Object? manualTotal = freezed,Object? discount = null,Object? coupon = freezed,Object? storeId = null,Object? source = freezed,Object? confirmerId = freezed,Object? status = null,Object? paymentStatus = null,Object? deliveryStatus = null,Object? customStatus = freezed,Object? cancelReason = freezed,Object? statusId = freezed,Object? room = freezed,Object? kind = freezed,Object? closeAs = freezed,Object? cash = freezed,Object? stock = freezed,Object? customFields = freezed,Object? store = freezed,Object? shippingMethod = freezed,}) {
+  return _then(_Order(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,scheduledAt: freezed == scheduledAt ? _self.scheduledAt : scheduledAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,effectiveAt: freezed == effectiveAt ? _self.effectiveAt : effectiveAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,claims: freezed == claims ? _self._claims : claims // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,references: null == references ? _self._references : references // ignore: cast_nullable_to_non_nullable
+as List<String>,customerName: freezed == customerName ? _self.customerName : customerName // ignore: cast_nullable_to_non_nullable
+as String?,customerPhone: freezed == customerPhone ? _self.customerPhone : customerPhone // ignore: cast_nullable_to_non_nullable
+as String?,customerEmail: freezed == customerEmail ? _self.customerEmail : customerEmail // ignore: cast_nullable_to_non_nullable
+as String?,customerNote: freezed == customerNote ? _self.customerNote : customerNote // ignore: cast_nullable_to_non_nullable
+as String?,customerIp: freezed == customerIp ? _self.customerIp : customerIp // ignore: cast_nullable_to_non_nullable
+as String?,internalNote: freezed == internalNote ? _self.internalNote : internalNote // ignore: cast_nullable_to_non_nullable
+as String?,shippingAddress: freezed == shippingAddress ? _self.shippingAddress : shippingAddress // ignore: cast_nullable_to_non_nullable
+as String?,shippingCity: freezed == shippingCity ? _self.shippingCity : shippingCity // ignore: cast_nullable_to_non_nullable
+as String?,shippingState: freezed == shippingState ? _self.shippingState : shippingState // ignore: cast_nullable_to_non_nullable
+as String?,shippingCountry: freezed == shippingCountry ? _self.shippingCountry : shippingCountry // ignore: cast_nullable_to_non_nullable
+as String?,shippingMethodId: freezed == shippingMethodId ? _self.shippingMethodId : shippingMethodId // ignore: cast_nullable_to_non_nullable
+as String?,shippingNote: freezed == shippingNote ? _self.shippingNote : shippingNote // ignore: cast_nullable_to_non_nullable
+as String?,trackingCode: freezed == trackingCode ? _self.trackingCode : trackingCode // ignore: cast_nullable_to_non_nullable
+as String?,carrierAccountId: freezed == carrierAccountId ? _self.carrierAccountId : carrierAccountId // ignore: cast_nullable_to_non_nullable
+as String?,parcelId: freezed == parcelId ? _self.parcelId : parcelId // ignore: cast_nullable_to_non_nullable
+as String?,paymentMethodId: freezed == paymentMethodId ? _self.paymentMethodId : paymentMethodId // ignore: cast_nullable_to_non_nullable
+as String?,shippingType: null == shippingType ? _self.shippingType : shippingType // ignore: cast_nullable_to_non_nullable
+as ShippingType,tags: null == tags ? _self._tags : tags // ignore: cast_nullable_to_non_nullable
+as List<String>,items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
+as List<OrderItem>,subtotal: null == subtotal ? _self.subtotal : subtotal // ignore: cast_nullable_to_non_nullable
+as num,shippingPrice: freezed == shippingPrice ? _self.shippingPrice : shippingPrice // ignore: cast_nullable_to_non_nullable
+as num?,shippingBreakdown: freezed == shippingBreakdown ? _self._shippingBreakdown : shippingBreakdown // ignore: cast_nullable_to_non_nullable
+as List<ShippingBreakdownEntry>?,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as num,calculatedTotal: null == calculatedTotal ? _self.calculatedTotal : calculatedTotal // ignore: cast_nullable_to_non_nullable
+as num,manualTotal: freezed == manualTotal ? _self.manualTotal : manualTotal // ignore: cast_nullable_to_non_nullable
+as num?,discount: null == discount ? _self.discount : discount // ignore: cast_nullable_to_non_nullable
+as num,coupon: freezed == coupon ? _self.coupon : coupon // ignore: cast_nullable_to_non_nullable
+as String?,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
+as String,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as String?,confirmerId: freezed == confirmerId ? _self.confirmerId : confirmerId // ignore: cast_nullable_to_non_nullable
+as String?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as OrderStatus,paymentStatus: null == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
+as PaymentStatus,deliveryStatus: null == deliveryStatus ? _self.deliveryStatus : deliveryStatus // ignore: cast_nullable_to_non_nullable
+as DeliveryStatus,customStatus: freezed == customStatus ? _self.customStatus : customStatus // ignore: cast_nullable_to_non_nullable
+as String?,cancelReason: freezed == cancelReason ? _self.cancelReason : cancelReason // ignore: cast_nullable_to_non_nullable
+as String?,statusId: freezed == statusId ? _self.statusId : statusId // ignore: cast_nullable_to_non_nullable
+as String?,room: freezed == room ? _self.room : room // ignore: cast_nullable_to_non_nullable
+as String?,kind: freezed == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
+as String?,closeAs: freezed == closeAs ? _self.closeAs : closeAs // ignore: cast_nullable_to_non_nullable
+as String?,cash: freezed == cash ? _self.cash : cash // ignore: cast_nullable_to_non_nullable
+as String?,stock: freezed == stock ? _self.stock : stock // ignore: cast_nullable_to_non_nullable
+as String?,customFields: freezed == customFields ? _self._customFields : customFields // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,store: freezed == store ? _self.store : store // ignore: cast_nullable_to_non_nullable
+as Store?,shippingMethod: freezed == shippingMethod ? _self.shippingMethod : shippingMethod // ignore: cast_nullable_to_non_nullable
+as ShippingMethod?,
+  ));
+}
+
+/// Create a copy of Order
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$StoreCopyWith<$Res>? get store {
+    if (_self.store == null) {
+    return null;
+  }
+
+  return $StoreCopyWith<$Res>(_self.store!, (value) {
+    return _then(_self.copyWith(store: value));
+  });
+}/// Create a copy of Order
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ShippingMethodCopyWith<$Res>? get shippingMethod {
+    if (_self.shippingMethod == null) {
+    return null;
+  }
+
+  return $ShippingMethodCopyWith<$Res>(_self.shippingMethod!, (value) {
+    return _then(_self.copyWith(shippingMethod: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$OrderCreate {
+
+ String? get id; String? get customerName; String? get shippingNote; String? get customerPhone; String? get customerEmail; String? get customerNote; String? get customerIp; String? get shippingAddress; String? get shippingCity; String? get shippingState; String? get shippingCountry;@JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) ShippingType? get shippingType; String? get shippingMethodId; String? get trackingCode; String? get paymentMethodId; List<OrderItem> get items; String? get internalNote; List<String>? get tags; num? get subtotal; num? get shippingPrice; num? get total; num? get manualTotal; num? get discount; String? get coupon; String get storeId; String? get source;/// Catalog status the order is created on (rooms model).
+ String? get statusId;/// Catalog slug / kind (e.g. `draft`, `new`, `confirmed`) when no id is known.
+ String? get statusSlug; PaymentStatus? get paymentStatus; Map<String, dynamic>? get customFields; Map<String, dynamic>? get metadata; List<String>? get references;/// Optional schedule date (ISO). Null via [setToNull] clears.
+ DateTime? get scheduledAt;
+/// Create a copy of OrderCreate
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$OrderCreateCopyWith<OrderCreate> get copyWith => _$OrderCreateCopyWithImpl<OrderCreate>(this as OrderCreate, _$identity);
+
+  /// Serializes this OrderCreate to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as OrderCreate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderCreate&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.customerName, _this.customerName) || other.customerName == _this.customerName)&&(identical(other.shippingNote, _this.shippingNote) || other.shippingNote == _this.shippingNote)&&(identical(other.customerPhone, _this.customerPhone) || other.customerPhone == _this.customerPhone)&&(identical(other.customerEmail, _this.customerEmail) || other.customerEmail == _this.customerEmail)&&(identical(other.customerNote, _this.customerNote) || other.customerNote == _this.customerNote)&&(identical(other.customerIp, _this.customerIp) || other.customerIp == _this.customerIp)&&(identical(other.shippingAddress, _this.shippingAddress) || other.shippingAddress == _this.shippingAddress)&&(identical(other.shippingCity, _this.shippingCity) || other.shippingCity == _this.shippingCity)&&(identical(other.shippingState, _this.shippingState) || other.shippingState == _this.shippingState)&&(identical(other.shippingCountry, _this.shippingCountry) || other.shippingCountry == _this.shippingCountry)&&(identical(other.shippingType, _this.shippingType) || other.shippingType == _this.shippingType)&&(identical(other.shippingMethodId, _this.shippingMethodId) || other.shippingMethodId == _this.shippingMethodId)&&(identical(other.trackingCode, _this.trackingCode) || other.trackingCode == _this.trackingCode)&&(identical(other.paymentMethodId, _this.paymentMethodId) || other.paymentMethodId == _this.paymentMethodId)&&const DeepCollectionEquality().equals(other.items, _this.items)&&(identical(other.internalNote, _this.internalNote) || other.internalNote == _this.internalNote)&&const DeepCollectionEquality().equals(other.tags, _this.tags)&&(identical(other.subtotal, _this.subtotal) || other.subtotal == _this.subtotal)&&(identical(other.shippingPrice, _this.shippingPrice) || other.shippingPrice == _this.shippingPrice)&&(identical(other.total, _this.total) || other.total == _this.total)&&(identical(other.manualTotal, _this.manualTotal) || other.manualTotal == _this.manualTotal)&&(identical(other.discount, _this.discount) || other.discount == _this.discount)&&(identical(other.coupon, _this.coupon) || other.coupon == _this.coupon)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.statusId, _this.statusId) || other.statusId == _this.statusId)&&(identical(other.statusSlug, _this.statusSlug) || other.statusSlug == _this.statusSlug)&&(identical(other.paymentStatus, _this.paymentStatus) || other.paymentStatus == _this.paymentStatus)&&const DeepCollectionEquality().equals(other.customFields, _this.customFields)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.references, _this.references)&&(identical(other.scheduledAt, _this.scheduledAt) || other.scheduledAt == _this.scheduledAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as OrderCreate;
+  return Object.hashAll([runtimeType,_this.id,_this.customerName,_this.shippingNote,_this.customerPhone,_this.customerEmail,_this.customerNote,_this.customerIp,_this.shippingAddress,_this.shippingCity,_this.shippingState,_this.shippingCountry,_this.shippingType,_this.shippingMethodId,_this.trackingCode,_this.paymentMethodId,const DeepCollectionEquality().hash(_this.items),_this.internalNote,const DeepCollectionEquality().hash(_this.tags),_this.subtotal,_this.shippingPrice,_this.total,_this.manualTotal,_this.discount,_this.coupon,_this.storeId,_this.source,_this.statusId,_this.statusSlug,_this.paymentStatus,const DeepCollectionEquality().hash(_this.customFields),const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.references),_this.scheduledAt]);
+}
+
+@override
+String toString() {
+  final _this = this as OrderCreate;
+  return 'OrderCreate(id: ${_this.id}, customerName: ${_this.customerName}, shippingNote: ${_this.shippingNote}, customerPhone: ${_this.customerPhone}, customerEmail: ${_this.customerEmail}, customerNote: ${_this.customerNote}, customerIp: ${_this.customerIp}, shippingAddress: ${_this.shippingAddress}, shippingCity: ${_this.shippingCity}, shippingState: ${_this.shippingState}, shippingCountry: ${_this.shippingCountry}, shippingType: ${_this.shippingType}, shippingMethodId: ${_this.shippingMethodId}, trackingCode: ${_this.trackingCode}, paymentMethodId: ${_this.paymentMethodId}, items: ${_this.items}, internalNote: ${_this.internalNote}, tags: ${_this.tags}, subtotal: ${_this.subtotal}, shippingPrice: ${_this.shippingPrice}, total: ${_this.total}, manualTotal: ${_this.manualTotal}, discount: ${_this.discount}, coupon: ${_this.coupon}, storeId: ${_this.storeId}, source: ${_this.source}, statusId: ${_this.statusId}, statusSlug: ${_this.statusSlug}, paymentStatus: ${_this.paymentStatus}, customFields: ${_this.customFields}, metadata: ${_this.metadata}, references: ${_this.references}, scheduledAt: ${_this.scheduledAt})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $OrderCreateCopyWith<$Res>  {
+  factory $OrderCreateCopyWith(OrderCreate value, $Res Function(OrderCreate) _then) = _$OrderCreateCopyWithImpl;
+@useResult
+$Res call({
+ String? id, String? customerName, String? shippingNote, String? customerPhone, String? customerEmail, String? customerNote, String? customerIp, String? shippingAddress, String? shippingCity, String? shippingState, String? shippingCountry,@JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) ShippingType? shippingType, String? shippingMethodId, String? trackingCode, String? paymentMethodId, List<OrderItem> items, String? internalNote, List<String>? tags, num? subtotal, num? shippingPrice, num? total, num? manualTotal, num? discount, String? coupon, String storeId, String? source, String? statusId, String? statusSlug, PaymentStatus? paymentStatus, Map<String, dynamic>? customFields, Map<String, dynamic>? metadata, List<String>? references, DateTime? scheduledAt
+});
+
+
+
+
+}
+/// @nodoc
+class _$OrderCreateCopyWithImpl<$Res>
+    implements $OrderCreateCopyWith<$Res> {
+  _$OrderCreateCopyWithImpl(this._self, this._then);
+
+  final OrderCreate _self;
+  final $Res Function(OrderCreate) _then;
+
+/// Create a copy of OrderCreate
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? customerName = freezed,Object? shippingNote = freezed,Object? customerPhone = freezed,Object? customerEmail = freezed,Object? customerNote = freezed,Object? customerIp = freezed,Object? shippingAddress = freezed,Object? shippingCity = freezed,Object? shippingState = freezed,Object? shippingCountry = freezed,Object? shippingType = freezed,Object? shippingMethodId = freezed,Object? trackingCode = freezed,Object? paymentMethodId = freezed,Object? items = null,Object? internalNote = freezed,Object? tags = freezed,Object? subtotal = freezed,Object? shippingPrice = freezed,Object? total = freezed,Object? manualTotal = freezed,Object? discount = freezed,Object? coupon = freezed,Object? storeId = null,Object? source = freezed,Object? statusId = freezed,Object? statusSlug = freezed,Object? paymentStatus = freezed,Object? customFields = freezed,Object? metadata = freezed,Object? references = freezed,Object? scheduledAt = freezed,}) {
+  return _then(OrderCreate(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,customerName: freezed == customerName ? _self.customerName : customerName // ignore: cast_nullable_to_non_nullable
+as String?,shippingNote: freezed == shippingNote ? _self.shippingNote : shippingNote // ignore: cast_nullable_to_non_nullable
+as String?,customerPhone: freezed == customerPhone ? _self.customerPhone : customerPhone // ignore: cast_nullable_to_non_nullable
+as String?,customerEmail: freezed == customerEmail ? _self.customerEmail : customerEmail // ignore: cast_nullable_to_non_nullable
+as String?,customerNote: freezed == customerNote ? _self.customerNote : customerNote // ignore: cast_nullable_to_non_nullable
+as String?,customerIp: freezed == customerIp ? _self.customerIp : customerIp // ignore: cast_nullable_to_non_nullable
+as String?,shippingAddress: freezed == shippingAddress ? _self.shippingAddress : shippingAddress // ignore: cast_nullable_to_non_nullable
+as String?,shippingCity: freezed == shippingCity ? _self.shippingCity : shippingCity // ignore: cast_nullable_to_non_nullable
+as String?,shippingState: freezed == shippingState ? _self.shippingState : shippingState // ignore: cast_nullable_to_non_nullable
+as String?,shippingCountry: freezed == shippingCountry ? _self.shippingCountry : shippingCountry // ignore: cast_nullable_to_non_nullable
+as String?,shippingType: freezed == shippingType ? _self.shippingType : shippingType // ignore: cast_nullable_to_non_nullable
+as ShippingType?,shippingMethodId: freezed == shippingMethodId ? _self.shippingMethodId : shippingMethodId // ignore: cast_nullable_to_non_nullable
+as String?,trackingCode: freezed == trackingCode ? _self.trackingCode : trackingCode // ignore: cast_nullable_to_non_nullable
+as String?,paymentMethodId: freezed == paymentMethodId ? _self.paymentMethodId : paymentMethodId // ignore: cast_nullable_to_non_nullable
+as String?,items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
+as List<OrderItem>,internalNote: freezed == internalNote ? _self.internalNote : internalNote // ignore: cast_nullable_to_non_nullable
+as String?,tags: freezed == tags ? _self.tags : tags // ignore: cast_nullable_to_non_nullable
+as List<String>?,subtotal: freezed == subtotal ? _self.subtotal : subtotal // ignore: cast_nullable_to_non_nullable
+as num?,shippingPrice: freezed == shippingPrice ? _self.shippingPrice : shippingPrice // ignore: cast_nullable_to_non_nullable
+as num?,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as num?,manualTotal: freezed == manualTotal ? _self.manualTotal : manualTotal // ignore: cast_nullable_to_non_nullable
+as num?,discount: freezed == discount ? _self.discount : discount // ignore: cast_nullable_to_non_nullable
+as num?,coupon: freezed == coupon ? _self.coupon : coupon // ignore: cast_nullable_to_non_nullable
+as String?,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
+as String,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as String?,statusId: freezed == statusId ? _self.statusId : statusId // ignore: cast_nullable_to_non_nullable
+as String?,statusSlug: freezed == statusSlug ? _self.statusSlug : statusSlug // ignore: cast_nullable_to_non_nullable
+as String?,paymentStatus: freezed == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
+as PaymentStatus?,customFields: freezed == customFields ? _self.customFields : customFields // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,references: freezed == references ? _self.references : references // ignore: cast_nullable_to_non_nullable
+as List<String>?,scheduledAt: freezed == scheduledAt ? _self.scheduledAt : scheduledAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [OrderCreate].
+extension OrderCreatePatterns on OrderCreate {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _OrderCreate value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _OrderCreate() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _OrderCreate value)  $default,){
+final _that = this;
+switch (_that) {
+case _OrderCreate():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _OrderCreate value)?  $default,){
+final _that = this;
+switch (_that) {
+case _OrderCreate() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? customerName,  String? shippingNote,  String? customerPhone,  String? customerEmail,  String? customerNote,  String? customerIp,  String? shippingAddress,  String? shippingCity,  String? shippingState,  String? shippingCountry, @JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson)  ShippingType? shippingType,  String? shippingMethodId,  String? trackingCode,  String? paymentMethodId,  List<OrderItem> items,  String? internalNote,  List<String>? tags,  num? subtotal,  num? shippingPrice,  num? total,  num? manualTotal,  num? discount,  String? coupon,  String storeId,  String? source,  String? statusId,  String? statusSlug,  PaymentStatus? paymentStatus,  Map<String, dynamic>? customFields,  Map<String, dynamic>? metadata,  List<String>? references,  DateTime? scheduledAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _OrderCreate() when $default != null:
+return $default(_that.id,_that.customerName,_that.shippingNote,_that.customerPhone,_that.customerEmail,_that.customerNote,_that.customerIp,_that.shippingAddress,_that.shippingCity,_that.shippingState,_that.shippingCountry,_that.shippingType,_that.shippingMethodId,_that.trackingCode,_that.paymentMethodId,_that.items,_that.internalNote,_that.tags,_that.subtotal,_that.shippingPrice,_that.total,_that.manualTotal,_that.discount,_that.coupon,_that.storeId,_that.source,_that.statusId,_that.statusSlug,_that.paymentStatus,_that.customFields,_that.metadata,_that.references,_that.scheduledAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? customerName,  String? shippingNote,  String? customerPhone,  String? customerEmail,  String? customerNote,  String? customerIp,  String? shippingAddress,  String? shippingCity,  String? shippingState,  String? shippingCountry, @JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson)  ShippingType? shippingType,  String? shippingMethodId,  String? trackingCode,  String? paymentMethodId,  List<OrderItem> items,  String? internalNote,  List<String>? tags,  num? subtotal,  num? shippingPrice,  num? total,  num? manualTotal,  num? discount,  String? coupon,  String storeId,  String? source,  String? statusId,  String? statusSlug,  PaymentStatus? paymentStatus,  Map<String, dynamic>? customFields,  Map<String, dynamic>? metadata,  List<String>? references,  DateTime? scheduledAt)  $default,) {final _that = this;
+switch (_that) {
+case _OrderCreate():
+return $default(_that.id,_that.customerName,_that.shippingNote,_that.customerPhone,_that.customerEmail,_that.customerNote,_that.customerIp,_that.shippingAddress,_that.shippingCity,_that.shippingState,_that.shippingCountry,_that.shippingType,_that.shippingMethodId,_that.trackingCode,_that.paymentMethodId,_that.items,_that.internalNote,_that.tags,_that.subtotal,_that.shippingPrice,_that.total,_that.manualTotal,_that.discount,_that.coupon,_that.storeId,_that.source,_that.statusId,_that.statusSlug,_that.paymentStatus,_that.customFields,_that.metadata,_that.references,_that.scheduledAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? customerName,  String? shippingNote,  String? customerPhone,  String? customerEmail,  String? customerNote,  String? customerIp,  String? shippingAddress,  String? shippingCity,  String? shippingState,  String? shippingCountry, @JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson)  ShippingType? shippingType,  String? shippingMethodId,  String? trackingCode,  String? paymentMethodId,  List<OrderItem> items,  String? internalNote,  List<String>? tags,  num? subtotal,  num? shippingPrice,  num? total,  num? manualTotal,  num? discount,  String? coupon,  String storeId,  String? source,  String? statusId,  String? statusSlug,  PaymentStatus? paymentStatus,  Map<String, dynamic>? customFields,  Map<String, dynamic>? metadata,  List<String>? references,  DateTime? scheduledAt)?  $default,) {final _that = this;
+switch (_that) {
+case _OrderCreate() when $default != null:
+return $default(_that.id,_that.customerName,_that.shippingNote,_that.customerPhone,_that.customerEmail,_that.customerNote,_that.customerIp,_that.shippingAddress,_that.shippingCity,_that.shippingState,_that.shippingCountry,_that.shippingType,_that.shippingMethodId,_that.trackingCode,_that.paymentMethodId,_that.items,_that.internalNote,_that.tags,_that.subtotal,_that.shippingPrice,_that.total,_that.manualTotal,_that.discount,_that.coupon,_that.storeId,_that.source,_that.statusId,_that.statusSlug,_that.paymentStatus,_that.customFields,_that.metadata,_that.references,_that.scheduledAt);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _OrderCreate implements OrderCreate {
+  const _OrderCreate({this.id, this.customerName, this.shippingNote, this.customerPhone, this.customerEmail, this.customerNote, this.customerIp, this.shippingAddress, this.shippingCity, this.shippingState, this.shippingCountry, @JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) this.shippingType, this.shippingMethodId, this.trackingCode, this.paymentMethodId, required  List<OrderItem> items, this.internalNote,  List<String>? tags, this.subtotal, this.shippingPrice, this.total, this.manualTotal, this.discount, this.coupon, required this.storeId, this.source, this.statusId, this.statusSlug, this.paymentStatus,  Map<String, dynamic>? customFields,  Map<String, dynamic>? metadata,  List<String>? references, this.scheduledAt}): _items = items,_tags = tags,_customFields = customFields,_metadata = metadata,_references = references;
+  factory _OrderCreate.fromJson(Map<String, dynamic> json) => _$OrderCreateFromJson(json);
+
+@override final  String? id;
+@override final  String? customerName;
+@override final  String? shippingNote;
+@override final  String? customerPhone;
+@override final  String? customerEmail;
+@override final  String? customerNote;
+@override final  String? customerIp;
+@override final  String? shippingAddress;
+@override final  String? shippingCity;
+@override final  String? shippingState;
+@override final  String? shippingCountry;
+@override@JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) final  ShippingType? shippingType;
+@override final  String? shippingMethodId;
+@override final  String? trackingCode;
+@override final  String? paymentMethodId;
+ final  List<OrderItem> _items;
+@override List<OrderItem> get items {
+  if (_items is EqualUnmodifiableListView) return _items;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_items);
+}
+
+@override final  String? internalNote;
+ final  List<String>? _tags;
+@override List<String>? get tags {
+  final value = _tags;
+  if (value == null) return null;
+  if (_tags is EqualUnmodifiableListView) return _tags;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+@override final  num? subtotal;
+@override final  num? shippingPrice;
+@override final  num? total;
+@override final  num? manualTotal;
+@override final  num? discount;
+@override final  String? coupon;
+@override final  String storeId;
+@override final  String? source;
+/// Catalog status the order is created on (rooms model).
+@override final  String? statusId;
+/// Catalog slug / kind (e.g. `draft`, `new`, `confirmed`) when no id is known.
+@override final  String? statusSlug;
+@override final  PaymentStatus? paymentStatus;
+ final  Map<String, dynamic>? _customFields;
+@override Map<String, dynamic>? get customFields {
+  final value = _customFields;
+  if (value == null) return null;
+  if (_customFields is EqualUnmodifiableMapView) return _customFields;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
+}
+
+ final  Map<String, dynamic>? _metadata;
+@override Map<String, dynamic>? get metadata {
+  final value = _metadata;
+  if (value == null) return null;
+  if (_metadata is EqualUnmodifiableMapView) return _metadata;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
+}
+
+ final  List<String>? _references;
+@override List<String>? get references {
+  final value = _references;
+  if (value == null) return null;
+  if (_references is EqualUnmodifiableListView) return _references;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+/// Optional schedule date (ISO). Null via [setToNull] clears.
+@override final  DateTime? scheduledAt;
+
+/// Create a copy of OrderCreate
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$OrderCreateCopyWith<_OrderCreate> get copyWith => __$OrderCreateCopyWithImpl<_OrderCreate>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$OrderCreateToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderCreate&&(identical(other.id, id) || other.id == id)&&(identical(other.customerName, customerName) || other.customerName == customerName)&&(identical(other.shippingNote, shippingNote) || other.shippingNote == shippingNote)&&(identical(other.customerPhone, customerPhone) || other.customerPhone == customerPhone)&&(identical(other.customerEmail, customerEmail) || other.customerEmail == customerEmail)&&(identical(other.customerNote, customerNote) || other.customerNote == customerNote)&&(identical(other.customerIp, customerIp) || other.customerIp == customerIp)&&(identical(other.shippingAddress, shippingAddress) || other.shippingAddress == shippingAddress)&&(identical(other.shippingCity, shippingCity) || other.shippingCity == shippingCity)&&(identical(other.shippingState, shippingState) || other.shippingState == shippingState)&&(identical(other.shippingCountry, shippingCountry) || other.shippingCountry == shippingCountry)&&(identical(other.shippingType, shippingType) || other.shippingType == shippingType)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.trackingCode, trackingCode) || other.trackingCode == trackingCode)&&(identical(other.paymentMethodId, paymentMethodId) || other.paymentMethodId == paymentMethodId)&&const DeepCollectionEquality().equals(other.items, _items)&&(identical(other.internalNote, internalNote) || other.internalNote == internalNote)&&const DeepCollectionEquality().equals(other.tags, _tags)&&(identical(other.subtotal, subtotal) || other.subtotal == subtotal)&&(identical(other.shippingPrice, shippingPrice) || other.shippingPrice == shippingPrice)&&(identical(other.total, total) || other.total == total)&&(identical(other.manualTotal, manualTotal) || other.manualTotal == manualTotal)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.coupon, coupon) || other.coupon == coupon)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.source, source) || other.source == source)&&(identical(other.statusId, statusId) || other.statusId == statusId)&&(identical(other.statusSlug, statusSlug) || other.statusSlug == statusSlug)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&const DeepCollectionEquality().equals(other.customFields, _customFields)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.references, _references)&&(identical(other.scheduledAt, scheduledAt) || other.scheduledAt == scheduledAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hashAll([runtimeType,id,customerName,shippingNote,customerPhone,customerEmail,customerNote,customerIp,shippingAddress,shippingCity,shippingState,shippingCountry,shippingType,shippingMethodId,trackingCode,paymentMethodId,const DeepCollectionEquality().hash(_items),internalNote,const DeepCollectionEquality().hash(_tags),subtotal,shippingPrice,total,manualTotal,discount,coupon,storeId,source,statusId,statusSlug,paymentStatus,const DeepCollectionEquality().hash(_customFields),const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_references),scheduledAt]);
+}
+
+@override
+String toString() {
+    return 'OrderCreate(id: $id, customerName: $customerName, shippingNote: $shippingNote, customerPhone: $customerPhone, customerEmail: $customerEmail, customerNote: $customerNote, customerIp: $customerIp, shippingAddress: $shippingAddress, shippingCity: $shippingCity, shippingState: $shippingState, shippingCountry: $shippingCountry, shippingType: $shippingType, shippingMethodId: $shippingMethodId, trackingCode: $trackingCode, paymentMethodId: $paymentMethodId, items: $items, internalNote: $internalNote, tags: $tags, subtotal: $subtotal, shippingPrice: $shippingPrice, total: $total, manualTotal: $manualTotal, discount: $discount, coupon: $coupon, storeId: $storeId, source: $source, statusId: $statusId, statusSlug: $statusSlug, paymentStatus: $paymentStatus, customFields: $customFields, metadata: $metadata, references: $references, scheduledAt: $scheduledAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$OrderCreateCopyWith<$Res> implements $OrderCreateCopyWith<$Res> {
+  factory _$OrderCreateCopyWith(_OrderCreate value, $Res Function(_OrderCreate) _then) = __$OrderCreateCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, String? customerName, String? shippingNote, String? customerPhone, String? customerEmail, String? customerNote, String? customerIp, String? shippingAddress, String? shippingCity, String? shippingState, String? shippingCountry,@JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) ShippingType? shippingType, String? shippingMethodId, String? trackingCode, String? paymentMethodId, List<OrderItem> items, String? internalNote, List<String>? tags, num? subtotal, num? shippingPrice, num? total, num? manualTotal, num? discount, String? coupon, String storeId, String? source, String? statusId, String? statusSlug, PaymentStatus? paymentStatus, Map<String, dynamic>? customFields, Map<String, dynamic>? metadata, List<String>? references, DateTime? scheduledAt
+});
+
+
+
+
+}
+/// @nodoc
+class __$OrderCreateCopyWithImpl<$Res>
+    implements _$OrderCreateCopyWith<$Res> {
+  __$OrderCreateCopyWithImpl(this._self, this._then);
+
+  final _OrderCreate _self;
+  final $Res Function(_OrderCreate) _then;
+
+/// Create a copy of OrderCreate
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? customerName = freezed,Object? shippingNote = freezed,Object? customerPhone = freezed,Object? customerEmail = freezed,Object? customerNote = freezed,Object? customerIp = freezed,Object? shippingAddress = freezed,Object? shippingCity = freezed,Object? shippingState = freezed,Object? shippingCountry = freezed,Object? shippingType = freezed,Object? shippingMethodId = freezed,Object? trackingCode = freezed,Object? paymentMethodId = freezed,Object? items = null,Object? internalNote = freezed,Object? tags = freezed,Object? subtotal = freezed,Object? shippingPrice = freezed,Object? total = freezed,Object? manualTotal = freezed,Object? discount = freezed,Object? coupon = freezed,Object? storeId = null,Object? source = freezed,Object? statusId = freezed,Object? statusSlug = freezed,Object? paymentStatus = freezed,Object? customFields = freezed,Object? metadata = freezed,Object? references = freezed,Object? scheduledAt = freezed,}) {
+  return _then(_OrderCreate(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,customerName: freezed == customerName ? _self.customerName : customerName // ignore: cast_nullable_to_non_nullable
+as String?,shippingNote: freezed == shippingNote ? _self.shippingNote : shippingNote // ignore: cast_nullable_to_non_nullable
+as String?,customerPhone: freezed == customerPhone ? _self.customerPhone : customerPhone // ignore: cast_nullable_to_non_nullable
+as String?,customerEmail: freezed == customerEmail ? _self.customerEmail : customerEmail // ignore: cast_nullable_to_non_nullable
+as String?,customerNote: freezed == customerNote ? _self.customerNote : customerNote // ignore: cast_nullable_to_non_nullable
+as String?,customerIp: freezed == customerIp ? _self.customerIp : customerIp // ignore: cast_nullable_to_non_nullable
+as String?,shippingAddress: freezed == shippingAddress ? _self.shippingAddress : shippingAddress // ignore: cast_nullable_to_non_nullable
+as String?,shippingCity: freezed == shippingCity ? _self.shippingCity : shippingCity // ignore: cast_nullable_to_non_nullable
+as String?,shippingState: freezed == shippingState ? _self.shippingState : shippingState // ignore: cast_nullable_to_non_nullable
+as String?,shippingCountry: freezed == shippingCountry ? _self.shippingCountry : shippingCountry // ignore: cast_nullable_to_non_nullable
+as String?,shippingType: freezed == shippingType ? _self.shippingType : shippingType // ignore: cast_nullable_to_non_nullable
+as ShippingType?,shippingMethodId: freezed == shippingMethodId ? _self.shippingMethodId : shippingMethodId // ignore: cast_nullable_to_non_nullable
+as String?,trackingCode: freezed == trackingCode ? _self.trackingCode : trackingCode // ignore: cast_nullable_to_non_nullable
+as String?,paymentMethodId: freezed == paymentMethodId ? _self.paymentMethodId : paymentMethodId // ignore: cast_nullable_to_non_nullable
+as String?,items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
+as List<OrderItem>,internalNote: freezed == internalNote ? _self.internalNote : internalNote // ignore: cast_nullable_to_non_nullable
+as String?,tags: freezed == tags ? _self._tags : tags // ignore: cast_nullable_to_non_nullable
+as List<String>?,subtotal: freezed == subtotal ? _self.subtotal : subtotal // ignore: cast_nullable_to_non_nullable
+as num?,shippingPrice: freezed == shippingPrice ? _self.shippingPrice : shippingPrice // ignore: cast_nullable_to_non_nullable
+as num?,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as num?,manualTotal: freezed == manualTotal ? _self.manualTotal : manualTotal // ignore: cast_nullable_to_non_nullable
+as num?,discount: freezed == discount ? _self.discount : discount // ignore: cast_nullable_to_non_nullable
+as num?,coupon: freezed == coupon ? _self.coupon : coupon // ignore: cast_nullable_to_non_nullable
+as String?,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
+as String,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as String?,statusId: freezed == statusId ? _self.statusId : statusId // ignore: cast_nullable_to_non_nullable
+as String?,statusSlug: freezed == statusSlug ? _self.statusSlug : statusSlug // ignore: cast_nullable_to_non_nullable
+as String?,paymentStatus: freezed == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
+as PaymentStatus?,customFields: freezed == customFields ? _self._customFields : customFields // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,metadata: freezed == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,references: freezed == references ? _self._references : references // ignore: cast_nullable_to_non_nullable
+as List<String>?,scheduledAt: freezed == scheduledAt ? _self.scheduledAt : scheduledAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$OrderUpdate {
+
+ String? get customerName; String? get shippingNote; String? get customerPhone; String? get customerEmail; String? get customerNote; String? get customerIp; String? get shippingAddress; String? get shippingCity; String? get shippingState; String? get shippingCountry;@JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) ShippingType? get shippingType; String? get shippingMethodId; String? get trackingCode; String? get paymentMethodId; List<OrderItem>? get items; num? get subtotal; num? get shippingPrice; num? get total; num? get manualTotal; num? get discount; String? get coupon; String? get source; String? get internalNote; List<String>? get tags; String get storeId; PaymentStatus? get paymentStatus; String? get cancelReason; Map<String, dynamic>? get customFields; Map<String, dynamic>? get metadata; List<String>? get references;/// Optional schedule date. Use [setToNull] with `'scheduledAt'` to clear.
+ DateTime? get scheduledAt;@JsonKey(includeFromJson: false) List<String> get setToNull;
+/// Create a copy of OrderUpdate
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$OrderUpdateCopyWith<OrderUpdate> get copyWith => _$OrderUpdateCopyWithImpl<OrderUpdate>(this as OrderUpdate, _$identity);
+
+  /// Serializes this OrderUpdate to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as OrderUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderUpdate&&(identical(other.customerName, _this.customerName) || other.customerName == _this.customerName)&&(identical(other.shippingNote, _this.shippingNote) || other.shippingNote == _this.shippingNote)&&(identical(other.customerPhone, _this.customerPhone) || other.customerPhone == _this.customerPhone)&&(identical(other.customerEmail, _this.customerEmail) || other.customerEmail == _this.customerEmail)&&(identical(other.customerNote, _this.customerNote) || other.customerNote == _this.customerNote)&&(identical(other.customerIp, _this.customerIp) || other.customerIp == _this.customerIp)&&(identical(other.shippingAddress, _this.shippingAddress) || other.shippingAddress == _this.shippingAddress)&&(identical(other.shippingCity, _this.shippingCity) || other.shippingCity == _this.shippingCity)&&(identical(other.shippingState, _this.shippingState) || other.shippingState == _this.shippingState)&&(identical(other.shippingCountry, _this.shippingCountry) || other.shippingCountry == _this.shippingCountry)&&(identical(other.shippingType, _this.shippingType) || other.shippingType == _this.shippingType)&&(identical(other.shippingMethodId, _this.shippingMethodId) || other.shippingMethodId == _this.shippingMethodId)&&(identical(other.trackingCode, _this.trackingCode) || other.trackingCode == _this.trackingCode)&&(identical(other.paymentMethodId, _this.paymentMethodId) || other.paymentMethodId == _this.paymentMethodId)&&const DeepCollectionEquality().equals(other.items, _this.items)&&(identical(other.subtotal, _this.subtotal) || other.subtotal == _this.subtotal)&&(identical(other.shippingPrice, _this.shippingPrice) || other.shippingPrice == _this.shippingPrice)&&(identical(other.total, _this.total) || other.total == _this.total)&&(identical(other.manualTotal, _this.manualTotal) || other.manualTotal == _this.manualTotal)&&(identical(other.discount, _this.discount) || other.discount == _this.discount)&&(identical(other.coupon, _this.coupon) || other.coupon == _this.coupon)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.internalNote, _this.internalNote) || other.internalNote == _this.internalNote)&&const DeepCollectionEquality().equals(other.tags, _this.tags)&&(identical(other.storeId, _this.storeId) || other.storeId == _this.storeId)&&(identical(other.paymentStatus, _this.paymentStatus) || other.paymentStatus == _this.paymentStatus)&&(identical(other.cancelReason, _this.cancelReason) || other.cancelReason == _this.cancelReason)&&const DeepCollectionEquality().equals(other.customFields, _this.customFields)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata)&&const DeepCollectionEquality().equals(other.references, _this.references)&&(identical(other.scheduledAt, _this.scheduledAt) || other.scheduledAt == _this.scheduledAt)&&const DeepCollectionEquality().equals(other.setToNull, _this.setToNull));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as OrderUpdate;
+  return Object.hashAll([runtimeType,_this.customerName,_this.shippingNote,_this.customerPhone,_this.customerEmail,_this.customerNote,_this.customerIp,_this.shippingAddress,_this.shippingCity,_this.shippingState,_this.shippingCountry,_this.shippingType,_this.shippingMethodId,_this.trackingCode,_this.paymentMethodId,const DeepCollectionEquality().hash(_this.items),_this.subtotal,_this.shippingPrice,_this.total,_this.manualTotal,_this.discount,_this.coupon,_this.source,_this.internalNote,const DeepCollectionEquality().hash(_this.tags),_this.storeId,_this.paymentStatus,_this.cancelReason,const DeepCollectionEquality().hash(_this.customFields),const DeepCollectionEquality().hash(_this.metadata),const DeepCollectionEquality().hash(_this.references),_this.scheduledAt,const DeepCollectionEquality().hash(_this.setToNull)]);
+}
+
+@override
+String toString() {
+  final _this = this as OrderUpdate;
+  return 'OrderUpdate(customerName: ${_this.customerName}, shippingNote: ${_this.shippingNote}, customerPhone: ${_this.customerPhone}, customerEmail: ${_this.customerEmail}, customerNote: ${_this.customerNote}, customerIp: ${_this.customerIp}, shippingAddress: ${_this.shippingAddress}, shippingCity: ${_this.shippingCity}, shippingState: ${_this.shippingState}, shippingCountry: ${_this.shippingCountry}, shippingType: ${_this.shippingType}, shippingMethodId: ${_this.shippingMethodId}, trackingCode: ${_this.trackingCode}, paymentMethodId: ${_this.paymentMethodId}, items: ${_this.items}, subtotal: ${_this.subtotal}, shippingPrice: ${_this.shippingPrice}, total: ${_this.total}, manualTotal: ${_this.manualTotal}, discount: ${_this.discount}, coupon: ${_this.coupon}, source: ${_this.source}, internalNote: ${_this.internalNote}, tags: ${_this.tags}, storeId: ${_this.storeId}, paymentStatus: ${_this.paymentStatus}, cancelReason: ${_this.cancelReason}, customFields: ${_this.customFields}, metadata: ${_this.metadata}, references: ${_this.references}, scheduledAt: ${_this.scheduledAt}, setToNull: ${_this.setToNull})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $OrderUpdateCopyWith<$Res>  {
+  factory $OrderUpdateCopyWith(OrderUpdate value, $Res Function(OrderUpdate) _then) = _$OrderUpdateCopyWithImpl;
+@useResult
+$Res call({
+ String? customerName, String? shippingNote, String? customerPhone, String? customerEmail, String? customerNote, String? customerIp, String? shippingAddress, String? shippingCity, String? shippingState, String? shippingCountry,@JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) ShippingType? shippingType, String? shippingMethodId, String? trackingCode, String? paymentMethodId, List<OrderItem>? items, num? subtotal, num? shippingPrice, num? total, num? manualTotal, num? discount, String? coupon, String? source, String? internalNote, List<String>? tags, String storeId, PaymentStatus? paymentStatus, String? cancelReason, Map<String, dynamic>? customFields, Map<String, dynamic>? metadata, List<String>? references, DateTime? scheduledAt,@JsonKey(includeFromJson: false) List<String> setToNull
+});
+
+
+
+
+}
+/// @nodoc
+class _$OrderUpdateCopyWithImpl<$Res>
+    implements $OrderUpdateCopyWith<$Res> {
+  _$OrderUpdateCopyWithImpl(this._self, this._then);
+
+  final OrderUpdate _self;
+  final $Res Function(OrderUpdate) _then;
+
+/// Create a copy of OrderUpdate
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? customerName = freezed,Object? shippingNote = freezed,Object? customerPhone = freezed,Object? customerEmail = freezed,Object? customerNote = freezed,Object? customerIp = freezed,Object? shippingAddress = freezed,Object? shippingCity = freezed,Object? shippingState = freezed,Object? shippingCountry = freezed,Object? shippingType = freezed,Object? shippingMethodId = freezed,Object? trackingCode = freezed,Object? paymentMethodId = freezed,Object? items = freezed,Object? subtotal = freezed,Object? shippingPrice = freezed,Object? total = freezed,Object? manualTotal = freezed,Object? discount = freezed,Object? coupon = freezed,Object? source = freezed,Object? internalNote = freezed,Object? tags = freezed,Object? storeId = null,Object? paymentStatus = freezed,Object? cancelReason = freezed,Object? customFields = freezed,Object? metadata = freezed,Object? references = freezed,Object? scheduledAt = freezed,Object? setToNull = null,}) {
+  return _then(OrderUpdate(
+customerName: freezed == customerName ? _self.customerName : customerName // ignore: cast_nullable_to_non_nullable
+as String?,shippingNote: freezed == shippingNote ? _self.shippingNote : shippingNote // ignore: cast_nullable_to_non_nullable
+as String?,customerPhone: freezed == customerPhone ? _self.customerPhone : customerPhone // ignore: cast_nullable_to_non_nullable
+as String?,customerEmail: freezed == customerEmail ? _self.customerEmail : customerEmail // ignore: cast_nullable_to_non_nullable
+as String?,customerNote: freezed == customerNote ? _self.customerNote : customerNote // ignore: cast_nullable_to_non_nullable
+as String?,customerIp: freezed == customerIp ? _self.customerIp : customerIp // ignore: cast_nullable_to_non_nullable
+as String?,shippingAddress: freezed == shippingAddress ? _self.shippingAddress : shippingAddress // ignore: cast_nullable_to_non_nullable
+as String?,shippingCity: freezed == shippingCity ? _self.shippingCity : shippingCity // ignore: cast_nullable_to_non_nullable
+as String?,shippingState: freezed == shippingState ? _self.shippingState : shippingState // ignore: cast_nullable_to_non_nullable
+as String?,shippingCountry: freezed == shippingCountry ? _self.shippingCountry : shippingCountry // ignore: cast_nullable_to_non_nullable
+as String?,shippingType: freezed == shippingType ? _self.shippingType : shippingType // ignore: cast_nullable_to_non_nullable
+as ShippingType?,shippingMethodId: freezed == shippingMethodId ? _self.shippingMethodId : shippingMethodId // ignore: cast_nullable_to_non_nullable
+as String?,trackingCode: freezed == trackingCode ? _self.trackingCode : trackingCode // ignore: cast_nullable_to_non_nullable
+as String?,paymentMethodId: freezed == paymentMethodId ? _self.paymentMethodId : paymentMethodId // ignore: cast_nullable_to_non_nullable
+as String?,items: freezed == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
+as List<OrderItem>?,subtotal: freezed == subtotal ? _self.subtotal : subtotal // ignore: cast_nullable_to_non_nullable
+as num?,shippingPrice: freezed == shippingPrice ? _self.shippingPrice : shippingPrice // ignore: cast_nullable_to_non_nullable
+as num?,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as num?,manualTotal: freezed == manualTotal ? _self.manualTotal : manualTotal // ignore: cast_nullable_to_non_nullable
+as num?,discount: freezed == discount ? _self.discount : discount // ignore: cast_nullable_to_non_nullable
+as num?,coupon: freezed == coupon ? _self.coupon : coupon // ignore: cast_nullable_to_non_nullable
+as String?,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as String?,internalNote: freezed == internalNote ? _self.internalNote : internalNote // ignore: cast_nullable_to_non_nullable
+as String?,tags: freezed == tags ? _self.tags : tags // ignore: cast_nullable_to_non_nullable
+as List<String>?,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
+as String,paymentStatus: freezed == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
+as PaymentStatus?,cancelReason: freezed == cancelReason ? _self.cancelReason : cancelReason // ignore: cast_nullable_to_non_nullable
+as String?,customFields: freezed == customFields ? _self.customFields : customFields // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,references: freezed == references ? _self.references : references // ignore: cast_nullable_to_non_nullable
+as List<String>?,scheduledAt: freezed == scheduledAt ? _self.scheduledAt : scheduledAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,setToNull: null == setToNull ? _self.setToNull : setToNull // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [OrderUpdate].
+extension OrderUpdatePatterns on OrderUpdate {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _OrderUpdate value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _OrderUpdate() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _OrderUpdate value)  $default,){
+final _that = this;
+switch (_that) {
+case _OrderUpdate():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _OrderUpdate value)?  $default,){
+final _that = this;
+switch (_that) {
+case _OrderUpdate() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? customerName,  String? shippingNote,  String? customerPhone,  String? customerEmail,  String? customerNote,  String? customerIp,  String? shippingAddress,  String? shippingCity,  String? shippingState,  String? shippingCountry, @JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson)  ShippingType? shippingType,  String? shippingMethodId,  String? trackingCode,  String? paymentMethodId,  List<OrderItem>? items,  num? subtotal,  num? shippingPrice,  num? total,  num? manualTotal,  num? discount,  String? coupon,  String? source,  String? internalNote,  List<String>? tags,  String storeId,  PaymentStatus? paymentStatus,  String? cancelReason,  Map<String, dynamic>? customFields,  Map<String, dynamic>? metadata,  List<String>? references,  DateTime? scheduledAt, @JsonKey(includeFromJson: false)  List<String> setToNull)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _OrderUpdate() when $default != null:
+return $default(_that.customerName,_that.shippingNote,_that.customerPhone,_that.customerEmail,_that.customerNote,_that.customerIp,_that.shippingAddress,_that.shippingCity,_that.shippingState,_that.shippingCountry,_that.shippingType,_that.shippingMethodId,_that.trackingCode,_that.paymentMethodId,_that.items,_that.subtotal,_that.shippingPrice,_that.total,_that.manualTotal,_that.discount,_that.coupon,_that.source,_that.internalNote,_that.tags,_that.storeId,_that.paymentStatus,_that.cancelReason,_that.customFields,_that.metadata,_that.references,_that.scheduledAt,_that.setToNull);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? customerName,  String? shippingNote,  String? customerPhone,  String? customerEmail,  String? customerNote,  String? customerIp,  String? shippingAddress,  String? shippingCity,  String? shippingState,  String? shippingCountry, @JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson)  ShippingType? shippingType,  String? shippingMethodId,  String? trackingCode,  String? paymentMethodId,  List<OrderItem>? items,  num? subtotal,  num? shippingPrice,  num? total,  num? manualTotal,  num? discount,  String? coupon,  String? source,  String? internalNote,  List<String>? tags,  String storeId,  PaymentStatus? paymentStatus,  String? cancelReason,  Map<String, dynamic>? customFields,  Map<String, dynamic>? metadata,  List<String>? references,  DateTime? scheduledAt, @JsonKey(includeFromJson: false)  List<String> setToNull)  $default,) {final _that = this;
+switch (_that) {
+case _OrderUpdate():
+return $default(_that.customerName,_that.shippingNote,_that.customerPhone,_that.customerEmail,_that.customerNote,_that.customerIp,_that.shippingAddress,_that.shippingCity,_that.shippingState,_that.shippingCountry,_that.shippingType,_that.shippingMethodId,_that.trackingCode,_that.paymentMethodId,_that.items,_that.subtotal,_that.shippingPrice,_that.total,_that.manualTotal,_that.discount,_that.coupon,_that.source,_that.internalNote,_that.tags,_that.storeId,_that.paymentStatus,_that.cancelReason,_that.customFields,_that.metadata,_that.references,_that.scheduledAt,_that.setToNull);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? customerName,  String? shippingNote,  String? customerPhone,  String? customerEmail,  String? customerNote,  String? customerIp,  String? shippingAddress,  String? shippingCity,  String? shippingState,  String? shippingCountry, @JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson)  ShippingType? shippingType,  String? shippingMethodId,  String? trackingCode,  String? paymentMethodId,  List<OrderItem>? items,  num? subtotal,  num? shippingPrice,  num? total,  num? manualTotal,  num? discount,  String? coupon,  String? source,  String? internalNote,  List<String>? tags,  String storeId,  PaymentStatus? paymentStatus,  String? cancelReason,  Map<String, dynamic>? customFields,  Map<String, dynamic>? metadata,  List<String>? references,  DateTime? scheduledAt, @JsonKey(includeFromJson: false)  List<String> setToNull)?  $default,) {final _that = this;
+switch (_that) {
+case _OrderUpdate() when $default != null:
+return $default(_that.customerName,_that.shippingNote,_that.customerPhone,_that.customerEmail,_that.customerNote,_that.customerIp,_that.shippingAddress,_that.shippingCity,_that.shippingState,_that.shippingCountry,_that.shippingType,_that.shippingMethodId,_that.trackingCode,_that.paymentMethodId,_that.items,_that.subtotal,_that.shippingPrice,_that.total,_that.manualTotal,_that.discount,_that.coupon,_that.source,_that.internalNote,_that.tags,_that.storeId,_that.paymentStatus,_that.cancelReason,_that.customFields,_that.metadata,_that.references,_that.scheduledAt,_that.setToNull);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _OrderUpdate implements OrderUpdate {
+  const _OrderUpdate({this.customerName, this.shippingNote, this.customerPhone, this.customerEmail, this.customerNote, this.customerIp, this.shippingAddress, this.shippingCity, this.shippingState, this.shippingCountry, @JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) this.shippingType, this.shippingMethodId, this.trackingCode, this.paymentMethodId,  List<OrderItem>? items, this.subtotal, this.shippingPrice, this.total, this.manualTotal, this.discount, this.coupon, this.source, this.internalNote,  List<String>? tags, required this.storeId, this.paymentStatus, this.cancelReason,  Map<String, dynamic>? customFields,  Map<String, dynamic>? metadata,  List<String>? references, this.scheduledAt, @JsonKey(includeFromJson: false)  List<String> setToNull = const []}): _items = items,_tags = tags,_customFields = customFields,_metadata = metadata,_references = references,_setToNull = setToNull;
+  factory _OrderUpdate.fromJson(Map<String, dynamic> json) => _$OrderUpdateFromJson(json);
+
+@override final  String? customerName;
+@override final  String? shippingNote;
+@override final  String? customerPhone;
+@override final  String? customerEmail;
+@override final  String? customerNote;
+@override final  String? customerIp;
+@override final  String? shippingAddress;
+@override final  String? shippingCity;
+@override final  String? shippingState;
+@override final  String? shippingCountry;
+@override@JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) final  ShippingType? shippingType;
+@override final  String? shippingMethodId;
+@override final  String? trackingCode;
+@override final  String? paymentMethodId;
+ final  List<OrderItem>? _items;
+@override List<OrderItem>? get items {
+  final value = _items;
+  if (value == null) return null;
+  if (_items is EqualUnmodifiableListView) return _items;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+@override final  num? subtotal;
+@override final  num? shippingPrice;
+@override final  num? total;
+@override final  num? manualTotal;
+@override final  num? discount;
+@override final  String? coupon;
+@override final  String? source;
+@override final  String? internalNote;
+ final  List<String>? _tags;
+@override List<String>? get tags {
+  final value = _tags;
+  if (value == null) return null;
+  if (_tags is EqualUnmodifiableListView) return _tags;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+@override final  String storeId;
+@override final  PaymentStatus? paymentStatus;
+@override final  String? cancelReason;
+ final  Map<String, dynamic>? _customFields;
+@override Map<String, dynamic>? get customFields {
+  final value = _customFields;
+  if (value == null) return null;
+  if (_customFields is EqualUnmodifiableMapView) return _customFields;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
+}
+
+ final  Map<String, dynamic>? _metadata;
+@override Map<String, dynamic>? get metadata {
+  final value = _metadata;
+  if (value == null) return null;
+  if (_metadata is EqualUnmodifiableMapView) return _metadata;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
+}
+
+ final  List<String>? _references;
+@override List<String>? get references {
+  final value = _references;
+  if (value == null) return null;
+  if (_references is EqualUnmodifiableListView) return _references;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+/// Optional schedule date. Use [setToNull] with `'scheduledAt'` to clear.
+@override final  DateTime? scheduledAt;
+ final  List<String> _setToNull;
+@override@JsonKey(includeFromJson: false) List<String> get setToNull {
+  if (_setToNull is EqualUnmodifiableListView) return _setToNull;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_setToNull);
+}
+
+
+/// Create a copy of OrderUpdate
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$OrderUpdateCopyWith<_OrderUpdate> get copyWith => __$OrderUpdateCopyWithImpl<_OrderUpdate>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$OrderUpdateToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderUpdate&&(identical(other.customerName, customerName) || other.customerName == customerName)&&(identical(other.shippingNote, shippingNote) || other.shippingNote == shippingNote)&&(identical(other.customerPhone, customerPhone) || other.customerPhone == customerPhone)&&(identical(other.customerEmail, customerEmail) || other.customerEmail == customerEmail)&&(identical(other.customerNote, customerNote) || other.customerNote == customerNote)&&(identical(other.customerIp, customerIp) || other.customerIp == customerIp)&&(identical(other.shippingAddress, shippingAddress) || other.shippingAddress == shippingAddress)&&(identical(other.shippingCity, shippingCity) || other.shippingCity == shippingCity)&&(identical(other.shippingState, shippingState) || other.shippingState == shippingState)&&(identical(other.shippingCountry, shippingCountry) || other.shippingCountry == shippingCountry)&&(identical(other.shippingType, shippingType) || other.shippingType == shippingType)&&(identical(other.shippingMethodId, shippingMethodId) || other.shippingMethodId == shippingMethodId)&&(identical(other.trackingCode, trackingCode) || other.trackingCode == trackingCode)&&(identical(other.paymentMethodId, paymentMethodId) || other.paymentMethodId == paymentMethodId)&&const DeepCollectionEquality().equals(other.items, _items)&&(identical(other.subtotal, subtotal) || other.subtotal == subtotal)&&(identical(other.shippingPrice, shippingPrice) || other.shippingPrice == shippingPrice)&&(identical(other.total, total) || other.total == total)&&(identical(other.manualTotal, manualTotal) || other.manualTotal == manualTotal)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.coupon, coupon) || other.coupon == coupon)&&(identical(other.source, source) || other.source == source)&&(identical(other.internalNote, internalNote) || other.internalNote == internalNote)&&const DeepCollectionEquality().equals(other.tags, _tags)&&(identical(other.storeId, storeId) || other.storeId == storeId)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&(identical(other.cancelReason, cancelReason) || other.cancelReason == cancelReason)&&const DeepCollectionEquality().equals(other.customFields, _customFields)&&const DeepCollectionEquality().equals(other.metadata, _metadata)&&const DeepCollectionEquality().equals(other.references, _references)&&(identical(other.scheduledAt, scheduledAt) || other.scheduledAt == scheduledAt)&&const DeepCollectionEquality().equals(other.setToNull, _setToNull));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hashAll([runtimeType,customerName,shippingNote,customerPhone,customerEmail,customerNote,customerIp,shippingAddress,shippingCity,shippingState,shippingCountry,shippingType,shippingMethodId,trackingCode,paymentMethodId,const DeepCollectionEquality().hash(_items),subtotal,shippingPrice,total,manualTotal,discount,coupon,source,internalNote,const DeepCollectionEquality().hash(_tags),storeId,paymentStatus,cancelReason,const DeepCollectionEquality().hash(_customFields),const DeepCollectionEquality().hash(_metadata),const DeepCollectionEquality().hash(_references),scheduledAt,const DeepCollectionEquality().hash(_setToNull)]);
+}
+
+@override
+String toString() {
+    return 'OrderUpdate(customerName: $customerName, shippingNote: $shippingNote, customerPhone: $customerPhone, customerEmail: $customerEmail, customerNote: $customerNote, customerIp: $customerIp, shippingAddress: $shippingAddress, shippingCity: $shippingCity, shippingState: $shippingState, shippingCountry: $shippingCountry, shippingType: $shippingType, shippingMethodId: $shippingMethodId, trackingCode: $trackingCode, paymentMethodId: $paymentMethodId, items: $items, subtotal: $subtotal, shippingPrice: $shippingPrice, total: $total, manualTotal: $manualTotal, discount: $discount, coupon: $coupon, source: $source, internalNote: $internalNote, tags: $tags, storeId: $storeId, paymentStatus: $paymentStatus, cancelReason: $cancelReason, customFields: $customFields, metadata: $metadata, references: $references, scheduledAt: $scheduledAt, setToNull: $setToNull)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$OrderUpdateCopyWith<$Res> implements $OrderUpdateCopyWith<$Res> {
+  factory _$OrderUpdateCopyWith(_OrderUpdate value, $Res Function(_OrderUpdate) _then) = __$OrderUpdateCopyWithImpl;
+@override @useResult
+$Res call({
+ String? customerName, String? shippingNote, String? customerPhone, String? customerEmail, String? customerNote, String? customerIp, String? shippingAddress, String? shippingCity, String? shippingState, String? shippingCountry,@JsonKey(fromJson: shippingTypeNullableFromJson, toJson: shippingTypeNullableToJson) ShippingType? shippingType, String? shippingMethodId, String? trackingCode, String? paymentMethodId, List<OrderItem>? items, num? subtotal, num? shippingPrice, num? total, num? manualTotal, num? discount, String? coupon, String? source, String? internalNote, List<String>? tags, String storeId, PaymentStatus? paymentStatus, String? cancelReason, Map<String, dynamic>? customFields, Map<String, dynamic>? metadata, List<String>? references, DateTime? scheduledAt,@JsonKey(includeFromJson: false) List<String> setToNull
+});
+
+
+
+
+}
+/// @nodoc
+class __$OrderUpdateCopyWithImpl<$Res>
+    implements _$OrderUpdateCopyWith<$Res> {
+  __$OrderUpdateCopyWithImpl(this._self, this._then);
+
+  final _OrderUpdate _self;
+  final $Res Function(_OrderUpdate) _then;
+
+/// Create a copy of OrderUpdate
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? customerName = freezed,Object? shippingNote = freezed,Object? customerPhone = freezed,Object? customerEmail = freezed,Object? customerNote = freezed,Object? customerIp = freezed,Object? shippingAddress = freezed,Object? shippingCity = freezed,Object? shippingState = freezed,Object? shippingCountry = freezed,Object? shippingType = freezed,Object? shippingMethodId = freezed,Object? trackingCode = freezed,Object? paymentMethodId = freezed,Object? items = freezed,Object? subtotal = freezed,Object? shippingPrice = freezed,Object? total = freezed,Object? manualTotal = freezed,Object? discount = freezed,Object? coupon = freezed,Object? source = freezed,Object? internalNote = freezed,Object? tags = freezed,Object? storeId = null,Object? paymentStatus = freezed,Object? cancelReason = freezed,Object? customFields = freezed,Object? metadata = freezed,Object? references = freezed,Object? scheduledAt = freezed,Object? setToNull = null,}) {
+  return _then(_OrderUpdate(
+customerName: freezed == customerName ? _self.customerName : customerName // ignore: cast_nullable_to_non_nullable
+as String?,shippingNote: freezed == shippingNote ? _self.shippingNote : shippingNote // ignore: cast_nullable_to_non_nullable
+as String?,customerPhone: freezed == customerPhone ? _self.customerPhone : customerPhone // ignore: cast_nullable_to_non_nullable
+as String?,customerEmail: freezed == customerEmail ? _self.customerEmail : customerEmail // ignore: cast_nullable_to_non_nullable
+as String?,customerNote: freezed == customerNote ? _self.customerNote : customerNote // ignore: cast_nullable_to_non_nullable
+as String?,customerIp: freezed == customerIp ? _self.customerIp : customerIp // ignore: cast_nullable_to_non_nullable
+as String?,shippingAddress: freezed == shippingAddress ? _self.shippingAddress : shippingAddress // ignore: cast_nullable_to_non_nullable
+as String?,shippingCity: freezed == shippingCity ? _self.shippingCity : shippingCity // ignore: cast_nullable_to_non_nullable
+as String?,shippingState: freezed == shippingState ? _self.shippingState : shippingState // ignore: cast_nullable_to_non_nullable
+as String?,shippingCountry: freezed == shippingCountry ? _self.shippingCountry : shippingCountry // ignore: cast_nullable_to_non_nullable
+as String?,shippingType: freezed == shippingType ? _self.shippingType : shippingType // ignore: cast_nullable_to_non_nullable
+as ShippingType?,shippingMethodId: freezed == shippingMethodId ? _self.shippingMethodId : shippingMethodId // ignore: cast_nullable_to_non_nullable
+as String?,trackingCode: freezed == trackingCode ? _self.trackingCode : trackingCode // ignore: cast_nullable_to_non_nullable
+as String?,paymentMethodId: freezed == paymentMethodId ? _self.paymentMethodId : paymentMethodId // ignore: cast_nullable_to_non_nullable
+as String?,items: freezed == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
+as List<OrderItem>?,subtotal: freezed == subtotal ? _self.subtotal : subtotal // ignore: cast_nullable_to_non_nullable
+as num?,shippingPrice: freezed == shippingPrice ? _self.shippingPrice : shippingPrice // ignore: cast_nullable_to_non_nullable
+as num?,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as num?,manualTotal: freezed == manualTotal ? _self.manualTotal : manualTotal // ignore: cast_nullable_to_non_nullable
+as num?,discount: freezed == discount ? _self.discount : discount // ignore: cast_nullable_to_non_nullable
+as num?,coupon: freezed == coupon ? _self.coupon : coupon // ignore: cast_nullable_to_non_nullable
+as String?,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as String?,internalNote: freezed == internalNote ? _self.internalNote : internalNote // ignore: cast_nullable_to_non_nullable
+as String?,tags: freezed == tags ? _self._tags : tags // ignore: cast_nullable_to_non_nullable
+as List<String>?,storeId: null == storeId ? _self.storeId : storeId // ignore: cast_nullable_to_non_nullable
+as String,paymentStatus: freezed == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
+as PaymentStatus?,cancelReason: freezed == cancelReason ? _self.cancelReason : cancelReason // ignore: cast_nullable_to_non_nullable
+as String?,customFields: freezed == customFields ? _self._customFields : customFields // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,metadata: freezed == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,references: freezed == references ? _self._references : references // ignore: cast_nullable_to_non_nullable
+as List<String>?,scheduledAt: freezed == scheduledAt ? _self.scheduledAt : scheduledAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,setToNull: null == setToNull ? _self._setToNull : setToNull // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$OrderHistoryEvent {
+
+ DateTime get createdAt;/// Rooms snapshot of this event.
+ String? get phase; String? get room; String? get kind; String? get statusId; String? get closeAs;@Deprecated('Use phase / statusId') OrderStatus get status;@Deprecated('Use phase') DeliveryStatus get deliveryStatus; PaymentStatus get paymentStatus; String get message; String get code; String get userId;
+/// Create a copy of OrderHistoryEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$OrderHistoryEventCopyWith<OrderHistoryEvent> get copyWith => _$OrderHistoryEventCopyWithImpl<OrderHistoryEvent>(this as OrderHistoryEvent, _$identity);
+
+  /// Serializes this OrderHistoryEvent to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as OrderHistoryEvent;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OrderHistoryEvent&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.phase, _this.phase) || other.phase == _this.phase)&&(identical(other.room, _this.room) || other.room == _this.room)&&(identical(other.kind, _this.kind) || other.kind == _this.kind)&&(identical(other.statusId, _this.statusId) || other.statusId == _this.statusId)&&(identical(other.closeAs, _this.closeAs) || other.closeAs == _this.closeAs)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.deliveryStatus, _this.deliveryStatus) || other.deliveryStatus == _this.deliveryStatus)&&(identical(other.paymentStatus, _this.paymentStatus) || other.paymentStatus == _this.paymentStatus)&&(identical(other.message, _this.message) || other.message == _this.message)&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.userId, _this.userId) || other.userId == _this.userId));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as OrderHistoryEvent;
+  return Object.hash(runtimeType,_this.createdAt,_this.phase,_this.room,_this.kind,_this.statusId,_this.closeAs,_this.status,_this.deliveryStatus,_this.paymentStatus,_this.message,_this.code,_this.userId);
+}
+
+@override
+String toString() {
+  final _this = this as OrderHistoryEvent;
+  return 'OrderHistoryEvent(createdAt: ${_this.createdAt}, phase: ${_this.phase}, room: ${_this.room}, kind: ${_this.kind}, statusId: ${_this.statusId}, closeAs: ${_this.closeAs}, status: ${_this.status}, deliveryStatus: ${_this.deliveryStatus}, paymentStatus: ${_this.paymentStatus}, message: ${_this.message}, code: ${_this.code}, userId: ${_this.userId})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $OrderHistoryEventCopyWith<$Res>  {
+  factory $OrderHistoryEventCopyWith(OrderHistoryEvent value, $Res Function(OrderHistoryEvent) _then) = _$OrderHistoryEventCopyWithImpl;
+@useResult
+$Res call({
+ DateTime createdAt, String? phase, String? room, String? kind, String? statusId, String? closeAs,@Deprecated('Use phase / statusId') OrderStatus status,@Deprecated('Use phase') DeliveryStatus deliveryStatus, PaymentStatus paymentStatus, String message, String code, String userId
+});
+
+
+
+
+}
+/// @nodoc
+class _$OrderHistoryEventCopyWithImpl<$Res>
+    implements $OrderHistoryEventCopyWith<$Res> {
+  _$OrderHistoryEventCopyWithImpl(this._self, this._then);
+
+  final OrderHistoryEvent _self;
+  final $Res Function(OrderHistoryEvent) _then;
+
+/// Create a copy of OrderHistoryEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? createdAt = null,Object? phase = freezed,Object? room = freezed,Object? kind = freezed,Object? statusId = freezed,Object? closeAs = freezed,Object? status = null,Object? deliveryStatus = null,Object? paymentStatus = null,Object? message = null,Object? code = null,Object? userId = null,}) {
+  return _then(OrderHistoryEvent(
+createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,phase: freezed == phase ? _self.phase : phase // ignore: cast_nullable_to_non_nullable
+as String?,room: freezed == room ? _self.room : room // ignore: cast_nullable_to_non_nullable
+as String?,kind: freezed == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
+as String?,statusId: freezed == statusId ? _self.statusId : statusId // ignore: cast_nullable_to_non_nullable
+as String?,closeAs: freezed == closeAs ? _self.closeAs : closeAs // ignore: cast_nullable_to_non_nullable
+as String?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as OrderStatus,deliveryStatus: null == deliveryStatus ? _self.deliveryStatus : deliveryStatus // ignore: cast_nullable_to_non_nullable
+as DeliveryStatus,paymentStatus: null == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
+as PaymentStatus,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [OrderHistoryEvent].
+extension OrderHistoryEventPatterns on OrderHistoryEvent {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _OrderHistoryEvent value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _OrderHistoryEvent() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _OrderHistoryEvent value)  $default,){
+final _that = this;
+switch (_that) {
+case _OrderHistoryEvent():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _OrderHistoryEvent value)?  $default,){
+final _that = this;
+switch (_that) {
+case _OrderHistoryEvent() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime createdAt,  String? phase,  String? room,  String? kind,  String? statusId,  String? closeAs, @Deprecated('Use phase / statusId')  OrderStatus status, @Deprecated('Use phase')  DeliveryStatus deliveryStatus,  PaymentStatus paymentStatus,  String message,  String code,  String userId)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _OrderHistoryEvent() when $default != null:
+return $default(_that.createdAt,_that.phase,_that.room,_that.kind,_that.statusId,_that.closeAs,_that.status,_that.deliveryStatus,_that.paymentStatus,_that.message,_that.code,_that.userId);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime createdAt,  String? phase,  String? room,  String? kind,  String? statusId,  String? closeAs, @Deprecated('Use phase / statusId')  OrderStatus status, @Deprecated('Use phase')  DeliveryStatus deliveryStatus,  PaymentStatus paymentStatus,  String message,  String code,  String userId)  $default,) {final _that = this;
+switch (_that) {
+case _OrderHistoryEvent():
+return $default(_that.createdAt,_that.phase,_that.room,_that.kind,_that.statusId,_that.closeAs,_that.status,_that.deliveryStatus,_that.paymentStatus,_that.message,_that.code,_that.userId);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime createdAt,  String? phase,  String? room,  String? kind,  String? statusId,  String? closeAs, @Deprecated('Use phase / statusId')  OrderStatus status, @Deprecated('Use phase')  DeliveryStatus deliveryStatus,  PaymentStatus paymentStatus,  String message,  String code,  String userId)?  $default,) {final _that = this;
+switch (_that) {
+case _OrderHistoryEvent() when $default != null:
+return $default(_that.createdAt,_that.phase,_that.room,_that.kind,_that.statusId,_that.closeAs,_that.status,_that.deliveryStatus,_that.paymentStatus,_that.message,_that.code,_that.userId);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _OrderHistoryEvent implements OrderHistoryEvent {
+  const _OrderHistoryEvent({required this.createdAt, this.phase, this.room, this.kind, this.statusId, this.closeAs, @Deprecated('Use phase / statusId') this.status = OrderStatus.pending, @Deprecated('Use phase') this.deliveryStatus = DeliveryStatus.pending, this.paymentStatus = PaymentStatus.unpaid, this.message = '', this.code = '', this.userId = ''});
+  factory _OrderHistoryEvent.fromJson(Map<String, dynamic> json) => _$OrderHistoryEventFromJson(json);
+
+@override final  DateTime createdAt;
+/// Rooms snapshot of this event.
+@override final  String? phase;
+@override final  String? room;
+@override final  String? kind;
+@override final  String? statusId;
+@override final  String? closeAs;
+@override@JsonKey()@Deprecated('Use phase / statusId') final  OrderStatus status;
+@override@JsonKey()@Deprecated('Use phase') final  DeliveryStatus deliveryStatus;
+@override@JsonKey() final  PaymentStatus paymentStatus;
+@override@JsonKey() final  String message;
+@override@JsonKey() final  String code;
+@override@JsonKey() final  String userId;
+
+/// Create a copy of OrderHistoryEvent
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$OrderHistoryEventCopyWith<_OrderHistoryEvent> get copyWith => __$OrderHistoryEventCopyWithImpl<_OrderHistoryEvent>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$OrderHistoryEventToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _OrderHistoryEvent&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.phase, phase) || other.phase == phase)&&(identical(other.room, room) || other.room == room)&&(identical(other.kind, kind) || other.kind == kind)&&(identical(other.statusId, statusId) || other.statusId == statusId)&&(identical(other.closeAs, closeAs) || other.closeAs == closeAs)&&(identical(other.status, status) || other.status == status)&&(identical(other.deliveryStatus, deliveryStatus) || other.deliveryStatus == deliveryStatus)&&(identical(other.paymentStatus, paymentStatus) || other.paymentStatus == paymentStatus)&&(identical(other.message, message) || other.message == message)&&(identical(other.code, code) || other.code == code)&&(identical(other.userId, userId) || other.userId == userId));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,createdAt,phase,room,kind,statusId,closeAs,status,deliveryStatus,paymentStatus,message,code,userId);
+}
+
+@override
+String toString() {
+    return 'OrderHistoryEvent(createdAt: $createdAt, phase: $phase, room: $room, kind: $kind, statusId: $statusId, closeAs: $closeAs, status: $status, deliveryStatus: $deliveryStatus, paymentStatus: $paymentStatus, message: $message, code: $code, userId: $userId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$OrderHistoryEventCopyWith<$Res> implements $OrderHistoryEventCopyWith<$Res> {
+  factory _$OrderHistoryEventCopyWith(_OrderHistoryEvent value, $Res Function(_OrderHistoryEvent) _then) = __$OrderHistoryEventCopyWithImpl;
+@override @useResult
+$Res call({
+ DateTime createdAt, String? phase, String? room, String? kind, String? statusId, String? closeAs,@Deprecated('Use phase / statusId') OrderStatus status,@Deprecated('Use phase') DeliveryStatus deliveryStatus, PaymentStatus paymentStatus, String message, String code, String userId
+});
+
+
+
+
+}
+/// @nodoc
+class __$OrderHistoryEventCopyWithImpl<$Res>
+    implements _$OrderHistoryEventCopyWith<$Res> {
+  __$OrderHistoryEventCopyWithImpl(this._self, this._then);
+
+  final _OrderHistoryEvent _self;
+  final $Res Function(_OrderHistoryEvent) _then;
+
+/// Create a copy of OrderHistoryEvent
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? createdAt = null,Object? phase = freezed,Object? room = freezed,Object? kind = freezed,Object? statusId = freezed,Object? closeAs = freezed,Object? status = null,Object? deliveryStatus = null,Object? paymentStatus = null,Object? message = null,Object? code = null,Object? userId = null,}) {
+  return _then(_OrderHistoryEvent(
+createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,phase: freezed == phase ? _self.phase : phase // ignore: cast_nullable_to_non_nullable
+as String?,room: freezed == room ? _self.room : room // ignore: cast_nullable_to_non_nullable
+as String?,kind: freezed == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
+as String?,statusId: freezed == statusId ? _self.statusId : statusId // ignore: cast_nullable_to_non_nullable
+as String?,closeAs: freezed == closeAs ? _self.closeAs : closeAs // ignore: cast_nullable_to_non_nullable
+as String?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as OrderStatus,deliveryStatus: null == deliveryStatus ? _self.deliveryStatus : deliveryStatus // ignore: cast_nullable_to_non_nullable
+as DeliveryStatus,paymentStatus: null == paymentStatus ? _self.paymentStatus : paymentStatus // ignore: cast_nullable_to_non_nullable
+as PaymentStatus,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on

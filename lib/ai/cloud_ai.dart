@@ -212,6 +212,7 @@ class CloudAiApi {
       rethrow;
     }
   }
+
   void _validateKey(String key) {
     if (!RegExp(r'^[\x21-\x7e]{1,200}$').hasMatch(key)) {
       throw ArgumentError('Persist a stable Idempotency-Key before submission');
@@ -347,6 +348,9 @@ class CloudAiApi {
     required String idempotencyKey,
     String? id,
     String? storeId,
+    String? projectId,
+    String? parentTakeId,
+    String? operation,
     bool recoverOriginal = false,
     Uint8List? imageBytes,
     Uint8List? maskBytes,
@@ -397,6 +401,9 @@ class CloudAiApi {
       'attachments': jsonEncode(attachments.map((a) => a.toJson()).toList()),
       if (id != null && id.isNotEmpty) 'id': id,
       'storeId': ?storeId,
+      'projectId': ?projectId,
+      'parentTakeId': ?parentTakeId,
+      'operation': ?operation,
       if (imageBytes != null)
         'imageFile': MultipartFile.fromBytes(
           imageBytes,

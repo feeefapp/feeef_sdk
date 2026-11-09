@@ -96,6 +96,27 @@ void main() {
     );
     expect(adapter.calls, hasLength(1));
   });
+  test('shared image project identity and edit lineage travel with the frozen request', () async {
+    final dio = Dio(BaseOptions(baseUrl: 'https://feeef.test/v1'));
+    final adapter = FixtureAdapter();
+    dio.httpClientAdapter = adapter;
+    await CloudAiApi(client: dio).generateImage(
+      model: imageModel(),
+      prompt: 'A new variation',
+      settings: {},
+      idempotencyKey: 'stable-project-request',
+      projectId: 'project-1',
+      parentTakeId: 'take-1',
+      operation: 'variation',
+    );
+    final form = adapter.calls.single.data as FormData;
+    final fields = Map<String, String>.fromEntries(form.fields);
+    expect(fields['projectId'], 'project-1');
+    expect(fields['parentTakeId'], 'take-1');
+    expect(fields['operation'], 'variation');
+    expect(adapter.calls.single.path, '/ai/images');
+  });
+
   test('advertised pixel presets still obey reviewed bounds', () {
     final model = CloudAiModel.fromJson({
       ...imageModel().raw,

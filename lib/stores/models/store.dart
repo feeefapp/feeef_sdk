@@ -5,6 +5,7 @@ import 'package:feeef/core/string_extensions.dart';
 import 'package:feeef/interfaces/embadded/embadded_category.dart';
 import 'package:feeef/interfaces/order.dart';
 import 'package:feeef/categories/models/category.dart';
+import 'package:feeef/cloud_delivery/delivery_policy.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../interfaces/embadded/store.dart';
@@ -583,6 +584,10 @@ abstract class StoreConfigs with _$StoreConfigs {
     ConfirmationQueueConfig? confirmationQueue,
     InventoryIntegration? inventory_integration,
     FinanceIntegration? finance_integration,
+
+    /// Store default delivery policy (home / pickup / commune without a desk).
+    /// Courier accounts override it ([CloudCarrierAccount.deliveryPolicy]).
+    DeliveryPolicy? delivery,
   }) = _StoreConfigs;
 
   factory StoreConfigs.fromJson(Map<String, dynamic> json) =>

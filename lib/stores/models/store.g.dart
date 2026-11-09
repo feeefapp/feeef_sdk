@@ -397,6 +397,9 @@ _StoreConfigs _$StoreConfigsFromJson(
       : FinanceIntegration.fromJson(
           json['finance_integration'] as Map<String, dynamic>,
         ),
+  delivery: json['delivery'] == null
+      ? null
+      : DeliveryPolicy.fromJson(json['delivery'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$StoreConfigsToJson(_StoreConfigs instance) =>
@@ -410,6 +413,7 @@ Map<String, dynamic> _$StoreConfigsToJson(_StoreConfigs instance) =>
       'confirmationQueue': instance.confirmationQueue?.toJson(),
       'inventory_integration': instance.inventory_integration?.toJson(),
       'finance_integration': instance.finance_integration?.toJson(),
+      'delivery': instance.delivery?.toJson(),
     };
 
 _InventoryIntegration _$InventoryIntegrationFromJson(

@@ -4,6 +4,10 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:feeef/interfaces/helpers.dart';
 
+import 'delivery_policy.dart';
+
+export 'delivery_policy.dart';
+
 String _cloudString(dynamic value, [String fallback = '']) {
   if (value == null) return fallback;
   final text = value.toString().trim();
@@ -32,7 +36,11 @@ class CloudCarrierAccount implements Model {
     this.createdAt,
     this.updatedAt,
     this.joinedExisting = false,
+    this.deliveryPolicy,
   });
+
+  /// This store's delivery override for the account; null = store default.
+  final DeliveryPolicy? deliveryPolicy;
 
   @override
   final String id;
@@ -67,10 +75,12 @@ class CloudCarrierAccount implements Model {
       createdAt: _cloudStringOrNull(json['createdAt']),
       updatedAt: _cloudStringOrNull(json['updatedAt']),
       joinedExisting: json['joinedExisting'] == true,
+      deliveryPolicy: DeliveryPolicy.fromJsonOrNull(json['deliveryPolicy']),
     );
   }
 
   Map<String, dynamic> toJson() => {
+        'deliveryPolicy': deliveryPolicy?.toJson(),
         'id': id,
         'courierId': courierId,
         'provider': provider,
@@ -92,6 +102,8 @@ class CloudCarrierAccount implements Model {
     bool? samePriceAllWilayas,
     Map<String, dynamic>? fees,
     String? webhookUrl,
+    DeliveryPolicy? deliveryPolicy,
+    bool clearDeliveryPolicy = false,
   }) {
     return CloudCarrierAccount(
       id: id,
@@ -106,6 +118,8 @@ class CloudCarrierAccount implements Model {
       labelSource: labelSource,
       createdAt: createdAt,
       updatedAt: updatedAt,
+      deliveryPolicy:
+          clearDeliveryPolicy ? null : (deliveryPolicy ?? this.deliveryPolicy),
     );
   }
 
@@ -828,6 +842,17 @@ class CloudDeliveryApi {
     );
     return CloudCarrierAccount.fromJson(_unwrapMap(res));
   }
+
+  /// Save this store's delivery override for one account; `null` = inherit the store default.
+  Future<CloudCarrierAccount> setCarrierAccountDeliveryPolicy(
+    String storeId,
+    String accountId,
+    DeliveryPolicy? policy,
+  ) =>
+      updateCarrierAccount(storeId, accountId, {
+        'deliveryPolicy':
+            policy == null || policy.isEmpty ? null : policy.toJson(),
+      });
 
   Future<void> deleteCarrierAccount(String storeId, String accountId) async {
     await client.delete('/stores/$storeId/carrier-accounts/$accountId');

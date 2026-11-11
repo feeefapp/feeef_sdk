@@ -1075,6 +1075,10 @@ class AppConfig {
   /// Host suffix of store addresses on this API's environment (`{slug}.{storefrontDomain}`).
   final String? storefrontDomain;
 
+  /// Plans and store dues are billed through Feeef Cloud (`billing.cloud`): `payDue`
+  /// accepts `payWith: 'checkout'` (Cloud hosted checkout, every gateway + manual method).
+  final bool cloudBilling;
+
   AppConfig({
     required this.update,
     required this.popups,
@@ -1089,6 +1093,7 @@ class AppConfig {
     this.models,
     this.integrations,
     this.storefrontDomain,
+    this.cloudBilling = false,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -1156,6 +1161,7 @@ class AppConfig {
             )
           : null,
       storefrontDomain: (json['storefrontDomain'] as String?)?.trim(),
+      cloudBilling: json['billing'] is Map && json['billing']['cloud'] == true,
     );
   }
 
@@ -1173,5 +1179,7 @@ class AppConfig {
     'languages': languages.map((e) => e.toJson()).toList(),
     if (extra != null) 'extra': extra!.toJson(),
     if (integrations != null) 'integrations': {'billing': {}, 'items': {}},
+    'storefrontDomain': ?storefrontDomain,
+    'billing': {'cloud': cloudBilling},
   };
 }

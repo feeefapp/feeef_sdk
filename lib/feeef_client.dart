@@ -1,4 +1,5 @@
 import 'package:feeef/packages/packages_api.dart';
+
 import 'dart:developer' as developer;
 import 'dart:typed_data';
 
@@ -137,6 +138,7 @@ class Feeef {
   late final StoreRepository stores;
   late final ProductRepository products;
   late final ImagePromptTemplateRepository imagePromptTemplates;
+
   /// Templates, components and pages (template system v3).
   late final PackagesApi packages;
 
@@ -167,6 +169,9 @@ class Feeef {
   /// Analytics v2: overview, live counts and the metrics query API.
   late final MetricsRepository metrics;
   late final DepositRepository deposits;
+
+  /// Feeef Cloud wallet: balance, top-ups, manager review of manual top-ups.
+  late final CloudWalletRepository cloudWallet;
   late final TransferRepository transfers;
   late final ConfigRepository configs;
   late final AppRepository apps;
@@ -227,6 +232,7 @@ class Feeef {
     feedbacks = FeedbackRepository(client: client);
     categories = CategoryRepository(client: client);
     deposits = DepositRepository(client: client);
+    cloudWallet = CloudWalletRepository(client: client);
     transfers = TransferRepository(client: client);
     configs = ConfigRepository(client: client);
     apps = AppRepository(client: client);

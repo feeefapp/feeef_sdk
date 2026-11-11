@@ -1,8 +1,12 @@
+import 'package:dio/dio.dart';
+
 import '../feeef.dart';
 import 'models/deposit.dart';
-import 'models/satim_create_order_request.dart';
-import 'models/satim_create_order_response.dart';
 
+/// Legacy deposit history (read) + admin review of in-flight legacy deposits.
+///
+/// Wallet top-ups are Feeef Cloud deposits: use [CloudWalletRepository.topUp]
+/// (`ff.cloudWallet`). A merchant `create` returns `410 WALLET_ON_CLOUD`.
 class DepositRepository extends ModelRepository<Deposit>
     with
         ModelCreateMixin<Deposit, DepositCreate>,
@@ -10,56 +14,6 @@ class DepositRepository extends ModelRepository<Deposit>
         ModelUpdateMixin<Deposit, DepositUpdate>,
         ModelDeleteMixin<Deposit> {
   DepositRepository({required super.client}) : super(table: 'deposits');
-
-  Future<Deposit> send(DepositCreate data) async {
-    // Freezed toJson keeps null optionals; Vine `.optional()` rejects null.
-    // Only send fields the create/send endpoint actually uses.
-    final payload = <String, dynamic>{
-      'paymentMethod': data.paymentMethod,
-      'amount': data.amount,
-      'currency': data.currency,
-      if (data.note != null) 'note': data.note,
-      if (data.attachment != null) 'attachment': data.attachment,
-      if (data.metadata.isNotEmpty) 'metadata': data.metadata,
-    };
-    final response = await client.post('/$table/send', data: payload);
-    return modelFromJson(response.data);
-  }
-
-  /// Create a SATIM order for wallet deposit
-  Future<SatimCreateOrderResponse> satimCreate(
-    SatimCreateOrderRequest request,
-  ) async {
-    final response = await client.post(
-      '/$table/satim/create',
-      data: request.toJson(),
-    );
-    return SatimCreateOrderResponse.fromJson(response.data);
-  }
-
-  /// Create a Stripe checkout session for wallet deposit
-  Future<Map<String, dynamic>> stripeCreateSession({
-    required double amount,
-    String currency = 'USD',
-  }) async {
-    final response = await client.post(
-      '/$table/stripe/create-session',
-      data: {'amount': amount, 'currency': currency},
-    );
-    return response.data as Map<String, dynamic>;
-  }
-
-  /// Create a SlickPay invoice for wallet deposit (server-side, no client API key).
-  Future<Map<String, dynamic>> slickpayCreateInvoice({
-    required double amount,
-    String currency = 'DZD',
-  }) async {
-    final response = await client.post(
-      '/$table/slickpay/create-invoice',
-      data: {'amount': amount, 'currency': currency},
-    );
-    return Map<String, dynamic>.from(response.data as Map);
-  }
 
   @override
   Deposit modelFromJson(json) => Deposit.fromJson(json);
@@ -78,4 +32,76 @@ class DepositRepository extends ModelRepository<Deposit>
 
   @override
   Map<String, dynamic> updateToJson(DepositUpdate model) => model.toJson();
+}
+
+/// Feeef Cloud wallet: live balance + top-ups on the Cloud hosted checkout (every gateway:
+/// Stripe, SATIM, SlickPay, Chargily; and manual methods: CCP, BaridiMob, RedotPay,
+/// Binance, USDT … with proof upload). Managers review manual top-ups here too.
+class CloudWalletRepository {
+  CloudWalletRepository({required this.client});
+
+  final Dio client;
+
+  /// `{authority, walletId, balance, reserved, incoming, currency}` (DZD). The first call
+  /// moves a legacy wallet to Cloud.
+  Future<Map<String, dynamic>> get() async {
+    final response = await client.get('/wallet/cloud');
+    return Map<String, dynamic>.from(response.data as Map);
+  }
+
+  /// Starts a top-up of [amount] DZD → `{deposit: {id, state, amount}, checkout: {url}}`.
+  /// Reuse [requestKey] on retry of the same tap so only one deposit is opened.
+  Future<Map<String, dynamic>> topUp({
+    required num amount,
+    required String requestKey,
+    required String origin,
+    String? returnUrl,
+    String? locale,
+  }) async {
+    final response = await client.post(
+      '/wallet/cloud/top-ups',
+      data: {
+        'amount': amount,
+        'requestKey': requestKey,
+        'origin': origin,
+        'returnUrl': ?returnUrl,
+        'locale': ?locale,
+      },
+    );
+    return Map<String, dynamic>.from(response.data as Map);
+  }
+
+  /// Managers: Cloud deposits by [state] (default `awaiting_review`).
+  Future<Map<String, dynamic>> listDeposits({
+    String state = 'awaiting_review',
+    String? cursor,
+  }) async {
+    final response = await client.get(
+      '/admins/cloud-wallet/deposits',
+      queryParameters: {'state': state, 'cursor': ?cursor},
+    );
+    return Map<String, dynamic>.from(response.data as Map);
+  }
+
+  /// Managers: approve a manual top-up; Cloud credits the wallet exactly once.
+  Future<Map<String, dynamic>> approveDeposit(
+    String id, {
+    required String basis,
+    String? note,
+  }) async {
+    final response = await client.post(
+      '/admins/cloud-wallet/deposits/$id/approve',
+      data: {'basis': basis, 'note': ?note},
+    );
+    return Map<String, dynamic>.from(response.data as Map);
+  }
+
+  /// Managers: reject a manual top-up with a [reason] the merchant sees.
+  Future<Map<String, dynamic>> rejectDeposit(String id, String reason) async {
+    final response = await client.post(
+      '/admins/cloud-wallet/deposits/$id/reject',
+      data: {'reason': reason},
+    );
+    return Map<String, dynamic>.from(response.data as Map);
+  }
 }

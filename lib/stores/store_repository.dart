@@ -66,10 +66,7 @@ class StoreRepository extends ModelRepository<Store>
       page: page,
       offset: offset,
       limit: limit,
-      params: {
-        if (userId != null) 'user': userId,
-        ...?params,
-      },
+      params: {if (userId != null) 'user': userId, ...?params},
     );
   }
 
@@ -379,7 +376,9 @@ class StoreRepository extends ModelRepository<Store>
   /// Activates the store after trial (requires min wallet top-up on server).
   Future<Map<String, dynamic>> activateStore({required String storeId}) async {
     try {
-      final response = await client.post('/$table/$storeId/subscription/activate');
+      final response = await client.post(
+        '/$table/$storeId/subscription/activate',
+      );
       return response.data as Map<String, dynamic>;
     } on DioException catch (e) {
       if (e.response?.statusCode == 422) {
@@ -389,16 +388,25 @@ class StoreRepository extends ModelRepository<Store>
     }
   }
 
+  /// Pays [amount] due points. `payWith: 'checkout'` (Cloud billing only) returns
+  /// `{payWith: 'cloud', invoiceId, checkoutUrl, amount}`: open the URL and poll
+  /// [dueInvoiceStatus]. [idempotencyKey] makes a retried tap reuse the same payment.
   Future<Map<String, dynamic>> payDue({
     required String storeId,
     required double amount,
+    String? payWith,
+    String? returnUrl,
+    String? idempotencyKey,
   }) async {
     try {
       final response = await client.post(
         '/$table/$storeId/subscription/payDue',
-        data: {'amount': amount},
+        data: {'amount': amount, 'payWith': ?payWith, 'returnUrl': ?returnUrl},
+        options: idempotencyKey == null
+            ? null
+            : Options(headers: {'Idempotency-Key': idempotencyKey}),
       );
-      return response.data as Map<String, dynamic>;
+      return Map<String, dynamic>.from(response.data as Map);
     } on DioException catch (e) {
       if (e.response?.statusCode == 422) {
         var errors = FeeefValidationException.fromJson(e.response?.data);
@@ -406,6 +414,77 @@ class StoreRepository extends ModelRepository<Store>
       }
       rethrow;
     }
+  }
+
+  /// Status of a store-due Cloud invoice opened by [payDue] with `payWith: 'checkout'`:
+  /// `{invoiceId, status, paid, points, amount, remainingDue}`.
+  Future<Map<String, dynamic>> dueInvoiceStatus({
+    required String storeId,
+    required String invoiceId,
+  }) async {
+    try {
+      final response = await client.get(
+        '/$table/$storeId/subscription/due-invoices/$invoiceId',
+      );
+      return Map<String, dynamic>.from(response.data as Map);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 422) {
+        var errors = FeeefValidationException.fromJson(e.response?.data);
+        throw errors;
+      }
+      rethrow;
+    }
+  }
+
+  /// Buys / renews a plan through Feeef Cloud billing.
+  ///
+  /// `payWith: 'wallet'` debits now → `{payWith: 'wallet', subscription}`.
+  /// `gateway` / `manual` → `{payWith: 'cloud', invoiceId, checkoutUrl, amount}`: open the
+  /// URL (every gateway + manual method with proof upload) and poll [planInvoiceStatus].
+  Future<Map<String, dynamic>> planCheckout({
+    required String storeId,
+    required String plan,
+    required int months,
+    String? code,
+    String payWith = 'gateway',
+    String? paymentMethod,
+    String? returnUrl,
+    String? idempotencyKey,
+  }) async {
+    try {
+      final response = await client.post(
+        '/$table/$storeId/subscription/checkout',
+        data: {
+          'plan': plan,
+          'months': months,
+          'payWith': payWith,
+          'code': ?code,
+          'paymentMethod': ?paymentMethod,
+          'returnUrl': ?returnUrl,
+        },
+        options: idempotencyKey == null
+            ? null
+            : Options(headers: {'Idempotency-Key': idempotencyKey}),
+      );
+      return Map<String, dynamic>.from(response.data as Map);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 422) {
+        throw FeeefValidationException.fromJson(e.response?.data);
+      }
+      rethrow;
+    }
+  }
+
+  /// Status of a plan invoice opened by [planCheckout]:
+  /// `{invoiceId, status, paid, amount, subscription}`.
+  Future<Map<String, dynamic>> planInvoiceStatus({
+    required String storeId,
+    required String invoiceId,
+  }) async {
+    final response = await client.get(
+      '/$table/$storeId/subscription/invoices/$invoiceId',
+    );
+    return Map<String, dynamic>.from(response.data as Map);
   }
 
   Future<void> buyMonthWithIap({

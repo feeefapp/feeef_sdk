@@ -305,35 +305,6 @@ class StoreRepository extends ModelRepository<Store>
     }
   }
 
-  /// Pay subscription via wallet or direct gateway (SlickPay, Chargily).
-  Future<Map<String, dynamic>> subscriptionCheckout({
-    required String storeId,
-    required StoreSubscriptionType plan,
-    required int months,
-    required String paymentMethod,
-    required String payWith,
-    String? code,
-  }) async {
-    try {
-      final response = await client.post(
-        '/$table/$storeId/subscription/checkout',
-        data: {
-          'plan': plan.name,
-          'months': months,
-          'paymentMethod': paymentMethod,
-          'payWith': payWith,
-          if (code != null && code.isNotEmpty) 'code': code,
-        },
-      );
-      return Map<String, dynamic>.from(response.data as Map);
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 422) {
-        throw FeeefValidationException.fromJson(e.response?.data);
-      }
-      rethrow;
-    }
-  }
-
   Future<void> charge({required String id, required int points}) async {
     try {
       await client.post(
@@ -388,7 +359,7 @@ class StoreRepository extends ModelRepository<Store>
     }
   }
 
-  /// Pays [amount] due points. `payWith: 'checkout'` (Cloud billing only) returns
+  /// Pays [amount] due points. `payWith: 'checkout'` returns
   /// `{payWith: 'cloud', invoiceId, checkoutUrl, amount}`: open the URL and poll
   /// [dueInvoiceStatus]. [idempotencyKey] makes a retried tap reuse the same payment.
   Future<Map<String, dynamic>> payDue({
@@ -439,14 +410,14 @@ class StoreRepository extends ModelRepository<Store>
   /// Buys / renews a plan through Feeef Cloud billing.
   ///
   /// `payWith: 'wallet'` debits now → `{payWith: 'wallet', subscription}`.
-  /// `gateway` / `manual` → `{payWith: 'cloud', invoiceId, checkoutUrl, amount}`: open the
-  /// URL (every gateway + manual method with proof upload) and poll [planInvoiceStatus].
+  /// `checkout` → `{payWith: 'cloud', invoiceId, checkoutUrl, amount}`: open the URL (every
+  /// gateway + manual method with proof upload) and poll [planInvoiceStatus].
   Future<Map<String, dynamic>> planCheckout({
     required String storeId,
     required String plan,
     required int months,
     String? code,
-    String payWith = 'gateway',
+    String payWith = 'checkout',
     String? paymentMethod,
     String? returnUrl,
     String? idempotencyKey,

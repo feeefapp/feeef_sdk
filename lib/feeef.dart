@@ -63,6 +63,7 @@ export 'orders/models/lite_orders_report.dart';
 export 'orders/order_repository.dart';
 export 'orders/orders_v1_api.dart';
 export 'cloud_delivery/cloud_delivery_api.dart';
+export 'cloud_wallet/cloud_wallet_repository.dart';
 export 'products/product_repository.dart';
 export 'shipping_methods/shipping_method_repository.dart';
 export 'shipping_prices/models/shipping_price.dart';

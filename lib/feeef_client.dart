@@ -21,7 +21,6 @@ import 'package:feeef/config_repository.dart';
 import 'package:feeef/countries/country_repository.dart';
 import 'package:feeef/geo/geo_api.dart';
 import 'package:feeef/currencies/currency_repository.dart';
-import 'package:feeef/deposits/deposit_repository.dart';
 import 'package:feeef/files/services/actions.dart';
 import 'package:feeef/files/services/analytics.dart';
 import 'package:feeef/files/services/file_service.dart';
@@ -36,6 +35,7 @@ import 'package:feeef/image_prompt_templates/image_prompt_template_repository.da
 import 'package:feeef/orders/order_repository.dart';
 import 'package:feeef/orders/orders_v1_api.dart';
 import 'package:feeef/cloud_delivery/cloud_delivery_api.dart';
+import 'package:feeef/cloud_wallet/cloud_wallet_repository.dart';
 import 'package:feeef/products/product_repository.dart';
 import 'package:feeef/realtime/realtime.dart';
 import 'package:feeef/reviews/reviews_repository.dart';
@@ -168,7 +168,6 @@ class Feeef {
 
   /// Analytics v2: overview, live counts and the metrics query API.
   late final MetricsRepository metrics;
-  late final DepositRepository deposits;
 
   /// Feeef Cloud wallet: balance, top-ups, manager review of manual top-ups.
   late final CloudWalletRepository cloudWallet;
@@ -231,7 +230,6 @@ class Feeef {
     shippingPricesResource = ShippingPriceResourceRepository(client: client);
     feedbacks = FeedbackRepository(client: client);
     categories = CategoryRepository(client: client);
-    deposits = DepositRepository(client: client);
     cloudWallet = CloudWalletRepository(client: client);
     transfers = TransferRepository(client: client);
     configs = ConfigRepository(client: client);

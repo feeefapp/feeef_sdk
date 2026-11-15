@@ -54,6 +54,7 @@ _ProductVariantOption _$ProductVariantOptionFromJson(
   discount: json['discount'] as num?,
   stock: json['stock'] as num?,
   sold: json['sold'] as num?,
+  mediaIndex: (json['mediaIndex'] as num?)?.toInt(),
   mustSelectChild: json['mustSelectChild'] as bool? ?? false,
 );
 
@@ -71,6 +72,7 @@ Map<String, dynamic> _$ProductVariantOptionToJson(
   'discount': instance.discount,
   'stock': instance.stock,
   'sold': instance.sold,
+  'mediaIndex': instance.mediaIndex,
   'mustSelectChild': instance.mustSelectChild,
 };
 

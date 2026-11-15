@@ -48,6 +48,10 @@ abstract class ProductVariantOption with _$ProductVariantOption {
     num? discount,
     num? stock,
     num? sold,
+
+    /// Index into `product.media`: the storefront scrolls the gallery to that
+    /// photo when the option is picked (any [type], not only image).
+    int? mediaIndex,
     @Default(false) bool mustSelectChild,
   }) = _ProductVariantOption;
 

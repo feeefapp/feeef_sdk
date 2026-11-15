@@ -302,7 +302,9 @@ as List<ProductVariantOption>,
 mixin _$ProductVariantOption {
 
  String get name; bool get hidden; VariantOptionType get type; dynamic get value; ProductVariant? get child; String? get sku; num? get price;/// Unit cost for ads profit reporting; overrides product.cost when set.
- num? get cost; num? get discount; num? get stock; num? get sold; bool get mustSelectChild;
+ num? get cost; num? get discount; num? get stock; num? get sold;/// Index into `product.media`: the storefront scrolls the gallery to that
+/// photo when the option is picked (any [type], not only image).
+ int? get mediaIndex; bool get mustSelectChild;
 /// Create a copy of ProductVariantOption
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -316,20 +318,20 @@ $ProductVariantOptionCopyWith<ProductVariantOption> get copyWith => _$ProductVar
 @override
 bool operator ==(Object other) {
   final _this = this as ProductVariantOption;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductVariantOption&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.hidden, _this.hidden) || other.hidden == _this.hidden)&&(identical(other.type, _this.type) || other.type == _this.type)&&const DeepCollectionEquality().equals(other.value, _this.value)&&(identical(other.child, _this.child) || other.child == _this.child)&&(identical(other.sku, _this.sku) || other.sku == _this.sku)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.cost, _this.cost) || other.cost == _this.cost)&&(identical(other.discount, _this.discount) || other.discount == _this.discount)&&(identical(other.stock, _this.stock) || other.stock == _this.stock)&&(identical(other.sold, _this.sold) || other.sold == _this.sold)&&(identical(other.mustSelectChild, _this.mustSelectChild) || other.mustSelectChild == _this.mustSelectChild));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductVariantOption&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.hidden, _this.hidden) || other.hidden == _this.hidden)&&(identical(other.type, _this.type) || other.type == _this.type)&&const DeepCollectionEquality().equals(other.value, _this.value)&&(identical(other.child, _this.child) || other.child == _this.child)&&(identical(other.sku, _this.sku) || other.sku == _this.sku)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.cost, _this.cost) || other.cost == _this.cost)&&(identical(other.discount, _this.discount) || other.discount == _this.discount)&&(identical(other.stock, _this.stock) || other.stock == _this.stock)&&(identical(other.sold, _this.sold) || other.sold == _this.sold)&&(identical(other.mediaIndex, _this.mediaIndex) || other.mediaIndex == _this.mediaIndex)&&(identical(other.mustSelectChild, _this.mustSelectChild) || other.mustSelectChild == _this.mustSelectChild));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as ProductVariantOption;
-  return Object.hash(runtimeType,_this.name,_this.hidden,_this.type,const DeepCollectionEquality().hash(_this.value),_this.child,_this.sku,_this.price,_this.cost,_this.discount,_this.stock,_this.sold,_this.mustSelectChild);
+  return Object.hash(runtimeType,_this.name,_this.hidden,_this.type,const DeepCollectionEquality().hash(_this.value),_this.child,_this.sku,_this.price,_this.cost,_this.discount,_this.stock,_this.sold,_this.mediaIndex,_this.mustSelectChild);
 }
 
 @override
 String toString() {
   final _this = this as ProductVariantOption;
-  return 'ProductVariantOption(name: ${_this.name}, hidden: ${_this.hidden}, type: ${_this.type}, value: ${_this.value}, child: ${_this.child}, sku: ${_this.sku}, price: ${_this.price}, cost: ${_this.cost}, discount: ${_this.discount}, stock: ${_this.stock}, sold: ${_this.sold}, mustSelectChild: ${_this.mustSelectChild})';
+  return 'ProductVariantOption(name: ${_this.name}, hidden: ${_this.hidden}, type: ${_this.type}, value: ${_this.value}, child: ${_this.child}, sku: ${_this.sku}, price: ${_this.price}, cost: ${_this.cost}, discount: ${_this.discount}, stock: ${_this.stock}, sold: ${_this.sold}, mediaIndex: ${_this.mediaIndex}, mustSelectChild: ${_this.mustSelectChild})';
 }
 
 
@@ -340,7 +342,7 @@ abstract mixin class $ProductVariantOptionCopyWith<$Res>  {
   factory $ProductVariantOptionCopyWith(ProductVariantOption value, $Res Function(ProductVariantOption) _then) = _$ProductVariantOptionCopyWithImpl;
 @useResult
 $Res call({
- String name, bool hidden, VariantOptionType type, dynamic value, ProductVariant? child, String? sku, num? price, num? cost, num? discount, num? stock, num? sold, bool mustSelectChild
+ String name, bool hidden, VariantOptionType type, dynamic value, ProductVariant? child, String? sku, num? price, num? cost, num? discount, num? stock, num? sold, int? mediaIndex, bool mustSelectChild
 });
 
 
@@ -357,7 +359,7 @@ class _$ProductVariantOptionCopyWithImpl<$Res>
 
 /// Create a copy of ProductVariantOption
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? hidden = null,Object? type = null,Object? value = freezed,Object? child = freezed,Object? sku = freezed,Object? price = freezed,Object? cost = freezed,Object? discount = freezed,Object? stock = freezed,Object? sold = freezed,Object? mustSelectChild = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? hidden = null,Object? type = null,Object? value = freezed,Object? child = freezed,Object? sku = freezed,Object? price = freezed,Object? cost = freezed,Object? discount = freezed,Object? stock = freezed,Object? sold = freezed,Object? mediaIndex = freezed,Object? mustSelectChild = null,}) {
   return _then(ProductVariantOption(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,hidden: null == hidden ? _self.hidden : hidden // ignore: cast_nullable_to_non_nullable
@@ -370,7 +372,8 @@ as num?,cost: freezed == cost ? _self.cost : cost // ignore: cast_nullable_to_no
 as num?,discount: freezed == discount ? _self.discount : discount // ignore: cast_nullable_to_non_nullable
 as num?,stock: freezed == stock ? _self.stock : stock // ignore: cast_nullable_to_non_nullable
 as num?,sold: freezed == sold ? _self.sold : sold // ignore: cast_nullable_to_non_nullable
-as num?,mustSelectChild: null == mustSelectChild ? _self.mustSelectChild : mustSelectChild // ignore: cast_nullable_to_non_nullable
+as num?,mediaIndex: freezed == mediaIndex ? _self.mediaIndex : mediaIndex // ignore: cast_nullable_to_non_nullable
+as int?,mustSelectChild: null == mustSelectChild ? _self.mustSelectChild : mustSelectChild // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -468,10 +471,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  bool hidden,  VariantOptionType type,  dynamic value,  ProductVariant? child,  String? sku,  num? price,  num? cost,  num? discount,  num? stock,  num? sold,  bool mustSelectChild)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  bool hidden,  VariantOptionType type,  dynamic value,  ProductVariant? child,  String? sku,  num? price,  num? cost,  num? discount,  num? stock,  num? sold,  int? mediaIndex,  bool mustSelectChild)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProductVariantOption() when $default != null:
-return $default(_that.name,_that.hidden,_that.type,_that.value,_that.child,_that.sku,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.mustSelectChild);case _:
+return $default(_that.name,_that.hidden,_that.type,_that.value,_that.child,_that.sku,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.mediaIndex,_that.mustSelectChild);case _:
   return orElse();
 
 }
@@ -489,10 +492,10 @@ return $default(_that.name,_that.hidden,_that.type,_that.value,_that.child,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  bool hidden,  VariantOptionType type,  dynamic value,  ProductVariant? child,  String? sku,  num? price,  num? cost,  num? discount,  num? stock,  num? sold,  bool mustSelectChild)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  bool hidden,  VariantOptionType type,  dynamic value,  ProductVariant? child,  String? sku,  num? price,  num? cost,  num? discount,  num? stock,  num? sold,  int? mediaIndex,  bool mustSelectChild)  $default,) {final _that = this;
 switch (_that) {
 case _ProductVariantOption():
-return $default(_that.name,_that.hidden,_that.type,_that.value,_that.child,_that.sku,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.mustSelectChild);case _:
+return $default(_that.name,_that.hidden,_that.type,_that.value,_that.child,_that.sku,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.mediaIndex,_that.mustSelectChild);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -509,10 +512,10 @@ return $default(_that.name,_that.hidden,_that.type,_that.value,_that.child,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  bool hidden,  VariantOptionType type,  dynamic value,  ProductVariant? child,  String? sku,  num? price,  num? cost,  num? discount,  num? stock,  num? sold,  bool mustSelectChild)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  bool hidden,  VariantOptionType type,  dynamic value,  ProductVariant? child,  String? sku,  num? price,  num? cost,  num? discount,  num? stock,  num? sold,  int? mediaIndex,  bool mustSelectChild)?  $default,) {final _that = this;
 switch (_that) {
 case _ProductVariantOption() when $default != null:
-return $default(_that.name,_that.hidden,_that.type,_that.value,_that.child,_that.sku,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.mustSelectChild);case _:
+return $default(_that.name,_that.hidden,_that.type,_that.value,_that.child,_that.sku,_that.price,_that.cost,_that.discount,_that.stock,_that.sold,_that.mediaIndex,_that.mustSelectChild);case _:
   return null;
 
 }
@@ -524,7 +527,7 @@ return $default(_that.name,_that.hidden,_that.type,_that.value,_that.child,_that
 @JsonSerializable()
 
 class _ProductVariantOption implements ProductVariantOption {
-   _ProductVariantOption({this.name = "option", this.hidden = false, this.type = VariantOptionType.text, this.value, this.child, this.sku, this.price, this.cost, this.discount, this.stock, this.sold, this.mustSelectChild = false});
+   _ProductVariantOption({this.name = "option", this.hidden = false, this.type = VariantOptionType.text, this.value, this.child, this.sku, this.price, this.cost, this.discount, this.stock, this.sold, this.mediaIndex, this.mustSelectChild = false});
   factory _ProductVariantOption.fromJson(Map<String, dynamic> json) => _$ProductVariantOptionFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -539,6 +542,9 @@ class _ProductVariantOption implements ProductVariantOption {
 @override final  num? discount;
 @override final  num? stock;
 @override final  num? sold;
+/// Index into `product.media`: the storefront scrolls the gallery to that
+/// photo when the option is picked (any [type], not only image).
+@override final  int? mediaIndex;
 @override@JsonKey() final  bool mustSelectChild;
 
 /// Create a copy of ProductVariantOption
@@ -554,18 +560,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductVariantOption&&(identical(other.name, name) || other.name == name)&&(identical(other.hidden, hidden) || other.hidden == hidden)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.value, value)&&(identical(other.child, child) || other.child == child)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.price, price) || other.price == price)&&(identical(other.cost, cost) || other.cost == cost)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.sold, sold) || other.sold == sold)&&(identical(other.mustSelectChild, mustSelectChild) || other.mustSelectChild == mustSelectChild));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductVariantOption&&(identical(other.name, name) || other.name == name)&&(identical(other.hidden, hidden) || other.hidden == hidden)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.value, value)&&(identical(other.child, child) || other.child == child)&&(identical(other.sku, sku) || other.sku == sku)&&(identical(other.price, price) || other.price == price)&&(identical(other.cost, cost) || other.cost == cost)&&(identical(other.discount, discount) || other.discount == discount)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.sold, sold) || other.sold == sold)&&(identical(other.mediaIndex, mediaIndex) || other.mediaIndex == mediaIndex)&&(identical(other.mustSelectChild, mustSelectChild) || other.mustSelectChild == mustSelectChild));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,name,hidden,type,const DeepCollectionEquality().hash(value),child,sku,price,cost,discount,stock,sold,mustSelectChild);
+    return Object.hash(runtimeType,name,hidden,type,const DeepCollectionEquality().hash(value),child,sku,price,cost,discount,stock,sold,mediaIndex,mustSelectChild);
 }
 
 @override
 String toString() {
-    return 'ProductVariantOption(name: $name, hidden: $hidden, type: $type, value: $value, child: $child, sku: $sku, price: $price, cost: $cost, discount: $discount, stock: $stock, sold: $sold, mustSelectChild: $mustSelectChild)';
+    return 'ProductVariantOption(name: $name, hidden: $hidden, type: $type, value: $value, child: $child, sku: $sku, price: $price, cost: $cost, discount: $discount, stock: $stock, sold: $sold, mediaIndex: $mediaIndex, mustSelectChild: $mustSelectChild)';
 }
 
 
@@ -576,7 +582,7 @@ abstract mixin class _$ProductVariantOptionCopyWith<$Res> implements $ProductVar
   factory _$ProductVariantOptionCopyWith(_ProductVariantOption value, $Res Function(_ProductVariantOption) _then) = __$ProductVariantOptionCopyWithImpl;
 @override @useResult
 $Res call({
- String name, bool hidden, VariantOptionType type, dynamic value, ProductVariant? child, String? sku, num? price, num? cost, num? discount, num? stock, num? sold, bool mustSelectChild
+ String name, bool hidden, VariantOptionType type, dynamic value, ProductVariant? child, String? sku, num? price, num? cost, num? discount, num? stock, num? sold, int? mediaIndex, bool mustSelectChild
 });
 
 
@@ -593,7 +599,7 @@ class __$ProductVariantOptionCopyWithImpl<$Res>
 
 /// Create a copy of ProductVariantOption
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? hidden = null,Object? type = null,Object? value = freezed,Object? child = freezed,Object? sku = freezed,Object? price = freezed,Object? cost = freezed,Object? discount = freezed,Object? stock = freezed,Object? sold = freezed,Object? mustSelectChild = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? hidden = null,Object? type = null,Object? value = freezed,Object? child = freezed,Object? sku = freezed,Object? price = freezed,Object? cost = freezed,Object? discount = freezed,Object? stock = freezed,Object? sold = freezed,Object? mediaIndex = freezed,Object? mustSelectChild = null,}) {
   return _then(_ProductVariantOption(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,hidden: null == hidden ? _self.hidden : hidden // ignore: cast_nullable_to_non_nullable
@@ -606,7 +612,8 @@ as num?,cost: freezed == cost ? _self.cost : cost // ignore: cast_nullable_to_no
 as num?,discount: freezed == discount ? _self.discount : discount // ignore: cast_nullable_to_non_nullable
 as num?,stock: freezed == stock ? _self.stock : stock // ignore: cast_nullable_to_non_nullable
 as num?,sold: freezed == sold ? _self.sold : sold // ignore: cast_nullable_to_non_nullable
-as num?,mustSelectChild: null == mustSelectChild ? _self.mustSelectChild : mustSelectChild // ignore: cast_nullable_to_non_nullable
+as num?,mediaIndex: freezed == mediaIndex ? _self.mediaIndex : mediaIndex // ignore: cast_nullable_to_non_nullable
+as int?,mustSelectChild: null == mustSelectChild ? _self.mustSelectChild : mustSelectChild // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

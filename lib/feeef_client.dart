@@ -26,6 +26,7 @@ import 'package:feeef/files/services/analytics.dart';
 import 'package:feeef/files/services/file_service.dart';
 import 'package:feeef/feedbacks/feedback_repository.dart';
 import 'package:feeef/inventory/inventory_repository.dart';
+import 'package:feeef/lab/lab.dart';
 import 'package:feeef/finance/finance_repository.dart';
 import 'package:feeef/integrations/connectors_integration_api.dart';
 import 'package:feeef/integrations/meta_ads_integration_api.dart';
@@ -183,6 +184,9 @@ class Feeef {
   /// Meta integration — ads reads, KPIs, and ad↔product links.
   late final MetaAdsIntegrationApi metaAds;
 
+  /// Feeef Lab (chat, voice, image/poster, automations, ads, media, billing) at `/lab/*`.
+  late final LabApi lab;
+
   late final CurrencyRepository currencies;
   late final CountryRepository countries;
   late final StateRepository states;
@@ -240,6 +244,7 @@ class Feeef {
     finance = FinanceRepository(client: client);
     connectors = ConnectorsIntegrationApi(client: client);
     metaAds = MetaAdsIntegrationApi(client: client);
+    lab = LabApi(client);
     files = FileService(client: client);
 
     currencies = CurrencyRepository(client: client);

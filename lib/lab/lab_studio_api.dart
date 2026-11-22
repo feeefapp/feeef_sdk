@@ -178,8 +178,8 @@ class LabVoiceApi {
   Future<LabJson> state() async => labMap(await _json('state'));
 
   /// Voices + saved clones for a model: `{voices, saved, next…}`.
-  Future<LabJson> library({required String model, String? search, String? cursor}) async =>
-      labMap(await _json('library', query: {'model': model, 'search': search, 'cursor': cursor}));
+  Future<LabJson> library({required String model, String? search, String? pageToken}) async =>
+      labMap(await _json('library', query: {'model': model, 'search': search, 'page_token': pageToken}));
 
   /// Speech / script / design / clone. [body] carries `operation`, model, blocks…; the
   /// idempotency key travels as `key` in the body (same as the web).
@@ -195,8 +195,9 @@ class LabVoiceApi {
       _json('voices/manage', body: {'id': id, 'operation': operation, 'name': ?name, 'key': labRequestId()});
 
   // Projects
-  Future<LabJson> projects({String? q, String? cursor}) async =>
-      labMap(await _json('projects', query: {'q': q, 'cursor': cursor}));
+  /// `{projects, next}` — page with `before: next` (the web `loadProjects`).
+  Future<LabJson> projects({String? before}) async =>
+      labMap(await _json('projects', query: {'before': before}));
   Future<LabJson> createProject(LabJson body) async => labMap(await _json('projects', body: body));
   Future<LabJson> project(String id) async => labMap(await _json('projects/$id'));
   Future<LabJson> saveProject(String id, LabJson body) async =>

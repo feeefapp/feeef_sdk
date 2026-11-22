@@ -119,21 +119,22 @@ class LabChatApi {
   // ── Runs & streaming ─────────────────────────────────────────────────
   Future<LabJson> run(String id) async => labMap(await _json('runs/$id'));
 
-  /// Starts a turn and returns the live chunk stream. Retrying with the same [key] replays.
-  Future<Stream<LabChatEvent>> send(
+  /// Starts a turn: the run id (`x-agent-run-id`) and its live chunk stream. Retrying with the
+  /// same [key] replays.
+  Future<({String? runId, Stream<LabChatEvent> events})> send(
     String conversationId,
     LabSendInput input, {
     required String key,
     CancelToken? cancel,
   }) async {
-    final frames = await _http.sse(
+    final r = await _http.sseResponse(
       _p('conversations/$conversationId/messages'),
       method: 'POST',
       body: input.toJson(),
       key: key,
       cancel: cancel,
     );
-    return _chunks(frames);
+    return (runId: r.headers.value('x-agent-run-id'), events: _chunks(r.frames));
   }
 
   /// Follow a run's events after sequence [after] (resume after drops).

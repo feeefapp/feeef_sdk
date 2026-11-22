@@ -191,6 +191,16 @@ class LabHttp {
     Map<String, String>? headers,
     String? key,
     CancelToken? cancel,
+  }) async => (await sseResponse(path, method: method, body: body, headers: headers, key: key, cancel: cancel)).frames;
+
+  /// An SSE response with its headers (`x-agent-run-id` on a chat turn).
+  Future<({Stream<LabSseFrame> frames, Headers headers})> sseResponse(
+    String path, {
+    String method = 'GET',
+    Object? body,
+    Map<String, String>? headers,
+    String? key,
+    CancelToken? cancel,
   }) async {
     Response<ResponseBody> r;
     try {
@@ -222,7 +232,7 @@ class LabHttp {
       } catch (_) {}
       throw _effects(LabError.fromBody(status, parsed));
     }
-    return labSseFrames(r.data!.stream);
+    return (frames: labSseFrames(r.data!.stream), headers: r.headers);
   }
 
   LabError _effects(LabError error) {

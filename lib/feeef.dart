@@ -79,6 +79,7 @@ export 'interfaces/embadded/member_scope.dart';
 export 'interfaces/embadded/member_permissions.dart';
 export 'interfaces/embadded/confermer_workspace.dart';
 export 'stores/store_repository.dart';
+export 'stores/store_cloud_payments_repository.dart';
 export 'geo/geo_api.dart';
 export 'stores/store_invites_repository.dart';
 export 'users/user_repository.dart';

@@ -37,6 +37,7 @@ import 'package:feeef/orders/order_repository.dart';
 import 'package:feeef/orders/orders_v1_api.dart';
 import 'package:feeef/cloud_delivery/cloud_delivery_api.dart';
 import 'package:feeef/cloud_wallet/cloud_wallet_repository.dart';
+import 'package:feeef/stores/store_cloud_payments_repository.dart';
 import 'package:feeef/products/product_repository.dart';
 import 'package:feeef/realtime/realtime.dart';
 import 'package:feeef/reviews/reviews_repository.dart';
@@ -172,6 +173,9 @@ class Feeef {
 
   /// Feeef Cloud wallet: balance, top-ups, manager review of manual top-ups.
   late final CloudWalletRepository cloudWallet;
+
+  /// Store online payments through the merchant's Feeef Cloud project.
+  late final StoreCloudPaymentsRepository storeCloudPayments;
   late final TransferRepository transfers;
   late final ConfigRepository configs;
   late final AppRepository apps;
@@ -235,6 +239,7 @@ class Feeef {
     feedbacks = FeedbackRepository(client: client);
     categories = CategoryRepository(client: client);
     cloudWallet = CloudWalletRepository(client: client);
+    storeCloudPayments = StoreCloudPaymentsRepository(client: client);
     transfers = TransferRepository(client: client);
     configs = ConfigRepository(client: client);
     apps = AppRepository(client: client);

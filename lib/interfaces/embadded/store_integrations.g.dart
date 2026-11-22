@@ -1430,9 +1430,6 @@ _PaymentMethodConfig _$PaymentMethodConfigFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       name: json['name'] as String,
       active: json['active'] as bool? ?? true,
-      apiKey: json['apiKey'] as String?,
-      clientId: json['clientId'] as String?,
-      clientSecret: json['clientSecret'] as String?,
       metadata: json['metadata'] as Map<String, dynamic>? ?? const {},
     );
 
@@ -1442,9 +1439,6 @@ Map<String, dynamic> _$PaymentMethodConfigToJson(
   'id': instance.id,
   'name': instance.name,
   'active': instance.active,
-  'apiKey': instance.apiKey,
-  'clientId': instance.clientId,
-  'clientSecret': instance.clientSecret,
   'metadata': instance.metadata,
 };
 

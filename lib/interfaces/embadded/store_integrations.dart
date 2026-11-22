@@ -1720,20 +1720,16 @@ abstract class CustomFieldsIntegration with _$CustomFieldsIntegration {
 
 // ===================== PAYMENT INTEGRATION =====================
 
-/// Payment method configuration (includes sensitive data like API keys)
+/// Store payment method: `cod` or `cloud` (online through the store's Feeef Cloud
+/// project). Provider credentials live in Feeef Cloud, never on the store.
 @freezed
 abstract class PaymentMethodConfig with _$PaymentMethodConfig {
   const PaymentMethodConfig._();
   const factory PaymentMethodConfig({
-    required String id, // Slug identifier (e.g., 'chargily', 'paypal')
-    required String name, // Display name (e.g., 'Chargily Pay', 'PayPal')
+    required String id, // 'cod' | 'cloud'
+    required String name,
     @Default(true) bool active,
-    // Method-specific configuration
-    String? apiKey, // For Chargily
-    String? clientId, // For PayPal, Stripe, etc.
-    String? clientSecret, // For PayPal, Stripe, etc.
-    @Default({})
-    Map<String, dynamic> metadata, // Allow other method-specific fields
+    @Default({}) Map<String, dynamic> metadata,
   }) = _PaymentMethodConfig;
 
   factory PaymentMethodConfig.fromJson(Map<String, dynamic> json) =>

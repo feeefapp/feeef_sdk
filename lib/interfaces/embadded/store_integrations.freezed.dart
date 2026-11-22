@@ -16336,7 +16336,7 @@ as Map<String, dynamic>,
 /// @nodoc
 mixin _$PaymentMethodConfig {
 
- String get id; String get name; bool get active; String? get apiKey; String? get clientId; String? get clientSecret; Map<String, dynamic> get metadata;
+ String get id; String get name; bool get active; Map<String, dynamic> get metadata;
 /// Create a copy of PaymentMethodConfig
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -16350,20 +16350,20 @@ $PaymentMethodConfigCopyWith<PaymentMethodConfig> get copyWith => _$PaymentMetho
 @override
 bool operator ==(Object other) {
   final _this = this as PaymentMethodConfig;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentMethodConfig&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.apiKey, _this.apiKey) || other.apiKey == _this.apiKey)&&(identical(other.clientId, _this.clientId) || other.clientId == _this.clientId)&&(identical(other.clientSecret, _this.clientSecret) || other.clientSecret == _this.clientSecret)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentMethodConfig&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.active, _this.active) || other.active == _this.active)&&const DeepCollectionEquality().equals(other.metadata, _this.metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as PaymentMethodConfig;
-  return Object.hash(runtimeType,_this.id,_this.name,_this.active,_this.apiKey,_this.clientId,_this.clientSecret,const DeepCollectionEquality().hash(_this.metadata));
+  return Object.hash(runtimeType,_this.id,_this.name,_this.active,const DeepCollectionEquality().hash(_this.metadata));
 }
 
 @override
 String toString() {
   final _this = this as PaymentMethodConfig;
-  return 'PaymentMethodConfig(id: ${_this.id}, name: ${_this.name}, active: ${_this.active}, apiKey: ${_this.apiKey}, clientId: ${_this.clientId}, clientSecret: ${_this.clientSecret}, metadata: ${_this.metadata})';
+  return 'PaymentMethodConfig(id: ${_this.id}, name: ${_this.name}, active: ${_this.active}, metadata: ${_this.metadata})';
 }
 
 
@@ -16374,7 +16374,7 @@ abstract mixin class $PaymentMethodConfigCopyWith<$Res>  {
   factory $PaymentMethodConfigCopyWith(PaymentMethodConfig value, $Res Function(PaymentMethodConfig) _then) = _$PaymentMethodConfigCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, bool active, String? apiKey, String? clientId, String? clientSecret, Map<String, dynamic> metadata
+ String id, String name, bool active, Map<String, dynamic> metadata
 });
 
 
@@ -16391,15 +16391,12 @@ class _$PaymentMethodConfigCopyWithImpl<$Res>
 
 /// Create a copy of PaymentMethodConfig
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? active = null,Object? apiKey = freezed,Object? clientId = freezed,Object? clientSecret = freezed,Object? metadata = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? active = null,Object? metadata = null,}) {
   return _then(PaymentMethodConfig(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
-as bool,apiKey: freezed == apiKey ? _self.apiKey : apiKey // ignore: cast_nullable_to_non_nullable
-as String?,clientId: freezed == clientId ? _self.clientId : clientId // ignore: cast_nullable_to_non_nullable
-as String?,clientSecret: freezed == clientSecret ? _self.clientSecret : clientSecret // ignore: cast_nullable_to_non_nullable
-as String?,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as bool,metadata: null == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));
 }
@@ -16485,10 +16482,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  bool active,  String? apiKey,  String? clientId,  String? clientSecret,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  bool active,  Map<String, dynamic> metadata)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PaymentMethodConfig() when $default != null:
-return $default(_that.id,_that.name,_that.active,_that.apiKey,_that.clientId,_that.clientSecret,_that.metadata);case _:
+return $default(_that.id,_that.name,_that.active,_that.metadata);case _:
   return orElse();
 
 }
@@ -16506,10 +16503,10 @@ return $default(_that.id,_that.name,_that.active,_that.apiKey,_that.clientId,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  bool active,  String? apiKey,  String? clientId,  String? clientSecret,  Map<String, dynamic> metadata)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  bool active,  Map<String, dynamic> metadata)  $default,) {final _that = this;
 switch (_that) {
 case _PaymentMethodConfig():
-return $default(_that.id,_that.name,_that.active,_that.apiKey,_that.clientId,_that.clientSecret,_that.metadata);case _:
+return $default(_that.id,_that.name,_that.active,_that.metadata);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -16526,10 +16523,10 @@ return $default(_that.id,_that.name,_that.active,_that.apiKey,_that.clientId,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  bool active,  String? apiKey,  String? clientId,  String? clientSecret,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  bool active,  Map<String, dynamic> metadata)?  $default,) {final _that = this;
 switch (_that) {
 case _PaymentMethodConfig() when $default != null:
-return $default(_that.id,_that.name,_that.active,_that.apiKey,_that.clientId,_that.clientSecret,_that.metadata);case _:
+return $default(_that.id,_that.name,_that.active,_that.metadata);case _:
   return null;
 
 }
@@ -16541,15 +16538,12 @@ return $default(_that.id,_that.name,_that.active,_that.apiKey,_that.clientId,_th
 @JsonSerializable()
 
 class _PaymentMethodConfig extends PaymentMethodConfig {
-  const _PaymentMethodConfig({required this.id, required this.name, this.active = true, this.apiKey, this.clientId, this.clientSecret,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
+  const _PaymentMethodConfig({required this.id, required this.name, this.active = true,  Map<String, dynamic> metadata = const {}}): _metadata = metadata,super._();
   factory _PaymentMethodConfig.fromJson(Map<String, dynamic> json) => _$PaymentMethodConfigFromJson(json);
 
 @override final  String id;
 @override final  String name;
 @override@JsonKey() final  bool active;
-@override final  String? apiKey;
-@override final  String? clientId;
-@override final  String? clientSecret;
  final  Map<String, dynamic> _metadata;
 @override@JsonKey() Map<String, dynamic> get metadata {
   if (_metadata is EqualUnmodifiableMapView) return _metadata;
@@ -16571,18 +16565,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaymentMethodConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.active, active) || other.active == active)&&(identical(other.apiKey, apiKey) || other.apiKey == apiKey)&&(identical(other.clientId, clientId) || other.clientId == clientId)&&(identical(other.clientSecret, clientSecret) || other.clientSecret == clientSecret)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaymentMethodConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.active, active) || other.active == active)&&const DeepCollectionEquality().equals(other.metadata, _metadata));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,name,active,apiKey,clientId,clientSecret,const DeepCollectionEquality().hash(_metadata));
+    return Object.hash(runtimeType,id,name,active,const DeepCollectionEquality().hash(_metadata));
 }
 
 @override
 String toString() {
-    return 'PaymentMethodConfig(id: $id, name: $name, active: $active, apiKey: $apiKey, clientId: $clientId, clientSecret: $clientSecret, metadata: $metadata)';
+    return 'PaymentMethodConfig(id: $id, name: $name, active: $active, metadata: $metadata)';
 }
 
 
@@ -16593,7 +16587,7 @@ abstract mixin class _$PaymentMethodConfigCopyWith<$Res> implements $PaymentMeth
   factory _$PaymentMethodConfigCopyWith(_PaymentMethodConfig value, $Res Function(_PaymentMethodConfig) _then) = __$PaymentMethodConfigCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, bool active, String? apiKey, String? clientId, String? clientSecret, Map<String, dynamic> metadata
+ String id, String name, bool active, Map<String, dynamic> metadata
 });
 
 
@@ -16610,15 +16604,12 @@ class __$PaymentMethodConfigCopyWithImpl<$Res>
 
 /// Create a copy of PaymentMethodConfig
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? active = null,Object? apiKey = freezed,Object? clientId = freezed,Object? clientSecret = freezed,Object? metadata = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? active = null,Object? metadata = null,}) {
   return _then(_PaymentMethodConfig(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
-as bool,apiKey: freezed == apiKey ? _self.apiKey : apiKey // ignore: cast_nullable_to_non_nullable
-as String?,clientId: freezed == clientId ? _self.clientId : clientId // ignore: cast_nullable_to_non_nullable
-as String?,clientSecret: freezed == clientSecret ? _self.clientSecret : clientSecret // ignore: cast_nullable_to_non_nullable
-as String?,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
+as bool,metadata: null == metadata ? _self._metadata : metadata // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));
 }

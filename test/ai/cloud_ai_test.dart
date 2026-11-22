@@ -62,6 +62,48 @@ class FixtureAdapter implements HttpClientAdapter {
 }
 
 void main() {
+  test('expired warning models stay available and submit without recovery', () async {
+    final pricing = {
+      'valid_until': '2000-01-01T00:00:00Z',
+      'expired': true,
+      'expiry_behavior': 'warn',
+    };
+    final model = CloudAiModel.fromJson({
+      ...imageModel().raw,
+      'pricing': pricing,
+    });
+    expect(model.available, isTrue);
+    expect(model.raw['pricing'], pricing);
+    final dio = Dio(BaseOptions(baseUrl: 'https://feeef.test/v1'));
+    final adapter = FixtureAdapter();
+    dio.httpClientAdapter = adapter;
+    await CloudAiApi(client: dio).generateImage(
+      model: model,
+      prompt: 'warning mode request',
+      settings: {},
+      idempotencyKey: 'warning-request',
+    );
+    expect(adapter.calls, hasLength(1));
+    for (final behavior in [null, 'block', 'unknown']) {
+      expect(
+        CloudAiModel.fromJson({
+          ...model.raw,
+          'pricing': {...pricing, 'expiry_behavior': behavior},
+        }).available,
+        isFalse,
+      );
+    }
+    for (final date in [null, '', 'soon']) {
+      expect(
+        CloudAiModel.fromJson({
+          ...model.raw,
+          'pricing': {...pricing, 'valid_until': date},
+        }).available,
+        isFalse,
+      );
+    }
+    expect(imageModel().available, isTrue);
+  });
   test('expired local snapshots can only reach the explicit original-request recovery path', () async {
     final expired = CloudAiModel.fromJson({
       ...imageModel().raw,

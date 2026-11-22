@@ -28,10 +28,11 @@ class CloudAiModel {
       ? CloudImageCapabilities(_map(raw['feeef_image']))
       : null;
   bool get available {
-    final expiry = DateTime.tryParse(
-      _map(raw['pricing'])['valid_until'] as String? ?? '',
-    );
-    return expiry != null && expiry.isAfter(DateTime.now().toUtc());
+    final pricing = _map(raw['pricing']);
+    final expiry = DateTime.tryParse(pricing['valid_until'] as String? ?? '');
+    return expiry != null &&
+        (expiry.isAfter(DateTime.now().toUtc()) ||
+            pricing['expiry_behavior'] == 'warn');
   }
 }
 

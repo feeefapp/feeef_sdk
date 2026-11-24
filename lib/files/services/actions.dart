@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:feeef/attachments/attachment.dart';
+import 'package:feeef/files/services/ai_http_failure.dart';
 import 'package:feeef/files/services/generate_image_landing_page_request.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
 import 'package:feeef/stores/models/store.dart';
@@ -1702,6 +1703,8 @@ class Actions {
   /// - [enhanceScript] Whether to enhance the script using text model first (defaults to true)
   /// - [styleInstructions] Optional TTS style / delivery instructions (replaces server default narrator prompt)
   /// - [speakers] Multi-speaker dialogue: exactly 2 entries `{ speakerAlias, voiceName }` (Gemini TTS); script lines `Alias: text`
+  /// - [idempotencyKey] Pass `metadata.idempotencyKey` from a retryable failure to resume that workflow
+  /// HTTP failures keep the server's `{ error: { code, message } }` (see [describeAiHttpFailure]).
   /// Returns a structured response with success status, audio URL, and metadata
   Future<
     ({
@@ -1722,6 +1725,7 @@ class Actions {
     bool? enhanceScript,
     String? styleInstructions,
     List<Map<String, String>>? speakers,
+    String? idempotencyKey,
   }) async {
     try {
       final attachmentMaps = attachments != null && attachments.isNotEmpty
@@ -1745,6 +1749,11 @@ class Actions {
       final response = await client.post(
         '/ai/voiceovers',
         data: requestData,
+        // Reuse the key from a `retryable` failure to resume (not re-bill) the
+        // original paid workflow.
+        options: idempotencyKey != null && idempotencyKey.trim().isNotEmpty
+            ? Options(headers: {'Idempotency-Key': idempotencyKey.trim()})
+            : null,
       );
 
       final responseData = response.data as Map<String, dynamic>;
@@ -1760,16 +1769,18 @@ class Actions {
             : null,
       );
     } on DioException catch (e) {
-      developer.log('Network error during voiceover generation: ${e.message}');
+      final failure = describeAiHttpFailure(e);
+      developer.log(
+        'Voiceover generation failed: ${failure.message} '
+        '(status ${failure.metadata['statusCode']})',
+      );
       return (
         success: false,
         audioUrl: null as String?,
         audioPath: null as String?,
-        message: 'Network error occurred',
-        error:
-            'Failed to connect to the server. Please check your internet connection.'
-                as String?,
-        metadata: null as Map<String, dynamic>?,
+        message: failure.message,
+        error: failure.error as String?,
+        metadata: failure.metadata as Map<String, dynamic>?,
       );
     } catch (e) {
       developer.log('Error generating voiceover: $e');

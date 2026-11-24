@@ -163,6 +163,33 @@ final refs = [
 // Pass refs to e.g. generateProductLandingPageTemplateData, generateVoiceover, etc.
 ```
 
+### Lab voice (async speech jobs)
+
+`Feeef.instance.lab.voice` talks to `/lab/voice/api/*` (the lab.feeef.org path).
+Prefer it over `Actions.generateVoiceover` (`/ai/voiceovers`, one blocking
+request with a script step) when you only need TTS:
+
+```dart
+import 'package:feeef/lab/lab.dart';
+
+final lab = Feeef.instance.lab;
+final key = labRequestId(); // reuse the same key to resume, never re-bill
+var job = await lab.voice.generate({
+  'operation': 'speech',
+  'blocks': [
+    {'voice': 'Leda', 'text': 'مرحبا بكم', 'style': ''},
+  ],
+}, key: key); // 202 → {id, status: queued}
+while (job['status'] != 'succeeded' && job['status'] != 'failed') {
+  await Future<void>.delayed(const Duration(milliseconds: 1500));
+  job = await lab.voice.job(job['id'] as String);
+}
+final share = await lab.voice.shareJob(job['id'] as String);
+final publicAudio = '${share['url']}/audio'; // playable without a token
+```
+
+Failures throw `LabError` (`status`, `code`, `message`); `status == 0` means offline.
+
 See `example/feeef_example.dart` for more snippets (attachments, `ListResponse`, validation errors).
 
 ## Usage

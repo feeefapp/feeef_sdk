@@ -94,6 +94,18 @@ class LabChatApi {
   Future<LabJson> context(String id, String model) async =>
       labMap(await _json('conversations/$id/context', query: {'model': model}));
   Future<LabJson> spend(String id) async => labMap(await _json('conversations/$id/spend'));
+
+  /// Extra usage (Pro / Studio): settings, this month's DZD spend and whether it pays right now.
+  Future<LabJson> extraUsage() async => labMap(await _json('extra-usage'));
+
+  /// Opt in or out of extra usage and/or set the monthly DZD cap (100 to 50,000).
+  Future<LabJson> updateExtraUsage({bool? enabled, int? monthlyCapDzd}) async => labMap(
+    await _json(
+      'extra-usage',
+      method: 'PATCH',
+      body: {'enabled': ?enabled, 'monthlyCapDzd': ?monthlyCapDzd},
+    ),
+  );
   Future<LabJson> update(String id, LabJson body) async =>
       labMap(await _json('conversations/$id', method: 'PATCH', body: body));
   Future<void> remove(String id) => _json('conversations/$id', method: 'DELETE');
@@ -134,7 +146,41 @@ class LabChatApi {
       key: key,
       cancel: cancel,
     );
-    return (runId: r.headers.value('x-agent-run-id'), events: _chunks(r.frames));
+    final events = _chunks(r.frames);
+    final header = r.headers.value('x-agent-run-id');
+    if (header != null && header.isNotEmpty) return (runId: header, events: events);
+    // Header hidden (browser CORS, proxy): the stream also announces it in `data-feeef-run`.
+    return _runIdFromStream(events);
+  }
+
+  /// Reads chunks until the `data-feeef-run` announcement and replays them ahead of the rest.
+  Future<({String? runId, Stream<LabChatEvent> events})> _runIdFromStream(
+    Stream<LabChatEvent> events,
+  ) async {
+    final seen = <LabChatEvent>[];
+    final iterator = StreamIterator(events);
+    String? runId;
+    while (runId == null && await iterator.moveNext()) {
+      final e = iterator.current;
+      seen.add(e);
+      if (e.chunk['type'] == 'data-feeef-run' && e.chunk['data'] is Map) {
+        final id = (e.chunk['data'] as Map)['runId'];
+        if (id is String && id.isNotEmpty) runId = id;
+      }
+      if (e.chunk['type'] == '__done') break;
+    }
+    Stream<LabChatEvent> rest() async* {
+      yield* Stream.fromIterable(seen);
+      try {
+        while (await iterator.moveNext()) {
+          yield iterator.current;
+        }
+      } finally {
+        await iterator.cancel();
+      }
+    }
+
+    return (runId: runId, events: rest());
   }
 
   /// Follow a run's events after sequence [after] (resume after drops).

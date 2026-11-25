@@ -123,6 +123,14 @@ class LabChatApi {
     await _json('attachments', body: {'filename': filename, 'data': base64Encode(bytes), 'model': model}),
   );
 
+  /// PDF / DOCX / XLSX → the text attachment part to send (server-side extraction).
+  Future<LabPartMap> readDocument({
+    required String filename,
+    required List<int> bytes,
+  }) async => labMap(
+    await _json('documents', body: {'filename': filename, 'data': base64Encode(bytes)}),
+  );
+
   /// URL of an uploaded attachment / generated file (needs [LabHttp.headers]).
   String fileUrl(String path) => path.startsWith('http')
       ? path

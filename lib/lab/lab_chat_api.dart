@@ -95,6 +95,10 @@ class LabChatApi {
       labMap(await _json('conversations/$id/context', query: {'model': model}));
   Future<LabJson> spend(String id) async => labMap(await _json('conversations/$id/spend'));
 
+  /// One reply: `usd`, `tokens {input, cached, output, reasoning}`, `billing`
+  /// (`window` | `extra` | `wallet`), `chargeDzd`, `final`.
+  Future<LabJson> runSpend(String runId) async => labMap(await _json('runs/$runId/spend'));
+
   /// Extra usage (Pro / Studio): settings, this month's DZD spend and whether it pays right now.
   Future<LabJson> extraUsage() async => labMap(await _json('extra-usage'));
 

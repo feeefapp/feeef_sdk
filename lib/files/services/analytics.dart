@@ -349,7 +349,7 @@ class Analytics {
   Future<StoreOrdersCountByFieldType> getStoreOrdersCountByField({
     required String storeId,
     required String
-    field, // 'phase', 'status_id', 'room', 'kind', 'payment_status', 'shipping_method', 'shipping_state'
+    field, // 'phase', 'status_id', 'room', 'kind', 'payment_status', 'shipping_state'
     DateTime? from,
     DateTime? to,
     int limit = 60,

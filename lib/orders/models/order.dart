@@ -1,7 +1,6 @@
 import 'package:feeef/interfaces/embadded/order_item.dart';
 import 'package:feeef/interfaces/helpers.dart';
 import 'package:feeef/interfaces/order.dart';
-import 'package:feeef/shipping_methods/models/shipping_method.dart';
 import 'package:feeef/stores/models/store.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -45,7 +44,6 @@ abstract class Order extends OrderEntity
     String? shippingCity,
     String? shippingState,
     String? shippingCountry,
-    String? shippingMethodId,
     String? shippingNote,
     String? trackingCode,
 
@@ -107,8 +105,6 @@ abstract class Order extends OrderEntity
 
     @Default({}) Map<String, dynamic>? customFields,
     @JsonKey(fromJson: _storeFromJson, toJson: _storeToJson) Store? store,
-    @JsonKey(fromJson: _shippingMethodFromJson, toJson: _shippingMethodToJson)
-    ShippingMethod? shippingMethod,
     // metadata
   }) = _Order;
 
@@ -136,7 +132,6 @@ abstract class OrderCreate with _$OrderCreate implements ModelCreate {
       toJson: shippingTypeNullableToJson,
     )
     ShippingType? shippingType,
-    String? shippingMethodId,
     String? trackingCode,
     String? paymentMethodId,
     required List<OrderItem> items,
@@ -189,7 +184,6 @@ abstract class OrderUpdate with _$OrderUpdate implements ModelUpdate {
       toJson: shippingTypeNullableToJson,
     )
     ShippingType? shippingType,
-    String? shippingMethodId,
     String? trackingCode,
     String? paymentMethodId,
     List<OrderItem>? items,
@@ -253,11 +247,6 @@ abstract class OrderHistoryEvent with _$OrderHistoryEvent {
 Store? _storeFromJson(Map<String, dynamic>? json) =>
     json != null ? Store.fromJson(json) : null;
 Map<String, dynamic>? _storeToJson(Store? store) => store?.toJson();
-
-ShippingMethod? _shippingMethodFromJson(Map<String, dynamic>? json) =>
-    json != null ? ShippingMethod.fromJson(json) : null;
-Map<String, dynamic>? _shippingMethodToJson(ShippingMethod? method) =>
-    method?.toJson();
 
 // extension
 extension IsInjectedOrder on Order {

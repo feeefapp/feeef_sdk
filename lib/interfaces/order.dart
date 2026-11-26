@@ -1,5 +1,4 @@
 import 'package:feeef/interfaces/embadded/order_item.dart';
-import 'package:feeef/interfaces/shipping_method.dart';
 
 import 'store.dart';
 
@@ -14,7 +13,6 @@ abstract class OrderEntity {
   String? get shippingCity;
   String? get shippingState;
   String? get shippingCountry;
-  String? get shippingMethodId;
   String? get shippingNote;
   ShippingType get shippingType;
   String? get paymentMethodId;
@@ -59,7 +57,6 @@ abstract class OrderEntity {
   /// Server COALESCE(scheduledAt, createdAt). Falls back to [createdAt] if absent.
   DateTime? get effectiveAt;
   StoreEntity? get store;
-  ShippingMethodEntity? get shippingMethod;
 }
 
 /// Dual-write fulfillment column until 2027-01-15.
@@ -102,9 +99,8 @@ enum DeliveryStatus {
 
 /// How the customer receives the order (API + order model).
 ///
-/// Naming vs `ShippingStateRates` (shipping **price** rows): `pickup` here means stopdesk/relay
-/// and maps to price field `desk`; `store` means collect at the merchant branch and maps to
-/// price field `pickup`; `home` maps to price field `home`.
+/// `pickup` means stopdesk/relay office; `store` means collect at the merchant
+/// branch; `home` means home delivery.
 enum ShippingType {
   home,
   pickup,

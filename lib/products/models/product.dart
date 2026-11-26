@@ -39,7 +39,6 @@ abstract class Product extends ProductEntity
     String? photoUrl,
     required List<String> media,
     required String storeId,
-    String? shippingMethodId,
     /// Cloud shipping fee override: `ca_…` or `unassigned`. A `ca_…` value is
     /// also the product's default courier account at ship time (shipping P2).
     String? shippingFeeId,
@@ -286,7 +285,6 @@ abstract class ProductCreate with _$ProductCreate implements ModelCreate {
     String? photoUrl,
     required List<String> media,
     required String storeId,
-    String? shippingMethodId,
     String? shippingFeeId,
     /// Courier account (`ca_…`) the product ships with; null = fall back to a
     /// `ca_…` [shippingFeeId] (update: add it to `setToNull` to clear it).
@@ -337,7 +335,6 @@ abstract class ProductUpdate with _$ProductUpdate implements ModelUpdate {
     String? photoUrl,
     List<String>? media,
     String? storeId,
-    String? shippingMethodId,
     String? shippingFeeId,
     /// Courier account (`ca_…`) the product ships with; null = fall back to a
     /// `ca_…` [shippingFeeId] (update: add it to `setToNull` to clear it).

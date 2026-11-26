@@ -141,7 +141,6 @@ abstract class Store extends StoreEntity
     @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)
     @Default(StoreIntegrations())
     StoreIntegrations integrations,
-    @Default([]) List<List<num?>?> defaultShippingRates,
     DateTime? verifiedAt,
     DateTime? blockedAt,
     // subscription
@@ -193,8 +192,6 @@ abstract class Store extends StoreEntity
             _storeDeepEq.equals(other.metadata, metadata) &&
             _storeDeepEq.equals(other.contacts, contacts) &&
             other.integrations == integrations &&
-            _storeDeepEq.equals(
-                other.defaultShippingRates, defaultShippingRates) &&
             other.verifiedAt == verifiedAt &&
             other.blockedAt == blockedAt &&
             other.subscription == subscription &&
@@ -233,7 +230,6 @@ abstract class Store extends StoreEntity
         _storeDeepEq.hash(metadata),
         _storeDeepEq.hash(contacts),
         integrations,
-        _storeDeepEq.hash(defaultShippingRates),
         verifiedAt,
         blockedAt,
         subscription,
@@ -277,7 +273,6 @@ abstract class StoreCreate with _$StoreCreate implements ModelCreate {
     @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)
     @Default(StoreIntegrations())
     StoreIntegrations integrations,
-    @Default([]) List<List<num?>?> defaultShippingRates,
     String? shippingFeeId,
     String? projectId,
     // subscription
@@ -315,7 +310,6 @@ abstract class StoreUpdate with _$StoreUpdate implements ModelUpdate {
         toJson: _storeIntegrationsToJson,
       )
     StoreIntegrations? integrations,
-    List<List<num?>?>? defaultShippingRates,
     // ignore: invalid_annotation_target
     @JsonKey(includeFromJson: false) @Default([]) List<String> setToNull,
     // subscription
@@ -417,9 +411,6 @@ extension StoreExtensions on Store {
       contacts: patch.containsKey('contacts') ? update.contacts! : contacts,
       integrations:
           patch.containsKey('integrations') ? update.integrations! : integrations,
-      defaultShippingRates: patch.containsKey('defaultShippingRates')
-          ? update.defaultShippingRates!
-          : defaultShippingRates,
       subscription:
           patch.containsKey('subscription') ? update.subscription : subscription,
       due: patch.containsKey('due') ? update.due : due,

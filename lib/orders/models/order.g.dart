@@ -33,7 +33,6 @@ _Order _$OrderFromJson(Map<String, dynamic> json) => _Order(
   shippingCity: json['shippingCity'] as String?,
   shippingState: json['shippingState'] as String?,
   shippingCountry: json['shippingCountry'] as String?,
-  shippingMethodId: json['shippingMethodId'] as String?,
   shippingNote: json['shippingNote'] as String?,
   trackingCode: json['trackingCode'] as String?,
   carrierAccountId: json['carrierAccountId'] as String?,
@@ -78,9 +77,6 @@ _Order _$OrderFromJson(Map<String, dynamic> json) => _Order(
   stock: json['stock'] as String?,
   customFields: json['customFields'] as Map<String, dynamic>? ?? const {},
   store: _storeFromJson(json['store'] as Map<String, dynamic>?),
-  shippingMethod: _shippingMethodFromJson(
-    json['shippingMethod'] as Map<String, dynamic>?,
-  ),
 );
 
 Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
@@ -102,7 +98,6 @@ Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
   'shippingCity': instance.shippingCity,
   'shippingState': instance.shippingState,
   'shippingCountry': instance.shippingCountry,
-  'shippingMethodId': instance.shippingMethodId,
   'shippingNote': instance.shippingNote,
   'trackingCode': instance.trackingCode,
   'carrierAccountId': instance.carrierAccountId,
@@ -135,7 +130,6 @@ Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
   'stock': instance.stock,
   'customFields': instance.customFields,
   'store': _storeToJson(instance.store),
-  'shippingMethod': _shippingMethodToJson(instance.shippingMethod),
 };
 
 const _$OrderStatusEnumMap = {
@@ -175,7 +169,6 @@ _OrderCreate _$OrderCreateFromJson(Map<String, dynamic> json) => _OrderCreate(
   shippingState: json['shippingState'] as String?,
   shippingCountry: json['shippingCountry'] as String?,
   shippingType: shippingTypeNullableFromJson(json['shippingType']),
-  shippingMethodId: json['shippingMethodId'] as String?,
   trackingCode: json['trackingCode'] as String?,
   paymentMethodId: json['paymentMethodId'] as String?,
   items: (json['items'] as List<dynamic>)
@@ -221,7 +214,6 @@ Map<String, dynamic> _$OrderCreateToJson(_OrderCreate instance) =>
       'shippingState': instance.shippingState,
       'shippingCountry': instance.shippingCountry,
       'shippingType': shippingTypeNullableToJson(instance.shippingType),
-      'shippingMethodId': instance.shippingMethodId,
       'trackingCode': instance.trackingCode,
       'paymentMethodId': instance.paymentMethodId,
       'items': instance.items.map((e) => e.toJson()).toList(),
@@ -256,7 +248,6 @@ _OrderUpdate _$OrderUpdateFromJson(Map<String, dynamic> json) => _OrderUpdate(
   shippingState: json['shippingState'] as String?,
   shippingCountry: json['shippingCountry'] as String?,
   shippingType: shippingTypeNullableFromJson(json['shippingType']),
-  shippingMethodId: json['shippingMethodId'] as String?,
   trackingCode: json['trackingCode'] as String?,
   paymentMethodId: json['paymentMethodId'] as String?,
   items: (json['items'] as List<dynamic>?)
@@ -300,7 +291,6 @@ Map<String, dynamic> _$OrderUpdateToJson(_OrderUpdate instance) =>
       'shippingState': instance.shippingState,
       'shippingCountry': instance.shippingCountry,
       'shippingType': shippingTypeNullableToJson(instance.shippingType),
-      'shippingMethodId': instance.shippingMethodId,
       'trackingCode': instance.trackingCode,
       'paymentMethodId': instance.paymentMethodId,
       'items': instance.items?.map((e) => e.toJson()).toList(),

@@ -4,7 +4,6 @@ import 'package:feeef/integrations/integrations.dart';
 import 'package:feeef/integrations/yalidine/models/create_order_request.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
 import 'package:feeef/interfaces/order.dart';
-import 'package:feeef/core/algeria_cites_stub.dart';
 import 'package:feeef/core/string_extensions.dart';
 import 'package:feeef/feeef_client.dart';
 import 'package:feeef/orders/models/order.dart';
@@ -187,21 +186,7 @@ class YalidineDeliveryService
       return [];
     } catch (e) {
       print('Error fetching communes: $e');
-      // Fallback to stub data if API fails (host app can provide real data)
-      final cities = getCitiesByStateCode(
-        code: wilayaId.toString().padLeft(2, '0'),
-      );
-      return cities
-          .map(
-            (city) => {
-              'id': int.tryParse(city.code) ?? 0,
-              'name': city.name,
-              'wilaya_id': wilayaId,
-              'has_stop_desk': 0,
-              'is_deliverable': 1,
-            },
-          )
-          .toList();
+      return [];
     }
   }
 

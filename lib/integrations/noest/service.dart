@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:feeef/integrations/integrations.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
 import 'package:feeef/interfaces/order.dart';
-import 'package:feeef/core/algeria_cites_stub.dart';
 import 'package:feeef/core/string_extensions.dart';
 import 'package:feeef/orders/models/order.dart';
 import 'models/create_order_request.dart';
@@ -36,21 +35,8 @@ class NoestDeliveryService extends DeliveryService<NoestDeliveryIntegration> {
   @override
   Future<void> deliverOrder({required Order order}) async {
     final stateCode = int.tryParse(order.shippingState ?? '');
-    final rawCity = order.shippingCity?.trim() ?? '';
-    final cityIndex = int.tryParse(rawCity);
-
-    String commune;
-    if (cityIndex != null && cityIndex > 0 && stateCode != null) {
-      commune = getCityByCode(
-            code: cityIndex.toString(),
-            stateCode: stateCode.toString(),
-            lang: AlgeriaScript.latin,
-          )?.name ??
-          rawCity;
-    } else {
-      commune = rawCity;
-    }
-    if (commune.isEmpty) commune = 'unknown';
+    // Cloud keys: shippingCity is the city name key ("el eulma").
+    final commune = order.shippingCity?.trim().nullIfEmpty ?? 'unknown';
 
     final request = NoestOrderCreateRequest(
       reference: order.id,

@@ -2,11 +2,13 @@ import 'package:dio/dio.dart';
 
 import 'lab_chat_api.dart';
 import 'lab_core.dart';
+import 'lab_resources_api.dart';
 import 'lab_studio_api.dart';
 
 export 'lab_chat_api.dart';
 export 'lab_chat_reduce.dart';
 export 'lab_core.dart';
+export 'lab_resources_api.dart';
 export 'lab_studio_api.dart';
 
 /// Feeef Lab for signed-in apps: the same controllers as `lab.feeef.org`, mounted at
@@ -20,6 +22,7 @@ class LabApi {
     media = LabMediaApi(http);
     ads = LabAdsApi(http);
     billing = LabBillingApi(http);
+    resources = LabResourcesApi(http);
   }
 
   final LabHttp http;
@@ -29,6 +32,9 @@ class LabApi {
   late final LabMediaApi media;
   late final LabAdsApi ads;
   late final LabBillingApi billing;
+
+  /// Store products a person can attach to chat, image and voice requests.
+  late final LabResourcesApi resources;
 
   LabEffects get effects => http.effects;
 }

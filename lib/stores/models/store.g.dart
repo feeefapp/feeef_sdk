@@ -57,11 +57,6 @@ _Store _$StoreFromJson(Map<String, dynamic> json) => _Store(
       : _storeIntegrationsFromJson(
           json['integrations'] as Map<String, dynamic>?,
         ),
-  defaultShippingRates:
-      (json['defaultShippingRates'] as List<dynamic>?)
-          ?.map((e) => (e as List<dynamic>?)?.map((e) => e as num?).toList())
-          .toList() ??
-      const [],
   verifiedAt: json['verifiedAt'] == null
       ? null
       : DateTime.parse(json['verifiedAt'] as String),
@@ -112,7 +107,6 @@ Map<String, dynamic> _$StoreToJson(_Store instance) => <String, dynamic>{
   'metadata': instance.metadata,
   'contacts': instance.contacts.map((e) => e.toJson()).toList(),
   'integrations': _storeIntegrationsToJson(instance.integrations),
-  'defaultShippingRates': instance.defaultShippingRates,
   'verifiedAt': instance.verifiedAt?.toIso8601String(),
   'blockedAt': instance.blockedAt?.toIso8601String(),
   'subscription': _storeSubscriptionToJson(instance.subscription),
@@ -170,11 +164,6 @@ _StoreCreate _$StoreCreateFromJson(Map<String, dynamic> json) => _StoreCreate(
       : _storeIntegrationsFromJson(
           json['integrations'] as Map<String, dynamic>?,
         ),
-  defaultShippingRates:
-      (json['defaultShippingRates'] as List<dynamic>?)
-          ?.map((e) => (e as List<dynamic>?)?.map((e) => e as num?).toList())
-          .toList() ??
-      const [],
   shippingFeeId: json['shippingFeeId'] as String?,
   projectId: json['projectId'] as String?,
   subscription: _storeSubscriptionFromJson(json['subscription']),
@@ -200,7 +189,6 @@ Map<String, dynamic> _$StoreCreateToJson(_StoreCreate instance) =>
       'metadata': instance.metadata,
       'contacts': instance.contacts.map((e) => e.toJson()).toList(),
       'integrations': _storeIntegrationsToJson(instance.integrations),
-      'defaultShippingRates': instance.defaultShippingRates,
       'shippingFeeId': instance.shippingFeeId,
       'projectId': instance.projectId,
       'subscription': _storeSubscriptionToJson(instance.subscription),
@@ -243,9 +231,6 @@ _StoreUpdate _$StoreUpdateFromJson(Map<String, dynamic> json) => _StoreUpdate(
   integrations: _storeIntegrationsFromJsonNullable(
     json['integrations'] as Map<String, dynamic>?,
   ),
-  defaultShippingRates: (json['defaultShippingRates'] as List<dynamic>?)
-      ?.map((e) => (e as List<dynamic>?)?.map((e) => e as num?).toList())
-      .toList(),
   subscription: _storeSubscriptionFromJson(json['subscription']),
   due: json['due'] as num?,
   configs: json['configs'] == null
@@ -274,7 +259,6 @@ Map<String, dynamic> _$StoreUpdateToJson(_StoreUpdate instance) =>
       'metadata': instance.metadata,
       'contacts': instance.contacts?.map((e) => e.toJson()).toList(),
       'integrations': _storeIntegrationsToJson(instance.integrations),
-      'defaultShippingRates': instance.defaultShippingRates,
       'subscription': _storeSubscriptionToJson(instance.subscription),
       'due': instance.due,
       'configs': instance.configs?.toJson(),

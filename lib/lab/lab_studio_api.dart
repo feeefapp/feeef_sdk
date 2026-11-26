@@ -97,6 +97,7 @@ class LabImageApi {
     LabUpload? image,
     List<LabUpload> references = const [],
     Uint8List? mask,
+    List<String> products = const [],
     CancelToken? cancel,
   }) async {
     final form = FormData()
@@ -107,6 +108,9 @@ class LabImageApi {
         MapEntry('operation', operation),
         if (projectId != null && projectId.isNotEmpty) MapEntry('projectId', projectId),
         if (parentTakeId != null && parentTakeId.isNotEmpty) MapEntry('parentTakeId', parentTakeId),
+        // Store products: the server adds their facts to the prompt and the cover as a reference.
+        if (products.isNotEmpty)
+          MapEntry('attachments', jsonEncode([for (final id in products) {'type': 'product', 'value': id}])),
       ]);
     if (image != null) form.files.add(MapEntry('imageFile', image.part('source')));
     for (var i = 0; i < references.length; i++) {
@@ -143,6 +147,7 @@ class LabImageApi {
     String? textModel,
     Map<String, dynamic>? answers,
     List<LabUpload> photos = const [],
+    List<String> products = const [],
     CancelToken? cancel,
   }) async {
     final form = FormData()
@@ -157,6 +162,9 @@ class LabImageApi {
         if (model != null) MapEntry('model', model),
         if (textModel != null) MapEntry('textModel', textModel),
         if (answers != null && answers.isNotEmpty) MapEntry('answers', jsonEncode(answers)),
+        // Store products: their facts join the brief and their covers the product photos.
+        if (products.isNotEmpty)
+          MapEntry('resources', jsonEncode([for (final id in products) {'type': 'product', 'value': id}])),
       ]);
     for (var i = 0; i < photos.length; i++) {
       form.files.add(MapEntry('referenceFiles', photos[i].part('photo-$i')));

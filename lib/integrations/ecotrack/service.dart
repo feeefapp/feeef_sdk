@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 
-import 'package:feeef/core/algeria_cites_stub.dart';
 import 'package:feeef/core/string_extensions.dart';
 import 'package:feeef/core/validation/validation_exception.dart';
 import 'package:feeef/feeef_client.dart';
@@ -66,24 +65,16 @@ class EcotrackDeliveryService
       );
     }
 
-    // Use backend endpoint instead of direct API call
-    var stateCode = int.parse(order.shippingState!);
-    var cityCode = int.parse(order.shippingCity!);
-
-    var ecotrackCityName = getCityByCode(
-      code: cityCode.toString(),
-      stateCode: stateCode.toString(),
-      lang: AlgeriaScript.latin,
-    )?.name;
+    // Cloud keys: shippingState is the state code ("16"), shippingCity the
+    // city name key ("el eulma").
+    final commune = order.shippingCity?.trim().nullIfEmpty;
 
     var orderData = {
       'reference': order.id,
       'nom_client': order.customerName,
       'telephone': order.customerPhone,
       'adresse': order.shippingAddress?.nullIfEmpty ?? "unknown",
-      'commune': [order.shippingState, order.shippingCity].contains(null)
-          ? "unknown"
-          : ecotrackCityName,
+      'commune': commune ?? 'unknown',
       'code_wilaya': int.tryParse(order.shippingState.toString()),
       'montant': order.total,
       'remarque': order.metadata['note'],

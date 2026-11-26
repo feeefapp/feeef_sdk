@@ -44,8 +44,6 @@ import 'package:feeef/realtime/realtime.dart';
 import 'package:feeef/reviews/reviews_repository.dart';
 import 'package:feeef/metrics/metrics_repository.dart';
 import 'package:feeef/messaging/messaging_repository.dart';
-import 'package:feeef/shipping_methods/shipping_method_repository.dart';
-import 'package:feeef/shipping_prices/shipping_price_repository.dart';
 import 'package:feeef/states/state_repository.dart';
 import 'package:feeef/promos/promo_repository.dart';
 import 'package:feeef/stores/store_repository.dart';
@@ -150,9 +148,6 @@ class Feeef {
 
   /// WhatsApp & SMS order messages: senders, templates and test sends of a store.
   late final MessagingRepository messaging;
-  late final ShippingMethodRepository shippingMethods;
-  late final ShippingPriceRepository shippingPrices;
-  late final ShippingPriceResourceRepository shippingPricesResource;
   late final OrderRepository orders;
   late final OrdersV1Api ordersV1;
   late final CloudDeliveryApi cloudDelivery;
@@ -237,9 +232,6 @@ class Feeef {
     packages = PackagesApi(client);
     reviews = ReviewsRepository(client: client);
     messaging = MessagingRepository(client: client);
-    shippingMethods = ShippingMethodRepository(client: client);
-    shippingPrices = ShippingPriceRepository(client: client);
-    shippingPricesResource = ShippingPriceResourceRepository(client: client);
     feedbacks = FeedbackRepository(client: client);
     notifications = NotificationsRepository(client: client);
     categories = CategoryRepository(client: client);

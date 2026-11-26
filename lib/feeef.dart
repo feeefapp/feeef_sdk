@@ -29,6 +29,7 @@ export 'core/validation/validation_exception.dart';
 export 'core/with_includes.dart';
 export 'feeef_client.dart';
 export 'feedbacks/feedback_repository.dart';
+export 'notifications/notifications_repository.dart';
 export 'core/batch_models.dart';
 export 'mixins/repository_batch_mixins.dart';
 export 'inventory/inventory_repository.dart';

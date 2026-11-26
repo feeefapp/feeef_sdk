@@ -25,6 +25,7 @@ import 'package:feeef/files/services/actions.dart';
 import 'package:feeef/files/services/analytics.dart';
 import 'package:feeef/files/services/file_service.dart';
 import 'package:feeef/feedbacks/feedback_repository.dart';
+import 'package:feeef/notifications/notifications_repository.dart';
 import 'package:feeef/inventory/inventory_repository.dart';
 import 'package:feeef/lab/lab.dart';
 import 'package:feeef/finance/finance_repository.dart';
@@ -156,6 +157,9 @@ class Feeef {
   late final OrdersV1Api ordersV1;
   late final CloudDeliveryApi cloudDelivery;
   late final FeedbackRepository feedbacks;
+
+  /// The signed-in user's notification inbox (Lab jobs, AI custom notifications).
+  late final NotificationsRepository notifications;
   late final CategoryRepository categories;
   late final Realtime realtime;
   late final FileService files;
@@ -237,6 +241,7 @@ class Feeef {
     shippingPrices = ShippingPriceRepository(client: client);
     shippingPricesResource = ShippingPriceResourceRepository(client: client);
     feedbacks = FeedbackRepository(client: client);
+    notifications = NotificationsRepository(client: client);
     categories = CategoryRepository(client: client);
     cloudWallet = CloudWalletRepository(client: client);
     storeCloudPayments = StoreCloudPaymentsRepository(client: client);

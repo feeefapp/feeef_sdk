@@ -8,7 +8,7 @@ import 'package:transmit_client/transmit.dart';
 /// Transmit has no message history: events broadcast while the stream is down
 /// are lost. [onResync] tells listeners when that may have happened so they
 /// can refetch from the API, which stays the source of truth.
-/// See `docs/realtime.md` in the feeef.all workspace.
+/// See `docs/REALTIME.md` in the feeef backend repo.
 class Realtime {
   final Transmit transmit;
 

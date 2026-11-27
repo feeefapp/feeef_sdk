@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- `Realtime.onResync`: fires after the SSE stream comes back from a drop so live screens refetch (Transmit has no replay). `transmit_client` ^1.2.3.
+
 ## 1.6.1
 
 - Store page drafts, revision guards, publication, preview, recovery, export and reusable page templates.

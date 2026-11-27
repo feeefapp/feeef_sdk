@@ -2266,7 +2266,10 @@ mixin _$StoreConfigs {
 
  List<StoreCurrencyConfig> get currencies; String? get selectedCurrency; List<StoreLanguageConfig> get languages; String? get defaultLanguage; List<StoreCountryConfig> get countries; String? get selectedCountry; ConfirmationQueueConfig? get confirmationQueue; InventoryIntegration? get inventory_integration; FinanceIntegration? get finance_integration;/// Store default delivery policy (home / pickup / commune without a desk).
 /// Courier accounts override it ([CloudCarrierAccount.deliveryPolicy]).
- DeliveryPolicy? get delivery;
+ DeliveryPolicy? get delivery;/// Checkout address rule overrides keyed by ISO-2 country (upper case,
+/// e.g. `DZ`). Missing fields inherit the platform default for that
+/// country ([AddressRules.builtInDefault]).
+ Map<String, AddressRules>? get address;
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2280,20 +2283,20 @@ $StoreConfigsCopyWith<StoreConfigs> get copyWith => _$StoreConfigsCopyWithImpl<S
 @override
 bool operator ==(Object other) {
   final _this = this as StoreConfigs;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, _this.currencies)&&(identical(other.selectedCurrency, _this.selectedCurrency) || other.selectedCurrency == _this.selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, _this.languages)&&(identical(other.defaultLanguage, _this.defaultLanguage) || other.defaultLanguage == _this.defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, _this.countries)&&(identical(other.selectedCountry, _this.selectedCountry) || other.selectedCountry == _this.selectedCountry)&&(identical(other.confirmationQueue, _this.confirmationQueue) || other.confirmationQueue == _this.confirmationQueue)&&(identical(other.inventory_integration, _this.inventory_integration) || other.inventory_integration == _this.inventory_integration)&&(identical(other.finance_integration, _this.finance_integration) || other.finance_integration == _this.finance_integration)&&(identical(other.delivery, _this.delivery) || other.delivery == _this.delivery));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, _this.currencies)&&(identical(other.selectedCurrency, _this.selectedCurrency) || other.selectedCurrency == _this.selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, _this.languages)&&(identical(other.defaultLanguage, _this.defaultLanguage) || other.defaultLanguage == _this.defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, _this.countries)&&(identical(other.selectedCountry, _this.selectedCountry) || other.selectedCountry == _this.selectedCountry)&&(identical(other.confirmationQueue, _this.confirmationQueue) || other.confirmationQueue == _this.confirmationQueue)&&(identical(other.inventory_integration, _this.inventory_integration) || other.inventory_integration == _this.inventory_integration)&&(identical(other.finance_integration, _this.finance_integration) || other.finance_integration == _this.finance_integration)&&(identical(other.delivery, _this.delivery) || other.delivery == _this.delivery)&&const DeepCollectionEquality().equals(other.address, _this.address));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as StoreConfigs;
-  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.currencies),_this.selectedCurrency,const DeepCollectionEquality().hash(_this.languages),_this.defaultLanguage,const DeepCollectionEquality().hash(_this.countries),_this.selectedCountry,_this.confirmationQueue,_this.inventory_integration,_this.finance_integration,_this.delivery);
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.currencies),_this.selectedCurrency,const DeepCollectionEquality().hash(_this.languages),_this.defaultLanguage,const DeepCollectionEquality().hash(_this.countries),_this.selectedCountry,_this.confirmationQueue,_this.inventory_integration,_this.finance_integration,_this.delivery,const DeepCollectionEquality().hash(_this.address));
 }
 
 @override
 String toString() {
   final _this = this as StoreConfigs;
-  return 'StoreConfigs(currencies: ${_this.currencies}, selectedCurrency: ${_this.selectedCurrency}, languages: ${_this.languages}, defaultLanguage: ${_this.defaultLanguage}, countries: ${_this.countries}, selectedCountry: ${_this.selectedCountry}, confirmationQueue: ${_this.confirmationQueue}, inventory_integration: ${_this.inventory_integration}, finance_integration: ${_this.finance_integration}, delivery: ${_this.delivery})';
+  return 'StoreConfigs(currencies: ${_this.currencies}, selectedCurrency: ${_this.selectedCurrency}, languages: ${_this.languages}, defaultLanguage: ${_this.defaultLanguage}, countries: ${_this.countries}, selectedCountry: ${_this.selectedCountry}, confirmationQueue: ${_this.confirmationQueue}, inventory_integration: ${_this.inventory_integration}, finance_integration: ${_this.finance_integration}, delivery: ${_this.delivery}, address: ${_this.address})';
 }
 
 
@@ -2304,7 +2307,7 @@ abstract mixin class $StoreConfigsCopyWith<$Res>  {
   factory $StoreConfigsCopyWith(StoreConfigs value, $Res Function(StoreConfigs) _then) = _$StoreConfigsCopyWithImpl;
 @useResult
 $Res call({
- List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, ConfirmationQueueConfig? confirmationQueue, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration, DeliveryPolicy? delivery
+ List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, ConfirmationQueueConfig? confirmationQueue, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration, DeliveryPolicy? delivery, Map<String, AddressRules>? address
 });
 
 
@@ -2321,7 +2324,7 @@ class _$StoreConfigsCopyWithImpl<$Res>
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? confirmationQueue = freezed,Object? inventory_integration = freezed,Object? finance_integration = freezed,Object? delivery = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? confirmationQueue = freezed,Object? inventory_integration = freezed,Object? finance_integration = freezed,Object? delivery = freezed,Object? address = freezed,}) {
   return _then(StoreConfigs(
 currencies: null == currencies ? _self.currencies : currencies // ignore: cast_nullable_to_non_nullable
 as List<StoreCurrencyConfig>,selectedCurrency: freezed == selectedCurrency ? _self.selectedCurrency : selectedCurrency // ignore: cast_nullable_to_non_nullable
@@ -2333,7 +2336,8 @@ as String?,confirmationQueue: freezed == confirmationQueue ? _self.confirmationQ
 as ConfirmationQueueConfig?,inventory_integration: freezed == inventory_integration ? _self.inventory_integration : inventory_integration // ignore: cast_nullable_to_non_nullable
 as InventoryIntegration?,finance_integration: freezed == finance_integration ? _self.finance_integration : finance_integration // ignore: cast_nullable_to_non_nullable
 as FinanceIntegration?,delivery: freezed == delivery ? _self.delivery : delivery // ignore: cast_nullable_to_non_nullable
-as DeliveryPolicy?,
+as DeliveryPolicy?,address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
+as Map<String, AddressRules>?,
   ));
 }
 /// Create a copy of StoreConfigs
@@ -2454,10 +2458,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration,  DeliveryPolicy? delivery)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration,  DeliveryPolicy? delivery,  Map<String, AddressRules>? address)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StoreConfigs() when $default != null:
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.confirmationQueue,_that.inventory_integration,_that.finance_integration,_that.delivery);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.confirmationQueue,_that.inventory_integration,_that.finance_integration,_that.delivery,_that.address);case _:
   return orElse();
 
 }
@@ -2475,10 +2479,10 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration,  DeliveryPolicy? delivery)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration,  DeliveryPolicy? delivery,  Map<String, AddressRules>? address)  $default,) {final _that = this;
 switch (_that) {
 case _StoreConfigs():
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.confirmationQueue,_that.inventory_integration,_that.finance_integration,_that.delivery);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.confirmationQueue,_that.inventory_integration,_that.finance_integration,_that.delivery,_that.address);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2495,10 +2499,10 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration,  DeliveryPolicy? delivery)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<StoreCurrencyConfig> currencies,  String? selectedCurrency,  List<StoreLanguageConfig> languages,  String? defaultLanguage,  List<StoreCountryConfig> countries,  String? selectedCountry,  ConfirmationQueueConfig? confirmationQueue,  InventoryIntegration? inventory_integration,  FinanceIntegration? finance_integration,  DeliveryPolicy? delivery,  Map<String, AddressRules>? address)?  $default,) {final _that = this;
 switch (_that) {
 case _StoreConfigs() when $default != null:
-return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.confirmationQueue,_that.inventory_integration,_that.finance_integration,_that.delivery);case _:
+return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.defaultLanguage,_that.countries,_that.selectedCountry,_that.confirmationQueue,_that.inventory_integration,_that.finance_integration,_that.delivery,_that.address);case _:
   return null;
 
 }
@@ -2510,7 +2514,7 @@ return $default(_that.currencies,_that.selectedCurrency,_that.languages,_that.de
 @JsonSerializable()
 
 class _StoreConfigs implements StoreConfigs {
-  const _StoreConfigs({required  List<StoreCurrencyConfig> currencies, this.selectedCurrency,  List<StoreLanguageConfig> languages = const [], this.defaultLanguage,  List<StoreCountryConfig> countries = const [], this.selectedCountry, this.confirmationQueue, this.inventory_integration, this.finance_integration, this.delivery}): _currencies = currencies,_languages = languages,_countries = countries;
+  const _StoreConfigs({required  List<StoreCurrencyConfig> currencies, this.selectedCurrency,  List<StoreLanguageConfig> languages = const [], this.defaultLanguage,  List<StoreCountryConfig> countries = const [], this.selectedCountry, this.confirmationQueue, this.inventory_integration, this.finance_integration, this.delivery,  Map<String, AddressRules>? address}): _currencies = currencies,_languages = languages,_countries = countries,_address = address;
   factory _StoreConfigs.fromJson(Map<String, dynamic> json) => _$StoreConfigsFromJson(json);
 
  final  List<StoreCurrencyConfig> _currencies;
@@ -2543,6 +2547,21 @@ class _StoreConfigs implements StoreConfigs {
 /// Store default delivery policy (home / pickup / commune without a desk).
 /// Courier accounts override it ([CloudCarrierAccount.deliveryPolicy]).
 @override final  DeliveryPolicy? delivery;
+/// Checkout address rule overrides keyed by ISO-2 country (upper case,
+/// e.g. `DZ`). Missing fields inherit the platform default for that
+/// country ([AddressRules.builtInDefault]).
+ final  Map<String, AddressRules>? _address;
+/// Checkout address rule overrides keyed by ISO-2 country (upper case,
+/// e.g. `DZ`). Missing fields inherit the platform default for that
+/// country ([AddressRules.builtInDefault]).
+@override Map<String, AddressRules>? get address {
+  final value = _address;
+  if (value == null) return null;
+  if (_address is EqualUnmodifiableMapView) return _address;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
+}
+
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
@@ -2557,18 +2576,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, _currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, _languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, _countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&(identical(other.confirmationQueue, confirmationQueue) || other.confirmationQueue == confirmationQueue)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration)&&(identical(other.finance_integration, finance_integration) || other.finance_integration == finance_integration)&&(identical(other.delivery, delivery) || other.delivery == delivery));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreConfigs&&const DeepCollectionEquality().equals(other.currencies, _currencies)&&(identical(other.selectedCurrency, selectedCurrency) || other.selectedCurrency == selectedCurrency)&&const DeepCollectionEquality().equals(other.languages, _languages)&&(identical(other.defaultLanguage, defaultLanguage) || other.defaultLanguage == defaultLanguage)&&const DeepCollectionEquality().equals(other.countries, _countries)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&(identical(other.confirmationQueue, confirmationQueue) || other.confirmationQueue == confirmationQueue)&&(identical(other.inventory_integration, inventory_integration) || other.inventory_integration == inventory_integration)&&(identical(other.finance_integration, finance_integration) || other.finance_integration == finance_integration)&&(identical(other.delivery, delivery) || other.delivery == delivery)&&const DeepCollectionEquality().equals(other.address, _address));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_currencies),selectedCurrency,const DeepCollectionEquality().hash(_languages),defaultLanguage,const DeepCollectionEquality().hash(_countries),selectedCountry,confirmationQueue,inventory_integration,finance_integration,delivery);
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_currencies),selectedCurrency,const DeepCollectionEquality().hash(_languages),defaultLanguage,const DeepCollectionEquality().hash(_countries),selectedCountry,confirmationQueue,inventory_integration,finance_integration,delivery,const DeepCollectionEquality().hash(_address));
 }
 
 @override
 String toString() {
-    return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, confirmationQueue: $confirmationQueue, inventory_integration: $inventory_integration, finance_integration: $finance_integration, delivery: $delivery)';
+    return 'StoreConfigs(currencies: $currencies, selectedCurrency: $selectedCurrency, languages: $languages, defaultLanguage: $defaultLanguage, countries: $countries, selectedCountry: $selectedCountry, confirmationQueue: $confirmationQueue, inventory_integration: $inventory_integration, finance_integration: $finance_integration, delivery: $delivery, address: $address)';
 }
 
 
@@ -2579,7 +2598,7 @@ abstract mixin class _$StoreConfigsCopyWith<$Res> implements $StoreConfigsCopyWi
   factory _$StoreConfigsCopyWith(_StoreConfigs value, $Res Function(_StoreConfigs) _then) = __$StoreConfigsCopyWithImpl;
 @override @useResult
 $Res call({
- List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, ConfirmationQueueConfig? confirmationQueue, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration, DeliveryPolicy? delivery
+ List<StoreCurrencyConfig> currencies, String? selectedCurrency, List<StoreLanguageConfig> languages, String? defaultLanguage, List<StoreCountryConfig> countries, String? selectedCountry, ConfirmationQueueConfig? confirmationQueue, InventoryIntegration? inventory_integration, FinanceIntegration? finance_integration, DeliveryPolicy? delivery, Map<String, AddressRules>? address
 });
 
 
@@ -2596,7 +2615,7 @@ class __$StoreConfigsCopyWithImpl<$Res>
 
 /// Create a copy of StoreConfigs
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? confirmationQueue = freezed,Object? inventory_integration = freezed,Object? finance_integration = freezed,Object? delivery = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? currencies = null,Object? selectedCurrency = freezed,Object? languages = null,Object? defaultLanguage = freezed,Object? countries = null,Object? selectedCountry = freezed,Object? confirmationQueue = freezed,Object? inventory_integration = freezed,Object? finance_integration = freezed,Object? delivery = freezed,Object? address = freezed,}) {
   return _then(_StoreConfigs(
 currencies: null == currencies ? _self._currencies : currencies // ignore: cast_nullable_to_non_nullable
 as List<StoreCurrencyConfig>,selectedCurrency: freezed == selectedCurrency ? _self.selectedCurrency : selectedCurrency // ignore: cast_nullable_to_non_nullable
@@ -2608,7 +2627,8 @@ as String?,confirmationQueue: freezed == confirmationQueue ? _self.confirmationQ
 as ConfirmationQueueConfig?,inventory_integration: freezed == inventory_integration ? _self.inventory_integration : inventory_integration // ignore: cast_nullable_to_non_nullable
 as InventoryIntegration?,finance_integration: freezed == finance_integration ? _self.finance_integration : finance_integration // ignore: cast_nullable_to_non_nullable
 as FinanceIntegration?,delivery: freezed == delivery ? _self.delivery : delivery // ignore: cast_nullable_to_non_nullable
-as DeliveryPolicy?,
+as DeliveryPolicy?,address: freezed == address ? _self._address : address // ignore: cast_nullable_to_non_nullable
+as Map<String, AddressRules>?,
   ));
 }
 

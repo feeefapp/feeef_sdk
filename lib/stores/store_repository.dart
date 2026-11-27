@@ -96,6 +96,21 @@ class StoreRepository extends ModelRepository<Store>
     return StoreSummary.fromJson(response.data);
   }
 
+  /// Resolved checkout address rules of store [storeId] for ISO-2 [country].
+  /// Public; no auth. `GET /stores/:storeId/address-rules?country=XX`.
+  Future<StoreAddressRules> addressRules(
+    String storeId, {
+    required String country,
+  }) async {
+    final response = await client.get(
+      '/$table/$storeId/address-rules',
+      queryParameters: {'country': country},
+    );
+    return StoreAddressRules.fromJson(
+      Map<String, dynamic>.from(response.data as Map),
+    );
+  }
+
   /// All-time operational order status counts for the orders tab badges.
   Future<StoreOrderStatusCounts> orderStatusCounts({required String id}) async {
     final response = await client.get('/$table/$id/orders/status-counts');

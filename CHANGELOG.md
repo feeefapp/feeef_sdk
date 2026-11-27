@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Worldwide addresses: `Order` gains `shippingZip`, `shippingAddress2` (also on `OrderCreate` / `OrderUpdate`) and read-only `shippingGeo` (`OrderGeoMatch`). `StoreConfigs.address` holds per-country `AddressRules` overrides (`CityInputMode`, `AddressFieldMode`, `AddressRules.builtInDefault`); `stores.addressRules(storeId, country:)` returns the resolved rules (`StoreAddressRules`).
 - `Realtime.onResync`: fires after the SSE stream comes back from a drop so live screens refetch (Transmit has no replay). `transmit_client` ^1.2.3.
 
 ## 1.6.1

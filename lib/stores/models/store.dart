@@ -6,6 +6,7 @@ import 'package:feeef/interfaces/embadded/embadded_category.dart';
 import 'package:feeef/interfaces/order.dart';
 import 'package:feeef/categories/models/category.dart';
 import 'package:feeef/cloud_delivery/delivery_policy.dart';
+import 'package:feeef/stores/models/address_rules.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../interfaces/embadded/store.dart';
@@ -13,6 +14,8 @@ import '../../interfaces/embadded/store_integrations.dart';
 import '../../interfaces/helpers.dart';
 import '../../interfaces/store.dart';
 import 'package:feeef/orders/models/lite_orders_report.dart';
+
+export 'address_rules.dart';
 
 part 'store.freezed.dart';
 part 'store.g.dart';
@@ -579,6 +582,11 @@ abstract class StoreConfigs with _$StoreConfigs {
     /// Store default delivery policy (home / pickup / commune without a desk).
     /// Courier accounts override it ([CloudCarrierAccount.deliveryPolicy]).
     DeliveryPolicy? delivery,
+
+    /// Checkout address rule overrides keyed by ISO-2 country (upper case,
+    /// e.g. `DZ`). Missing fields inherit the platform default for that
+    /// country ([AddressRules.builtInDefault]).
+    Map<String, AddressRules>? address,
   }) = _StoreConfigs;
 
   factory StoreConfigs.fromJson(Map<String, dynamic> json) =>

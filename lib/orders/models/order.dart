@@ -4,11 +4,13 @@ import 'package:feeef/interfaces/order.dart';
 import 'package:feeef/stores/models/store.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'order_geo_match.dart';
 import 'shipping_breakdown.dart';
 
 /// Typed `claims.security` (incl. trusted visitor geo) and the
 /// `order.securityClaims` / `order.securityGeo` extension.
 export 'order_security_claims.dart';
+export 'order_geo_match.dart';
 export 'shipping_breakdown.dart';
 
 part 'order.freezed.dart';
@@ -41,9 +43,20 @@ abstract class Order extends OrderEntity
     String? internalNote,
     // end internal
     String? shippingAddress,
+
+    /// Second address line, max 255 chars.
+    String? shippingAddress2,
     String? shippingCity,
     String? shippingState,
     String? shippingCountry,
+
+    /// Postal / ZIP code, max 32 chars.
+    String? shippingZip,
+
+    /// How the address was matched to Cloud geography. Set by the server;
+    /// read-only.
+    @JsonKey(fromJson: orderGeoMatchFromJson, toJson: orderGeoMatchToJson)
+    OrderGeoMatch? shippingGeo,
     String? shippingNote,
     String? trackingCode,
 
@@ -124,9 +137,15 @@ abstract class OrderCreate with _$OrderCreate implements ModelCreate {
     String? customerNote,
     String? customerIp,
     String? shippingAddress,
+
+    /// Second address line, max 255 chars.
+    String? shippingAddress2,
     String? shippingCity,
     String? shippingState,
     String? shippingCountry,
+
+    /// Postal / ZIP code, max 32 chars.
+    String? shippingZip,
     @JsonKey(
       fromJson: shippingTypeNullableFromJson,
       toJson: shippingTypeNullableToJson,
@@ -176,9 +195,15 @@ abstract class OrderUpdate with _$OrderUpdate implements ModelUpdate {
     String? customerNote,
     String? customerIp,
     String? shippingAddress,
+
+    /// Second address line, max 255 chars.
+    String? shippingAddress2,
     String? shippingCity,
     String? shippingState,
     String? shippingCountry,
+
+    /// Postal / ZIP code, max 32 chars.
+    String? shippingZip,
     @JsonKey(
       fromJson: shippingTypeNullableFromJson,
       toJson: shippingTypeNullableToJson,

@@ -1,5 +1,7 @@
 import 'package:feeef/interfaces/embadded/order_item.dart';
 
+import 'package:feeef/orders/models/order_geo_match.dart';
+
 import 'store.dart';
 
 abstract class OrderEntity {
@@ -10,9 +12,12 @@ abstract class OrderEntity {
   String? get customerNote;
   String? get customerIp;
   String? get shippingAddress;
+  String? get shippingAddress2;
   String? get shippingCity;
   String? get shippingState;
   String? get shippingCountry;
+  String? get shippingZip;
+  OrderGeoMatch? get shippingGeo;
   String? get shippingNote;
   ShippingType get shippingType;
   String? get paymentMethodId;

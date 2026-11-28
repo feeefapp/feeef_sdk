@@ -548,3 +548,66 @@ class LabBillingApi {
   Future<LabJson> topUpState(String id) async =>
       labMap(await _http.json(_p('topup/$id')));
 }
+
+/// Lab Brand (`/api/v1/lab/brand/api/*`): brand kits kept in image projects (`document.brand`).
+/// Logo takes are generated with [LabImageApi.generate] on the same project.
+class LabBrandApi {
+  LabBrandApi(this._http);
+  final LabHttp _http;
+
+  String _p(String path) => 'brand/api/$path';
+
+  /// `{arabic: [...], latin: [...]}`: the fonts a kit may use.
+  Future<LabJson> fonts() async => labMap(await _http.json(_p('fonts')));
+
+  /// Drafts a kit from a brief: `{kit: {...}}`. Retrying with the same [key] replays.
+  Future<LabJson> draft({
+    required String key,
+    String? name,
+    String? brief,
+    String? language,
+    String? store,
+    String? textModel,
+  }) async => labMap(
+    await _http.json(
+      _p('draft'),
+      body: {
+        'name': ?name,
+        'brief': ?brief,
+        'language': ?language,
+        'store': ?store,
+        'textModel': ?textModel,
+      },
+      key: key,
+    ),
+  );
+
+  /// One composer message about the kit: `{kit, regenerate: [kind], notes, reply}`.
+  Future<LabJson> revise({
+    required String key,
+    required LabJson kit,
+    required String message,
+    List<String> made = const [],
+    String? textModel,
+  }) async => labMap(
+    await _http.json(
+      _p('revise'),
+      body: {'kit': kit, 'message': message, 'made': made, 'textModel': ?textModel},
+      key: key,
+    ),
+  );
+
+  /// Redraws a finished take as SVG: `{path, svg}` (saved in the user's media under `brand/`).
+  Future<LabJson> vectorize({
+    required String key,
+    required String projectId,
+    required String takeId,
+    List<String> palette = const [],
+  }) async => labMap(
+    await _http.json(
+      _p('vectorize'),
+      body: {'projectId': projectId, 'takeId': takeId, 'palette': palette},
+      key: key,
+    ),
+  );
+}

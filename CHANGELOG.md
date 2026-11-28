@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.2
+
+- Lab Brand: `LabApi.brand` (`LabBrandApi`): `fonts()`, `draft()` (brief → brand kit, optional `textModel`), `revise()` (one message → updated kit, reply and parts to remake) and `vectorize()` (logo take → sanitized SVG in the user's media).
+
 ## 1.7.1
 
 - Address rules: `showState` / `showCity` choose whether the state and city fields show, separately from `requireState` / `requireCity` (a required field always shows). `AddressRules.stateShown` / `cityShown` read the result.

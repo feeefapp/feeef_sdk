@@ -18,6 +18,7 @@ class LabApi {
   LabApi(Dio client) : http = LabHttp(client) {
     chat = LabChatApi(http);
     image = LabImageApi(http);
+    brand = LabBrandApi(http);
     voice = LabVoiceApi(http);
     media = LabMediaApi(http);
     ads = LabAdsApi(http);
@@ -28,6 +29,9 @@ class LabApi {
   final LabHttp http;
   late final LabChatApi chat;
   late final LabImageApi image;
+
+  /// Lab Brand: brand kits, drafts and SVG logo masters.
+  late final LabBrandApi brand;
   late final LabVoiceApi voice;
   late final LabMediaApi media;
   late final LabAdsApi ads;

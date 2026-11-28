@@ -127,10 +127,13 @@ class LabImageApi {
     List<LabUpload> references = const [],
     Uint8List? mask,
     List<String> products = const [],
+    Map<String, String> fields = const {},
     CancelToken? cancel,
   }) async {
     final form = FormData()
       ..fields.addAll([
+        // Extra form fields (e.g. Lab Brand's `brand` JSON).
+        for (final e in fields.entries) MapEntry(e.key, e.value),
         MapEntry('model', model),
         MapEntry('prompt', prompt),
         MapEntry('options', jsonEncode(options)),

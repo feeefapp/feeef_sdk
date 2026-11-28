@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.3
+
+- `LabImageApi.generate(fields:)`: extra form fields for the Lab image request (Lab Brand sends `brand`, so the server applies Brandstudio's art-direction contract).
+
 ## 1.7.2
 
 - Lab Brand: `LabApi.brand` (`LabBrandApi`): `fonts()`, `draft()` (brief → brand kit, optional `textModel`), `revise()` (one message → updated kit, reply and parts to remake) and `vectorize()` (logo take → sanitized SVG in the user's media).

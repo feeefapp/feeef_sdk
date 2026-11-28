@@ -471,10 +471,12 @@ class Plan {
   final int quota;
   final List<String> features;
   final PlanDiscount? discount;
+
   /// When true, only breakpoint months (1 + discount keyframe months) are allowed.
   final bool? strict;
   final PlanLimits? limits;
   final int? activationMinTopUp;
+
   /// Due points credited when the free plan is purchased (store.due -= N).
   final int? activationDueCredit;
   final int? trialDays;
@@ -527,7 +529,9 @@ class Plan {
 
   /// Allowed months for this plan. When [strict] is true, only 1 and keyframe months.
   List<int> get allowedMonths {
-    if (strict != true || discount?.keyframes == null || discount!.keyframes!.isEmpty) {
+    if (strict != true ||
+        discount?.keyframes == null ||
+        discount!.keyframes!.isEmpty) {
       return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     }
     final set = <int>{1};
@@ -731,8 +735,8 @@ class TextGenerationBilling {
   factory TextGenerationBilling.fromJson(Map<String, dynamic>? json) {
     if (json == null) return const TextGenerationBilling();
     return TextGenerationBilling(
-      freeTierMaxPromptTokens:
-          (json['freeTierMaxPromptTokens'] as num?)?.toInt(),
+      freeTierMaxPromptTokens: (json['freeTierMaxPromptTokens'] as num?)
+          ?.toInt(),
       estimatedPromptTokensDefault:
           (json['estimatedPromptTokensDefault'] as num?)?.toInt(),
       estimatedOutputTokensDefault:
@@ -761,16 +765,15 @@ class TtsTokenEstimateBilling {
   factory TtsTokenEstimateBilling.fromJson(Map<String, dynamic>? json) {
     if (json == null) return const TtsTokenEstimateBilling();
     return TtsTokenEstimateBilling(
-      whenScriptEmptyTokens:
-          (json['whenScriptEmptyTokens'] as num?)?.toInt(),
-      whenAttachmentsOnlyTokens:
-          (json['whenAttachmentsOnlyTokens'] as num?)?.toInt(),
+      whenScriptEmptyTokens: (json['whenScriptEmptyTokens'] as num?)?.toInt(),
+      whenAttachmentsOnlyTokens: (json['whenAttachmentsOnlyTokens'] as num?)
+          ?.toInt(),
       promptBaseTokens: (json['promptBaseTokens'] as num?)?.toInt(),
-      promptPerAttachmentTokens:
-          (json['promptPerAttachmentTokens'] as num?)?.toInt(),
+      promptPerAttachmentTokens: (json['promptPerAttachmentTokens'] as num?)
+          ?.toInt(),
       outputMinimumTokens: (json['outputMinimumTokens'] as num?)?.toInt(),
-      outputToTextTokenRatio:
-          (json['outputToTextTokenRatio'] as num?)?.toDouble(),
+      outputToTextTokenRatio: (json['outputToTextTokenRatio'] as num?)
+          ?.toDouble(),
       maxTotalTokens: (json['maxTotalTokens'] as num?)?.toInt(),
     );
   }
@@ -790,8 +793,8 @@ class VoiceGenerationBilling {
     final tts = json['ttsTokenEstimate'];
     return VoiceGenerationBilling(
       minimumChargeUsd: (json['minimumChargeUsd'] as num?)?.toDouble(),
-      scriptEnhancementAddonUsd:
-          (json['scriptEnhancementAddonUsd'] as num?)?.toDouble(),
+      scriptEnhancementAddonUsd: (json['scriptEnhancementAddonUsd'] as num?)
+          ?.toDouble(),
       ttsTokenEstimate: tts is Map<String, dynamic>
           ? TtsTokenEstimateBilling.fromJson(tts)
           : null,
@@ -832,8 +835,8 @@ class AIModelsBilling {
       ),
       referenceAttachmentSurcharge:
           ReferenceAttachmentSurchargeBilling.fromJson(
-        json['referenceAttachmentSurcharge'] as Map<String, dynamic>?,
-      ),
+            json['referenceAttachmentSurcharge'] as Map<String, dynamic>?,
+          ),
       imageGeneration: ImageGenerationBilling.fromJson(
         json['imageGeneration'] as Map<String, dynamic>?,
       ),
@@ -920,7 +923,8 @@ class AIModelsBilling {
               'outputMinimumTokens': tts.outputMinimumTokens,
             if (tts.outputToTextTokenRatio != null)
               'outputToTextTokenRatio': tts.outputToTextTokenRatio,
-            if (tts.maxTotalTokens != null) 'maxTotalTokens': tts.maxTotalTokens,
+            if (tts.maxTotalTokens != null)
+              'maxTotalTokens': tts.maxTotalTokens,
           },
       };
     }
@@ -1069,9 +1073,11 @@ class AppConfig {
   final List<LanguageConfig> languages;
   final ExtraConfig? extra;
   final AIModelsConfig? aiModels;
+
   /// Multi-provider catalog (`models` option); optional until backend populates.
   final ModelsCatalogConfig? models;
   final IntegrationsConfig? integrations;
+
   /// Host suffix of store addresses on this API's environment (`{slug}.{storefrontDomain}`).
   final String? storefrontDomain;
 

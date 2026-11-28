@@ -52,7 +52,8 @@ const double fallbackAiExchangeRate = 260;
 
 /// Named platform default for unknown text models — never `models[0]`.
 const String _defaultTextPricingModelId = 'gemini-flash-lite-latest';
-const String _defaultImageModelId = ModelsCatalogConfig.fallbackDefaultImageModel;
+const String _defaultImageModelId =
+    ModelsCatalogConfig.fallbackDefaultImageModel;
 const String _defaultTtsModelId = 'gemini-2.5-pro-preview-tts';
 
 /// Resolved TTS token heuristics after merge.
@@ -370,7 +371,9 @@ class AiCalculatorConfig {
 
     final providers =
         (json['providers'] as List<dynamic>?)
-            ?.map((e) => ProviderRegistryRow.fromJson(e as Map<String, dynamic>))
+            ?.map(
+              (e) => ProviderRegistryRow.fromJson(e as Map<String, dynamic>),
+            )
             .toList() ??
         const <ProviderRegistryRow>[];
 
@@ -1013,9 +1016,7 @@ class AiCalculator {
     final mid = imageModelId?.trim();
 
     if (mid == null || mid.isEmpty) {
-      final fixedDzd = _roundMoney(
-        b.landingPageFixedChargeUsd * exchangeRate,
-      );
+      final fixedDzd = _roundMoney(b.landingPageFixedChargeUsd * exchangeRate);
       return AiCostEstimate(
         providerCostUsd: 0,
         providerCostDzd: 0,

@@ -12,7 +12,12 @@ const _resourcePrefix = '[Feeef resource attachment]\n';
 
 /// A store whose catalog the signed-in person can read (`GET resources/api/stores`).
 class LabResourceStore {
-  const LabResourceStore({required this.id, required this.name, required this.slug, this.logoUrl});
+  const LabResourceStore({
+    required this.id,
+    required this.name,
+    required this.slug,
+    this.logoUrl,
+  });
 
   factory LabResourceStore.fromJson(LabJson json) => LabResourceStore(
     id: '${json['id']}',
@@ -67,11 +72,17 @@ class LabProductSummary {
   /// server's resolved copy replaces it.
   LabJson get chatPart => {
     'type': labChatResourcePart,
-    'data': {'type': 'product', 'value': id, 'name': name, 'imageUrl': imageUrl},
+    'data': {
+      'type': 'product',
+      'value': id,
+      'name': name,
+      'imageUrl': imageUrl,
+    },
   };
 
   @override
-  bool operator ==(Object other) => other is LabProductSummary && other.id == id;
+  bool operator ==(Object other) =>
+      other is LabProductSummary && other.id == id;
 
   @override
   int get hashCode => id.hashCode;
@@ -84,7 +95,8 @@ LabProductSummary? labChatPartProduct(LabJson part) {
   if (type == 'text') return parseLabChatResource(part['text']);
   if (type != labChatResourcePart) return null;
   final data = part['data'];
-  if (data is! Map || data['type'] != 'product' || data['value'] is! String) return null;
+  if (data is! Map || data['type'] != 'product' || data['value'] is! String)
+    return null;
   return LabProductSummary(
     id: data['value'] as String,
     storeId: '',
@@ -98,7 +110,10 @@ LabProductSummary? parseLabChatResource(Object? text) {
   if (text is! String || !text.startsWith(_resourcePrefix)) return null;
   try {
     final data = jsonDecode(text.substring(_resourcePrefix.length));
-    if (data is! Map || data['type'] != 'product' || data['id'] is! String || data['name'] is! String) {
+    if (data is! Map ||
+        data['type'] != 'product' ||
+        data['id'] is! String ||
+        data['name'] is! String) {
       return null;
     }
     return LabProductSummary.fromJson(Map<String, dynamic>.from(data));

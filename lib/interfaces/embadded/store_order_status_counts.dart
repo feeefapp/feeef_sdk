@@ -18,7 +18,9 @@ class StoreOrderStatusCounts {
   final DateTime computedAt;
 
   factory StoreOrderStatusCounts.fromJson(Map<String, dynamic> json) {
-    final countsJson = Map<String, dynamic>.from((json['counts'] as Map?) ?? const {});
+    final countsJson = Map<String, dynamic>.from(
+      (json['counts'] as Map?) ?? const {},
+    );
     final total = (json['total'] as num?)?.toInt() ?? 0;
     int n(String key) => (countsJson[key] as num?)?.toInt() ?? 0;
     return StoreOrderStatusCounts(
@@ -38,18 +40,20 @@ class StoreOrderStatusCounts {
             const {},
       ),
       total: total,
-      computedAt: DateTime.tryParse(json['computedAt'] as String? ?? '') ?? DateTime.now(),
+      computedAt:
+          DateTime.tryParse(json['computedAt'] as String? ?? '') ??
+          DateTime.now(),
     );
   }
 
   /// Count for a phase name (`open`, `done`, …).
   int countForPhase(String phase) => switch (phase) {
-        'draft' => counts.draft,
-        'open' => counts.open,
-        'pack' => counts.pack,
-        'ship' => counts.ship,
-        'done' => counts.done,
-        'fail' => counts.fail,
-        _ => 0,
-      };
+    'draft' => counts.draft,
+    'open' => counts.open,
+    'pack' => counts.pack,
+    'ship' => counts.ship,
+    'done' => counts.done,
+    'fail' => counts.fail,
+    _ => 0,
+  };
 }

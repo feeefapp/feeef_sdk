@@ -122,8 +122,9 @@ EcotrackOrderCreateRequest ecotrackOrderFromParcelCreateRequest(
   final wilaya = int.tryParse(parcel.address.stateCode ?? '') ?? 0;
 
   final label = parcel.extensions['ecotrackCommuneLabel']?.toString().trim();
-  final commune =
-      (label != null && label.isNotEmpty) ? label : (parcel.address.cityCode ?? '');
+  final commune = (label != null && label.isNotEmpty)
+      ? label
+      : (parcel.address.cityCode ?? '');
 
   final ex = _ecotrackExtMap(parcel);
   final type = _ecotrackTypeFromParcel(parcel);
@@ -138,8 +139,8 @@ EcotrackOrderCreateRequest ecotrackOrderFromParcelCreateRequest(
   final fragile = pkg?.fragile == true
       ? 1
       : pkg?.fragile == false
-          ? 0
-          : (fragileFromEx ?? 0);
+      ? 0
+      : (fragileFromEx ?? 0);
 
   final stopDesk = _stopDeskFromParcel(parcel);
 
@@ -191,7 +192,8 @@ ParcelCreate parcelCreateFromEcotrackOrder(
   }
 
   final produit = request.produit ?? '';
-  final qParts = request.quantite
+  final qParts =
+      request.quantite
           ?.split(',')
           .map((s) => int.tryParse(s.trim()) ?? 0)
           .toList() ??
@@ -230,9 +232,7 @@ ParcelCreate parcelCreateFromEcotrackOrder(
     package: _packageFromEcotrackOrder(request),
     extensions: {
       'ecotrackCommuneLabel': request.commune,
-      'ecotrack': {
-        'stop_desk': request.stopDesk,
-      },
+      'ecotrack': {'stop_desk': request.stopDesk},
     },
   );
 }

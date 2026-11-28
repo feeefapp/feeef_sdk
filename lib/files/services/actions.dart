@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:feeef/attachments/attachment.dart';
@@ -9,6 +10,7 @@ import 'package:feeef/files/services/generate_image_landing_page_request.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
 import 'package:feeef/stores/models/store.dart';
 import 'package:recase/recase.dart';
+
 // Backend route reference (prefix: /api/v1/actions):
 //   fetchYoucanProductsByHost?host=<youcan-store-host>
 //   fetchWoocommerceProductsByHost?host=<woo-host>
@@ -178,9 +180,6 @@ class AICodeGenerationResponse {
 /// Slot schema entry: display name and optional max children (e.g. logo: { name: "Logo", maxChildren: 1 }).
 typedef SlotSchemaEntry = Map<String, dynamic>;
 
-
-
-
 class Actions {
   final Dio client;
 
@@ -271,11 +270,7 @@ class Actions {
   }) async {
     final response = await client.post<Map<String, dynamic>>(
       '/actions/createTokenForEcotrackByEmailAndPassword',
-      data: {
-        'baseUrl': baseUrl,
-        'email': email,
-        'password': password,
-      },
+      data: {'baseUrl': baseUrl, 'email': email, 'password': password},
     );
     final data = response.data ?? {};
     return EcotrackLoginTokenResult.fromJson(Map<String, dynamic>.from(data));
@@ -303,7 +298,9 @@ class Actions {
   /// Fetches products from a Youcan store.
   /// Returns raw JSON; host app may parse into app-specific types.
   /// [host] is sent as a query parameter (URI-encoded). Backend must validate to prevent SSRF.
-  Future<List<Map<String, dynamic>>> fetchYoucanProductsByHost(String host) async {
+  Future<List<Map<String, dynamic>>> fetchYoucanProductsByHost(
+    String host,
+  ) async {
     final response = await client.get(
       '/actions/fetchYoucanProductsByHost',
       queryParameters: {'host': host},
@@ -345,7 +342,9 @@ class Actions {
   /// Fetches products from a Storeino store.
   /// Returns raw JSON; host app may parse into app-specific types.
   /// [url] is sent as a query parameter (URI-encoded). Backend must validate to prevent SSRF.
-  Future<List<Map<String, dynamic>>> fetchStoreinoProductsByUrl(String url) async {
+  Future<List<Map<String, dynamic>>> fetchStoreinoProductsByUrl(
+    String url,
+  ) async {
     final response = await client.get(
       '/actions/fetchStoreinoProductsByUrl',
       queryParameters: {'url': url},
@@ -560,11 +559,7 @@ class Actions {
     try {
       final response = await client.post(
         '/actions/sendEventToSnapchatPixel',
-        data: {
-          'event': event.apiName,
-          'storeId': storeId,
-          'orderId': orderId,
-        },
+        data: {'event': event.apiName, 'storeId': storeId, 'orderId': orderId},
       );
       return response.data;
     } catch (e) {
@@ -743,10 +738,7 @@ class Actions {
         'mode': mode.name,
       };
 
-      final response = await client.post(
-        '/ai/code/snippet',
-        data: requestData,
-      );
+      final response = await client.post('/ai/code/snippet', data: requestData);
 
       // Parse and validate the response
       final responseData = response.data as Map<String, dynamic>;
@@ -763,8 +755,7 @@ class Actions {
       return AICodeGenerationResponse(
         success: false,
         message: 'Network error occurred',
-        error:
-            'Failed to connect to the server. Please check your internet connection.',
+        error: 'Failed to connect to the server. Please check your internet connection.',
       );
     } catch (e) {
       developer.log('Error generating simple code: $e');
@@ -777,7 +768,6 @@ class Actions {
       );
     }
   }
-
 
   /// updateProductUsingAi
   /// Creates or updates a product using natural language instructions processed by backend AI.
@@ -800,12 +790,15 @@ class Actions {
     String? productId,
     String? mode, // optional override
     String? forceStatus,
+
     /// Optional attachments: image, url, audio, store, product.
     /// - image: URLs fetched and sent as reference images (vision). url: page content fetched and appended to input.
     /// - audio: sent as inline audio. store/product: loaded server-side and added to context.
     List<Attachment>? attachments,
+
     /// When true, backend enables Gemini Google Search grounding (e.g. for price suggestions). May incur extra cost.
     bool? useSearchGrounding,
+
     /// Catalog text model id (e.g. Gemini or OpenRouter slug). Optional; backend falls back to store default.
     String? modelId,
   }) async {
@@ -827,10 +820,7 @@ class Actions {
         if (trimmedCatalogModelId != null && trimmedCatalogModelId.isNotEmpty)
           'modelId': trimmedCatalogModelId,
       };
-      final resp = await client.post(
-        '/ai/text/product-draft',
-        data: payload,
-      );
+      final resp = await client.post('/ai/text/product-draft', data: payload);
       final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
       return (
         success: _jsonBool(d['success']),
@@ -846,8 +836,8 @@ class Actions {
       final resMap = _jsonObjectMap(res);
       final serverError = resMap != null
           ? (resMap['error'] as String? ??
-              resMap['message'] as String? ??
-              e.message)
+                resMap['message'] as String? ??
+                e.message)
           : e.message;
       return (
         success: false,
@@ -913,9 +903,7 @@ class Actions {
       final trimmedInput = input.trim();
       final hasAttachments = attachments != null && attachments.isNotEmpty;
       if (trimmedInput.length < 4 && !hasAttachments) {
-        throw ArgumentError(
-          'input (min 4 chars) or attachments required',
-        );
+        throw ArgumentError('input (min 4 chars) or attachments required');
       }
       final attachmentMaps = hasAttachments
           ? attachments.map((a) => a.toJson()).toList()
@@ -932,10 +920,7 @@ class Actions {
         if (trimmedCatalogModelId != null && trimmedCatalogModelId.isNotEmpty)
           'modelId': trimmedCatalogModelId,
       };
-      final resp = await client.post(
-        '/ai/text/order-draft',
-        data: payload,
-      );
+      final resp = await client.post('/ai/text/order-draft', data: payload);
       final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
       return (
         success: _jsonBool(d['success']),
@@ -951,8 +936,8 @@ class Actions {
       final resMap = _jsonObjectMap(res);
       final serverError = resMap != null
           ? (resMap['error'] as String? ??
-              resMap['message'] as String? ??
-              e.message)
+                resMap['message'] as String? ??
+                e.message)
           : e.message;
       return (
         success: false,
@@ -960,8 +945,9 @@ class Actions {
         order: null,
         message: 'AI order request failed',
         error: serverError,
-        validationErrors:
-            resMap != null ? _jsonObjectMap(resMap['validationErrors']) : null,
+        validationErrors: resMap != null
+            ? _jsonObjectMap(resMap['validationErrors'])
+            : null,
         raw: resMap != null ? jsonEncode(resMap) : null,
       );
     } catch (e) {
@@ -1000,6 +986,7 @@ class Actions {
     required String input,
     required Map<String, dynamic> schema,
     String? modelId,
+
     /// Optional attachments (image, url, audio, store, product) — same shape as updateProductUsingAi.
     List<Attachment>? attachments,
   }) async {
@@ -1025,10 +1012,7 @@ class Actions {
         if (attachmentMaps != null) 'attachments': attachmentMaps,
       };
 
-      final resp = await client.post(
-        '/ai/text/list-filter',
-        data: payload,
-      );
+      final resp = await client.post('/ai/text/list-filter', data: payload);
       final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
       return (
         success: _jsonBool(d['success']),
@@ -1043,7 +1027,8 @@ class Actions {
         success: false,
         filter: null,
         message: 'AI filter request failed',
-        error: resMap?['error'] as String? ??
+        error:
+            resMap?['error'] as String? ??
             resMap?['message'] as String? ??
             e.message,
         raw: resMap != null ? jsonEncode(resMap) : null,
@@ -1102,10 +1087,7 @@ class Actions {
         if (attachmentMaps != null) 'attachments': attachmentMaps,
       };
 
-      final resp = await client.post(
-        '/ai/text/date-preset',
-        data: payload,
-      );
+      final resp = await client.post('/ai/text/date-preset', data: payload);
       final d = _jsonObjectMap(resp.data) ?? <String, dynamic>{};
       return (
         success: _jsonBool(d['success']),
@@ -1120,7 +1102,8 @@ class Actions {
         success: false,
         preset: null,
         message: 'AI date preset request failed',
-        error: resMap?['error'] as String? ??
+        error:
+            resMap?['error'] as String? ??
             resMap?['message'] as String? ??
             e.message,
         raw: resMap != null ? jsonEncode(resMap) : null,
@@ -1147,12 +1130,7 @@ class Actions {
   /// Paid AI workflow route: persist [idempotencyKey] with the input and reuse
   /// it when retrying the same request.
   Future<
-    ({
-      bool success,
-      List<CustomField>? fields,
-      String message,
-      String? error,
-    })
+    ({bool success, List<CustomField>? fields, String message, String? error})
   >
   generateCustomFieldsUsingAi({
     required String storeId,
@@ -1200,7 +1178,8 @@ class Actions {
         success: false,
         fields: null,
         message: 'AI custom fields request failed',
-        error: nested?['message'] as String? ??
+        error:
+            nested?['message'] as String? ??
             resMap?['error'] as String? ??
             resMap?['message'] as String? ??
             e.message,
@@ -1286,10 +1265,7 @@ class Actions {
           ),
       });
 
-      final response = await client.post(
-        '/ai/images/sync',
-        data: formData,
-      );
+      final response = await client.post('/ai/images/sync', data: formData);
 
       // Parse response
       final responseData = response.data as Map<String, dynamic>;
@@ -1358,7 +1334,8 @@ class Actions {
       if (title != null && title.trim().isNotEmpty) 'title': title.trim(),
       if (prompt != null && prompt.trim().isNotEmpty) 'prompt': prompt.trim(),
       if (aspectRatio != null) 'aspectRatio': aspectRatio,
-      if (imageSize != null && imageSize.trim().isNotEmpty) 'imageSize': imageSize.trim(),
+      if (imageSize != null && imageSize.trim().isNotEmpty)
+        'imageSize': imageSize.trim(),
       'resolution': resolution,
       if (systemInstructions != null && systemInstructions.trim().isNotEmpty)
         'systemInstructions': systemInstructions.trim(),
@@ -1410,7 +1387,8 @@ class Actions {
       if (title != null && title.trim().isNotEmpty) 'title': title.trim(),
       if (prompt != null && prompt.trim().isNotEmpty) 'prompt': prompt.trim(),
       if (aspectRatio != null) 'aspectRatio': aspectRatio,
-      if (imageSize != null && imageSize.trim().isNotEmpty) 'imageSize': imageSize.trim(),
+      if (imageSize != null && imageSize.trim().isNotEmpty)
+        'imageSize': imageSize.trim(),
       'resolution': resolution,
       if (systemInstructions != null && systemInstructions.trim().isNotEmpty)
         'systemInstructions': systemInstructions.trim(),
@@ -1421,7 +1399,8 @@ class Actions {
       if (imageSearch != null) 'imageSearch': imageSearch,
       if (background != null && background.trim().isNotEmpty)
         'background': background.trim(),
-      if (quality != null && quality.trim().isNotEmpty) 'quality': quality.trim(),
+      if (quality != null && quality.trim().isNotEmpty)
+        'quality': quality.trim(),
       if (outputFormat != null && outputFormat.trim().isNotEmpty)
         'outputFormat': outputFormat.trim(),
       if (imageBytes != null)
@@ -1720,23 +1699,32 @@ class Actions {
     required String text,
     List<Attachment>? attachments,
     Map<String, dynamic>? inlineTemplate,
+
     /// Stored template id (`image_prompt_templates`, kind `landing_page`); wins over [inlineTemplate].
     String? templateId,
+
     /// Wizard answers keyed by form field key.
     Map<String, Object>? answers,
+
     /// Store whose Cloud workspace runs the job (and owns its templates).
     String? storeId,
+
     /// Aspect ratio for the generated image (e.g. '9:32', '1:8', '1:1').
     /// Defaults to `'9:32'` on the server if omitted.
     String? aspectRatio,
+
     /// Final image model (step 2). Server allowlist; e.g. `gemini-3.1-flash-image-preview`.
     String? imageModel,
+
     /// Structured content text model (step 1). Server allowlist; e.g. `gemini-3.1-flash-lite-preview`.
     String? textModel,
+
     /// Reference/input media resolution (e.g. `MEDIA_RESOLUTION_HIGH`). Passed to step-2 image gen.
     String? mediaResolution,
+
     /// Output image dimensions for models that support 1K/2K/4K (e.g. Flash/Pro image preview).
     String? imageSize,
+
     /// Exact `WIDTHxHEIGHT` when the model has pixel sizes instead of aspect ratios.
     String? size,
     String? background,
@@ -1793,7 +1781,9 @@ class Actions {
             : null,
       );
     } on DioException catch (e) {
-      developer.log('Network error during image landing page generation: ${e.message}');
+      developer.log(
+        'Network error during image landing page generation: ${e.message}',
+      );
       final cause = e.error;
       final blocked = cause is StateError ? cause.message?.toString() : null;
       return (
@@ -1803,8 +1793,8 @@ class Actions {
         message: 'Network error occurred',
         error:
             (blocked != null && blocked.isNotEmpty
-                ? blocked
-                : 'Failed to connect to the server. Please check your internet connection.')
+                    ? blocked
+                    : 'Failed to connect to the server. Please check your internet connection.')
                 as String?,
         metadata: null as Map<String, dynamic>?,
       );
@@ -1863,7 +1853,8 @@ class Actions {
       final requestData = <String, dynamic>{
         'logoName': logoName.trim(),
         'description': description.trim(),
-        if (aspectRatio != null && aspectRatio.isNotEmpty) 'aspectRatio': aspectRatio,
+        if (aspectRatio != null && aspectRatio.isNotEmpty)
+          'aspectRatio': aspectRatio,
         if (imageModel != null && imageModel.trim().isNotEmpty)
           'imageModel': imageModel.trim(),
         if (assetKind != null && assetKind.trim().isNotEmpty)
@@ -1879,10 +1870,7 @@ class Actions {
         requestData['colors'] = colors;
       }
 
-      final response = await client.post(
-        '/ai/brand-assets',
-        data: requestData,
-      );
+      final response = await client.post('/ai/brand-assets', data: requestData);
 
       final responseData = response.data as Map<String, dynamic>;
       final metadata = responseData['metadata'] is Map
@@ -1901,7 +1889,9 @@ class Actions {
         metadata: metadata,
       );
     } on DioException catch (e) {
-      developer.log('Network error during brand asset generation: ${e.message}');
+      developer.log(
+        'Network error during brand asset generation: ${e.message}',
+      );
       return (
         success: false,
         id: null as String?,
@@ -1962,7 +1952,8 @@ class Actions {
           'assetKind': assetKind.trim(),
         if (regionStyle != null && regionStyle.trim().isNotEmpty)
           'regionStyle': regionStyle.trim(),
-        if (aspectRatio != null && aspectRatio.isNotEmpty) 'aspectRatio': aspectRatio,
+        if (aspectRatio != null && aspectRatio.isNotEmpty)
+          'aspectRatio': aspectRatio,
         if (imageModel != null && imageModel.trim().isNotEmpty)
           'imageModel': imageModel.trim(),
         if (postStudioId != null && postStudioId.trim().isNotEmpty)
@@ -1974,10 +1965,7 @@ class Actions {
           'referenceImageUrls': referenceImageUrls,
       };
 
-      final response = await client.post(
-        '/ai/post-assets',
-        data: requestData,
-      );
+      final response = await client.post('/ai/post-assets', data: requestData);
 
       final responseData = response.data as Map<String, dynamic>;
       final metadata = responseData['metadata'] is Map
@@ -2056,7 +2044,8 @@ class Actions {
         if (assetKind != null && assetKind.trim().isNotEmpty)
           'assetKind': assetKind.trim(),
         if (style != null && style.trim().isNotEmpty) 'style': style.trim(),
-        if (aspectRatio != null && aspectRatio.isNotEmpty) 'aspectRatio': aspectRatio,
+        if (aspectRatio != null && aspectRatio.isNotEmpty)
+          'aspectRatio': aspectRatio,
         if (imageModel != null && imageModel.trim().isNotEmpty)
           'imageModel': imageModel.trim(),
         if (uiStudioId != null && uiStudioId.trim().isNotEmpty)
@@ -2068,10 +2057,7 @@ class Actions {
           'referenceImageUrls': referenceImageUrls,
       };
 
-      final response = await client.post(
-        '/ai/ui-assets',
-        data: requestData,
-      );
+      final response = await client.post('/ai/ui-assets', data: requestData);
 
       final responseData = response.data as Map<String, dynamic>;
       final metadata = responseData['metadata'] is Map
@@ -2116,5 +2102,4 @@ class Actions {
       );
     }
   }
-
 }

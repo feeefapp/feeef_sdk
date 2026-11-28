@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../../interfaces/feedback.dart';
 import '../../interfaces/helpers.dart';
 

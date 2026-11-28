@@ -12,6 +12,7 @@ class DeliveryBulkFailedItem {
 
   final String reference;
   final String message;
+
   /// Legacy alias for [message].
   final String? error;
   final String? code;
@@ -19,12 +20,14 @@ class DeliveryBulkFailedItem {
   final Object? details;
   final String? externalId;
 
-  String get effectiveMessage => message.isNotEmpty ? message : (error ?? message);
+  String get effectiveMessage =>
+      message.isNotEmpty ? message : (error ?? message);
 
   static DeliveryBulkFailedItem? tryParse(dynamic raw) {
     if (raw is! Map) return null;
     final m = Map<String, dynamic>.from(raw);
-    final ref = m['reference']?.toString() ??
+    final ref =
+        m['reference']?.toString() ??
         m['externalId']?.toString() ??
         m['order_id']?.toString() ??
         '';
@@ -73,8 +76,9 @@ class DeliveryBulkSendApiResult {
   /// Parse top-level JSON from Feeef API (e.g. `response.data`).
   factory DeliveryBulkSendApiResult.fromHttpBody(Map<String, dynamic> body) {
     final data = body['data'];
-    final dataMap =
-        data is Map ? Map<String, dynamic>.from(data) : <String, dynamic>{};
+    final dataMap = data is Map
+        ? Map<String, dynamic>.from(data)
+        : <String, dynamic>{};
     final created = _mapList(dataMap['created']);
     final failed = _mapList(dataMap['failed']);
     final skipped = _mapList(dataMap['skipped']);
@@ -180,7 +184,10 @@ DeliveryBulkFailedItem deliveryBulkFailedItemFromMap(Map<String, dynamic> raw) {
   return DeliveryBulkFailedItem.tryParse(raw) ??
       DeliveryBulkFailedItem(
         reference: raw['reference']?.toString() ?? '',
-        message: raw['message']?.toString() ?? raw['error']?.toString() ?? 'فشل الإرسال',
+        message:
+            raw['message']?.toString() ??
+            raw['error']?.toString() ??
+            'فشل الإرسال',
         error: raw['error']?.toString(),
       );
 }

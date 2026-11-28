@@ -56,9 +56,8 @@ class ShippingBreakdownEntry {
       other.carrierAccountId == carrierAccountId &&
       other.fee == fee &&
       other.items.length == items.length &&
-      Iterable<int>.generate(items.length).every(
-        (i) => other.items[i] == items[i],
-      );
+      Iterable<int>.generate(items.length)
+          .every((i) => other.items[i] == items[i]);
 
   @override
   int get hashCode => Object.hash(carrierAccountId, fee, Object.hashAll(items));

@@ -183,9 +183,11 @@ abstract class StoreMember with _$StoreMember {
     DateTime? acceptedAt,
     DateTime? expiredAt,
     required DateTime createdAt,
+
     /// Missing on legacy members — the API treats that as active, so must we.
     @Default(true) bool active,
     @Default({}) Map<String, dynamic> metadata,
+
     /// Fine-grained permissions; empty = legacy full access for editors.
     @Default([]) List<String> scopes,
   }) = _StoreMember;
@@ -226,8 +228,10 @@ abstract class StoreInvite with _$StoreInvite {
     required DateTime createdAt,
     required DateTime updatedAt,
     StoreInviteStore? store,
+
     /// Present when listing pending invites for the invitee (accept flow).
     String? token,
+
     /// Copied to [StoreMember.scopes] on accept.
     List<String>? scopes,
   }) = _StoreInvite;

@@ -34,8 +34,7 @@ class StateRepository
   Future<State> create({
     required StateCreate data,
     Map<String, dynamic>? params,
-  }) =>
-      throw UnsupportedError(_readOnly);
+  }) => throw UnsupportedError(_readOnly);
 
   @override
   Future<State> update({
@@ -43,8 +42,7 @@ class StateRepository
     State? old,
     required StateUpdate data,
     Map<String, dynamic>? params,
-  }) =>
-      throw UnsupportedError(_readOnly);
+  }) => throw UnsupportedError(_readOnly);
 
   @override
   Future<void> delete({required String id, Map<String, dynamic>? params}) =>

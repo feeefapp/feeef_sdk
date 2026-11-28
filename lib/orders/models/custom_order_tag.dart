@@ -46,9 +46,7 @@ Map<String, dynamic> _asJsonMap(dynamic value) {
   if (value is Map) return Map<String, dynamic>.from(value);
   if (value is CustomOrderTag) return value.toJson();
   if (value is CustomOrderTagHistory) return value.toJson();
-  throw ArgumentError(
-    'Expected Map or tag model, got ${value.runtimeType}',
-  );
+  throw ArgumentError('Expected Map or tag model, got ${value.runtimeType}');
 }
 
 // extension to StoreEntity
@@ -58,10 +56,7 @@ extension CustomOrderTagExtension on StoreEntity {
     if (raw is! List) return const [];
     return [
       for (final e in raw)
-        if (e is CustomOrderTag)
-          e
-        else
-          CustomOrderTag.fromJson(_asJsonMap(e)),
+        if (e is CustomOrderTag) e else CustomOrderTag.fromJson(_asJsonMap(e)),
     ];
   }
 }

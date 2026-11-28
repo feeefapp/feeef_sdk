@@ -4,12 +4,19 @@ import 'package:feeef/core/list_response.dart';
 import 'package:feeef/core/resource_repository.dart';
 import 'package:feeef/interfaces/helpers.dart';
 
-
 Map<String, dynamic> _map(dynamic value) =>
     value is Map ? Map<String, dynamic>.from(value) : {};
 
 /// Field types shared by template forms and AI-suggested questions.
-enum StudioFieldType { text, textarea, select, multiselect, toggle, color, number }
+enum StudioFieldType {
+  text,
+  textarea,
+  select,
+  multiselect,
+  toggle,
+  color,
+  number,
+}
 
 /// One optional question in a template form or an AI-suggested form.
 class StudioFormField {
@@ -92,16 +99,17 @@ class ImageLandingTemplate implements Model {
     this.fields = const [],
   });
 
-  factory ImageLandingTemplate.fromJson(Map<String, dynamic> json) => ImageLandingTemplate(
-    id: json['id'] as String,
-    name: json['name'] as String? ?? '',
-    isPlatform: json['scope'] == 'platform',
-    description: json['description'] as String? ?? '',
-    requirements: json['requirements'] as String? ?? '',
-    prompt: json['prompt'] as String? ?? '',
-    previewImageUrl: json['preview_image_url'] as String?,
-    fields: StudioFormField.listFrom(json['fields']),
-  );
+  factory ImageLandingTemplate.fromJson(Map<String, dynamic> json) =>
+      ImageLandingTemplate(
+        id: json['id'] as String,
+        name: json['name'] as String? ?? '',
+        isPlatform: json['scope'] == 'platform',
+        description: json['description'] as String? ?? '',
+        requirements: json['requirements'] as String? ?? '',
+        prompt: json['prompt'] as String? ?? '',
+        previewImageUrl: json['preview_image_url'] as String?,
+        fields: StudioFormField.listFrom(json['fields']),
+      );
 
   final String id;
   final String name;
@@ -111,7 +119,6 @@ class ImageLandingTemplate implements Model {
   final String prompt;
   final String? previewImageUrl;
   final List<StudioFormField> fields;
-
 }
 
 /// Create/update body for a template. Ids and scope are owned by Cloud.
@@ -170,7 +177,12 @@ class ImageLandingTemplateInput implements ModelCreate, ModelUpdate {
 /// work on it like products. `q` searches name and description; `scope` is
 /// `platform` or `mine`. Both are applied to the list Cloud returns.
 class ImageLandingTemplateRepository
-    extends ResourceRepository<ImageLandingTemplate, ImageLandingTemplateInput, ImageLandingTemplateInput> {
+    extends
+        ResourceRepository<
+          ImageLandingTemplate,
+          ImageLandingTemplateInput,
+          ImageLandingTemplateInput
+        > {
   ImageLandingTemplateRepository({required super.client})
     : super(table: 'ai/image-landing-pages/templates');
 
@@ -189,12 +201,16 @@ class ImageLandingTemplateRepository
     );
     final query = (params?['q'] as String? ?? '').trim().toLowerCase();
     final scope = params?['scope'];
-    final data = response.data.where((template) {
-      if (scope == 'platform' && !template.isPlatform) return false;
-      if (scope == 'mine' && template.isPlatform) return false;
-      return query.isEmpty ||
-          '${template.name} ${template.description}'.toLowerCase().contains(query);
-    }).toList(growable: false);
+    final data = response.data
+        .where((template) {
+          if (scope == 'platform' && !template.isPlatform) return false;
+          if (scope == 'mine' && template.isPlatform) return false;
+          return query.isEmpty ||
+              '${template.name} ${template.description}'.toLowerCase().contains(
+                query,
+              );
+        })
+        .toList(growable: false);
     return ListResponse(data: data, total: data.length);
   }
 
@@ -207,7 +223,8 @@ class ImageLandingTemplateRepository
       model.toJson();
 
   @override
-  ImageLandingTemplate modelFromJson(json) => ImageLandingTemplate.fromJson(json);
+  ImageLandingTemplate modelFromJson(json) =>
+      ImageLandingTemplate.fromJson(json);
 
   @override
   Map<String, dynamic> modelToJson(ImageLandingTemplate model) => {

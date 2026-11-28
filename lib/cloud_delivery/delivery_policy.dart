@@ -7,10 +7,10 @@ enum NoDeskCityPolicy {
   block;
 
   static NoDeskCityPolicy? tryParse(Object? raw) => switch (raw) {
-        'nearest' => NoDeskCityPolicy.nearest,
-        'block' => NoDeskCityPolicy.block,
-        _ => null,
-      };
+    'nearest' => NoDeskCityPolicy.nearest,
+    'block' => NoDeskCityPolicy.block,
+    _ => null,
+  };
 }
 
 /// Delivery policy: which types are offered and the no-desk rule.
@@ -47,33 +47,35 @@ class DeliveryPolicy {
       fromJsonOrNull(json) ?? const DeliveryPolicy();
 
   Map<String, dynamic> toJson() => {
-        if (home != null) 'home': home,
-        if (pickup != null) 'pickup': pickup,
-        if (noDeskCity != null) 'noDeskCity': noDeskCity!.name,
-      };
+    if (home != null) 'home': home,
+    if (pickup != null) 'pickup': pickup,
+    if (noDeskCity != null) 'noDeskCity': noDeskCity!.name,
+  };
 
   /// Fields set here win over [fallback].
   DeliveryPolicy over(DeliveryPolicy? fallback) => DeliveryPolicy(
-        home: home ?? fallback?.home,
-        pickup: pickup ?? fallback?.pickup,
-        noDeskCity: noDeskCity ?? fallback?.noDeskCity,
-      );
+    home: home ?? fallback?.home,
+    pickup: pickup ?? fallback?.pickup,
+    noDeskCity: noDeskCity ?? fallback?.noDeskCity,
+  );
 
   /// Effective policy: [account] over [store] over the platform default.
-  static DeliveryPolicy resolve(DeliveryPolicy? store, [DeliveryPolicy? account]) =>
-      (account ?? const DeliveryPolicy())
-          .over((store ?? const DeliveryPolicy()).over(platformDefault));
+  static DeliveryPolicy resolve(
+    DeliveryPolicy? store, [
+    DeliveryPolicy? account,
+  ]) => (account ?? const DeliveryPolicy()).over(
+    (store ?? const DeliveryPolicy()).over(platformDefault),
+  );
 
   DeliveryPolicy copyWith({
     bool? home,
     bool? pickup,
     NoDeskCityPolicy? noDeskCity,
-  }) =>
-      DeliveryPolicy(
-        home: home ?? this.home,
-        pickup: pickup ?? this.pickup,
-        noDeskCity: noDeskCity ?? this.noDeskCity,
-      );
+  }) => DeliveryPolicy(
+    home: home ?? this.home,
+    pickup: pickup ?? this.pickup,
+    noDeskCity: noDeskCity ?? this.noDeskCity,
+  );
 
   @override
   bool operator ==(Object other) =>

@@ -12,9 +12,11 @@ import 'package:feeef/mixins/repository_mixins.dart';
 /// Use for resources that support standard REST CRUD. Subclass and implement the
 /// create/update/fromJson/toJson overrides.
 abstract class ResourceRepository<
-    T extends Model,
-    C extends ModelCreate,
-    U extends ModelUpdate> extends ModelRepository<T>
+  T extends Model,
+  C extends ModelCreate,
+  U extends ModelUpdate
+>
+    extends ModelRepository<T>
     with
         ModelCreateMixin<T, C>,
         ModelFindMixin<T>,

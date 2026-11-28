@@ -7,10 +7,8 @@ part 'create_order_request.g.dart';
 @freezed
 abstract class MaystroCustomer with _$MaystroCustomer {
   const MaystroCustomer._();
-  const factory MaystroCustomer({
-    required String name,
-    required String phone,
-  }) = _MaystroCustomer;
+  const factory MaystroCustomer({required String name, required String phone}) =
+      _MaystroCustomer;
 
   factory MaystroCustomer.fromJson(Map<String, dynamic> json) =>
       _$MaystroCustomerFromJson(json);

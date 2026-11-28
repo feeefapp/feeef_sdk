@@ -17,10 +17,13 @@ abstract class ConfermerPermissions with _$ConfermerPermissions {
   const factory ConfermerPermissions({
     /// See all orders (unassigned + others'), not just unassigned + own.
     @Default(false) bool canSeeAllOrders,
+
     /// Assign unassigned orders to a confirmer.
     @Default(false) bool canAssignOrder,
+
     /// Reassign already-assigned orders to another confirmer.
     @Default(false) bool canReAssignOrder,
+
     /// Store-wide order counts and rates in analytics (never money).
     @Default(false) bool canSeeStoreStats,
     @Default({}) Map<String, dynamic> metadata,

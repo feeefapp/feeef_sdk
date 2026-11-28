@@ -35,14 +35,11 @@ class ShippingFeePair {
 
   /// Omits null sides.
   Map<String, dynamic> toJson() => {
-        if (home != null) 'home': home,
-        if (desk != null) 'desk': desk,
-      };
+    if (home != null) 'home': home,
+    if (desk != null) 'desk': desk,
+  };
 
-  ShippingFeePair copyWith({
-    num? Function()? home,
-    num? Function()? desk,
-  }) =>
+  ShippingFeePair copyWith({num? Function()? home, num? Function()? desk}) =>
       ShippingFeePair(
         home: home == null ? this.home : home(),
         desk: desk == null ? this.desk : desk(),
@@ -61,11 +58,7 @@ class ShippingFeePair {
 
 /// `Product.customShippingFee`.
 class CustomShippingFee {
-  const CustomShippingFee({
-    this.home,
-    this.desk,
-    this.states = const {},
-  });
+  const CustomShippingFee({this.home, this.desk, this.states = const {}});
 
   final num? home;
   final num? desk;
@@ -78,8 +71,7 @@ class CustomShippingFee {
       home == null && desk == null && states.values.every((p) => p.isEmpty);
 
   /// States with at least one amount.
-  int get customisedStateCount =>
-      states.values.where((p) => !p.isEmpty).length;
+  int get customisedStateCount => states.values.where((p) => !p.isEmpty).length;
 
   /// Lenient parse; returns null for null / invalid input.
   static CustomShippingFee? tryParse(Object? value) {
@@ -135,20 +127,18 @@ class CustomShippingFee {
   num? feeFor({required bool home, String? stateCode}) {
     final key = stateCode?.trim() ?? '';
     final byState = key.isEmpty ? null : states[key];
-    return byState?.amountFor(home: home) ??
-        (home ? this.home : desk);
+    return byState?.amountFor(home: home) ?? (home ? this.home : desk);
   }
 
   CustomShippingFee copyWith({
     num? Function()? home,
     num? Function()? desk,
     Map<String, ShippingFeePair>? states,
-  }) =>
-      CustomShippingFee(
-        home: home == null ? this.home : home(),
-        desk: desk == null ? this.desk : desk(),
-        states: states ?? this.states,
-      );
+  }) => CustomShippingFee(
+    home: home == null ? this.home : home(),
+    desk: desk == null ? this.desk : desk(),
+    states: states ?? this.states,
+  );
 
   @override
   bool operator ==(Object other) {
@@ -163,12 +153,12 @@ class CustomShippingFee {
 
   @override
   int get hashCode => Object.hash(
-        home,
-        desk,
-        Object.hashAllUnordered(
-          states.entries.map((e) => Object.hash(e.key, e.value)),
-        ),
-      );
+    home,
+    desk,
+    Object.hashAllUnordered(
+      states.entries.map((e) => Object.hash(e.key, e.value)),
+    ),
+  );
 
   @override
   String toString() =>

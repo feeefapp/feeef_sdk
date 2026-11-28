@@ -421,7 +421,8 @@ class YalidineDeliveryService
         final errorData = Map<String, dynamic>.from(data);
         if (errorData['success'] == false) {
           throw YalidineApiException(
-            message: errorData['error'] as String? ??
+            message:
+                errorData['error'] as String? ??
                 errorData['message'] as String? ??
                 'Failed to create parcel',
             orderId: request.orderId,
@@ -594,7 +595,8 @@ class YalidineDeliveryService
         final errorData = Map<String, dynamic>.from(data);
         if (errorData['success'] == false) {
           throw YalidineApiException(
-            message: errorData['error'] as String? ??
+            message:
+                errorData['error'] as String? ??
                 errorData['message'] as String? ??
                 'Bulk send failed',
           );

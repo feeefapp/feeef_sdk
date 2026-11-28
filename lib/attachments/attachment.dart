@@ -6,6 +6,7 @@ sealed class Attachment {
 
   final String value;
   final String? label;
+
   /// Optional instruction for the AI on how to use this attachment.
   final String? prompt;
 
@@ -15,11 +16,11 @@ sealed class Attachment {
 
   /// Serializes this attachment for API requests (type, value, label, prompt).
   Map<String, dynamic> toJson() => {
-        'type': typeId,
-        'value': value,
-        if (label != null && label!.isNotEmpty) 'label': label,
-        if (prompt != null && prompt!.isNotEmpty) 'prompt': prompt,
-      };
+    'type': typeId,
+    'value': value,
+    if (label != null && label!.isNotEmpty) 'label': label,
+    if (prompt != null && prompt!.isNotEmpty) 'prompt': prompt,
+  };
 
   /// Parses JSON into the correct subclass (ImageAttachment, StoreAttachment, …).
   static Attachment? fromJson(Map<String, dynamic>? json) {
@@ -46,7 +47,12 @@ sealed class Attachment {
   }
 
   /// Builds the right subclass from typeId + value + label.
-  static Attachment from(String typeId, String value, [String? label, String? prompt]) {
+  static Attachment from(
+    String typeId,
+    String value, [
+    String? label,
+    String? prompt,
+  ]) {
     switch (typeId) {
       case 'image':
         return ImageAttachment(url: value, label: label, prompt: prompt);
@@ -78,7 +84,8 @@ sealed class Attachment {
 
 /// Image URL attachment (reference image for AI).
 final class ImageAttachment extends Attachment {
-  const ImageAttachment({required this.url, super.label, super.prompt}) : super(value: url);
+  const ImageAttachment({required this.url, super.label, super.prompt})
+    : super(value: url);
 
   final String url;
 
@@ -87,7 +94,11 @@ final class ImageAttachment extends Attachment {
 
   @override
   ImageAttachment copyWith({String? value, String? label, String? prompt}) =>
-      ImageAttachment(url: value ?? url, label: label ?? this.label, prompt: prompt ?? this.prompt);
+      ImageAttachment(
+        url: value ?? url,
+        label: label ?? this.label,
+        prompt: prompt ?? this.prompt,
+      );
 }
 
 /// Store ID attachment (resolved server-side to logo/icon). [value] is the store ID.
@@ -99,7 +110,11 @@ final class StoreAttachment extends Attachment {
 
   @override
   StoreAttachment copyWith({String? value, String? label, String? prompt}) =>
-      StoreAttachment(value: value ?? this.value, label: label ?? this.label, prompt: prompt ?? this.prompt);
+      StoreAttachment(
+        value: value ?? this.value,
+        label: label ?? this.label,
+        prompt: prompt ?? this.prompt,
+      );
 }
 
 /// Product ID attachment (resolved server-side to photo/media). [value] is the product ID.
@@ -111,12 +126,17 @@ final class ProductAttachment extends Attachment {
 
   @override
   ProductAttachment copyWith({String? value, String? label, String? prompt}) =>
-      ProductAttachment(value: value ?? this.value, label: label ?? this.label, prompt: prompt ?? this.prompt);
+      ProductAttachment(
+        value: value ?? this.value,
+        label: label ?? this.label,
+        prompt: prompt ?? this.prompt,
+      );
 }
 
 /// Generic URL attachment (e.g. link, page).
 final class UrlAttachment extends Attachment {
-  const UrlAttachment({required this.url, super.label, super.prompt}) : super(value: url);
+  const UrlAttachment({required this.url, super.label, super.prompt})
+    : super(value: url);
 
   final String url;
 
@@ -125,12 +145,17 @@ final class UrlAttachment extends Attachment {
 
   @override
   UrlAttachment copyWith({String? value, String? label, String? prompt}) =>
-      UrlAttachment(url: value ?? url, label: label ?? this.label, prompt: prompt ?? this.prompt);
+      UrlAttachment(
+        url: value ?? url,
+        label: label ?? this.label,
+        prompt: prompt ?? this.prompt,
+      );
 }
 
 /// Audio URL attachment (e.g. reference audio for voice gen).
 final class AudioAttachment extends Attachment {
-  const AudioAttachment({required this.url, super.label, super.prompt}) : super(value: url);
+  const AudioAttachment({required this.url, super.label, super.prompt})
+    : super(value: url);
 
   final String url;
 
@@ -139,5 +164,9 @@ final class AudioAttachment extends Attachment {
 
   @override
   AudioAttachment copyWith({String? value, String? label, String? prompt}) =>
-      AudioAttachment(url: value ?? url, label: label ?? this.label, prompt: prompt ?? this.prompt);
+      AudioAttachment(
+        url: value ?? url,
+        label: label ?? this.label,
+        prompt: prompt ?? this.prompt,
+      );
 }

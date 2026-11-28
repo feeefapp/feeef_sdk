@@ -35,11 +35,12 @@ class FeeefDeliveryCenter {
 
   factory FeeefDeliveryCenter.fromJson(Map<String, dynamic> json) {
     final id = _readInt(json['id']) ?? 0;
-    final name = (json['center_name'] ??
-            json['name'] ??
-            json['centerName'] ??
-            'Center $id')
-        .toString();
+    final name =
+        (json['center_name'] ??
+                json['name'] ??
+                json['centerName'] ??
+                'Center $id')
+            .toString();
     return FeeefDeliveryCenter(
       id: id,
       name: name,
@@ -53,15 +54,15 @@ class FeeefDeliveryCenter {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'center_name': name,
-        if (address != null) 'address': address,
-        if (wilayaCode != null) 'wilaya_code': wilayaCode,
-        if (communeCode != null) 'commune_code': communeCode,
-        if (googleMapUrl != null) 'google_map_url': googleMapUrl,
-        if (centerType != null) 'center_type': centerType,
-        if (region != null) 'region': region,
-      };
+    'id': id,
+    'center_name': name,
+    if (address != null) 'address': address,
+    if (wilayaCode != null) 'wilaya_code': wilayaCode,
+    if (communeCode != null) 'commune_code': communeCode,
+    if (googleMapUrl != null) 'google_map_url': googleMapUrl,
+    if (centerType != null) 'center_type': centerType,
+    if (region != null) 'region': region,
+  };
 }
 
 /// A Near buralist / stop-desk agent (`GET /sender/buralists`).
@@ -90,12 +91,13 @@ class FeeefDeliveryBuralist {
 
   factory FeeefDeliveryBuralist.fromJson(Map<String, dynamic> json) {
     final id = _readInt(json['id'] ?? json['user_id'] ?? json['userId']) ?? 0;
-    final name = (json['name'] ??
-            json['full_name'] ??
-            json['fullName'] ??
-            json['username'] ??
-            'Buralist $id')
-        .toString();
+    final name =
+        (json['name'] ??
+                json['full_name'] ??
+                json['fullName'] ??
+                json['username'] ??
+                'Buralist $id')
+            .toString();
     return FeeefDeliveryBuralist(
       id: id,
       name: name,
@@ -115,13 +117,12 @@ class FeeefDeliveryWilaya {
   const FeeefDeliveryWilaya({required this.code, required this.name});
 
   factory FeeefDeliveryWilaya.fromJson(Map<String, dynamic> json) {
-    final code = (json['wilaya_code'] ??
-            json['code'] ??
-            json['wilayaCode'] ??
-            '')
-        .toString();
-    final name = (json['name'] ?? json['wilaya_name'] ?? json['wilayaName'] ?? code)
-        .toString();
+    final code =
+        (json['wilaya_code'] ?? json['code'] ?? json['wilayaCode'] ?? '')
+            .toString();
+    final name =
+        (json['name'] ?? json['wilaya_name'] ?? json['wilayaName'] ?? code)
+            .toString();
     return FeeefDeliveryWilaya(code: code, name: name);
   }
 }

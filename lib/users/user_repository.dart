@@ -21,7 +21,7 @@ class UserRepository extends ModelRepository<User>
     super.realtime,
     super.getPushToken,
     required FeeefStorage storage,
-  })  : super(table: 'users', storage: storage);
+  }) : super(table: 'users', storage: storage);
 
   @override
   User modelFromJson(json) => User.fromJson(json);

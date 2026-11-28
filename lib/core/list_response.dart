@@ -8,6 +8,7 @@ class ListResponse<T> {
   final int? total;
   final int? page;
   final int? limit;
+
   /// Per-status counts from list meta when the request used non-base filters.
   /// Filtered page counts by rooms phase (`meta.phaseCounts`).
   final Map<String, int>? phaseCounts;

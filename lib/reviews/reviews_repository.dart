@@ -24,6 +24,7 @@ class ReviewsRepository {
     int? rating,
     bool? withPhotos,
     bool? verifiedOnly,
+
     /// `relevant`, `recent`, `rating_desc` or `rating_asc`.
     String? sort,
     CancelToken? cancelToken,
@@ -73,10 +74,7 @@ class ReviewsRepository {
 
   /// Upload one photo for the review page (`token`) or the storefront form (`productId`).
   /// Returns the CDN URL to put in `photos`.
-  Future<String> uploadPhoto(
-    FormData form, {
-    CancelToken? cancelToken,
-  }) async {
+  Future<String> uploadPhoto(FormData form, {CancelToken? cancelToken}) async {
     final res = await client.post(
       '/reviews/photos',
       data: form,
@@ -86,7 +84,10 @@ class ReviewsRepository {
   }
 
   /// Order context for the review page: products, the customer's own reviews, eligibility.
-  Future<ReviewRequest> request(String token, {CancelToken? cancelToken}) async {
+  Future<ReviewRequest> request(
+    String token, {
+    CancelToken? cancelToken,
+  }) async {
     final res = await client.get(
       '/reviews/requests/${Uri.encodeComponent(token)}',
       cancelToken: cancelToken,
@@ -207,11 +208,14 @@ class ReviewsRepository {
     return (_map(res)['updated'] as num).toInt();
   }
 
-  Future<void> remove(String storeId, String reviewId, {CancelToken? cancelToken}) =>
-      client.delete(
-        '/stores/${Uri.encodeComponent(storeId)}/reviews/${Uri.encodeComponent(reviewId)}',
-        cancelToken: cancelToken,
-      );
+  Future<void> remove(
+    String storeId,
+    String reviewId, {
+    CancelToken? cancelToken,
+  }) => client.delete(
+    '/stores/${Uri.encodeComponent(storeId)}/reviews/${Uri.encodeComponent(reviewId)}',
+    cancelToken: cancelToken,
+  );
 
   /// Delivered orders by ask state: `todo`, `sent`, `reviewed` (or `all`).
   Future<ReviewAsksPage> requests(
@@ -253,7 +257,10 @@ class ReviewsRepository {
       cancelToken: cancelToken,
     );
     final json = _map(res);
-    return (sentAt: json['sentAt'] as String, sentCount: (json['sentCount'] as num).toInt());
+    return (
+      sentAt: json['sentAt'] as String,
+      sentCount: (json['sentCount'] as num).toInt(),
+    );
   }
 
   /// Remove the saved AI summary of a product.
@@ -261,11 +268,10 @@ class ReviewsRepository {
     String storeId,
     String productId, {
     CancelToken? cancelToken,
-  }) =>
-      client.delete(
-        '/stores/${Uri.encodeComponent(storeId)}/products/${Uri.encodeComponent(productId)}/review-summary',
-        cancelToken: cancelToken,
-      );
+  }) => client.delete(
+    '/stores/${Uri.encodeComponent(storeId)}/products/${Uri.encodeComponent(productId)}/review-summary',
+    cancelToken: cancelToken,
+  );
 
   // ─── AI (paid workflow steps) ──────────────────────────────────────────
 
@@ -308,6 +314,8 @@ class ReviewsRepository {
       options: Options(headers: {'Idempotency-Key': idempotencyKey}),
       cancelToken: cancelToken,
     );
-    return ReviewAiSummary.fromJson(Map<String, dynamic>.from(_map(res)['summary'] as Map));
+    return ReviewAiSummary.fromJson(
+      Map<String, dynamic>.from(_map(res)['summary'] as Map),
+    );
   }
 }

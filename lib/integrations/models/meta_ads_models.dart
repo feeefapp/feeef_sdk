@@ -520,7 +520,9 @@ class MetaCampaign implements MetaAdsNode {
       startTime: DateTime.tryParse(json['startTime']?.toString() ?? ''),
       stopTime: DateTime.tryParse(json['stopTime']?.toString() ?? ''),
       updatedTime: DateTime.tryParse(json['updatedTime']?.toString() ?? ''),
-      insights: MetaInsights.fromJson(json['insights'] as Map<String, dynamic>?),
+      insights: MetaInsights.fromJson(
+        json['insights'] as Map<String, dynamic>?,
+      ),
     );
   }
 }
@@ -622,7 +624,9 @@ class MetaAdSet implements MetaAdsNode {
       targeting: MetaTargetingSummary.fromJson(
         json['targetingSummary'] as Map<String, dynamic>?,
       ),
-      insights: MetaInsights.fromJson(json['insights'] as Map<String, dynamic>?),
+      insights: MetaInsights.fromJson(
+        json['insights'] as Map<String, dynamic>?,
+      ),
     );
   }
 }
@@ -680,7 +684,9 @@ class MetaAd implements MetaAdsNode {
       ),
       updatedTime: DateTime.tryParse(json['updatedTime']?.toString() ?? ''),
       previewUrl: _toStringOrNull(json['previewUrl']),
-      insights: MetaInsights.fromJson(json['insights'] as Map<String, dynamic>?),
+      insights: MetaInsights.fromJson(
+        json['insights'] as Map<String, dynamic>?,
+      ),
       destination: MetaAdDestination.fromJson(
         json['destination'] as Map<String, dynamic>?,
       ),
@@ -712,7 +718,9 @@ class MetaAdDetail {
   factory MetaAdDetail.fromJson(Map<String, dynamic> json) {
     return MetaAdDetail(
       ad: MetaAd.fromJson(json),
-      insights: MetaInsights.fromJson(json['insights'] as Map<String, dynamic>?),
+      insights: MetaInsights.fromJson(
+        json['insights'] as Map<String, dynamic>?,
+      ),
       urlTags: _toStringOrNull(json['urlTags']),
       destinations:
           (json['destinations'] as List?)

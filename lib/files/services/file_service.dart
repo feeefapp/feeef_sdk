@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import 'package:feeef/core/feeef_upload_file.dart';
+
 import '../models/file.dart';
 
 /// Service for managing files in the media library

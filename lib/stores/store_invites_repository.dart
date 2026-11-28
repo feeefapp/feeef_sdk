@@ -15,10 +15,7 @@ class StoreInvitesRepository {
   final String table;
 
   /// Lists invites for a store.
-  Future<List<StoreInvite>> list(
-    String storeId, {
-    String? status,
-  }) async {
+  Future<List<StoreInvite>> list(String storeId, {String? status}) async {
     try {
       final res = await client.get(
         '/$table/$storeId/invites',
@@ -73,12 +70,15 @@ class StoreInvitesRepository {
           if (errors is List && errors.isNotEmpty) {
             throw FeeefValidationException(
               errors: errors
-                  .map((v) => v is Map
-                      ? FeeefViolation(
-                          message: v['message']?.toString() ?? 'Request failed',
-                          field: v['field']?.toString(),
-                        )
-                      : FeeefViolation(message: v.toString()))
+                  .map(
+                    (v) => v is Map
+                        ? FeeefViolation(
+                            message:
+                                v['message']?.toString() ?? 'Request failed',
+                            field: v['field']?.toString(),
+                          )
+                        : FeeefViolation(message: v.toString()),
+                  )
                   .toList(),
             );
           }

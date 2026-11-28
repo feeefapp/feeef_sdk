@@ -8,8 +8,7 @@ import 'package:feeef/cities/models/city.dart';
 /// The backend exposes no write routes for geography; [create], [update] and
 /// [delete] throw [UnsupportedError]. The class still extends
 /// [ResourceRepository] so generic resource views can list it.
-class CityRepository
-    extends ResourceRepository<City, CityCreate, CityUpdate> {
+class CityRepository extends ResourceRepository<City, CityCreate, CityUpdate> {
   CityRepository({required super.client}) : super(table: 'cities');
 
   @override
@@ -34,8 +33,7 @@ class CityRepository
   Future<City> create({
     required CityCreate data,
     Map<String, dynamic>? params,
-  }) =>
-      throw UnsupportedError(_readOnly);
+  }) => throw UnsupportedError(_readOnly);
 
   @override
   Future<City> update({
@@ -43,8 +41,7 @@ class CityRepository
     City? old,
     required CityUpdate data,
     Map<String, dynamic>? params,
-  }) =>
-      throw UnsupportedError(_readOnly);
+  }) => throw UnsupportedError(_readOnly);
 
   @override
   Future<void> delete({required String id, Map<String, dynamic>? params}) =>

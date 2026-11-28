@@ -77,10 +77,15 @@ String? toAccountPhoneE164(String? raw, {String country = 'DZ'}) {
     return '+$intl';
   }
 
-  final cc = country.trim().toUpperCase().isEmpty ? 'DZ' : country.trim().toUpperCase();
+  final cc = country.trim().toUpperCase().isEmpty
+      ? 'DZ'
+      : country.trim().toUpperCase();
   final plan = _plans[cc];
   if (plan != null) {
-    final national = _canonicalNational(trimmed.replaceAll(RegExp(r'\D'), ''), plan);
+    final national = _canonicalNational(
+      trimmed.replaceAll(RegExp(r'\D'), ''),
+      plan,
+    );
     if (!_isValidNational(national, plan, cc)) return null;
     final subscriber = plan.trunk.isNotEmpty && national.startsWith(plan.trunk)
         ? national.substring(plan.trunk.length)

@@ -27,7 +27,9 @@ class PromoRepository {
       queryParameters: queryParams.isNotEmpty ? queryParams : null,
     );
     final data = response.data as Map<String, dynamic>;
-    final list = (data['data'] as List).map((e) => Promo.fromJson(e as Map<String, dynamic>)).toList();
+    final list = (data['data'] as List)
+        .map((e) => Promo.fromJson(e as Map<String, dynamic>))
+        .toList();
     return ListResponse<Promo>(
       data: list,
       total: data['total'] != null ? (data['total'] as num).toInt() : null,
@@ -44,12 +46,11 @@ class PromoRepository {
     try {
       final response = await client.post(
         '/$_table/validate',
-        data: {
-          'code': code,
-          if (storeId != null) 'storeId': storeId,
-        },
+        data: {'code': code, if (storeId != null) 'storeId': storeId},
       );
-      return PromoValidationResult.fromJson(response.data as Map<String, dynamic>);
+      return PromoValidationResult.fromJson(
+        response.data as Map<String, dynamic>,
+      );
     } on DioException catch (e) {
       if (e.response?.statusCode == 422) {
         throw FeeefValidationException.fromJson(e.response!.data);

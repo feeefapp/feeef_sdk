@@ -36,10 +36,7 @@ class MdmExpressDeliveryService
     );
   }
 
-  Map<String, dynamic> _parcelPayload(
-    Order order,
-    ParcelSendRequest request,
-  ) {
+  Map<String, dynamic> _parcelPayload(Order order, ParcelSendRequest request) {
     return {
       'externalId': request.externalId ?? order.id,
       'customer': {
@@ -85,7 +82,8 @@ class MdmExpressDeliveryService
       if (request.stateCode != null) 'stateCode': request.stateCode,
       if (request.cityCode != null) 'cityCode': request.cityCode,
       'freeShipping': order.shippingPrice != null && order.shippingPrice == 0,
-      if (order.shippingPrice != null) 'shippingPrice': order.shippingPrice!.toDouble(),
+      if (order.shippingPrice != null)
+        'shippingPrice': order.shippingPrice!.toDouble(),
     };
   }
 

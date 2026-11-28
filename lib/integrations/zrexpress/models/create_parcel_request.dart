@@ -3,12 +3,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 export 'package:feeef/integrations/delivery/parcel_send_api_models.dart'
     show
-      ParcelSendCustomer,
-      ParcelSendDeliveryAddress,
-      ParcelSendDeliveryType,
-      ParcelSendOrderedProduct,
-      ParcelSendPhone,
-      ParcelSendRequest;
+        ParcelSendCustomer,
+        ParcelSendDeliveryAddress,
+        ParcelSendDeliveryType,
+        ParcelSendOrderedProduct,
+        ParcelSendPhone,
+        ParcelSendRequest;
 
 part 'create_parcel_request.freezed.dart';
 part 'create_parcel_request.g.dart';

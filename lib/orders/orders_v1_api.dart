@@ -69,7 +69,9 @@ class OrderStatusV1 {
       queueEligible: json['queueEligible'] as bool? ?? false,
       sortOrder: json['sortOrder'] as int? ?? 0,
       reasons: (json['reasons'] as List?)?.map((e) => e.toString()).toList(),
-      nextSlugs: (json['nextSlugs'] as List?)?.map((e) => e.toString()).toList(),
+      nextSlugs: (json['nextSlugs'] as List?)
+          ?.map((e) => e.toString())
+          .toList(),
       onSelect: (json['onSelect'] as Map?)?.cast<String, dynamic>(),
     );
   }
@@ -99,24 +101,24 @@ class OrderStatusV1 {
   }
 
   Map<String, dynamic> toUpsertJson() => {
-        'room': room,
-        'slug': slug,
-        'name': name,
-        if (kind != null) 'kind': kind,
-        'locales': locales,
-        if (color != null) 'color': color,
-        if (icon != null) 'icon': icon,
-        'closeAs': closeAs,
-        'deskOutcome': deskOutcome,
-        'sortOrder': sortOrder,
-        'requiresReason': requiresReason,
-        'queueEligible': queueEligible,
-        if (snoozeMinutes != null) 'snoozeMinutes': snoozeMinutes,
-        if (reasons != null) 'reasons': reasons,
-        if (nextSlugs != null) 'nextSlugs': nextSlugs,
-        if (onSelect != null) 'onSelect': onSelect,
-        'isActive': isActive,
-      };
+    'room': room,
+    'slug': slug,
+    'name': name,
+    if (kind != null) 'kind': kind,
+    'locales': locales,
+    if (color != null) 'color': color,
+    if (icon != null) 'icon': icon,
+    'closeAs': closeAs,
+    'deskOutcome': deskOutcome,
+    'sortOrder': sortOrder,
+    'requiresReason': requiresReason,
+    'queueEligible': queueEligible,
+    if (snoozeMinutes != null) 'snoozeMinutes': snoozeMinutes,
+    if (reasons != null) 'reasons': reasons,
+    if (nextSlugs != null) 'nextSlugs': nextSlugs,
+    if (onSelect != null) 'onSelect': onSelect,
+    'isActive': isActive,
+  };
 }
 
 /// Room/kind counts envelope (Opencod `orders/counts`).
@@ -138,11 +140,13 @@ class OrderCountsV1 {
   factory OrderCountsV1.fromJson(Map<String, dynamic> json) {
     return OrderCountsV1(
       all: (json['all'] as num?)?.toInt() ?? 0,
-      byRoom: (json['byRoom'] as Map?)?.map(
+      byRoom:
+          (json['byRoom'] as Map?)?.map(
             (k, v) => MapEntry(k.toString(), (v as num).toInt()),
           ) ??
           const {},
-      byStatus: (json['byStatus'] as Map?)?.map(
+      byStatus:
+          (json['byStatus'] as Map?)?.map(
             (k, v) => MapEntry(k.toString(), (v as num).toInt()),
           ) ??
           const {},
@@ -190,10 +194,7 @@ class OrdersV1Api {
   }) async {
     final res = await client.put(
       '/stores/$storeId/statuses/reorder',
-      data: {
-        'orderedIds': orderedIds,
-        if (room != null) 'room': room,
-      },
+      data: {'orderedIds': orderedIds, if (room != null) 'room': room},
     );
     final data = res.data['data'] as List? ?? const [];
     return data
@@ -232,9 +233,7 @@ class OrdersV1Api {
   Future<OrderCountsV1> counts(String storeId, {String? room}) async {
     final res = await client.get(
       '/stores/$storeId/orders/counts',
-      queryParameters: {
-        if (room != null && room.isNotEmpty) 'room': room,
-      },
+      queryParameters: {if (room != null && room.isNotEmpty) 'room': room},
     );
     return OrderCountsV1.fromJson(Map<String, dynamic>.from(res.data as Map));
   }
@@ -264,7 +263,9 @@ class OrdersV1Api {
           'scheduledAt': scheduledAt.toUtc().toIso8601String(),
       },
     );
-    return Map<String, dynamic>.from(res.data['data'] as Map? ?? res.data as Map);
+    return Map<String, dynamic>.from(
+      res.data['data'] as Map? ?? res.data as Map,
+    );
   }
 
   /// Apply one sticker to many orders (`POST /stores/:storeId/orders/applyMany`).
@@ -367,7 +368,9 @@ class OrdersV1Api {
         if (reason != null) 'reason': reason,
       },
     );
-    return Map<String, dynamic>.from(res.data['data'] as Map? ?? res.data as Map);
+    return Map<String, dynamic>.from(
+      res.data['data'] as Map? ?? res.data as Map,
+    );
   }
 
   /// Open → fail door (Opencod SPEC-API-011).
@@ -379,12 +382,11 @@ class OrdersV1Api {
   }) async {
     final res = await client.post(
       '/stores/$storeId/orders/$orderId/reject',
-      data: {
-        'kind': kind,
-        if (reason != null) 'reason': reason,
-      },
+      data: {'kind': kind, if (reason != null) 'reason': reason},
     );
-    return Map<String, dynamic>.from(res.data['data'] as Map? ?? res.data as Map);
+    return Map<String, dynamic>.from(
+      res.data['data'] as Map? ?? res.data as Map,
+    );
   }
 }
 
@@ -440,7 +442,8 @@ class OrderApplyManyResult {
     return OrderApplyManyResult(
       applied: applied,
       failed: failed,
-      total: (summary['total'] as num?)?.toInt() ?? applied.length + failed.length,
+      total:
+          (summary['total'] as num?)?.toInt() ?? applied.length + failed.length,
       succeeded: (summary['succeeded'] as num?)?.toInt() ?? applied.length,
       failedCount: (summary['failed'] as num?)?.toInt() ?? failed.length,
       message: json['message'] as String?,

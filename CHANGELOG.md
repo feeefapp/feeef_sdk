@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.1
+
+- Address rules: `showState` / `showCity` choose whether the state and city fields show, separately from `requireState` / `requireCity` (a required field always shows). `AddressRules.stateShown` / `cityShown` read the result.
+
 ## 1.7.0
 
 - Worldwide addresses: `Order` gains `shippingZip`, `shippingAddress2` (also on `OrderCreate` / `OrderUpdate`) and read-only `shippingGeo` (`OrderGeoMatch`). `StoreConfigs.address` holds per-country `AddressRules` overrides (`CityInputMode`, `AddressFieldMode`, `AddressRules.builtInDefault`); `stores.addressRules(storeId, country:)` returns the resolved rules (`StoreAddressRules`) and `defaults` (built-in + platform, without the store's overrides; `defaultsOrBuiltIn`).

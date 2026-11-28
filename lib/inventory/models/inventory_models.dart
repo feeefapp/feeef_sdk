@@ -167,9 +167,8 @@ class InventoryBrowseLevel {
           ? objectsRaw
                 .whereType<Map>()
                 .map(
-                  (row) => InventoryObject.fromJson(
-                    Map<String, dynamic>.from(row),
-                  ),
+                  (row) =>
+                      InventoryObject.fromJson(Map<String, dynamic>.from(row)),
                 )
                 .toList(growable: false)
           : const [],
@@ -309,13 +308,13 @@ class InventoryReservation implements Model {
     final rawLines = json['lines'];
     final lines = rawLines is List
         ? rawLines
-            .whereType<Map>()
-            .map(
-              (e) => InventoryReservationLine.fromJson(
-                Map<String, dynamic>.from(e),
-              ),
-            )
-            .toList()
+              .whereType<Map>()
+              .map(
+                (e) => InventoryReservationLine.fromJson(
+                  Map<String, dynamic>.from(e),
+                ),
+              )
+              .toList()
         : <InventoryReservationLine>[];
 
     return InventoryReservation(
@@ -611,10 +610,7 @@ class InventoryPosToday {
   final int todayCount;
   final double todayTotal;
 
-  const InventoryPosToday({
-    required this.todayCount,
-    required this.todayTotal,
-  });
+  const InventoryPosToday({required this.todayCount, required this.todayTotal});
 
   factory InventoryPosToday.fromJson(Map<String, dynamic> json) =>
       InventoryPosToday(
@@ -651,21 +647,30 @@ class InventorySummary {
         stock: InventoryStockHealth.fromJson(
           Map<String, dynamic>.from((json['stock'] as Map?) ?? const {}),
         ),
-        lowStock: (json['lowStock'] as List?)
+        lowStock:
+            (json['lowStock'] as List?)
                 ?.whereType<Map>()
-                .map((e) => InventoryLowStockRow.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => InventoryLowStockRow.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList() ??
             const [],
-        recent: (json['recent'] as List?)
+        recent:
+            (json['recent'] as List?)
                 ?.whereType<Map>()
-                .map((e) => InventoryRecentMovement.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => InventoryRecentMovement.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList() ??
             const [],
         pos: json['pos'] is Map
             ? InventoryPosToday.fromJson(
-                Map<String, dynamic>.from(json['pos'] as Map))
+                Map<String, dynamic>.from(json['pos'] as Map),
+              )
             : null,
         engine: json['engine'] as String?,
       );
@@ -692,13 +697,13 @@ class InventoryBatchUpdateObjectsRequest extends BatchUpdateManyRequest {
     super.returnPartialSuccess = true,
     super.requestId,
   }) : super(
-          fields: {
-            if (storageClass != null) 'storageClass': storageClass,
-            if (warehouseId != null) 'warehouseId': warehouseId,
-            if (namespace != null) 'namespace': namespace,
-            if (batch != null) 'batch': batch,
-            if (priority != null) 'priority': priority,
-            if (expiresAt != null) 'expiresAt': expiresAt.toIso8601String(),
-          },
-        );
+         fields: {
+           if (storageClass != null) 'storageClass': storageClass,
+           if (warehouseId != null) 'warehouseId': warehouseId,
+           if (namespace != null) 'namespace': namespace,
+           if (batch != null) 'batch': batch,
+           if (priority != null) 'priority': priority,
+           if (expiresAt != null) 'expiresAt': expiresAt.toIso8601String(),
+         },
+       );
 }

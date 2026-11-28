@@ -24,8 +24,7 @@ abstract final class ConfermerWorkspace {
   };
 
   /// Default landing when a confirmer opens a store or hits a denied path.
-  static String landingPath(String storeId) =>
-      '/stores/$storeId/confirmation';
+  static String landingPath(String storeId) => '/stores/$storeId/confirmation';
 
   /// Whether [requiredScope] is part of the confirmer workspace.
   static bool impliesScope(String requiredScope) =>

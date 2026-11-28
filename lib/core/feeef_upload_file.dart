@@ -10,7 +10,10 @@ class FeeefUploadFile {
     required this.size,
     this.path,
     this.bytes,
-  }) : assert(path != null || bytes != null, 'Either path or bytes must be set');
+  }) : assert(
+         path != null || bytes != null,
+         'Either path or bytes must be set',
+       );
 
   final String name;
   final int size;

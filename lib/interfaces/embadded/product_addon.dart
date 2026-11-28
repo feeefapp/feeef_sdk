@@ -9,6 +9,7 @@ abstract class ProductAddon with _$ProductAddon {
     String? photoUrl,
     required String title,
     String? subtitle,
+
     /// Inventory bucket SKU (scoped under product root when inventory is enabled).
     String? sku,
     num? stock,

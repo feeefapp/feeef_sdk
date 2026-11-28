@@ -13,6 +13,7 @@ import '../../interfaces/embadded/store.dart';
 import '../../interfaces/embadded/store_integrations.dart';
 import '../../interfaces/helpers.dart';
 import '../../interfaces/store.dart';
+
 import 'package:feeef/orders/models/lite_orders_report.dart';
 
 export 'address_rules.dart';
@@ -28,7 +29,6 @@ LiteOrdersReport? _storeLorFromJson(Object? o) {
 }
 
 Object? _storeLorToJson(LiteOrdersReport? v) => v?.toJson();
-
 
 /// Shared deep equality for small nested collections (categories, contacts, …).
 const _storeDeepEq = DeepCollectionEquality();
@@ -86,7 +86,9 @@ StoreIntegrations _storeIntegrationsFromJson(Map<String, dynamic>? json) {
 }
 
 /// Nullable variant for [StoreUpdate]; returns null when json is null.
-StoreIntegrations? _storeIntegrationsFromJsonNullable(Map<String, dynamic>? json) {
+StoreIntegrations? _storeIntegrationsFromJsonNullable(
+  Map<String, dynamic>? json,
+) {
   if (json == null) return null;
   final sanitized = Map<String, dynamic>.from(json);
   for (final key in _storeIntegrationKeys) {
@@ -141,26 +143,35 @@ abstract class Store extends StoreEntity
     EmbaddedAddress? address,
     @Default({}) Map<String, dynamic> metadata,
     @Default([]) List<EmbaddedContact> contacts,
-    @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)
+    @JsonKey(
+      fromJson: _storeIntegrationsFromJson,
+      toJson: _storeIntegrationsToJson,
+    )
     @Default(StoreIntegrations())
     StoreIntegrations integrations,
     DateTime? verifiedAt,
     DateTime? blockedAt,
     // subscription
-    @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson)
+    @JsonKey(
+      fromJson: _storeSubscriptionFromJson,
+      toJson: _storeSubscriptionToJson,
+    )
     StoreSubscription? subscription,
     num? due,
     // StoreConfigs
     StoreConfigs? configs,
+
     /// Cloud shipping fee: `ca_…` (account) or `unassigned` (project fees).
     String? shippingFeeId,
     String? projectId,
     // metaPixelIds
     List<String>? metaPixelIds,
     @Default({}) Map<String, StoreMember> members,
+
     /// Present when list/show is called with `with[]=lor` and the user may view analytics.
     @JsonKey(fromJson: _storeLorFromJson, toJson: _storeLorToJson)
     LiteOrdersReport? lor,
+
     /// Live template version (packages system).
     String? templateVersionId,
   }) = _Store;
@@ -210,41 +221,41 @@ abstract class Store extends StoreEntity
 
   @override
   int get hashCode => Object.hashAll([
-        runtimeType,
-        id,
-        createdAt,
-        updatedAt,
-        slug,
-        banner,
-        action,
-        domain,
-        decoration,
-        name,
-        iconUrl,
-        logoUrl,
-        ondarkLogoUrl,
-        userId,
-        _storeDeepEq.hash(categories),
-        _storeDeepEq.hash(categoriesRelation),
-        title,
-        description,
-        _storeDeepEq.hash(addresses),
-        address,
-        _storeDeepEq.hash(metadata),
-        _storeDeepEq.hash(contacts),
-        integrations,
-        verifiedAt,
-        blockedAt,
-        subscription,
-        due,
-        configs,
-        shippingFeeId,
-        projectId,
-        _storeDeepEq.hash(metaPixelIds),
-        _storeDeepEq.hash(members),
-        lor,
-        templateVersionId,
-      ]);
+    runtimeType,
+    id,
+    createdAt,
+    updatedAt,
+    slug,
+    banner,
+    action,
+    domain,
+    decoration,
+    name,
+    iconUrl,
+    logoUrl,
+    ondarkLogoUrl,
+    userId,
+    _storeDeepEq.hash(categories),
+    _storeDeepEq.hash(categoriesRelation),
+    title,
+    description,
+    _storeDeepEq.hash(addresses),
+    address,
+    _storeDeepEq.hash(metadata),
+    _storeDeepEq.hash(contacts),
+    integrations,
+    verifiedAt,
+    blockedAt,
+    subscription,
+    due,
+    configs,
+    shippingFeeId,
+    projectId,
+    _storeDeepEq.hash(metaPixelIds),
+    _storeDeepEq.hash(members),
+    lor,
+    templateVersionId,
+  ]);
 
   /// Omits [metadata] values — dumping them freezes the UI.
   @override
@@ -273,13 +284,19 @@ abstract class StoreCreate with _$StoreCreate implements ModelCreate {
     EmbaddedAddress? address,
     @Default({}) Map<String, dynamic> metadata,
     @Default([]) List<EmbaddedContact> contacts,
-    @JsonKey(fromJson: _storeIntegrationsFromJson, toJson: _storeIntegrationsToJson)
+    @JsonKey(
+      fromJson: _storeIntegrationsFromJson,
+      toJson: _storeIntegrationsToJson,
+    )
     @Default(StoreIntegrations())
     StoreIntegrations integrations,
     String? shippingFeeId,
     String? projectId,
     // subscription
-    @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson)
+    @JsonKey(
+      fromJson: _storeSubscriptionFromJson,
+      toJson: _storeSubscriptionToJson,
+    )
     StoreSubscription? subscription,
     num? due,
   }) = _StoreCreate;
@@ -309,14 +326,17 @@ abstract class StoreUpdate with _$StoreUpdate implements ModelUpdate {
     Map<String, dynamic>? metadata,
     List<EmbaddedContact>? contacts,
     @JsonKey(
-        fromJson: _storeIntegrationsFromJsonNullable,
-        toJson: _storeIntegrationsToJson,
-      )
+      fromJson: _storeIntegrationsFromJsonNullable,
+      toJson: _storeIntegrationsToJson,
+    )
     StoreIntegrations? integrations,
     // ignore: invalid_annotation_target
     @JsonKey(includeFromJson: false) @Default([]) List<String> setToNull,
     // subscription
-    @JsonKey(fromJson: _storeSubscriptionFromJson, toJson: _storeSubscriptionToJson)
+    @JsonKey(
+      fromJson: _storeSubscriptionFromJson,
+      toJson: _storeSubscriptionToJson,
+    )
     StoreSubscription? subscription,
     num? due,
     // StoreConfigs
@@ -353,7 +373,8 @@ extension StoreExtensions on Store {
 
   // apikey is just the store id shifted the domain name
   String getApiKey() {
-    var rawKey = "$id;${domain?.name ?? "$slug.alpha.feeef.store"}".toUpperCase();
+    var rawKey = "$id;${domain?.name ?? "$slug.alpha.feeef.store"}"
+        .toUpperCase();
     // manipulate the rawKey to get the api key (looks random)
     var encodedKey = base64Url.encode(utf8.encode(rawKey));
     // reverse the encodedKey
@@ -398,28 +419,36 @@ extension StoreExtensions on Store {
       banner: patch.containsKey('banner') ? update.banner : banner,
       action: patch.containsKey('action') ? update.action : action,
       domain: patch.containsKey('domain') ? update.domain : domain,
-      decoration: patch.containsKey('decoration') ? update.decoration : decoration,
+      decoration: patch.containsKey('decoration')
+          ? update.decoration
+          : decoration,
       logoUrl: patch.containsKey('logoUrl') ? update.logoUrl : logoUrl,
       iconUrl: patch.containsKey('iconUrl') ? update.iconUrl : iconUrl,
-      ondarkLogoUrl:
-          patch.containsKey('ondarkLogoUrl') ? update.ondarkLogoUrl : ondarkLogoUrl,
-      categories:
-          patch.containsKey('categories') ? update.categories! : categories,
+      ondarkLogoUrl: patch.containsKey('ondarkLogoUrl')
+          ? update.ondarkLogoUrl
+          : ondarkLogoUrl,
+      categories: patch.containsKey('categories')
+          ? update.categories!
+          : categories,
       title: patch.containsKey('title') ? update.title : title,
-      description:
-          patch.containsKey('description') ? update.description : description,
+      description: patch.containsKey('description')
+          ? update.description
+          : description,
       addresses: patch.containsKey('addresses') ? update.addresses! : addresses,
       address: patch.containsKey('address') ? update.address : address,
       metadata: patch.containsKey('metadata') ? update.metadata! : metadata,
       contacts: patch.containsKey('contacts') ? update.contacts! : contacts,
-      integrations:
-          patch.containsKey('integrations') ? update.integrations! : integrations,
-      subscription:
-          patch.containsKey('subscription') ? update.subscription : subscription,
+      integrations: patch.containsKey('integrations')
+          ? update.integrations!
+          : integrations,
+      subscription: patch.containsKey('subscription')
+          ? update.subscription
+          : subscription,
       due: patch.containsKey('due') ? update.due : due,
       configs: patch.containsKey('configs') ? update.configs : configs,
-      shippingFeeId:
-          patch.containsKey('shippingFeeId') ? update.shippingFeeId : shippingFeeId,
+      shippingFeeId: patch.containsKey('shippingFeeId')
+          ? update.shippingFeeId
+          : shippingFeeId,
       projectId: patch.containsKey('projectId') ? update.projectId : projectId,
     );
   }
@@ -443,23 +472,18 @@ extension StoreExtensions on Store {
 /// StoreSubscription
 ///
 Map<String, StoreIntegrationSubscription>
-    _storeSubscriptionIntegrationsFromJson(Object? json) {
+_storeSubscriptionIntegrationsFromJson(Object? json) {
   if (json == null) return const {};
   if (json is! Map) return const {};
-  return json.map(
-    (key, value) {
-      if (value is StoreIntegrationSubscription) {
-        return MapEntry(key as String, value);
-      }
-      final map = value is Map<String, dynamic>
-          ? value
-          : Map<String, dynamic>.from(value as Map);
-      return MapEntry(
-        key as String,
-        StoreIntegrationSubscription.fromJson(map),
-      );
-    },
-  );
+  return json.map((key, value) {
+    if (value is StoreIntegrationSubscription) {
+      return MapEntry(key as String, value);
+    }
+    final map = value is Map<String, dynamic>
+        ? value
+        : Map<String, dynamic>.from(value as Map);
+    return MapEntry(key as String, StoreIntegrationSubscription.fromJson(map));
+  });
 }
 
 Map<String, dynamic> _storeSubscriptionIntegrationsToJson(
@@ -490,15 +514,11 @@ Object? _storeSubscriptionToJson(StoreSubscription? subscription) =>
     subscription?.toJson();
 
 /// Per-integration billing lifecycle (on store.subscription.integrations).
-enum IntegrationBillingStatus {
-  active,
-  grace,
-  past_due,
-  canceled,
-}
+enum IntegrationBillingStatus { active, grace, past_due, canceled }
 
 @freezed
-abstract class StoreIntegrationSubscription with _$StoreIntegrationSubscription {
+abstract class StoreIntegrationSubscription
+    with _$StoreIntegrationSubscription {
   const factory StoreIntegrationSubscription({
     required DateTime startAt,
     DateTime? expiresAt,
@@ -637,6 +657,7 @@ abstract class InventoryIntegration with _$InventoryIntegration {
     @Default(MissingInventoryBucketPolicy.ignore)
     MissingInventoryBucketPolicy missing_bucket_policy,
     @Default(true) bool allow_backorder,
+
     /// When true (and inventory module is active), storefront marks OOS variants.
     @Default(false) bool show_unavailable_on_frontend,
   }) = _InventoryIntegration;
@@ -657,9 +678,11 @@ enum FinancePdfPaperSize {
   legal,
   @JsonValue('a6')
   a6,
+
   /// 80 mm thermal roll (receipt / compact document printers).
   @JsonValue('thermal80')
   thermal80,
+
   /// 100 × 150 mm shipping-style label stock.
   @JsonValue('label100x150')
   label100x150,
@@ -692,6 +715,7 @@ abstract class FinancePdfSettings with _$FinancePdfSettings {
 abstract class FinanceIntegration with _$FinanceIntegration {
   const factory FinanceIntegration({
     @Default(FinancePdfSettings()) FinancePdfSettings pdf,
+
     /// Cash-basis metrics ignore payments/expenses before this UTC timestamp.
     String? activated_at,
   }) = _FinanceIntegration;
@@ -780,15 +804,20 @@ extension StoreSubscriptionExtensions on StoreSubscription {
   bool get isExpired {
     return expiresAt != null && expiresAt!.isBefore(DateTime.now());
   }
+
   bool get isPaid {
     return type != StoreSubscriptionType.free;
   }
+
   bool get isUltra {
     return type == StoreSubscriptionType.ultra;
   }
+
   bool get isSoonExpired {
-    return expiresAt != null && expiresAt!.isBefore(DateTime.now().add(Duration(days: 7)));
+    return expiresAt != null &&
+        expiresAt!.isBefore(DateTime.now().add(Duration(days: 7)));
   }
+
   bool get canUpgrade {
     return !isPaid && !isExpired && !isSoonExpired;
   }
@@ -826,4 +855,3 @@ extension StoreConfigsExtensions on Store {
     return getCurrency()?.symbol ?? '';
   }
 }
-

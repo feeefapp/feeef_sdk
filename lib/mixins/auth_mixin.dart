@@ -54,7 +54,9 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
     if (auth == null) return;
     if (_realtimeSubscription != null &&
         _realtimeSubscription?.isCreated == true) {
-      developer.log('Realtime subscription already exists for user ${auth!.user.id}');
+      developer.log(
+        'Realtime subscription already exists for user ${auth!.user.id}',
+      );
       return;
     }
     try {
@@ -62,7 +64,9 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
       developer.log('Setting up realtime subscription for channel: $channel');
       _realtimeSubscription = await realtime?.subscribe(channel);
       _realtimeSubscription?.onMessage((data) {
-        developer.log('Received realtime message on users/${auth?.user.id}: $data');
+        developer.log(
+          'Received realtime message on users/${auth?.user.id}: $data',
+        );
         if (data is Map<String, dynamic>) {
           try {
             var event = RealtimeCrudEvent.fromJson(data);
@@ -77,7 +81,9 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
             developer.log('Message data: $data');
           }
         } else {
-          developer.log('Cant parse realtime message - not a Map: ${data.runtimeType}');
+          developer.log(
+            'Cant parse realtime message - not a Map: ${data.runtimeType}',
+          );
         }
       });
       developer.log(
@@ -153,10 +159,7 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
             jsonEncode((auth.user as User).toJson()),
           );
         }
-        await s.set(
-          'services.auth.tokenData',
-          jsonEncode(auth.token.toJson()),
-        );
+        await s.set('services.auth.tokenData', jsonEncode(auth.token.toJson()));
         await s.set('services.auth.token', auth.token.token!);
       }
     } catch (e) {
@@ -222,7 +225,9 @@ mixin ModelAuthMixin<T extends Model> on ModelRepository<T> {
 
   Future<AuthResponse<T>> signinWithToken({required String token}) async {
     try {
-      developer.log("Attempting to sign in with token: ${token.substring(0, 5)}...");
+      developer.log(
+        "Attempting to sign in with token: ${token.substring(0, 5)}...",
+      );
 
       String? fcmToken;
       try {

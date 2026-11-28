@@ -20,7 +20,10 @@ class MetaAdsIntegrationApi {
     try {
       return await run();
     } on DioException catch (e) {
-      throw MetaAdsException.fromResponse(e.response?.data, fallback: e.message);
+      throw MetaAdsException.fromResponse(
+        e.response?.data,
+        fallback: e.message,
+      );
     }
   }
 
@@ -31,10 +34,7 @@ class MetaAdsIntegrationApi {
     DateTime? until,
   }) {
     if (since != null && until != null) {
-      return {
-        'since': _isoDate(since),
-        'until': _isoDate(until),
-      };
+      return {'since': _isoDate(since), 'until': _isoDate(until)};
     }
     return {if (datePreset != null) 'datePreset': datePreset};
   }
@@ -356,7 +356,9 @@ class MetaAdsIntegrationApi {
         '${_base(storeId)}/ads/sync-links',
         data: {'adAccountId': adAccountId},
       );
-      return MetaLinkSyncResult.fromJson(res.data['data'] as Map<String, dynamic>);
+      return MetaLinkSyncResult.fromJson(
+        res.data['data'] as Map<String, dynamic>,
+      );
     });
   }
 }

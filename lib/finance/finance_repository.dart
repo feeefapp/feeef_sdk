@@ -43,8 +43,9 @@ ListResponse<T> parseFinanceListResponse<T>(
 
   if (body is Map) {
     final map = Map<String, dynamic>.from(body);
-    final meta =
-        map['meta'] is Map ? Map<String, dynamic>.from(map['meta'] as Map) : null;
+    final meta = map['meta'] is Map
+        ? Map<String, dynamic>.from(map['meta'] as Map)
+        : null;
     final rows = _coerceFinanceJsonList(map['data'])
         .whereType<Map>()
         .map((e) => modelFromJson(Map<String, dynamic>.from(e)))
@@ -140,8 +141,9 @@ class FinanceRepository {
     expenses = ExpenseResourceRepository(client: client);
     expenseCategories = ExpenseCategoryResourceRepository(client: client);
     otherIncomes = OtherIncomeResourceRepository(client: client);
-    otherIncomeCategories =
-        OtherIncomeCategoryResourceRepository(client: client);
+    otherIncomeCategories = OtherIncomeCategoryResourceRepository(
+      client: client,
+    );
     receivables = ReceivableResourceRepository(client: client);
     glAccounts = GlAccountResourceRepository(client: client);
     journalEntries = JournalEntryResourceRepository(client: client);
@@ -152,8 +154,7 @@ class FinanceRepository {
   Future<PurchaseReceipt> postReceipt({
     required String projectId,
     required String id,
-  }) =>
-      purchaseReceipts.post(projectId: projectId, id: id);
+  }) => purchaseReceipts.post(projectId: projectId, id: id);
 
   /// Void a posted receipt: reverse its stock-in.
   ///
@@ -162,12 +163,11 @@ class FinanceRepository {
     required String projectId,
     required String id,
     bool voidPayments = false,
-  }) =>
-      purchaseReceipts.void$(
-        projectId: projectId,
-        id: id,
-        voidPayments: voidPayments,
-      );
+  }) => purchaseReceipts.void$(
+    projectId: projectId,
+    id: id,
+    voidPayments: voidPayments,
+  );
 
   /// Wipes all project-scoped finance data (owner-only). Requires [confirm] == `RESET`.
   Future<void> resetData({
@@ -199,15 +199,19 @@ class FinanceRepository {
     required String projectId,
     String? from,
     String? to,
+
     /// Tape filter: `all` | `in` | `out` | `transfer`.
     String? kind,
   }) async {
-    final response = await client.get('/finance/reports/overview', queryParameters: {
-      'projectId': projectId,
-      if (from != null) 'from': from,
-      if (to != null) 'to': to,
-      if (kind != null && kind.isNotEmpty && kind != 'all') 'kind': kind,
-    });
+    final response = await client.get(
+      '/finance/reports/overview',
+      queryParameters: {
+        'projectId': projectId,
+        if (from != null) 'from': from,
+        if (to != null) 'to': to,
+        if (kind != null && kind.isNotEmpty && kind != 'all') 'kind': kind,
+      },
+    );
     return FinanceOverview.fromJson(response.data as Map<String, dynamic>);
   }
 
@@ -220,16 +224,19 @@ class FinanceRepository {
     String? partnerName,
     String? note,
   }) async {
-    final response = await client.post('/finance/payments', data: {
-      'projectId': projectId,
-      'financialAccountId': financialAccountId,
-      'walletId': financialAccountId,
-      'amount': amount,
-      if (companyIntegrationId != null)
-        'companyIntegrationId': companyIntegrationId,
-      if (partnerName != null) 'partnerName': partnerName,
-      if (note != null) 'note': note,
-    });
+    final response = await client.post(
+      '/finance/payments',
+      data: {
+        'projectId': projectId,
+        'financialAccountId': financialAccountId,
+        'walletId': financialAccountId,
+        'amount': amount,
+        if (companyIntegrationId != null)
+          'companyIntegrationId': companyIntegrationId,
+        if (partnerName != null) 'partnerName': partnerName,
+        if (note != null) 'note': note,
+      },
+    );
     final map = response.data is Map
         ? Map<String, dynamic>.from(response.data as Map)
         : <String, dynamic>{};
@@ -245,14 +252,19 @@ class FinanceRepository {
     int? limit,
     String? q,
   }) async {
-    final response = await client.get('/finance/payments', queryParameters: {
-      'projectId': projectId,
-      if (page != null) 'page': page,
-      if (limit != null) 'limit': limit,
-      if (q != null && q.isNotEmpty) 'q': q,
-    });
+    final response = await client.get(
+      '/finance/payments',
+      queryParameters: {
+        'projectId': projectId,
+        if (page != null) 'page': page,
+        if (limit != null) 'limit': limit,
+        if (q != null && q.isNotEmpty) 'q': q,
+      },
+    );
     return parseFinanceListResponse(response.data, (e) {
-      return FinanceCourierPayment.fromJson(Map<String, dynamic>.from(e as Map));
+      return FinanceCourierPayment.fromJson(
+        Map<String, dynamic>.from(e as Map),
+      );
     });
   }
 
@@ -274,14 +286,17 @@ class FinanceRepository {
     required double amount,
     String? note,
   }) async {
-    final response = await client.post('/finance/wallets/flow', data: {
-      'projectId': projectId,
-      'financialAccountId': financialAccountId,
-      'walletId': financialAccountId,
-      'kind': kind,
-      'amount': amount,
-      if (note != null) 'note': note,
-    });
+    final response = await client.post(
+      '/finance/wallets/flow',
+      data: {
+        'projectId': projectId,
+        'financialAccountId': financialAccountId,
+        'walletId': financialAccountId,
+        'kind': kind,
+        'amount': amount,
+        if (note != null) 'note': note,
+      },
+    );
     final map = response.data is Map
         ? Map<String, dynamic>.from(response.data as Map)
         : <String, dynamic>{};
@@ -300,19 +315,22 @@ class FinanceRepository {
     String? payeeUserId,
     String? note,
   }) async {
-    final response = await client.post('/finance/payouts', data: {
-      'projectId': projectId,
-      'payoutType': payoutType,
-      'beneficiaryName': beneficiaryName,
-      if (amountDue != null) 'amountDue': amountDue,
-      if (amountPaid != null) 'amountPaid': amountPaid,
-      if (financialAccountId != null) ...{
-        'financialAccountId': financialAccountId,
-        'walletId': financialAccountId,
+    final response = await client.post(
+      '/finance/payouts',
+      data: {
+        'projectId': projectId,
+        'payoutType': payoutType,
+        'beneficiaryName': beneficiaryName,
+        if (amountDue != null) 'amountDue': amountDue,
+        if (amountPaid != null) 'amountPaid': amountPaid,
+        if (financialAccountId != null) ...{
+          'financialAccountId': financialAccountId,
+          'walletId': financialAccountId,
+        },
+        if (payeeUserId != null) 'payeeUserId': payeeUserId,
+        if (note != null) 'note': note,
       },
-      if (payeeUserId != null) 'payeeUserId': payeeUserId,
-      if (note != null) 'note': note,
-    });
+    );
     final map = response.data is Map
         ? Map<String, dynamic>.from(response.data as Map)
         : <String, dynamic>{};
@@ -328,20 +346,25 @@ class FinanceRepository {
     int? page,
     int? limit,
   }) async {
-    final response = await client.get('/finance/payouts', queryParameters: {
-      'projectId': projectId,
-      if (type != null) 'type': type,
-      if (page != null) 'page': page,
-      if (limit != null) 'limit': limit,
-    });
+    final response = await client.get(
+      '/finance/payouts',
+      queryParameters: {
+        'projectId': projectId,
+        if (type != null) 'type': type,
+        if (page != null) 'page': page,
+        if (limit != null) 'limit': limit,
+      },
+    );
     return parseFinanceListResponse(response.data, (e) {
       return FinancePayout.fromJson(Map<String, dynamic>.from(e as Map));
     });
   }
 
   Future<List<FinancePayee>> listPayees({required String projectId}) async {
-    final response = await client.get('/finance/payouts/payees',
-        queryParameters: {'projectId': projectId});
+    final response = await client.get(
+      '/finance/payouts/payees',
+      queryParameters: {'projectId': projectId},
+    );
     final map = response.data is Map
         ? Map<String, dynamic>.from(response.data as Map)
         : <String, dynamic>{};
@@ -360,19 +383,23 @@ class FinanceRepository {
   }
 
   /// Remaining due for a payee (Opencod `/payouts/dues`).
-  Future<({double amountDue, double amountPaid, double remaining})> listPayoutDues({
+  Future<({double amountDue, double amountPaid, double remaining})>
+  listPayoutDues({
     required String projectId,
     String? payeeUserId,
     String? beneficiaryName,
   }) async {
-    final response = await client.get('/finance/payouts/dues', queryParameters: {
-      'projectId': projectId,
-      if (payeeUserId != null) ...{
-        'payeeUserId': payeeUserId,
-        'userId': payeeUserId,
+    final response = await client.get(
+      '/finance/payouts/dues',
+      queryParameters: {
+        'projectId': projectId,
+        if (payeeUserId != null) ...{
+          'payeeUserId': payeeUserId,
+          'userId': payeeUserId,
+        },
+        if (beneficiaryName != null) 'beneficiaryName': beneficiaryName,
       },
-      if (beneficiaryName != null) 'beneficiaryName': beneficiaryName,
-    });
+    );
     final map = response.data is Map
         ? Map<String, dynamic>.from(response.data as Map)
         : <String, dynamic>{};
@@ -401,13 +428,16 @@ class FinanceRepository {
     required String financialAccountId,
     String? note,
   }) async {
-    final response = await client.post('/finance/payouts/$id/settle', data: {
-      'projectId': projectId,
-      'amountPaid': amountPaid,
-      'financialAccountId': financialAccountId,
-      'walletId': financialAccountId,
-      if (note != null) 'note': note,
-    });
+    final response = await client.post(
+      '/finance/payouts/$id/settle',
+      data: {
+        'projectId': projectId,
+        'amountPaid': amountPaid,
+        'financialAccountId': financialAccountId,
+        'walletId': financialAccountId,
+        if (note != null) 'note': note,
+      },
+    );
     final map = response.data is Map
         ? Map<String, dynamic>.from(response.data as Map)
         : <String, dynamic>{};
@@ -427,19 +457,22 @@ class FinanceRepository {
     String? financialAccountId,
     String? note,
   }) async {
-    final response = await client.post('/finance/charges', data: {
-      'projectId': projectId,
-      'name': name,
-      'amount': amount,
-      'chargeType': chargeType,
-      if (category != null) 'category': category,
-      if (frequency != null) 'frequency': frequency,
-      if (financialAccountId != null) ...{
-        'financialAccountId': financialAccountId,
-        'walletId': financialAccountId,
+    final response = await client.post(
+      '/finance/charges',
+      data: {
+        'projectId': projectId,
+        'name': name,
+        'amount': amount,
+        'chargeType': chargeType,
+        if (category != null) 'category': category,
+        if (frequency != null) 'frequency': frequency,
+        if (financialAccountId != null) ...{
+          'financialAccountId': financialAccountId,
+          'walletId': financialAccountId,
+        },
+        if (note != null) 'note': note,
       },
-      if (note != null) 'note': note,
-    });
+    );
     final map = response.data is Map
         ? Map<String, dynamic>.from(response.data as Map)
         : <String, dynamic>{};
@@ -455,12 +488,15 @@ class FinanceRepository {
     int? page,
     int? limit,
   }) async {
-    final response = await client.get('/finance/charges', queryParameters: {
-      'projectId': projectId,
-      if (tab != null) 'tab': tab,
-      if (page != null) 'page': page,
-      if (limit != null) 'limit': limit,
-    });
+    final response = await client.get(
+      '/finance/charges',
+      queryParameters: {
+        'projectId': projectId,
+        if (tab != null) 'tab': tab,
+        if (page != null) 'page': page,
+        if (limit != null) 'limit': limit,
+      },
+    );
     return parseFinanceListResponse(response.data, (e) {
       return FinanceCharge.fromJson(Map<String, dynamic>.from(e as Map));
     });
@@ -475,8 +511,10 @@ class FinanceRepository {
 
   /// Opencod expenses accrual badge for the recurring tab.
   Future<double> chargeAccrual({required String projectId}) async {
-    final response = await client.get('/finance/charges/accrual',
-        queryParameters: {'projectId': projectId});
+    final response = await client.get(
+      '/finance/charges/accrual',
+      queryParameters: {'projectId': projectId},
+    );
     final map = response.data is Map
         ? Map<String, dynamic>.from(response.data as Map)
         : <String, dynamic>{};
@@ -489,20 +527,26 @@ class FinanceRepository {
   }
 
   Future<CashPosition> cashPosition({required String projectId}) async {
-    final response = await client.get('/finance/reports/cash-position',
-        queryParameters: {'projectId': projectId});
+    final response = await client.get(
+      '/finance/reports/cash-position',
+      queryParameters: {'projectId': projectId},
+    );
     return CashPosition.fromJson(response.data as Map<String, dynamic>);
   }
 
   Future<AgingResult> apAging({required String projectId}) async {
-    final response = await client.get('/finance/reports/ap-aging',
-        queryParameters: {'projectId': projectId});
+    final response = await client.get(
+      '/finance/reports/ap-aging',
+      queryParameters: {'projectId': projectId},
+    );
     return AgingResult.fromJson(response.data as Map<String, dynamic>);
   }
 
   Future<AgingResult> arAging({required String projectId}) async {
-    final response = await client.get('/finance/reports/ar-aging',
-        queryParameters: {'projectId': projectId});
+    final response = await client.get(
+      '/finance/reports/ar-aging',
+      queryParameters: {'projectId': projectId},
+    );
     return AgingResult.fromJson(response.data as Map<String, dynamic>);
   }
 
@@ -512,12 +556,15 @@ class FinanceRepository {
     String? to,
     String? groupBy,
   }) async {
-    final response = await client.get('/finance/reports/pnl', queryParameters: {
-      'projectId': projectId,
-      if (from != null) 'from': from,
-      if (to != null) 'to': to,
-      if (groupBy != null) 'groupBy': groupBy,
-    });
+    final response = await client.get(
+      '/finance/reports/pnl',
+      queryParameters: {
+        'projectId': projectId,
+        if (from != null) 'from': from,
+        if (to != null) 'to': to,
+        if (groupBy != null) 'groupBy': groupBy,
+      },
+    );
     return PnlReport.fromJson(response.data as Map<String, dynamic>);
   }
 
@@ -525,11 +572,10 @@ class FinanceRepository {
     required String projectId,
     String? asOf,
   }) async {
-    final response = await client.get('/finance/reports/trial-balance',
-        queryParameters: {
-          'projectId': projectId,
-          if (asOf != null) 'asOf': asOf,
-        });
+    final response = await client.get(
+      '/finance/reports/trial-balance',
+      queryParameters: {'projectId': projectId, if (asOf != null) 'asOf': asOf},
+    );
     return TrialBalanceReport.fromJson(response.data as Map<String, dynamic>);
   }
 
@@ -537,19 +583,20 @@ class FinanceRepository {
     required String projectId,
     String? asOf,
   }) async {
-    final response = await client.get('/finance/reports/balance-sheet',
-        queryParameters: {
-          'projectId': projectId,
-          if (asOf != null) 'asOf': asOf,
-        });
+    final response = await client.get(
+      '/finance/reports/balance-sheet',
+      queryParameters: {'projectId': projectId, if (asOf != null) 'asOf': asOf},
+    );
     return BalanceSheetReport.fromJson(response.data as Map<String, dynamic>);
   }
 
   Future<List<AccountingPeriod>> listAccountingPeriods({
     required String projectId,
   }) async {
-    final response = await client.get('/finance/accounting-periods',
-        queryParameters: {'projectId': projectId});
+    final response = await client.get(
+      '/finance/accounting-periods',
+      queryParameters: {'projectId': projectId},
+    );
     final data = response.data['data'] ?? response.data;
     return (data as List)
         .whereType<Map>()
@@ -597,7 +644,7 @@ class SupplierResourceRepository
     extends ResourceRepository<Supplier, SupplierCreate, SupplierUpdate>
     with ModelDeleteManyMixin<Supplier> {
   SupplierResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/suppliers');
+    : super(client: client, table: 'finance/suppliers');
 
   @override
   Supplier modelFromJson(dynamic json) =>
@@ -637,7 +684,8 @@ class SupplierResourceRepository
       address: m['address'] as Map<String, dynamic>?,
       paymentTerms: m['paymentTerms'] as String?,
       metadata: m['metadata'] as Map<String, dynamic>?,
-      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+      setToNull:
+          (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
           const [],
     );
   }
@@ -715,10 +763,15 @@ class SupplierResourceRepository
 
 // ─── Purchase orders ──────────────────────────────────────────────────────────
 
-class PurchaseOrderResourceRepository extends ResourceRepository<PurchaseOrder,
-    PurchaseOrderCreate, PurchaseOrderUpdate> {
+class PurchaseOrderResourceRepository
+    extends
+        ResourceRepository<
+          PurchaseOrder,
+          PurchaseOrderCreate,
+          PurchaseOrderUpdate
+        > {
   PurchaseOrderResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/purchase-orders');
+    : super(client: client, table: 'finance/purchase-orders');
 
   @override
   PurchaseOrder modelFromJson(dynamic json) =>
@@ -739,16 +792,19 @@ class PurchaseOrderResourceRepository extends ResourceRepository<PurchaseOrder,
       currency: m['currency'] as String?,
       items: rawItems is List
           ? rawItems
-              .whereType<Map>()
-              .map((e) =>
-                  PurchaseOrderItem.fromJson(Map<String, dynamic>.from(e)))
-              .toList()
+                .whereType<Map>()
+                .map(
+                  (e) =>
+                      PurchaseOrderItem.fromJson(Map<String, dynamic>.from(e)),
+                )
+                .toList()
           : const [],
     );
   }
 
   @override
-  Map<String, dynamic> createToJson(PurchaseOrderCreate model) => model.toJson();
+  Map<String, dynamic> createToJson(PurchaseOrderCreate model) =>
+      model.toJson();
 
   @override
   PurchaseOrderUpdate updateFromJson(dynamic json) {
@@ -760,18 +816,22 @@ class PurchaseOrderResourceRepository extends ResourceRepository<PurchaseOrder,
       currency: m['currency'] as String?,
       items: rawItems is List
           ? rawItems
-              .whereType<Map>()
-              .map((e) =>
-                  PurchaseOrderItem.fromJson(Map<String, dynamic>.from(e)))
-              .toList()
+                .whereType<Map>()
+                .map(
+                  (e) =>
+                      PurchaseOrderItem.fromJson(Map<String, dynamic>.from(e)),
+                )
+                .toList()
           : null,
-      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+      setToNull:
+          (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
           const [],
     );
   }
 
   @override
-  Map<String, dynamic> updateToJson(PurchaseOrderUpdate model) => model.toJson();
+  Map<String, dynamic> updateToJson(PurchaseOrderUpdate model) =>
+      model.toJson();
 
   @override
   Future<ListResponse<PurchaseOrder>> list({
@@ -833,7 +893,9 @@ class PurchaseOrderResourceRepository extends ResourceRepository<PurchaseOrder,
     required String id,
     Map<String, dynamic>? params,
   }) async {
-    throw UnsupportedError('Purchase orders cannot be deleted; cancel instead.');
+    throw UnsupportedError(
+      'Purchase orders cannot be deleted; cancel instead.',
+    );
   }
 
   /// Transition the PO to `sent`.
@@ -877,28 +939,23 @@ class PurchaseOrderResourceRepository extends ResourceRepository<PurchaseOrder,
   /// Batch send draft POs (`POST /finance/purchase-orders:batchSend`).
   Future<BatchResult<PurchaseOrder>> batchSend({
     required BatchDeleteRequest request,
-  }) =>
-      postBatchAction<PurchaseOrder>(
-        action: 'batchSend',
-        body: request.toJson(),
-        resourceFromJson: modelFromJson,
-      );
+  }) => postBatchAction<PurchaseOrder>(
+    action: 'batchSend',
+    body: request.toJson(),
+    resourceFromJson: modelFromJson,
+  );
 
   /// Batch cancel POs (`POST /finance/purchase-orders:batchCancel`).
   Future<BatchResult<PurchaseOrder>> batchCancel({
     required BatchDeleteRequest request,
-  }) =>
-      postBatchAction<PurchaseOrder>(
-        action: 'batchCancel',
-        body: request.toJson(),
-        resourceFromJson: modelFromJson,
-      );
+  }) => postBatchAction<PurchaseOrder>(
+    action: 'batchCancel',
+    body: request.toJson(),
+    resourceFromJson: modelFromJson,
+  );
 
   /// Public URL for a single purchase order PDF (`GET .../pdf`).
-  Future<String> pdfUrl({
-    required String projectId,
-    required String id,
-  }) =>
+  Future<String> pdfUrl({required String projectId, required String id}) =>
       _requestFinancePdfUrl(
         client,
         method: 'GET',
@@ -918,10 +975,15 @@ class PurchaseOrderResourceRepository extends ResourceRepository<PurchaseOrder,
 
 // ─── Purchase receipts ────────────────────────────────────────────────────────
 
-class PurchaseReceiptResourceRepository extends ResourceRepository<
-    PurchaseReceipt, PurchaseReceiptCreate, PurchaseReceiptUpdate> {
+class PurchaseReceiptResourceRepository
+    extends
+        ResourceRepository<
+          PurchaseReceipt,
+          PurchaseReceiptCreate,
+          PurchaseReceiptUpdate
+        > {
   PurchaseReceiptResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/purchase-receipts');
+    : super(client: client, table: 'finance/purchase-receipts');
 
   @override
   PurchaseReceipt modelFromJson(dynamic json) =>
@@ -1083,9 +1145,7 @@ class PurchaseReceiptResourceRepository extends ResourceRepository<
     final response = await client.post(
       '/finance/purchase-receipts/$id/void',
       queryParameters: {'projectId': projectId},
-      data: {
-        if (voidPayments) 'voidPayments': true,
-      },
+      data: {if (voidPayments) 'voidPayments': true},
     );
     final data = Map<String, dynamic>.from(response.data as Map);
     final receipt = modelFromJson(data);
@@ -1116,28 +1176,23 @@ class PurchaseReceiptResourceRepository extends ResourceRepository<
   /// Batch post draft receipts (`POST /finance/purchase-receipts:batchPost`).
   Future<BatchResult<PurchaseReceipt>> batchPost({
     required BatchDeleteRequest request,
-  }) =>
-      postBatchAction<PurchaseReceipt>(
-        action: 'batchPost',
-        body: request.toJson(),
-        resourceFromJson: modelFromJson,
-      );
+  }) => postBatchAction<PurchaseReceipt>(
+    action: 'batchPost',
+    body: request.toJson(),
+    resourceFromJson: modelFromJson,
+  );
 
   /// Batch void posted receipts (`POST /finance/purchase-receipts:batchVoid`).
   Future<BatchResult<PurchaseReceipt>> batchVoid({
     required BatchDeleteRequest request,
-  }) =>
-      postBatchAction<PurchaseReceipt>(
-        action: 'batchVoid',
-        body: request.toJson(),
-        resourceFromJson: modelFromJson,
-      );
+  }) => postBatchAction<PurchaseReceipt>(
+    action: 'batchVoid',
+    body: request.toJson(),
+    resourceFromJson: modelFromJson,
+  );
 
   /// Public URL for a single receipt PDF (`GET .../pdf`).
-  Future<String> pdfUrl({
-    required String projectId,
-    required String id,
-  }) =>
+  Future<String> pdfUrl({required String projectId, required String id}) =>
       _requestFinancePdfUrl(
         client,
         method: 'GET',
@@ -1157,12 +1212,16 @@ class PurchaseReceiptResourceRepository extends ResourceRepository<
 
 // ─── Phase 2: financial accounts ────────────────────────────────────────────────
 
-class FinancialAccountResourceRepository extends ResourceRepository<
-    FinancialAccount,
-    FinancialAccountCreate,
-    FinancialAccountUpdate> with ModelDeleteManyMixin<FinancialAccount> {
+class FinancialAccountResourceRepository
+    extends
+        ResourceRepository<
+          FinancialAccount,
+          FinancialAccountCreate,
+          FinancialAccountUpdate
+        >
+    with ModelDeleteManyMixin<FinancialAccount> {
   FinancialAccountResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/financial-accounts');
+    : super(client: client, table: 'finance/financial-accounts');
 
   @override
   FinancialAccount modelFromJson(dynamic json) =>
@@ -1248,7 +1307,8 @@ class FinancialAccountResourceRepository extends ResourceRepository<
       name: m['name'] as String?,
       currency: m['currency'] as String?,
       metadata: m['metadata'] as Map<String, dynamic>?,
-      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+      setToNull:
+          (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
           const [],
     );
   }
@@ -1260,10 +1320,15 @@ class FinancialAccountResourceRepository extends ResourceRepository<
 
 // ─── Phase 2: supplier bills ────────────────────────────────────────────────────
 
-class SupplierBillResourceRepository extends ResourceRepository<SupplierBill,
-    SupplierBillCreate, PurchaseReceiptUpdate> {
+class SupplierBillResourceRepository
+    extends
+        ResourceRepository<
+          SupplierBill,
+          SupplierBillCreate,
+          PurchaseReceiptUpdate
+        > {
   SupplierBillResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/supplier-bills');
+    : super(client: client, table: 'finance/supplier-bills');
 
   @override
   SupplierBill modelFromJson(dynamic json) =>
@@ -1314,7 +1379,10 @@ class SupplierBillResourceRepository extends ResourceRepository<SupplierBill,
   }
 
   @override
-  Future<void> delete({required String id, Map<String, dynamic>? params}) async {
+  Future<void> delete({
+    required String id,
+    Map<String, dynamic>? params,
+  }) async {
     throw UnsupportedError('Supplier bills cannot be deleted; void instead.');
   }
 
@@ -1359,28 +1427,23 @@ class SupplierBillResourceRepository extends ResourceRepository<SupplierBill,
   /// Batch pay full remaining balance on each bill.
   Future<BatchResult<SupplierBill>> batchPay({
     required BatchPaySupplierBillsRequest request,
-  }) =>
-      postBatchAction<SupplierBill>(
-        action: 'batchPay',
-        body: request.toJson(),
-        resourceFromJson: modelFromJson,
-      );
+  }) => postBatchAction<SupplierBill>(
+    action: 'batchPay',
+    body: request.toJson(),
+    resourceFromJson: modelFromJson,
+  );
 
   /// Batch void all payments on each bill.
   Future<BatchResult<SupplierBill>> batchVoidPayments({
     required BatchDeleteRequest request,
-  }) =>
-      postBatchAction<SupplierBill>(
-        action: 'batchVoidPayments',
-        body: request.toJson(),
-        resourceFromJson: modelFromJson,
-      );
+  }) => postBatchAction<SupplierBill>(
+    action: 'batchVoidPayments',
+    body: request.toJson(),
+    resourceFromJson: modelFromJson,
+  );
 
   /// Public URL for a single supplier bill PDF (`GET .../pdf`).
-  Future<String> pdfUrl({
-    required String projectId,
-    required String id,
-  }) =>
+  Future<String> pdfUrl({required String projectId, required String id}) =>
       _requestFinancePdfUrl(
         client,
         method: 'GET',
@@ -1400,10 +1463,15 @@ class SupplierBillResourceRepository extends ResourceRepository<SupplierBill,
 
 // ─── Phase 2: supplier payments ─────────────────────────────────────────────────
 
-class SupplierPaymentResourceRepository extends ResourceRepository<
-    SupplierPayment, PaySupplierBillInputModel, PurchaseReceiptUpdate> {
+class SupplierPaymentResourceRepository
+    extends
+        ResourceRepository<
+          SupplierPayment,
+          PaySupplierBillInputModel,
+          PurchaseReceiptUpdate
+        > {
   SupplierPaymentResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/supplier-payments');
+    : super(client: client, table: 'finance/supplier-payments');
 
   @override
   SupplierPayment modelFromJson(dynamic json) =>
@@ -1461,10 +1529,15 @@ class SupplierPaymentResourceRepository extends ResourceRepository<
 
 // ─── Phase 2: customer payments ─────────────────────────────────────────────────
 
-class CustomerPaymentResourceRepository extends ResourceRepository<
-    CustomerPayment, PaySupplierBillInputModel, PurchaseReceiptUpdate> {
+class CustomerPaymentResourceRepository
+    extends
+        ResourceRepository<
+          CustomerPayment,
+          PaySupplierBillInputModel,
+          PurchaseReceiptUpdate
+        > {
   CustomerPaymentResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/customer-payments');
+    : super(client: client, table: 'finance/customer-payments');
 
   @override
   CustomerPayment modelFromJson(dynamic json) =>
@@ -1494,7 +1567,9 @@ class CustomerPaymentResourceRepository extends ResourceRepository<
     required PaySupplierBillInputModel data,
     Map<String, dynamic>? params,
   }) async {
-    throw UnsupportedError('Record payments via FinanceRepository.collectPayment().');
+    throw UnsupportedError(
+      'Record payments via FinanceRepository.collectPayment().',
+    );
   }
 
   @override
@@ -1544,30 +1619,40 @@ class ReceivableNoopUpdate implements ModelUpdate {
   List<String> get setToNull => const [];
 }
 
-class ReceivableResourceRepository extends ResourceRepository<Receivable,
-    ReceivableNoopCreate, ReceivableNoopUpdate> {
+class ReceivableResourceRepository
+    extends
+        ResourceRepository<
+          Receivable,
+          ReceivableNoopCreate,
+          ReceivableNoopUpdate
+        > {
   ReceivableResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/receivables');
+    : super(client: client, table: 'finance/receivables');
 
   @override
   Receivable modelFromJson(dynamic json) =>
       Receivable.fromJson(json as Map<String, dynamic>);
 
   @override
-  Map<String, dynamic> modelToJson(Receivable model) =>
-      {'orderId': model.orderId};
+  Map<String, dynamic> modelToJson(Receivable model) => {
+    'orderId': model.orderId,
+  };
 
   @override
-  ReceivableNoopCreate createFromJson(dynamic json) => const ReceivableNoopCreate();
+  ReceivableNoopCreate createFromJson(dynamic json) =>
+      const ReceivableNoopCreate();
 
   @override
-  Map<String, dynamic> createToJson(ReceivableNoopCreate model) => model.toJson();
+  Map<String, dynamic> createToJson(ReceivableNoopCreate model) =>
+      model.toJson();
 
   @override
-  ReceivableNoopUpdate updateFromJson(dynamic json) => const ReceivableNoopUpdate();
+  ReceivableNoopUpdate updateFromJson(dynamic json) =>
+      const ReceivableNoopUpdate();
 
   @override
-  Map<String, dynamic> updateToJson(ReceivableNoopUpdate model) => model.toUpdateJson();
+  Map<String, dynamic> updateToJson(ReceivableNoopUpdate model) =>
+      model.toUpdateJson();
 
   /// GET /finance/receivables/:orderId — receivable + order scoped by [projectId].
   @override
@@ -1640,19 +1725,21 @@ class ReceivableResourceRepository extends ResourceRepository<Receivable,
   }
 
   @override
-  Future<void> delete({required String id, Map<String, dynamic>? params}) async {
+  Future<void> delete({
+    required String id,
+    Map<String, dynamic>? params,
+  }) async {
     throw UnsupportedError('Receivables are read-only.');
   }
 
   /// Batch collect full remaining balance on each open receivable (by order id).
   Future<BatchResult<Receivable>> batchCollect({
     required BatchCollectReceivablesRequest request,
-  }) =>
-      postBatchAction<Receivable>(
-        action: 'batchCollect',
-        body: request.toJson(),
-        resourceFromJson: modelFromJson,
-      );
+  }) => postBatchAction<Receivable>(
+    action: 'batchCollect',
+    body: request.toJson(),
+    resourceFromJson: modelFromJson,
+  );
 }
 
 // ─── Phase 2: expenses ──────────────────────────────────────────────────────────
@@ -1661,7 +1748,7 @@ class ExpenseResourceRepository
     extends ResourceRepository<Expense, ExpenseCreate, ExpenseUpdate>
     with ModelDeleteManyMixin<Expense> {
   ExpenseResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/expenses');
+    : super(client: client, table: 'finance/expenses');
 
   @override
   Expense modelFromJson(dynamic json) =>
@@ -1704,7 +1791,8 @@ class ExpenseResourceRepository
       paymentMethod: m['paymentMethod'] as String?,
       reference: m['reference'] as String?,
       note: m['note'] as String?,
-      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+      setToNull:
+          (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
           const [],
     );
   }
@@ -1738,11 +1826,16 @@ class ExpenseResourceRepository
 
 // ─── Phase 2: expense categories ────────────────────────────────────────────────
 
-class ExpenseCategoryResourceRepository extends ResourceRepository<
-    ExpenseCategory, ExpenseCategoryCreate, ExpenseCategoryUpdate>
+class ExpenseCategoryResourceRepository
+    extends
+        ResourceRepository<
+          ExpenseCategory,
+          ExpenseCategoryCreate,
+          ExpenseCategoryUpdate
+        >
     with ModelDeleteManyMixin<ExpenseCategory> {
   ExpenseCategoryResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/expense-categories');
+    : super(client: client, table: 'finance/expense-categories');
 
   @override
   ExpenseCategory modelFromJson(dynamic json) =>
@@ -1773,7 +1866,8 @@ class ExpenseCategoryResourceRepository extends ResourceRepository<
       name: m['name'] as String?,
       parentId: m['parentId'] as String?,
       metadata: m['metadata'] as Map<String, dynamic>?,
-      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+      setToNull:
+          (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
           const [],
     );
   }
@@ -1809,10 +1903,11 @@ class ExpenseCategoryResourceRepository extends ResourceRepository<
 // ─── Phase 2: other incomes ─────────────────────────────────────────────────────
 
 class OtherIncomeResourceRepository
-    extends ResourceRepository<OtherIncome, OtherIncomeCreate, OtherIncomeUpdate>
+    extends
+        ResourceRepository<OtherIncome, OtherIncomeCreate, OtherIncomeUpdate>
     with ModelDeleteManyMixin<OtherIncome> {
   OtherIncomeResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/other-incomes');
+    : super(client: client, table: 'finance/other-incomes');
 
   @override
   OtherIncome modelFromJson(dynamic json) =>
@@ -1853,7 +1948,8 @@ class OtherIncomeResourceRepository
       paymentMethod: m['paymentMethod'] as String?,
       reference: m['reference'] as String?,
       note: m['note'] as String?,
-      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+      setToNull:
+          (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
           const [],
     );
   }
@@ -1887,11 +1983,16 @@ class OtherIncomeResourceRepository
 
 // ─── Phase 2: other income categories ───────────────────────────────────────────
 
-class OtherIncomeCategoryResourceRepository extends ResourceRepository<
-    OtherIncomeCategory, OtherIncomeCategoryCreate, OtherIncomeCategoryUpdate>
+class OtherIncomeCategoryResourceRepository
+    extends
+        ResourceRepository<
+          OtherIncomeCategory,
+          OtherIncomeCategoryCreate,
+          OtherIncomeCategoryUpdate
+        >
     with ModelDeleteManyMixin<OtherIncomeCategory> {
   OtherIncomeCategoryResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/other-income-categories');
+    : super(client: client, table: 'finance/other-income-categories');
 
   @override
   OtherIncomeCategory modelFromJson(dynamic json) =>
@@ -1922,7 +2023,8 @@ class OtherIncomeCategoryResourceRepository extends ResourceRepository<
       name: m['name'] as String?,
       parentId: m['parentId'] as String?,
       metadata: (m['metadata'] as Map?)?.cast<String, dynamic>(),
-      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+      setToNull:
+          (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
           const [],
     );
   }
@@ -1960,7 +2062,7 @@ class OtherIncomeCategoryResourceRepository extends ResourceRepository<
 class GlAccountResourceRepository
     extends ResourceRepository<GlAccount, GlAccountCreate, GlAccountUpdate> {
   GlAccountResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/gl-accounts');
+    : super(client: client, table: 'finance/gl-accounts');
 
   @override
   GlAccount modelFromJson(dynamic json) =>
@@ -1999,7 +2101,8 @@ class GlAccountResourceRepository
           : null,
       parentId: m['parentId'] as String?,
       currency: m['currency'] as String?,
-      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+      setToNull:
+          (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
           const [],
     );
   }
@@ -2033,10 +2136,15 @@ class GlAccountResourceRepository
 
 // ─── Phase 3: journal entries ───────────────────────────────────────────────────
 
-class JournalEntryResourceRepository extends ResourceRepository<JournalEntry,
-    ManualJournalEntryCreate, JournalEntryNoopUpdate> {
+class JournalEntryResourceRepository
+    extends
+        ResourceRepository<
+          JournalEntry,
+          ManualJournalEntryCreate,
+          JournalEntryNoopUpdate
+        > {
   JournalEntryResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/journal-entries');
+    : super(client: client, table: 'finance/journal-entries');
 
   @override
   JournalEntry modelFromJson(dynamic json) =>
@@ -2054,18 +2162,15 @@ class JournalEntryResourceRepository extends ResourceRepository<JournalEntry,
       entryDate: m['entryDate'] as String,
       journalCode: m['journalCode'] as String?,
       memo: m['memo'] as String?,
-      lines: lines
-          .whereType<Map>()
-          .map((e) {
-            final row = Map<String, dynamic>.from(e);
-            return ManualJournalLineInput(
-              accountId: row['accountId'] as String,
-              debit: (row['debit'] as num?)?.toDouble() ?? 0,
-              credit: (row['credit'] as num?)?.toDouble() ?? 0,
-              memo: row['memo'] as String?,
-            );
-          })
-          .toList(),
+      lines: lines.whereType<Map>().map((e) {
+        final row = Map<String, dynamic>.from(e);
+        return ManualJournalLineInput(
+          accountId: row['accountId'] as String,
+          debit: (row['debit'] as num?)?.toDouble() ?? 0,
+          credit: (row['credit'] as num?)?.toDouble() ?? 0,
+          memo: row['memo'] as String?,
+        );
+      }).toList(),
     );
   }
 
@@ -2122,10 +2227,15 @@ class JournalEntryResourceRepository extends ResourceRepository<JournalEntry,
 }
 
 /// Finance-lite transfers — money timeline (capital, transfer, withdraw, …).
-class FinanceTransferResourceRepository extends ResourceRepository<
-    FinanceTransfer, FinanceTransferCreate, FinanceTransferNoopUpdate> {
+class FinanceTransferResourceRepository
+    extends
+        ResourceRepository<
+          FinanceTransfer,
+          FinanceTransferCreate,
+          FinanceTransferNoopUpdate
+        > {
   FinanceTransferResourceRepository({required Dio client})
-      : super(client: client, table: 'finance/transfers');
+    : super(client: client, table: 'finance/transfers');
 
   @override
   FinanceTransfer modelFromJson(dynamic json) =>

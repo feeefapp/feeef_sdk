@@ -71,8 +71,6 @@ Map<String, dynamic> googleSheetsIntegrationWriteBody(
       'columns': columns?.map(googleSheetsColumnWriteBody).toList(),
       'draftSheetName': _blankToNull(sheet.draftSheetName),
     },
-    explicitNulls: {
-      if (clearDraftSheetName) 'draftSheetName',
-    },
+    explicitNulls: {if (clearDraftSheetName) 'draftSheetName'},
   );
 }

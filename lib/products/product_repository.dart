@@ -47,7 +47,8 @@ class ProductRepository
       if (params != null) ...params,
       if (storeId != null) 'store_id': storeId,
       if (filterParams != null) ...filterParams,
-      if (filterParams == null && searchQuery?.isNotEmpty == true) 'q': searchQuery,
+      if (filterParams == null && searchQuery?.isNotEmpty == true)
+        'q': searchQuery,
     };
     return super.list(page: page, offset: offset, limit: limit, params: merged);
   }

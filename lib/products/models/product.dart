@@ -39,13 +39,16 @@ abstract class Product extends ProductEntity
     String? photoUrl,
     required List<String> media,
     required String storeId,
+
     /// Cloud shipping fee override: `ca_…` or `unassigned`. A `ca_…` value is
     /// also the product's default courier account at ship time (shipping P2).
     String? shippingFeeId,
+
     /// Courier account (`ca_…`) the product ships with. Null on older
     /// backends and products: use [courierAccountId], which falls back to a
     /// `ca_…` [shippingFeeId].
     String? defaultCarrierAccountId,
+
     /// Product custom shipping fee (overrides the courier rate); null = none.
     @JsonKey(
       fromJson: customShippingFeeFromJson,
@@ -67,16 +70,20 @@ abstract class Product extends ProductEntity
     @Default(0) num sold,
     @Default(0) num views,
     @Default(0) num likes,
+
     /// Verified-buyer stars only (docs/product-reviews.md). 0 with no verified reviews.
     @Default(0) num ratingAvg,
     @Default(0) int ratingCount,
+
     /// AI "what customers say"; null until the merchant generates one.
     ReviewAiSummary? reviewSummary,
     ProductVariant? variant,
     List<ProductOffer>? offers,
+
     /// When true, customer must keep an offer selected. With a valid
     /// [defaultOfferCode], that offer is locked.
     bool? forceOffer,
+
     /// Offer code to preselect; synced to null when missing from [offers].
     String? defaultOfferCode,
     List<ProductAddon>? addons,
@@ -87,6 +94,7 @@ abstract class Product extends ProductEntity
     DateTime? verifiedAt,
     DateTime? blockedAt,
     @Default({}) Map<String, dynamic> metadata,
+
     /// Present when list/show is called with `with[]=lor` and the user may view analytics.
     @JsonKey(fromJson: _productLorFromJson, toJson: _productLorToJson)
     LiteOrdersReport? lor,
@@ -123,8 +131,10 @@ abstract class IntegrationsData extends IntegrationsDataEntity
     GoogleSheetsData? googleSheetsData,
     PaymentMethodData? paymentMethodData,
     CustomFieldsIntegrationData? customFieldsData,
+
     /// Per-product Ecotrack warehouse stock mapping (merchant-only).
     EcotrackData? ecotrackData,
+
     /// Per-product review settings (inherit the store unless `useProductSettings`).
     ProductReviewsData? reviewsData,
   }) = _IntegrationsData;
@@ -173,10 +183,8 @@ abstract class MetaPixelData extends MetaPixelDataEntity with _$MetaPixelData {
 abstract class TiktokPixelData extends TiktokPixelDataEntity
     with _$TiktokPixelData {
   TiktokPixelData._();
-  factory TiktokPixelData({
-    @Default(true) bool enabled,
-    List<String>? ids,
-  }) = _TiktokPixelData;
+  factory TiktokPixelData({@Default(true) bool enabled, List<String>? ids}) =
+      _TiktokPixelData;
 
   factory TiktokPixelData.fromJson(Map<String, dynamic> json) =>
       _$TiktokPixelDataFromJson(json);
@@ -187,10 +195,8 @@ abstract class TiktokPixelData extends TiktokPixelDataEntity
 abstract class SnapchatPixelData extends SnapchatPixelDataEntity
     with _$SnapchatPixelData {
   SnapchatPixelData._();
-  factory SnapchatPixelData({
-    @Default(true) bool enabled,
-    List<String>? ids,
-  }) = _SnapchatPixelData;
+  factory SnapchatPixelData({@Default(true) bool enabled, List<String>? ids}) =
+      _SnapchatPixelData;
 
   factory SnapchatPixelData.fromJson(Map<String, dynamic> json) =>
       _$SnapchatPixelDataFromJson(json);
@@ -229,9 +235,7 @@ abstract class PaymentMethodData extends PaymentMethodDataEntity
   /// If methodIds is empty or null, falls back to store's active payment methods.
   factory PaymentMethodData({
     @Default(false) bool enabled,
-    @Default([])
-    List<String>
-    methodIds, // Which payment method IDs to use (optional, falls back to store defaults)
+    @Default([]) List<String> methodIds, // Which payment method IDs to use (optional, falls back to store defaults)
   }) = _PaymentMethodData;
 
   factory PaymentMethodData.fromJson(Map<String, dynamic> json) =>
@@ -286,9 +290,11 @@ abstract class ProductCreate with _$ProductCreate implements ModelCreate {
     required List<String> media,
     required String storeId,
     String? shippingFeeId,
+
     /// Courier account (`ca_…`) the product ships with; null = fall back to a
     /// `ca_…` [shippingFeeId] (update: add it to `setToNull` to clear it).
     String? defaultCarrierAccountId,
+
     /// Product custom shipping fee (overrides the courier rate); null = none (update: add
     /// `customShippingFee` to `setToNull` to clear it).
     @JsonKey(
@@ -309,9 +315,11 @@ abstract class ProductCreate with _$ProductCreate implements ModelCreate {
     num? stock,
     ProductVariant? variant,
     List<ProductOffer>? offers,
+
     /// When true, customer must keep an offer selected. With a valid
     /// [defaultOfferCode], that offer is locked.
     bool? forceOffer,
+
     /// Offer code to preselect; synced to null when missing from [offers].
     String? defaultOfferCode,
     List<ProductAddon>? addons,
@@ -336,9 +344,11 @@ abstract class ProductUpdate with _$ProductUpdate implements ModelUpdate {
     List<String>? media,
     String? storeId,
     String? shippingFeeId,
+
     /// Courier account (`ca_…`) the product ships with; null = fall back to a
     /// `ca_…` [shippingFeeId] (update: add it to `setToNull` to clear it).
     String? defaultCarrierAccountId,
+
     /// Product custom shipping fee (overrides the courier rate); null = none (update: add
     /// `customShippingFee` to `setToNull` to clear it).
     @JsonKey(
@@ -359,9 +369,11 @@ abstract class ProductUpdate with _$ProductUpdate implements ModelUpdate {
     num? stock,
     ProductVariant? variant,
     List<ProductOffer>? offers,
+
     /// When true, customer must keep an offer selected. With a valid
     /// [defaultOfferCode], that offer is locked.
     bool? forceOffer,
+
     /// Offer code to preselect; synced to null when missing from [offers].
     String? defaultOfferCode,
     List<ProductAddon>? addons,

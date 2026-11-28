@@ -44,6 +44,8 @@ enum AddressFieldMode {
 class AddressRules {
   const AddressRules({
     this.cityInput,
+    this.showState,
+    this.showCity,
     this.requireState,
     this.requireCity,
     this.zip,
@@ -51,6 +53,14 @@ class AddressRules {
   });
 
   final CityInputMode? cityInput;
+
+  /// The state field shows (always when required). [CityInputMode.search]
+  /// picks the state with the city.
+  final bool? showState;
+
+  /// The city field shows (always when required). In
+  /// [CityInputMode.select] it needs the state.
+  final bool? showCity;
   final bool? requireState;
   final bool? requireCity;
   final AddressFieldMode? zip;
@@ -64,6 +74,8 @@ class AddressRules {
       switch (country.toUpperCase()) {
         'DZ' => const AddressRules(
           cityInput: CityInputMode.select,
+          showState: true,
+          showCity: true,
           requireState: true,
           requireCity: true,
           zip: AddressFieldMode.hidden,
@@ -71,6 +83,8 @@ class AddressRules {
         ),
         'TN' || 'LY' => const AddressRules(
           cityInput: CityInputMode.search,
+          showState: false,
+          showCity: true,
           requireState: false,
           requireCity: true,
           zip: AddressFieldMode.hidden,
@@ -78,6 +92,8 @@ class AddressRules {
         ),
         _ => const AddressRules(
           cityInput: CityInputMode.text,
+          showState: false,
+          showCity: true,
           requireState: false,
           requireCity: false,
           zip: AddressFieldMode.hidden,
@@ -87,6 +103,8 @@ class AddressRules {
 
   bool get isEmpty =>
       cityInput == null &&
+      showState == null &&
+      showCity == null &&
       requireState == null &&
       requireCity == null &&
       zip == null &&
@@ -97,6 +115,8 @@ class AddressRules {
     final address2 = AddressFieldMode.tryParse(raw['address2']);
     final rules = AddressRules(
       cityInput: CityInputMode.tryParse(raw['cityInput']),
+      showState: raw['showState'] is bool ? raw['showState'] as bool : null,
+      showCity: raw['showCity'] is bool ? raw['showCity'] as bool : null,
       requireState: raw['requireState'] is bool
           ? raw['requireState'] as bool
           : null,
@@ -114,6 +134,8 @@ class AddressRules {
 
   Map<String, dynamic> toJson() => {
     if (cityInput != null) 'cityInput': cityInput!.name,
+    if (showState != null) 'showState': showState,
+    if (showCity != null) 'showCity': showCity,
     if (requireState != null) 'requireState': requireState,
     if (requireCity != null) 'requireCity': requireCity,
     if (zip != null) 'zip': zip!.name,
@@ -123,6 +145,8 @@ class AddressRules {
   /// Fields set here win over [fallback].
   AddressRules over(AddressRules? fallback) => AddressRules(
     cityInput: cityInput ?? fallback?.cityInput,
+    showState: showState ?? fallback?.showState,
+    showCity: showCity ?? fallback?.showCity,
     requireState: requireState ?? fallback?.requireState,
     requireCity: requireCity ?? fallback?.requireCity,
     zip: zip ?? fallback?.zip,
@@ -131,30 +155,55 @@ class AddressRules {
 
   AddressRules copyWith({
     CityInputMode? cityInput,
+    bool? showState,
+    bool? showCity,
     bool? requireState,
     bool? requireCity,
     AddressFieldMode? zip,
     AddressFieldMode? address2,
   }) => AddressRules(
     cityInput: cityInput ?? this.cityInput,
+    showState: showState ?? this.showState,
+    showCity: showCity ?? this.showCity,
     requireState: requireState ?? this.requireState,
     requireCity: requireCity ?? this.requireCity,
     zip: zip ?? this.zip,
     address2: address2 ?? this.address2,
   );
 
+  /// The state field shows: shown or required, never in
+  /// [CityInputMode.search] (the city carries it).
+  bool get stateShown =>
+      cityInput != CityInputMode.search &&
+      (showState == true || requireState == true);
+
+  /// The city field shows: shown or required; a [CityInputMode.select] city
+  /// needs the state dropdown.
+  bool get cityShown =>
+      (showCity == true || requireCity == true) &&
+      (cityInput != CityInputMode.select || stateShown);
+
   @override
   bool operator ==(Object other) =>
       other is AddressRules &&
       other.cityInput == cityInput &&
+      other.showState == showState &&
+      other.showCity == showCity &&
       other.requireState == requireState &&
       other.requireCity == requireCity &&
       other.zip == zip &&
       other.address2 == address2;
 
   @override
-  int get hashCode =>
-      Object.hash(cityInput, requireState, requireCity, zip, address2);
+  int get hashCode => Object.hash(
+    cityInput,
+    showState,
+    showCity,
+    requireState,
+    requireCity,
+    zip,
+    address2,
+  );
 }
 
 /// Response of `GET stores/:storeId/address-rules?country=XX`.

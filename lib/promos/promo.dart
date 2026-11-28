@@ -42,11 +42,17 @@ class Promo {
       code: json['code'] as String,
       discount: discount,
       strict: json['strict'] as bool,
-      minMonths: json['min_months'] != null ? (json['min_months'] as num).toInt() : null,
+      minMonths: json['min_months'] != null
+          ? (json['min_months'] as num).toInt()
+          : null,
       count: (json['count'] as num).toInt(),
       max: json['max'] != null ? (json['max'] as num).toInt() : null,
-      startsAt: json['starts_at'] != null ? DateTime.parse(json['starts_at'] as String) : null,
-      endsAt: json['ends_at'] != null ? DateTime.parse(json['ends_at'] as String) : null,
+      startsAt: json['starts_at'] != null
+          ? DateTime.parse(json['starts_at'] as String)
+          : null,
+      endsAt: json['ends_at'] != null
+          ? DateTime.parse(json['ends_at'] as String)
+          : null,
       referralId: json['referral_id'] as String?,
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
@@ -88,7 +94,9 @@ class PromoValidationResult {
       code: json['code'] as String?,
       discount: discount,
       strict: json['strict'] as bool?,
-      minMonths: json['minMonths'] != null ? (json['minMonths'] as num).toInt() : null,
+      minMonths: json['minMonths'] != null
+          ? (json['minMonths'] as num).toInt()
+          : null,
     );
   }
 }

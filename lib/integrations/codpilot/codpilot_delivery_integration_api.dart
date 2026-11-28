@@ -55,7 +55,9 @@ class CodpilotIntegrationApi {
     }
   }
 
-  Future<Map<String, dynamic>> sendMany({required List<String> orderIds}) async {
+  Future<Map<String, dynamic>> sendMany({
+    required List<String> orderIds,
+  }) async {
     try {
       final response = await client.post(
         '/stores/$storeId/integrations/codpilot/sendMany',

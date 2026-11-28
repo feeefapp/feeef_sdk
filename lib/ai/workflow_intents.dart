@@ -12,10 +12,13 @@ class CloudAiWorkflowIntents extends QueuedInterceptor {
   CloudAiWorkflowIntents({required this.storage, required this.accountId});
   final FeeefStorage storage;
   final String? Function() accountId;
+
   /// Paid `/ai/*` POSTs that run as durable Cloud workflows (mirror of the
   /// backend `workflow_routes.ts`).
   static final _paths = [
-    RegExp(r'^text/(product-draft|shipping-price-draft|order-draft|list-filter|date-preset|custom-fields-draft|review-reply|review-summary)$'),
+    RegExp(
+      r'^text/(product-draft|shipping-price-draft|order-draft|list-filter|date-preset|custom-fields-draft|review-reply|review-summary)$',
+    ),
     RegExp(r'^code/(snippet|package-edit)$'),
     RegExp(r'^images/sync$'),
     RegExp(r'^image-generations(?:/[^/]+/regenerate)?$'),
@@ -149,10 +152,7 @@ class CloudAiWorkflowIntents extends QueuedInterceptor {
         jsonEncode({'slot': slot, 'key': key}),
       );
     }
-    if (slot is String &&
-        !pending &&
-        !hold &&
-        await storage.get(slot) == key) {
+    if (slot is String && !pending && !hold && await storage.get(slot) == key) {
       await storage.remove(slot);
     }
     if (response.requestOptions.method == 'GET') {

@@ -6,6 +6,7 @@ import 'package:feeef/interfaces/embadded/store_integrations.dart';
 import 'package:feeef/interfaces/order.dart';
 import 'package:feeef/core/string_extensions.dart';
 import 'package:feeef/orders/models/order.dart';
+
 import 'models/create_order_request.dart';
 
 /// Noest public API v2.3 — https://app.noest-dz.com/docs/api_documentation_en_v2_3.pdf
@@ -21,15 +22,15 @@ class NoestDeliveryService extends DeliveryService<NoestDeliveryIntegration> {
   NoestDeliveryService({required super.client, required super.integration});
 
   Map<String, String> _headers() => {
-        'Authorization': 'Bearer ${integration.token}',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      };
+    'Authorization': 'Bearer ${integration.token}',
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  };
 
   Map<String, dynamic> _authFields() => {
-        'user_guid': integration.guid,
-        'api_token': integration.token,
-      };
+    'user_guid': integration.guid,
+    'api_token': integration.token,
+  };
 
   /// [deliverOrder] sends an order to Noest delivery service
   @override
@@ -70,8 +71,8 @@ class NoestDeliveryService extends DeliveryService<NoestDeliveryIntegration> {
       ...request.toJson(),
       ..._authFields(),
     });
-    payload['phone'] = formatNoestPhone(payload['phone']?.toString()) ??
-        payload['phone'];
+    payload['phone'] =
+        formatNoestPhone(payload['phone']?.toString()) ?? payload['phone'];
     if (payload['phone_2'] != null) {
       final p2 = formatNoestPhone(payload['phone_2']?.toString());
       if (p2 == null || p2.isEmpty) {
@@ -106,10 +107,7 @@ class NoestDeliveryService extends DeliveryService<NoestDeliveryIntegration> {
 
     await client.post(
       '$apiBase/api/public/valid/order',
-      data: {
-        ..._authFields(),
-        'tracking': order.noestTrackingId,
-      },
+      data: {..._authFields(), 'tracking': order.noestTrackingId},
       options: Options(headers: _headers()),
     );
   }
@@ -128,10 +126,7 @@ class NoestDeliveryService extends DeliveryService<NoestDeliveryIntegration> {
 
     await client.post(
       '$apiBase/api/public/delete/order',
-      data: {
-        ..._authFields(),
-        'tracking': order.noestTrackingId,
-      },
+      data: {..._authFields(), 'tracking': order.noestTrackingId},
       options: Options(headers: _headers()),
     );
   }
@@ -168,16 +163,15 @@ class NoestDeliveryService extends DeliveryService<NoestDeliveryIntegration> {
   Future<Map<String, NoestTrackingInfo>> track(List<String> trackingIds) async {
     final response = await client.post(
       '$apiBase/api/public/get/trackings/info',
-      data: {
-        ..._authFields(),
-        'trackings': trackingIds,
-      },
+      data: {..._authFields(), 'trackings': trackingIds},
       options: Options(headers: _headers()),
     );
 
     final json = parseNoestJsonMap(response.data);
     return Map.fromEntries(
-      json.entries.where((e) => e.value is Map).map(
+      json.entries
+          .where((e) => e.value is Map)
+          .map(
             (e) => MapEntry(
               e.key,
               NoestTrackingInfo.fromJson(e.value as Map<String, dynamic>),
@@ -195,7 +189,8 @@ String? formatNoestPhone(String? phone) {
     s = '0${s.substring(4)}';
   } else if (s.startsWith('213') && s.length >= 12) {
     s = '0${s.substring(3)}';
-  } else if (!s.startsWith('0') && s.replaceAll(RegExp(r'\D'), '').length >= 9) {
+  } else if (!s.startsWith('0') &&
+      s.replaceAll(RegExp(r'\D'), '').length >= 9) {
     s = '0$s';
   }
   s = s.replaceAll(RegExp(r'\D'), '');

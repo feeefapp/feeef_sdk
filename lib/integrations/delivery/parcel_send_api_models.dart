@@ -21,10 +21,8 @@ abstract class ParcelSendCustomer with _$ParcelSendCustomer {
 @freezed
 abstract class ParcelSendPhone with _$ParcelSendPhone {
   const ParcelSendPhone._();
-  const factory ParcelSendPhone({
-    required String number1,
-    String? number2,
-  }) = _ParcelSendPhone;
+  const factory ParcelSendPhone({required String number1, String? number2}) =
+      _ParcelSendPhone;
 
   factory ParcelSendPhone.fromJson(Map<String, dynamic> json) =>
       _$ParcelSendPhoneFromJson(json);
@@ -40,8 +38,10 @@ abstract class ParcelSendDeliveryAddress with _$ParcelSendDeliveryAddress {
     required String district,
     required String postalCode,
     @Default('algeria') String country,
+
     /// Territory id for the city (from Feeef geo metadata; meaning depends on carrier).
     String? cityTerritoryId,
+
     /// Optional territory id for the district.
     String? districtTerritoryId,
   }) = _ParcelSendDeliveryAddress;

@@ -88,10 +88,7 @@ abstract class ModelRepository<T extends Model> {
       final data = e.response?.data;
       if (data != null) {
         try {
-          return BatchResult.fromJson(
-            data,
-            resourceFromJson: resourceFromJson,
-          );
+          return BatchResult.fromJson(data, resourceFromJson: resourceFromJson);
         } catch (_) {
           // Fall through to a structured failure so callers never see raw Dio.
         }
@@ -100,7 +97,8 @@ abstract class ModelRepository<T extends Model> {
         failedRequests: {
           '0': BatchRpcStatus(
             code: 'ABORTED',
-            message: e.message ?? 'Batch request failed (${e.response?.statusCode})',
+            message:
+                e.message ?? 'Batch request failed (${e.response?.statusCode})',
             details: data,
           ),
         },
@@ -116,10 +114,9 @@ abstract class ModelRepository<T extends Model> {
     required String action,
     required Map<String, dynamic> body,
     R Function(Map<String, dynamic> json)? resourceFromJson,
-  }) =>
-      postBatch<R>(
-        path: '/$table:$action',
-        body: body,
-        resourceFromJson: resourceFromJson,
-      );
+  }) => postBatch<R>(
+    path: '/$table:$action',
+    body: body,
+    resourceFromJson: resourceFromJson,
+  );
 }

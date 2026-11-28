@@ -503,9 +503,11 @@ class EcotrackStockProductSummary {
           ? json['price'] as num
           : num.tryParse('${json['price'] ?? ''}'),
       isActive: asInt(json['isActive'] ?? json['is_active']),
-      stockDisponible: asInt(json['stockDisponible'] ?? json['stock_disponible']),
-      coverImage: (json['coverImage'] as String?) ??
-          (json['cover_image'] as String?),
+      stockDisponible: asInt(
+        json['stockDisponible'] ?? json['stock_disponible'],
+      ),
+      coverImage:
+          (json['coverImage'] as String?) ?? (json['cover_image'] as String?),
     );
   }
 }
@@ -518,12 +520,16 @@ class EcotrackSyncResult {
   final int? totalFetched;
   final int? totalUpdated;
   final int? totalSkipped;
+
   /// COD payout batches processed from Ecotrack cash-in history.
   final int? totalCashinTransactions;
+
   /// Orders marked `payment_status: received` from cash-in sync.
   final int? totalPaymentReceived;
+
   /// Customer payments created in Finance from cash-in sync.
   final int? totalFinancePaymentsCreated;
+
   /// Total amount collected into Finance from cash-in sync.
   final num? totalFinanceAmountCollected;
   final String? syncedAt;
@@ -566,6 +572,7 @@ class EcotrackSyncResult {
 class EcotrackSyncStatus {
   final bool canSync;
   final String? lastSyncAt;
+
   /// Latest Ecotrack cash-in payout archived-at processed (integration metadata).
   final String? lastCashinSyncAt;
   final String? nextSyncAvailableAt;

@@ -80,21 +80,21 @@ class CloudCarrierAccount implements Model {
   }
 
   Map<String, dynamic> toJson() => {
-        'deliveryPolicy': deliveryPolicy?.toJson(),
-        'id': id,
-        'courierId': courierId,
-        'provider': provider,
-        'name': name,
-        'isActive': isActive,
-        'samePriceAllWilayas': samePriceAllWilayas,
-        'fees': fees,
-        'webhookUrl': webhookUrl,
-        'configPreview': configPreview,
-        'labelSource': labelSource,
-        'createdAt': createdAt,
-        'updatedAt': updatedAt,
-        'joinedExisting': joinedExisting,
-      };
+    'deliveryPolicy': deliveryPolicy?.toJson(),
+    'id': id,
+    'courierId': courierId,
+    'provider': provider,
+    'name': name,
+    'isActive': isActive,
+    'samePriceAllWilayas': samePriceAllWilayas,
+    'fees': fees,
+    'webhookUrl': webhookUrl,
+    'configPreview': configPreview,
+    'labelSource': labelSource,
+    'createdAt': createdAt,
+    'updatedAt': updatedAt,
+    'joinedExisting': joinedExisting,
+  };
 
   CloudCarrierAccount copyWith({
     String? name,
@@ -118,14 +118,17 @@ class CloudCarrierAccount implements Model {
       labelSource: labelSource,
       createdAt: createdAt,
       updatedAt: updatedAt,
-      deliveryPolicy:
-          clearDeliveryPolicy ? null : (deliveryPolicy ?? this.deliveryPolicy),
+      deliveryPolicy: clearDeliveryPolicy
+          ? null
+          : (deliveryPolicy ?? this.deliveryPolicy),
     );
   }
 
   num? get homeFee => fees['home'] as num? ?? fees['express_home'] as num?;
   num? get stopdeskFee =>
-      fees['stopdesk'] as num? ?? fees['desk'] as num? ?? fees['express_desk'] as num?;
+      fees['stopdesk'] as num? ??
+      fees['desk'] as num? ??
+      fees['express_desk'] as num?;
 
   bool get hasWebhook => webhookUrl != null && webhookUrl!.isNotEmpty;
 
@@ -182,14 +185,18 @@ class CloudParcel implements Model {
       status: _cloudStringOrNull(json['status']),
       carrierAccountId: _cloudStringOrNull(json['carrierAccountId']),
       courierId: _cloudStringOrNull(json['courierId']),
-      customerName: _cloudStringOrNull(json['customerName']) ??
+      customerName:
+          _cloudStringOrNull(json['customerName']) ??
           _cloudStringOrNull(recipient?['name']),
-      customerPhone: _cloudStringOrNull(json['customerPhone']) ??
+      customerPhone:
+          _cloudStringOrNull(json['customerPhone']) ??
           _cloudStringOrNull(recipient?['phone']),
-      toState: _cloudStringOrNull(json['toState']) ??
+      toState:
+          _cloudStringOrNull(json['toState']) ??
           _cloudStringOrNull(dest?['state'] ?? dest?['stateCode']) ??
           _cloudStringOrNull(recipient?['state']),
-      toCity: _cloudStringOrNull(json['toCity']) ??
+      toCity:
+          _cloudStringOrNull(json['toCity']) ??
           _cloudStringOrNull(dest?['city'] ?? dest?['cityName']) ??
           _cloudStringOrNull(recipient?['city']),
       deliveryType: _cloudStringOrNull(
@@ -420,7 +427,8 @@ class CloudQuote implements Model {
       name: _cloudString(
         json['name'] ?? json['accountName'] ?? json['courierId'] ?? 'Quote',
       ),
-      amount: json['amount'] as num? ??
+      amount:
+          json['amount'] as num? ??
           json['price'] as num? ??
           json['fee'] as num?,
       available: json['available'] != false,
@@ -469,15 +477,16 @@ class CloudSuggestedDestination {
   }
 
   Map<String, dynamic> toJson() => {
-        'stateCode': stateCode,
-        'cityName': cityName,
-        if (distanceKm != null) 'distanceKm': distanceKm,
-        if (pickupId != null) 'pickupId': pickupId,
-      };
+    'stateCode': stateCode,
+    'cityName': cityName,
+    if (distanceKm != null) 'distanceKm': distanceKm,
+    if (pickupId != null) 'pickupId': pickupId,
+  };
 
   String get label {
     final desk = placeLabel?.trim();
-    final place = (desk != null &&
+    final place =
+        (desk != null &&
             desk.isNotEmpty &&
             desk.toLowerCase() != cityName.toLowerCase())
         ? '$desk · $cityName'
@@ -510,11 +519,14 @@ class CloudWebhookEvent implements Model {
     Map<String, dynamic> json, {
     int index = 0,
   }) {
-    final type =
-        _cloudString(json['type'] ?? json['event'] ?? json['status'], 'event');
+    final type = _cloudString(
+      json['type'] ?? json['event'] ?? json['status'],
+      'event',
+    );
     final createdAt = _cloudStringOrNull(json['createdAt'] ?? json['at']);
-    final tracking =
-        _cloudStringOrNull(json['tracking'] ?? json['trackingCode']);
+    final tracking = _cloudStringOrNull(
+      json['tracking'] ?? json['trackingCode'],
+    );
     final id = _cloudString(
       json['id'] ?? '$type-${createdAt ?? index}-$tracking',
     );
@@ -581,7 +593,8 @@ class CloudPickup implements Model {
       label: _cloudString(
         json['displayName'] ?? json['name'] ?? json['label'] ?? id,
       ),
-      state: _cloudStringOrNull(json['state'] ?? json['stateCode']) ?? stateCode,
+      state:
+          _cloudStringOrNull(json['state'] ?? json['stateCode']) ?? stateCode,
       city: cityName,
       lat: lat,
       lng: lng,
@@ -610,7 +623,8 @@ class CloudFeesMatrix {
     final rowsRaw = json['rows'] as List? ?? const [];
     return CloudFeesMatrix(
       samePriceAllWilayas: json['samePriceAllWilayas'] as bool? ?? false,
-      defaults: (json['defaults'] as Map?)?.cast<String, dynamic>() ??
+      defaults:
+          (json['defaults'] as Map?)?.cast<String, dynamic>() ??
           (json['fees'] as Map?)?.cast<String, dynamic>() ??
           const {},
       rows: rowsRaw.map((e) => Map<String, dynamic>.from(e as Map)).toList(),
@@ -650,10 +664,7 @@ class CloudFeeImportJob {
 }
 
 class CloudQuotesResult {
-  const CloudQuotesResult({
-    this.quotes = const [],
-    this.recommended,
-  });
+  const CloudQuotesResult({this.quotes = const [], this.recommended});
 
   final List<Map<String, dynamic>> quotes;
   final Map<String, dynamic>? recommended;
@@ -742,7 +753,9 @@ class CloudParcelBatchItem {
       pending: json['pending'] == true,
       error: _cloudStringOrNull(json['error']),
       code: _cloudStringOrNull(json['code']),
-      details: json['details'] is Map ? Map<String, dynamic>.from(json['details'] as Map) : null,
+      details: json['details'] is Map
+          ? Map<String, dynamic>.from(json['details'] as Map)
+          : null,
       parcel: raw is Map
           ? CloudParcel.fromJson(Map<String, dynamic>.from(raw))
           : null,
@@ -777,9 +790,7 @@ class CloudParcelBatchResult {
           ? [
               for (final row in rows)
                 if (row is Map)
-                  CloudParcelBatchItem.fromJson(
-                    Map<String, dynamic>.from(row),
-                  ),
+                  CloudParcelBatchItem.fromJson(Map<String, dynamic>.from(row)),
             ]
           : const [],
     );
@@ -848,11 +859,9 @@ class CloudDeliveryApi {
     String storeId,
     String accountId,
     DeliveryPolicy? policy,
-  ) =>
-      updateCarrierAccount(storeId, accountId, {
-        'deliveryPolicy':
-            policy == null || policy.isEmpty ? null : policy.toJson(),
-      });
+  ) => updateCarrierAccount(storeId, accountId, {
+    'deliveryPolicy': policy == null || policy.isEmpty ? null : policy.toJson(),
+  });
 
   Future<void> deleteCarrierAccount(String storeId, String accountId) async {
     await client.delete('/stores/$storeId/carrier-accounts/$accountId');
@@ -983,9 +992,7 @@ class CloudDeliveryApi {
             },
         ],
       },
-      options: Options(
-        receiveTimeout: const Duration(seconds: 120),
-      ),
+      options: Options(receiveTimeout: const Duration(seconds: 120)),
     );
     return CloudParcelBatchResult.fromJson(_unwrapMap(res));
   }
@@ -1226,7 +1233,9 @@ class CloudDeliveryApi {
       onProgress?.call(job);
     }
     if (job.status == 'failed') {
-      throw Exception(job.error ?? 'The carrier failed to provide its rate card.');
+      throw Exception(
+        job.error ?? 'The carrier failed to provide its rate card.',
+      );
     }
     final matrix = await getFees(storeId, accountId);
     if (matrix.rows.isEmpty) {
@@ -1265,10 +1274,7 @@ class CloudDeliveryApi {
   }) async {
     final res = await client.get(
       '/stores/$storeId/carrier-accounts/$accountId/remote-parcels',
-      queryParameters: {
-        'startDate': startDate,
-        'endDate': endDate,
-      },
+      queryParameters: {'startDate': startDate, 'endDate': endDate},
     );
     return _unwrapList(res);
   }
@@ -1369,7 +1375,8 @@ class CloudDeliveryApi {
         // Always send the flag. Omitting `none` makes the API default back to
         // `nearest_covered`, so the sheet toggle would not turn nearest cover off.
         'coverageFallback': coverageFallback,
-        if (destinationOverride != null) 'destinationOverride': destinationOverride,
+        if (destinationOverride != null)
+          'destinationOverride': destinationOverride,
       },
     );
     return _unwrapMap(res);
@@ -1475,8 +1482,11 @@ class CloudDeliveryApi {
       final data = e.response?.data;
       if (data is Map) {
         final inner = data['data'] ?? data;
-        if (inner is Map && (inner['detached'] != null || inner['failed'] != null)) {
-          return CloudUnsendManyResult.fromJson(Map<String, dynamic>.from(inner));
+        if (inner is Map &&
+            (inner['detached'] != null || inner['failed'] != null)) {
+          return CloudUnsendManyResult.fromJson(
+            Map<String, dynamic>.from(inner),
+          );
         }
       }
       rethrow;
@@ -1557,7 +1567,8 @@ class CloudLabelsBulkResponse {
   }
 
   static Map<String, dynamic>? _parseTraceHeader(Headers headers) {
-    final raw = headers.value('x-feeef-label-trace') ??
+    final raw =
+        headers.value('x-feeef-label-trace') ??
         headers.value('X-Feeef-Label-Trace');
     if (raw == null || raw.trim().isEmpty) return null;
     try {
@@ -1569,7 +1580,8 @@ class CloudLabelsBulkResponse {
   }
 
   static _LabelWarningHeader _parseWarningsHeader(Headers headers) {
-    final raw = headers.value('x-feeef-cloud-label-warnings') ??
+    final raw =
+        headers.value('x-feeef-cloud-label-warnings') ??
         headers.value('X-Feeef-Cloud-Label-Warnings');
     if (raw == null || raw.trim().isEmpty) {
       return const _LabelWarningHeader();

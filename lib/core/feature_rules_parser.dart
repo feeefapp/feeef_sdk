@@ -208,9 +208,8 @@ Parser<FeatureRulesExpr> _buildParser() {
   // andExpr := primary ('*' primary)*
   final andExpr = primary
       .seq(
-        (char(
-          '*',
-        ).trim().seq(primary).map((v) => v[1] as FeatureRulesExpr)).star(),
+        (char('*').trim().seq(primary).map((v) => v[1] as FeatureRulesExpr))
+            .star(),
       )
       .map((v) {
         final first = v[0] as FeatureRulesExpr;
@@ -222,9 +221,8 @@ Parser<FeatureRulesExpr> _buildParser() {
   // orExpr := andExpr ('+' andExpr)*
   final orExpr = andExpr
       .seq(
-        (char(
-          '+',
-        ).trim().seq(andExpr).map((v) => v[1] as FeatureRulesExpr)).star(),
+        (char('+').trim().seq(andExpr).map((v) => v[1] as FeatureRulesExpr))
+            .star(),
       )
       .map((v) {
         final first = v[0] as FeatureRulesExpr;

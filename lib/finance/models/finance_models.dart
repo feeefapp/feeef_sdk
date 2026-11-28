@@ -7,8 +7,9 @@ import 'dart:convert';
 
 import '../../interfaces/helpers.dart';
 
-double _toDouble(dynamic v) =>
-    v == null ? 0 : (v is num ? v.toDouble() : double.tryParse(v.toString()) ?? 0);
+double _toDouble(dynamic v) => v == null
+    ? 0
+    : (v is num ? v.toDouble() : double.tryParse(v.toString()) ?? 0);
 
 int _toInt(dynamic v) =>
     v == null ? 0 : (v is num ? v.toInt() : int.tryParse(v.toString()) ?? 0);
@@ -65,19 +66,19 @@ class Supplier implements Model {
   });
 
   factory Supplier.fromJson(Map<String, dynamic> json) => Supplier(
-        id: json['id']?.toString() ?? '',
-        projectId: (json['projectId'] ?? json['project_id'])?.toString() ?? '',
-        name: json['name']?.toString() ?? '',
-        code: json['code']?.toString(),
-        phone: json['phone']?.toString(),
-        email: json['email']?.toString(),
-        taxId: (json['taxId'] ?? json['tax_id'])?.toString(),
-        address: _mapOrNull(json['address']),
-        paymentTerms: (json['paymentTerms'] ?? json['payment_terms'])?.toString(),
-        metadata: _mapOrNull(json['metadata']) ?? const {},
-        createdAt: _parseFinanceDate(json['createdAt'] ?? json['created_at']),
-        updatedAt: _parseFinanceDate(json['updatedAt'] ?? json['updated_at']),
-      );
+    id: json['id']?.toString() ?? '',
+    projectId: (json['projectId'] ?? json['project_id'])?.toString() ?? '',
+    name: json['name']?.toString() ?? '',
+    code: json['code']?.toString(),
+    phone: json['phone']?.toString(),
+    email: json['email']?.toString(),
+    taxId: (json['taxId'] ?? json['tax_id'])?.toString(),
+    address: _mapOrNull(json['address']),
+    paymentTerms: (json['paymentTerms'] ?? json['payment_terms'])?.toString(),
+    metadata: _mapOrNull(json['metadata']) ?? const {},
+    createdAt: _parseFinanceDate(json['createdAt'] ?? json['created_at']),
+    updatedAt: _parseFinanceDate(json['updatedAt'] ?? json['updated_at']),
+  );
 
   Map<String, dynamic> toJson() => {'id': id, 'name': name, 'code': code};
 }
@@ -107,16 +108,16 @@ class SupplierCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'name': name,
-        if (code != null) 'code': code,
-        if (phone != null) 'phone': phone,
-        if (email != null) 'email': email,
-        if (taxId != null) 'taxId': taxId,
-        if (address != null) 'address': address,
-        if (paymentTerms != null) 'paymentTerms': paymentTerms,
-        if (metadata != null) 'metadata': metadata,
-      };
+    'projectId': projectId,
+    'name': name,
+    if (code != null) 'code': code,
+    if (phone != null) 'phone': phone,
+    if (email != null) 'email': email,
+    if (taxId != null) 'taxId': taxId,
+    if (address != null) 'address': address,
+    if (paymentTerms != null) 'paymentTerms': paymentTerms,
+    if (metadata != null) 'metadata': metadata,
+  };
 }
 
 class SupplierUpdate implements ModelUpdate {
@@ -146,15 +147,15 @@ class SupplierUpdate implements ModelUpdate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'code': code,
-        'phone': phone,
-        'email': email,
-        'taxId': taxId,
-        'address': address,
-        'paymentTerms': paymentTerms,
-        'metadata': metadata,
-      };
+    'name': name,
+    'code': code,
+    'phone': phone,
+    'email': email,
+    'taxId': taxId,
+    'address': address,
+    'paymentTerms': paymentTerms,
+    'metadata': metadata,
+  };
 }
 
 // ─── Purchase order ──────────────────────────────────────────────────────────
@@ -193,15 +194,15 @@ class PurchaseOrderItem {
       );
 
   Map<String, dynamic> toJson() => {
-        'sku': sku,
-        if (productId != null) 'productId': productId,
-        'variantPath': variantPath,
-        'qtyOrdered': qtyOrdered,
-        'qtyReceived': qtyReceived,
-        'unitCost': unitCost,
-        if (warehouseId != null) 'warehouseId': warehouseId,
-        if (batch != null) 'batch': batch,
-      };
+    'sku': sku,
+    if (productId != null) 'productId': productId,
+    'variantPath': variantPath,
+    'qtyOrdered': qtyOrdered,
+    'qtyReceived': qtyReceived,
+    'unitCost': unitCost,
+    if (warehouseId != null) 'warehouseId': warehouseId,
+    if (batch != null) 'batch': batch,
+  };
 }
 
 /// PO lifecycle: draft → sent → partial → received (or cancelled).
@@ -220,6 +221,7 @@ class PurchaseOrder implements Model {
   final DateTime? expectedAt;
   final String? notes;
   final List<PurchaseOrderItem> items;
+
   /// Populated on list endpoints that omit the heavy `items` JSONB payload.
   final int itemCount;
   final String? currency;
@@ -247,9 +249,11 @@ class PurchaseOrder implements Model {
     final rawItems = json['items'];
     final items = rawItems is List
         ? rawItems
-            .whereType<Map>()
-            .map((e) => PurchaseOrderItem.fromJson(Map<String, dynamic>.from(e)))
-            .toList()
+              .whereType<Map>()
+              .map(
+                (e) => PurchaseOrderItem.fromJson(Map<String, dynamic>.from(e)),
+              )
+              .toList()
         : <PurchaseOrderItem>[];
     final itemCount = _toInt(json['itemCount'] ?? json['item_count']);
     return PurchaseOrder(
@@ -297,14 +301,14 @@ class PurchaseOrderCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'supplierId': supplierId,
-        if (reference != null) 'reference': reference,
-        if (expectedAt != null) 'expectedAt': expectedAt!.toIso8601String(),
-        if (notes != null) 'notes': notes,
-        'items': items.map((e) => e.toJson()).toList(),
-        if (currency != null) 'currency': currency,
-      };
+    'projectId': projectId,
+    'supplierId': supplierId,
+    if (reference != null) 'reference': reference,
+    if (expectedAt != null) 'expectedAt': expectedAt!.toIso8601String(),
+    if (notes != null) 'notes': notes,
+    'items': items.map((e) => e.toJson()).toList(),
+    if (currency != null) 'currency': currency,
+  };
 }
 
 class PurchaseOrderUpdate implements ModelUpdate {
@@ -328,12 +332,12 @@ class PurchaseOrderUpdate implements ModelUpdate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'reference': reference,
-        'expectedAt': expectedAt?.toIso8601String(),
-        'notes': notes,
-        'items': items?.map((e) => e.toJson()).toList(),
-        'currency': currency,
-      };
+    'reference': reference,
+    'expectedAt': expectedAt?.toIso8601String(),
+    'notes': notes,
+    'items': items?.map((e) => e.toJson()).toList(),
+    'currency': currency,
+  };
 }
 
 // ─── Purchase receipt ─────────────────────────────────────────────────────────
@@ -386,28 +390,27 @@ class PurchaseReceiptLine {
     this.poLineIndex,
   });
 
-  factory PurchaseReceiptLine.fromJson(Map<String, dynamic> json) =>
-      PurchaseReceiptLine(
-        id: (json['id'] ?? '').toString(),
-        purchaseReceiptId:
-            (json['purchaseReceiptId'] ?? json['purchase_receipt_id'] ?? '')
-                .toString(),
-        lineNo: _toInt(json['lineNo'] ?? json['line_no']),
-        sku: (json['sku'] ?? '').toString(),
-        productId: (json['productId'] ?? json['product_id'])?.toString(),
-        variantPath:
-            (json['variantPath'] ?? json['variant_path'] ?? '').toString(),
-        batch: (json['batch'] ?? '').toString(),
-        inventoryObjectId:
-            (json['inventoryObjectId'] ?? json['inventory_object_id'])
-                ?.toString(),
-        qtyReceived: _toInt(json['qtyReceived'] ?? json['qty_received']),
-        unitCost: _toDouble(json['unitCost'] ?? json['unit_cost']),
-        lineTotal: _toDouble(json['lineTotal'] ?? json['line_total']),
-        poLineIndex: json['poLineIndex'] == null && json['po_line_index'] == null
-            ? null
-            : _toInt(json['poLineIndex'] ?? json['po_line_index']),
-      );
+  factory PurchaseReceiptLine.fromJson(
+    Map<String, dynamic> json,
+  ) => PurchaseReceiptLine(
+    id: (json['id'] ?? '').toString(),
+    purchaseReceiptId:
+        (json['purchaseReceiptId'] ?? json['purchase_receipt_id'] ?? '')
+            .toString(),
+    lineNo: _toInt(json['lineNo'] ?? json['line_no']),
+    sku: (json['sku'] ?? '').toString(),
+    productId: (json['productId'] ?? json['product_id'])?.toString(),
+    variantPath: (json['variantPath'] ?? json['variant_path'] ?? '').toString(),
+    batch: (json['batch'] ?? '').toString(),
+    inventoryObjectId:
+        (json['inventoryObjectId'] ?? json['inventory_object_id'])?.toString(),
+    qtyReceived: _toInt(json['qtyReceived'] ?? json['qty_received']),
+    unitCost: _toDouble(json['unitCost'] ?? json['unit_cost']),
+    lineTotal: _toDouble(json['lineTotal'] ?? json['line_total']),
+    poLineIndex: json['poLineIndex'] == null && json['po_line_index'] == null
+        ? null
+        : _toInt(json['poLineIndex'] ?? json['po_line_index']),
+  );
 }
 
 class PurchaseReceipt implements Model {
@@ -465,8 +468,8 @@ class PurchaseReceipt implements Model {
       id: json['id']?.toString() ?? '',
       projectId: (json['projectId'] ?? json['project_id'])?.toString() ?? '',
       supplierId: (json['supplierId'] ?? json['supplier_id'])?.toString() ?? '',
-      purchaseOrderId:
-          (json['purchaseOrderId'] ?? json['purchase_order_id'])?.toString(),
+      purchaseOrderId: (json['purchaseOrderId'] ?? json['purchase_order_id'])
+          ?.toString(),
       warehouseId: (json['warehouseId'] ?? json['warehouse_id'])?.toString(),
       status: _receiptStatusFrom(json['status']?.toString()),
       reference: json['reference']?.toString(),
@@ -516,14 +519,14 @@ class PurchaseReceiptLineInput {
   });
 
   Map<String, dynamic> toJson() => {
-        'sku': sku,
-        if (productId != null) 'productId': productId,
-        if (variantPath != null) 'variantPath': variantPath,
-        if (batch != null) 'batch': batch,
-        'qtyReceived': qtyReceived,
-        'unitCost': unitCost,
-        if (poLineIndex != null) 'poLineIndex': poLineIndex,
-      };
+    'sku': sku,
+    if (productId != null) 'productId': productId,
+    if (variantPath != null) 'variantPath': variantPath,
+    if (batch != null) 'batch': batch,
+    'qtyReceived': qtyReceived,
+    'unitCost': unitCost,
+    if (poLineIndex != null) 'poLineIndex': poLineIndex,
+  };
 }
 
 class PurchaseReceiptCreate implements ModelCreate {
@@ -551,16 +554,16 @@ class PurchaseReceiptCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'supplierId': supplierId,
-        if (purchaseOrderId != null) 'purchaseOrderId': purchaseOrderId,
-        if (warehouseId != null) 'warehouseId': warehouseId,
-        if (reference != null) 'reference': reference,
-        if (receivedAt != null) 'receivedAt': receivedAt!.toIso8601String(),
-        if (notes != null) 'notes': notes,
-        if (attachments.isNotEmpty) 'attachments': attachments,
-        'lines': lines.map((e) => e.toJson()).toList(),
-      };
+    'projectId': projectId,
+    'supplierId': supplierId,
+    if (purchaseOrderId != null) 'purchaseOrderId': purchaseOrderId,
+    if (warehouseId != null) 'warehouseId': warehouseId,
+    if (reference != null) 'reference': reference,
+    if (receivedAt != null) 'receivedAt': receivedAt!.toIso8601String(),
+    if (notes != null) 'notes': notes,
+    if (attachments.isNotEmpty) 'attachments': attachments,
+    'lines': lines.map((e) => e.toJson()).toList(),
+  };
 }
 
 /// Update receipt header fields (attachments, notes, reference) — not voided.
@@ -581,10 +584,10 @@ class PurchaseReceiptUpdate implements ModelUpdate {
 
   @override
   Map<String, dynamic> toJson() => {
-        if (reference != null) 'reference': reference,
-        if (notes != null) 'notes': notes,
-        if (attachments != null) 'attachments': attachments,
-      };
+    if (reference != null) 'reference': reference,
+    if (notes != null) 'notes': notes,
+    if (attachments != null) 'attachments': attachments,
+  };
 }
 
 // ─── Phase 2: financial accounts ───────────────────────────────────────────────
@@ -631,9 +634,12 @@ class FinancialAccount implements Model {
         name: json['name']?.toString() ?? '',
         type: _accountTypeFrom(json['type']?.toString()),
         currency: json['currency']?.toString(),
-        openingBalance: _toDouble(json['openingBalance'] ?? json['opening_balance']),
+        openingBalance: _toDouble(
+          json['openingBalance'] ?? json['opening_balance'],
+        ),
         isDefault: json['isDefault'] == true || json['is_default'] == true,
-        metadata: (json['metadata'] as Map?)?.cast<String, dynamic>() ?? const {},
+        metadata:
+            (json['metadata'] as Map?)?.cast<String, dynamic>() ?? const {},
         balance: json['balance'] == null ? null : _toDouble(json['balance']),
         createdAt: _parseFinanceDate(json['createdAt'] ?? json['created_at']),
         updatedAt: _parseFinanceDate(json['updatedAt'] ?? json['updated_at']),
@@ -663,14 +669,14 @@ class FinancialAccountCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'name': name,
-        if (type != null) 'type': type!.name,
-        if (currency != null) 'currency': currency,
-        if (openingBalance != null) 'openingBalance': openingBalance,
-        if (isDefault != null) 'isDefault': isDefault,
-        if (metadata != null) 'metadata': metadata,
-      };
+    'projectId': projectId,
+    'name': name,
+    if (type != null) 'type': type!.name,
+    if (currency != null) 'currency': currency,
+    if (openingBalance != null) 'openingBalance': openingBalance,
+    if (isDefault != null) 'isDefault': isDefault,
+    if (metadata != null) 'metadata': metadata,
+  };
 }
 
 class FinancialAccountUpdate implements ModelUpdate {
@@ -696,13 +702,13 @@ class FinancialAccountUpdate implements ModelUpdate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'type': type?.name,
-        'currency': currency,
-        'openingBalance': openingBalance,
-        'isDefault': isDefault,
-        'metadata': metadata,
-      };
+    'name': name,
+    'type': type?.name,
+    'currency': currency,
+    'openingBalance': openingBalance,
+    'isDefault': isDefault,
+    'metadata': metadata,
+  };
 }
 
 // ─── Phase 2: supplier bills + payments ─────────────────────────────────────────
@@ -746,7 +752,8 @@ class SupplierPayment implements Model {
     this.reference,
   });
 
-  factory SupplierPayment.fromJson(Map<String, dynamic> json) => SupplierPayment(
+  factory SupplierPayment.fromJson(Map<String, dynamic> json) =>
+      SupplierPayment(
         id: json['id'] as String,
         projectId: json['projectId'] as String,
         supplierBillId: json['supplierBillId'] as String,
@@ -800,9 +807,11 @@ class SupplierBill implements Model {
     final rawPayments = json['payments'];
     final payments = rawPayments is List
         ? rawPayments
-            .whereType<Map>()
-            .map((e) => SupplierPayment.fromJson(Map<String, dynamic>.from(e)))
-            .toList()
+              .whereType<Map>()
+              .map(
+                (e) => SupplierPayment.fromJson(Map<String, dynamic>.from(e)),
+              )
+              .toList()
         : <SupplierPayment>[];
     return SupplierBill(
       id: json['id'] as String,
@@ -819,8 +828,9 @@ class SupplierBill implements Model {
       currency: json['currency'] as String?,
       totalAmount: _toDouble(json['totalAmount']),
       paidAmount: _toDouble(json['paidAmount']),
-      balanceDue:
-          json['balanceDue'] == null ? null : _toDouble(json['balanceDue']),
+      balanceDue: json['balanceDue'] == null
+          ? null
+          : _toDouble(json['balanceDue']),
       status: _billStatusFrom(json['status'] as String?),
       notes: json['notes'] as String?,
       payments: payments,
@@ -855,16 +865,16 @@ class SupplierBillCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'supplierId': supplierId,
-        if (purchaseReceiptId != null) 'purchaseReceiptId': purchaseReceiptId,
-        if (reference != null) 'reference': reference,
-        'billDate': billDate.toIso8601String(),
-        if (dueDate != null) 'dueDate': dueDate!.toIso8601String(),
-        if (currency != null) 'currency': currency,
-        'totalAmount': totalAmount,
-        if (notes != null) 'notes': notes,
-      };
+    'projectId': projectId,
+    'supplierId': supplierId,
+    if (purchaseReceiptId != null) 'purchaseReceiptId': purchaseReceiptId,
+    if (reference != null) 'reference': reference,
+    'billDate': billDate.toIso8601String(),
+    if (dueDate != null) 'dueDate': dueDate!.toIso8601String(),
+    if (currency != null) 'currency': currency,
+    'totalAmount': totalAmount,
+    if (notes != null) 'notes': notes,
+  };
 }
 
 /// Input for recording a (partial) payment against a supplier bill.
@@ -888,14 +898,14 @@ class PaySupplierBillInput {
   });
 
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'financialAccountId': financialAccountId,
-        'amount': amount,
-        if (paidAt != null) 'paidAt': paidAt!.toIso8601String(),
-        if (method != null) 'method': method,
-        if (reference != null) 'reference': reference,
-        if (allowOverpay != null) 'allowOverpay': allowOverpay,
-      };
+    'projectId': projectId,
+    'financialAccountId': financialAccountId,
+    'amount': amount,
+    if (paidAt != null) 'paidAt': paidAt!.toIso8601String(),
+    if (method != null) 'method': method,
+    if (reference != null) 'reference': reference,
+    if (allowOverpay != null) 'allowOverpay': allowOverpay,
+  };
 }
 
 // ─── Phase 2: customer payments + receivables ───────────────────────────────────
@@ -922,7 +932,8 @@ class CustomerPayment implements Model {
     this.reference,
   });
 
-  factory CustomerPayment.fromJson(Map<String, dynamic> json) => CustomerPayment(
+  factory CustomerPayment.fromJson(Map<String, dynamic> json) =>
+      CustomerPayment(
         id: json['id'] as String,
         projectId: json['projectId'] as String,
         orderId: json['orderId'] as String,
@@ -959,14 +970,14 @@ class CollectCustomerPaymentInput {
   });
 
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'financialAccountId': financialAccountId,
-        'amount': amount,
-        if (receivedAt != null) 'receivedAt': receivedAt!.toIso8601String(),
-        if (method != null) 'method': method,
-        if (reference != null) 'reference': reference,
-        if (allowOverpay != null) 'allowOverpay': allowOverpay,
-      };
+    'projectId': projectId,
+    'financialAccountId': financialAccountId,
+    'amount': amount,
+    if (receivedAt != null) 'receivedAt': receivedAt!.toIso8601String(),
+    if (method != null) 'method': method,
+    if (reference != null) 'reference': reference,
+    if (allowOverpay != null) 'allowOverpay': allowOverpay,
+  };
 }
 
 /// A derived open order receivable (read-only; [id] aliases [orderId]).
@@ -1001,17 +1012,17 @@ class Receivable implements Model {
   String get id => orderId;
 
   factory Receivable.fromJson(Map<String, dynamic> json) => Receivable(
-        orderId: json['orderId'] as String,
-        storeId: json['storeId'] as String? ?? '',
-        total: _toDouble(json['total']),
-        paid: _toDouble(json['paid']),
-        balanceDue: _toDouble(json['balanceDue']),
-        phase: json['phase'] as String? ?? 'done',
-        room: json['room'] as String?,
-        kind: json['kind'] as String?,
-        closeAs: json['closeAs'] as String?,
-        codInTransit: json['codInTransit'] == true,
-      );
+    orderId: json['orderId'] as String,
+    storeId: json['storeId'] as String? ?? '',
+    total: _toDouble(json['total']),
+    paid: _toDouble(json['paid']),
+    balanceDue: _toDouble(json['balanceDue']),
+    phase: json['phase'] as String? ?? 'done',
+    room: json['room'] as String?,
+    kind: json['kind'] as String?,
+    closeAs: json['closeAs'] as String?,
+    codInTransit: json['codInTransit'] == true,
+  );
 }
 
 /// Receivable row plus the linked merchant order (finance detail panel).
@@ -1019,16 +1030,15 @@ class ReceivableDetail {
   final Receivable receivable;
   final Map<String, dynamic> orderJson;
 
-  const ReceivableDetail({
-    required this.receivable,
-    required this.orderJson,
-  });
+  const ReceivableDetail({required this.receivable, required this.orderJson});
 
   factory ReceivableDetail.fromJson(Map<String, dynamic> json) {
     final receivableRaw = json['receivable'];
     final orderRaw = json['order'];
     if (receivableRaw is! Map || orderRaw is! Map) {
-      throw FormatException('ReceivableDetail requires receivable and order maps');
+      throw FormatException(
+        'ReceivableDetail requires receivable and order maps',
+      );
     }
     return ReceivableDetail(
       receivable: Receivable.fromJson(Map<String, dynamic>.from(receivableRaw)),
@@ -1041,8 +1051,10 @@ class ReceivableDetail {
 
 enum ExpenseStatus { draft, recorded, voided }
 
-ExpenseStatus _expenseStatusFrom(String? v) => ExpenseStatus.values
-    .firstWhere((e) => e.name == v, orElse: () => ExpenseStatus.recorded);
+ExpenseStatus _expenseStatusFrom(String? v) => ExpenseStatus.values.firstWhere(
+  (e) => e.name == v,
+  orElse: () => ExpenseStatus.recorded,
+);
 
 class ExpenseCategory implements Model {
   @override
@@ -1064,12 +1076,14 @@ class ExpenseCategory implements Model {
     required this.updatedAt,
   });
 
-  factory ExpenseCategory.fromJson(Map<String, dynamic> json) => ExpenseCategory(
+  factory ExpenseCategory.fromJson(Map<String, dynamic> json) =>
+      ExpenseCategory(
         id: json['id'] as String,
         projectId: json['projectId'] as String,
         name: json['name'] as String,
         parentId: json['parentId'] as String?,
-        metadata: (json['metadata'] as Map?)?.cast<String, dynamic>() ?? const {},
+        metadata:
+            (json['metadata'] as Map?)?.cast<String, dynamic>() ?? const {},
         createdAt: DateTime.parse(json['createdAt'] as String),
         updatedAt: DateTime.parse(json['updatedAt'] as String),
       );
@@ -1092,11 +1106,11 @@ class ExpenseCategoryCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'name': name,
-        if (parentId != null) 'parentId': parentId,
-        if (metadata != null) 'metadata': metadata,
-      };
+    'projectId': projectId,
+    'name': name,
+    if (parentId != null) 'parentId': parentId,
+    if (metadata != null) 'metadata': metadata,
+  };
 }
 
 class ExpenseCategoryUpdate implements ModelUpdate {
@@ -1116,10 +1130,10 @@ class ExpenseCategoryUpdate implements ModelUpdate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'parentId': parentId,
-        'metadata': metadata,
-      };
+    'name': name,
+    'parentId': parentId,
+    'metadata': metadata,
+  };
 }
 
 class Expense implements Model {
@@ -1155,25 +1169,24 @@ class Expense implements Model {
   });
 
   factory Expense.fromJson(Map<String, dynamic> json) => Expense(
-        id: json['id'] as String,
-        projectId:
-            (json['projectId'] ?? json['project_id'])?.toString() ?? '',
-        categoryId: (json['categoryId'] ?? json['category_id'])?.toString(),
-        supplierId: (json['supplierId'] ?? json['supplier_id'])?.toString(),
-        financialAccountId:
-            (json['financialAccountId'] ?? json['financial_account_id'])
-                ?.toString(),
-        amount: _toDouble(json['amount']),
-        currency: json['currency'] as String?,
-        spentAt: json['spentAt'] != null
-            ? DateTime.parse(json['spentAt'] as String)
-            : DateTime.now(),
-        paymentMethod: json['paymentMethod'] as String?,
-        status: _expenseStatusFrom(json['status'] as String?),
-        reference: json['reference'] as String?,
-        note: json['note'] as String?,
-        attachments: (json['attachments'] as List?) ?? const [],
-      );
+    id: json['id'] as String,
+    projectId: (json['projectId'] ?? json['project_id'])?.toString() ?? '',
+    categoryId: (json['categoryId'] ?? json['category_id'])?.toString(),
+    supplierId: (json['supplierId'] ?? json['supplier_id'])?.toString(),
+    financialAccountId:
+        (json['financialAccountId'] ?? json['financial_account_id'])
+            ?.toString(),
+    amount: _toDouble(json['amount']),
+    currency: json['currency'] as String?,
+    spentAt: json['spentAt'] != null
+        ? DateTime.parse(json['spentAt'] as String)
+        : DateTime.now(),
+    paymentMethod: json['paymentMethod'] as String?,
+    status: _expenseStatusFrom(json['status'] as String?),
+    reference: json['reference'] as String?,
+    note: json['note'] as String?,
+    attachments: (json['attachments'] as List?) ?? const [],
+  );
 
   Map<String, dynamic> toJson() => {'id': id, 'amount': amount};
 }
@@ -1209,19 +1222,19 @@ class ExpenseCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        if (categoryId != null) 'categoryId': categoryId,
-        if (supplierId != null) 'supplierId': supplierId,
-        if (financialAccountId != null) 'financialAccountId': financialAccountId,
-        'amount': amount,
-        if (currency != null) 'currency': currency,
-        'spentAt': spentAt.toIso8601String(),
-        if (paymentMethod != null) 'paymentMethod': paymentMethod,
-        if (status != null) 'status': status!.name,
-        if (reference != null) 'reference': reference,
-        if (note != null) 'note': note,
-        if (attachments != null) 'attachments': attachments,
-      };
+    'projectId': projectId,
+    if (categoryId != null) 'categoryId': categoryId,
+    if (supplierId != null) 'supplierId': supplierId,
+    if (financialAccountId != null) 'financialAccountId': financialAccountId,
+    'amount': amount,
+    if (currency != null) 'currency': currency,
+    'spentAt': spentAt.toIso8601String(),
+    if (paymentMethod != null) 'paymentMethod': paymentMethod,
+    if (status != null) 'status': status!.name,
+    if (reference != null) 'reference': reference,
+    if (note != null) 'note': note,
+    if (attachments != null) 'attachments': attachments,
+  };
 }
 
 class ExpenseUpdate implements ModelUpdate {
@@ -1257,18 +1270,18 @@ class ExpenseUpdate implements ModelUpdate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'categoryId': categoryId,
-        'supplierId': supplierId,
-        'financialAccountId': financialAccountId,
-        'amount': amount,
-        'currency': currency,
-        'spentAt': spentAt?.toIso8601String(),
-        'paymentMethod': paymentMethod,
-        'status': status?.name,
-        'reference': reference,
-        'note': note,
-        'attachments': attachments,
-      };
+    'categoryId': categoryId,
+    'supplierId': supplierId,
+    'financialAccountId': financialAccountId,
+    'amount': amount,
+    'currency': currency,
+    'spentAt': spentAt?.toIso8601String(),
+    'paymentMethod': paymentMethod,
+    'status': status?.name,
+    'reference': reference,
+    'note': note,
+    'attachments': attachments,
+  };
 }
 
 // ─── Phase 2: other income + categories ─────────────────────────────────────────
@@ -1328,11 +1341,11 @@ class OtherIncomeCategoryCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'name': name,
-        if (parentId != null) 'parentId': parentId,
-        if (metadata != null) 'metadata': metadata,
-      };
+    'projectId': projectId,
+    'name': name,
+    if (parentId != null) 'parentId': parentId,
+    if (metadata != null) 'metadata': metadata,
+  };
 }
 
 class OtherIncomeCategoryUpdate implements ModelUpdate {
@@ -1352,10 +1365,10 @@ class OtherIncomeCategoryUpdate implements ModelUpdate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'parentId': parentId,
-        'metadata': metadata,
-      };
+    'name': name,
+    'parentId': parentId,
+    'metadata': metadata,
+  };
 }
 
 /// Non-order money-in (tips, rebates, grants). Hits P&L `otherIncome`.
@@ -1390,24 +1403,23 @@ class OtherIncome implements Model {
   });
 
   factory OtherIncome.fromJson(Map<String, dynamic> json) => OtherIncome(
-        id: json['id'] as String,
-        projectId:
-            (json['projectId'] ?? json['project_id'])?.toString() ?? '',
-        categoryId: (json['categoryId'] ?? json['category_id'])?.toString(),
-        financialAccountId:
-            (json['financialAccountId'] ?? json['financial_account_id'])
-                ?.toString(),
-        amount: _toDouble(json['amount']),
-        currency: json['currency'] as String?,
-        receivedAt: json['receivedAt'] != null
-            ? DateTime.parse(json['receivedAt'] as String)
-            : DateTime.now(),
-        paymentMethod: json['paymentMethod'] as String?,
-        status: _otherIncomeStatusFrom(json['status'] as String?),
-        reference: json['reference'] as String?,
-        note: json['note'] as String?,
-        attachments: (json['attachments'] as List?) ?? const [],
-      );
+    id: json['id'] as String,
+    projectId: (json['projectId'] ?? json['project_id'])?.toString() ?? '',
+    categoryId: (json['categoryId'] ?? json['category_id'])?.toString(),
+    financialAccountId:
+        (json['financialAccountId'] ?? json['financial_account_id'])
+            ?.toString(),
+    amount: _toDouble(json['amount']),
+    currency: json['currency'] as String?,
+    receivedAt: json['receivedAt'] != null
+        ? DateTime.parse(json['receivedAt'] as String)
+        : DateTime.now(),
+    paymentMethod: json['paymentMethod'] as String?,
+    status: _otherIncomeStatusFrom(json['status'] as String?),
+    reference: json['reference'] as String?,
+    note: json['note'] as String?,
+    attachments: (json['attachments'] as List?) ?? const [],
+  );
 
   Map<String, dynamic> toJson() => {'id': id, 'amount': amount};
 }
@@ -1441,18 +1453,18 @@ class OtherIncomeCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        if (categoryId != null) 'categoryId': categoryId,
-        if (financialAccountId != null) 'financialAccountId': financialAccountId,
-        'amount': amount,
-        if (currency != null) 'currency': currency,
-        'receivedAt': receivedAt.toIso8601String(),
-        if (paymentMethod != null) 'paymentMethod': paymentMethod,
-        if (status != null) 'status': status!.name,
-        if (reference != null) 'reference': reference,
-        if (note != null) 'note': note,
-        if (attachments != null) 'attachments': attachments,
-      };
+    'projectId': projectId,
+    if (categoryId != null) 'categoryId': categoryId,
+    if (financialAccountId != null) 'financialAccountId': financialAccountId,
+    'amount': amount,
+    if (currency != null) 'currency': currency,
+    'receivedAt': receivedAt.toIso8601String(),
+    if (paymentMethod != null) 'paymentMethod': paymentMethod,
+    if (status != null) 'status': status!.name,
+    if (reference != null) 'reference': reference,
+    if (note != null) 'note': note,
+    if (attachments != null) 'attachments': attachments,
+  };
 }
 
 class OtherIncomeUpdate implements ModelUpdate {
@@ -1486,17 +1498,17 @@ class OtherIncomeUpdate implements ModelUpdate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'categoryId': categoryId,
-        'financialAccountId': financialAccountId,
-        'amount': amount,
-        'currency': currency,
-        'receivedAt': receivedAt?.toIso8601String(),
-        'paymentMethod': paymentMethod,
-        'status': status?.name,
-        'reference': reference,
-        'note': note,
-        'attachments': attachments,
-      };
+    'categoryId': categoryId,
+    'financialAccountId': financialAccountId,
+    'amount': amount,
+    'currency': currency,
+    'receivedAt': receivedAt?.toIso8601String(),
+    'paymentMethod': paymentMethod,
+    'status': status?.name,
+    'reference': reference,
+    'note': note,
+    'attachments': attachments,
+  };
 }
 
 // ─── Phase 2: reports ───────────────────────────────────────────────────────────
@@ -1557,10 +1569,13 @@ class FinanceOverview {
   final AgingResult? arAging;
   final CashPosition? cashPosition;
   final PnlReport? pnl;
+
   /// UTC-week inflows (teller hub).
   final double weekIn;
+
   /// UTC-week outflows (teller hub).
   final double weekOut;
+
   /// Chronological money tape (teller hub).
   final List<FinanceHubActivityRow> activity;
 
@@ -1582,7 +1597,8 @@ class FinanceOverview {
     this.activity = const [],
   });
 
-  factory FinanceOverview.fromJson(Map<String, dynamic> json) => FinanceOverview(
+  factory FinanceOverview.fromJson(Map<String, dynamic> json) =>
+      FinanceOverview(
         cash: _toDouble(json['cash']),
         inventoryValuation: _toDouble(json['inventoryValuation']),
         accountsReceivable: _toDouble(json['accountsReceivable']),
@@ -1593,25 +1609,32 @@ class FinanceOverview {
         pnlTo: json['pnlTo'] as String?,
         apAging: json['apAging'] != null
             ? AgingResult.fromJson(
-                Map<String, dynamic>.from(json['apAging'] as Map))
+                Map<String, dynamic>.from(json['apAging'] as Map),
+              )
             : null,
         arAging: json['arAging'] != null
             ? AgingResult.fromJson(
-                Map<String, dynamic>.from(json['arAging'] as Map))
+                Map<String, dynamic>.from(json['arAging'] as Map),
+              )
             : null,
         cashPosition: json['cashPosition'] != null
             ? CashPosition.fromJson(
-                Map<String, dynamic>.from(json['cashPosition'] as Map))
+                Map<String, dynamic>.from(json['cashPosition'] as Map),
+              )
             : null,
         pnl: json['pnl'] != null
             ? PnlReport.fromJson(Map<String, dynamic>.from(json['pnl'] as Map))
             : null,
         weekIn: _toDouble(json['weekIn']),
         weekOut: _toDouble(json['weekOut']),
-        activity: (json['activity'] as List?)
+        activity:
+            (json['activity'] as List?)
                 ?.whereType<Map>()
-                .map((e) => FinanceHubActivityRow.fromJson(
-                    Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => FinanceHubActivityRow.fromJson(
+                    Map<String, dynamic>.from(e),
+                  ),
+                )
                 .toList() ??
             const [],
       );
@@ -1623,9 +1646,9 @@ class AgingBucket {
   const AgingBucket({required this.label, required this.amount});
 
   factory AgingBucket.fromJson(Map<String, dynamic> json) => AgingBucket(
-        label: json['label'] as String? ?? '',
-        amount: _toDouble(json['amount']),
-      );
+    label: json['label'] as String? ?? '',
+    amount: _toDouble(json['amount']),
+  );
 }
 
 class AgingResult {
@@ -1634,13 +1657,14 @@ class AgingResult {
   const AgingResult({required this.buckets, required this.total});
 
   factory AgingResult.fromJson(Map<String, dynamic> json) => AgingResult(
-        buckets: (json['buckets'] as List?)
-                ?.whereType<Map>()
-                .map((e) => AgingBucket.fromJson(Map<String, dynamic>.from(e)))
-                .toList() ??
-            const [],
-        total: _toDouble(json['total']),
-      );
+    buckets:
+        (json['buckets'] as List?)
+            ?.whereType<Map>()
+            .map((e) => AgingBucket.fromJson(Map<String, dynamic>.from(e)))
+            .toList() ??
+        const [],
+    total: _toDouble(json['total']),
+  );
 }
 
 class CashAccountBalance {
@@ -1674,14 +1698,16 @@ class CashPosition {
   const CashPosition({required this.accounts, required this.total});
 
   factory CashPosition.fromJson(Map<String, dynamic> json) => CashPosition(
-        accounts: (json['accounts'] as List?)
-                ?.whereType<Map>()
-                .map((e) =>
-                    CashAccountBalance.fromJson(Map<String, dynamic>.from(e)))
-                .toList() ??
-            const [],
-        total: _toDouble(json['total']),
-      );
+    accounts:
+        (json['accounts'] as List?)
+            ?.whereType<Map>()
+            .map(
+              (e) => CashAccountBalance.fromJson(Map<String, dynamic>.from(e)),
+            )
+            .toList() ??
+        const [],
+    total: _toDouble(json['total']),
+  );
 }
 
 class PnlReport {
@@ -1691,6 +1717,7 @@ class PnlReport {
   final double cogs;
   final double grossProfit;
   final double expenses;
+
   /// Tips, rebates, grants — non-order income.
   final double otherIncome;
   final double netProfit;
@@ -1709,18 +1736,18 @@ class PnlReport {
   });
 
   factory PnlReport.fromJson(Map<String, dynamic> json) => PnlReport(
-        from: json['from'] as String?,
-        to: json['to'] as String?,
-        revenue: _toDouble(json['revenue']),
-        cogs: _toDouble(json['cogs']),
-        grossProfit: _toDouble(json['grossProfit']),
-        expenses: _toDouble(json['expenses']),
-        otherIncome: _toDouble(json['otherIncome']),
-        netProfit: _toDouble(json['netProfit']),
-        byDay: (json['byDay'] as List<dynamic>?)
-            ?.map((e) => PnlDayRow.fromJson(Map<String, dynamic>.from(e)))
-            .toList(),
-      );
+    from: json['from'] as String?,
+    to: json['to'] as String?,
+    revenue: _toDouble(json['revenue']),
+    cogs: _toDouble(json['cogs']),
+    grossProfit: _toDouble(json['grossProfit']),
+    expenses: _toDouble(json['expenses']),
+    otherIncome: _toDouble(json['otherIncome']),
+    netProfit: _toDouble(json['netProfit']),
+    byDay: (json['byDay'] as List<dynamic>?)
+        ?.map((e) => PnlDayRow.fromJson(Map<String, dynamic>.from(e)))
+        .toList(),
+  );
 }
 
 class PnlDayRow {
@@ -1743,28 +1770,30 @@ class PnlDayRow {
   });
 
   factory PnlDayRow.fromJson(Map<String, dynamic> json) => PnlDayRow(
-        day: json['day'] as String? ?? '',
-        revenue: _toDouble(json['revenue']),
-        cogs: _toDouble(json['cogs']),
-        expenses: _toDouble(json['expenses']),
-        otherIncome: _toDouble(json['otherIncome']),
-        grossProfit: _toDouble(json['grossProfit']),
-        netProfit: _toDouble(json['netProfit']),
-      );
+    day: json['day'] as String? ?? '',
+    revenue: _toDouble(json['revenue']),
+    cogs: _toDouble(json['cogs']),
+    expenses: _toDouble(json['expenses']),
+    otherIncome: _toDouble(json['otherIncome']),
+    grossProfit: _toDouble(json['grossProfit']),
+    netProfit: _toDouble(json['netProfit']),
+  );
 }
 
 // ─── Phase 3: general ledger ────────────────────────────────────────────────────
 
 enum GlAccountType { asset, liability, equity, income, expense }
 
-GlAccountType _glAccountTypeFrom(String? v) => GlAccountType.values
-    .firstWhere((e) => e.name == v, orElse: () => GlAccountType.asset);
+GlAccountType _glAccountTypeFrom(String? v) => GlAccountType.values.firstWhere(
+  (e) => e.name == v,
+  orElse: () => GlAccountType.asset,
+);
 
 enum JournalEntryStatus { draft, posted, reversed }
 
-JournalEntryStatus _journalEntryStatusFrom(String? v) =>
-    JournalEntryStatus.values
-        .firstWhere((e) => e.name == v, orElse: () => JournalEntryStatus.posted);
+JournalEntryStatus _journalEntryStatusFrom(String? v) => JournalEntryStatus
+    .values
+    .firstWhere((e) => e.name == v, orElse: () => JournalEntryStatus.posted);
 
 class GlAccount implements Model {
   @override
@@ -1789,22 +1818,22 @@ class GlAccount implements Model {
   });
 
   factory GlAccount.fromJson(Map<String, dynamic> json) => GlAccount(
-        id: json['id'] as String,
-        projectId: json['projectId'] as String,
-        code: json['code'] as String? ?? '',
-        name: json['name'] as String? ?? '',
-        type: _glAccountTypeFrom(json['type'] as String?),
-        parentId: json['parentId'] as String?,
-        isSystem: json['isSystem'] as bool? ?? false,
-        currency: json['currency'] as String?,
-      );
+    id: json['id'] as String,
+    projectId: json['projectId'] as String,
+    code: json['code'] as String? ?? '',
+    name: json['name'] as String? ?? '',
+    type: _glAccountTypeFrom(json['type'] as String?),
+    parentId: json['parentId'] as String?,
+    isSystem: json['isSystem'] as bool? ?? false,
+    currency: json['currency'] as String?,
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'code': code,
-        'name': name,
-        'type': type.name,
-      };
+    'id': id,
+    'code': code,
+    'name': name,
+    'type': type.name,
+  };
 }
 
 class GlAccountCreate implements ModelCreate {
@@ -1826,13 +1855,13 @@ class GlAccountCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'code': code,
-        'name': name,
-        'type': type.name,
-        if (parentId != null) 'parentId': parentId,
-        if (currency != null) 'currency': currency,
-      };
+    'projectId': projectId,
+    'code': code,
+    'name': name,
+    'type': type.name,
+    if (parentId != null) 'parentId': parentId,
+    if (currency != null) 'currency': currency,
+  };
 }
 
 class GlAccountUpdate implements ModelUpdate {
@@ -1856,12 +1885,12 @@ class GlAccountUpdate implements ModelUpdate {
 
   @override
   Map<String, dynamic> toJson() => {
-        if (code != null) 'code': code,
-        if (name != null) 'name': name,
-        if (type != null) 'type': type!.name,
-        if (parentId != null) 'parentId': parentId,
-        if (currency != null) 'currency': currency,
-      };
+    if (code != null) 'code': code,
+    if (name != null) 'name': name,
+    if (type != null) 'type': type!.name,
+    if (parentId != null) 'parentId': parentId,
+    if (currency != null) 'currency': currency,
+  };
 }
 
 class JournalLine implements Model {
@@ -1944,9 +1973,9 @@ class JournalEntry implements Model {
       memo: json['memo'] as String?,
       lines: rawLines is List
           ? rawLines
-              .whereType<Map>()
-              .map((e) => JournalLine.fromJson(Map<String, dynamic>.from(e)))
-              .toList()
+                .whereType<Map>()
+                .map((e) => JournalLine.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
           : const [],
     );
   }
@@ -1966,11 +1995,11 @@ class ManualJournalLineInput {
   });
 
   Map<String, dynamic> toJson() => {
-        'accountId': accountId,
-        'debit': debit,
-        'credit': credit,
-        if (memo != null) 'memo': memo,
-      };
+    'accountId': accountId,
+    'debit': debit,
+    'credit': credit,
+    if (memo != null) 'memo': memo,
+  };
 }
 
 class ManualJournalEntryCreate implements ModelCreate {
@@ -1990,12 +2019,12 @@ class ManualJournalEntryCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'entryDate': entryDate,
-        if (journalCode != null) 'journalCode': journalCode,
-        if (memo != null) 'memo': memo,
-        'lines': lines.map((l) => l.toJson()).toList(),
-      };
+    'projectId': projectId,
+    'entryDate': entryDate,
+    if (journalCode != null) 'journalCode': journalCode,
+    if (memo != null) 'memo': memo,
+    'lines': lines.map((l) => l.toJson()).toList(),
+  };
 }
 
 class JournalEntryNoopUpdate implements ModelUpdate {
@@ -2027,7 +2056,8 @@ class TrialBalanceRow {
     required this.balance,
   });
 
-  factory TrialBalanceRow.fromJson(Map<String, dynamic> json) => TrialBalanceRow(
+  factory TrialBalanceRow.fromJson(Map<String, dynamic> json) =>
+      TrialBalanceRow(
         accountId: json['accountId'] as String? ?? '',
         code: json['code'] as String? ?? '',
         name: json['name'] as String? ?? '',
@@ -2053,11 +2083,15 @@ class TrialBalanceReport {
     required this.balanced,
   });
 
-  factory TrialBalanceReport.fromJson(Map<String, dynamic> json) => TrialBalanceReport(
+  factory TrialBalanceReport.fromJson(Map<String, dynamic> json) =>
+      TrialBalanceReport(
         asOf: json['asOf'] as String?,
-        rows: (json['rows'] as List?)
+        rows:
+            (json['rows'] as List?)
                 ?.whereType<Map>()
-                .map((e) => TrialBalanceRow.fromJson(Map<String, dynamic>.from(e)))
+                .map(
+                  (e) => TrialBalanceRow.fromJson(Map<String, dynamic>.from(e)),
+                )
                 .toList() ??
             const [],
         totalDebit: _toDouble(json['totalDebit']),
@@ -2080,7 +2114,8 @@ class BalanceSheetSection {
   factory BalanceSheetSection.fromJson(Map<String, dynamic> json) =>
       BalanceSheetSection(
         type: json['type'] as String? ?? '',
-        accounts: (json['accounts'] as List?)
+        accounts:
+            (json['accounts'] as List?)
                 ?.whereType<Map>()
                 .map((e) => Map<String, dynamic>.from(e))
                 .toList() ??
@@ -2110,11 +2145,14 @@ class BalanceSheetReport {
       BalanceSheetReport(
         asOf: json['asOf'] as String?,
         assets: BalanceSheetSection.fromJson(
-            Map<String, dynamic>.from(json['assets'] as Map? ?? {})),
+          Map<String, dynamic>.from(json['assets'] as Map? ?? {}),
+        ),
         liabilities: BalanceSheetSection.fromJson(
-            Map<String, dynamic>.from(json['liabilities'] as Map? ?? {})),
+          Map<String, dynamic>.from(json['liabilities'] as Map? ?? {}),
+        ),
         equity: BalanceSheetSection.fromJson(
-            Map<String, dynamic>.from(json['equity'] as Map? ?? {})),
+          Map<String, dynamic>.from(json['equity'] as Map? ?? {}),
+        ),
         balanced: json['balanced'] as bool? ?? false,
         difference: _toDouble(json['difference']),
       );
@@ -2122,9 +2160,9 @@ class BalanceSheetReport {
 
 enum AccountingPeriodStatus { open, locked }
 
-AccountingPeriodStatus _periodStatusFrom(String? v) =>
-    AccountingPeriodStatus.values
-        .firstWhere((e) => e.name == v, orElse: () => AccountingPeriodStatus.open);
+AccountingPeriodStatus _periodStatusFrom(String? v) => AccountingPeriodStatus
+    .values
+    .firstWhere((e) => e.name == v, orElse: () => AccountingPeriodStatus.open);
 
 class AccountingPeriod implements Model {
   @override
@@ -2142,7 +2180,8 @@ class AccountingPeriod implements Model {
     required this.status,
   });
 
-  factory AccountingPeriod.fromJson(Map<String, dynamic> json) => AccountingPeriod(
+  factory AccountingPeriod.fromJson(Map<String, dynamic> json) =>
+      AccountingPeriod(
         id: json['id'] as String,
         projectId: json['projectId'] as String,
         startDate: DateTime.parse(json['startDate'] as String),
@@ -2266,29 +2305,31 @@ class FinanceTransfer implements Model {
 
   bool get isVoided => voidedAt != null;
 
-  factory FinanceTransfer.fromJson(Map<String, dynamic> json) => FinanceTransfer(
+  factory FinanceTransfer.fromJson(Map<String, dynamic> json) =>
+      FinanceTransfer(
         id: json['id']?.toString() ?? '',
         projectId: (json['projectId'] ?? json['project_id'])?.toString() ?? '',
         amount: _toDouble(json['amount']),
-        occurredAt: _parseFinanceDate(json['occurredAt'] ?? json['occurred_at']),
-        type: financeTransferTypeFrom(
-            (json['type'] ?? '').toString()),
-        fromAccountId:
-            (json['fromAccountId'] ?? json['from_account_id'])?.toString(),
+        occurredAt: _parseFinanceDate(
+          json['occurredAt'] ?? json['occurred_at'],
+        ),
+        type: financeTransferTypeFrom((json['type'] ?? '').toString()),
+        fromAccountId: (json['fromAccountId'] ?? json['from_account_id'])
+            ?.toString(),
         toAccountId: (json['toAccountId'] ?? json['to_account_id'])?.toString(),
         categoryId: (json['categoryId'] ?? json['category_id'])?.toString(),
-        transferGroupId:
-            (json['transferGroupId'] ?? json['transfer_group_id'])?.toString(),
+        transferGroupId: (json['transferGroupId'] ?? json['transfer_group_id'])
+            ?.toString(),
         partyType: (json['partyType'] ?? json['party_type'])?.toString(),
         partyId: (json['partyId'] ?? json['party_id'])?.toString(),
-        referenceType:
-            (json['referenceType'] ?? json['reference_type'])?.toString(),
+        referenceType: (json['referenceType'] ?? json['reference_type'])
+            ?.toString(),
         referenceId: (json['referenceId'] ?? json['reference_id'])?.toString(),
         note: json['note']?.toString(),
-        attachmentUrl:
-            (json['attachmentUrl'] ?? json['attachment_url'])?.toString(),
-        createdByUserId:
-            (json['createdByUserId'] ?? json['created_by_user_id'])?.toString(),
+        attachmentUrl: (json['attachmentUrl'] ?? json['attachment_url'])
+            ?.toString(),
+        createdByUserId: (json['createdByUserId'] ?? json['created_by_user_id'])
+            ?.toString(),
         createdAt: _parseFinanceDate(json['createdAt'] ?? json['created_at']),
         updatedAt: _parseFinanceDate(json['updatedAt'] ?? json['updated_at']),
         voidedAt: json['voidedAt'] != null || json['voided_at'] != null
@@ -2297,11 +2338,11 @@ class FinanceTransfer implements Model {
       );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'projectId': projectId,
-        'amount': amount,
-        'type': financeTransferTypeToApi(type),
-      };
+    'id': id,
+    'projectId': projectId,
+    'amount': amount,
+    'type': financeTransferTypeToApi(type),
+  };
 }
 
 class FinanceTransferCreate implements ModelCreate {
@@ -2337,20 +2378,20 @@ class FinanceTransferCreate implements ModelCreate {
 
   @override
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'amount': amount,
-        'type': financeTransferTypeToApi(type),
-        if (occurredAt != null) 'occurredAt': occurredAt!.toUtc().toIso8601String(),
-        if (fromAccountId != null) 'fromAccountId': fromAccountId,
-        if (toAccountId != null) 'toAccountId': toAccountId,
-        if (categoryId != null) 'categoryId': categoryId,
-        if (partyType != null) 'partyType': partyType,
-        if (partyId != null) 'partyId': partyId,
-        if (referenceType != null) 'referenceType': referenceType,
-        if (referenceId != null) 'referenceId': referenceId,
-        if (note != null) 'note': note,
-        if (attachmentUrl != null) 'attachmentUrl': attachmentUrl,
-      };
+    'projectId': projectId,
+    'amount': amount,
+    'type': financeTransferTypeToApi(type),
+    if (occurredAt != null) 'occurredAt': occurredAt!.toUtc().toIso8601String(),
+    if (fromAccountId != null) 'fromAccountId': fromAccountId,
+    if (toAccountId != null) 'toAccountId': toAccountId,
+    if (categoryId != null) 'categoryId': categoryId,
+    if (partyType != null) 'partyType': partyType,
+    if (partyId != null) 'partyId': partyId,
+    if (referenceType != null) 'referenceType': referenceType,
+    if (referenceId != null) 'referenceId': referenceId,
+    if (note != null) 'note': note,
+    if (attachmentUrl != null) 'attachmentUrl': attachmentUrl,
+  };
 }
 
 /// No-op update — transfers are voided, not edited.
@@ -2436,22 +2477,22 @@ class FinancePayout {
   });
 
   factory FinancePayout.fromJson(Map<String, dynamic> json) => FinancePayout(
-        id: json['id']?.toString() ?? '',
-        projectId: json['projectId']?.toString() ?? '',
-        payoutType: (json['payoutType'] ?? json['type'] ?? 'misc_charges')
-            .toString(),
-        beneficiaryName: json['beneficiaryName']?.toString() ?? '',
-        amountDue: _toDouble(json['amountDue']),
-        amountPaid: _toDouble(json['amountPaid']),
-        amountRemaining: _toDouble(json['amountRemaining']),
-        financialAccountId:
-            (json['financialAccountId'] ?? json['walletId'])?.toString(),
-        payeeUserId: json['payeeUserId']?.toString(),
-        note: json['note']?.toString(),
-        occurredAt: json['occurredAt'] != null
-            ? _parseFinanceDate(json['occurredAt'])
-            : null,
-      );
+    id: json['id']?.toString() ?? '',
+    projectId: json['projectId']?.toString() ?? '',
+    payoutType: (json['payoutType'] ?? json['type'] ?? 'misc_charges')
+        .toString(),
+    beneficiaryName: json['beneficiaryName']?.toString() ?? '',
+    amountDue: _toDouble(json['amountDue']),
+    amountPaid: _toDouble(json['amountPaid']),
+    amountRemaining: _toDouble(json['amountRemaining']),
+    financialAccountId: (json['financialAccountId'] ?? json['walletId'])
+        ?.toString(),
+    payeeUserId: json['payeeUserId']?.toString(),
+    note: json['note']?.toString(),
+    occurredAt: json['occurredAt'] != null
+        ? _parseFinanceDate(json['occurredAt'])
+        : null,
+  );
 }
 
 /// Feeef team payouts: confirmers (`agent`) and editors/owners (`salary`).
@@ -2472,9 +2513,7 @@ String normalizeCreatePayoutType(
   bool hasPayeeUser = false,
 }) {
   final inferred = inferPayoutTypeFromMemberRole(memberRole);
-  if (requested == null ||
-      requested.isEmpty ||
-      requested == 'marketer') {
+  if (requested == null || requested.isEmpty || requested == 'marketer') {
     return hasPayeeUser ? inferred : 'provider';
   }
   return requested;
@@ -2515,21 +2554,21 @@ class FinanceCharge {
   });
 
   factory FinanceCharge.fromJson(Map<String, dynamic> json) => FinanceCharge(
-        id: json['id']?.toString() ?? '',
-        projectId: json['projectId']?.toString() ?? '',
-        name: json['name']?.toString() ?? '',
-        amount: _toDouble(json['amount']),
-        chargeType: (json['chargeType'] ?? json['type'] ?? 'normal').toString(),
-        category: json['category']?.toString(),
-        frequency: json['frequency']?.toString(),
-        financialAccountId:
-            (json['financialAccountId'] ?? json['walletId'])?.toString(),
-        walletLedgerApplied: json['walletLedgerApplied'] == true,
-        note: json['note']?.toString(),
-        occurredAt: json['occurredAt'] != null
-            ? _parseFinanceDate(json['occurredAt'])
-            : null,
-      );
+    id: json['id']?.toString() ?? '',
+    projectId: json['projectId']?.toString() ?? '',
+    name: json['name']?.toString() ?? '',
+    amount: _toDouble(json['amount']),
+    chargeType: (json['chargeType'] ?? json['type'] ?? 'normal').toString(),
+    category: json['category']?.toString(),
+    frequency: json['frequency']?.toString(),
+    financialAccountId: (json['financialAccountId'] ?? json['walletId'])
+        ?.toString(),
+    walletLedgerApplied: json['walletLedgerApplied'] == true,
+    note: json['note']?.toString(),
+    occurredAt: json['occurredAt'] != null
+        ? _parseFinanceDate(json['occurredAt'])
+        : null,
+  );
 }
 
 /// Roster row from `GET /finance/payouts/payees`.
@@ -2551,13 +2590,12 @@ class FinancePayee {
   });
 
   factory FinancePayee.fromJson(Map<String, dynamic> json) => FinancePayee(
-        id: json['id']?.toString() ?? '',
-        userId: (json['userId'] ?? json['id'])?.toString() ?? '',
-        name: json['name']?.toString() ?? '',
-        role: json['role']?.toString(),
-        defaultPayoutType: json['defaultPayoutType']?.toString() ??
-            inferPayoutTypeFromMemberRole(json['role']?.toString()),
-      );
+    id: json['id']?.toString() ?? '',
+    userId: (json['userId'] ?? json['id'])?.toString() ?? '',
+    name: json['name']?.toString() ?? '',
+    role: json['role']?.toString(),
+    defaultPayoutType:
+        json['defaultPayoutType']?.toString() ??
+        inferPayoutTypeFromMemberRole(json['role']?.toString()),
+  );
 }
-
-

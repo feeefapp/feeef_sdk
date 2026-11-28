@@ -107,7 +107,11 @@ class StoreCloudConnection {
 
   bool get isActive => status == 'active';
 
-  StoreCloudConnection copyWith({bool? enabled, int? position, String? status}) {
+  StoreCloudConnection copyWith({
+    bool? enabled,
+    int? position,
+    String? status,
+  }) {
     return StoreCloudConnection(
       id: id,
       provider: provider,
@@ -170,7 +174,10 @@ class StoreCloudPaymentsRepository {
     final rows = ((response.data as Map)['data'] as List? ?? const []);
     return rows
         .whereType<Map>()
-        .map((row) => StoreCloudConnection.fromJson(Map<String, dynamic>.from(row)))
+        .map(
+          (row) =>
+              StoreCloudConnection.fromJson(Map<String, dynamic>.from(row)),
+        )
         .toList();
   }
 

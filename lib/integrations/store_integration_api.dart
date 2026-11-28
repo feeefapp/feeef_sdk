@@ -27,10 +27,7 @@ class StoreIntegrationsApi {
   }
 
   /// Remove one integration config.
-  Future<void> delete({
-    required String storeId,
-    required String key,
-  }) async {
+  Future<void> delete({required String storeId, required String key}) async {
     await client.delete<void>('/stores/$storeId/integrations/$key');
   }
 }

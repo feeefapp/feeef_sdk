@@ -11,8 +11,10 @@ class YalidineDeliveryIntegrationApi {
   final YalidineDeliveryIntegration integration;
   final String storeId;
   final Dio client;
+
   /// Loader for Yalidine fee data (e.g. () => rootBundle.loadString(yalidineFeesAssetPath)).
   final Future<String> Function()? yalidineFeesLoader;
+
   /// Loader for Guepex fee data (e.g. () => rootBundle.loadString(guepexFeesAssetPath)).
   final Future<String> Function()? guepexFeesLoader;
 

@@ -168,6 +168,7 @@ class OrderRepository extends ModelRepository<Order>
   @override
   Future<ListResponse<Order>> list({
     String? storeId,
+
     /// When non-empty, requests orders from multiple stores (unified inbox).
     /// Takes precedence over [storeId] when both are set.
     List<String>? storeIds,
@@ -185,8 +186,10 @@ class OrderRepository extends ModelRepository<Order>
     String? shippingState,
     String? shippingCity,
     String? deliveryService,
+
     /// Presence (`kOrderFilterAny`) or a specific variant path.
     String? variant,
+
     /// Presence (`kOrderFilterAny`) or a specific offer code.
     String? offer,
     DeliveryStatus? deliveryStatus,
@@ -195,13 +198,15 @@ class OrderRepository extends ModelRepository<Order>
     dynamic source,
     dynamic references,
   }) {
-    assert(storeId != null || storeIds != null, 'storeId or storeIds must be provided');
+    assert(
+      storeId != null || storeIds != null,
+      'storeId or storeIds must be provided',
+    );
     assert(
       !(storeId != null && storeIds != null),
       'storeId and storeIds cannot be provided together',
     );
-    final useMultiStore =
-        storeIds != null && storeIds.isNotEmpty;
+    final useMultiStore = storeIds != null && storeIds.isNotEmpty;
     var data = super.list(
       page: page,
       offset: offset,
@@ -350,7 +355,9 @@ class OrderRepository extends ModelRepository<Order>
       final orderJson = data['order'];
       return ConfirmationClaim(
         order: orderJson == null ? null : modelFromJson(orderJson),
-        searchedStoreIds: List<String>.from(data['searchedStoreIds'] ?? const []),
+        searchedStoreIds: List<String>.from(
+          data['searchedStoreIds'] ?? const [],
+        ),
         backlog: Map<String, int>.from(
           (data['backlog'] as Map? ?? const {}).map(
             (key, value) => MapEntry(key as String, (value as num).toInt()),
@@ -409,10 +416,7 @@ class OrderRepository extends ModelRepository<Order>
     try {
       final response = await client.post(
         '/stores/$storeId/integrations/dispatcher/dispatch',
-        data: {
-          'orderIds': orderIds,
-          'strategy': strategy.toJson(),
-        },
+        data: {'orderIds': orderIds, 'strategy': strategy.toJson()},
       );
       return response.data;
     } on DioException catch (e) {

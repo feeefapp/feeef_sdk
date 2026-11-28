@@ -232,8 +232,7 @@ abstract class GoogleSheetsDataEntity extends BaseIntegrationEntity {
 abstract class PaymentMethodDataEntity extends BaseIntegrationEntity {
   @override
   bool get enabled;
-  List<String>
-  get methodIds; // Which payment method IDs to use (optional, falls back to store defaults)
+  List<String> get methodIds; // Which payment method IDs to use (optional, falls back to store defaults)
 }
 
 /// Product-level Ecotrack warehouse stock mapping (merchant-only).

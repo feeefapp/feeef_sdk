@@ -294,8 +294,7 @@ class ModelsCatalogConfig {
       _resolvedConfigured(defaultImageModel) ?? fallbackDefaultImageModel;
 
   String resolvedDefaultCodingModel() =>
-      _resolvedConfigured(defaultCodingModel) ??
-      resolvedDefaultTextModel();
+      _resolvedConfigured(defaultCodingModel) ?? resolvedDefaultTextModel();
 
   String? _resolvedConfigured(String? configured) {
     final id = configured?.trim();

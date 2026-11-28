@@ -49,10 +49,9 @@ class InventoryRepository {
   Future<ListResponse<InventoryReservation>> reservationsByHolder({
     required String projectId,
     required String holderRef,
-  }) =>
-      reservations.list(
-        params: {'projectId': projectId, 'holderRef': holderRef},
-      );
+  }) => reservations.list(
+    params: {'projectId': projectId, 'holderRef': holderRef},
+  );
 
   Future<ListResponse<Project>> listProjects() async {
     final response = await client.get('/inventory/projects');
@@ -189,7 +188,9 @@ class InventoryObjectResourceRepository
           InventoryReceiveInput,
           InventoryObjectUpdate
         >
-    with ModelDeleteManyMixin<InventoryObject>, ModelUpdateManyMixin<InventoryObject> {
+    with
+        ModelDeleteManyMixin<InventoryObject>,
+        ModelUpdateManyMixin<InventoryObject> {
   InventoryObjectResourceRepository({required Dio client})
     : super(client: client, table: 'inventory/objects');
 
@@ -231,7 +232,8 @@ class InventoryObjectResourceRepository
           ? DateTime.tryParse(m['expiresAt'] as String)
           : null,
       metadata: m['metadata'] as Map<String, dynamic>?,
-      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+      setToNull:
+          (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
           const [],
     );
   }
@@ -581,17 +583,10 @@ class InventoryReservationResourceRepository
   /// Batch release holds (`POST /inventory/reservations:batchRelease`).
   Future<BatchResult<void>> releaseMany({
     required BatchReleaseRequest request,
-  }) =>
-      postBatchAction<void>(
-        action: 'batchRelease',
-        body: request.toJson(),
-      );
+  }) => postBatchAction<void>(action: 'batchRelease', body: request.toJson());
 
   /// Single release (`POST /inventory/reservations/:id:release`).
-  Future<void> release({
-    required String projectId,
-    required String id,
-  }) async {
+  Future<void> release({required String projectId, required String id}) async {
     await client.post(
       '/inventory/reservations/$id:release',
       queryParameters: {'projectId': projectId},
@@ -687,7 +682,9 @@ class InventoryReservationResourceRepository
     required String id,
     Map<String, dynamic>? params,
   }) async {
-    throw UnsupportedError('Reservations cannot be deleted; use release instead');
+    throw UnsupportedError(
+      'Reservations cannot be deleted; use release instead',
+    );
   }
 }
 
@@ -725,7 +722,8 @@ class InventoryAliasResourceRepository
     final m = Map<String, dynamic>.from(json as Map);
     return InventoryAliasUpdate(
       targetSku: m['targetSku'] as String?,
-      setToNull: (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
+      setToNull:
+          (m['setToNull'] as List?)?.map((e) => e.toString()).toList() ??
           const [],
     );
   }

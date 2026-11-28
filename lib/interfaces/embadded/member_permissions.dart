@@ -61,7 +61,6 @@ enum StorePermission {
   pagesRead(MemberScope.pagesRead, _editorViewer),
   pagesWrite(MemberScope.pages, _editorOnly),
 
-
   shippingPricesRead(MemberScope.shippingPricesRead, _readRoles),
   shippingPricesWrite(MemberScope.shippingPrices, _editorOnly),
 

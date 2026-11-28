@@ -20,10 +20,10 @@ class CodpilotDeliveryService extends DeliveryService<CodpilotIntegration> {
   });
 
   CodpilotIntegrationApi get _api => CodpilotIntegrationApi(
-        client: client,
-        integration: integration,
-        storeId: storeId,
-      );
+    client: client,
+    integration: integration,
+    storeId: storeId,
+  );
 
   @override
   Future<void> deliverOrder({required Order order}) async {

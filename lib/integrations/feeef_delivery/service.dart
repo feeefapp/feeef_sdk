@@ -69,25 +69,25 @@ class FeeefDeliveryEnableRequest {
   });
 
   Map<String, dynamic> toJson() => {
-        if (firstName != null && firstName!.trim().isNotEmpty)
-          'firstName': firstName!.trim(),
-        if (lastName != null && lastName!.trim().isNotEmpty)
-          'lastName': lastName!.trim(),
-        if (wilayaCode != null && wilayaCode!.trim().isNotEmpty)
-          'wilayaCode': wilayaCode!.trim(),
-        if (communeCode != null && communeCode!.trim().isNotEmpty)
-          'communeCode': communeCode!.trim(),
-        if (phoneNumber != null && phoneNumber!.trim().isNotEmpty)
-          'phoneNumber': phoneNumber!.trim(),
-        if (email != null && email!.trim().isNotEmpty) 'email': email!.trim(),
-        if (pickupAddress != null && pickupAddress!.trim().isNotEmpty)
-          'pickupAddress': pickupAddress!.trim(),
-        if (pickupLocationType != null) 'pickupLocationType': pickupLocationType,
-        if (senderCenterId != null) 'senderCenterId': senderCenterId,
-        if (defaultBuralistId != null) 'defaultBuralistId': defaultBuralistId,
-        if (preferredAccountType != null)
-          'preferredAccountType': preferredAccountType!.name,
-      };
+    if (firstName != null && firstName!.trim().isNotEmpty)
+      'firstName': firstName!.trim(),
+    if (lastName != null && lastName!.trim().isNotEmpty)
+      'lastName': lastName!.trim(),
+    if (wilayaCode != null && wilayaCode!.trim().isNotEmpty)
+      'wilayaCode': wilayaCode!.trim(),
+    if (communeCode != null && communeCode!.trim().isNotEmpty)
+      'communeCode': communeCode!.trim(),
+    if (phoneNumber != null && phoneNumber!.trim().isNotEmpty)
+      'phoneNumber': phoneNumber!.trim(),
+    if (email != null && email!.trim().isNotEmpty) 'email': email!.trim(),
+    if (pickupAddress != null && pickupAddress!.trim().isNotEmpty)
+      'pickupAddress': pickupAddress!.trim(),
+    if (pickupLocationType != null) 'pickupLocationType': pickupLocationType,
+    if (senderCenterId != null) 'senderCenterId': senderCenterId,
+    if (defaultBuralistId != null) 'defaultBuralistId': defaultBuralistId,
+    if (preferredAccountType != null)
+      'preferredAccountType': preferredAccountType!.name,
+  };
 }
 
 /// Feeef Delivery client — white-label Near Delivery via Feeef API.
@@ -124,7 +124,9 @@ class FeeefDeliveryService extends DeliveryService<FeeefDeliveryIntegration> {
         : <String, dynamic>{};
     final raw = data['integration'];
     if (raw is! Map) {
-      throw StateError('Feeef Delivery enable: missing integration in response');
+      throw StateError(
+        'Feeef Delivery enable: missing integration in response',
+      );
     }
     return FeeefDeliveryIntegration.fromJson(Map<String, dynamic>.from(raw));
   }
@@ -144,11 +146,15 @@ class FeeefDeliveryService extends DeliveryService<FeeefDeliveryIntegration> {
     final filter = wilayaCode?.replaceAll(RegExp(r'\D'), '');
     if (filter != null && filter.isNotEmpty) {
       final padded = filter.length == 1 ? '0$filter' : filter.padLeft(2, '0');
-      final norm = padded.length > 2 ? padded.substring(padded.length - 2) : padded;
+      final norm = padded.length > 2
+          ? padded.substring(padded.length - 2)
+          : padded;
       list = list.where((c) {
         final w = c.wilayaCode?.replaceAll(RegExp(r'\D'), '') ?? '';
         if (w.isEmpty) return true;
-        final wp = w.length == 1 ? '0$w' : (w.length > 2 ? w.substring(w.length - 2) : w.padLeft(2, '0'));
+        final wp = w.length == 1
+            ? '0$w'
+            : (w.length > 2 ? w.substring(w.length - 2) : w.padLeft(2, '0'));
         return wp == norm || w == filter;
       }).toList();
     }
@@ -156,7 +162,9 @@ class FeeefDeliveryService extends DeliveryService<FeeefDeliveryIntegration> {
   }
 
   /// List Near buralists for [storeId] (often empty on staging).
-  static Future<List<FeeefDeliveryBuralist>> fetchBuralists(String storeId) async {
+  static Future<List<FeeefDeliveryBuralist>> fetchBuralists(
+    String storeId,
+  ) async {
     final response = await Feeef.instance.client.get(
       '/stores/$storeId/integrations/feeefDelivery/geo/buralists',
     );
@@ -194,15 +202,15 @@ class FeeefDeliveryService extends DeliveryService<FeeefDeliveryIntegration> {
         .toList();
     final filter = wilayaCode?.replaceAll(RegExp(r'\D'), '');
     if (filter != null && filter.isNotEmpty) {
-      final padded = filter.padLeft(2, '0').substring(filter.length > 2 ? filter.length - 2 : 0);
-      list = list
-          .where((c) {
-            final w = c.wilayaCode?.replaceAll(RegExp(r'\D'), '') ?? '';
-            if (w.isEmpty) return true;
-            final wp = w.padLeft(2, '0');
-            return wp == padded || w == filter;
-          })
-          .toList();
+      final padded = filter
+          .padLeft(2, '0')
+          .substring(filter.length > 2 ? filter.length - 2 : 0);
+      list = list.where((c) {
+        final w = c.wilayaCode?.replaceAll(RegExp(r'\D'), '') ?? '';
+        if (w.isEmpty) return true;
+        final wp = w.padLeft(2, '0');
+        return wp == padded || w == filter;
+      }).toList();
     }
     return List.unmodifiable(list);
   }
@@ -250,13 +258,15 @@ class FeeefDeliveryService extends DeliveryService<FeeefDeliveryIntegration> {
       'contact': {
         if (parcel.contact.firstName != null)
           'firstName': parcel.contact.firstName,
-        if (parcel.contact.lastName != null) 'lastName': parcel.contact.lastName,
+        if (parcel.contact.lastName != null)
+          'lastName': parcel.contact.lastName,
         if (parcel.contact.phones.isNotEmpty) 'phones': parcel.contact.phones,
         if (parcel.contact.emails.isNotEmpty) 'emails': parcel.contact.emails,
       },
       'address': {
         if (parcel.address.street != null) 'street': parcel.address.street,
-        if (parcel.address.cityCode != null) 'cityCode': parcel.address.cityCode,
+        if (parcel.address.cityCode != null)
+          'cityCode': parcel.address.cityCode,
         if (parcel.address.stateCode != null)
           'stateCode': parcel.address.stateCode,
         if (parcel.address.country != null) 'country': parcel.address.country,
@@ -345,7 +355,10 @@ class FeeefDeliveryService extends DeliveryService<FeeefDeliveryIntegration> {
   }
 
   /// Sends one parcel (`POST .../send`) and attaches delivery metadata on success.
-  Future<FeeefDeliverySendResponse> send(Order order, ParcelCreate parcel) async {
+  Future<FeeefDeliverySendResponse> send(
+    Order order,
+    ParcelCreate parcel,
+  ) async {
     if (order.feeefDeliveryTracking?.isNotEmpty == true) {
       throw StateError(
         'Order ${order.id} is already sent to Feeef Delivery (${order.feeefDeliveryTracking})',
@@ -391,9 +404,7 @@ class FeeefDeliveryService extends DeliveryService<FeeefDeliveryIntegration> {
       throw ArgumentError('Orders and parcels length mismatch');
     }
 
-    final payload = {
-      'parcels': parcels.map(parcelPayload).toList(),
-    };
+    final payload = {'parcels': parcels.map(parcelPayload).toList()};
     final timeoutMs = 30000 + (parcels.length * 1000);
     final response = await Feeef.instance.client.post(
       '$_base/sendMany',
@@ -433,20 +444,16 @@ class FeeefDeliveryService extends DeliveryService<FeeefDeliveryIntegration> {
     }
 
     for (final created in result.created) {
-      final ref = created['reference'] as String? ??
-          created['externalId'] as String?;
-      final tracking = created['tracking'] as String? ??
-          created['trackingId'] as String?;
+      final ref =
+          created['reference'] as String? ?? created['externalId'] as String?;
+      final tracking =
+          created['tracking'] as String? ?? created['trackingId'] as String?;
       if (ref == null || tracking == null || tracking.isEmpty) continue;
       try {
         final order = orders.firstWhere((o) => o.id == ref);
         await attach(
           order: order,
-          payload: {
-            'tracking': tracking,
-            'trackingId': tracking,
-            ...created,
-          },
+          payload: {'tracking': tracking, 'trackingId': tracking, ...created},
         );
       } catch (_) {}
     }

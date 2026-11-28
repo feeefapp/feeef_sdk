@@ -106,8 +106,7 @@ class AppRepository extends ModelRepository<App>
     String appId,
     String userId,
   ) async {
-    final response =
-        await client.get('/$table/$appId/user-data/users/$userId');
+    final response = await client.get('/$table/$appId/user-data/users/$userId');
     return Map<String, dynamic>.from(response.data as Map);
   }
 
@@ -157,8 +156,7 @@ class AppRepository extends ModelRepository<App>
   }
 
   @override
-  App modelFromJson(dynamic json) =>
-      App.fromJson(json as Map<String, dynamic>);
+  App modelFromJson(dynamic json) => App.fromJson(json as Map<String, dynamic>);
 
   @override
   Map<String, dynamic> modelToJson(App model) => model.toJson();

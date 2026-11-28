@@ -74,6 +74,7 @@ abstract class PublicReview with _$PublicReview {
     String? title,
     String? body,
     @Default(<String>[]) List<String> photos,
+
     /// Empty when the customer chose to stay anonymous.
     @Default('') String authorName,
     @Default(ReviewSource.order) String source,
@@ -212,11 +213,13 @@ abstract class ReviewRequest with _$ReviewRequest {
   const factory ReviewRequest({
     @Default(true) bool active,
     @Default(false) bool open,
+
     /// `disabled`, `not_delivered`, `window_closed` or null.
     String? reason,
     String? deliveredAt,
     String? closesAt,
     String? customerFirstName,
+
     /// The name a review shows when the customer does not stay anonymous.
     String? authorPreview,
     @Default(false) bool anonymous,
@@ -394,8 +397,10 @@ abstract class ReviewsIntegration with _$ReviewsIntegration {
     bool? storefrontForm,
     bool? autoPublishStorefront,
     bool? showReplies,
+
     /// Store-only: push the team on new customer reviews.
     bool? notifyNewReviews,
+
     /// Store-only: WhatsApp text for "Ask for a review" (max 500 chars).
     String? requestMessage,
   }) = _ReviewsIntegration;

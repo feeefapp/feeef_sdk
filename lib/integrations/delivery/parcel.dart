@@ -186,8 +186,10 @@ class ParcelCreate {
   final double? shippingPrice;
   final bool? freeShipping;
   final String? pickupId;
+
   /// Merchant stock vs net/dropship where the carrier supports it (backend `DeliveryCapabilities.parcelStock`).
   final bool? fromStock;
+
   /// When set, maps to Ecotrack `can_open` (1 = allowed, 0 = not). Omitted / null defers to extensions.
   final bool? canOpen;
   final List<ParcelLineItem> items;
@@ -196,6 +198,7 @@ class ParcelCreate {
   final Map<String, dynamic>? metadata;
   final Map<String, dynamic> extensions;
   final ParcelPackage? package;
+
   /// One of [ParcelTypes.forward], [ParcelTypes.return_], [ParcelTypes.exchange].
   final String? type;
 

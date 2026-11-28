@@ -74,6 +74,7 @@ class FinancialTotals {
 /// Orders timeline response structure
 class OrdersTimelineData {
   final Map<String, Map<String, int>> timeline;
+
   /// Counts keyed by the timeline's group (phase by default, or status id).
   final Map<String, int> statusCounts;
   final int totalOrders;
@@ -200,20 +201,25 @@ class ConfirmationInsightsData {
   factory ConfirmationInsightsData.fromJson(Map<String, dynamic> json) {
     return ConfirmationInsightsData(
       topProducts: ((json['topProducts'] ?? []) as List)
-          .map((e) =>
-              ConfirmationProductStat.fromJson(Map<String, dynamic>.from(e)))
+          .map(
+            (e) =>
+                ConfirmationProductStat.fromJson(Map<String, dynamic>.from(e)),
+          )
           .toList(),
       hourly: ((json['hourly'] ?? []) as List)
           .map(
-              (e) => ConfirmationHourStat.fromJson(Map<String, dynamic>.from(e)))
+            (e) => ConfirmationHourStat.fromJson(Map<String, dynamic>.from(e)),
+          )
           .toList(),
-      confirmerTopProducts:
-          ((json['confirmerTopProducts'] ?? {}) as Map).map(
+      confirmerTopProducts: ((json['confirmerTopProducts'] ?? {}) as Map).map(
         (k, v) => MapEntry(
           k as String,
           (v as List)
-              .map((e) => ConfirmationProductStat.fromJson(
-                  Map<String, dynamic>.from(e)))
+              .map(
+                (e) => ConfirmationProductStat.fromJson(
+                  Map<String, dynamic>.from(e),
+                ),
+              )
               .toList(),
         ),
       ),
@@ -248,8 +254,10 @@ class Analytics {
     required DateTime to,
     int step = 86400, // Default: 1 day in seconds
     String? productId,
+
     /// Rooms phase filter: draft | open | pack | ship | done | fail.
     String? phase,
+
     /// Status catalog row id filter.
     String? statusId,
     String? tags,
@@ -300,8 +308,10 @@ class Analytics {
     int step = 86400,
     String groupBy = 'phase',
     String? productId,
+
     /// Rooms phase filter: draft | open | pack | ship | done | fail.
     String? phase,
+
     /// Status catalog row id filter.
     String? statusId,
     String? tags,
@@ -348,14 +358,15 @@ class Analytics {
   /// ```
   Future<StoreOrdersCountByFieldType> getStoreOrdersCountByField({
     required String storeId,
-    required String
-    field, // 'phase', 'status_id', 'room', 'kind', 'payment_status', 'shipping_state'
+    required String field, // 'phase', 'status_id', 'room', 'kind', 'payment_status', 'shipping_state'
     DateTime? from,
     DateTime? to,
     int limit = 60,
     String? productId,
+
     /// Rooms phase filter: draft | open | pack | ship | done | fail.
     String? phase,
+
     /// Status catalog row id filter.
     String? statusId,
     String? tags,

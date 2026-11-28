@@ -41,7 +41,9 @@ class MetricsRepository {
   }) async {
     final res = await client.get(
       '/stores/${Uri.encodeComponent(storeId)}/metrics/now',
-      queryParameters: {if (filters != null && filters.isNotEmpty) 'f': filters},
+      queryParameters: {
+        if (filters != null && filters.isNotEmpty) 'f': filters,
+      },
       cancelToken: cancelToken,
     );
     return MetricsNow.fromJson(Map<String, dynamic>.from(res.data as Map));
@@ -182,13 +184,18 @@ class MetricsResult {
 }
 
 class MetricsStatusCount {
-  const MetricsStatusCount({required this.phase, required this.statusId, required this.count});
+  const MetricsStatusCount({
+    required this.phase,
+    required this.statusId,
+    required this.count,
+  });
 
-  factory MetricsStatusCount.fromJson(Map<String, dynamic> j) => MetricsStatusCount(
-    phase: j['phase'] as String? ?? 'open',
-    statusId: j['statusId'] as String?,
-    count: (_num(j['count']) ?? 0).toInt(),
-  );
+  factory MetricsStatusCount.fromJson(Map<String, dynamic> j) =>
+      MetricsStatusCount(
+        phase: j['phase'] as String? ?? 'open',
+        statusId: j['statusId'] as String?,
+        count: (_num(j['count']) ?? 0).toInt(),
+      );
 
   /// `open`, `pack`, `ship`, `done` or `fail`.
   final String phase;
@@ -208,15 +215,18 @@ class MetricsStatusLabel {
     this.closeAs,
   });
 
-  factory MetricsStatusLabel.fromJson(Map<String, dynamic> j) => MetricsStatusLabel(
-    name: j['name'] as String? ?? '',
-    slug: j['slug'] as String?,
-    room: j['room'] as String?,
-    locales: {for (final e in _map(j['locales']).entries) e.key: '${e.value}'},
-    color: j['color'] as String?,
-    sortOrder: (_num(j['sortOrder']) ?? 0).toInt(),
-    closeAs: j['closeAs'] as String?,
-  );
+  factory MetricsStatusLabel.fromJson(Map<String, dynamic> j) =>
+      MetricsStatusLabel(
+        name: j['name'] as String? ?? '',
+        slug: j['slug'] as String?,
+        room: j['room'] as String?,
+        locales: {
+          for (final e in _map(j['locales']).entries) e.key: '${e.value}',
+        },
+        color: j['color'] as String?,
+        sortOrder: (_num(j['sortOrder']) ?? 0).toInt(),
+        closeAs: j['closeAs'] as String?,
+      );
 
   final String name;
   final String? slug;
@@ -246,7 +256,10 @@ class MetricsNow {
   factory MetricsNow.fromJson(Map<String, dynamic> j) {
     final waiting = _map(j['waitingCall']);
     return MetricsNow(
-      byStatus: [for (final r in _list(j['byStatus'])) MetricsStatusCount.fromJson(_map(r))],
+      byStatus: [
+        for (final r in _list(j['byStatus']))
+          MetricsStatusCount.fromJson(_map(r)),
+      ],
       waitingCall: (_num(waiting['count']) ?? 0).toInt(),
       oldestWaitingAt: DateTime.tryParse(waiting['oldestAt'] as String? ?? ''),
       stuck: (_num(j['stuck']) ?? 0).toInt(),
@@ -293,28 +306,40 @@ class StoreOverview {
   });
 
   factory StoreOverview.fromJson(Map<String, dynamic> j) {
-    List<MetricsRow> rows(Object? v) => [for (final r in _list(v)) MetricsRow.fromJson(_map(r))];
-    Map<String, num?> values(Object? v) => {for (final e in _map(v).entries) e.key: _num(e.value)};
+    List<MetricsRow> rows(Object? v) => [
+      for (final r in _list(v)) MetricsRow.fromJson(_map(r)),
+    ];
+    Map<String, num?> values(Object? v) => {
+      for (final e in _map(v).entries) e.key: _num(e.value),
+    };
     return StoreOverview(
       access: AnalyticsAccess.fromJson(_map(j['access'])),
       range: MetricsRange.fromJson(_map(j['range'])),
       now: MetricsNow.fromJson(_map(j['now'])),
       kpis: values(j['kpis']),
-      kpisPrevious: j['kpisPrevious'] == null ? null : values(j['kpisPrevious']),
+      kpisPrevious: j['kpisPrevious'] == null
+          ? null
+          : values(j['kpisPrevious']),
       series: rows(j['series']),
-      seriesPrevious: j['seriesPrevious'] == null ? null : rows(j['seriesPrevious']),
+      seriesPrevious: j['seriesPrevious'] == null
+          ? null
+          : rows(j['seriesPrevious']),
       lists: {for (final e in _map(j['lists']).entries) e.key: rows(e.value)},
       filters: [
         for (final f in _list(j['filters']))
           if (_map(f)['dim'] != null) '${_map(f)['dim']}:${_map(f)['key']}',
       ],
-      statuses: [for (final r in _list(j['statuses'])) MetricsStatusCount.fromJson(_map(r))],
+      statuses: [
+        for (final r in _list(j['statuses']))
+          MetricsStatusCount.fromJson(_map(r)),
+      ],
       statusLabels: {
         for (final e in _map(_map(j['labels'])['statuses']).entries)
           e.key: MetricsStatusLabel.fromJson(_map(e.value)),
       },
       productNames: {
-        for (final e in _map(_map(j['labels'])['products']).entries) e.key: '${e.value}',
+        for (final e in _map(_map(j['labels'])['products']).entries)
+          e.key: '${e.value}',
       },
       wilayaNames: {
         for (final e in _map(_map(j['labels'])['wilayas']).entries)

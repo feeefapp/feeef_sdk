@@ -9,13 +9,19 @@ class ConnectorsIntegrationApi {
 
   /// Lists connectors for a store (secrets stripped server-side).
   Future<ConnectorsIntegration> listConnectors(String storeId) async {
-    final response = await client.get('/stores/$storeId/integrations/connectors');
-    return ConnectorsIntegration.fromJson(response.data as Map<String, dynamic>);
+    final response = await client.get(
+      '/stores/$storeId/integrations/connectors',
+    );
+    return ConnectorsIntegration.fromJson(
+      response.data as Map<String, dynamic>,
+    );
   }
 
   /// Removes a connector by id.
   Future<void> deleteConnector(String storeId, String connectorId) async {
-    await client.delete('/stores/$storeId/integrations/connectors/$connectorId');
+    await client.delete(
+      '/stores/$storeId/integrations/connectors/$connectorId',
+    );
   }
 
   /// Returns Shopify OAuth URL to open in browser / WebAuth session.
@@ -93,7 +99,9 @@ class ConnectorsIntegrationApi {
       callbackScheme: callbackScheme,
     );
     if (prep['linked'] == true) {
-      throw StateError('Google Sheets already linked — use prepareGoogleSheetsConnector');
+      throw StateError(
+        'Google Sheets already linked — use prepareGoogleSheetsConnector',
+      );
     }
     return prep['installUrl'] as String;
   }
@@ -270,10 +278,7 @@ class ConnectorsIntegrationApi {
   }) async {
     final response = await client.get(
       '/stores/$storeId/integrations/connectors/facebook-leads/forms',
-      queryParameters: {
-        'connectorId': connectorId,
-        'pageId': pageId,
-      },
+      queryParameters: {'connectorId': connectorId, 'pageId': pageId},
     );
     final list = response.data['forms'] as List<dynamic>? ?? [];
     return list.map((e) => Map<String, dynamic>.from(e as Map)).toList();

@@ -8,7 +8,12 @@ library;
 typedef LabChunk = Map<String, dynamic>;
 typedef LabPartMap = Map<String, dynamic>;
 
-const labTerminalRunStatuses = {'completed', 'failed', 'cancelled', 'reconciliation'};
+const labTerminalRunStatuses = {
+  'completed',
+  'failed',
+  'cancelled',
+  'reconciliation',
+};
 
 /// Typed view over one message part map.
 extension type const LabPart(Map<String, dynamic> raw) {
@@ -32,7 +37,8 @@ extension type const LabPart(Map<String, dynamic> raw) {
   String? get inputText => raw['inputText'] as String?;
   Object? get output => raw['output'];
   String? get errorText => raw['errorText'] as String?;
-  Map<String, dynamic>? get approval => (raw['approval'] as Map?)?.cast<String, dynamic>();
+  Map<String, dynamic>? get approval =>
+      (raw['approval'] as Map?)?.cast<String, dynamic>();
   String get url => raw['url'] as String? ?? '';
   String get mediaType => raw['mediaType'] as String? ?? '';
   String? get filename => raw['filename'] as String?;
@@ -45,7 +51,10 @@ LabPartMap _copy(LabPartMap p) => Map<String, dynamic>.of(p);
 
 /// Fold UI message stream chunks into message parts. Pure and order-dependent; unknown chunk
 /// types are ignored.
-List<LabPartMap> reduceChunks(Iterable<LabChunk> chunks, [List<LabPartMap> initial = const []]) {
+List<LabPartMap> reduceChunks(
+  Iterable<LabChunk> chunks, [
+  List<LabPartMap> initial = const [],
+]) {
   final folder = LabChunkFolder(initial);
   for (final c in chunks) {
     folder.push(c);
@@ -70,7 +79,8 @@ String previewOf(List<LabPartMap> parts, [int max = 160]) {
       .join(' ')
       .replaceAll(RegExp(r'\s+'), ' ')
       .trim();
-  if (text.isNotEmpty) return text.length > max ? '${text.substring(0, max - 1)}…' : text;
+  if (text.isNotEmpty)
+    return text.length > max ? '${text.substring(0, max - 1)}…' : text;
   final files = parts.where((p) => p['type'] == 'file').length;
   if (files > 0) return '[$files file${files > 1 ? 's' : ''}]';
   final tools = parts.where((p) => p['type'] == 'dynamic-tool').length;
@@ -87,9 +97,11 @@ class LabChunkFolder {
     for (var i = 0; i < _parts.length; i++) {
       final p = _parts[i];
       final type = p['type'] as String? ?? '';
-      if (type == 'dynamic-tool') _tools.putIfAbsent(p['toolCallId'] as String, () => i);
+      if (type == 'dynamic-tool')
+        _tools.putIfAbsent(p['toolCallId'] as String, () => i);
       final id = p['id'];
-      if (type.startsWith('data-') && id is String) _dataIds.putIfAbsent('$type\u0000$id', () => i);
+      if (type.startsWith('data-') && id is String)
+        _dataIds.putIfAbsent('$type\u0000$id', () => i);
     }
     _fresh = {for (var i = 0; i < _parts.length; i++) i};
   }
@@ -129,11 +141,19 @@ class LabChunkFolder {
         _add({'type': 'step-start'});
       case 'text-start' || 'reasoning-start':
         final kind = type == 'text-start' ? 'text' : 'reasoning';
-        _open['$kind:${c['id']}'] = _add({'type': kind, 'text': '', 'state': 'streaming'});
+        _open['$kind:${c['id']}'] = _add({
+          'type': kind,
+          'text': '',
+          'state': 'streaming',
+        });
       case 'text-delta' || 'reasoning-delta':
         final kind = type == 'text-delta' ? 'text' : 'reasoning';
         final key = '$kind:${c['id']}';
-        final index = _open[key] ??= _add({'type': kind, 'text': '', 'state': 'streaming'});
+        final index = _open[key] ??= _add({
+          'type': kind,
+          'text': '',
+          'state': 'streaming',
+        });
         final part = _touch(index);
         part['text'] = '${part['text'] ?? ''}${c['delta'] ?? ''}';
       case 'text-end' || 'reasoning-end':
@@ -153,7 +173,9 @@ class LabChunkFolder {
         }
       case 'tool-input-delta':
         final t = _tool(c['toolCallId'] as String?);
-        if (t != null) t['inputText'] = '${t['inputText'] ?? ''}${c['inputTextDelta'] ?? ''}';
+        if (t != null)
+          t['inputText'] =
+              '${t['inputText'] ?? ''}${c['inputTextDelta'] ?? ''}';
       case 'tool-input-available' || 'tool-input-error':
         final id = c['toolCallId'] as String;
         var t = _tool(id);
@@ -262,7 +284,8 @@ class LabWaitState {
   String get kind => data['kind'] as String? ?? 'job';
   String? get label => data['label'] as String?;
   String get status => data['status'] as String? ?? 'waiting';
-  DateTime? get startedAt => DateTime.tryParse(data['startedAt'] as String? ?? '');
+  DateTime? get startedAt =>
+      DateTime.tryParse(data['startedAt'] as String? ?? '');
   int? get etaMs => (data['etaMs'] as num?)?.toInt();
   String? get error => data['error'] as String?;
 }
@@ -271,7 +294,9 @@ class LabWaitState {
 List<LabWaitState> waitStates(List<LabPartMap> parts) {
   final progress = <String, Map>{};
   for (final p in parts) {
-    if (p['type'] == 'data-feeef-progress' && p['id'] is String && p['data'] is Map) {
+    if (p['type'] == 'data-feeef-progress' &&
+        p['id'] is String &&
+        p['data'] is Map) {
       progress[p['id'] as String] = p['data'] as Map;
     }
   }
@@ -284,8 +309,12 @@ List<LabWaitState> waitStates(List<LabPartMap> parts) {
     out.add(
       LabWaitState(
         (p['data'] as Map).cast<String, dynamic>(),
-        progress: value is num && value.isFinite ? value.toDouble().clamp(0, 1) : null,
-        message: message is String && message.trim().isNotEmpty ? message : null,
+        progress: value is num && value.isFinite
+            ? value.toDouble().clamp(0, 1)
+            : null,
+        message: message is String && message.trim().isNotEmpty
+            ? message
+            : null,
       ),
     );
   }

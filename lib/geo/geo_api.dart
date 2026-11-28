@@ -38,7 +38,10 @@ class GeoCityHit {
     ({double lat, double lng})? center;
     final c = json['center'];
     if (c is Map && c['lat'] is num && c['lng'] is num) {
-      center = (lat: (c['lat'] as num).toDouble(), lng: (c['lng'] as num).toDouble());
+      center = (
+        lat: (c['lat'] as num).toDouble(),
+        lng: (c['lng'] as num).toDouble(),
+      );
     }
     final name = (json['name'] ?? '').toString().trim();
     final display = (json['displayName'] ?? name).toString().trim();
@@ -80,7 +83,8 @@ class GeoCourierCity {
     return GeoCourierCity(
       cityName: (json['cityName'] ?? json['name'] ?? '').toString(),
       hasPickup: json['hasPickup'] == true,
-      label: json['label']?.toString() ??
+      label:
+          json['label']?.toString() ??
           json['displayName']?.toString() ??
           canonical?.displayName,
       canonical: canonical,
@@ -146,13 +150,13 @@ class GeoPickupHit {
   }
 
   String get haystack => [
-        name,
-        externalId,
-        address,
-        cityName,
-        stateCode,
-        ...locales.values,
-      ].whereType<String>().join(' ').toLowerCase();
+    name,
+    externalId,
+    address,
+    cityName,
+    stateCode,
+    ...locales.values,
+  ].whereType<String>().join(' ').toLowerCase();
 }
 
 /// Cloud GEO surface on the Feeef API (`/geo/*` proxy).
@@ -227,7 +231,8 @@ class GeoApi {
     if (data is Map && data['features'] is List) {
       return (data['features'] as List).length;
     }
-    if (payload['features'] is List) return (payload['features'] as List).length;
+    if (payload['features'] is List)
+      return (payload['features'] as List).length;
     return 0;
   }
 

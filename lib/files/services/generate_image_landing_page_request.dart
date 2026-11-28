@@ -58,6 +58,7 @@ Map<String, dynamic> buildGenerateImageLandingPageRequestData({
   String? textModel,
   String? mediaResolution,
   String? imageSize,
+
   /// Exact `WIDTHxHEIGHT` for models that take a pixel size instead of an aspect ratio.
   String? size,
   String? background,

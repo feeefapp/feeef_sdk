@@ -16,10 +16,10 @@ class BatchRpcStatus {
   });
 
   factory BatchRpcStatus.fromJson(Map<String, dynamic> json) => BatchRpcStatus(
-        code: json['code'] as String? ?? 'UNKNOWN',
-        message: json['message'] as String? ?? 'Request failed',
-        details: json['details'],
-      );
+    code: json['code'] as String? ?? 'UNKNOWN',
+    message: json['message'] as String? ?? 'Request failed',
+    details: json['details'],
+  );
 }
 
 class BatchSummary {
@@ -34,10 +34,10 @@ class BatchSummary {
   });
 
   factory BatchSummary.fromJson(Map<String, dynamic> json) => BatchSummary(
-        total: (json['total'] as num?)?.toInt() ?? 0,
-        succeeded: (json['succeeded'] as num?)?.toInt() ?? 0,
-        failed: (json['failed'] as num?)?.toInt() ?? 0,
-      );
+    total: (json['total'] as num?)?.toInt() ?? 0,
+    succeeded: (json['succeeded'] as num?)?.toInt() ?? 0,
+    failed: (json['failed'] as num?)?.toInt() ?? 0,
+  );
 
   bool get hasFailures => failed > 0;
   bool get allFailed => total > 0 && succeeded == 0;
@@ -121,11 +121,11 @@ class BatchDeleteRequest {
   });
 
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'names': names,
-        'returnPartialSuccess': returnPartialSuccess,
-        if (requestId != null) 'requestId': requestId,
-      };
+    'projectId': projectId,
+    'names': names,
+    'returnPartialSuccess': returnPartialSuccess,
+    if (requestId != null) 'requestId': requestId,
+  };
 }
 
 /// Body for `POST /{resource}:batchUpdate` with field mask + hoisted patch fields.
@@ -147,13 +147,13 @@ class BatchUpdateManyRequest {
   });
 
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'names': names,
-        'updateMask': updateMask,
-        ...fields,
-        'returnPartialSuccess': returnPartialSuccess,
-        if (requestId != null) 'requestId': requestId,
-      };
+    'projectId': projectId,
+    'names': names,
+    'updateMask': updateMask,
+    ...fields,
+    'returnPartialSuccess': returnPartialSuccess,
+    if (requestId != null) 'requestId': requestId,
+  };
 }
 
 /// Body for `POST /{resource}:batchCreate` when supported by the API.
@@ -171,11 +171,11 @@ class BatchCreateManyRequest {
   });
 
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'items': items,
-        'returnPartialSuccess': returnPartialSuccess,
-        if (requestId != null) 'requestId': requestId,
-      };
+    'projectId': projectId,
+    'items': items,
+    'returnPartialSuccess': returnPartialSuccess,
+    if (requestId != null) 'requestId': requestId,
+  };
 }
 
 /// Body for reservation `POST /inventory/reservations:batchRelease`.
@@ -193,11 +193,11 @@ class BatchReleaseRequest {
   });
 
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'names': names,
-        'returnPartialSuccess': returnPartialSuccess,
-        if (requestId != null) 'requestId': requestId,
-      };
+    'projectId': projectId,
+    'names': names,
+    'returnPartialSuccess': returnPartialSuccess,
+    if (requestId != null) 'requestId': requestId,
+  };
 }
 
 /// Body for `POST /finance/supplier-bills:batchPay`.
@@ -217,12 +217,12 @@ class BatchPaySupplierBillsRequest {
   });
 
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'financialAccountId': financialAccountId,
-        'names': names,
-        'returnPartialSuccess': returnPartialSuccess,
-        if (requestId != null) 'requestId': requestId,
-      };
+    'projectId': projectId,
+    'financialAccountId': financialAccountId,
+    'names': names,
+    'returnPartialSuccess': returnPartialSuccess,
+    if (requestId != null) 'requestId': requestId,
+  };
 }
 
 /// Body for `POST /finance/receivables:batchCollect`.
@@ -242,10 +242,10 @@ class BatchCollectReceivablesRequest {
   });
 
   Map<String, dynamic> toJson() => {
-        'projectId': projectId,
-        'financialAccountId': financialAccountId,
-        'names': names,
-        'returnPartialSuccess': returnPartialSuccess,
-        if (requestId != null) 'requestId': requestId,
-      };
+    'projectId': projectId,
+    'financialAccountId': financialAccountId,
+    'names': names,
+    'returnPartialSuccess': returnPartialSuccess,
+    if (requestId != null) 'requestId': requestId,
+  };
 }

@@ -47,8 +47,10 @@ String labRequestId() {
   final bytes = List<int>.generate(16, (_) => r.nextInt(256));
   bytes[6] = (bytes[6] & 0x0f) | 0x40;
   bytes[8] = (bytes[8] & 0x3f) | 0x80;
-  String hex(int from, int to) =>
-      bytes.sublist(from, to).map((b) => b.toRadixString(16).padLeft(2, '0')).join();
+  String hex(int from, int to) => bytes
+      .sublist(from, to)
+      .map((b) => b.toRadixString(16).padLeft(2, '0'))
+      .join();
   return '${hex(0, 4)}-${hex(4, 6)}-${hex(6, 8)}-${hex(8, 10)}-${hex(10, 16)}';
 }
 
@@ -96,7 +98,8 @@ Stream<LabSseFrame> labSseFrames(Stream<Uint8List> bytes) async* {
 /// Shared HTTP core for every Lab area. All paths are relative to `/api/v1/lab`, so the
 /// merchant app hits the exact controllers the web Lab uses (bearer auth, no CSRF).
 class LabHttp {
-  LabHttp(this.client, {LabEffects? effects}) : effects = effects ?? LabEffects();
+  LabHttp(this.client, {LabEffects? effects})
+    : effects = effects ?? LabEffects();
 
   final Dio client;
   final LabEffects effects;
@@ -137,10 +140,7 @@ class LabHttp {
         onSendProgress: onSendProgress,
         options: Options(
           method: verb,
-          headers: {
-            'Accept': 'application/json',
-            'Idempotency-Key': ?key,
-          },
+          headers: {'Accept': 'application/json', 'Idempotency-Key': ?key},
           validateStatus: (_) => true,
         ),
       );
@@ -153,20 +153,30 @@ class LabHttp {
     if (data is String && data.isNotEmpty) {
       try {
         data = jsonDecode(data);
-      } catch (_) {/* proxy error page */}
+      } catch (_) {
+        /* proxy error page */
+      }
     }
-    if (status < 200 || status >= 300) throw _effects(LabError.fromBody(status, data));
+    if (status < 200 || status >= 300)
+      throw _effects(LabError.fromBody(status, data));
     return data as T;
   }
 
   /// Raw bytes (audio, images, exports).
-  Future<Uint8List> bytes(String path, {Map<String, dynamic>? query, CancelToken? cancel}) async {
+  Future<Uint8List> bytes(
+    String path, {
+    Map<String, dynamic>? query,
+    CancelToken? cancel,
+  }) async {
     try {
       final r = await client.get<List<int>>(
         url(path),
         queryParameters: query == null ? null : _clean(query),
         cancelToken: cancel,
-        options: Options(responseType: ResponseType.bytes, validateStatus: (_) => true),
+        options: Options(
+          responseType: ResponseType.bytes,
+          validateStatus: (_) => true,
+        ),
       );
       final status = r.statusCode ?? 0;
       if (status < 200 || status >= 300) {
@@ -191,7 +201,14 @@ class LabHttp {
     Map<String, String>? headers,
     String? key,
     CancelToken? cancel,
-  }) async => (await sseResponse(path, method: method, body: body, headers: headers, key: key, cancel: cancel)).frames;
+  }) async => (await sseResponse(
+    path,
+    method: method,
+    body: body,
+    headers: headers,
+    key: key,
+    cancel: cancel,
+  )).frames;
 
   /// An SSE response with its headers (`x-agent-run-id` on a chat turn).
   Future<({Stream<LabSseFrame> frames, Headers headers})> sseResponse(
@@ -225,7 +242,10 @@ class LabHttp {
     }
     final status = r.statusCode ?? 0;
     if (status < 200 || status >= 300) {
-      final text = await r.data!.stream.cast<List<int>>().transform(utf8.decoder).join();
+      final text = await r.data!.stream
+          .cast<List<int>>()
+          .transform(utf8.decoder)
+          .join();
       Object? parsed;
       try {
         parsed = jsonDecode(text);
@@ -256,5 +276,6 @@ typedef LabJson = Map<String, dynamic>;
 Map<String, dynamic> labMap(Object? v) =>
     v is Map ? v.cast<String, dynamic>() : <String, dynamic>{};
 
-List<Map<String, dynamic>> labList(Object? v) =>
-    v is List ? v.whereType<Map>().map((m) => m.cast<String, dynamic>()).toList() : const [];
+List<Map<String, dynamic>> labList(Object? v) => v is List
+    ? v.whereType<Map>().map((m) => m.cast<String, dynamic>()).toList()
+    : const [];

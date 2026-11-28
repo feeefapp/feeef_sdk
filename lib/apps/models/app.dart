@@ -13,6 +13,7 @@ abstract class App with _$App implements Model {
   const factory App({
     required String id,
     required String name,
+
     /// Optional app logo URL used by admin and OAuth consent UIs.
     String? logoUrl,
     required String clientId,
@@ -22,6 +23,7 @@ abstract class App with _$App implements Model {
     DateTime? lastUsedAt,
     required DateTime createdAt,
     DateTime? updatedAt,
+
     /// Only set when returned from create or regenerateSecret; store securely.
     String? clientSecret,
   }) = _App;
@@ -33,6 +35,7 @@ abstract class App with _$App implements Model {
 abstract class AppCreate with _$AppCreate implements ModelCreate {
   const factory AppCreate({
     required String name,
+
     /// Optional app logo URL to show during OAuth consent.
     String? logoUrl,
     required List<String> redirectUris,
@@ -47,6 +50,7 @@ abstract class AppCreate with _$AppCreate implements ModelCreate {
 abstract class AppUpdate with _$AppUpdate implements ModelUpdate {
   const factory AppUpdate({
     String? name,
+
     /// Optional app logo URL. Set to `null` to clear.
     String? logoUrl,
     List<String>? redirectUris,

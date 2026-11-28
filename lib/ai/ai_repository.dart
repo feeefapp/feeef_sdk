@@ -189,10 +189,7 @@ class ImageGenerationsRepository extends CloudAiApi {
         ),
     });
 
-    final response = await client.post(
-      '/ai/image-generations',
-      data: formData,
-    );
+    final response = await client.post('/ai/image-generations', data: formData);
     return Map<String, dynamic>.from(response.data as Map);
   }
 }

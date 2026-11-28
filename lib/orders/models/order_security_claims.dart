@@ -44,7 +44,8 @@ String? visitorGeoSourceToJson(VisitorGeoSource? value) => value?.name;
 
 String? _treatmentToJson(SecurityTreatment? value) => value?.name;
 
-OrderSecurityGeo? _geoFromJson(Object? value) => OrderSecurityGeo.tryParse(value);
+OrderSecurityGeo? _geoFromJson(Object? value) =>
+    OrderSecurityGeo.tryParse(value);
 
 List<OrderSecurityViolation> _violationsFromJson(Object? value) {
   if (value is! List) return const <OrderSecurityViolation>[];
@@ -81,11 +82,17 @@ abstract class OrderSecurityGeo with _$OrderSecurityGeo {
     String? region,
 
     /// City name as given by the edge geo database.
-    @JsonKey(name: SecurityGeoJsonKeys.geoCity, fromJson: securityGeoValueFromJson)
+    @JsonKey(
+      name: SecurityGeoJsonKeys.geoCity,
+      fromJson: securityGeoValueFromJson,
+    )
     String? city,
 
     /// Visitor IP the lookup used.
-    @JsonKey(name: SecurityGeoJsonKeys.geoIp, fromJson: securityGeoValueFromJson)
+    @JsonKey(
+      name: SecurityGeoJsonKeys.geoIp,
+      fromJson: securityGeoValueFromJson,
+    )
     String? ip,
 
     /// Where the values came from; null when the backend did not say.
@@ -129,9 +136,8 @@ abstract class OrderSecurityGeo with _$OrderSecurityGeo {
   }
 
   /// "City, Region, CC" with unknown parts skipped; empty when nothing is known.
-  String get displayLabel => [city, region, countryCode ?? country]
-      .whereType<String>()
-      .join(', ');
+  String get displayLabel =>
+      [city, region, countryCode ?? country].whereType<String>().join(', ');
 
   /// Visitor wilaya as an ISO 3166-2 code (`DZ-16`), or null when the region
   /// is unknown / not a code. Unknown is the normal case today (spec §6).
@@ -292,7 +298,10 @@ abstract class OrderSecurityClaims with _$OrderSecurityClaims {
     String? platform,
 
     /// Raw passthrough (number or string depending on the storefront).
-    @JsonKey(name: SecurityGeoJsonKeys.securityFormLoadTime, includeIfNull: false)
+    @JsonKey(
+      name: SecurityGeoJsonKeys.securityFormLoadTime,
+      includeIfNull: false,
+    )
     Object? formLoadTime,
   }) = _OrderSecurityClaims;
 
@@ -312,7 +321,9 @@ abstract class OrderSecurityClaims with _$OrderSecurityClaims {
 
   /// Reads `claims.security` from a whole `order.claims` map.
   static OrderSecurityClaims? fromOrderClaims(Map<String, dynamic>? claims) =>
-      claims == null ? null : tryParse(claims[SecurityGeoJsonKeys.claimsSecurity]);
+      claims == null
+      ? null
+      : tryParse(claims[SecurityGeoJsonKeys.claimsSecurity]);
 
   /// [geo] when present, else a geo built from [legacyCountry] with a null
   /// `source` (untrusted). Null when neither exists.

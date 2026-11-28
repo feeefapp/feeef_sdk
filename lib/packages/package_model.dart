@@ -47,28 +47,56 @@ class CoreBlock {
   String get use => 'core/$id';
 }
 
-Map<String, Object?> _slider(String title, int min, int max, int def) =>
-    {'type': 'integer', 'title': title, 'minimum': min, 'maximum': max, 'ui': 'slider', 'default': def};
-Map<String, Object?> _choice(String title, List<String> values, String def) =>
-    {'type': 'string', 'title': title, 'enum': values, 'default': def};
+Map<String, Object?> _slider(String title, int min, int max, int def) => {
+  'type': 'integer',
+  'title': title,
+  'minimum': min,
+  'maximum': max,
+  'ui': 'slider',
+  'default': def,
+};
+Map<String, Object?> _choice(String title, List<String> values, String def) => {
+  'type': 'string',
+  'title': title,
+  'enum': values,
+  'default': def,
+};
 const Map<String, Object?> _label = {'type': 'string', 'title': 'Label'};
-const Map<String, Object?> _placeholder = {'type': 'string', 'title': 'Placeholder'};
-Map<String, Object?> _required(bool def) => {'type': 'boolean', 'title': 'Required', 'default': def};
+const Map<String, Object?> _placeholder = {
+  'type': 'string',
+  'title': 'Placeholder',
+};
+Map<String, Object?> _required(bool def) => {
+  'type': 'boolean',
+  'title': 'Required',
+  'default': def,
+};
 
 /// An order form field block (`core/order-<field>`); runtime `OrderField({field})`.
-CoreBlock _field(String field, String title, String icon, {bool text = false, bool? required, Map<String, Object?> extra = const {}}) => CoreBlock(
-      'order-$field',
-      title,
-      icon: icon,
-      category: 'Order form',
-      props: {
-        'label': _label,
-        if (text) 'placeholder': _placeholder,
-        if (required != null) 'required': _required(required),
-        ...extra,
-      },
-    );
-const Map<String, Object?> _color = {'type': 'string', 'ui': 'color', 'default': ''};
+CoreBlock _field(
+  String field,
+  String title,
+  String icon, {
+  bool text = false,
+  bool? required,
+  Map<String, Object?> extra = const {},
+}) => CoreBlock(
+  'order-$field',
+  title,
+  icon: icon,
+  category: 'Order form',
+  props: {
+    'label': _label,
+    if (text) 'placeholder': _placeholder,
+    if (required != null) 'required': _required(required),
+    ...extra,
+  },
+);
+const Map<String, Object?> _color = {
+  'type': 'string',
+  'ui': 'color',
+  'default': '',
+};
 
 /// Mirror of `@feeef/engine` CORE_COMPONENTS (blocks contract: ids, titles, props, slots).
 final coreBlocks = <CoreBlock>[
@@ -81,13 +109,27 @@ final coreBlocks = <CoreBlock>[
     category: 'Layout',
     props: {
       'direction': _choice('Direction', const ['row', 'column'], 'column'),
-      'phoneDirection': _choice('On phones', const ['same', 'row', 'column'], 'column'),
+      'phoneDirection': _choice('On phones', const [
+        'same',
+        'row',
+        'column',
+      ], 'column'),
       'columns': _slider('Columns', 0, 12, 0),
       'phoneColumns': _slider('Columns on phones', 0, 12, 1),
       'gap': _slider('Gap', 0, 200, 16),
       'phoneGap': _slider('Gap on phones', 0, 200, 12),
-      'align': _choice('Align', const ['stretch', 'start', 'center', 'end'], 'stretch'),
-      'justify': _choice('Justify', const ['start', 'center', 'end', 'between'], 'start'),
+      'align': _choice('Align', const [
+        'stretch',
+        'start',
+        'center',
+        'end',
+      ], 'stretch'),
+      'justify': _choice('Justify', const [
+        'start',
+        'center',
+        'end',
+        'between',
+      ], 'start'),
       'padding': _slider('Padding', 0, 200, 0),
       'maxWidth': _slider('Max width', 0, 4000, 0),
     },
@@ -102,23 +144,61 @@ final coreBlocks = <CoreBlock>[
       'productId': {'type': 'string', 'title': 'Product', 'ui': 'product'},
     },
   ),
-  CoreBlock('product-title', 'Product title', icon: 'text-t', category: 'Product', props: {'tag': _choice('Heading', const ['h1', 'h2', 'h3'], 'h1')}),
+  CoreBlock(
+    'product-title',
+    'Product title',
+    icon: 'text-t',
+    category: 'Product',
+    props: {
+      'tag': _choice('Heading', const ['h1', 'h2', 'h3'], 'h1'),
+    },
+  ),
   CoreBlock(
     'product-price',
     'Product price',
     icon: 'currency-dollar',
     category: 'Product',
     props: {
-      'showCompare': const {'type': 'boolean', 'title': 'Show the old price', 'default': true},
+      'showCompare': const {
+        'type': 'boolean',
+        'title': 'Show the old price',
+        'default': true,
+      },
       'size': _slider('Size', 16, 64, 32),
-      'weight': _choice('Weight', const ['500', '600', '700', '800', '900'], '800'),
+      'weight': _choice('Weight', const [
+        '500',
+        '600',
+        '700',
+        '800',
+        '900',
+      ], '800'),
       'color': {..._color, 'title': 'Color'},
     },
   ),
-  const CoreBlock('product-description', 'Product description', icon: 'article', category: 'Product'),
-  const CoreBlock('product-gallery', 'Product gallery', icon: 'images', category: 'Product'),
-  const CoreBlock('product-variants', 'Product variants', icon: 'sliders', category: 'Product'),
-  const CoreBlock('product-offers', 'Product offers', icon: 'tag', category: 'Product'),
+  const CoreBlock(
+    'product-description',
+    'Product description',
+    icon: 'article',
+    category: 'Product',
+  ),
+  const CoreBlock(
+    'product-gallery',
+    'Product gallery',
+    icon: 'images',
+    category: 'Product',
+  ),
+  const CoreBlock(
+    'product-variants',
+    'Product variants',
+    icon: 'sliders',
+    category: 'Product',
+  ),
+  const CoreBlock(
+    'product-offers',
+    'Product offers',
+    icon: 'tag',
+    category: 'Product',
+  ),
   CoreBlock(
     'order-form',
     'Order form',
@@ -126,32 +206,88 @@ final coreBlocks = <CoreBlock>[
     icon: 'list-checks',
     category: 'Order form',
     props: {
-      'title': const {'type': 'string', 'title': 'Title', 'maxLength': 80, 'default': ''},
+      'title': const {
+        'type': 'string',
+        'title': 'Title',
+        'maxLength': 80,
+        'default': '',
+      },
       'gap': _slider('Space between fields', 0, 64, 16),
       'padding': _slider('Padding', 0, 64, 12),
       'borderWidth': _slider('Border width', 0, 8, 2),
-      'borderStyle': _choice('Border style', const ['solid', 'dashed', 'dotted', 'double', 'none'], 'solid'),
+      'borderStyle': _choice('Border style', const [
+        'solid',
+        'dashed',
+        'dotted',
+        'double',
+        'none',
+      ], 'solid'),
       'borderColor': {..._color, 'title': 'Border color'},
-      'radius': _choice('Corner radius', const ['auto', '0', '4', '8', '12', '16', '20', '24', '32', '40', '48'], 'auto'),
+      'radius': _choice('Corner radius', const [
+        'auto',
+        '0',
+        '4',
+        '8',
+        '12',
+        '16',
+        '20',
+        '24',
+        '32',
+        '40',
+        '48',
+      ], 'auto'),
       'background': {..._color, 'title': 'Background'},
-      'maxWidth': const {'type': 'integer', 'title': 'Max width', 'minimum': 0, 'maximum': 4000, 'default': 0},
+      'maxWidth': const {
+        'type': 'integer',
+        'title': 'Max width',
+        'minimum': 0,
+        'maximum': 4000,
+        'default': 0,
+      },
     },
   ),
   _field('name', 'Customer name', 'user', text: true, required: true),
   _field('phone', 'Phone number', 'phone', text: true),
   _field('email', 'Email', 'envelope', text: true, required: false),
-  _field('country', 'Country', 'globe', extra: const {
-    'hidden': {'type': 'boolean', 'title': 'Hide the country', 'default': true},
-  }),
-  _field('state', 'State', 'map-trifold', extra: {
-    'showCode': const {'type': 'boolean', 'title': 'Show the state number', 'default': true},
-    'sort': _choice('Order', const ['code', 'name'], 'code'),
-  }),
+  _field(
+    'country',
+    'Country',
+    'globe',
+    extra: const {
+      'hidden': {
+        'type': 'boolean',
+        'title': 'Hide the country',
+        'default': true,
+      },
+    },
+  ),
+  _field(
+    'state',
+    'State',
+    'map-trifold',
+    extra: {
+      'showCode': const {
+        'type': 'boolean',
+        'title': 'Show the state number',
+        'default': true,
+      },
+      'sort': _choice('Order', const ['code', 'name'], 'code'),
+    },
+  ),
   _field('city', 'City', 'buildings'),
-  _field('gps', 'Use my location', 'crosshair', extra: {
-    'style': _choice('Style', const ['button', 'icon', 'row'], 'button'),
-    'question': const {'type': 'string', 'title': 'Question', 'maxLength': 120},
-  }),
+  _field(
+    'gps',
+    'Use my location',
+    'crosshair',
+    extra: {
+      'style': _choice('Style', const ['button', 'icon', 'row'], 'button'),
+      'question': const {
+        'type': 'string',
+        'title': 'Question',
+        'maxLength': 120,
+      },
+    },
+  ),
   _field('address', 'Address', 'house', text: true, required: false),
   _field('note', 'Note', 'note', text: true, required: false),
   _field('quantity', 'Quantity', 'hash'),
@@ -161,7 +297,12 @@ final coreBlocks = <CoreBlock>[
   _field('custom-fields', 'Custom fields', 'list'),
   _field('summary', 'Order summary', 'receipt'),
   _field('submit', 'Order button', 'paper-plane-tilt'),
-  const CoreBlock('order-button', 'Floating order button', icon: 'shopping-cart', category: 'Order form'),
+  const CoreBlock(
+    'order-button',
+    'Floating order button',
+    icon: 'shopping-cart',
+    category: 'Order form',
+  ),
 ];
 
 CoreBlock? coreBlock(String use) {

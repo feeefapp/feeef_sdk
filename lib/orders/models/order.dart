@@ -26,11 +26,14 @@ abstract class Order extends OrderEntity
     required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
+
     /// Optional schedule date. When set, the order appears on this date in lists.
     DateTime? scheduledAt,
+
     /// Server-computed COALESCE(scheduledAt, createdAt). Read-only.
     DateTime? effectiveAt,
     @Default({}) Map<String, dynamic> metadata,
+
     /// Server-only fields (e.g. security treatment); not for client editing.
     Map<String, dynamic>? claims,
     @Default([]) List<String> references,
@@ -68,16 +71,14 @@ abstract class Order extends OrderEntity
     /// Cleared when that Cloud parcel is deleted.
     String? parcelId,
     String? paymentMethodId,
-    @JsonKey(
-      fromJson: shippingTypeFromJson,
-      toJson: shippingTypeToJson,
-    )
+    @JsonKey(fromJson: shippingTypeFromJson, toJson: shippingTypeToJson)
     @Default(ShippingType.home)
     ShippingType shippingType,
     @Default([]) List<String> tags,
     required List<OrderItem> items,
     required num subtotal,
     num? shippingPrice,
+
     /// Per-parcel shipping stored at order time (one entry per courier
     /// account); null on older orders.
     @JsonKey(
@@ -93,6 +94,7 @@ abstract class Order extends OrderEntity
     required String storeId,
     String? source,
     String? confirmerId,
+
     /// Legacy, still sent by the API until the 2027-01-15 hard cut. Read the
     /// rooms fields ([room], [kind], [statusId], [closeAs]) instead.
     @Deprecated('Use room / kind / statusId / closeAs')
@@ -102,8 +104,7 @@ abstract class Order extends OrderEntity
     @Deprecated('Use room / kind / closeAs')
     @Default(DeliveryStatus.pending)
     DeliveryStatus deliveryStatus,
-    @Deprecated('Use statusId / kind')
-    String? customStatus,
+    @Deprecated('Use statusId / kind') String? customStatus,
 
     /// Why the order was lost, recorded when it moves to a cancelling status.
     String? cancelReason,
@@ -166,8 +167,10 @@ abstract class OrderCreate with _$OrderCreate implements ModelCreate {
     String? coupon,
     required String storeId,
     String? source,
+
     /// Catalog status the order is created on (rooms model).
     String? statusId,
+
     /// Catalog slug / kind (e.g. `draft`, `new`, `confirmed`) when no id is known.
     String? statusSlug,
     PaymentStatus? paymentStatus,
@@ -175,6 +178,7 @@ abstract class OrderCreate with _$OrderCreate implements ModelCreate {
     // metadata
     Map<String, dynamic>? metadata,
     List<String>? references,
+
     /// Optional schedule date (ISO). Null via [setToNull] clears.
     DateTime? scheduledAt,
   }) = _OrderCreate;
@@ -231,6 +235,7 @@ abstract class OrderUpdate with _$OrderUpdate implements ModelUpdate {
     // metadata
     Map<String, dynamic>? metadata,
     List<String>? references,
+
     /// Optional schedule date. Use [setToNull] with `'scheduledAt'` to clear.
     DateTime? scheduledAt,
     // ignore: invalid_annotation_target
@@ -246,6 +251,7 @@ abstract class OrderUpdate with _$OrderUpdate implements ModelUpdate {
 abstract class OrderHistoryEvent with _$OrderHistoryEvent {
   const factory OrderHistoryEvent({
     required DateTime createdAt,
+
     /// Rooms snapshot of this event.
     String? phase,
     String? room,

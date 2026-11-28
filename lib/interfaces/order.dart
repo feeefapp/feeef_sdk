@@ -57,8 +57,10 @@ abstract class OrderEntity {
 
   DateTime get createdAt;
   DateTime get updatedAt;
+
   /// Optional schedule date. When set, list sort/filters use [effectiveAt].
   DateTime? get scheduledAt;
+
   /// Server COALESCE(scheduledAt, createdAt). Falls back to [createdAt] if absent.
   DateTime? get effectiveAt;
   StoreEntity? get store;
@@ -74,6 +76,7 @@ enum OrderStatus {
   pending,
   review,
   accepted,
+
   /// Confirmed, but still needs merchant action before [processing] / [completed].
   followup,
   processing,
@@ -113,10 +116,10 @@ enum ShippingType {
 
   /// Short Arabic label for dashboards / legacy UIs (unchanged contract).
   String get tr => switch (this) {
-        ShippingType.home => 'إلى المنزل',
-        ShippingType.pickup => 'إلى المكتب',
-        ShippingType.store => 'إلى المتجر',
-      };
+    ShippingType.home => 'إلى المنزل',
+    ShippingType.pickup => 'إلى المكتب',
+    ShippingType.store => 'إلى المتجر',
+  };
 }
 
 /// Canonical API values: `home`, `pickup`, `store`.

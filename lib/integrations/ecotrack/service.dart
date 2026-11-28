@@ -7,6 +7,7 @@ import 'package:feeef/integrations/integrations.dart';
 import 'package:feeef/interfaces/embadded/store_integrations.dart';
 import 'package:feeef/integrations/delivery/bulk_send_result.dart';
 import 'package:feeef/orders/models/order.dart';
+
 import 'models/create_order_request.dart';
 
 /// Utility function to remove emojis from text
@@ -211,7 +212,9 @@ class EcotrackDeliveryService
     }
     if (m.contains('stock')) return 'stock';
     if (m.contains('wilaya') || m.contains('commune')) return 'commune';
-    if (m.contains('telephone') || m.contains('téléphone') || m.contains('phone')) {
+    if (m.contains('telephone') ||
+        m.contains('téléphone') ||
+        m.contains('phone')) {
       return 'telephone';
     }
     if (m.contains('adresse') || m.contains('address')) return 'adresse';
@@ -248,7 +251,9 @@ class EcotrackDeliveryService
     } else if (errorsRaw is List) {
       for (final item in errorsRaw) {
         if (item is Map) {
-          final msg = (item['message'] ?? item['error'] ?? '').toString().trim();
+          final msg = (item['message'] ?? item['error'] ?? '')
+              .toString()
+              .trim();
           if (msg.isEmpty) continue;
           violations.add(
             FeeefViolation(
@@ -261,9 +266,7 @@ class EcotrackDeliveryService
       }
     }
 
-    final message = (map['message'] ?? map['error'] ?? '')
-        .toString()
-        .trim();
+    final message = (map['message'] ?? map['error'] ?? '').toString().trim();
     if (violations.isEmpty) {
       final resolved = message.isNotEmpty
           ? message
@@ -314,15 +317,13 @@ class EcotrackDeliveryService
       _throwEcotrackCarrierFailure(payload);
     }
     if (payload is Map) {
-      await attach(
-        order: order,
-        payload: normalizeTrackingPayload(payload),
-      );
+      await attach(order: order, payload: normalizeTrackingPayload(payload));
     } else {
       throw FeeefValidationException(
         errors: [
           FeeefViolation(
-            message: 'Ecotrack response for order ${order.id} is not a map payload',
+            message:
+                'Ecotrack response for order ${order.id} is not a map payload',
             rule: 'ecotrack',
           ),
         ],
@@ -337,7 +338,10 @@ class EcotrackDeliveryService
   ///
   /// Backend fans out carrier deletes in parallel — prefer this over N× [detach] HTTP round-trips.
   Future<Map<String, dynamic>> deleteManyOrders(List<String> trackings) async {
-    final trimmed = trackings.map((t) => t.trim()).where((t) => t.isNotEmpty).toList();
+    final trimmed = trackings
+        .map((t) => t.trim())
+        .where((t) => t.isNotEmpty)
+        .toList();
     if (trimmed.isEmpty) {
       return {
         'results': <Map<String, dynamic>>[],
@@ -706,10 +710,7 @@ class EcotrackDeliveryService
       try {
         await Feeef.instance.orders.update(
           id: order.id,
-          data: OrderUpdate(
-            storeId: order.storeId,
-            metadata: scored.metadata,
-          ),
+          data: OrderUpdate(storeId: order.storeId, metadata: scored.metadata),
         );
         updated++;
         updatedOrders.add(scored);
@@ -861,8 +862,7 @@ class EcotrackDeliveryService
 
       // Merge client-side skipped with server-side skipped
       final allSkipped = [
-        ...clientSkipped
-            .map((e) => Map<String, dynamic>.from(e as Map)),
+        ...clientSkipped.map((e) => Map<String, dynamic>.from(e as Map)),
         ...skippedServerMaps,
       ];
 
@@ -903,7 +903,10 @@ class EcotrackDeliveryService
 
       // Public scoring API keys by phone — map each order via its phone (or sole entry).
       for (final entry in scoredByRef.entries) {
-        scoredByRef[entry.key] = withScoringMetadata(entry.value, scoringByPhone);
+        scoredByRef[entry.key] = withScoringMetadata(
+          entry.value,
+          scoringByPhone,
+        );
       }
 
       for (final orderData in created) {
@@ -919,9 +922,7 @@ class EcotrackDeliveryService
 
           final order = scoredByRef[reference] ?? ordersById[reference];
           if (order == null) {
-            print(
-              'Skipping Ecotrack attach for $reference: not in send batch',
-            );
+            print('Skipping Ecotrack attach for $reference: not in send batch');
             continue;
           }
 
